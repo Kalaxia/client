@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/menu_screen.gd" type="Script" id=1]
+
+[node name="MenuScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="Body" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="HBoxContainer" parent="Body"]
+margin_right = 1280.0
+margin_bottom = 178.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+alignment = 1
+
+[node name="Title" type="Label" parent="Body/Header"]
+margin_left = 618.0
+margin_top = 82.0
+margin_right = 662.0
+margin_bottom = 96.0
+text = "Kalaxia"
+
+[node name="Section" type="ScrollContainer" parent="Body"]
+margin_left = 100.0
+margin_top = 182.0
+margin_right = 1180.0
+margin_bottom = 538.0
+size_flags_vertical = 3
+
+[node name="Lobbies" type="HBoxContainer" parent="Body/Section"]
+margin_right = 1080.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Footer" type="HBoxContainer" parent="Body"]
+margin_top = 542.0
+margin_right = 1280.0
+margin_bottom = 720.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+alignment = 1
+
+[node name="LobbyCreationButton" type="Button" parent="Body/Footer"]
+margin_left = 582.0
+margin_top = 50.0
+margin_right = 697.0
+margin_bottom = 20.0
+size_flags_vertical = 0
+text = "Créer une partie"
+__meta__ = {
+"_edit_use_anchors_": false
+}
