@@ -16,12 +16,13 @@ _global_script_class_icons={
 [application]
 
 config/name="Kalaxia Client"
-run/main_scene="res://menu_screen.tscn"
+run/main_scene="res://menu/menu_screen.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Network="*res://src/network.gd"
+Network="*res://global/network.gd"
+Store="*res://global/store.gd"
 
 [display]
 

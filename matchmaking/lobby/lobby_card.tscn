@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://src/lobby_card.gd" type="Script" id=1]
+[ext_resource path="res://matchmaking/lobby/lobby_card.gd" type="Script" id=1]
 
 [node name="LobbyCard" type="ItemList"]
 margin_right = 300.0

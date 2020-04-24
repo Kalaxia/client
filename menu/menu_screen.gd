@@ -1,6 +1,7 @@
 extends Control
 
-var lobby_card_scene = preload("res://lobby_card.tscn")
+var lobby_card_scene = preload("res://matchmaking/lobby/lobby_card.tscn")
+var lobby_scene = preload("res://matchmaking/lobby/lobby.tscn")
 
 func _ready():
 	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
@@ -27,12 +28,21 @@ func add_lobby_cards(lobbies):
 func add_lobby_card(lobby):
 	var lobby_card = lobby_card_scene.instance()
 	lobby_card.lobby = lobby
+	lobby_card.connect("join", self, "join_lobby")
 	get_node("Body/Section/Lobbies").add_child(lobby_card)
+	
+func join_lobby(lobby, must_update = false):
+	Store._state.lobby = lobby
+	$HTTPRequest.request(Network.api_url + "/api/lobbies/" + lobby.id + "/players/", [
+		"Authorization: Bearer " + Network.token
+	], false, HTTPClient.METHOD_POST)
 	
 func _on_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	if response_code == 200:
 		add_lobby_cards(json.result)
 	elif response_code == 201:
-		add_lobby_card(json.result)
+		join_lobby(json.result)
+	elif response_code == 204:
+		get_tree().change_scene_to(lobby_scene)
 	

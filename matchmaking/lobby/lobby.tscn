@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://matchmaking/lobby/lobby.gd" type="Script" id=1]
+
+[node name="Lobby" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="Body" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="HBoxContainer" parent="Body"]
+margin_right = 1280.0
+margin_bottom = 237.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Name" type="Label" parent="Body/Header"]
+margin_left = 640.0
+margin_top = 111.0
+margin_right = 640.0
+margin_bottom = 125.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Section" type="HBoxContainer" parent="Body"]
+margin_top = 241.0
+margin_right = 1280.0
+margin_bottom = 478.0
+size_flags_vertical = 3
+
+[node name="PlayersContainer" type="ScrollContainer" parent="Body/Section"]
+margin_bottom = 237.0
+
+[node name="Players" type="VBoxContainer" parent="Body/Section/PlayersContainer"]
+
+[node name="Footer" type="HBoxContainer" parent="Body"]
+margin_top = 482.0
+margin_right = 1280.0
+margin_bottom = 720.0
+size_flags_vertical = 3
+alignment = 1
+
+[node name="LeaveButton" type="Button" parent="Body/Footer"]
+margin_left = 611.0
+margin_right = 669.0
+margin_bottom = 20.0
+size_flags_vertical = 0
+text = "Quitter"
