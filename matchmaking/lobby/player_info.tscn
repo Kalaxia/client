@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://matchmaking/lobby/player_info.gd" type="Script" id=1]
+
+[node name="PlayerInfo" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1273.0
+margin_bottom = 713.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.207843, 0.207843, 0.207843, 1 )
+
+[node name="Username" type="Label" parent="."]
+margin_left = 7.0
+margin_top = 353.0
+margin_right = 1273.0
+margin_bottom = 367.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UsernameInput" type="LineEdit" parent="."]
+visible = false
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1273.0
+margin_bottom = 713.0
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

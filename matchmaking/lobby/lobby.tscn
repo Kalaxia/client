@@ -44,9 +44,15 @@ margin_bottom = 478.0
 size_flags_vertical = 3
 
 [node name="PlayersContainer" type="ScrollContainer" parent="Body/Section"]
+margin_right = 1280.0
 margin_bottom = 237.0
+size_flags_horizontal = 3
 
 [node name="Players" type="VBoxContainer" parent="Body/Section/PlayersContainer"]
+margin_right = 1280.0
+margin_bottom = 237.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Footer" type="HBoxContainer" parent="Body"]
 margin_top = 482.0

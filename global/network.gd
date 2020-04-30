@@ -22,13 +22,17 @@ func auth():
 	
 func confirm_auth(result, response_code, headers, body):
 	token = JSON.parse(body.get_string_from_utf8()).result.token
+	print(token)
 	connect_ws()
 	self.connect("request_completed", self, "set_current_player")
-	request(api_url + "/api/players/me", [], false, HTTPClient.METHOD_GET)
+	request(api_url + "/api/players/me/", [
+		"Authorization: Bearer " + token
+	], false, HTTPClient.METHOD_GET)
 	emit_signal("authenticated")
 	
 func set_current_player(result, response_code, headers, body):
-	Store._state.player = JSON.parse(body.get_string_from_utf8()).result.token
+	print(body.get_string_from_utf8())
+	Store._state.player = JSON.parse(body.get_string_from_utf8()).result
 	
 func connect_ws():
 	# Initiate connection to the given URL.

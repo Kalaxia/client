@@ -10,4 +10,4 @@ func _ready():
 
 func join_lobby():
 	print("Join pressed")
-	emit_signal("join", lobby)
+	emit_signal("join", lobby, true)
