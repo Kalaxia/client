@@ -8,6 +8,13 @@ var _ws_client = WebSocketClient.new()
 var token = null
 
 signal authenticated
+signal LobbyCreated(lobby)
+signal LobbyUpdated(lobby)
+signal LobbyNameUpdated(data)
+signal LobbyRemoved(lobby)
+signal PlayerDisconnected(player)
+signal PlayerUpdate(player)
+signal PlayerJoined(player)
 
 func _ready():
 	_ws_client.connect("connection_closed", self, "_closed")
@@ -22,7 +29,6 @@ func auth():
 	
 func confirm_auth(result, response_code, headers, body):
 	token = JSON.parse(body.get_string_from_utf8()).result.token
-	print(token)
 	connect_ws()
 	self.connect("request_completed", self, "set_current_player")
 	request(api_url + "/api/players/me/", [
@@ -31,7 +37,6 @@ func confirm_auth(result, response_code, headers, body):
 	emit_signal("authenticated")
 	
 func set_current_player(result, response_code, headers, body):
-	print(body.get_string_from_utf8())
 	Store._state.player = JSON.parse(body.get_string_from_utf8()).result
 	
 func connect_ws():
@@ -56,10 +61,11 @@ func _connected(proto = ""):
 	_ws_client.get_peer(1).put_packet("Test packet".to_utf8())
 
 func _on_data():
-	# Print the received packet, you MUST always use get_peer(1).get_packet
-	# to receive data from server, and not get_packet directly when not
-	# using the MultiplayerAPI.
-	print("Got data from server: ", _ws_client.get_peer(1).get_packet().get_string_from_utf8())
+	var data = JSON.parse(_ws_client.get_peer(1).get_packet().get_string_from_utf8()).result
+	
+	print("received data from server: ", data.action)
+	
+	emit_signal(data.action, data.data)
 
 func _process(delta):
 	# Call this in _process or _physics_process. Data transfer, and signals

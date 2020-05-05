@@ -6,6 +6,9 @@ var player_info_scene = preload("res://matchmaking/lobby/player_info.tscn")
 
 func _ready():
 	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
+	Network.connect("LobbyCreated", self, "_on_lobby_created")
+	Network.connect("LobbyNameUpdated", self, "_on_lobby_name_updated")
+	Network.connect("LobbyRemoved", self, "_on_lobby_removed")
 	if Network.token == null:
 		Network.connect("authenticated", self, "get_lobbies")
 	else:
@@ -27,8 +30,10 @@ func add_lobby_cards(lobbies):
 		add_lobby_card(lobby)
 	
 func add_lobby_card(lobby):
+	lobby.players = []
 	var lobby_card = lobby_card_scene.instance()
 	lobby_card.lobby = lobby
+	lobby_card.set_name(lobby.id)
 	lobby_card.connect("join", self, "join_lobby")
 	get_node("Body/Section/Lobbies").add_child(lobby_card)
 	
@@ -37,6 +42,15 @@ func join_lobby(lobby, must_update = false):
 	$HTTPRequest.request(Network.api_url + "/api/lobbies/" + lobby.id + "/players/", [
 		"Authorization: Bearer " + Network.token
 	], false, HTTPClient.METHOD_POST)
+	
+func _on_lobby_created(lobby):
+	add_lobby_card(lobby)
+	
+func _on_lobby_name_updated(data):
+	get_node("Body/Section/Lobbies/" + data.id).update_name(data.name)
+	
+func _on_lobby_removed(lobby):
+	get_node("Body/Section/Lobbies/" + lobby.id).queue_free()
 	
 func _on_request_completed(result, response_code, headers, body):
 	if response_code == 200:

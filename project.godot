@@ -17,7 +17,8 @@ _global_script_class_icons={
 
 config/name="Kalaxia Client"
 run/main_scene="res://menu/menu_screen.tscn"
-config/icon="res://icon.png"
+config/icon="res://resources/assets/2d/logo.png"
+config/windows_native_icon="res://resources/assets/2d/logo.ico"
 
 [autoload]
 
