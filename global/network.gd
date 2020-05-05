@@ -1,9 +1,7 @@
 extends HTTPRequest
 
-var api_dns = "127.0.0.1"
-var api_port = 8080
-var api_url = "http://" + api_dns + ":" + str(api_port)
-var websocket_url = "ws://" + api_dns + ":" + str(api_port) + "/ws/"
+var api_url = null
+var websocket_url = null
 var _ws_client = WebSocketClient.new()
 var token = null
 
@@ -17,6 +15,13 @@ signal PlayerUpdate(player)
 signal PlayerJoined(player)
 
 func _ready():
+	print(Config)
+	api_url = Config.api.scheme + "://" + Config.api.dns + ":" + str(Config.api.port)
+	websocket_url = "ws://" + Config.api.dns + ":" + str(Config.api.port) + "/ws/"
+	
+	print(api_url)
+	print(websocket_url)
+	
 	_ws_client.connect("connection_closed", self, "_closed")
 	_ws_client.connect("connection_error", self, "_closed")
 	_ws_client.connect("connection_established", self, "_connected")

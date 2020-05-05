@@ -35,7 +35,7 @@ margin_right = 300.0
 margin_bottom = 276.0
 size_flags_vertical = 3
 
-[node name="Players" type="VBoxContainer" parent="Body/Section"]
+[node name="Players" type="HBoxContainer" parent="Body/Section"]
 
 [node name="Join" type="Button" parent="Body"]
 margin_top = 280.0

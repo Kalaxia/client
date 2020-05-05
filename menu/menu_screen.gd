@@ -44,6 +44,7 @@ func join_lobby(lobby, must_update = false):
 	], false, HTTPClient.METHOD_POST)
 	
 func _on_lobby_created(lobby):
+	print(lobby)
 	add_lobby_card(lobby)
 	
 func _on_lobby_name_updated(data):

@@ -22,6 +22,7 @@ config/windows_native_icon="res://resources/assets/2d/logo.ico"
 
 [autoload]
 
+Config="*res://config/config.gd"
 Network="*res://global/network.gd"
 Store="*res://global/store.gd"
 
