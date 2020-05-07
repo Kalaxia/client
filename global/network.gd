@@ -17,12 +17,8 @@ signal PlayerJoined(player)
 signal PlayerLeft(player)
 
 func _ready():
-	print(Config)
 	api_url = Config.api.scheme + "://" + Config.api.dns + ":" + str(Config.api.port)
 	websocket_url = "ws://" + Config.api.dns + ":" + str(Config.api.port) + "/ws/"
-	
-	print(api_url)
-	print(websocket_url)
 	
 	_ws_client.connect("connection_closed", self, "_closed")
 	_ws_client.connect("connection_error", self, "_closed")
@@ -36,7 +32,6 @@ func auth():
 	
 func confirm_auth(result, response_code, headers, body):
 	token = JSON.parse(body.get_string_from_utf8()).result.token
-	print(token)
 	connect_ws()
 	self.connect("request_completed", self, "set_current_player")
 	request(api_url + "/api/players/me/", [

@@ -15,8 +15,6 @@ func _ready():
 	], false, HTTPClient.METHOD_GET)
 
 func load_lobby(result, response_code, headers, body):
-	print(response_code)
-	print(body.get_string_from_utf8())
 	var lobby = JSON.parse(body.get_string_from_utf8()).result
 	Store._state.lobby = lobby
 	get_node("Body/Header/Name").set_text(Store.get_lobby_name(lobby))

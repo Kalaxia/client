@@ -8,6 +8,8 @@ func _ready():
 	Network.connect("LobbyCreated", self, "_on_lobby_created")
 	Network.connect("LobbyNameUpdated", self, "_on_lobby_name_updated")
 	Network.connect("LobbyRemoved", self, "_on_lobby_removed")
+	Network.connect("PlayerDisconnected", self, "_on_player_disconnected")
+	Network.connect("PlayerJoined", self, "_on_player_joined")
 	if Network.token == null:
 		Network.connect("authenticated", self, "init")
 	else:
@@ -15,7 +17,6 @@ func _ready():
 	get_node("Body/Footer/LobbyCreationButton").connect("button_down", self, "create_lobby")
 	
 func init():
-	
 	get_lobbies()
 	
 func get_lobbies():
@@ -47,7 +48,6 @@ func join_lobby(lobby, must_update = false):
 	], false, HTTPClient.METHOD_POST)
 	
 func _on_lobby_created(lobby):
-	print(lobby)
 	add_lobby_card(lobby)
 	
 func _on_lobby_name_updated(data):
@@ -56,8 +56,14 @@ func _on_lobby_name_updated(data):
 func _on_lobby_removed(lobby):
 	get_node("Body/Section/Lobbies/" + lobby.id).queue_free()
 	
+func _on_player_joined(player):
+	get_node("Body/Section/Lobbies/" + player.lobby).increment_nb_players()
+	
+func _on_player_disconnected(player):
+	if player.lobby != null:
+		get_node("Body/Section/Lobbies/" + player.lobby).decrement_nb_players()
+	
 func _on_request_completed(result, response_code, headers, body):
-	print(body.get_string_from_utf8())
 	if response_code == 200:
 		add_lobby_cards(JSON.parse(body.get_string_from_utf8()).result)
 	elif response_code == 201:
