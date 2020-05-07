@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://menu/menu_screen.gd" type="Script" id=1]
+[ext_resource path="res://matchmaking/player/players_counter.tscn" type="PackedScene" id=2]
 
 [node name="MenuScreen" type="Control"]
 anchor_right = 1.0
@@ -19,19 +20,37 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Header" type="HBoxContainer" parent="Body"]
+[node name="Header" type="VBoxContainer" parent="Body"]
 margin_right = 1280.0
 margin_bottom = 178.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 alignment = 1
 
-[node name="Title" type="Label" parent="Body/Header"]
-margin_left = 618.0
-margin_top = 82.0
-margin_right = 662.0
-margin_bottom = 96.0
+[node name="TopHeader" type="HBoxContainer" parent="Body/Header"]
+margin_top = 48.0
+margin_right = 1280.0
+margin_bottom = 112.0
+alignment = 2
+
+[node name="PlayersCounter" parent="Body/Header/TopHeader" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1212.0
+margin_right = 1280.0
+margin_bottom = 64.0
+
+[node name="SubHeader" type="HBoxContainer" parent="Body/Header"]
+margin_top = 116.0
+margin_right = 1280.0
+margin_bottom = 130.0
+
+[node name="Title" type="Label" parent="Body/Header/SubHeader"]
+margin_right = 1280.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
 text = "Kalaxia"
+align = 1
 
 [node name="Section" type="ScrollContainer" parent="Body"]
 margin_top = 182.0

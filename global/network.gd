@@ -10,9 +10,11 @@ signal LobbyCreated(lobby)
 signal LobbyUpdated(lobby)
 signal LobbyNameUpdated(data)
 signal LobbyRemoved(lobby)
+signal PlayerConnected(player)
 signal PlayerDisconnected(player)
 signal PlayerUpdate(player)
 signal PlayerJoined(player)
+signal PlayerLeft(player)
 
 func _ready():
 	print(Config)
@@ -34,6 +36,7 @@ func auth():
 	
 func confirm_auth(result, response_code, headers, body):
 	token = JSON.parse(body.get_string_from_utf8()).result.token
+	print(token)
 	connect_ws()
 	self.connect("request_completed", self, "set_current_player")
 	request(api_url + "/api/players/me/", [

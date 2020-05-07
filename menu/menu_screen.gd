@@ -2,7 +2,6 @@ extends Control
 
 var lobby_card_scene = preload("res://matchmaking/lobby/lobby_card.tscn")
 var lobby_scene = preload("res://matchmaking/lobby/lobby.tscn")
-var player_info_scene = preload("res://matchmaking/lobby/player_info.tscn")
 
 func _ready():
 	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
@@ -10,10 +9,14 @@ func _ready():
 	Network.connect("LobbyNameUpdated", self, "_on_lobby_name_updated")
 	Network.connect("LobbyRemoved", self, "_on_lobby_removed")
 	if Network.token == null:
-		Network.connect("authenticated", self, "get_lobbies")
+		Network.connect("authenticated", self, "init")
 	else:
-		get_lobbies()
+		init()
 	get_node("Body/Footer/LobbyCreationButton").connect("button_down", self, "create_lobby")
+	
+func init():
+	
+	get_lobbies()
 	
 func get_lobbies():
 	$HTTPRequest.request(Network.api_url + "/api/lobbies/", [
@@ -54,6 +57,7 @@ func _on_lobby_removed(lobby):
 	get_node("Body/Section/Lobbies/" + lobby.id).queue_free()
 	
 func _on_request_completed(result, response_code, headers, body):
+	print(body.get_string_from_utf8())
 	if response_code == 200:
 		add_lobby_cards(JSON.parse(body.get_string_from_utf8()).result)
 	elif response_code == 201:

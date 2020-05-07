@@ -1,7 +1,7 @@
 extends Control
 
 var menu_scene = load("res://menu/menu_screen.tscn")
-var player_info_scene = load("res://matchmaking/lobby/player_info.tscn")
+var player_info_scene = load("res://matchmaking/player/player_info.tscn")
 
 func _ready():
 	get_node("Body/Header/Name").set_text("Votre Partie")
@@ -9,12 +9,14 @@ func _ready():
 	$HTTPRequest.connect("request_completed", self, "load_lobby")
 	Network.connect("PlayerJoined", self, "_on_player_joined")
 	Network.connect("PlayerUpdate", self, "_on_player_update")
-	Network.connect("PlayerDisconnected", self, "_on_player_disconnected")
+	Network.connect("PlayerLeft", self, "_on_player_disconnected")
 	$HTTPRequest.request(Network.api_url + "/api/lobbies/" + Store._state.lobby.id, [
 		"Authorization: Bearer " + Network.token
 	], false, HTTPClient.METHOD_GET)
 
 func load_lobby(result, response_code, headers, body):
+	print(response_code)
+	print(body.get_string_from_utf8())
 	var lobby = JSON.parse(body.get_string_from_utf8()).result
 	Store._state.lobby = lobby
 	get_node("Body/Header/Name").set_text(Store.get_lobby_name(lobby))
