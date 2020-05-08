@@ -18,7 +18,7 @@ signal PlayerLeft(player)
 
 func _ready():
 	api_url = Config.api.scheme + "://" + Config.api.dns + ":" + str(Config.api.port)
-	websocket_url = "ws://" + Config.api.dns + ":" + str(Config.api.port) + "/ws/"
+	websocket_url = Config.api.ws_scheme + "://" + Config.api.dns + ":" + str(Config.api.port) + "/ws/"
 	
 	_ws_client.connect("connection_closed", self, "_closed")
 	_ws_client.connect("connection_error", self, "_closed")
