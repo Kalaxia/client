@@ -19,6 +19,9 @@ func decrement_counter(player):
 func update_counter():
 	$Counter.set_text(str(counter))
 
-func _on_request_completed(result, response_code, headers, body):
-	counter = JSON.parse(body.get_string_from_utf8()).result.nb_players + 1
+func _on_request_completed(err, response_code, headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+		return
+	counter = JSON.parse(body.get_string_from_utf8()).result.nb_players
 	update_counter()

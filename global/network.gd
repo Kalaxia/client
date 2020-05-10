@@ -19,18 +19,19 @@ signal PlayerLeft(player)
 func _ready():
 	api_url = Config.api.scheme + "://" + Config.api.dns + ":" + str(Config.api.port)
 	websocket_url = Config.api.ws_scheme + "://" + Config.api.dns + ":" + str(Config.api.port) + "/ws/"
-	
-	_ws_client.connect("connection_closed", self, "_closed")
-	_ws_client.connect("connection_error", self, "_closed")
-	_ws_client.connect("connection_established", self, "_connected")
-	_ws_client.connect("data_received", self, "_on_data")
-	self.connect("request_completed", self, "confirm_auth")
+
 	auth()
 	
 func auth():
-	request(api_url + "/login", [], false, HTTPClient.METHOD_POST)
+	connect("request_completed", self, "confirm_auth")
+	var err = request(api_url + "/login", [], false, HTTPClient.METHOD_POST)
+	if err:
+		ErrorHandler.network_error(err)
 	
-func confirm_auth(result, response_code, headers, body):
+func confirm_auth(err, response_code, headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+		return
 	token = JSON.parse(body.get_string_from_utf8()).result.token
 	connect_ws()
 	self.connect("request_completed", self, "set_current_player")
@@ -39,11 +40,17 @@ func confirm_auth(result, response_code, headers, body):
 	], false, HTTPClient.METHOD_GET)
 	emit_signal("authenticated")
 	
-func set_current_player(result, response_code, headers, body):
+func set_current_player(err, response_code, headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+		return
 	Store._state.player = JSON.parse(body.get_string_from_utf8()).result
 	
 func connect_ws():
-	# Initiate connection to the given URL.
+	_ws_client.connect("connection_closed", self, "_closed")
+	_ws_client.connect("connection_error", self, "_closed")
+	_ws_client.connect("connection_established", self, "_connected")
+	_ws_client.connect("data_received", self, "_on_data")
 	var err = _ws_client.connect_to_url(websocket_url, [], false, ["Authorization: Bearer " + token])
 	if err != OK:
 		print("Unable to connect")
@@ -71,6 +78,4 @@ func _on_data():
 	emit_signal(data.action, data.data)
 
 func _process(delta):
-	# Call this in _process or _physics_process. Data transfer, and signals
-	# emission will only happen when calling this function.
 	_ws_client.poll()

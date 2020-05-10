@@ -1,7 +1,8 @@
 extends Control
 
 var lobby_card_scene = preload("res://matchmaking/lobby/lobby_card.tscn")
-var lobby_scene = preload("res://matchmaking/lobby/lobby.tscn")
+
+signal scene_requested(scene)
 
 func _ready():
 	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
@@ -14,7 +15,7 @@ func _ready():
 		Network.connect("authenticated", self, "init")
 	else:
 		init()
-	get_node("Body/Footer/LobbyCreationButton").connect("button_down", self, "create_lobby")
+	get_node("GUI/Body/Footer/LobbyCreationButton").connect("button_down", self, "create_lobby")
 	
 func init():
 	get_lobbies()
@@ -25,9 +26,11 @@ func get_lobbies():
 	])
 	
 func create_lobby():
-	$HTTPRequest.request(Network.api_url + "/api/lobbies/", [
+	var err = $HTTPRequest.request(Network.api_url + "/api/lobbies/", [
 		"Authorization: Bearer " + Network.token
 	], false, HTTPClient.METHOD_POST)
+	if err:
+		ErrorHandler.network_error(err)
 	
 func add_lobby_cards(lobbies):
 	for lobby in lobbies:
@@ -39,37 +42,43 @@ func add_lobby_card(lobby):
 	lobby_card.lobby = lobby
 	lobby_card.set_name(lobby.id)
 	lobby_card.connect("join", self, "join_lobby")
-	get_node("Body/Section/Lobbies").add_child(lobby_card)
+	get_node("GUI/Body/Section/Lobbies").add_child(lobby_card)
 	
 func join_lobby(lobby, must_update = false):
 	Store._state.lobby = lobby
-	$HTTPRequest.request(Network.api_url + "/api/lobbies/" + lobby.id + "/players/", [
+	var err = $HTTPRequest.request(Network.api_url + "/api/lobbies/" + lobby.id + "/players/", [
 		"Authorization: Bearer " + Network.token
 	], false, HTTPClient.METHOD_POST)
+	if err:
+		ErrorHandler.network_error(err)
 	
 func _on_lobby_created(lobby):
 	add_lobby_card(lobby)
 	
 func _on_lobby_name_updated(data):
-	get_node("Body/Section/Lobbies/" + data.id).update_name(data.name)
+	get_node("GUI/Body/Section/Lobbies/" + data.id).update_name(data.name)
 	
 func _on_lobby_removed(lobby):
-	get_node("Body/Section/Lobbies/" + lobby.id).queue_free()
+	get_node("GUI/Body/Section/Lobbies/" + lobby.id).queue_free()
 	
 func _on_player_joined(player):
-	get_node("Body/Section/Lobbies/" + player.lobby).increment_nb_players()
+	get_node("GUI/Body/Section/Lobbies/" + player.lobby).increment_nb_players()
 	
 func _on_player_disconnected(player):
 	if player.lobby != null:
-		get_node("Body/Section/Lobbies/" + player.lobby).decrement_nb_players()
+		get_node("GUI/Body/Section/Lobbies/" + player.lobby).decrement_nb_players()
 	
-func _on_request_completed(result, response_code, headers, body):
+func _on_request_completed(err, response_code, headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+		return
+		
 	if response_code == 200:
 		add_lobby_cards(JSON.parse(body.get_string_from_utf8()).result)
 	elif response_code == 201:
 		Store._state.lobby = JSON.parse(body.get_string_from_utf8()).result
-		get_tree().change_scene_to(lobby_scene)
+		emit_signal("scene_requested", "lobby")
 	elif response_code == 204:
 		Store._state.lobby.players.push_back(Store._state.player.id)
-		get_tree().change_scene_to(lobby_scene)
+		emit_signal("scene_requested", "lobby")
 	
