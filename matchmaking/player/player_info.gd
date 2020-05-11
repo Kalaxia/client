@@ -2,6 +2,8 @@ extends PanelContainer
 
 var player = null
 
+signal player_updated(player)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var username_input = get_node("Container/UsernameInput")
@@ -18,7 +20,6 @@ func _ready():
 		faction_choice.disabled = false
 		faction_choice.flat = false
 		faction_choice.connect("item_selected", self, "update_faction")
-		ready_input.disabled = false
 		ready_input.connect("pressed", self, "toggle_ready")
 
 func get_username():
@@ -40,12 +41,14 @@ func update_username(username):
 	], false, HTTPClient.METHOD_PATCH, JSON.print({ "username": username }))
 
 func update_faction(faction_id):
+	player.faction = faction_id
 	$HTTPRequest.request(Network.api_url + "/api/players/me/faction", [
 		"Content-Type: application/json",
 		"Authorization: Bearer " + Network.token
 	], false, HTTPClient.METHOD_PATCH, JSON.print({ "faction_id": faction_id }))
 	
 func toggle_ready():
+	player.ready = !player.ready
 	$HTTPRequest.request(Network.api_url + "/api/players/me/ready", [
 		"Authorization: Bearer " + Network.token
 	], false, HTTPClient.METHOD_PATCH)
@@ -54,4 +57,6 @@ func toggle_ready():
 #func _process(delta):
 #	pass
 func _on_request_completed(result, response_code, headers, body):
-	pass
+	emit_signal("player_updated", player)
+	if player.faction != null && player.username != '':
+		get_node("Container/ReadyInput").disabled = false
