@@ -3,6 +3,8 @@ extends Node2D
 var loading_scene = preload("res://global/loading_screen.tscn")
 var menu_scene = preload("res://menu/menu_screen.tscn")
 var lobby_scene = preload("res://matchmaking/lobby/lobby.tscn")
+var game_loading_scene = preload("res://matchmaking/game/game_loading.tscn")
+var game_scene = preload("res://game/game.tscn")
 
 func _ready():
 	Network.connect("authenticated", self, "_on_authentication")
@@ -20,6 +22,12 @@ func _on_scene_request(scene):
 		change_level(lobby_scene)
 	elif scene == 'menu':
 		change_level(menu_scene)
+	elif scene == 'game_loading':
+		change_level(game_loading_scene)
+	elif scene == 'game':
+		change_level(game_scene)
+	else:
+		printerr("Unknown requested scene : " + scene)
 
 func _on_authentication():
 	change_level(menu_scene)

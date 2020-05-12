@@ -80,11 +80,10 @@ func _on_player_disconnected(player):
 	get_node("GUI/Body/Section/PlayersContainer/Players/" + player.id).queue_free()
 	check_ready_state()
 
-func _on_lobby_launched(launch_data):
+func _on_lobby_launched(game):
 	Store.reset_player_lobby_data()
-	Store._state.game = launch_data.game
-	print(launch_data)
-	emit_signal("scene_requested", "game")
+	Store._state.game = game
+	emit_signal("scene_requested", "game_loading")
 	
 func _on_launch_response(err, response_code, headers, body):
 	$HTTPRequest.disconnect("request_completed", self, "_on_launch_response")
