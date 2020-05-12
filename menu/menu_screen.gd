@@ -72,7 +72,6 @@ func _on_request_completed(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 		return
-		
 	if response_code == 200:
 		add_lobby_cards(JSON.parse(body.get_string_from_utf8()).result)
 	elif response_code == 201:

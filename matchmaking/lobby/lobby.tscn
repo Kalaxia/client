@@ -63,11 +63,25 @@ margin_bottom = 720.0
 size_flags_vertical = 3
 alignment = 1
 
+[node name="LaunchButton" type="Button" parent="GUI/Body/Footer"]
+visible = false
+margin_left = 582.0
+margin_top = 109.0
+margin_right = 636.0
+margin_bottom = 129.0
+size_flags_vertical = 4
+disabled = true
+text = "Lancer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="LeaveButton" type="Button" parent="GUI/Body/Footer"]
 margin_left = 611.0
+margin_top = 109.0
 margin_right = 669.0
-margin_bottom = 20.0
-size_flags_vertical = 0
+margin_bottom = 129.0
+size_flags_vertical = 4
 text = "Quitter"
 
 [node name="HUD" type="CanvasLayer" parent="."]

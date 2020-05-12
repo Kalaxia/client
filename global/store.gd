@@ -1,6 +1,7 @@
 extends Node
 
 var _state = {
+	"game": null,
 	"lobby": null,
 	"player": null
 }
