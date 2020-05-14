@@ -57,12 +57,26 @@ func launch_game():
 	], false, HTTPClient.METHOD_POST)
 
 func check_ready_state():
+	get_node("GUI/Body/Footer/LaunchButton").disabled = not get_ready_state()
+
+func get_ready_state():
 	if Store._state.lobby.creator.id != Store._state.player.id || Store._state.lobby.players.size() < 2:
-		return
+		return false
+	var factionInLoby = []
 	for player in Store._state.lobby.players:
 		if player.ready == false:
-			return
-	get_node("GUI/Body/Footer/LaunchButton").disabled = false
+			return false
+		if player.faction != null:
+			var isTheFactionInArray = false
+			for faction in factionInLoby: # I have trouble using .has() and .count()
+				if faction == player.faction:
+					isTheFactionInArray = true
+					break
+			if not isTheFactionInArray:
+				factionInLoby.push_back(player.faction)
+	if factionInLoby.size() < 2:
+		return false
+	return true
 
 func _on_player_joined(player):
 	Store._state.lobby.players.push_back(player)
