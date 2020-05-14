@@ -62,16 +62,13 @@ func check_ready_state():
 func is_ready_state():
 	if Store._state.lobby.creator.id != Store._state.player.id || Store._state.lobby.players.size() < 2:
 		return false
-	var faction_in_lobby = []
+	var lobby_factions = []
 	for player in Store._state.lobby.players:
 		if player.ready == false:
 			return false
-		if player.faction != null:
-			if not faction_in_lobby.has(int(player.faction)): # it has to be cast as an int to work
-				faction_in_lobby.push_back(int(player.faction))
-	if faction_in_lobby.size() < 2:
-		return false
-	return true
+		if player.faction != null && ! lobby_factions.has(int(player.faction)): # it has to be cast as an int to work
+			lobby_factions.push_back(int(player.faction))
+	return lobby_factions.size() >= 2
 
 func _on_player_joined(player):
 	Store._state.lobby.players.push_back(player)
