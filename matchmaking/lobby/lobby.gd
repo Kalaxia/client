@@ -57,12 +57,18 @@ func launch_game():
 	], false, HTTPClient.METHOD_POST)
 
 func check_ready_state():
+	get_node("GUI/Body/Footer/LaunchButton").disabled = ! is_ready_state()
+
+func is_ready_state():
 	if Store._state.lobby.creator.id != Store._state.player.id || Store._state.lobby.players.size() < 2:
-		return
+		return false
+	var lobby_factions = []
 	for player in Store._state.lobby.players:
 		if player.ready == false:
-			return
-	get_node("GUI/Body/Footer/LaunchButton").disabled = false
+			return false
+		if player.faction != null && ! lobby_factions.has(int(player.faction)): # it has to be cast as an int to work
+			lobby_factions.push_back(int(player.faction))
+	return lobby_factions.size() >= 2
 
 func _on_player_joined(player):
 	Store._state.lobby.players.push_back(player)

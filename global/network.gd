@@ -34,6 +34,7 @@ func confirm_auth(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 		return
+	self.disconnect("request_completed", self, "confirm_auth")
 	token = JSON.parse(body.get_string_from_utf8()).result.token
 	connect_ws()
 	self.connect("request_completed", self, "set_current_player")
