@@ -16,4 +16,3 @@ script = ExtResource( 1 )
 scale = Vector2( 1, 5 )
 texture = SubResource( 2 )
 energy = 5.0
-range_height = 5.0
