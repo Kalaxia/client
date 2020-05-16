@@ -10,5 +10,9 @@ func _ready():
 func init_color():
 	$StarLight.set_color(Color(255,255,255))
 	if system.player != null:
-		$StarLight.set_color(Color(255,0,0))
+		print("ok")
+		var player = Store.get_game_player(system.player)
+		print(player)
+		var faction = Store.get_faction(player.faction)
+		$StarLight.set_color(Color(faction.color[0], faction.color[1], faction.color[2]))
 	
