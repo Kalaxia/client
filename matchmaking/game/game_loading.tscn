@@ -10,6 +10,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [node name="Label" type="Label" parent="."]
 margin_top = 344.0
 margin_right = 1280.0
@@ -19,7 +21,7 @@ text = "Chargement...
 align = 1
 
 [node name="NbPlayers" type="Label" parent="."]
-margin_top = 370.0
+margin_top = 353.0
 margin_right = 1280.0
 margin_bottom = 367.0
 text = "2 joueurs"

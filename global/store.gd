@@ -1,7 +1,8 @@
 extends Node
 
 var _state = {
-	"game": null,
+	"factions": {},
+	"game": {},
 	"lobby": null,
 	"player": null
 }
@@ -20,9 +21,24 @@ func reset_player_lobby_data():
 	_state.player.ready = false
 
 func notify(title, content):
-	print("notification")
-	print(title)
 	emit_signal("notification_added", {
 		"title": title,
 		"content": content
 	})
+
+func set_factions(factions):
+	_state.factions = {}
+	for faction in factions:
+		_state.factions[faction.id] = faction
+		
+func get_faction(id):
+	return _state.factions[id]
+	
+func set_game_players(players):
+	_state.game.players = {}
+	for player in players:
+		_state.game.players[player.id] = player
+		
+func get_game_player(id):
+	return _state.game.players[id]
+	
