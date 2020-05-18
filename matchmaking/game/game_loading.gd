@@ -11,6 +11,7 @@ func _ready():
 
 func _on_game_started(game):
 	Store._state.game.systems = game.systems
+	Store._state.player.wallet = 0
 	emit_signal("scene_requested", "game")
 
 func _on_factions_loaded(err, response_code, headers, body):

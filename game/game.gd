@@ -14,4 +14,3 @@ func draw_systems():
 		system.set_name(Store._state.game.systems[i].id)
 		system.system = Store._state.game.systems[i]
 		$Map.add_child(system)
-	
