@@ -17,6 +17,7 @@ signal PlayerDisconnected(player)
 signal PlayerUpdate(player)
 signal PlayerJoined(player)
 signal PlayerLeft(player)
+signal PlayerIncome(data)
 
 func _ready():
 	api_url = Config.api.scheme + "://" + Config.api.dns + ":" + str(Config.api.port)
