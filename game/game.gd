@@ -6,6 +6,7 @@ var system_scene = preload("res://game/map/system.tscn")
 
 func _ready():
 	Store.connect("system_selected", self, "_on_system_selected")
+	Network.connect("PlayerIncome", self, "_on_player_income")
 	draw_systems()
 
 func draw_systems():
@@ -19,3 +20,6 @@ func draw_systems():
 func _on_system_selected(system, old_system):
 	if old_system != null:
 		get_node("Map/" + old_system.id).unselect()
+
+func _on_player_income(data):
+	Store.update_wallet(data.income)

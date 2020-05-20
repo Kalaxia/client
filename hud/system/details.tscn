@@ -3,7 +3,7 @@
 [ext_resource path="res://hud/system/details.gd" type="Script" id=1]
 [ext_resource path="res://resources/assets/2d/faction/valkar/banner.png" type="Texture" id=2]
 
-[node name="SystemDetails" type="HBoxContainer"]
+[node name="SystemDetails" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1080.0
@@ -13,7 +13,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FactionBanner" type="TextureRect" parent="."]
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="Header" type="HBoxContainer" parent="."]
+margin_right = 200.0
+margin_bottom = 70.0
+size_flags_horizontal = 3
+
+[node name="FactionBanner" type="TextureRect" parent="Header"]
 margin_right = 70.0
 margin_bottom = 70.0
 rect_min_size = Vector2( 70, 70 )
@@ -23,9 +30,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Player" type="Label" parent="."]
+[node name="Player" type="Label" parent="Header"]
 margin_left = 200.0
 margin_top = 28.0
 margin_right = 200.0
 margin_bottom = 42.0
 size_flags_horizontal = 10
+
+[node name="Fleets" type="VBoxContainer" parent="."]
+margin_top = 74.0
+margin_right = 200.0
+margin_bottom = 94.0
+
+[node name="Button" type="Button" parent="Fleets"]
+margin_right = 200.0
+margin_bottom = 20.0
+disabled = true
+text = "Créer une flotte"
