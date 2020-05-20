@@ -4,10 +4,12 @@ var _state = {
 	"factions": {},
 	"game": {},
 	"lobby": null,
-	"player": null
+	"player": null,
+	"selected_system": null
 }
 
 signal notification_added(notification)
+signal system_selected(system, old_system)
 
 func _ready():
 	pass
@@ -41,4 +43,8 @@ func set_game_players(players):
 		
 func get_game_player(id):
 	return _state.game.players[id]
+	
+func select_system(system):
+	emit_signal("system_selected", system, Store._state.selected_system)
+	Store._state.selected_system = system
 	

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://hud/notifications.tscn" type="PackedScene" id=2]
 [ext_resource path="res://hud/wallet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://hud/system/details.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -24,5 +25,9 @@ margin_left = 20.0
 margin_top = 630.0
 margin_right = 88.0
 margin_bottom = 694.0
+
+[node name="SystemDetails" parent="HUD" instance=ExtResource( 4 )]
+margin_right = 200.0
+margin_bottom = 70.0
 
 [node name="Level" type="Node2D" parent="."]

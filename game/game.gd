@@ -5,6 +5,7 @@ signal scene_requested(scene)
 var system_scene = preload("res://game/map/system.tscn")
 
 func _ready():
+	Store.connect("system_selected", self, "_on_system_selected")
 	draw_systems()
 
 func draw_systems():
@@ -13,4 +14,8 @@ func draw_systems():
 		var system = system_scene.instance()
 		system.set_name(Store._state.game.systems[i].id)
 		system.system = Store._state.game.systems[i]
-		$Map.add_child(system)
+		map.add_child(system)
+
+func _on_system_selected(system, old_system):
+	if old_system != null:
+		get_node("Map/" + old_system.id).unselect()

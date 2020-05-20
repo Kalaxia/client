@@ -11,11 +11,5 @@ scale = Vector2( 0.666705, 0.66642 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="Map" type="MarginContainer" parent="."]
-margin_left = 400.0
-margin_top = 100.0
-margin_right = 900.0
-margin_bottom = 600.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Map" type="Node2D" parent="."]
+position = Vector2( 400, 150 )
