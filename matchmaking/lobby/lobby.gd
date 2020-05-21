@@ -84,6 +84,10 @@ func _on_player_update(player):
 
 func _on_player_disconnected(player):
 	get_node("GUI/Body/Section/PlayersContainer/Players/" + player.id).queue_free()
+	for i in range(Store._state.lobby.players.size()):
+		if Store._state.lobby.players[i].id == player.id:
+			Store._state.lobby.players.remove(i)
+			break
 	check_ready_state()
 
 func _on_lobby_launched(game):
