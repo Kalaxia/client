@@ -15,8 +15,9 @@ signal wallet_updated(amount)
 func _ready():
 	pass
 
-func get_lobby_name():
-	return 'Partie de ' + _state.lobby.creator.username if typeof(_state.lobby.creator) == TYPE_DICTIONARY && _state.lobby.creator.username != '' else 'Nouvelle Partie'
+
+func get_lobby_name(lobby):
+	return 'Partie de ' + lobby.creator.username if typeof(lobby.creator) == TYPE_DICTIONARY && lobby.creator.username != '' else 'Nouvelle Partie'
 
 func reset_player_lobby_data():
 	_state.player.username = ''

@@ -71,7 +71,7 @@ func is_ready_state():
 	return lobby_factions.size() >= 2
 
 func update_lobby_name():
-	get_node("GUI/Body/Header/Name").set_text(Store.get_lobby_name())
+	get_node("GUI/Body/Header/Name").set_text(Store.get_lobby_name(Store._state.lobby))
 
 func _on_player_joined(player):
 	Store._state.lobby.players.push_back(player)
