@@ -31,4 +31,4 @@ func _on_players_loaded(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 	Store.set_game_players(JSON.parse(body.get_string_from_utf8()).result)
-	$NbPlayers.set_text(str(Store._state.game.players.keys().size()) + " joueurs")
+	$NbPlayers.set_text(str(Store._state.game.players.size()) + " joueurs")
