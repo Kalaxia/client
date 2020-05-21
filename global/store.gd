@@ -15,8 +15,8 @@ signal wallet_updated(amount)
 func _ready():
 	pass
 
-func get_lobby_name(lobby):
-	return 'Partie de ' + lobby.creator.username if typeof(lobby.creator) == TYPE_DICTIONARY && lobby.creator.username != '' else 'Nouvelle Partie'
+func get_lobby_name():
+	return 'Partie de ' + _state.lobby.creator.username if typeof(_state.lobby.creator) == TYPE_DICTIONARY && _state.lobby.creator.username != '' else 'Nouvelle Partie'
 
 func reset_player_lobby_data():
 	_state.player.username = ''
@@ -56,3 +56,9 @@ func select_system(system):
 func add_fleet(system_id, fleet):
 	_state.game.systems[system_id].fleets[fleet.id] = fleet
 	
+func remove_player_lobby(player):
+	for i in range(Store._state.lobby.players.size()):
+		if Store._state.lobby.players[i].id == player.id:
+			Store._state.lobby.players.remove(i)
+			break
+			

@@ -71,7 +71,7 @@ func is_ready_state():
 	return lobby_factions.size() >= 2
 
 func update_lobby_name():
-	get_node("GUI/Body/Header/Name").set_text(Store.get_lobby_name(Store._state.lobby))
+	get_node("GUI/Body/Header/Name").set_text(Store.get_lobby_name())
 
 func _on_player_joined(player):
 	Store._state.lobby.players.push_back(player)
@@ -90,10 +90,7 @@ func _on_player_update(player):
 
 func _on_player_disconnected(player):
 	get_node("GUI/Body/Section/PlayersContainer/Players/" + player.id).queue_free()
-	for i in range(Store._state.lobby.players.size()):
-		if Store._state.lobby.players[i].id == player.id:
-			Store._state.lobby.players.remove(i)
-			break
+	Store.remove_player_lobby(player)
 	check_ready_state()
 
 func _on_lobby_launched(game):
