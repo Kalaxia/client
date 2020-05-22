@@ -11,8 +11,7 @@ func _ready():
 	change_level(loading_scene)
 
 func change_level(level_scene):
-	for l in $Level.get_children():
-		l.queue_free()
+	for l in $Level.get_children(): l.queue_free()
 	var level = level_scene.instance()
 	level.connect("scene_requested", self, "_on_scene_request")
 	$Level.add_child(level)

@@ -37,13 +37,20 @@ margin_right = 200.0
 margin_bottom = 42.0
 size_flags_horizontal = 10
 
-[node name="Fleets" type="VBoxContainer" parent="."]
+[node name="FleetsTitle" type="Label" parent="."]
 margin_top = 74.0
 margin_right = 200.0
-margin_bottom = 94.0
+margin_bottom = 88.0
+text = "Flottes"
 
-[node name="Button" type="Button" parent="Fleets"]
+[node name="Fleets" type="VBoxContainer" parent="."]
+margin_top = 92.0
 margin_right = 200.0
-margin_bottom = 20.0
+margin_bottom = 92.0
+
+[node name="FleetCreationButton" type="Button" parent="."]
+margin_top = 96.0
+margin_right = 200.0
+margin_bottom = 116.0
 disabled = true
 text = "Créer une flotte"

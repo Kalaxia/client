@@ -11,6 +11,7 @@ var _state = {
 signal notification_added(notification)
 signal system_selected(system, old_system)
 signal wallet_updated(amount)
+signal fleet_created(fleet)
 
 func _ready():
 	pass
@@ -54,8 +55,9 @@ func select_system(system):
 	emit_signal("system_selected", system, _state.selected_system)
 	_state.selected_system = system
 	
-func add_fleet(system_id, fleet):
-	_state.game.systems[system_id].fleets[fleet.id] = fleet
+func add_fleet(fleet):
+	_state.game.systems[fleet.system].fleets[fleet.id] = fleet
+	emit_signal("fleet_created", fleet)
 	
 func remove_player_lobby(player):
 	for i in range(Store._state.lobby.players.size()):

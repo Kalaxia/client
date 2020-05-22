@@ -6,7 +6,9 @@ var system_scene = preload("res://game/map/system.tscn")
 
 func _ready():
 	Store.connect("system_selected", self, "_on_system_selected")
+	Store.connect("fleet_created", self, "_on_fleet_created")
 	Network.connect("PlayerIncome", self, "_on_player_income")
+	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
 	draw_systems()
 
 func draw_systems():
@@ -23,3 +25,12 @@ func _on_system_selected(system, old_system):
 
 func _on_player_income(data):
 	Store.update_wallet(data.income)
+	
+# This method is called when the websocket notifies an another player's fleet creation
+# It calls the same store method when the current player creates a new fleet
+func _on_remote_fleet_created(fleet):
+	Store.add_fleet(fleet)
+
+# This method is called in both cases, to update the map's view
+func _on_fleet_created(fleet):
+	get_node("Map/" + fleet.system).add_fleet(fleet)
