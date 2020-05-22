@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/banner_image.png-00ab8e2c13dc0afac9c0a0b5d97a35d5.image"
+
+[deps]
+
+source_file="res://resources/assets/2d/faction/adranite/banner_image.png"
+dest_files=[ "res://.import/banner_image.png-00ab8e2c13dc0afac9c0a0b5d97a35d5.image" ]
+
+[params]
+

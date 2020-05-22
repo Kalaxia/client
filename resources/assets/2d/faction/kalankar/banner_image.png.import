@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/banner_image.png-149efb2485ce040ef30e17a08b28b77d.image"
+
+[deps]
+
+source_file="res://resources/assets/2d/faction/kalankar/banner_image.png"
+dest_files=[ "res://.import/banner_image.png-149efb2485ce040ef30e17a08b28b77d.image" ]
+
+[params]
+
