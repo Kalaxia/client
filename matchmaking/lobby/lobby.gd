@@ -23,7 +23,7 @@ func load_lobby(err, response_code, headers, body):
 	$HTTPRequest.disconnect("request_completed", self, "load_lobby")
 	var lobby = JSON.parse(body.get_string_from_utf8()).result
 	Store._state.lobby = lobby
-	get_node("GUI/Body/Header/Name").set_text(Store.get_lobby_name(lobby))
+	update_lobby_name()
 	add_players_info(lobby.players)
 	if lobby.creator.id == Store._state.player.id:
 		var launch_button = get_node("GUI/Body/Footer/LaunchButton")
@@ -70,6 +70,9 @@ func is_ready_state():
 			lobby_factions.push_back(int(player.faction))
 	return lobby_factions.size() >= 2
 
+func update_lobby_name():
+	get_node("GUI/Body/Header/Name").set_text(Store.get_lobby_name(Store._state.lobby))
+
 func _on_player_joined(player):
 	Store._state.lobby.players.push_back(player)
 	add_player_info(get_node("GUI/Body/Section/PlayersContainer/Players"), player)
@@ -80,10 +83,14 @@ func _on_player_update(player):
 		if Store._state.lobby.players[i].id == player.id:
 			Store._state.lobby.players[i] = player
 	get_node("GUI/Body/Section/PlayersContainer/Players/" + player.id).update_data(player)
+	if player.id == Store._state.lobby.creator.id:
+		Store._state.lobby.creator = player
+		update_lobby_name()
 	check_ready_state()
 
 func _on_player_disconnected(player):
 	get_node("GUI/Body/Section/PlayersContainer/Players/" + player.id).queue_free()
+	Store.remove_player_lobby(player)
 	check_ready_state()
 
 func _on_lobby_launched(game):
