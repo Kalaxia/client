@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/banner_image.png-b50f1c4f5e4e814406de65ee3c3a4037.image"
+
+[deps]
+
+source_file="res://resources/assets/2d/faction/valkar/banner_image.png"
+dest_files=[ "res://.import/banner_image.png-b50f1c4f5e4e814406de65ee3c3a4037.image" ]
+
+[params]
+
