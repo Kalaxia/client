@@ -1,17 +1,58 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://hud/system/fleet_item.gd" type="Script" id=1]
+[ext_resource path="res://resources/assets/2d/picto/ship_64px.png" type="Texture" id=2]
 
-[node name="FleetItem" type="HBoxContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -1080.0
-margin_bottom = -650.0
+[node name="FleetItem" type="Panel"]
+anchor_right = 0.15625
+anchor_bottom = 0.0972222
+rect_min_size = Vector2( 200, 70 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="Player" type="Label" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 24.0
+text = "Kern"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Player" type="Label" parent="."]
-margin_top = 28.0
-margin_bottom = 42.0
+[node name="Ships" type="HBoxContainer" parent="."]
+margin_left = 10.0
+margin_top = 25.0
+margin_right = 190.0
+margin_bottom = 57.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Picto" type="TextureRect" parent="Ships"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 2 )
+expand = true
+
+[node name="NbShips" type="Label" parent="Ships"]
+margin_left = 36.0
+margin_top = 9.0
+margin_right = 156.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "1"
+align = 2
+
+[node name="CreationButton" type="Button" parent="Ships"]
+margin_left = 160.0
+margin_top = 6.0
+margin_right = 180.0
+margin_bottom = 26.0
+size_flags_vertical = 4
+text = "+"

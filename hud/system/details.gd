@@ -44,10 +44,13 @@ func refresh_data(system):
 	for id in system.fleets: add_fleet_item(system.fleets[id])
 		
 func create_fleet():
-	$HTTPRequest.request(Network.api_url + "/api/games/" + Store._state.game.id + "/fleets/", [
+	$HTTPRequest.request(
+		Network.api_url + "/api/games/" +
+		Store._state.game.id + "/systems/" +
+		Store._state.selected_system.id + "/fleets/", [
 		"Authorization: Bearer " + Network.token,
 		"Content-Type: application/json",
-	], false, HTTPClient.METHOD_POST, JSON.print({ "system": Store._state.selected_system.id }))
+	], false, HTTPClient.METHOD_POST)
 	
 func add_fleet_item(fleet):
 	var fleet_node = fleet_item_scene.instance()
