@@ -13,3 +13,5 @@ centered = false
 
 [node name="Map" type="Node2D" parent="."]
 position = Vector2( 400, 150 )
+
+[node name="FleetContainer" type="Node2D" parent="Map"]

@@ -65,3 +65,9 @@ func remove_player_lobby(player):
 			Store._state.lobby.players.remove(i)
 			break
 			
+func update_fleet(fleet):
+	# relink the fleet to the correct system
+	for system in _state.game.systems:
+		if system.fleets.has(fleet.id):
+			system.fleets.erase(fleet.id)
+	_state.game.systems[fleet.system].fleets[fleet.id] = fleet
