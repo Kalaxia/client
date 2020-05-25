@@ -13,6 +13,7 @@ func _ready():
 	Store.connect("wallet_updated", self, "_on_wallet_update")
 	get_node("Ships/NbShips").set_text(str(fleet.nb_ships))
 	get_node("Ships/CreationButton").connect("pressed", self, "add_ship")
+	get_node("Ships/SailFleet").connect("pressed", self, "button_sail_fleet")
 	check_button_state()
 	
 func add_ship():
@@ -38,3 +39,6 @@ func _on_ship_added(err, response_code, headers, body):
 
 func _on_wallet_update(amount):
 	check_button_state()
+
+func button_sail_fleet():
+	Store.select_fleet(fleet)
