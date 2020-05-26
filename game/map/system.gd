@@ -41,7 +41,10 @@ func add_fleet_pin(color):
 
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.is_pressed():
-		Store.select_system(system)
+		if event.get_button_index() == BUTTON_LEFT:
+			Store.select_system(system)
+		elif event.get_button_index() == BUTTON_RIGHT :
+			Store.system_select_destination_fleet(system)
 	
 func _on_mouse_entered():
 	is_hover = true

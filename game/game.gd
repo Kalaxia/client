@@ -10,6 +10,7 @@ func _ready():
 	Store.connect("system_selected", self, "_on_system_selected")
 	Store.connect("fleet_created", self, "_on_fleet_created")
 	Store.connect("select_fleet",self,"_on_fleet_select")
+	Store.connect("system_select_destination_fleet",self,"_on_system_select_destination_fleet")
 	Network.connect("PlayerIncome", self, "_on_player_income")
 	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
 	Network.connect("FleetSailed", self, "_on_fleet_sailed")
@@ -35,18 +36,18 @@ func add_fleet_sailing(fleet_id, system_departure_id, system_arival_id):
 	curve.add_point(position_arival)
 	
 func _on_system_selected(system, old_system):
+	if old_system != null:
+		get_node("Map/" + old_system.id).unselect()
+
+func _on_system_select_destination_fleet(system):
 	if is_fleet_selected:
 		# todo http request
 		is_fleet_selected = false
-		Store._state.selected_fleet = null 
-	else:
-		Store.system_selected_hud_draw(system)
-		if old_system != null:
-			get_node("Map/" + old_system.id).unselect()
+		Store._state.selected_fleet = null
 
 func _on_player_income(data):
 	Store.update_wallet(data.income)
-	
+
 # This method is called when the websocket notifies an another player's fleet creation
 # It calls the same store method when the current player creates a new fleet
 func _on_remote_fleet_created(fleet):

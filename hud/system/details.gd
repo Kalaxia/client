@@ -11,7 +11,7 @@ const FLEET_COST = 10
 
 func _ready():
 	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
-	Store.connect("system_selected_hud_draw", self, "_on_system_selected")
+	Store.connect("system_selected", self, "_on_system_selected")
 	Store.connect("wallet_updated", self, "_on_wallet_update")
 	Store.connect("fleet_created", self, "_on_fleet_created")
 	$FleetCreationButton.connect("pressed", self, "create_fleet")

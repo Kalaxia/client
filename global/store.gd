@@ -11,7 +11,7 @@ var _state = {
 
 signal notification_added(notification)
 signal system_selected(system, old_system)
-signal system_selected_hud_draw(system, old_system)
+signal system_select_destination_fleet(system)
 signal wallet_updated(amount)
 signal fleet_created(fleet)
 signal select_fleet(fleet)
@@ -56,14 +56,12 @@ func update_wallet(new_amount):
 	
 func select_system(system):
 	emit_signal("system_selected", system, _state.selected_system)
+	_state.selected_system = system
 	# _state.selected_system is the old system
 
-func system_selected_hud_draw(system):
-	#this is the sgignal passerd to te HUD that is call from the game
-	#this is use to check that no fleet is fleet is being moved
-	emit_signal("system_selected_hud_draw", system, _state.selected_system)
-	_state.selected_system = system
-
+func system_select_destination_fleet(system):
+	emit_signal("system_select_destination_fleet", system)
+	
 func add_fleet(fleet):
 	_state.game.systems[fleet.system].fleets[fleet.id] = fleet
 	emit_signal("fleet_created", fleet)
