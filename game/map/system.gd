@@ -44,7 +44,9 @@ func _on_input_event(viewport, event, shape_idx):
 		if event.get_button_index() == BUTTON_LEFT:
 			Store.select_system(system)
 		elif event.get_button_index() == BUTTON_RIGHT :
-			Store.system_select_destination_fleet(system)
+			if Store._state.selected_fleet != null:
+				# todo http request
+				Store.unselect_fleet()
 	
 func _on_mouse_entered():
 	is_hover = true

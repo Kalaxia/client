@@ -4,13 +4,10 @@ signal scene_requested(scene)
 
 var system_scene = preload("res://game/map/system.tscn")
 var moving_fleet_scene = preload("res://game/map/fleet_sailing.tscn")
-var is_fleet_selected = false
 
 func _ready():
 	Store.connect("system_selected", self, "_on_system_selected")
 	Store.connect("fleet_created", self, "_on_fleet_created")
-	Store.connect("select_fleet",self,"_on_fleet_select")
-	Store.connect("system_select_destination_fleet",self,"_on_system_select_destination_fleet")
 	Network.connect("PlayerIncome", self, "_on_player_income")
 	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
 	Network.connect("FleetSailed", self, "_on_fleet_sailed")
@@ -39,12 +36,6 @@ func _on_system_selected(system, old_system):
 	if old_system != null:
 		get_node("Map/" + old_system.id).unselect()
 
-func _on_system_select_destination_fleet(system):
-	if is_fleet_selected:
-		# todo http request
-		is_fleet_selected = false
-		Store._state.selected_fleet = null
-
 func _on_player_income(data):
 	Store.update_wallet(data.income)
 
@@ -64,6 +55,3 @@ func _on_fleet_arrival(fleet):
 
 func _on_fleet_sailed(data):
 	add_fleet_sailing(data.fleet_id,data.departure_system_id,data.destination_system_id)
-
-func _on_fleet_select():
-	is_fleet_selected = true

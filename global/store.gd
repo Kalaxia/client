@@ -11,10 +11,8 @@ var _state = {
 
 signal notification_added(notification)
 signal system_selected(system, old_system)
-signal system_select_destination_fleet(system)
 signal wallet_updated(amount)
 signal fleet_created(fleet)
-signal select_fleet(fleet)
 
 func _ready():
 	pass
@@ -59,8 +57,6 @@ func select_system(system):
 	_state.selected_system = system
 	# _state.selected_system is the old system
 
-func system_select_destination_fleet(system):
-	emit_signal("system_select_destination_fleet", system)
 	
 func add_fleet(fleet):
 	_state.game.systems[fleet.system].fleets[fleet.id] = fleet
@@ -84,5 +80,7 @@ func get_fleet_id(fleet_id):
 		if system.fleets.has(fleet_id):
 			return system.fleets[fleet_id]
 func select_fleet(fleet):
-	emit_signal("select_fleet",fleet)
 	_state.selected_fleet = fleet
+
+func unselect_fleet():
+	_state.selected_fleet = null
