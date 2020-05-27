@@ -5,6 +5,8 @@ var is_hover = false
 var scale_ratio = 1
 var system_fleet_pin_scene = preload("res://game/map/system_fleet_pin.tscn")
 
+signal FleetSailed(data)
+
 func _ready():
 	set_position(Vector2(system.coordinates.x * 50, system.coordinates.y * 50))
 	init_color()
@@ -44,10 +46,27 @@ func _on_input_event(viewport, event, shape_idx):
 		if event.get_button_index() == BUTTON_LEFT:
 			Store.select_system(system)
 		elif event.get_button_index() == BUTTON_RIGHT :
-			if Store._state.selected_fleet != null:
-				# todo http request
-				Store.unselect_fleet()
-	
+			if Store._state.selected_fleet != null && Store._state.selected_fleet.system.id != system.id:
+				# you can't set the same destination as the origine
+				$HTTPRequest.connect("request_completed", self, "_on_fleet_send")
+				$HTTPRequest.request(Network.api_url + "/api/games/"+Store._state.game.id+"/systems/+"+system.id+"/fleets/"+Store._state.selected_fleet.id+"/travel/", [
+					"Authorization: Bearer " + Network.token
+				], false, HTTPClient.METHOD_POST,JSON.print({
+					"destination_system_id": system.id,
+				}))
+
+func _on_fleet_send(err, response_code, headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+		return
+	$HTTPRequest.disconnect("request_completed", self, "_on_fleet_send")
+	emit_signal("FleetSailed", {
+		"fleet_id": Store._state.selected_fleet.id,
+		"departure_system_id":Store._state.selected_fleet.system.id,
+		"destination_system_id": system.id,
+	})
+	Store.unselect_fleet()
+
 func _on_mouse_entered():
 	is_hover = true
 	$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))

@@ -19,6 +19,7 @@ position = Vector2( 5.5791, 5.57898 )
 curve = SubResource( 1 )
 
 [node name="Follower" type="PathFollow2D" parent="FleetPath"]
+loop = false
 
 [node name="fleetIcon" type="Sprite" parent="FleetPath/Follower"]
 texture = SubResource( 2 )

@@ -56,7 +56,6 @@ func select_system(system):
 	emit_signal("system_selected", system, _state.selected_system)
 	_state.selected_system = system
 	# _state.selected_system is the old system
-
 	
 func add_fleet(fleet):
 	_state.game.systems[fleet.system].fleets[fleet.id] = fleet
@@ -79,6 +78,8 @@ func get_fleet_id(fleet_id):
 	for system in _state.game.systems:
 		if system.fleets.has(fleet_id):
 			return system.fleets[fleet_id]
+	return null
+
 func select_fleet(fleet):
 	_state.selected_fleet = fleet
 

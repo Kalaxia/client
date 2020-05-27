@@ -1,6 +1,6 @@
 extends Node2D
 
-const FLIGHT_TIME = 10.1 # in second
+const FLIGHT_TIME = 10 # in second
 var time = 0
 
 func _ready():
