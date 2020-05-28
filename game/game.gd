@@ -22,12 +22,12 @@ func draw_systems():
 		system.system = Store._state.game.systems[i]
 		map.add_child(system)
 
-func add_fleet_sailing(fleet_id, system_departure_id, system_arival_id):
+func add_fleet_sailing(fleet):
 	var sailing_fleet = moving_fleet_scene.instance()
-	sailing_fleet.set_name(fleet_id)
+	sailing_fleet.set_name(fleet.fleet_id)
 	get_node("Map/FleetContainer").add_child(sailing_fleet)
-	var position_departure = get_node("Map/" + system_departure_id).get_position_in_parent() # todo test
-	var position_arival = get_node("Map/" + system_arival_id).get_position_in_parent() # todo test
+	var position_departure = get_node("Map/" + fleet.system_departure_id).get_position_in_parent() # todo test
+	var position_arival = get_node("Map/" + fleet.system_arival_id).get_position_in_parent() # todo test
 	var curve = sailing_fleet.get_node("FleetPath")
 	curve.add_point(position_departure)
 	curve.add_point(position_arival)
@@ -53,5 +53,6 @@ func _on_fleet_arrival(fleet):
 	get_node("Map/" + fleet.system).add_fleet(fleet)
 	get_node("Map/FleetContainer/" + fleet.id).queue_free()
 
-func _on_fleet_sailed(data):
-	add_fleet_sailing(data.fleet_id,data.departure_system_id,data.destination_system_id)
+func _on_fleet_sailed(fleet):
+	Store.update_fleet(fleet)
+	add_fleet_sailing(fleet)

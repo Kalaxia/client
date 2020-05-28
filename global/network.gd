@@ -19,7 +19,7 @@ signal PlayerJoined(player)
 signal PlayerLeft(player)
 signal PlayerIncome(data)
 signal FleetCreated(fleet)
-signal FleetSailed(data) 
+signal FleetSailed(fleet) 
 signal FleetArrived(fleet) 
 
 func _ready():

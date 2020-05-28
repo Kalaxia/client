@@ -68,17 +68,13 @@ func remove_player_lobby(player):
 			break
 			
 func update_fleet(fleet):
-	# relink the fleet to the correct system
-	for system in _state.game.systems:
-		if system.fleets.has(fleet.id):
-			system.fleets.erase(fleet.id)
+	if ! _state.game.systems[fleet.system].fleets.has(fleet.id):
+		# relink the fleet to the correct system
+		for system in _state.game.systems:
+			if system.fleets.has(fleet.id):
+				system.fleets.erase(fleet.id)
 	_state.game.systems[fleet.system].fleets[fleet.id] = fleet
 
-func get_fleet_id(fleet_id):
-	for system in _state.game.systems:
-		if system.fleets.has(fleet_id):
-			return system.fleets[fleet_id]
-	return null
 
 func select_fleet(fleet):
 	_state.selected_fleet = fleet
