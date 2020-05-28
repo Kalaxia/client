@@ -43,10 +43,10 @@ func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.get_button_index() == BUTTON_LEFT:
 			Store.select_system(system)
-		elif event.get_button_index() == BUTTON_RIGHT && Store._state.selected_fleet != null && Store._state.selected_fleet.system.id != system.id:
+		elif event.get_button_index() == BUTTON_RIGHT && Store._state.selected_fleet != null && Store._state.selected_fleet.system != system.id:
 			# you can't set the same destination as the origine
 			$HTTPRequest.connect("request_completed", self, "_on_fleet_send")
-			$HTTPRequest.request(Network.api_url + "/api/games/" + Store._state.game.id + "/systems/+" + Store._state.selected_fleet.system.id + "/fleets/" + Store._state.selected_fleet.id + "/travel/", [
+			$HTTPRequest.request(Network.api_url + "/api/games/" + Store._state.game.id + "/systems/" + Store._state.selected_fleet.system + "/fleets/" + Store._state.selected_fleet.id + "/travel/", [
 				"Authorization: Bearer " + Network.token
 			], false, HTTPClient.METHOD_POST,JSON.print({
 				"destination_system_id": system.id,
@@ -57,9 +57,10 @@ func _on_fleet_send(err, response_code, headers, body):
 		ErrorHandler.network_response_error(err)
 		return
 	$HTTPRequest.disconnect("request_completed", self, "_on_fleet_send")
-	Store._state.selected_fleet.system_arival_id = system.id
-	Store.emit_signal("FleetSailed",Store._state.selected_fleet)
-	Store.unselect_fleet()
+	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
+		Store._state.selected_fleet.system_arival_id = system.id
+		Store.emit_signal("FleetSailed",Store._state.selected_fleet)
+		Store.unselect_fleet()
 
 func _on_mouse_entered():
 	is_hover = true

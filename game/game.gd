@@ -25,11 +25,11 @@ func draw_systems():
 
 func add_fleet_sailing(fleet):
 	var sailing_fleet = moving_fleet_scene.instance()
-	sailing_fleet.set_name(fleet.fleet_id)
+	sailing_fleet.set_name(fleet.id)
 	get_node("Map/FleetContainer").add_child(sailing_fleet)
-	var position_departure = get_node("Map/" + fleet.system_departure_id).get_position_in_parent() # todo test
-	var position_arival = get_node("Map/" + fleet.system_arival_id).get_position_in_parent() # todo test
-	var curve = sailing_fleet.get_node("FleetPath")
+	var position_departure = get_node("Map/" + fleet.system).get_position() # todo test
+	var position_arival = get_node("Map/" + fleet.system_arival_id).get_position() # todo test
+	var curve = sailing_fleet.get_node("FleetPath").curve
 	curve.add_point(position_departure)
 	curve.add_point(position_arival)
 	

@@ -13,6 +13,7 @@ signal notification_added(notification)
 signal system_selected(system, old_system)
 signal wallet_updated(amount)
 signal fleet_created(fleet)
+signal FleetSailed(fleet)
 
 func _ready():
 	pass

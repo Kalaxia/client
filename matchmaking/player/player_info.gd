@@ -30,7 +30,8 @@ func get_username():
 func update_data(data):
 	player = data
 	get_node("Container/UsernameInput").set_text(get_username())
-	get_node("Container/FactionChoice").selected = player.faction
+	if player.faction != null:
+		get_node("Container/FactionChoice").selected = player.faction
 	get_node("Container/ReadyInput").pressed = player.ready
 	
 func update_username(username):
