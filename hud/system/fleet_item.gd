@@ -11,10 +11,12 @@ func _ready():
 		return
 	$HTTPRequest.connect("request_completed", self, "_on_ship_added")
 	Store.connect("wallet_updated", self, "_on_wallet_update")
+	Store.connect("FleetSailed", self, "_on_fleet_sailed")
 	get_node("Ships/NbShips").set_text(str(fleet.nb_ships))
 	get_node("Ships/CreationButton").connect("pressed", self, "add_ship")
 	get_node("Ships/SailFleet").connect("pressed", self, "button_sail_fleet")
-	check_button_state()
+	check_button_add_ship_state()
+	button_sail_fleet()
 	
 func add_ship():
 	$HTTPRequest.request(
@@ -26,19 +28,28 @@ func add_ship():
 	], false, HTTPClient.METHOD_POST)
 	get_node("Ships/CreationButton").disabled = true
 	
-func check_button_state():
+func check_button_add_ship_state():
 	get_node("Ships/CreationButton").disabled = Store._state.player.wallet < SHIP_COST
 	
+func check_button_sail_state():
+	get_node("Ships/SailFleet").disabled = (fleet.destination_system != null)
+	#todo highlight if it is selected fleet
+
+func button_sail_fleet():
+	Store.select_fleet(fleet)
+
 func _on_ship_added(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 	Store.update_wallet(-SHIP_COST)
 	fleet.nb_ships += 1
-	check_button_state()
+	check_button_add_ship_state()
 	get_node("Ships/NbShips").set_text(str(fleet.nb_ships))
 
 func _on_wallet_update(amount):
-	check_button_state()
+	check_button_add_ship_state()
 
-func button_sail_fleet():
-	Store.select_fleet(fleet)
+func _on_fleet_sailed(fleet_param):
+	if fleet_param.id == fleet.id:
+		fleet = fleet_param
+		button_sail_fleet()

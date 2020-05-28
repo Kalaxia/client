@@ -8,6 +8,7 @@ var moving_fleet_scene = preload("res://game/map/fleet_sailing.tscn")
 func _ready():
 	Store.connect("system_selected", self, "_on_system_selected")
 	Store.connect("fleet_created", self, "_on_fleet_created")
+	Store.connect("FleetSailed", self, "_on_fleet_sailed")
 	Network.connect("PlayerIncome", self, "_on_player_income")
 	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
 	Network.connect("FleetSailed", self, "_on_fleet_sailed")
