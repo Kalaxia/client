@@ -19,6 +19,9 @@ signal PlayerJoined(player)
 signal PlayerLeft(player)
 signal PlayerIncome(data)
 signal FleetCreated(fleet)
+signal FleetSailed(fleet) 
+signal FleetArrived(fleet) 
+signal SystemConquerred(data)
 
 func _ready():
 	api_url = Config.api.scheme + "://" + Config.api.dns + ":" + str(Config.api.port)

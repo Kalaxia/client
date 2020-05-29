@@ -8,7 +8,7 @@ var nb_players = 0
 func _ready():
 	get_node("Body/Join").connect("pressed", self, "join_lobby")
 	set_lobby_name()
-	nb_players = lobby.nb_players if lobby.has("nb_players") else lobby.players.count()
+	nb_players = lobby.nb_players if lobby.has("nb_players") else lobby.players.Size()
 	set_nb_players()
 	
 func set_lobby_name():

@@ -39,10 +39,36 @@ func add_fleet_pin(color):
 	fleet_pin.color = color
 	$FleetPins.add_child(fleet_pin)
 
+func update_data(s):
+	system = s
+	init_color()
+	if system.player == Store._state.player.id:
+		$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
+
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.is_pressed():
-		Store.select_system(system)
-	
+		if event.get_button_index() == BUTTON_LEFT:
+			Store.select_system(system)
+		elif event.get_button_index() == BUTTON_RIGHT && Store._state.selected_fleet != null && Store._state.selected_fleet.system != system.id:
+			# you can't set the same destination as the origin
+			$HTTPRequest.connect("request_completed", self, "_on_fleet_send")
+			$HTTPRequest.request(Network.api_url + "/api/games/" + Store._state.game.id + "/systems/" + Store._state.selected_fleet.system + "/fleets/" + Store._state.selected_fleet.id + "/travel/", [
+				"Content-Type: application/json",
+				"Authorization: Bearer " + Network.token
+			], false, HTTPClient.METHOD_POST,JSON.print({
+				"destination_system_id": system.id,
+			}))
+
+func _on_fleet_send(err, response_code, headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+		return
+	$HTTPRequest.disconnect("request_completed", self, "_on_fleet_send")
+	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
+		Store._state.selected_fleet.destination_system = system.id
+		Store.fleet_sail(Store._state.selected_fleet)
+		Store.unselect_fleet()
+
 func _on_mouse_entered():
 	is_hover = true
 	$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
