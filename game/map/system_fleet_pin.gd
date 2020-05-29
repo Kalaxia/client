@@ -1,5 +1,6 @@
 extends Node2D
 
+var faction = null
 var color = null
 
 func _ready():

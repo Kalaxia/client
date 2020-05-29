@@ -11,7 +11,6 @@ func _ready():
 		return
 	$HTTPRequest.connect("request_completed", self, "_on_ship_added")
 	Store.connect("wallet_updated", self, "_on_wallet_update")
-	Store.connect("FleetSailed", self, "_on_fleet_sailed")
 	get_node("Ships/NbShips").set_text(str(fleet.nb_ships))
 	get_node("Ships/CreationButton").connect("pressed", self, "add_ship")
 	get_node("Ships/SailFleet").connect("pressed", self, "button_sail_fleet")
@@ -48,8 +47,3 @@ func _on_ship_added(err, response_code, headers, body):
 
 func _on_wallet_update(amount):
 	check_button_add_ship_state()
-
-func _on_fleet_sailed(fleet_param):
-	if fleet_param.id == fleet.id:
-		fleet = fleet_param
-		button_sail_fleet()

@@ -28,7 +28,9 @@ func add_fleet_sailing(fleet):
 	var sailing_fleet = moving_fleet_scene.instance()
 	sailing_fleet.set_name(fleet.id)
 	get_node("Map/FleetContainer").add_child(sailing_fleet)
-	var position_departure = get_node("Map/" + fleet.system).get_position() # todo test
+	var origin_system = get_node("Map/" + fleet.system)
+	origin_system.refresh()
+	var position_departure = origin_system.get_position() # todo test
 	var position_arival = get_node("Map/" + fleet.destination_system).get_position() # todo test
 	var curve = sailing_fleet.get_node("FleetPath").curve
 	curve.add_point(position_departure)
@@ -36,7 +38,7 @@ func add_fleet_sailing(fleet):
 	
 func update_fleet_system(fleet):
 	Store.update_fleet_system(fleet)
-	get_node("Map/" + fleet.system).add_fleet(fleet)
+	get_node("Map/" + fleet.system).refresh_fleet_pins()
 	get_node("Map/FleetContainer/" + fleet.id).queue_free()
 	
 func _on_system_selected(system, old_system):
@@ -53,7 +55,7 @@ func _on_remote_fleet_created(fleet):
 
 # This method is called in both cases, to update the map's view
 func _on_fleet_created(fleet):
-	get_node("Map/" + fleet.system).add_fleet(fleet)
+	get_node("Map/" + fleet.system).refresh_fleet_pins()
 
 func _on_fleet_arrival(fleet):
 	update_fleet_system(fleet)
@@ -69,4 +71,4 @@ func _on_remote_fleet_sailed(fleet):
 func _on_system_conquerred(data):
 	update_fleet_system(data.fleet)
 	Store.update_system(data.system)
-	get_node("Map/" + data.system.id).update_data(data.system)
+	get_node("Map/" + data.system.id).refresh()

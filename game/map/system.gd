@@ -27,21 +27,25 @@ func unselect():
 	if system.player == null || system.player != Store._state.player.id:
 		$Star.set_scale(Vector2(scale_ratio, scale_ratio))
 		
-func add_fleet(fleet):
-	var color = Store.get_faction(Store.get_game_player(fleet.player).faction).color
-	for pin in $FleetPins.get_children():
-		if pin.color == color:
-			return
-	add_fleet_pin(color)
+func refresh_fleet_pins():
+	var factions = []
+	for pin in $FleetPins.get_children(): pin.queue_free()
+	for fleet in system.fleets.values():
+		var p = Store.get_game_player(fleet.player)
+		if !factions.has(p.faction):
+			factions.push_back(p.faction)
+			add_fleet_pin(p.faction, Store.get_faction(p.faction).color)
 		
-func add_fleet_pin(color):
+func add_fleet_pin(faction, color):
 	var fleet_pin = system_fleet_pin_scene.instance()
+	fleet_pin.faction = faction
 	fleet_pin.color = color
 	$FleetPins.add_child(fleet_pin)
 
-func update_data(s):
-	system = s
+func refresh():
+	system = Store._state.game.systems[system.id]
 	init_color()
+	refresh_fleet_pins()
 	if system.player == Store._state.player.id:
 		$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
 
