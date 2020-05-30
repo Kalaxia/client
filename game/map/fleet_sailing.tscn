@@ -21,6 +21,6 @@ curve = SubResource( 1 )
 [node name="Follower" type="PathFollow2D" parent="FleetPath"]
 loop = false
 
-[node name="fleetIcon" type="Sprite" parent="FleetPath/Follower"]
+[node name="FleetIcon" type="Sprite" parent="FleetPath/Follower"]
 rotation = 1.5708
 texture = SubResource( 2 )
