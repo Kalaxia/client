@@ -6,6 +6,7 @@ var _ws_client = WebSocketClient.new()
 var token = null
 
 signal authenticated
+signal CombatEnded(data)
 signal LobbyCreated(lobby)
 signal LobbyUpdated(lobby)
 signal LobbyNameUpdated(data)

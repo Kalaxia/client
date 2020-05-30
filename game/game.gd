@@ -9,6 +9,7 @@ func _ready():
 	Store.connect("system_selected", self, "_on_system_selected")
 	Store.connect("fleet_created", self, "_on_fleet_created")
 	Store.connect("fleet_sailed", self, "_on_fleet_sailed")
+	Network.connect("CombatEnded", self, "_on_combat_ended")
 	Network.connect("PlayerIncome", self, "_on_player_income")
 	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
 	Network.connect("FleetSailed", self, "_on_remote_fleet_sailed")
@@ -38,6 +39,16 @@ func update_fleet_system(fleet):
 	Store.update_fleet_system(fleet)
 	get_node("Map/" + fleet.system).refresh_fleet_pins()
 	get_node("Map/FleetContainer/" + fleet.id).queue_free()
+	
+func _on_combat_ended(data):
+	for fleet in data.fleets.values():
+		if fleet.destination_system != null:
+			get_node("Map/FleetContainer/" + fleet.id).queue_free()
+		if fleet.nb_ships == 0:
+			Store._state.game.systems[fleet.system].fleets.erase(fleet.id)
+		else:
+			Store._state.game.systems[fleet.system].fleets[fleet.id].nb_ships = fleet.nb_ships
+	get_node("Map/" + data.system.id).refresh_fleet_pins()
 	
 func _on_system_selected(system, old_system):
 	if old_system != null:
