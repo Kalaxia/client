@@ -15,6 +15,7 @@ func _ready():
 	Store.connect("wallet_updated", self, "_on_wallet_update")
 	Store.connect("fleet_created", self, "_on_fleet_created")
 	Network.connect("FleetArrived", self, "_on_fleet_arrival")
+	Network.connect("Victory", self, "_on_victory")
 	$FleetCreationButton.connect("pressed", self, "create_fleet")
 	set_visible(false)
 
@@ -76,3 +77,6 @@ func _on_request_completed(err, response_code, headers, body):
 
 func _on_fleet_arrival(fleet):
 	refresh_data(Store._state.select_system)
+
+func _on_victory(data):
+	set_visible(false)

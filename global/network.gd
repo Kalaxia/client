@@ -23,6 +23,7 @@ signal FleetCreated(fleet)
 signal FleetSailed(fleet) 
 signal FleetArrived(fleet) 
 signal SystemConquerred(data)
+signal Victory(data)
 
 func _ready():
 	api_url = Config.api.scheme + "://" + Config.api.dns + ":" + str(Config.api.port)

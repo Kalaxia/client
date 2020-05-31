@@ -15,6 +15,7 @@ func _ready():
 	Network.connect("FleetSailed", self, "_on_remote_fleet_sailed")
 	Network.connect("FleetArrived", self, "_on_fleet_arrival")
 	Network.connect("SystemConquerred", self, "_on_system_conquerred")
+	Network.connect("Victory", self, "_on_victory")
 	draw_systems()
 
 func draw_systems():
@@ -81,3 +82,8 @@ func _on_system_conquerred(data):
 	update_fleet_system(data.fleet)
 	Store.update_system(data.system)
 	get_node("Map/" + data.system.id).refresh()
+	
+func _on_victory(data):
+	Store._state.victorious_faction = data.victorious_faction
+	Store._state.scores = data.scores
+	emit_signal("scene_requested", "scores")

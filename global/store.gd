@@ -6,7 +6,9 @@ var _state = {
 	"lobby": null,
 	"player": null,
 	"selected_system": null,
-	"selected_fleet":null,
+	"selected_fleet": null,
+	"scores": {},
+	"victorious_faction": null,
 }
 
 signal notification_added(notification)
@@ -23,8 +25,6 @@ func get_lobby_name(lobby):
 	return 'Partie de ' + lobby.creator.username if typeof(lobby.creator) == TYPE_DICTIONARY && lobby.creator.username != '' else 'Nouvelle Partie'
 
 func reset_player_lobby_data():
-	_state.player.username = ''
-	_state.player.faction = null
 	_state.player.ready = false
 
 func notify(title, content):

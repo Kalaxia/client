@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://game/faction_score.gd" type="Script" id=1]
+
+[node name="FactionScore" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1130.0
+margin_bottom = -520.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Banner" type="TextureRect" parent="."]
+margin_left = 27.0
+margin_right = 123.0
+margin_bottom = 96.0
+rect_min_size = Vector2( 96, 96 )
+size_flags_horizontal = 4
+expand = true
+
+[node name="Name" type="Label" parent="."]
+margin_top = 100.0
+margin_right = 150.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 0, 40 )
+align = 1
+valign = 1
+
+[node name="NbSystems" type="Label" parent="."]
+margin_top = 144.0
+margin_right = 150.0
+margin_bottom = 158.0
+align = 1

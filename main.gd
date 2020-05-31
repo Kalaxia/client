@@ -5,6 +5,7 @@ var menu_scene = preload("res://menu/menu_screen.tscn")
 var lobby_scene = preload("res://matchmaking/lobby/lobby.tscn")
 var game_loading_scene = preload("res://matchmaking/game/game_loading.tscn")
 var game_scene = preload("res://game/game.tscn")
+var scores_scene = preload("res://game/scores.tscn")
 
 func _ready():
 	Network.connect("authenticated", self, "_on_authentication")
@@ -25,6 +26,8 @@ func _on_scene_request(scene):
 		change_level(game_loading_scene)
 	elif scene == 'game':
 		change_level(game_scene)
+	elif scene == "scores":
+		change_level(scores_scene)
 	else:
 		printerr("Unknown requested scene : " + scene)
 
