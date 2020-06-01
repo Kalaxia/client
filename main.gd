@@ -8,7 +8,6 @@ var game_scene = preload("res://game/game.tscn")
 var scores_scene = preload("res://game/scores.tscn")
 
 func _ready():
-	Network.connect("authenticated", self, "_on_authentication")
 	change_level(loading_scene)
 
 func change_level(level_scene):
@@ -31,5 +30,3 @@ func _on_scene_request(scene):
 	else:
 		printerr("Unknown requested scene : " + scene)
 
-func _on_authentication():
-	change_level(menu_scene)
