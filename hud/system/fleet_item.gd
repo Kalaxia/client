@@ -40,10 +40,11 @@ func button_sail_fleet():
 func _on_ship_added(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
-	Store.update_wallet(-SHIP_COST)
-	fleet.nb_ships += 1
+	if response_code == 201:
+		Store.update_wallet(-SHIP_COST)
+		fleet.nb_ships += 1
+		get_node("Ships/NbShips").set_text(str(fleet.nb_ships))
 	check_button_add_ship_state()
-	get_node("Ships/NbShips").set_text(str(fleet.nb_ships))
 
 func _on_wallet_update(amount):
 	check_button_add_ship_state()

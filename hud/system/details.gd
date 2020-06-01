@@ -72,8 +72,9 @@ func _on_wallet_update(amount):
 func _on_request_completed(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
-	Store.update_wallet(-FLEET_COST)
-	Store.add_fleet(JSON.parse(body.get_string_from_utf8()).result)
+	if response_code == 201:
+		Store.update_wallet(-FLEET_COST)
+		Store.add_fleet(JSON.parse(body.get_string_from_utf8()).result)
 
 func _on_fleet_arrival(fleet):
 	refresh_data(Store._state.select_system)
