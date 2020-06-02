@@ -91,3 +91,15 @@ func select_fleet(fleet):
 
 func unselect_fleet():
 	_state.selected_fleet = null
+
+func unload_data():
+	_state = {
+		"factions": {},
+		"game": {},
+		"lobby": null,
+		"player": null,
+		"selected_system": null,
+		"selected_fleet": null,
+		"scores": {},
+		"victorious_faction": null,
+	}
