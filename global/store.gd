@@ -1,6 +1,6 @@
 extends Node
 
-var _state = {
+const _state_empty = {
 	"factions": {},
 	"game": {},
 	"lobby": null,
@@ -11,11 +11,15 @@ var _state = {
 	"victorious_faction": null,
 }
 
+
+var _state = _state_empty.duplicate(true)
+
 signal notification_added(notification)
 signal system_selected(system, old_system)
 signal wallet_updated(amount)
 signal fleet_created(fleet)
 signal fleet_sailed(fleet)
+signal fleet_selected(fleet)
 
 func _ready():
 	pass
@@ -88,18 +92,10 @@ func update_fleet_system(fleet):
 
 func select_fleet(fleet):
 	_state.selected_fleet = fleet
+	emit_signal("fleet_selected",fleet)
 
 func unselect_fleet():
 	_state.selected_fleet = null
 
 func unload_data():
-	_state = {
-		"factions": {},
-		"game": {},
-		"lobby": null,
-		"player": null,
-		"selected_system": null,
-		"selected_fleet": null,
-		"scores": {},
-		"victorious_faction": null,
-	}
+	_state = _state_empty.duplicate(true)
