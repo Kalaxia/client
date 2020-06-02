@@ -59,6 +59,9 @@ func select_system(system):
 	_state.selected_system = system
 
 func update_system(system):
+	for fid in system.fleets.keys():
+		if system.fleets[fid].destination_system != null:
+			system.fleets.erase(fid)
 	_state.game.systems[system.id] = system
 
 func add_fleet(fleet):
