@@ -25,16 +25,6 @@ func draw_systems():
 		system.set_name(Store._state.game.systems[i].id)
 		system.system = Store._state.game.systems[i]
 		map.add_child(system)
-
-func add_fleet_sailing(fleet):
-	var sailing_fleet = moving_fleet_scene.instance()
-	sailing_fleet.set_name(fleet.id)
-	var origin_system = get_node("Map/" + fleet.system)
-	origin_system.refresh()
-	sailing_fleet.color = Store.get_faction(Store.get_game_player(fleet.player).faction).color
-	sailing_fleet.origin_position = origin_system.get_position() # todo test
-	sailing_fleet.destination_position = get_node("Map/" + fleet.destination_system).get_position() # todo test
-	get_node("Map/FleetContainer").add_child(sailing_fleet)
 	
 func update_fleet_system(fleet):
 	Store.update_fleet_system(fleet)
@@ -71,7 +61,15 @@ func _on_fleet_arrival(fleet):
 	update_fleet_system(fleet)
 
 func _on_fleet_sailed(fleet):
-	add_fleet_sailing(fleet)
+	Store._state.game.systems[fleet.system].fleets.erase(fleet.id)
+	var sailing_fleet = moving_fleet_scene.instance()
+	sailing_fleet.set_name(fleet.id)
+	var origin_system = get_node("Map/" + fleet.system)
+	origin_system.refresh()
+	sailing_fleet.color = Store.get_faction(Store.get_game_player(fleet.player).faction).color
+	sailing_fleet.origin_position = origin_system.get_position()
+	sailing_fleet.destination_position = get_node("Map/" + fleet.destination_system).get_position()
+	get_node("Map/FleetContainer").add_child(sailing_fleet)
 
 # This method is called when the websocket notifies an another player's fleet sailing
 # It notifies the store which call _on_fleet_sailed back
