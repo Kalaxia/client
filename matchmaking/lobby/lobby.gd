@@ -106,6 +106,7 @@ func _on_lobby_owner_update(pid):
 		var launch_button = get_node("GUI/Body/Footer/LaunchButton")
 		launch_button.visible = true
 		launch_button.connect("pressed", self, "launch_game")
+		check_ready_state()
 	
 func _on_launch_response(err, response_code, headers, body):
 	$HTTPRequest.disconnect("request_completed", self, "_on_launch_response")
