@@ -16,6 +16,7 @@ func _ready():
 	Store.connect("wallet_updated", self, "_on_wallet_update")
 	Store.connect("fleet_selected",self,"_on_fleet_selected")
 	Store.connect("fleet_sailed",self,"_on_fleet_sailed")
+	Store.connect("fleet_update_nb_ships",self,"_on_fleet_update_nb_ships")
 	get_node("Ships/NbShips").set_text(str(fleet.nb_ships))
 	get_node("Ships/CreationButton").connect("pressed", self, "add_ship")
 	connect("gui_input", self, "button_sail_fleet")
@@ -51,8 +52,7 @@ func _on_ship_added(err, response_code, headers, body):
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_CREATED:
 		Store.update_wallet(-SHIP_COST)
-		fleet.nb_ships += 1
-		get_node("Ships/NbShips").set_text(str(fleet.nb_ships))
+		Store.update_fleet_nb_ships(fleet,fleet.nb_ships+1)
 	check_button_add_ship_state()
 
 func _on_wallet_update(amount):
@@ -63,6 +63,10 @@ func _on_fleet_selected(fleet):
 	
 func _on_fleet_sailed(fleet):
 	update_highlight_state()
+
+func _on_fleet_update_nb_ships(fleet_param):
+	if fleet_param.id == fleet.id:
+		get_node("Ships/NbShips").set_text(str(fleet.nb_ships))
 
 func update_highlight_state():
 	if fleet.destination_system != null:

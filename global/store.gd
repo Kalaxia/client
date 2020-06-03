@@ -11,7 +11,6 @@ const _state_empty = {
 	"victorious_faction": null,
 }
 
-
 var _state = _state_empty.duplicate(true)
 
 signal notification_added(notification)
@@ -20,10 +19,13 @@ signal wallet_updated(amount)
 signal fleet_created(fleet)
 signal fleet_sailed(fleet)
 signal fleet_selected(fleet)
+signal fleet_update(fleet)
+signal fleet_erased(fleet)
+signal system_update(system)
+signal fleet_update_nb_ships(fleet)
 
 func _ready():
 	pass
-
 
 func get_lobby_name(lobby):
 	return 'Partie de ' + lobby.owner.username if typeof(lobby.owner) == TYPE_DICTIONARY && lobby.owner.username != '' else 'Nouvelle Partie'
@@ -72,6 +74,7 @@ func update_system(system):
 		if system.fleets[fid].destination_system != null:
 			system.fleets.erase(fid)
 	_state.game.systems[system.id] = system
+	emit_signal("system_update",system)
 
 func add_fleet(fleet):
 	_state.game.systems[fleet.system].fleets[fleet.id] = fleet
@@ -89,6 +92,15 @@ func remove_player_lobby(player):
 			
 func update_fleet_system(fleet):
 	_state.game.systems[fleet.system].fleets[fleet.id] = fleet
+	emit_signal("fleet_update",fleet)
+
+func update_fleet_nb_ships(fleet,nb_ships):
+	Store._state.game.systems[fleet.system].fleets[fleet.id].nb_ships = nb_ships
+	emit_signal("fleet_update_nb_ships",Store._state.game.systems[fleet.system].fleets[fleet.id])
+
+func erase_fleet(fleet):
+	Store._state.game.systems[fleet.system].fleets.erase(fleet.id)
+	emit_signal("fleet_erased",fleet)
 
 func select_fleet(fleet):
 	_state.selected_fleet = fleet

@@ -36,9 +36,9 @@ func _on_combat_ended(data):
 		if fleet.destination_system != null:
 			get_node("Map/FleetContainer/" + fleet.id).queue_free()
 		if fleet.nb_ships == 0:
-			Store._state.game.systems[fleet.system].fleets.erase(fleet.id)
+			Store.erase_fleet(fleet)
 		else:
-			Store._state.game.systems[fleet.system].fleets[fleet.id].nb_ships = fleet.nb_ships
+			Store.update_fleet_nb_ships(fleet,fleet.nb_ships)
 	get_node("Map/" + data.system.id).refresh_fleet_pins()
 	
 func _on_system_selected(system, old_system):

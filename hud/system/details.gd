@@ -14,7 +14,9 @@ func _ready():
 	Store.connect("system_selected", self, "_on_system_selected")
 	Store.connect("wallet_updated", self, "_on_wallet_update")
 	Store.connect("fleet_created", self, "_on_fleet_created")
-	Network.connect("FleetArrived", self, "_on_fleet_arrival")
+	Store.connect("fleet_update", self, "_on_fleet_update")
+	Store.connect("fleet_erased", self, "_on_fleet_erased")
+	Store.connect("system_update", self, "_on_system_update")
 	Network.connect("Victory", self, "_on_victory")
 	$FleetCreationButton.connect("pressed", self, "create_fleet")
 	set_visible(false)
@@ -76,8 +78,16 @@ func _on_request_completed(err, response_code, headers, body):
 		Store.update_wallet(-FLEET_COST)
 		Store.add_fleet(JSON.parse(body.get_string_from_utf8()).result)
 
-func _on_fleet_arrival(fleet):
-	refresh_data(Store._state.select_system)
+func _on_fleet_erased(fleet):
+	if fleet.system == Store._state.selected_system.id:
+		refresh_data(Store._state.selected_system)
+	
+func _on_fleet_update(fleet):
+	refresh_data(Store._state.selected_system)
+
+func _on_system_update(system):
+	if system.id == Store._state.selected_system.id:
+		refresh_data(Store._state.selected_system)
 
 func _on_victory(data):
 	set_visible(false)
