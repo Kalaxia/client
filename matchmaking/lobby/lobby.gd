@@ -12,6 +12,7 @@ func _ready():
 	Network.connect("PlayerUpdate", self, "_on_player_update")
 	Network.connect("PlayerLeft", self, "_on_player_disconnected")
 	Network.connect("LobbyLaunched", self, "_on_lobby_launched")
+	Network.connect("LobbyOwnerUpdated", self, "_on_lobby_owner_update")
 	$HTTPRequest.request(Network.api_url + "/api/lobbies/" + Store._state.lobby.id, [
 		"Authorization: Bearer " + Network.token
 	], false, HTTPClient.METHOD_GET)
@@ -25,7 +26,7 @@ func load_lobby(err, response_code, headers, body):
 	Store._state.lobby = lobby
 	update_lobby_name()
 	add_players_info(lobby.players)
-	if lobby.creator.id == Store._state.player.id:
+	if lobby.owner.id == Store._state.player.id:
 		var launch_button = get_node("GUI/Body/Footer/LaunchButton")
 		launch_button.visible = true
 		launch_button.connect("pressed", self, "launch_game")
@@ -60,7 +61,7 @@ func check_ready_state():
 	get_node("GUI/Body/Footer/LaunchButton").disabled = ! is_ready_state()
 
 func is_ready_state():
-	if Store._state.lobby.creator.id != Store._state.player.id || Store._state.lobby.players.size() < 2:
+	if Store._state.lobby.owner.id != Store._state.player.id || Store._state.lobby.players.size() < 2:
 		return false
 	var lobby_factions = []
 	for player in Store._state.lobby.players:
@@ -83,8 +84,8 @@ func _on_player_update(player):
 		if Store._state.lobby.players[i].id == player.id:
 			Store._state.lobby.players[i] = player
 	get_node("GUI/Body/Section/PlayersContainer/Players/" + player.id).update_data(player)
-	if player.id == Store._state.lobby.creator.id:
-		Store._state.lobby.creator = player
+	if player.id == Store._state.lobby.owner.id:
+		Store._state.lobby.owner = player
 		update_lobby_name()
 	check_ready_state()
 
@@ -97,6 +98,15 @@ func _on_lobby_launched(game):
 	Store.reset_player_lobby_data()
 	Store._state.game = game
 	emit_signal("scene_requested", "game_loading")
+	
+func _on_lobby_owner_update(pid):
+	Store._state.lobby.owner = Store.get_lobby_player(pid)
+	update_lobby_name()
+	if pid == Store._state.player.id:
+		var launch_button = get_node("GUI/Body/Footer/LaunchButton")
+		launch_button.visible = true
+		launch_button.connect("pressed", self, "launch_game")
+		check_ready_state()
 	
 func _on_launch_response(err, response_code, headers, body):
 	$HTTPRequest.disconnect("request_completed", self, "_on_launch_response")

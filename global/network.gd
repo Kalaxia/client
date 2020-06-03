@@ -9,6 +9,7 @@ signal authenticated
 signal CombatEnded(data)
 signal LobbyCreated(lobby)
 signal LobbyUpdated(lobby)
+signal LobbyOwnerUpdated(data)
 signal LobbyNameUpdated(data)
 signal LobbyRemoved(lobby)
 signal LobbyLaunched(launchData)

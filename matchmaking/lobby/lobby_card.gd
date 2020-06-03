@@ -29,8 +29,8 @@ func join_lobby():
 	emit_signal("join", lobby, true)
 
 func update_name(name):
-	lobby.creator = {
-		"id": lobby.creator if typeof(lobby.creator) == TYPE_STRING else lobby.creator.id,
+	lobby.owner = {
+		"id": lobby.owner if typeof(lobby.owner) == TYPE_STRING else lobby.owner.id,
 		"username": name
 	}
 	set_lobby_name()

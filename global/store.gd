@@ -22,7 +22,12 @@ func _ready():
 
 
 func get_lobby_name(lobby):
-	return 'Partie de ' + lobby.creator.username if typeof(lobby.creator) == TYPE_DICTIONARY && lobby.creator.username != '' else 'Nouvelle Partie'
+	return 'Partie de ' + lobby.owner.username if typeof(lobby.owner) == TYPE_DICTIONARY && lobby.owner.username != '' else 'Nouvelle Partie'
+
+func get_lobby_player(pid):
+	for p in _state.lobby.players:
+		if p.id == pid:
+			return p
 
 func reset_player_lobby_data():
 	_state.player.ready = false
