@@ -112,7 +112,12 @@ func unselect_fleet():
 	emit_signal("fleet_unselected")
 
 func unload_data():
+	var player = _state.player
+	if player != null:
+		player.game = null
+		player.lobby = null
 	_state = _state_empty.duplicate(true)
+	_state.player = player
 
 func is_in_range(fleet,system):
 	# check that the system is adjacent and not equal
