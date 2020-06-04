@@ -38,7 +38,6 @@ func _process(delta):
 
 func _on_fleet_selected(fleet):
 	is_in_range_sailing_fleet = Store.is_in_range(fleet,system)
-	pass
 
 func _on_fleet_unselected():
 	is_in_range_sailing_fleet = false
