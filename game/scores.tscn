@@ -54,7 +54,6 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="BackToMenu" type="Button" parent="Footer"]
-visible = false
 margin_left = 583.0
 margin_top = 91.0
 margin_right = 697.0

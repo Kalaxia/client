@@ -1,6 +1,6 @@
 extends Node
 
-var _state = {
+const _state_empty = {
 	"factions": {},
 	"game": {},
 	"lobby": null,
@@ -11,15 +11,22 @@ var _state = {
 	"victorious_faction": null,
 }
 
+var _state = _state_empty.duplicate(true)
+
 signal notification_added(notification)
 signal system_selected(system, old_system)
 signal wallet_updated(amount)
 signal fleet_created(fleet)
 signal fleet_sailed(fleet)
+signal fleet_selected(fleet)
+signal fleet_update(fleet)
+signal fleet_erased(fleet)
+signal system_update(system)
+signal fleet_update_nb_ships(fleet)
+signal fleet_unselected()
 
 func _ready():
 	pass
-
 
 func get_lobby_name(lobby):
 	return 'Partie de ' + lobby.owner.username if typeof(lobby.owner) == TYPE_DICTIONARY && lobby.owner.username != '' else 'Nouvelle Partie'
@@ -68,6 +75,7 @@ func update_system(system):
 		if system.fleets[fid].destination_system != null:
 			system.fleets.erase(fid)
 	_state.game.systems[system.id] = system
+	emit_signal("system_update",system)
 
 func add_fleet(fleet):
 	_state.game.systems[fleet.system].fleets[fleet.id] = fleet
@@ -85,9 +93,37 @@ func remove_player_lobby(player):
 			
 func update_fleet_system(fleet):
 	_state.game.systems[fleet.system].fleets[fleet.id] = fleet
+	emit_signal("fleet_update",fleet)
+
+func update_fleet_nb_ships(fleet,nb_ships):
+	Store._state.game.systems[fleet.system].fleets[fleet.id].nb_ships = nb_ships
+	emit_signal("fleet_update_nb_ships",Store._state.game.systems[fleet.system].fleets[fleet.id])
+
+func erase_fleet(fleet):
+	Store._state.game.systems[fleet.system].fleets.erase(fleet.id)
+	emit_signal("fleet_erased",fleet)
 
 func select_fleet(fleet):
 	_state.selected_fleet = fleet
+	emit_signal("fleet_selected",fleet)
 
 func unselect_fleet():
 	_state.selected_fleet = null
+	emit_signal("fleet_unselected")
+
+func unload_data():
+	var player = _state.player
+	if player != null:
+		player.game = null
+		player.lobby = null
+	_state = _state_empty.duplicate(true)
+	_state.player = player
+
+func is_in_range(fleet,system):
+	# check that the system is adjacent and not equal
+	# adjacent include diagonally
+	if fleet == null || system == null:
+		return false
+	var coord_system_fleet = Store._state.game.systems[fleet.system].coordinates
+	var vector_diff = Vector2(coord_system_fleet.x,coord_system_fleet.y) - Vector2(system.coordinates.x,system.coordinates.y)
+	return abs(vector_diff.x) <=1.0 && abs(vector_diff.y) <=1.0 && vector_diff != Vector2.ZERO
