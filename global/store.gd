@@ -23,6 +23,7 @@ signal fleet_update(fleet)
 signal fleet_erased(fleet)
 signal system_update(system)
 signal fleet_update_nb_ships(fleet)
+signal fleet_unselected()
 
 func _ready():
 	pass
@@ -108,6 +109,16 @@ func select_fleet(fleet):
 
 func unselect_fleet():
 	_state.selected_fleet = null
+	emit_signal("fleet_unselected")
 
 func unload_data():
 	_state = _state_empty.duplicate(true)
+
+func is_in_range(fleet,system):
+	# check that the system is adjacent and not equal
+	# adjacent include diagonally
+	if fleet == null || system == null:
+		return false
+	var coord_system_fleet = Store._state.game.systems[fleet.system].coordinates
+	var vector_diff = Vector2(coord_system_fleet.x,coord_system_fleet.y) - Vector2(system.coordinates.x,system.coordinates.y)
+	return abs(vector_diff.x) <=1.0 && abs(vector_diff.y) <=1.0 && vector_diff != Vector2.ZERO

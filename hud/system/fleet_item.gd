@@ -17,6 +17,7 @@ func _ready():
 	Store.connect("fleet_selected",self,"_on_fleet_selected")
 	Store.connect("fleet_sailed",self,"_on_fleet_sailed")
 	Store.connect("fleet_update_nb_ships",self,"_on_fleet_update_nb_ships")
+	Store.connect("fleet_unselected",self,"_on_fleet_unselected")
 	get_node("Ships/NbShips").set_text(str(fleet.nb_ships))
 	get_node("Ships/CreationButton").connect("pressed", self, "add_ship")
 	connect("gui_input", self, "button_sail_fleet")
@@ -63,6 +64,10 @@ func _on_fleet_selected(fleet):
 	
 func _on_fleet_sailed(fleet):
 	update_highlight_state()
+
+func _on_fleet_unselected():
+	update_highlight_state()
+
 
 func _on_fleet_update_nb_ships(fleet_param):
 	if fleet_param.id == fleet.id:
