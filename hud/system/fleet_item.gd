@@ -4,6 +4,8 @@ var fleet = null
 var theme_highlight = preload("res://hud/system/theme_1_selectioned.tres")
 var theme_not_highlight = preload("res://hud/system/theme_1_not_selectioned.tres")
 var theme_sailing = preload("res://hud/system/theme_1_sailing.tres")
+var _quantity = 0
+var _is_locked = false
 
 const SHIP_COST = 10
 
@@ -24,16 +26,23 @@ func _ready():
 	check_button_add_ship_state()
 	update_highlight_state()
 	
-
-
 func add_ship():
+	add_ships(1)
+
+func add_ships(quantity):
+	# prevent keyboard shortcuts as well
+	if _is_locked:
+		return
+	_quantity = quantity
+	_is_locked = true
 	$HTTPRequest.request(
 		Network.api_url + "/api/games/" +
 		Store._state.game.id+  "/systems/" +
 		Store._state.selected_system.id + "/fleets/" +
 		fleet.id + "/ships/", [
+		"Content-Type: application/json",
 		"Authorization: Bearer " + Network.token
-	], false, HTTPClient.METHOD_POST)
+	], false, HTTPClient.METHOD_POST, JSON.print({ "quantity": quantity }))
 	get_node("Ships/CreationButton").disabled = true
 	
 func check_button_add_ship_state():
@@ -52,8 +61,10 @@ func _on_ship_added(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_CREATED:
-		Store.update_wallet(-SHIP_COST)
-		Store.update_fleet_nb_ships(fleet,fleet.nb_ships+1)
+		Store.update_wallet(-SHIP_COST * _quantity)
+		Store.update_fleet_nb_ships(fleet, fleet.nb_ships + _quantity)
+		_quantity = 0
+	_is_locked = false
 	check_button_add_ship_state()
 
 func _on_wallet_update(amount):
@@ -67,7 +78,6 @@ func _on_fleet_sailed(fleet):
 
 func _on_fleet_unselected():
 	update_highlight_state()
-
 
 func _on_fleet_update_nb_ships(fleet_param):
 	if fleet_param.id == fleet.id:
