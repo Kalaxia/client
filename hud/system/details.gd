@@ -58,8 +58,10 @@ func create_fleet():
 	
 func add_fleet_item(fleet):
 	var fleet_node = fleet_item_scene.instance()
+	fleet_node.set_name(fleet.id)
 	fleet_node.fleet = fleet
 	$Fleets.add_child(fleet_node)
+	Store.select_fleet(fleet)
 	
 func _on_fleet_created(fleet):
 	if Store._state.selected_system == null || fleet.system != Store._state.selected_system.id:
@@ -91,3 +93,18 @@ func _on_system_update(system):
 
 func _on_victory(data):
 	set_visible(false)
+	
+func _input(event):
+	if !event is InputEventKey || !is_visible():
+		return
+	if event.is_action_pressed("ui_add_fleet"):
+		create_fleet()
+	elif event.is_action_pressed("ui_select_fleet"):
+		# get diff between first key and actual key to get the fleet list index
+		Store.select_fleet(Store._state.selected_system.fleets.values()[event.scancode - KEY_1])
+	elif Store._state.selected_fleet != null && event.is_action_pressed("ui_add_ships"):
+		if Input.is_key_pressed(KEY_SHIFT):
+			get_node("Fleets/" + Store._state.selected_fleet.id).add_ships(5)
+		else:
+			get_node("Fleets/" + Store._state.selected_fleet.id).add_ships(1)
+

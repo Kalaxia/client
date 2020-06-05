@@ -105,7 +105,7 @@ func erase_fleet(fleet):
 
 func select_fleet(fleet):
 	_state.selected_fleet = fleet
-	emit_signal("fleet_selected",fleet)
+	emit_signal("fleet_selected", fleet)
 
 func unselect_fleet():
 	_state.selected_fleet = null
