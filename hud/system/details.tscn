@@ -43,14 +43,23 @@ margin_right = 200.0
 margin_bottom = 88.0
 text = "Flottes"
 
-[node name="Fleets" type="VBoxContainer" parent="."]
+[node name="Legend" type="Label" parent="."]
 margin_top = 92.0
 margin_right = 200.0
-margin_bottom = 92.0
+margin_bottom = 157.0
+text = "F: créer une flotte
+1-9: sélectionner une flotte
+A: ajouter un vaisseau
+SHIFT-A: ajouter 5 vaisseaux"
+
+[node name="Fleets" type="VBoxContainer" parent="."]
+margin_top = 161.0
+margin_right = 200.0
+margin_bottom = 161.0
 
 [node name="FleetCreationButton" type="Button" parent="."]
-margin_top = 96.0
+margin_top = 165.0
 margin_right = 200.0
-margin_bottom = 116.0
+margin_bottom = 185.0
 disabled = true
 text = "Créer une flotte"
