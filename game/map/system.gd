@@ -7,7 +7,6 @@ var system_fleet_pin_scene = preload("res://game/map/system_fleet_pin.tscn")
 var is_in_range_sailing_fleet = false
 var _time = 0.0
 var _previous_alpha = 1.0
-var _previous_alpha_deriv = 0.0 # in alpha per second
 
 const ALPHA_SPEED_GAIN = 2 #in alpha per second^2
 const SNAP_ALPHA_DISTANCE = 0.05
@@ -20,7 +19,6 @@ func _ready():
 	$Star.connect("mouse_exited", self, "_on_mouse_exited")
 	Store.connect("fleet_selected",self,"_on_fleet_selected")
 	Store.connect("fleet_unselected",self,"_on_fleet_unselected")
-	
 	if system.player == Store._state.player.id:
 		Store.select_system(system)
 		$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
@@ -76,12 +74,14 @@ func refresh():
 	refresh_fleet_pins()
 	if system.player == Store._state.player.id:
 		$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
+	else:
+		$Star.set_scale(Vector2(scale_ratio, scale_ratio))
 
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.get_button_index() == BUTTON_LEFT:
 			Store.select_system(system)
-		elif event.get_button_index() == BUTTON_RIGHT && Store._state.selected_fleet != null && Store._state.selected_fleet.system != system.id:
+		elif event.get_button_index() == BUTTON_RIGHT && Store._state.selected_fleet != null && Store.is_in_range(Store._state.selected_fleet,system) :
 			# you can't set the same destination as the origin
 			$HTTPRequest.connect("request_completed", self, "_on_fleet_send")
 			$HTTPRequest.request(Network.api_url + "/api/games/" + Store._state.game.id + "/systems/" + Store._state.selected_fleet.system + "/fleets/" + Store._state.selected_fleet.id + "/travel/", [
