@@ -44,6 +44,9 @@ func add_lobby_card(lobby):
 func join_lobby(lobby, must_update = false):
 	Store._state.lobby = lobby
 	Network.req(self, "_handle_join_lobby", "/api/lobbies/" + lobby.id + "/players/", HTTPClient.METHOD_POST)
+
+func _queue_free_lobby(lobby):
+	get_node("GUI/Body/Section/Lobbies/" + lobby.id).queue_free()
 	
 func _on_lobby_created(lobby):
 	add_lobby_card(lobby)
