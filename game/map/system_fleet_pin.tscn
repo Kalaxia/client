@@ -3,8 +3,15 @@
 [ext_resource path="res://game/map/system_fleet_pin.gd" type="Script" id=1]
 [ext_resource path="res://resources/assets/2d/map/fleet_pin.png" type="Texture" id=2]
 
-[node name="SystemFleetPin" type="Node2D"]
+[node name="SystemFleetPin" type="Control"]
+margin_right = 26.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 6, 21 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 13, 10 )
 texture = ExtResource( 2 )
