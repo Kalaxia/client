@@ -113,11 +113,13 @@ func unselect_fleet():
 
 func unload_data():
 	var player = _state.player
+	var factions = _state.factions
 	if player != null:
 		player.game = null
 		player.lobby = null
 	_state = _STATE_EMPTY.duplicate(true)
 	_state.player = player
+	_state.factions = factions
 
 func is_in_range(fleet,system):
 	# check that the system is adjacent and not equal
