@@ -9,6 +9,7 @@ func _ready():
 	Network.connect("LobbyCreated", self, "_on_lobby_created")
 	Network.connect("LobbyNameUpdated", self, "_on_lobby_name_updated")
 	Network.connect("LobbyRemoved", self, "_on_lobby_removed")
+	Network.connect("LobbyLaunched",self,"_on_lobby_launched")
 	Network.connect("PlayerDisconnected", self, "_on_player_disconnected")
 	Network.connect("PlayerJoined", self, "_on_player_joined")
 	if Network.token == null:
@@ -51,6 +52,9 @@ func join_lobby(lobby, must_update = false):
 	], false, HTTPClient.METHOD_POST)
 	if err:
 		ErrorHandler.network_error(err)
+
+func _queue_free_lobby(lobby):
+	get_node("GUI/Body/Section/Lobbies/" + lobby.id).queue_free()
 	
 func _on_lobby_created(lobby):
 	add_lobby_card(lobby)
@@ -59,7 +63,10 @@ func _on_lobby_name_updated(data):
 	get_node("GUI/Body/Section/Lobbies/" + data.id).update_name(data.name)
 	
 func _on_lobby_removed(lobby):
-	get_node("GUI/Body/Section/Lobbies/" + lobby.id).queue_free()
+	_queue_free_lobby(lobby)
+	
+func _on_lobby_launched(lobby):
+	_queue_free_lobby(lobby)
 	
 func _on_player_joined(player):
 	get_node("GUI/Body/Section/Lobbies/" + player.lobby).increment_nb_players()

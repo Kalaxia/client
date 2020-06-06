@@ -17,6 +17,7 @@ func _ready():
 	Store.connect("fleet_update", self, "_on_fleet_update")
 	Store.connect("fleet_erased", self, "_on_fleet_erased")
 	Store.connect("system_update", self, "_on_system_update")
+	Store.connect("fleet_sailed", self, "_on_fleet_sailed")
 	Network.connect("Victory", self, "_on_victory")
 	$FleetCreationButton.connect("pressed", self, "create_fleet")
 	set_visible(false)
@@ -89,6 +90,10 @@ func _on_fleet_update(fleet):
 
 func _on_system_update(system):
 	if system.id == Store._state.selected_system.id:
+		refresh_data(Store._state.selected_system)
+
+func _on_fleet_sailed(fleet):
+	if fleet.system == Store._state.selected_system.id:
 		refresh_data(Store._state.selected_system)
 
 func _on_victory(data):
