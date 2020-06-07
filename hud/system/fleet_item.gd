@@ -46,7 +46,7 @@ func add_ships(quantity):
 	get_node("Ships/CreationButton").disabled = true
 	
 func check_button_add_ship_state():
-	get_node("Ships/CreationButton").disabled = Store._state.player.wallet < SHIP_COST
+	get_node("Ships/CreationButton").disabled = Store._state.player.wallet < SHIP_COST || _is_locked
 	
 func check_button_sail_state():
 	get_node("Ships/SailFleet").disabled = (fleet.destination_system != null)
@@ -86,6 +86,7 @@ func _on_fleet_update_nb_ships(fleet_param):
 func update_highlight_state():
 	if fleet.destination_system != null:
 		set_theme(theme_sailing)
+		#this should not appear as in store the fleet is not inside the system of departure
 	elif Store._state.selected_fleet != null && Store._state.selected_fleet.id == fleet.id:
 		set_theme(theme_highlight)
 	else:

@@ -1,6 +1,6 @@
 extends Node
 
-const _state_empty = {
+const _STATE_EMPTY = {
 	"factions": {},
 	"game": {},
 	"lobby": null,
@@ -11,7 +11,7 @@ const _state_empty = {
 	"victorious_faction": null,
 }
 
-var _state = _state_empty.duplicate(true)
+var _state = _STATE_EMPTY.duplicate(true)
 
 signal notification_added(notification)
 signal system_selected(system, old_system)
@@ -113,11 +113,13 @@ func unselect_fleet():
 
 func unload_data():
 	var player = _state.player
+	var factions = _state.factions
 	if player != null:
 		player.game = null
 		player.lobby = null
-	_state = _state_empty.duplicate(true)
+	_state = _STATE_EMPTY.duplicate(true)
 	_state.player = player
+	_state.factions = factions
 
 func is_in_range(fleet,system):
 	# check that the system is adjacent and not equal

@@ -66,6 +66,7 @@ func _on_fleet_sailed(fleet):
 	sailing_fleet.set_name(fleet.id)
 	var origin_system = get_node("Map/" + fleet.system)
 	origin_system.refresh()
+	sailing_fleet.fleet = fleet
 	sailing_fleet.color = Store.get_faction(Store.get_game_player(fleet.player).faction).color
 	sailing_fleet.origin_position = origin_system.get_position()
 	sailing_fleet.destination_position = get_node("Map/" + fleet.destination_system).get_position()

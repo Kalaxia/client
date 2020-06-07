@@ -6,11 +6,11 @@ var scale_ratio = 1.0
 var system_fleet_pin_scene = preload("res://game/map/system_fleet_pin.tscn")
 var is_in_range_sailing_fleet = false
 var _time = 0.0
-var _previous_alpha = 1.0
-var _previous_alpha_deriv = 0.0 # in alpha per second
+var _alpha = 1.0
 
-const ALPHA_SPEED_GAIN = 2 #in alpha per second^2
+const ALPHA_SPEED_GAIN = 2.0
 const SNAP_ALPHA_DISTANCE = 0.05
+const ALPHA_APLITUDE = 0.4
 
 func _ready():
 	set_position(Vector2(system.coordinates.x * 50, system.coordinates.y * 50))
@@ -20,7 +20,6 @@ func _ready():
 	$Star.connect("mouse_exited", self, "_on_mouse_exited")
 	Store.connect("fleet_selected",self,"_on_fleet_selected")
 	Store.connect("fleet_unselected",self,"_on_fleet_unselected")
-	
 	if system.player == Store._state.player.id:
 		Store.select_system(system)
 		$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
@@ -29,12 +28,12 @@ func _process(delta):
 	_time += delta
 	var target_alpha = 1.0
 	if is_in_range_sailing_fleet:
-		target_alpha = cos (_time * PI ) * 0.4 +0.6
-	if _previous_alpha != target_alpha:
-		_previous_alpha = max(min( (target_alpha-_previous_alpha)*ALPHA_SPEED_GAIN * delta + _previous_alpha,1.0),0.0)
-		if abs(target_alpha-_previous_alpha)<SNAP_ALPHA_DISTANCE:
-			_previous_alpha=target_alpha
-		_modulate_color(_previous_alpha)
+		target_alpha = cos (_time * PI ) * ALPHA_APLITUDE + (1.0-ALPHA_APLITUDE)
+	if _alpha != target_alpha:
+		_alpha = max(min( (target_alpha - _alpha) * ALPHA_SPEED_GAIN * delta + _alpha,1.0),0.0)
+		if abs(target_alpha-_alpha)<SNAP_ALPHA_DISTANCE:
+			_alpha=target_alpha
+		_modulate_color(_alpha)
 
 func _on_fleet_selected(fleet):
 	is_in_range_sailing_fleet = Store.is_in_range(fleet,system)
@@ -56,17 +55,22 @@ func unselect():
 		$Star.set_scale(Vector2(scale_ratio, scale_ratio))
 		
 func refresh_fleet_pins():
-	var factions = []
+	var is_current_player_included = false
+	var is_another_player_included = false
 	for pin in $FleetPins.get_children(): pin.queue_free()
 	for fleet in system.fleets.values():
 		var p = Store.get_game_player(fleet.player)
-		if !factions.has(p.faction):
-			factions.push_back(p.faction)
-			add_fleet_pin(p.faction, Store.get_faction(p.faction).color)
+		if !is_current_player_included && p.id == Store._state.player.id:
+			is_current_player_included = true
+			add_fleet_pin(p, Store.get_faction(p.faction).color)
+		elif !is_another_player_included && p.id != Store._state.player.id:
+			is_another_player_included = true
+			add_fleet_pin(p, Store.get_faction(p.faction).color)
 		
-func add_fleet_pin(faction, color):
+func add_fleet_pin(player, color):
 	var fleet_pin = system_fleet_pin_scene.instance()
-	fleet_pin.faction = faction
+	fleet_pin.faction = player.faction
+	fleet_pin.is_current_player = (player.id == Store._state.player.id)
 	fleet_pin.color = color
 	$FleetPins.add_child(fleet_pin)
 
@@ -76,12 +80,14 @@ func refresh():
 	refresh_fleet_pins()
 	if system.player == Store._state.player.id:
 		$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
+	else:
+		$Star.set_scale(Vector2(scale_ratio, scale_ratio))
 
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.get_button_index() == BUTTON_LEFT:
 			Store.select_system(system)
-		elif event.get_button_index() == BUTTON_RIGHT && Store._state.selected_fleet != null && Store._state.selected_fleet.system != system.id:
+		elif event.get_button_index() == BUTTON_RIGHT && Store._state.selected_fleet != null && Store.is_in_range(Store._state.selected_fleet,system) :
 			# you can't set the same destination as the origin
 			$HTTPRequest.connect("request_completed", self, "_on_fleet_send")
 			$HTTPRequest.request(Network.api_url + "/api/games/" + Store._state.game.id + "/systems/" + Store._state.selected_fleet.system + "/fleets/" + Store._state.selected_fleet.id + "/travel/", [
