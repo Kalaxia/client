@@ -3,8 +3,7 @@ extends HBoxContainer
 var counter = 1;
 
 func _ready():
-	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
-	$HTTPRequest.request(Network.api_url + "/api/players/count/")
+	Network.req(self, "_on_request_completed", "/api/players/count/")
 	Network.connect("PlayerConnected", self, "increment_counter")
 	Network.connect("PlayerDisconnected", self, "decrement_counter")
 

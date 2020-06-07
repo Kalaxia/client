@@ -12,8 +12,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-
 [node name="Background" type="ColorRect" parent="."]
 margin_left = 7.0
 margin_top = 7.0

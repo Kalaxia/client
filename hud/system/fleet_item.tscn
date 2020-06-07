@@ -14,8 +14,6 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-
 [node name="Player" type="Label" parent="."]
 margin_left = 10.0
 margin_top = 10.0
