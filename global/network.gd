@@ -49,17 +49,16 @@ var processed_body = PoolByteArray()
 
 func _handle_co_fail(err):
 	if err == FAIL_REASON.HTTP_CONNECTION_ERROR:
-		self._connect_to_host()
+		self.connect_to_host()
 	else:
-		print("WE HAVE A HTTPClient error: " + str(err))
+		ErrorHandler.network_response_error(err)
+		self.client = HTTPClient.new()
 
-func _connect_to_host():
+func connect_to_host():
 	self.client.connect_to_host(Config.api.scheme + "://" + Config.api.dns, Config.api.port)
 	
 func _ready():
 	self.connect("connection_failed", self, "_handle_co_fail")
-	
-	self._connect_to_host()
 	
 	api_url = Config.api.scheme + "://" + Config.api.dns + ":" + str(Config.api.port)
 	websocket_url = Config.api.ws_scheme + "://" + Config.api.dns + ":" + str(Config.api.port) + "/ws/"

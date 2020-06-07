@@ -3,6 +3,7 @@ extends Control
 signal scene_requested(scene)
 
 func _ready():
+	Network.connect_to_host()
 	Network.connect("authenticated", self, "_on_authentication")
 	Network.req(self, "_on_factions_loaded", "/api/factions/")
 
