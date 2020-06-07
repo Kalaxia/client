@@ -8,10 +8,7 @@ signal scene_requested(scene)
 
 func _ready():
 	Network.connect("GameStarted", self, "_on_game_started")
-	$HTTPRequest.connect("request_completed", self, "_on_players_loaded")
-	$HTTPRequest.request(Network.api_url + "/api/games/" + Store._state.game.id + "/players/", [
-		"Authorization: Bearer " + Network.token
-	])
+	Network.req(self, "_on_players_loaded", "/api/games/" + Store._state.game.id + "/players/")
 	var forground = get_node("CenterContainer/VBoxContainer/ProgressBar").get("custom_styles/fg")
 	var faction = Store.get_faction(float(Store._state.player.faction))
 	# if this does not work you may have a type problem for the keys of the Store._state.faction 

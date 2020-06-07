@@ -17,7 +17,6 @@ func _ready():
 	ready_input.pressed = player.ready
 	init_faction_choices()
 	if player.id == Store._state.player.id:
-		$HTTPRequest.connect("request_completed", self, "_on_request_completed")
 		$Background.color = Color(0,0,0)
 		username_input.editable = true
 		username_input.connect("text_entered", self, "update_username")
@@ -54,28 +53,34 @@ func update_data(data):
 	
 func update_username(username):
 	Store._state.player.username = username
-	$HTTPRequest.request(Network.api_url + "/api/players/me/username", [
-		"Content-Type: application/json",
-		"Authorization: Bearer " + Network.token
-	], false, HTTPClient.METHOD_PATCH, JSON.print({ "username": username }))
+	Network.req(self, "_on_request_completed"
+		, "/api/players/me/username"
+		, HTTPClient.METHOD_PATCH
+		, [ "Content-Type: application/json" ]
+		, JSON.print({ "username": username })
+	)
 
 func update_faction(index):
 	Store._state.player.faction = get_node("Container/FactionChoice").get_item_id(index)
-	$HTTPRequest.request(Network.api_url + "/api/players/me/faction", [
-		"Content-Type: application/json",
-		"Authorization: Bearer " + Network.token
-	], false, HTTPClient.METHOD_PATCH, JSON.print({ "faction_id": Store._state.player.faction }))
+	Network.req(self, "_on_request_completed"
+		, "/api/players/me/faction"
+		, HTTPClient.METHOD_PATCH
+		, [ "Content-Type: application/json" ]
+		, JSON.print({ "faction_id": Store._state.player.faction })
+	)
 	
 func toggle_ready():
 	Store._state.player.ready = !player.ready
-	$HTTPRequest.request(Network.api_url + "/api/players/me/ready", [
-		"Authorization: Bearer " + Network.token
-	], false, HTTPClient.METHOD_PATCH)
+	Network.req(self, "_on_request_completed"
+		, "/api/players/me/ready"
+		, HTTPClient.METHOD_PATCH
+	)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 func _on_request_completed(result, response_code, headers, body):
+	print("player updated")
 	emit_signal("player_updated", Store._state.player)
 	if Store._state.player.faction != null && Store._state.player.username != '':
 		get_node("Container/ReadyInput").disabled = false

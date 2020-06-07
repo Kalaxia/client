@@ -7,21 +7,20 @@ signal scene_requested(scene)
 func _ready():
 	get_node("GUI/Body/Header/Name").set_text("Votre Partie")
 	get_node("GUI/Body/Footer/LeaveButton").connect("pressed", self, "leave_lobby")
-	$HTTPRequest.connect("request_completed", self, "load_lobby")
 	Network.connect("PlayerJoined", self, "_on_player_joined")
 	Network.connect("PlayerUpdate", self, "_on_player_update")
 	Network.connect("PlayerLeft", self, "_on_player_disconnected")
 	Network.connect("LobbyLaunched", self, "_on_lobby_launched")
 	Network.connect("LobbyOwnerUpdated", self, "_on_lobby_owner_update")
-	$HTTPRequest.request(Network.api_url + "/api/lobbies/" + Store._state.lobby.id, [
-		"Authorization: Bearer " + Network.token
-	], false, HTTPClient.METHOD_GET)
+	Network.req(self, "load_lobby"
+		, "/api/lobbies/" + Store._state.lobby.id
+	)
 
 func load_lobby(err, response_code, headers, body):
+	print("LOADING LOBBY")
 	if err:
 		ErrorHandler.network_response_error(err)
 		return
-	$HTTPRequest.disconnect("request_completed", self, "load_lobby")
 	var lobby = JSON.parse(body.get_string_from_utf8()).result
 	Store._state.lobby = lobby
 	update_lobby_name()
@@ -46,16 +45,16 @@ func add_player_info(list, player):
 	list.add_child(player_info)
 
 func leave_lobby():
-	$HTTPRequest.connect("request_completed", self, "_on_lobby_left")
-	$HTTPRequest.request(Network.api_url + "/api/lobbies/" + Store._state.lobby.id + "/players/", [
-		"Authorization: Bearer " + Network.token
-	], false, HTTPClient.METHOD_DELETE)
+	Network.req(self, "_on_lobby_left"
+		, "/api/lobbies/" + Store._state.lobby.id + "/players/"
+		, HTTPClient.METHOD_DELETE
+	)
 	
 func launch_game():
-	$HTTPRequest.connect("request_completed", self, "_on_launch_response")
-	$HTTPRequest.request(Network.api_url + "/api/lobbies/" + Store._state.lobby.id + "/launch/", [
-		"Authorization: Bearer " + Network.token
-	], false, HTTPClient.METHOD_POST)
+	Network.req(self, "_on_launch_response"
+		, "/api/lobbies" + Store._state.lobby.id + "/launch/"
+		, HTTPClient.METHOD_POST
+	)
 
 func check_ready_state():
 	get_node("GUI/Body/Footer/LaunchButton").disabled = ! is_ready_state()
@@ -109,12 +108,10 @@ func _on_lobby_owner_update(pid):
 		check_ready_state()
 	
 func _on_launch_response(err, response_code, headers, body):
-	$HTTPRequest.disconnect("request_completed", self, "_on_launch_response")
 	if err:
 		ErrorHandler.network_response_error(err)
 
 func _on_lobby_left(err, response_code, headers, body):
-	$HTTPRequest.disconnect("request_completed", self, "_on_lobby_left")
 	if err:
 		ErrorHandler.network_response_error(err)
 		return

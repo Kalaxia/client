@@ -10,7 +10,6 @@ var fleet_item_scene = preload("res://hud/system/fleet_item.tscn")
 const FLEET_COST = 10
 
 func _ready():
-	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
 	Store.connect("system_selected", self, "_on_system_selected")
 	Store.connect("wallet_updated", self, "_on_wallet_update")
 	Store.connect("fleet_created", self, "_on_fleet_created")
@@ -48,13 +47,13 @@ func refresh_data(system):
 	for id in system.fleets: add_fleet_item(system.fleets[id])
 		
 func create_fleet():
-	$HTTPRequest.request(
-		Network.api_url + "/api/games/" +
-		Store._state.game.id + "/systems/" +
-		Store._state.selected_system.id + "/fleets/", [
-		"Authorization: Bearer " + Network.token,
-		"Content-Type: application/json",
-	], false, HTTPClient.METHOD_POST)
+	Network.req(self, "_on_request_completed"
+		, "/api/games/" +
+			Store._state.game.id + "/systems/" +
+			Store._state.selected_system.id + "/fleets/"
+		, [ "Content-Type: application/json" ]
+		, HTTPClient.METHOD_POST
+	)
 	
 func add_fleet_item(fleet):
 	var fleet_node = fleet_item_scene.instance()

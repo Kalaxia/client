@@ -14,7 +14,6 @@ func _ready():
 	if fleet.player != Store._state.player.id:
 		$Ships.set_visible(false)
 		return
-	$HTTPRequest.connect("request_completed", self, "_on_ship_added")
 	Store.connect("wallet_updated", self, "_on_wallet_update")
 	Store.connect("fleet_selected",self,"_on_fleet_selected")
 	Store.connect("fleet_sailed",self,"_on_fleet_sailed")
@@ -35,14 +34,15 @@ func add_ships(quantity):
 		return
 	_quantity = quantity
 	_is_locked = true
-	$HTTPRequest.request(
-		Network.api_url + "/api/games/" +
-		Store._state.game.id+  "/systems/" +
-		Store._state.selected_system.id + "/fleets/" +
-		fleet.id + "/ships/", [
-		"Content-Type: application/json",
-		"Authorization: Bearer " + Network.token
-	], false, HTTPClient.METHOD_POST, JSON.print({ "quantity": quantity }))
+	Network.req(self, "_on_ship_added"
+		, "/api/games/" +
+			Store._state.game.id+  "/systems/" +
+			Store._state.selected_system.id + "/fleets/" +
+			fleet.id + "/ships/"
+		, [ "Content-Type: application/json" ]
+		, HTTPClient.METHOD_POST
+		, JSON.print({ "quantity": quantity })
+	)
 	get_node("Ships/CreationButton").disabled = true
 	
 func check_button_add_ship_state():

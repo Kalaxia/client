@@ -13,8 +13,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-
 [node name="Header" type="HBoxContainer" parent="."]
 margin_right = 200.0
 margin_bottom = 70.0

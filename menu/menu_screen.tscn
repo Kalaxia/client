@@ -11,8 +11,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="GUI" type="CanvasLayer" parent="."]
