@@ -132,12 +132,12 @@ func is_in_range(fleet,system):
 
 func _get_color_faction(faction, is_current_player := false) :
 	if is_current_player:
-		return Color(_lighten_color(faction.color[0]) as int, _lighten_color(faction.color[1]) as int, _lighten_color(faction.color[2])as int)
+		return Color(_lighten_color(faction.color[0]) /255.0, _lighten_color(faction.color[1]) /255.0, _lighten_color(faction.color[2])/255.0)
 	else:
-		return Color(faction.color[0] as int,faction.color[1] as int,faction.color[2] as int)
+		return Color(faction.color[0] /255.0,faction.color[1] /255.0,faction.color[2] /255.0)
 
 func _lighten_color(color_component):
-	return max( color_component+40,255)
+	return min( color_component + 40, 255)
 
 func get_color_player(player) :
 	if player == null :

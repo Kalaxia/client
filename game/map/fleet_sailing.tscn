@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://game/map/fleet_sailing.gd" type="Script" id=1]
+[ext_resource path="res://game/map/fleet_sprite.tscn" type="PackedScene" id=2]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -9,7 +10,7 @@ _data = {
 
 [sub_resource type="StreamTexture" id=2]
 flags = 4
-load_path = "res://.import/fleet_pin.png-22ca6186093636b454a1398399adf655.stex"
+load_path = "res://.import/crown.png-5f760f5e50a69e31bde827956bc763bc.stex"
 
 [node name="fleetSailing" type="Node2D"]
 script = ExtResource( 1 )
@@ -18,9 +19,16 @@ script = ExtResource( 1 )
 curve = SubResource( 1 )
 
 [node name="Follower" type="PathFollow2D" parent="FleetPath"]
+rotate = false
 loop = false
 
-[node name="FleetIcon" type="Sprite" parent="FleetPath/Follower"]
-rotation = 1.5708
+[node name="SpritesContainer" type="Node2D" parent="FleetPath/Follower"]
 scale = Vector2( 0.5, 0.5 )
+
+[node name="Crown" type="Sprite" parent="FleetPath/Follower/SpritesContainer"]
+position = Vector2( 0, -18 )
+scale = Vector2( 0.2, 0.2 )
 texture = SubResource( 2 )
+
+[node name="FleetIcon" parent="FleetPath/Follower/SpritesContainer" instance=ExtResource( 2 )]
+rotation = 1.5708

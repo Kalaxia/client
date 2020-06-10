@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://game/map/system_fleet_pin.gd" type="Script" id=1]
-[ext_resource path="res://resources/assets/2d/map/fleet_pin.png" type="Texture" id=2]
+[ext_resource path="res://game/map/fleet_sprite.tscn" type="PackedScene" id=2]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/crown.png-5f760f5e50a69e31bde827956bc763bc.stex"
 
 [node name="SystemFleetPin" type="Control"]
 margin_right = 26.0
@@ -12,6 +16,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="SpritesContainer" type="Node2D" parent="."]
+
+[node name="crown" type="Sprite" parent="SpritesContainer"]
+visible = false
+position = Vector2( 13, -7 )
+scale = Vector2( 0.3, 0.3 )
+texture = SubResource( 1 )
+
+[node name="Fleet" parent="SpritesContainer" instance=ExtResource( 2 )]
 position = Vector2( 13, 10 )
-texture = ExtResource( 2 )

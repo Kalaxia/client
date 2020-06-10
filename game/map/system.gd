@@ -11,18 +11,24 @@ var _alpha = 1.0
 const ALPHA_SPEED_GAIN = 2.0
 const SNAP_ALPHA_DISTANCE = 0.05
 const ALPHA_APLITUDE = 0.4
+const _TEXTURE_FACTION_0 = preload("res://resources/assets/2d/map/spot.png")
+const _TEXTURE_FACTION_1 = preload("res://resources/assets/2d/map/spot_faction_1.png")
+const _TEXTURE_FACTION_2 = preload("res://resources/assets/2d/map/spot_faction_2.png")
+const _TEXTURE_FACTION_3 = preload("res://resources/assets/2d/map/spot_faction_3.png")
 
 func _ready():
 	set_position(Vector2(system.coordinates.x * 50, system.coordinates.y * 50))
+	_set_system_texture()
 	_modulate_color(1.0)
 	$Star.connect("input_event", self, "_on_input_event")
 	$Star.connect("mouse_entered", self, "_on_mouse_entered")
 	$Star.connect("mouse_exited", self, "_on_mouse_exited")
 	Store.connect("fleet_selected",self,"_on_fleet_selected")
 	Store.connect("fleet_unselected",self,"_on_fleet_unselected")
+	get_node("Star/Crown").visible = (system.player == Store._state.player.id)
 	if system.player == Store._state.player.id:
 		Store.select_system(system)
-		$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
+		_scale_star_system_2()
 		
 func _process(delta):
 	_time += delta
@@ -35,6 +41,28 @@ func _process(delta):
 			_alpha=target_alpha
 		_modulate_color(_alpha)
 
+func _set_system_texture():
+	if system.player == null:
+		$Star/Spot.texture = _TEXTURE_FACTION_0
+	else:
+		match Store.get_game_player(system.player).faction as int:
+			1:
+				$Star/Spot.texture = _TEXTURE_FACTION_1
+			2:
+				$Star/Spot.texture = _TEXTURE_FACTION_2
+			3:
+				$Star/Spot.texture = _TEXTURE_FACTION_3
+			_:
+				$Star/Spot.texture = _TEXTURE_FACTION_0
+
+func _scale_star_system_2():
+	$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
+	$FleetPins.set_position(Vector2(-36,-44))
+
+func _scale_star_system_1():
+	$Star.set_scale(Vector2(scale_ratio, scale_ratio))
+	$FleetPins.set_position(Vector2(-26,-34))
+
 func _on_fleet_selected(fleet):
 	is_in_range_sailing_fleet = Store.is_in_range(fleet,system)
 
@@ -42,7 +70,7 @@ func _on_fleet_unselected():
 	is_in_range_sailing_fleet = false
 
 func _modulate_color(alpha):
-	var star_sprite = get_node("Star/Sprite")
+	var star_sprite = get_node("Star/Spot")
 	var color
 	if system.player != null:
 		 color = Store.get_color_player(Store.get_game_player(system.player))
@@ -53,7 +81,7 @@ func _modulate_color(alpha):
 	
 func unselect():
 	if system.player == null || system.player != Store._state.player.id:
-		$Star.set_scale(Vector2(scale_ratio, scale_ratio))
+		_scale_star_system_1()
 		
 func refresh_fleet_pins():
 	var is_current_player_included = false
@@ -77,12 +105,14 @@ func add_fleet_pin(player):
 
 func refresh():
 	system = Store._state.game.systems[system.id]
+	_set_system_texture()
 	_modulate_color(1.0)
 	refresh_fleet_pins()
+	get_node("Star/Crown").visible = (system.player == Store._state.player.id)
 	if system.player == Store._state.player.id:
-		$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
+		_scale_star_system_2()
 	else:
-		$Star.set_scale(Vector2(scale_ratio, scale_ratio))
+		_scale_star_system_1()
 
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.is_pressed():
@@ -108,9 +138,9 @@ func _on_fleet_send(err, response_code, headers, body):
 
 func _on_mouse_entered():
 	is_hover = true
-	$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
+	_scale_star_system_2()
 	
 func _on_mouse_exited():
 	is_hover = false
 	if system.player != Store._state.player.id && system != Store._state.selected_system:
-		$Star.set_scale(Vector2(scale_ratio, scale_ratio))
+		_scale_star_system_1()

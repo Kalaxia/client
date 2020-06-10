@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://game/map/fleet_sprite.gd" type="Script" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/fleet_pin.png-22ca6186093636b454a1398399adf655.stex"
+
+[node name="FleetSprite" type="Sprite"]
+texture = SubResource( 1 )
+script = ExtResource( 1 )
