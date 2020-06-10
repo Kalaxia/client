@@ -12,7 +12,7 @@ func _ready():
 	$FleetPath.curve = curve
 	curve.add_point(origin_position)
 	curve.add_point(destination_position)
-	get_node("FleetPath/Follower/FleetIcon").set_modulate(Color(color[0], color[1], color[2]))
+	get_node("FleetPath/Follower/FleetIcon").set_modulate(color)
 	if fleet.player == Store._state.player.id:
 		get_node("FleetPath/Follower/FleetIcon").set_scale(Vector2(0.75,0.75))
 

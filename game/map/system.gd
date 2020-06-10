@@ -43,12 +43,13 @@ func _on_fleet_unselected():
 
 func _modulate_color(alpha):
 	var star_sprite = get_node("Star/Sprite")
+	var color
 	if system.player != null:
-		var player = Store.get_game_player(system.player)
-		var faction = Store.get_faction(player.faction)
-		star_sprite.set_modulate(Color(faction.color[0]/255.0, faction.color[1]/255.0, faction.color[2]/255.0,alpha))
+		 color = Store.get_color_player(Store.get_game_player(system.player))
 	else:
-		star_sprite.set_modulate(Color(1.0,1.0,1.0,alpha))
+		color =  Store.get_color_player(null)
+	color.a = alpha
+	star_sprite.set_modulate(color)
 	
 func unselect():
 	if system.player == null || system.player != Store._state.player.id:
@@ -62,16 +63,16 @@ func refresh_fleet_pins():
 		var p = Store.get_game_player(fleet.player)
 		if !is_current_player_included && p.id == Store._state.player.id:
 			is_current_player_included = true
-			add_fleet_pin(p, Store.get_faction(p.faction).color)
+			add_fleet_pin(p)
 		elif !is_another_player_included && p.id != Store._state.player.id:
 			is_another_player_included = true
-			add_fleet_pin(p, Store.get_faction(p.faction).color)
+			add_fleet_pin(p)
 		
-func add_fleet_pin(player, color):
+func add_fleet_pin(player):
 	var fleet_pin = system_fleet_pin_scene.instance()
 	fleet_pin.faction = player.faction
 	fleet_pin.is_current_player = (player.id == Store._state.player.id)
-	fleet_pin.color = color
+	fleet_pin.color = Store.get_color_player(player)
 	$FleetPins.add_child(fleet_pin)
 
 func refresh():

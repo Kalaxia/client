@@ -129,3 +129,17 @@ func is_in_range(fleet,system):
 	var coord_system_fleet = Store._state.game.systems[fleet.system].coordinates
 	var vector_diff = Vector2(coord_system_fleet.x,coord_system_fleet.y) - Vector2(system.coordinates.x,system.coordinates.y)
 	return abs(vector_diff.x) <=1.0 && abs(vector_diff.y) <=1.0 && vector_diff != Vector2.ZERO
+
+func _get_color_faction(faction, is_current_player := false) :
+	if is_current_player:
+		return Color(_lighten_color(faction.color[0]) as int, _lighten_color(faction.color[1]) as int, _lighten_color(faction.color[2])as int)
+	else:
+		return Color(faction.color[0] as int,faction.color[1] as int,faction.color[2] as int)
+
+func _lighten_color(color_component):
+	return max( color_component+40,255)
+
+func get_color_player(player) :
+	if player == null :
+		return Color(1.0,1.0,1.0)
+	return _get_color_faction(Store.get_faction(player.faction),player.id == _state.player.id)
