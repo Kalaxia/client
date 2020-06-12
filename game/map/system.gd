@@ -91,8 +91,8 @@ func _on_input_event(viewport, event, shape_idx):
 			# you can't set the same destination as the origin
 			Network.req(self, "_on_fleet_send"
 				, "/api/games/" + Store._state.game.id + "/systems/" + Store._state.selected_fleet.system + "/fleets/" + Store._state.selected_fleet.id + "/travel/"
-				, [ "Content-Type: application/json" ]
 				, HTTPClient.METHOD_POST
+				, [ "Content-Type: application/json" ]
 				, JSON.print({ "destination_system_id":system.id })
 			)
 

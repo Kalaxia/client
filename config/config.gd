@@ -1,6 +1,6 @@
 extends Node
 
-var env = "production"
+var env = "development"
 
 var api = {
 	'dns': null,

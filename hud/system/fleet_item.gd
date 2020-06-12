@@ -45,8 +45,8 @@ func add_ships(quantity):
 			Store._state.game.id+  "/systems/" +
 			Store._state.selected_system.id + "/fleets/" +
 			fleet.id + "/ships/"
-		, [ "Content-Type: application/json" ]
 		, HTTPClient.METHOD_POST
+		, [ "Content-Type: application/json" ]
 		, JSON.print({ "quantity": quantity })
 	)
 	get_node("Ships/CreationButton").disabled = true

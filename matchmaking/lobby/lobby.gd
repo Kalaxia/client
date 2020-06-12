@@ -52,7 +52,7 @@ func leave_lobby():
 	
 func launch_game():
 	Network.req(self, "_on_launch_response"
-		, "/api/lobbies" + Store._state.lobby.id + "/launch/"
+		, "/api/lobbies/" + Store._state.lobby.id + "/launch/"
 		, HTTPClient.METHOD_POST
 	)
 
@@ -108,13 +108,9 @@ func _on_lobby_owner_update(pid):
 		check_ready_state()
 	
 func _on_launch_response(err, response_code, headers, body):
-	if err:
-		ErrorHandler.network_response_error(err)
+	pass
 
 func _on_lobby_left(err, response_code, headers, body):
-	if err:
-		ErrorHandler.network_response_error(err)
-		return
 	Store.reset_player_lobby_data()
 	emit_signal("scene_requested", "menu")
 	

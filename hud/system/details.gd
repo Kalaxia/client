@@ -58,8 +58,8 @@ func create_fleet():
 		, "/api/games/" +
 			Store._state.game.id + "/systems/" +
 			Store._state.selected_system.id + "/fleets/"
-		, [ "Content-Type: application/json" ]
 		, HTTPClient.METHOD_POST
+		, [ "Content-Type: application/json" ]
 	)
 	
 func add_fleet_item(fleet):
