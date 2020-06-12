@@ -6,6 +6,7 @@ var banners = {
 	"Adranite": preload("res://resources/assets/2d/faction/adranite/banner.png"),
 }
 var fleet_item_scene = preload("res://hud/system/fleet_item.tscn")
+var _create_fleet_mutex = Mutex.new()
 
 const FLEET_COST = 10
 
@@ -48,6 +49,11 @@ func refresh_data(system):
 	for id in system.fleets: add_fleet_item(system.fleets[id])
 		
 func create_fleet():
+	if _create_fleet_mutex.try_lock() != OK:
+		return
+	if Store._state.player.wallet < FLEET_COST :
+		_create_fleet_mutex.unlock()
+		return
 	Network.req(self, "_on_request_completed"
 		, "/api/games/" +
 			Store._state.game.id + "/systems/" +
@@ -79,6 +85,7 @@ func _on_request_completed(err, response_code, headers, body):
 	if response_code == 201:
 		Store.update_wallet(-FLEET_COST)
 		Store.add_fleet(JSON.parse(body.get_string_from_utf8()).result)
+	_create_fleet_mutex.unlock()
 
 func _on_fleet_erased(fleet):
 	if fleet.system == Store._state.selected_system.id:
@@ -109,8 +116,10 @@ func _input(event):
 		if Store._state.selected_system.fleets.size() > index:
 			Store.select_fleet(Store._state.selected_system.fleets.values()[index])
 	elif Store._state.selected_fleet != null && event.is_action_pressed("ui_add_ships"):
-		if Input.is_key_pressed(KEY_SHIFT):
-			get_node("Fleets/" + Store._state.selected_fleet.id).add_ships(5)
-		else:
-			get_node("Fleets/" + Store._state.selected_fleet.id).add_ships(1)
+		if has_node("Fleets/" + Store._state.selected_fleet.id):
+			var node = get_node("Fleets/" + Store._state.selected_fleet.id)
+			if Input.is_key_pressed(KEY_SHIFT):
+				node.add_ships(5)
+			else:
+				node.add_ships(1)
 
