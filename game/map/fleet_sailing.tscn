@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://game/map/fleet_sailing.gd" type="Script" id=1]
-[ext_resource path="res://game/map/fleet_sprite.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game/map/sprites/fleet_sprite.tscn" type="PackedScene" id=2]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
