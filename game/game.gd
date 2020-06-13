@@ -8,6 +8,7 @@ var _camera_speed = Vector2.ZERO
 var _is_map_being_dragged = false
 
 const CAMMERA_DRAG_COEF = 4000.0
+const CAMMERA_DRAG_COEF_WHEN_DRAGGING = 40000.0
 const CAMMERA_MOVE_KEY_AMMOUNT = 300
 
 var _motion_camera = {
@@ -101,12 +102,10 @@ func _on_victory(data):
 
 func _input(event):
 	if event is InputEventKey || event is InputEventMouseButton:
-		if event.is_action_pressed("ui_zoom_map"):
-			match event.get_button_index():
-				BUTTON_WHEEL_UP:
-					$Camera2D.zoom = $Camera2D.zoom /1.1
-				BUTTON_WHEEL_DOWN:
-					$Camera2D.zoom = $Camera2D.zoom *1.1
+		if event.is_action_pressed("ui_zoom_in_map"):
+			$Camera2D.zoom = $Camera2D.zoom /1.1
+		if event.is_action_pressed("ui_zoom_out_map"):
+			$Camera2D.zoom = $Camera2D.zoom *1.1
 		if event.is_action_pressed("ui_drag_map"):
 			_is_map_being_dragged = true
 		if event.is_action_released("ui_drag_map"):
@@ -149,8 +148,15 @@ func _process(delta):
 			_camera_speed = key_motion_camera_speed /  $Camera2D.zoom
 		if ! _camera_speed.is_equal_approx(Vector2.ZERO):
 			_move_camera(- _camera_speed * delta  *  $Camera2D.zoom)
-			var sign_vector = _camera_speed.sign()
-			var abs_vector = _camera_speed.abs()
+	# the vector is reduces even when dragging such that if we stop moving the mouse
+	# but the button is held down. When it is release the camara does not move arround
+	if ! _camera_speed.is_equal_approx(Vector2.ZERO):
+		var sign_vector = _camera_speed.sign()
+		var abs_vector = _camera_speed.abs()
+		if _is_map_being_dragged:
+			abs_vector.x = max(abs_vector.x - CAMMERA_DRAG_COEF_WHEN_DRAGGING * delta * abs(_camera_speed.x) / _camera_speed.length(), 0.0)
+			abs_vector.y = max(abs_vector.y - CAMMERA_DRAG_COEF_WHEN_DRAGGING * delta * abs(_camera_speed.y) / _camera_speed.length(), 0.0)
+		else:
 			abs_vector.x = max(abs_vector.x - CAMMERA_DRAG_COEF * delta * abs(_camera_speed.x) / _camera_speed.length(), 0.0)
 			abs_vector.y = max(abs_vector.y - CAMMERA_DRAG_COEF * delta * abs(_camera_speed.y) / _camera_speed.length(), 0.0)
-			_camera_speed = abs_vector * sign_vector
+		_camera_speed = abs_vector * sign_vector
