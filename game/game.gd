@@ -129,7 +129,7 @@ func _input(event):
 			elif event.is_action_released("ui_move_map_down"):
 				_motion_camera[Vector2.DOWN] = false
 	elif event is InputEventMouseMotion:
-		if event.button_mask == BUTTON_MASK_MIDDLE:
+		if _is_map_being_dragged:
 			_move_camera(-event.get_relative() * $Camera2D.zoom)
 			_camera_speed = event.speed
 

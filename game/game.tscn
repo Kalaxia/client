@@ -38,6 +38,7 @@ amount = 200
 lifetime = 30.0
 preprocess = 10.0
 randomness = 0.5
+visibility_rect = Rect2( -1280, -1280, 2560, 2560 )
 process_material = ExtResource( 3 )
 texture = SubResource( 1 )
 
@@ -49,6 +50,7 @@ amount = 200
 lifetime = 30.0
 preprocess = 10.0
 randomness = 0.5
+visibility_rect = Rect2( -1280, -1280, 2560, 2560 )
 process_material = ExtResource( 3 )
 texture = SubResource( 1 )
 
@@ -60,6 +62,7 @@ amount = 200
 lifetime = 30.0
 preprocess = 10.0
 randomness = 0.5
+visibility_rect = Rect2( -1280, -1280, 2560, 2560 )
 process_material = ExtResource( 3 )
 texture = SubResource( 1 )
 
