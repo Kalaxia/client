@@ -13,6 +13,7 @@ signal scene_requested(scene)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var actions = InputMap.get_actions()
+	actions.sort()
 	for i in actions:
 		var node_key = key_binding_option.instance()
 		node_key.set_name(i)

@@ -5,12 +5,15 @@ extends Control
 # var a = 2
 # var b = "text"
 
+signal scene_requested(scene)
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$CenterContainer/VBoxContainer/BackMainMenu.connect("pressed",self,"_on_back_to_main_menu")
+	$CenterContainer/VBoxContainer/GridContainer/LinkButtonKalaxia.connect("pressed",self,"_on_link_button_press",["https://kalaxia.org"])
+	$CenterContainer/VBoxContainer/GridContainer/LinkButtonDiscord.connect("pressed",self,"_on_link_button_press",["https://discordapp.com/invite/hCqAcY"])
 
+func _on_back_to_main_menu():
+	emit_signal("scene_requested","menu")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_link_button_press(url):
+	OS.shell_open(url)

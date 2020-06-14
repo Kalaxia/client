@@ -7,6 +7,7 @@ var game_loading_scene = preload("res://matchmaking/game/game_loading.tscn")
 var game_scene = preload("res://game/game.tscn")
 var scores_scene = preload("res://game/scores.tscn")
 var option_menu = preload("res://menu/menu_option.tscn")
+var credits_menu = preload("res://menu/menu_credits.tscn")
 
 func _ready():
 	change_level(loading_scene)
@@ -24,6 +25,8 @@ func _on_scene_request(scene):
 		change_level(menu_scene)
 	elif scene == 'option_menu':
 		change_level(option_menu)
+	elif scene == 'credits_menu':
+		change_level(credits_menu)
 	elif scene == 'game_loading':
 		change_level(game_loading_scene)
 	elif scene == 'game':

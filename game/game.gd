@@ -9,7 +9,7 @@ var _is_map_being_dragged = false
 
 const CAMERA_DRAG_COEFF = 4000.0
 const CAMERA_DRAG_COEFF_WHEN_DRAGGING = 40000.0
-const CAMMERA_MOVE_KEY_AMMOUNT = 300
+const CAMERA_MOVE_KEY_AMMOUNT = 300
 const _ZOOM_FACTOR = 1.1
 var _motion_camera = {
 		Vector2.LEFT : false,
@@ -144,7 +144,7 @@ func _process(delta):
 		var key_motion_camera_speed = Vector2.ZERO
 		for directions in _motion_camera.keys():
 			if  _motion_camera[directions]:
-				key_motion_camera_speed -= directions * CAMMERA_MOVE_KEY_AMMOUNT
+				key_motion_camera_speed -= directions * CAMERA_MOVE_KEY_AMMOUNT
 		if key_motion_camera_speed != Vector2.ZERO:
 			_camera_speed = key_motion_camera_speed /  $Camera2D.zoom
 		if ! _camera_speed.is_equal_approx(Vector2.ZERO):
