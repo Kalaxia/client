@@ -23,7 +23,7 @@ func _ready():
 	set_visible(false)
 	$Legend.text = Utils.get_label_of_event(InputMap.get_action_list("ui_add_fleet")[0]) + ": créer une flotte"
 	$Legend3.text = Utils.get_label_of_event(InputMap.get_action_list("ui_add_ships")[0]) + ": ajouter un vaisseau"
-	$Legend4.text = "SHIFT+"+Utils.get_label_of_event(InputMap.get_action_list("ui_add_ships")[0]) + ": ajouter un vaisseau"
+	$Legend4.text = "SHIFT+"+Utils.get_label_of_event(InputMap.get_action_list("ui_add_ships")[0]) + ": ajouter 5 vaisseaux"
 	
 func _on_system_selected(system, old_system):
 	set_visible(true)

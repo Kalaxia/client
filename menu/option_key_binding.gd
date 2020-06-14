@@ -13,7 +13,6 @@ class ButtonKeyBinding:
 	extends Button
 	var index_key_binding
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	$Label.text = action
 	_refresh_data()

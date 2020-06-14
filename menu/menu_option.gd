@@ -2,15 +2,8 @@ extends Control
 
 var key_binding_option = preload("res://menu/option_key_binding.tscn")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-
 signal scene_requested(scene)
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	var actions = InputMap.get_actions()
 	actions.sort()
@@ -25,12 +18,6 @@ func _ready():
 				node_key.is_enable = true
 		$CenterContainer/VBoxContainer/ScrollContainer/keyBingingContainer.add_child(node_key)
 	$CenterContainer/VBoxContainer/Button.connect("pressed",self,"_on_back_to_main_menu")
-	
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 func _on_mark_button_key_binding(action,index):
 	#$CenterContainer/VBoxContainer/ScrollContainer.mouse_filter(MOUSE_FILTER_IGNORE)
