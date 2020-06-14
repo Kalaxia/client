@@ -75,12 +75,54 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 alignment = 1
 
-[node name="LobbyCreationButton" type="Button" parent="GUI/Body/Footer"]
-margin_left = 582.0
-margin_right = 697.0
-margin_bottom = 20.0
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Body/Footer"]
+margin_left = 515.0
+margin_right = 765.0
+margin_bottom = 178.0
+
+[node name="LobbyCreationButton" type="Button" parent="GUI/Body/Footer/VBoxContainer"]
+margin_right = 250.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 250, 40 )
 size_flags_vertical = 0
 text = "Créer une partie"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="GUI/Body/Footer/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 44.0
+margin_right = 250.0
+margin_bottom = 59.0
+rect_min_size = Vector2( 0, 15 )
+
+[node name="OptionButton" type="Button" parent="GUI/Body/Footer/VBoxContainer"]
+margin_top = 63.0
+margin_right = 250.0
+margin_bottom = 103.0
+rect_min_size = Vector2( 250, 40 )
+text = "Options"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator2" type="HSeparator" parent="GUI/Body/Footer/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 107.0
+margin_right = 250.0
+margin_bottom = 122.0
+rect_min_size = Vector2( 0, 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CreditsButton" type="Button" parent="GUI/Body/Footer/VBoxContainer"]
+margin_top = 126.0
+margin_right = 250.0
+margin_bottom = 166.0
+rect_min_size = Vector2( 250, 40 )
+text = "Crédits"
 __meta__ = {
 "_edit_use_anchors_": false
 }

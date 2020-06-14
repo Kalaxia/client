@@ -110,23 +110,22 @@ func _input(event):
 			_is_map_being_dragged = true
 		if event.is_action_released("ui_drag_map"):
 			_is_map_being_dragged = false
-		if event.is_action("ui_move_map"):
-			if event.is_action_pressed("ui_move_map_left"):
-				_motion_camera[Vector2.LEFT] = true
-			elif event.is_action_released("ui_move_map_left"):
-				_motion_camera[Vector2.LEFT] = false
-			if event.is_action_pressed("ui_move_map_right"):
-				_motion_camera[Vector2.RIGHT] = true
-			elif event.is_action_released("ui_move_map_right"):
-				_motion_camera[Vector2.RIGHT] = false
-			if event.is_action_pressed("ui_move_map_up"):
-				_motion_camera[Vector2.UP] = true
-			elif event.is_action_released("ui_move_map_up"):
-				_motion_camera[Vector2.UP] = false
-			if event.is_action_pressed("ui_move_map_down"):
-				_motion_camera[Vector2.DOWN] = true
-			elif event.is_action_released("ui_move_map_down"):
-				_motion_camera[Vector2.DOWN] = false
+		if event.is_action_pressed("ui_move_map_left"):
+			_motion_camera[Vector2.LEFT] = true
+		elif event.is_action_released("ui_move_map_left"):
+			_motion_camera[Vector2.LEFT] = false
+		if event.is_action_pressed("ui_move_map_right"):
+			_motion_camera[Vector2.RIGHT] = true
+		elif event.is_action_released("ui_move_map_right"):
+			_motion_camera[Vector2.RIGHT] = false
+		if event.is_action_pressed("ui_move_map_up"):
+			_motion_camera[Vector2.UP] = true
+		elif event.is_action_released("ui_move_map_up"):
+			_motion_camera[Vector2.UP] = false
+		if event.is_action_pressed("ui_move_map_down"):
+			_motion_camera[Vector2.DOWN] = true
+		elif event.is_action_released("ui_move_map_down"):
+			_motion_camera[Vector2.DOWN] = false
 	elif event is InputEventMouseMotion:
 		if _is_map_being_dragged:
 			_move_camera(-event.get_relative() * $Camera2D.zoom)
