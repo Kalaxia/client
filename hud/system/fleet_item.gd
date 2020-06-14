@@ -1,11 +1,14 @@
 extends Control
 
+class_name FleetItem
+
 var fleet = null
 var theme_highlight = preload("res://hud/system/theme_1_selectioned.tres")
 var theme_not_highlight = preload("res://hud/system/theme_1_not_selectioned.tres")
 var theme_sailing = preload("res://hud/system/theme_1_sailing.tres")
 var _quantity = 0
 var _is_locked = false
+var _add_ship_mutex = Mutex.new()
 
 const SHIP_COST = 10
 
@@ -14,7 +17,6 @@ func _ready():
 	if fleet.player != Store._state.player.id:
 		$Ships.set_visible(false)
 		return
-	$HTTPRequest.connect("request_completed", self, "_on_ship_added")
 	Store.connect("wallet_updated", self, "_on_wallet_update")
 	Store.connect("fleet_selected",self,"_on_fleet_selected")
 	Store.connect("fleet_sailed",self,"_on_fleet_sailed")
@@ -31,18 +33,22 @@ func add_ship():
 
 func add_ships(quantity):
 	# prevent keyboard shortcuts as well
-	if _is_locked:
+	if _add_ship_mutex.try_lock() != OK:
 		return
-	_quantity = quantity
+	if Store._state.player.wallet < quantity*SHIP_COST :
+		_add_ship_mutex.unlock()
+		return
 	_is_locked = true
-	$HTTPRequest.request(
-		Network.api_url + "/api/games/" +
-		Store._state.game.id+  "/systems/" +
-		Store._state.selected_system.id + "/fleets/" +
-		fleet.id + "/ships/", [
-		"Content-Type: application/json",
-		"Authorization: Bearer " + Network.token
-	], false, HTTPClient.METHOD_POST, JSON.print({ "quantity": quantity }))
+	_quantity = quantity
+	Network.req(self, "_on_ship_added"
+		, "/api/games/" +
+			Store._state.game.id+  "/systems/" +
+			Store._state.selected_system.id + "/fleets/" +
+			fleet.id + "/ships/"
+		, HTTPClient.METHOD_POST
+		, [ "Content-Type: application/json" ]
+		, JSON.print({ "quantity": quantity })
+	)
 	get_node("Ships/CreationButton").disabled = true
 	
 func check_button_add_ship_state():
@@ -63,8 +69,9 @@ func _on_ship_added(err, response_code, headers, body):
 	if response_code == HTTPClient.RESPONSE_CREATED:
 		Store.update_wallet(-SHIP_COST * _quantity)
 		Store.update_fleet_nb_ships(fleet, fleet.nb_ships + _quantity)
-		_quantity = 0
+	_quantity = 0
 	_is_locked = false
+	_add_ship_mutex.unlock()
 	check_button_add_ship_state()
 
 func _on_wallet_update(amount):
