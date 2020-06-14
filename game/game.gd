@@ -80,7 +80,7 @@ func _on_fleet_sailed(fleet):
 	var origin_system = get_node("ParallaxBackground/ParallaxLayer0/Map/" + fleet.system)
 	origin_system.refresh()
 	sailing_fleet.fleet = fleet
-	sailing_fleet.color = Store.get_color_player(Store.get_game_player(fleet.player))
+	sailing_fleet.color = Store.get_player_color(Store.get_game_player(fleet.player))
 	sailing_fleet.origin_position = origin_system.get_position()
 	sailing_fleet.destination_position = get_node("ParallaxBackground/ParallaxLayer0/Map/" + fleet.destination_system).get_position()
 	get_node("ParallaxBackground/ParallaxLayer0/Map/FleetContainer").add_child(sailing_fleet)

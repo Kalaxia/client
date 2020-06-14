@@ -12,13 +12,19 @@ const ALPHA_SPEED_GAIN = 2.0
 const SNAP_ALPHA_DISTANCE = 0.05
 const ALPHA_APLITUDE = 0.4
 
-const _TEXTURE_SYSTEM_FACTION_0 = preload("res://resources/assets/2d/map/spot.png")
-const _TEXTURE_SYSTEM_FACTION_1 = preload("res://resources/assets/2d/map/spot_faction_1.png")
-const _TEXTURE_SYSTEM_FACTION_2 = preload("res://resources/assets/2d/map/spot_faction_2.png")
-const _TEXTURE_SYSTEM_FACTION_3 = preload("res://resources/assets/2d/map/spot_faction_3.png")
-const _TEXTURE_CROWN_FACTION_1= preload("res://resources/assets/2d/map/crown_system_faction_1.png")
-const _TEXTURE_CROWN_FACTION_2= preload("res://resources/assets/2d/map/crown_system_faction_2.png")
-const _TEXTURE_CROWN_FACTION_3= preload("res://resources/assets/2d/map/crown_system_faction_3.png")
+const _TEXTURE_SYSTEM = {
+	0 : preload("res://resources/assets/2d/map/spot.png"),
+	1 : preload("res://resources/assets/2d/map/spot_faction_1.png"),
+	2 : preload("res://resources/assets/2d/map/spot_faction_2.png"),
+	3 : preload("res://resources/assets/2d/map/spot_faction_3.png"),
+}
+
+
+const _TEXTURE_CROWN = {
+	1 : preload("res://resources/assets/2d/map/crown_system_faction_1.png"),
+	2 : preload("res://resources/assets/2d/map/crown_system_faction_2.png"),
+	3 : preload("res://resources/assets/2d/map/crown_system_faction_3.png"),
+}
 
 func _ready():
 	set_position(Vector2(system.coordinates.x * 50, system.coordinates.y * 50))
@@ -49,29 +55,13 @@ func _set_crown_state():
 	var is_current_player = (system.player == Store._state.player.id)
 	$Star/Crown.visible = is_current_player
 	if is_current_player:
-		match Store.get_game_player(system.player).faction as int:
-			1:
-				$Star/Crown.texture = _TEXTURE_CROWN_FACTION_1
-			2:
-				$Star/Crown.texture = _TEXTURE_CROWN_FACTION_2
-			3:
-				$Star/Crown.texture = _TEXTURE_CROWN_FACTION_3
-			_:
-				$Star/Crown.texture = _TEXTURE_CROWN_FACTION_1
+		$Star/Crown.texture = _TEXTURE_CROWN[Store.get_game_player(system.player).faction as int]
 
 func _set_system_texture():
 	if system.player != null:
 		$Star/Spot.texture = _TEXTURE_SYSTEM_FACTION_0
 	else:
-		match Store.get_game_player(system.player).faction as int:
-			1:
-				$Star/Spot.texture = _TEXTURE_SYSTEM_FACTION_1
-			2:
-				$Star/Spot.texture = _TEXTURE_SYSTEM_FACTION_2
-			3:
-				$Star/Spot.texture = _TEXTURE_SYSTEM_FACTION_3
-			_:
-				$Star/Spot.texture = _TEXTURE_SYSTEM_FACTION_0
+		$Star/Spot.texture = _TEXTURE_SYSTEM[Store.get_game_player(system.player).faction as int]
 
 func _scale_star_system_2():
 	$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
@@ -89,11 +79,7 @@ func _on_fleet_unselected():
 
 func _modulate_color(alpha):
 	var star_sprite = get_node("Star/Spot")
-	var color
-	if system.player != null:
-		 color = Store.get_color_player(Store.get_game_player(system.player))
-	else:
-		color =  Store.get_color_player(null)
+	var color = Store.get_color_player(null) if system.player == null else Store.get_color_player(Store.get_game_player(system.player))
 	color.a = alpha
 	star_sprite.set_modulate(color)
 	

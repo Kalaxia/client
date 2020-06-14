@@ -130,7 +130,7 @@ func is_in_range(fleet,system):
 	var vector_diff = Vector2(coord_system_fleet.x,coord_system_fleet.y) - Vector2(system.coordinates.x,system.coordinates.y)
 	return abs(vector_diff.x) <=1.0 && abs(vector_diff.y) <=1.0 && vector_diff != Vector2.ZERO
 
-func _get_color_faction(faction, is_current_player := false) :
+func _get_faction_color(faction, is_current_player := false) :
 	if is_current_player:
 		return Color(_lighten_color(faction.color[0]) /255.0, _lighten_color(faction.color[1]) /255.0, _lighten_color(faction.color[2])/255.0)
 	else:
@@ -139,7 +139,7 @@ func _get_color_faction(faction, is_current_player := false) :
 func _lighten_color(color_component):
 	return min( color_component + 40, 255)
 
-func get_color_player(player) :
+func get_player_color(player) :
 	if player == null :
 		return Color(1.0,1.0,1.0)
-	return _get_color_faction(Store.get_faction(player.faction),player.id == _state.player.id)
+	return _get_faction_color(Store.get_faction(player.faction),player.id == _state.player.id)

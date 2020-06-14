@@ -7,10 +7,11 @@ var destination_position = Vector2.ZERO
 var color = null
 var fleet = null
 
-const _TEXTURE_CROWN_FACTION_1= preload("res://resources/assets/2d/map/crown_fleet_faction_1.png")
-const _TEXTURE_CROWN_FACTION_2= preload("res://resources/assets/2d/map/crown_fleet_faction_2.png")
-const _TEXTURE_CROWN_FACTION_3= preload("res://resources/assets/2d/map/crown_fleet_faction_3.png")
-
+const _TEXTURE_CROWN = {
+	1 : preload("res://resources/assets/2d/map/crown_fleet_faction_1.png"),
+	2 : preload("res://resources/assets/2d/map/crown_fleet_faction_2.png"),
+	3 : preload("res://resources/assets/2d/map/crown_fleet_faction_3.png"),
+}
 
 func _ready():
 	var curve = Curve2D.new()
@@ -37,13 +38,5 @@ func _set_crown_state():
 	var is_current_player = (fleet.player == Store._state.player.id)
 	get_node("FleetPath/Follower/SpritesContainer/Crown").visible = is_current_player
 	if is_current_player:
-		match Store.get_game_player(fleet.player).faction as int:
-			1:
-				$FleetPath/Follower/SpritesContainer/Crown.texture = _TEXTURE_CROWN_FACTION_1
-			2:
-				$FleetPath/Follower/SpritesContainer/Crown.texture = _TEXTURE_CROWN_FACTION_2
-			3:
-				$FleetPath/Follower/SpritesContainer/Crown.texture = _TEXTURE_CROWN_FACTION_3
-			_:
-				$FleetPath/Follower/SpritesContainer/Crown.texture = _TEXTURE_CROWN_FACTION_1
+		$FleetPath/Follower/SpritesContainer/Crown.texture = _TEXTURE_CROWN[Store.get_game_player(fleet.player).faction as int]
 	
