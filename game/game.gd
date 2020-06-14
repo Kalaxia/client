@@ -7,10 +7,10 @@ var moving_fleet_scene = preload("res://game/map/fleet_sailing.tscn")
 var _camera_speed = Vector2.ZERO
 var _is_map_being_dragged = false
 
-const CAMMERA_DRAG_COEF = 4000.0
-const CAMMERA_DRAG_COEF_WHEN_DRAGGING = 40000.0
+const CAMERA_DRAG_COEFF = 4000.0
+const CAMERA_DRAG_COEFF_WHEN_DRAGGING = 40000.0
 const CAMMERA_MOVE_KEY_AMMOUNT = 300
-
+const _ZOOM_FACTOR = 1.1
 var _motion_camera = {
 		Vector2.LEFT : false,
 		Vector2.RIGHT : false,
@@ -103,9 +103,11 @@ func _on_victory(data):
 func _input(event):
 	if event is InputEventKey || event is InputEventMouseButton:
 		if event.is_action_pressed("ui_zoom_in_map"):
-			$Camera2D.zoom = $Camera2D.zoom /1.1
+			$Camera2D.zoom.x = max($Camera2D.zoom.x / _ZOOM_FACTOR, pow(_ZOOM_FACTOR,-10))
+			$Camera2D.zoom.y = max($Camera2D.zoom.y / _ZOOM_FACTOR, pow(_ZOOM_FACTOR,-10))
 		if event.is_action_pressed("ui_zoom_out_map"):
-			$Camera2D.zoom = $Camera2D.zoom *1.1
+			$Camera2D.zoom.x = min($Camera2D.zoom.x *_ZOOM_FACTOR,pow(_ZOOM_FACTOR,10))
+			$Camera2D.zoom.y = min($Camera2D.zoom.y *_ZOOM_FACTOR,pow(_ZOOM_FACTOR,10))
 		if event.is_action_pressed("ui_drag_map"):
 			_is_map_being_dragged = true
 		if event.is_action_released("ui_drag_map"):
@@ -152,10 +154,7 @@ func _process(delta):
 	if ! _camera_speed.is_equal_approx(Vector2.ZERO):
 		var sign_vector = _camera_speed.sign()
 		var abs_vector = _camera_speed.abs()
-		if _is_map_being_dragged:
-			abs_vector.x = max(abs_vector.x - CAMMERA_DRAG_COEF_WHEN_DRAGGING * delta * abs(_camera_speed.x) / _camera_speed.length(), 0.0)
-			abs_vector.y = max(abs_vector.y - CAMMERA_DRAG_COEF_WHEN_DRAGGING * delta * abs(_camera_speed.y) / _camera_speed.length(), 0.0)
-		else:
-			abs_vector.x = max(abs_vector.x - CAMMERA_DRAG_COEF * delta * abs(_camera_speed.x) / _camera_speed.length(), 0.0)
-			abs_vector.y = max(abs_vector.y - CAMMERA_DRAG_COEF * delta * abs(_camera_speed.y) / _camera_speed.length(), 0.0)
+		var coeff = CAMERA_DRAG_COEFF_WHEN_DRAGGING if _is_map_being_dragged else CAMERA_DRAG_COEFF
+		abs_vector.x = max(abs_vector.x - coeff * delta * abs(_camera_speed.x) / _camera_speed.length(), 0.0)
+		abs_vector.y = max(abs_vector.y - coeff * delta * abs(_camera_speed.y) / _camera_speed.length(), 0.0)
 		_camera_speed = abs_vector * sign_vector

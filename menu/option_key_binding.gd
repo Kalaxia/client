@@ -2,12 +2,16 @@ extends Control
 
 class_name OptionKeyBinding
 
-var action = ""
-var is_enable = false
+var action = "" setget set_action
+var is_enable = false setget set_is_enabled
 var index_pressed = -1
 
 signal mark_button_key_binding(action,index)
+signal unmark_button_key_binging()
 
+class ButtonKeyBinding:
+	extends Button
+	var index_key_binding
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,43 +24,54 @@ func _refresh_data():
 			node.queue_free()
 	var keys = InputMap.get_action_list(action)
 	for i in range(keys.size()):
-		var button = Button.new()
+		var button = ButtonKeyBinding.new()
 		button.toggle_mode = true
 		button.rect_min_size = Vector2(100,10)
-		button.editor_description = i as String # todo find a better way
+		button.index_key_binding = i as String # todo find a better way
 		button.disabled = ! is_enable
 		button.connect("toggled",self,"_on_button_toggled",[i])
-		if keys[i] is InputEventKey:
-			button.text = keys[i].as_text()
-			add_child(button)
-		elif keys[i] is InputEventMouseButton:
-			button.text =  "mouse_key_" + (keys[i].button_index as String)
+		var text_button = Utils.get_label_of_event(keys[i])
+		if text_button != "":
+			button.text = text_button
 			add_child(button)
 
 func on_button_press(action_param,index_param):
-	if action_param != action:
-		index_pressed = -1
-	else:
-		index_pressed = index_param
 	for node in get_children():
-		if node is Button:
-			if node.editor_description != index_param as String || action_param != action:
-				node.pressed = false
+		if node is Button && (node.index_key_binding != index_param as String || action_param != action):
+			node.pressed = false
+	# we set the index to the correct one after deactivate the otehr button
+	# as when it is toggled it will call _on_button_toggled and set index_pressed to -1
+	index_pressed = index_param if (action_param == action) else -1
 
 func _on_button_toggled(state,index):
+	#note: this event ocure even when this is not a mouse event
 	if state:
 		emit_signal("mark_button_key_binding",action,index)
 	else:
 		index_pressed = -1
 
 func _input(event):
-	if index_pressed  != -1:
-		var previous_event = InputMap.get_action_list(action)[index_pressed]
-		if (event is InputEventKey || (event is InputEventMouseButton && event.get_button_index() != BUTTON_LEFT)) && event.is_pressed():
-			InputMap.action_erase_event(action,previous_event)
-			InputMap.action_add_event(action,event)
-			for node in get_children():
-				if node is Button:
-					node.pressed = false
-			index_pressed = -1
-			_refresh_data()
+	if index_pressed  == -1:
+		return
+	var previous_event = InputMap.get_action_list(action)[index_pressed]
+	if (event is InputEventKey || (event is InputEventMouseButton && event.get_button_index() != BUTTON_LEFT)) && event.is_pressed():
+		InputMap.action_erase_event(action,previous_event)
+		InputMap.action_add_event(action,event)
+		Config.save_key_binding(action)
+		for node in get_children():
+			if node is Button:
+				node.pressed = false
+		index_pressed = -1
+		emit_signal("unmark_button_key_binging")
+		_refresh_data()
+
+func set_is_enabled(new_value):
+	is_enable = new_value
+	for node in get_children():
+		if node is Button:
+			node.disabled = ! is_enable
+
+func set_action(new_value):
+	action = new_value
+	$Label.text = action
+	_refresh_data()
