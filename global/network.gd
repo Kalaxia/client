@@ -30,16 +30,6 @@ signal Victory(data)
 # Everything related to HTTP requests
 # 
 
-signal connection_failed(reason)
-
-enum FAIL_REASON {
-	SSL_HANDSHAKE,
-	CANNOT_RESOLVE_HOST,
-	CANNOT_CONNECT_TO_HOST,
-	HTTP_TUNNEL_CLOSED,
-	CLIENT_DISCONNECTED,
-}
-
 var client = HTTPClient.new()
 # the pool of requests to the server
 var requests = []
