@@ -30,38 +30,20 @@ signal Victory(data)
 # Everything related to HTTP requests
 # 
 
-signal connection_failed(reason)
-
-enum FAIL_REASON {
-	SSL_HANDSHAKE,
-	CANNOT_RESOLVE_HOST,
-	CANNOT_CONNECT_TO_HOST,
-	HTTP_CONNECTION_ERROR,
-}
-
 var client = HTTPClient.new()
 # the pool of requests to the server
 var requests = []
 # the next function we need to call whenever the last request resolves
-var method_to_trigger = null
+var pending_request = null
 # the processing response body
 var processed_body = PoolByteArray()
 
-func _handle_co_fail(err):
-	if err == FAIL_REASON.HTTP_CONNECTION_ERROR:
-		self.connect_to_host()
-	else:
-		ErrorHandler.network_response_error(err)
-		self.client = HTTPClient.new()
-
 func connect_to_host():
-	self.client.connect_to_host(Config.api.scheme + "://" + Config.api.dns, Config.api.port)
+	self.client.connect_to_host("%s://%s" % [Config.api.scheme, Config.api.dns], Config.api.port)
 	
-func _ready():
-	self.connect("connection_failed", self, "_handle_co_fail")
-	
-	api_url = Config.api.scheme + "://" + Config.api.dns + ":" + str(Config.api.port)
-	websocket_url = Config.api.ws_scheme + "://" + Config.api.dns + ":" + str(Config.api.port) + "/ws/"
+func _ready():	
+	api_url = "%s://%s:%d" % [Config.api.scheme, Config.api.dns, Config.api.port]
+	websocket_url = "%s://%s:%d/ws/" % [Config.api.ws_scheme, Config.api.dns, Config.api.port]
 
 	auth()
 	
@@ -115,55 +97,92 @@ func _on_data():
 	emit_signal(data.action, data.data)
 
 func _process(delta):
+	# handle WebSoocketClient life
 	_ws_client.poll()
 
+	# handle HTTPClient life
 	self.client.poll()
 	match self.client.get_status():
 		# whenever the http client has a body to fetch, fetch it
 		HTTPClient.STATUS_BODY:
 			self.processed_body.append_array(self.client.read_response_body_chunk())
-			
 		# this is the default status, after we managed to connect to the host
 		HTTPClient.STATUS_CONNECTED:
-			# if we requested something and got a response, process it
+			# if the client has a response while having status "CONNECTED"
+			# it means the whole response was received and its handler needs
+			# to be triggered
 			if self.client.has_response():
-				self._on_server_answer(
-					null, # for now it's "null" because i really don't know what to send
-					self.client.get_response_code(),
-					self.client.get_response_headers(),
+				var response_code = self.client.get_response_code()
+				var response_headers = self.client.get_response_headers_as_dictionary()
+				self.trigger_handler(
+					null,
+					response_code,
+					response_headers,
 					self.processed_body
 				)
-				self.processed_body.resize(0)
 
-			# once we managed the hypothetical response, we can send another request
-			if not self.requests.empty():
-				var data = self.requests.pop_front()
-				self.method_to_trigger = data[4]
-				var headers = data[2]
-				headers.append("Authorization: Bearer " + str(self.token))
-				var err = self.client.request(data[0], data[1], headers, data[3])
-				if err != OK:
-					printerr("ERROR WHILE REQUESTING API URL: " + str(err))
-		HTTPClient.STATUS_SSL_HANDSHAKE_ERROR:
-			emit_signal("connection_failed", FAIL_REASON.SSL_HANDSHAKE)
+			# Process next request if there is place
+			if not self.pending_request and not self.requests.empty():
+				self.pending_request = self.requests.pop_front()
+				self.launch_pending_request()
 		HTTPClient.STATUS_CONNECTION_ERROR:
-			emit_signal("connection_failed", FAIL_REASON.HTTP_CONNECTION_ERROR)
-		HTTPClient.STATUS_CANT_RESOLVE:
-			emit_signal("connection_failed", FAIL_REASON.CANNOT_RESOLVE_HOST)
-		HTTPClient.STATUS_CANT_CONNECT:
-			emit_signal("connection_failed", FAIL_REASON.CANNOT_CONNECT_TO_HOST)
+			# reconnect to the server
+			self.connect_to_host()
+			# if we had a pending request, push it in front of the others
+			# it will be handled first
+			if self.pending_request:
+				self.requests.push_front(self.pending_request)
+				self.cleanup_request_state()
+		# for every other status
 		var other:
-			# printerr("WE HAVE AN UNHANDLED STATUS: " + str(other))
-			pass
-				
+			# get the error code corresponding to the status
+			# It can be OK, because we handle status like "CONNECTING" or "REQUESTING"
+			var err = self.http_client_status_to_error(other)
+			# of it IS a bad status, flush the requests and trigger their
+			# handlers with an error code
+			if err != OK:
+				if self.pending_request:
+					self.trigger_handler(err, null, null, null)
+				while not self.requests.empty():
+					self.pending_request = self.requests.pop_front()
+					self.launch_pending_request()
 
-# Use this function to make an HTTP Request instead of the standard "request"
-# method.
-func req(calling_object, method_to_trigger, route, method = HTTPClient.METHOD_GET, headers=PoolStringArray(), body=""):
-	var function = funcref(calling_object, method_to_trigger)
-	self.requests.push_back([method, route, headers, body, function])
+# Helper function used only to clear the state of the HTTPClient.
+# This "cleanup" code is in a function in order to do the exact same cleanup
+# procedure each time we need to.
+func cleanup_request_state():
+	self.processed_body.resize(0)
+	self.pending_request = null
 
-func _on_server_answer(res_code, http_code, headers, body):
-	# call the listener of this particular request
-	self.method_to_trigger.call_func(res_code, http_code, headers, body)
+# Use this function to make an HTTP Request instead of the standard "request" method.
+func req(calling_object, method_to_trigger, route, method = HTTPClient.METHOD_GET, headers=PoolStringArray(), body="", params=[]):
+	self.requests.push_back([method, route, headers, body, calling_object, method_to_trigger, params])
 
+# This function tries to launch the request stored in self.pending_request
+# If it cannot (request() returning non-OK value) it triggers the handler
+# with the returned error.
+func launch_pending_request():
+	var headers = self.pending_request[2]
+	headers.append("Authorization: Bearer %s" % self.token)
+	var err = self.client.request(self.pending_request[0], self.pending_request[1], headers, self.pending_request[3])
+	if err != OK:
+		self.trigger_handler(err, null, null, null)
+
+func trigger_handler(res_code, http_code, headers, body):
+	# call the listener of the pending request
+	var f = funcref(self.pending_request[4], self.pending_request[5])
+	f.call_funcv([res_code, http_code, headers, body] + self.pending_request[6])
+	
+	# clean the state to be able to send another request
+	self.cleanup_request_state()
+
+# Translate an HTTPClient status value to an Error value.
+# This is used to check if a blocking error occurred or not.
+func http_client_status_to_error(status):
+	var error_dict = {
+		HTTPClient.STATUS_CANT_RESOLVE : ERR_CANT_RESOLVE,
+		HTTPClient.STATUS_CANT_CONNECT : ERR_CANT_CONNECT,
+		HTTPClient.STATUS_SSL_HANDSHAKE_ERROR : ERR_CANT_CONNECT,
+	}
+	
+	return error_dict.get(status, OK)
