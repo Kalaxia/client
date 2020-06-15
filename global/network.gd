@@ -79,7 +79,7 @@ func _closed(was_clean = false):
 	# was_clean will tell you if the disconnection was correctly notified
 	# by the remote peer before closing the socket.
 	print("Closed, clean: ", was_clean)
-	#set_process(false)
+	set_process(false)
 
 func _connected(proto = ""):
 	# This is called on connection, "proto" will be the selected WebSocket
