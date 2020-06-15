@@ -9,10 +9,12 @@ func network_error(err):
 
 func network_response_error(err):
 	match err:
-		Network.FAIL_REASON.CANNOT_CONNECT_TO_HOST:
+		ERR_CANT_CONNECT:
 			Store.notify("Connexion impossible", "Le serveur de jeu n'est pas disponible.")
-		Network.FAIL_REASON.CANNOT_RESOLVE_HOST:
+		ERR_CANT_RESOLVE:
 			Store.notify("Connexion impossible", "Le nom de domaine du serveur est inconnu.'")
+		ERR_INVALID_PARAMETER:
+			Store.notify("Client HTTP non connecté", "Le serveur de jeu n'est pas disponible.'")
 		var err:
 			Store.notify("Erreur réseau", "Une erreur réseau est survenue.")
-			printerr("Erreur reseau: " + str(err))
+			printerr("Erreur reseau: " + err)
