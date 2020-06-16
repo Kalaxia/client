@@ -7,7 +7,7 @@ var theme_highlight = preload("res://hud/system/theme_1_selectioned.tres")
 var theme_not_highlight = preload("res://hud/system/theme_1_not_selectioned.tres")
 var theme_sailing = preload("res://hud/system/theme_1_sailing.tres")
 var _quantity = 0
-var _is_locked = false
+var _is_locked = Utils.Lock.new()
 
 const SHIP_COST = 10
 
@@ -32,11 +32,10 @@ func add_ship():
 
 func add_ships(quantity):
 	# prevent keyboard shortcuts as well
-	if _is_locked:
+	if _is_locked.try_lock() != Utils.Lock.LOCK_STATE.OK:
 		return
-	_is_locked = true
 	if Store._state.player.wallet < quantity*SHIP_COST :
-		_is_locked = false
+		_is_locked.unlock()
 		return
 	_quantity = quantity
 	Network.req(self, "_on_ship_added"
@@ -51,7 +50,7 @@ func add_ships(quantity):
 	get_node("Ships/CreationButton").disabled = true
 	
 func check_button_add_ship_state():
-	get_node("Ships/CreationButton").disabled = Store._state.player.wallet < SHIP_COST || _is_locked
+	get_node("Ships/CreationButton").disabled = Store._state.player.wallet < SHIP_COST || _is_locked.get_is_locked()
 	
 func check_button_sail_state():
 	get_node("Ships/SailFleet").disabled = (fleet.destination_system != null)
@@ -69,7 +68,7 @@ func _on_ship_added(err, response_code, headers, body):
 		Store.update_wallet(-SHIP_COST * _quantity)
 		Store.update_fleet_nb_ships(fleet, fleet.nb_ships + _quantity)
 	_quantity = 0
-	_is_locked = false
+	_is_locked.unlock()
 	check_button_add_ship_state()
 
 func _on_wallet_update(amount):
