@@ -6,7 +6,7 @@ var banners = {
 	"Adranite": preload("res://resources/assets/2d/faction/adranite/banner.png"),
 }
 var fleet_item_scene = preload("res://hud/system/fleet_item.tscn")
-var _create_fleet_mutex = Mutex.new()
+var _create_fleet_lock = false
 
 const FLEET_COST = 10
 
@@ -49,10 +49,11 @@ func refresh_data(system):
 	for id in system.fleets: add_fleet_item(system.fleets[id])
 		
 func create_fleet():
-	if _create_fleet_mutex.try_lock() != OK:
+	if _create_fleet_lock:
 		return
+	_create_fleet_lock = true
 	if Store._state.player.wallet < FLEET_COST :
-		_create_fleet_mutex.unlock()
+		_create_fleet_lock = false
 		return
 	Network.req(self, "_on_request_completed"
 		, "/api/games/" +
@@ -85,7 +86,7 @@ func _on_request_completed(err, response_code, headers, body):
 	if response_code == 201:
 		Store.update_wallet(-FLEET_COST)
 		Store.add_fleet(JSON.parse(body.get_string_from_utf8()).result)
-	_create_fleet_mutex.unlock()
+	_create_fleet_lock = false
 
 func _on_fleet_erased(fleet):
 	if fleet.system == Store._state.selected_system.id:

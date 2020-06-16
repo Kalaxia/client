@@ -8,7 +8,6 @@ var theme_not_highlight = preload("res://hud/system/theme_1_not_selectioned.tres
 var theme_sailing = preload("res://hud/system/theme_1_sailing.tres")
 var _quantity = 0
 var _is_locked = false
-var _add_ship_mutex = Mutex.new()
 
 const SHIP_COST = 10
 
@@ -33,12 +32,12 @@ func add_ship():
 
 func add_ships(quantity):
 	# prevent keyboard shortcuts as well
-	if _add_ship_mutex.try_lock() != OK:
-		return
-	if Store._state.player.wallet < quantity*SHIP_COST :
-		_add_ship_mutex.unlock()
+	if _is_locked:
 		return
 	_is_locked = true
+	if Store._state.player.wallet < quantity*SHIP_COST :
+		_is_locked = false
+		return
 	_quantity = quantity
 	Network.req(self, "_on_ship_added"
 		, "/api/games/" +
@@ -71,7 +70,6 @@ func _on_ship_added(err, response_code, headers, body):
 		Store.update_fleet_nb_ships(fleet, fleet.nb_ships + _quantity)
 	_quantity = 0
 	_is_locked = false
-	_add_ship_mutex.unlock()
 	check_button_add_ship_state()
 
 func _on_wallet_update(amount):

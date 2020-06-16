@@ -9,7 +9,7 @@ var banners = {
 	"Adranite": preload("res://resources/assets/2d/faction/adranite/banner_image.png"),
 }
 var new_username = ""
-var mutex_update_name = Mutex.new()
+var is_loocked = false
 
 func _ready():
 	var username_input = get_node("Container/UsernameInput")
@@ -72,11 +72,12 @@ func update_data(data):
 	get_node("Container/ReadyInput").pressed = player.ready
 	
 func update_username(username):
-	if mutex_update_name.try_lock() != OK:
+	if is_loocked:
 		new_username = username
 		$Container/UsernameInput/UpdateNameTimer.start() 
 		# if we can not lock we start the timer and try later
 		return
+	is_loocked = true
 	Store._state.player.username = username
 	Network.req(self, "_on_name_update"
 		, "/api/players/me/username"
@@ -86,7 +87,7 @@ func update_username(username):
 	)
 
 func _on_name_update(result, response_code, headers, body):
-	mutex_update_name.unlock()
+	is_loocked = false
 	_on_request_completed(result, response_code, headers, body)
 
 func update_faction(index):
