@@ -42,7 +42,13 @@ margin_left = 575.0
 margin_right = 1146.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
+max_length = 30
 editable = false
+placeholder_text = "nom d'utilisateur"
+
+[node name="UpdateNameTimer" type="Timer" parent="Container/UsernameInput"]
+wait_time = 0.7
+one_shot = true
 
 [node name="ReadyInput" type="CheckButton" parent="Container"]
 margin_left = 1150.0
