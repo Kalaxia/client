@@ -99,7 +99,7 @@ func _on_data():
 func _process(delta):
 	# handle WebSoocketClient life
 	_ws_client.poll()
-
+	
 	# handle HTTPClient life
 	self.client.poll()
 	match self.client.get_status():
@@ -131,8 +131,7 @@ func _process(delta):
 			# if we had a pending request, push it in front of the others
 			# it will be handled first
 			if self.pending_request:
-				self.requests.push_front(self.pending_request)
-				self.cleanup_request_state()
+				self.trigger_handler(ERR_CANT_CONNECT, null, null, null)
 		# for every other status
 		var other:
 			# get the error code corresponding to the status
@@ -171,7 +170,8 @@ func launch_pending_request():
 func trigger_handler(res_code, http_code, headers, body):
 	# call the listener of the pending request
 	var f = funcref(self.pending_request[4], self.pending_request[5])
-	f.call_funcv([res_code, http_code, headers, body] + self.pending_request[6])
+	if f.is_valid():
+		f.call_funcv([res_code, http_code, headers, body] + self.pending_request[6])
 	
 	# clean the state to be able to send another request
 	self.cleanup_request_state()
@@ -183,6 +183,7 @@ func http_client_status_to_error(status):
 		HTTPClient.STATUS_CANT_RESOLVE : ERR_CANT_RESOLVE,
 		HTTPClient.STATUS_CANT_CONNECT : ERR_CANT_CONNECT,
 		HTTPClient.STATUS_SSL_HANDSHAKE_ERROR : ERR_CANT_CONNECT,
+		HTTPClient.STATUS_CONNECTION_ERROR : ERR_CANT_CONNECT,
 	}
 	
 	return error_dict.get(status, OK)
