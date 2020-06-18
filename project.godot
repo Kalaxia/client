@@ -31,6 +31,7 @@ Config="*res://config/config.gd"
 Network="*res://global/network.gd"
 Store="*res://global/store.gd"
 ErrorHandler="*res://global/error.gd"
+Utils="*res://global/utils.gd"
 
 [debug]
 
