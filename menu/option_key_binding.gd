@@ -3,11 +3,11 @@ extends Control
 class_name OptionKeyBinding
 
 var action = "" setget set_action
-var is_enable = false setget set_is_enabled
+var is_enabled = false setget set_is_enabled
 var index_pressed = -1
 
 signal mark_button_key_binding(action,index)
-signal unmark_button_key_binging()
+signal unmark_button_key_binding()
 
 class ButtonKeyBinding:
 	extends Button
@@ -27,7 +27,7 @@ func _refresh_data():
 		button.toggle_mode = true
 		button.rect_min_size = Vector2(100,10)
 		button.index_key_binding = i as String # todo find a better way
-		button.disabled = ! is_enable
+		button.disabled = ! is_enabled
 		button.connect("toggled",self,"_on_button_toggled",[i])
 		var text_button = Utils.get_label_of_event(keys[i])
 		if text_button != "":
@@ -42,9 +42,9 @@ func on_button_press(action_param,index_param):
 	# as when it is toggled it will call _on_button_toggled and set index_pressed to -1
 	index_pressed = index_param if (action_param == action) else -1
 
-func _on_button_toggled(state,index):
+func _on_button_toggled(is_pressed,index):
 	#note: this event ocure even when this is not a mouse event
-	if state:
+	if is_pressed:
 		emit_signal("mark_button_key_binding",action,index)
 	else:
 		index_pressed = -1
@@ -65,10 +65,10 @@ func _input(event):
 		_refresh_data()
 
 func set_is_enabled(new_value):
-	is_enable = new_value
+	is_enabled = new_value
 	for node in get_children():
 		if node is Button:
-			node.disabled = ! is_enable
+			node.disabled = ! is_enabled
 
 func set_action(new_value):
 	action = new_value

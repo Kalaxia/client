@@ -12,10 +12,10 @@ func _ready():
 		node_key.set_name(i)
 		node_key.action = i
 		node_key.connect("mark_button_key_binding",self,"_on_mark_button_key_binding")
-		node_key.connect("unmark_button_key_binging",self,"_on_unmark_button_key_binging")
+		node_key.connect("unmark_button_key_binding",self,"_on_unmark_button_key_binding")
 		for allowed_actions in Config.ENABLE_KEY_BINDING_CHANGE:
 			if i == allowed_actions :
-				node_key.is_enable = true
+				node_key.is_enabled = true
 		$CenterContainer/VBoxContainer/ScrollContainer/keyBingingContainer.add_child(node_key)
 	$CenterContainer/VBoxContainer/Button.connect("pressed",self,"_on_back_to_main_menu")
 
@@ -25,7 +25,7 @@ func _on_mark_button_key_binding(action,index):
 		if i is OptionKeyBinding:
 			i.on_button_press(action,index)
 
-func _on_unmark_button_key_binging():
+func _on_unmark_button_key_binding():
 	#$CenterContainer/VBoxContainer/ScrollContainer.mouse_filter(MOUSE_FILTER_STOP)
 	pass
 
