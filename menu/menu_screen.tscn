@@ -17,23 +17,25 @@ __meta__ = {
 layer = 0
 
 [node name="Body" type="VBoxContainer" parent="GUI"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+margin_right = 1000.0
+margin_bottom = 720.0
+rect_min_size = Vector2( 1280, 720 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Header" type="VBoxContainer" parent="GUI/Body"]
 margin_right = 1280.0
-margin_bottom = 178.0
-size_flags_vertical = 3
+margin_bottom = 82.0
 size_flags_stretch_ratio = 0.5
 alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TopHeader" type="HBoxContainer" parent="GUI/Body/Header"]
-margin_top = 48.0
 margin_right = 1280.0
-margin_bottom = 112.0
+margin_bottom = 64.0
 alignment = 2
 
 [node name="PlayersCounter" parent="GUI/Body/Header/TopHeader" instance=ExtResource( 2 )]
@@ -44,9 +46,9 @@ margin_right = 1280.0
 margin_bottom = 64.0
 
 [node name="SubHeader" type="HBoxContainer" parent="GUI/Body/Header"]
-margin_top = 116.0
+margin_top = 68.0
 margin_right = 1280.0
-margin_bottom = 130.0
+margin_bottom = 82.0
 
 [node name="Title" type="Label" parent="GUI/Body/Header/SubHeader"]
 margin_right = 1280.0
@@ -55,74 +57,105 @@ size_flags_horizontal = 3
 text = "Kalaxia"
 align = 1
 
-[node name="Section" type="ScrollContainer" parent="GUI/Body"]
-margin_top = 182.0
+[node name="space" type="Control" parent="GUI/Body"]
+margin_top = 86.0
 margin_right = 1280.0
-margin_bottom = 538.0
+margin_bottom = 114.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="MainSection" type="HBoxContainer" parent="GUI/Body"]
+margin_top = 118.0
+margin_right = 1280.0
+margin_bottom = 687.0
 size_flags_vertical = 3
 
-[node name="Lobbies" type="HBoxContainer" parent="GUI/Body/Section"]
-margin_right = 1280.0
-margin_bottom = 356.0
+[node name="Menu" type="VBoxContainer" parent="GUI/Body/MainSection"]
+margin_right = 275.0
+margin_bottom = 569.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Footer" type="HBoxContainer" parent="GUI/Body"]
-margin_top = 542.0
-margin_right = 1280.0
-margin_bottom = 720.0
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.5
-alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Body/Footer"]
-margin_left = 515.0
-margin_right = 765.0
-margin_bottom = 178.0
-
-[node name="LobbyCreationButton" type="Button" parent="GUI/Body/Footer/VBoxContainer"]
-margin_right = 250.0
+[node name="LobbyCreationButton" type="Button" parent="GUI/Body/MainSection/Menu"]
+margin_right = 275.0
 margin_bottom = 40.0
-rect_min_size = Vector2( 250, 40 )
+rect_min_size = Vector2( 0, 40 )
 size_flags_vertical = 0
 text = "Créer une partie"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSeparator" type="HSeparator" parent="GUI/Body/Footer/VBoxContainer"]
-modulate = Color( 1, 1, 1, 0 )
+[node name="seperator1" type="Control" parent="GUI/Body/MainSection/Menu"]
 margin_top = 44.0
-margin_right = 250.0
-margin_bottom = 59.0
-rect_min_size = Vector2( 0, 15 )
+margin_right = 275.0
+margin_bottom = 69.0
+size_flags_vertical = 3
 
-[node name="OptionButton" type="Button" parent="GUI/Body/Footer/VBoxContainer"]
-margin_top = 63.0
-margin_right = 250.0
-margin_bottom = 103.0
-rect_min_size = Vector2( 250, 40 )
+[node name="OptionButton" type="Button" parent="GUI/Body/MainSection/Menu"]
+margin_top = 73.0
+margin_right = 275.0
+margin_bottom = 113.0
+rect_min_size = Vector2( 0, 40 )
 text = "Options"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSeparator2" type="HSeparator" parent="GUI/Body/Footer/VBoxContainer"]
-modulate = Color( 1, 1, 1, 0 )
-margin_top = 107.0
-margin_right = 250.0
-margin_bottom = 122.0
-rect_min_size = Vector2( 0, 15 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="seperator2" type="Control" parent="GUI/Body/MainSection/Menu"]
+margin_top = 117.0
+margin_right = 275.0
+margin_bottom = 142.0
+size_flags_vertical = 3
 
-[node name="CreditsButton" type="Button" parent="GUI/Body/Footer/VBoxContainer"]
-margin_top = 126.0
-margin_right = 250.0
-margin_bottom = 166.0
-rect_min_size = Vector2( 250, 40 )
+[node name="CreditsButton" type="Button" parent="GUI/Body/MainSection/Menu"]
+margin_top = 146.0
+margin_right = 275.0
+margin_bottom = 186.0
+rect_min_size = Vector2( 0, 40 )
 text = "Crédits"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="footer" type="Control" parent="GUI/Body/MainSection/Menu"]
+margin_top = 190.0
+margin_right = 275.0
+margin_bottom = 569.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+
+[node name="space" type="Control" parent="GUI/Body/MainSection"]
+margin_left = 279.0
+margin_right = 361.0
+margin_bottom = 569.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="Section" type="ScrollContainer" parent="GUI/Body/MainSection"]
+margin_left = 365.0
+margin_right = 1191.0
+margin_bottom = 569.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Lobbies" type="VBoxContainer" parent="GUI/Body/MainSection/Section"]
+margin_right = 826.0
+margin_bottom = 569.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="space2" type="Control" parent="GUI/Body/MainSection"]
+margin_left = 1195.0
+margin_right = 1280.0
+margin_bottom = 569.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="Footer" type="Control" parent="GUI/Body"]
+margin_top = 691.0
+margin_right = 1280.0
+margin_bottom = 720.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.05

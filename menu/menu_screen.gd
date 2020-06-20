@@ -15,14 +15,14 @@ func _ready():
 		Network.connect("authenticated", self, "init")
 	else:
 		init()
-	get_node("GUI/Body/Footer/VBoxContainer/LobbyCreationButton").connect("button_down", self, "create_lobby")
-	get_node("GUI/Body/Footer/VBoxContainer/OptionButton").connect("button_down", self, "_on_menu_option_pressed")
-	get_node("GUI/Body/Footer/VBoxContainer/CreditsButton").connect("button_down", self, "_on_menu_credits_pressed")
+	get_node("GUI/Body/MainSection/Menu/LobbyCreationButton").connect("button_down", self, "create_lobby")
+	get_node("GUI/Body/MainSection/Menu/OptionButton").connect("button_down", self, "_on_menu_option_pressed")
+	get_node("GUI/Body/MainSection/Menu/CreditsButton").connect("button_down", self, "_on_menu_credits_pressed")
 func init():
 	get_lobbies()
 	
 func _queue_free_lobby(lobby):
-	get_node("GUI/Body/Section/Lobbies/" + lobby.id).queue_free()
+	get_node("GUI/Body/MainSection/Section/Lobbies/" + lobby.id).queue_free()
 	
 func get_lobbies():
 	Network.req(self, "_handle_get_lobbies", "/api/lobbies/")
@@ -40,7 +40,7 @@ func add_lobby_card(lobby):
 	lobby_card.lobby = lobby
 	lobby_card.set_name(lobby.id)
 	lobby_card.connect("join", self, "join_lobby")
-	get_node("GUI/Body/Section/Lobbies").add_child(lobby_card)
+	get_node("GUI/Body/MainSection/Section/Lobbies").add_child(lobby_card)
 	
 func join_lobby(lobby, must_update = false):
 	Store._state.lobby = lobby
@@ -50,7 +50,7 @@ func _on_lobby_created(lobby):
 	add_lobby_card(lobby)
 	
 func _on_lobby_name_updated(data):
-	get_node("GUI/Body/Section/Lobbies/" + data.id).update_name(data.name)
+	get_node("GUI/Body/MainSection/Section/Lobbies/" + data.id).update_name(data.name)
 	
 func _on_lobby_removed(lobby):
 	_queue_free_lobby(lobby)
@@ -59,11 +59,11 @@ func _on_lobby_launched(lobby):
 	_queue_free_lobby(lobby)
 	
 func _on_player_joined(player):
-	get_node("GUI/Body/Section/Lobbies/" + player.lobby).increment_nb_players()
+	get_node("GUI/Body/MainSection/Section/Lobbies/" + player.lobby).increment_nb_players()
 	
 func _on_player_disconnected(player):
 	if player.lobby != null:
-		get_node("GUI/Body/Section/Lobbies/" + player.lobby).decrement_nb_players()
+		get_node("GUI/Body/MainSection/Section/Lobbies/" + player.lobby).decrement_nb_players()
 
 # Handlers for HTTP requests.
 # Normaly we should handle bad response codes like 404 error or other kind of
