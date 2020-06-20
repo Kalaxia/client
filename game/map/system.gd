@@ -2,7 +2,7 @@ extends Node2D
 
 var system = null
 var is_hover = false
-var scale_ratio = 1.0
+export(float) var scale_ratio = 1.0
 var system_fleet_pin_scene = preload("res://game/map/system_fleet_pin.tscn")
 var is_in_range_sailing_fleet = false
 var _time = 0.0
@@ -13,17 +13,17 @@ const SNAP_ALPHA_DISTANCE = 0.05
 const ALPHA_APLITUDE = 0.4
 
 const _TEXTURE_SYSTEM = {
-	0 : preload("res://resources/assets/2d/map/spot.png"),
-	1 : preload("res://resources/assets/2d/map/spot_faction_1.png"),
-	2 : preload("res://resources/assets/2d/map/spot_faction_2.png"),
-	3 : preload("res://resources/assets/2d/map/spot_faction_3.png"),
+	0 : preload("res://resources/assets/2d/map/Picto_syteme.png"),
+	1 : preload("res://resources/assets/2d/map/adranite/Picto_syteme_epeeV2-01.png"),
+	2 : preload("res://resources/assets/2d/map/kalankar/Picto_syteme_masqueV2-01.png"),
+	3 : preload("res://resources/assets/2d/map/valkar/Picto_syteme_serpentV2-01.png"),
 }
 
 
 const _TEXTURE_CROWN = {
-	1 : preload("res://resources/assets/2d/map/crown_system_faction_1.png"),
-	2 : preload("res://resources/assets/2d/map/crown_system_faction_2.png"),
-	3 : preload("res://resources/assets/2d/map/crown_system_faction_3.png"),
+	1 : preload("res://resources/assets/2d/map/adranite/couronne.png"),
+	2 : preload("res://resources/assets/2d/map/kalankar/couronne.png"),
+	3 : preload("res://resources/assets/2d/map/valkar/couronne.png"),
 }
 
 func _ready():
@@ -58,8 +58,8 @@ func _set_crown_state():
 		$Star/Crown.texture = _TEXTURE_CROWN[Store.get_game_player(system.player).faction as int]
 
 func _set_system_texture():
-	if system.player != null:
-		$Star/Spot.texture = _TEXTURE_SYSTEM_FACTION_0
+	if system.player == null:
+		$Star/Spot.texture = _TEXTURE_SYSTEM[0]
 	else:
 		$Star/Spot.texture = _TEXTURE_SYSTEM[Store.get_game_player(system.player).faction as int]
 
@@ -78,8 +78,8 @@ func _on_fleet_unselected():
 	is_in_range_sailing_fleet = false
 
 func _modulate_color(alpha):
-	var star_sprite = get_node("Star/Spot")
-	var color = Store.get_color_player(null) if system.player == null else Store.get_color_player(Store.get_game_player(system.player))
+	var star_sprite = get_node("Star")
+	var color = Store.get_player_color(null) if system.player == null else Store.get_player_color(Store.get_game_player(system.player))
 	color.a = alpha
 	star_sprite.set_modulate(color)
 	
@@ -104,7 +104,7 @@ func add_fleet_pin(player):
 	var fleet_pin = system_fleet_pin_scene.instance()
 	fleet_pin.faction = player.faction
 	fleet_pin.is_current_player = (player.id == Store._state.player.id)
-	fleet_pin.color = Store.get_color_player(player)
+	fleet_pin.color = Store.get_player_color(player)
 	$FleetPins.add_child(fleet_pin)
 
 func refresh():

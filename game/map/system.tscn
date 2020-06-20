@@ -7,7 +7,7 @@
 
 [sub_resource type="StreamTexture" id=2]
 flags = 4
-load_path = "res://.import/crown.png-5f760f5e50a69e31bde827956bc763bc.stex"
+load_path = "res://.import/couronne.png-08143636af1578706da4d82d2f6130eb.stex"
 
 [node name="System" type="Node2D"]
 scale = Vector2( 0.4, 0.4 )
@@ -26,14 +26,15 @@ __meta__ = {
 [node name="Star" type="Area2D" parent="."]
 
 [node name="Collision" type="CollisionShape2D" parent="Star"]
+scale = Vector2( 1.5, 1.5 )
 z_index = 1
 shape = SubResource( 1 )
 
 [node name="Spot" type="Sprite" parent="Star"]
-scale = Vector2( 0.3, 0.3 )
+scale = Vector2( 0.15, 0.15 )
 texture = ExtResource( 2 )
 
 [node name="Crown" type="Sprite" parent="Star"]
-position = Vector2( 7, -18 )
-scale = Vector2( 0.3, 0.3 )
+position = Vector2( 0, -18 )
+scale = Vector2( 0.15, 0.15 )
 texture = SubResource( 2 )

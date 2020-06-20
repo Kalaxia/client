@@ -10,7 +10,7 @@ _data = {
 
 [sub_resource type="StreamTexture" id=2]
 flags = 4
-load_path = "res://.import/crown.png-5f760f5e50a69e31bde827956bc763bc.stex"
+load_path = "res://.import/couronne.png-08143636af1578706da4d82d2f6130eb.stex"
 
 [node name="fleetSailing" type="Node2D"]
 script = ExtResource( 1 )
@@ -26,8 +26,8 @@ loop = false
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Crown" type="Sprite" parent="FleetPath/Follower/SpritesContainer"]
-position = Vector2( 0, -18 )
-scale = Vector2( 0.2, 0.2 )
+position = Vector2( 0, -13 )
+scale = Vector2( 0.15, 0.15 )
 texture = SubResource( 2 )
 
 [node name="FleetIcon" parent="FleetPath/Follower/SpritesContainer" instance=ExtResource( 2 )]
