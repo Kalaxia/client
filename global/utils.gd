@@ -1,6 +1,8 @@
 extends Node
 
 class Lock:
+	extends Reference
+	
 	var _is_locked = false setget _private_setter,get_is_locked
 
 	enum LOCK_STATE {
