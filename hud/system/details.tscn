@@ -44,20 +44,35 @@ text = "Flottes"
 [node name="Legend" type="Label" parent="."]
 margin_top = 92.0
 margin_right = 200.0
-margin_bottom = 157.0
-text = "F: créer une flotte
-1-9: sélectionner une flotte
-A: ajouter un vaisseau
-SHIFT-A: ajouter 5 vaisseaux"
+margin_bottom = 106.0
+text = "F: créer une flotte"
+
+[node name="Legend2" type="Label" parent="."]
+margin_top = 110.0
+margin_right = 200.0
+margin_bottom = 124.0
+text = "1-9: sélectionner une flotte"
+
+[node name="Legend3" type="Label" parent="."]
+margin_top = 128.0
+margin_right = 200.0
+margin_bottom = 142.0
+text = "A: ajouter un vaisseau"
+
+[node name="Legend4" type="Label" parent="."]
+margin_top = 146.0
+margin_right = 200.0
+margin_bottom = 160.0
+text = "SHIFT-A: ajouter 5 vaisseaux"
 
 [node name="Fleets" type="VBoxContainer" parent="."]
-margin_top = 161.0
+margin_top = 164.0
 margin_right = 200.0
-margin_bottom = 161.0
+margin_bottom = 164.0
 
 [node name="FleetCreationButton" type="Button" parent="."]
-margin_top = 165.0
+margin_top = 168.0
 margin_right = 200.0
-margin_bottom = 185.0
+margin_bottom = 188.0
 disabled = true
 text = "Créer une flotte"

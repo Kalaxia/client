@@ -15,8 +15,9 @@ func _ready():
 		Network.connect("authenticated", self, "init")
 	else:
 		init()
-	get_node("GUI/Body/Footer/LobbyCreationButton").connect("button_down", self, "create_lobby")
-	
+	get_node("GUI/Body/Footer/VBoxContainer/LobbyCreationButton").connect("button_down", self, "create_lobby")
+	get_node("GUI/Body/Footer/VBoxContainer/OptionButton").connect("button_down", self, "_on_menu_option_pressed")
+	get_node("GUI/Body/Footer/VBoxContainer/CreditsButton").connect("button_down", self, "_on_menu_credits_pressed")
 func init():
 	get_lobbies()
 	
@@ -79,3 +80,8 @@ func _handle_join_lobby(err, response_code, headers, body):
 	Store._state.lobby.players.push_back(Store._state.player.id)
 	emit_signal("scene_requested", "lobby")
 	
+func _on_menu_option_pressed():
+	emit_signal("scene_requested", "option_menu")
+
+func _on_menu_credits_pressed():
+	emit_signal("scene_requested", "credits_menu")
