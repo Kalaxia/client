@@ -3,10 +3,8 @@
 [ext_resource path="res://game/map/system_fleet_pin.gd" type="Script" id=1]
 [ext_resource path="res://game/map/sprites/fleet_sprite.tscn" type="PackedScene" id=2]
 
-
 [sub_resource type="StreamTexture" id=1]
 flags = 4
-load_path = "res://.import/crown.png-5f760f5e50a69e31bde827956bc763bc.stex"
 
 [node name="SystemFleetPin" type="Control"]
 margin_right = 26.0

@@ -14,10 +14,10 @@ scale = Vector2( 0.4, 0.4 )
 script = ExtResource( 1 )
 
 [node name="FleetPins" type="HBoxContainer" parent="."]
-margin_left = -26.0
-margin_top = -34.0
-margin_right = -6.0
-margin_bottom = -13.0
+margin_left = -30.0
+margin_top = -30.0
+margin_right = -10.0
+margin_bottom = -9.0
 grow_horizontal = 0
 __meta__ = {
 "_edit_use_anchors_": false

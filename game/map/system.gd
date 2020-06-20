@@ -11,19 +11,20 @@ var _alpha = 1.0
 const ALPHA_SPEED_GAIN = 2.0
 const SNAP_ALPHA_DISTANCE = 0.05
 const ALPHA_APLITUDE = 0.4
+const BASE_POSITION_PIN = Vector2(-30.0,-30.0)
 
 const _TEXTURE_SYSTEM = {
 	0 : preload("res://resources/assets/2d/map/Picto_syteme.png"),
-	1 : preload("res://resources/assets/2d/map/adranite/Picto_syteme_epeeV2-01.png"),
-	2 : preload("res://resources/assets/2d/map/kalankar/Picto_syteme_masqueV2-01.png"),
-	3 : preload("res://resources/assets/2d/map/valkar/Picto_syteme_serpentV2-01.png"),
+	1 : preload("res://resources/assets/2d/map/kalankar/Picto_syteme_masqueV2-01.png"),
+	2 : preload("res://resources/assets/2d/map/valkar/Picto_syteme_serpentV2-01.png"),
+	3 : preload("res://resources/assets/2d/map/adranite/Picto_syteme_epeeV2-01.png"),
 }
 
 
 const _TEXTURE_CROWN = {
-	1 : preload("res://resources/assets/2d/map/adranite/couronne.png"),
-	2 : preload("res://resources/assets/2d/map/kalankar/couronne.png"),
-	3 : preload("res://resources/assets/2d/map/valkar/couronne.png"),
+	1 : preload("res://resources/assets/2d/map/kalankar/couronne.png"),
+	2 : preload("res://resources/assets/2d/map/valkar/couronne.png"),
+	3 : preload("res://resources/assets/2d/map/adranite/couronne.png"),
 }
 
 func _ready():
@@ -38,7 +39,7 @@ func _ready():
 	_set_crown_state()
 	if system.player == Store._state.player.id:
 		Store.select_system(system)
-		_scale_star_system_2()
+		_scale_star_system(2.0)
 		
 func _process(delta):
 	_time += delta
@@ -63,13 +64,9 @@ func _set_system_texture():
 	else:
 		$Star/Spot.texture = _TEXTURE_SYSTEM[Store.get_game_player(system.player).faction as int]
 
-func _scale_star_system_2():
-	$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
-	$FleetPins.set_position(Vector2(-36,-44))
-
-func _scale_star_system_1():
-	$Star.set_scale(Vector2(scale_ratio, scale_ratio))
-	$FleetPins.set_position(Vector2(-26,-34))
+func _scale_star_system(factor):
+	$Star.set_scale(Vector2(scale_ratio * factor, scale_ratio * factor))
+	$FleetPins.rect_position = BASE_POSITION_PIN * factor 
 
 func _on_fleet_selected(fleet):
 	is_in_range_sailing_fleet = Store.is_in_range(fleet,system)
@@ -85,7 +82,7 @@ func _modulate_color(alpha):
 	
 func unselect():
 	if system.player == null || system.player != Store._state.player.id:
-		_scale_star_system_1()
+		_scale_star_system(1.0)
 		
 func refresh_fleet_pins():
 	var is_current_player_included = false
@@ -114,9 +111,9 @@ func refresh():
 	refresh_fleet_pins()
 	get_node("Star/Crown").visible = (system.player == Store._state.player.id)
 	if system.player == Store._state.player.id:
-		_scale_star_system_2()
+		_scale_star_system(2.0)
 	else:
-		_scale_star_system_1()
+		_scale_star_system(1.0)
 
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.is_pressed():
@@ -142,9 +139,9 @@ func _on_fleet_send(err, response_code, headers, body):
 
 func _on_mouse_entered():
 	is_hover = true
-	_scale_star_system_2()
+	_scale_star_system(2.0)
 	
 func _on_mouse_exited():
 	is_hover = false
 	if system.player != Store._state.player.id && system != Store._state.selected_system:
-		_scale_star_system_1()
+		_scale_star_system(1.0)

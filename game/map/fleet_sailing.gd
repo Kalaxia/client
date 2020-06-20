@@ -8,9 +8,9 @@ var color = null
 var fleet = null
 
 const _TEXTURE_CROWN = {
-	1 : preload("res://resources/assets/2d/map/adranite/couronne.png"),
-	2 : preload("res://resources/assets/2d/map/kalankar/couronne.png"),
-	3 : preload("res://resources/assets/2d/map/valkar/couronne.png"),
+	1 : preload("res://resources/assets/2d/map/kalankar/couronne.png"),
+	2 : preload("res://resources/assets/2d/map/valkar/couronne.png"),
+	3 : preload("res://resources/assets/2d/map/adranite/couronne.png"),
 }
 
 func _ready():
