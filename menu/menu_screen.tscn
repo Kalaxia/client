@@ -11,15 +11,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HUD" type="CanvasLayer" parent="."]
-
 [node name="GUI" type="CanvasLayer" parent="."]
-layer = 0
 
 [node name="Body" type="VBoxContainer" parent="GUI"]
-margin_right = 1000.0
-margin_bottom = 720.0
-rect_min_size = Vector2( 1280, 720 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1000, 400 )
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -37,6 +35,11 @@ __meta__ = {
 margin_right = 1280.0
 margin_bottom = 64.0
 alignment = 2
+
+[node name="Control" type="Control" parent="GUI/Body/Header/TopHeader"]
+margin_right = 1208.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
 
 [node name="PlayersCounter" parent="GUI/Body/Header/TopHeader" instance=ExtResource( 2 )]
 anchor_right = 0.0
@@ -159,3 +162,5 @@ margin_right = 1280.0
 margin_bottom = 720.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.05
+
+[node name="HUD" type="CanvasLayer" parent="."]
