@@ -4,8 +4,9 @@
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
-load_path = "res://.import/fleet_pin.png-22ca6186093636b454a1398399adf655.stex"
+load_path = "res://.import/Picto_flotte_2.png-9ec74a576b671c4738a42c6e1ee4d43e.stex"
 
 [node name="FleetSprite" type="Sprite"]
+scale = Vector2( 0.08, 0.08 )
 texture = SubResource( 1 )
 script = ExtResource( 1 )

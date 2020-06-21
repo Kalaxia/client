@@ -35,6 +35,6 @@ scale = Vector2( 0.15, 0.15 )
 texture = ExtResource( 2 )
 
 [node name="Crown" type="Sprite" parent="Star"]
-position = Vector2( 0, -18 )
+position = Vector2( 0, -20 )
 scale = Vector2( 0.15, 0.15 )
 texture = SubResource( 2 )
