@@ -24,7 +24,7 @@ func _ready():
 	var index_bus = 0
 	while continue_looking_for_audio_bus:
 		var name_bus = AudioServer.get_bus_name(index_bus)
-		if index_bus > 20 || name_bus == "" || name_bus == null:
+		if index_bus > Utils.MAX_BUS_TO_SCAN || name_bus == "" || name_bus == null:
 			continue_looking_for_audio_bus = false
 		else:
 			var node = audio_volume.instance()
@@ -43,4 +43,5 @@ func _on_unmark_button_key_binding():
 	pass
 
 func _on_back_to_main_menu():
+	Config.save_config_file()
 	emit_signal("scene_requested","menu")

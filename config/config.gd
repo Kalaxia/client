@@ -23,6 +23,7 @@ const ENABLE_KEY_BINDING_CHANGE = [
 	"ui_add_ships",
 ]
 const KEY_BINDING_SECTION_NAME = "key binding"
+const SOUND_SECTION_NAME = "Audio"
 
 func _ready():
 	config = ConfigFile.new()
@@ -45,6 +46,18 @@ func _ready():
 					var event = InputEventMouseButton.new()
 					event.button_mask = i
 					InputMap.action_add_event(action,event)
+		var continue_looking_for_audio_bus = true
+		var index_bus = 0
+		while continue_looking_for_audio_bus:
+			var name_bus = AudioServer.get_bus_name(index_bus)
+			if index_bus > Utils.MAX_BUS_TO_SCAN || name_bus == "" || name_bus == null:
+				continue_looking_for_audio_bus = false
+			else:
+				if config.has_section_key(SOUND_SECTION_NAME,name_bus):
+					var volume_linear = config.get_value(SOUND_SECTION_NAME,name_bus)
+					var volume_db = linear2db(volume_linear) if volume_linear!= 0 else Utils.AUDIO_VOLUME_DB_MIN
+					AudioServer.set_bus_volume_db(index_bus,volume_db)
+				index_bus += 1
 	else:
 		print("error while parsing configuration file : " + str(err))
 
@@ -56,6 +69,11 @@ func save_key_binding(action):
 		elif event is InputEventMouseButton:
 			events_to_save.mouse.push_back(event.button_mask)
 	config.set_value(KEY_BINDING_SECTION_NAME,action,events_to_save)
+
+func save_audio_volume(bus_name,linear_volume):
+	config.set_value(SOUND_SECTION_NAME,bus_name,linear_volume)
+
+func save_config_file():
 	var err = config.save(PATH_CONFIG)
 	if err != OK :
 		print("Error while saving the config : " + str(err))
