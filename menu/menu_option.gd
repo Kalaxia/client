@@ -1,6 +1,8 @@
 extends Control
 
 var key_binding_option = preload("res://menu/option_key_binding.tscn")
+var audio_volume = preload("res://menu/audio_volume_control.tscn")
+
 
 signal scene_requested(scene)
 
@@ -18,6 +20,17 @@ func _ready():
 				node_key.is_enabled = true
 		$TabContainer/Raccourcis/ScrollContainer/keyBindingContainer.add_child(node_key)
 	$ButtonsContainer/MainMenu.connect("pressed",self,"_on_back_to_main_menu")
+	var continue_looking_for_audio_bus = true
+	var index_bus = 0
+	while continue_looking_for_audio_bus:
+		var name_bus = AudioServer.get_bus_name(index_bus)
+		if index_bus > 20 || name_bus == "" || name_bus == null:
+			continue_looking_for_audio_bus = false
+		else:
+			var node = audio_volume.instance()
+			node.bus_id = index_bus
+			$TabContainer/Audio/AudioScrollContainer/AudioContainer.add_child(node)
+			index_bus += 1
 
 func _on_mark_button_key_binding(action,index):
 	#$CenterContainer/VBoxContainer/ScrollContainer.mouse_filter(MOUSE_FILTER_IGNORE)

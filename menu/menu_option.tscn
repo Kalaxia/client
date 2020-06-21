@@ -33,10 +33,11 @@ size_flags_stretch_ratio = 15.0
 tab_align = 0
 
 [node name="Raccourcis" type="VBoxContainer" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 24.0
+margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 rect_min_size = Vector2( 1000, 500 )
@@ -50,7 +51,7 @@ text = "Raccourcis"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Raccourcis"]
 margin_right = 1272.0
-margin_bottom = 604.0
+margin_bottom = 596.0
 rect_min_size = Vector2( 1000, 400 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -60,6 +61,45 @@ __meta__ = {
 }
 
 [node name="keyBindingContainer" type="VBoxContainer" parent="TabContainer/Raccourcis/ScrollContainer"]
+
+[node name="Audio" type="HBoxContainer" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Control" type="Control" parent="TabContainer/Audio"]
+visible = false
+margin_right = 1272.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="AudioScrollContainer" type="ScrollContainer" parent="TabContainer/Audio"]
+margin_right = 1272.0
+margin_bottom = 596.0
+rect_min_size = Vector2( 1000, 400 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioContainer" type="VBoxContainer" parent="TabContainer/Audio/AudioScrollContainer"]
+margin_right = 1272.0
+margin_bottom = 596.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control2" type="Control" parent="TabContainer/Audio"]
+visible = false
+margin_left = 1211.0
+margin_right = 1272.0
+margin_bottom = 596.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
 
 [node name="HSeparator" type="Control" parent="."]
 margin_top = 656.0
