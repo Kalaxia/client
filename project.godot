@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "OptionKeyBinding",
 "language": "GDScript",
-"path": "res://menu/option_key_binding.gd"
+"path": "res://menu/options/option_key_binding.gd"
 } ]
 _global_script_class_icons={
 "AudioStacking": "",

@@ -1,7 +1,7 @@
 extends Control
 
-var key_binding_option = preload("res://menu/option_key_binding.tscn")
-var audio_volume = preload("res://menu/audio_volume_control.tscn")
+var key_binding_option = preload("res://menu/options/option_key_binding.tscn")
+var audio_volume = preload("res://menu/options/audio_volume_control.tscn")
 
 
 signal scene_requested(scene)

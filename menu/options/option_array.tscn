@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://menu/options/option_array.gd" type="Script" id=1]
+
+[node name="OptionArray" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1273.0
+margin_bottom = 713.0
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+margin_right = 20.0
+margin_bottom = 706.0
+rect_min_size = Vector2( 20, 0 )
+
+[node name="label" type="Label" parent="HBoxContainer"]
+margin_left = 24.0
+margin_top = 346.0
+margin_right = 110.0
+margin_bottom = 360.0
+text = "Option Name"
+
+[node name="Control2" type="Control" parent="HBoxContainer"]
+margin_left = 114.0
+margin_right = 368.0
+margin_bottom = 706.0
+size_flags_horizontal = 3
+
+[node name="MenuButton" type="OptionButton" parent="HBoxContainer"]
+margin_left = 372.0
+margin_right = 880.0
+margin_bottom = 706.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "Item 0"
+selected = 0
+
+[node name="Control3" type="Control" parent="HBoxContainer"]
+margin_left = 884.0
+margin_right = 1266.0
+margin_bottom = 706.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5

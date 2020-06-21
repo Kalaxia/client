@@ -93,6 +93,32 @@ margin_bottom = 596.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.05
 
+[node name="Graphique" type="VBoxContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -1236.0
+margin_bottom = -549.0
+
+[node name="AudioScrollContainer2" type="ScrollContainer" parent="TabContainer/Graphique"]
+margin_right = 1272.0
+margin_bottom = 585.0
+rect_min_size = Vector2( 800, 400 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioContainer" type="VBoxContainer" parent="TabContainer/Graphique/AudioScrollContainer2"]
+margin_right = 1272.0
+margin_bottom = 585.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
 [node name="HSeparator" type="Control" parent="."]
 margin_top = 645.0
 margin_right = 1280.0

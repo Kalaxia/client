@@ -2,6 +2,7 @@ extends PanelContainer
 
 
 export(int) var bus_id = 0 setget set_bus_id
+export(bool) var disabled = false setget set_disabled
 
 func _ready():
 	$HBoxContainer/VolumeSlider.connect("value_changed",self,"_on_value_changed")
@@ -32,3 +33,7 @@ func set_bus_id(new_id : int):
 	bus_id = new_id
 	$HBoxContainer/BusName.text =  tr("audio.bus.%s" % name )
 	$HBoxContainer/VolumeSlider.value = db2linear(AudioServer.get_bus_volume_db(bus_id))
+
+func set_disabled(is_disabled : bool):
+	disabled = is_disabled
+	#todo

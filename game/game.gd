@@ -29,7 +29,15 @@ func _ready():
 	Network.connect("FleetArrived", self, "_on_fleet_arrival")
 	Network.connect("SystemConquerred", self, "_on_system_conquerred")
 	Network.connect("Victory", self, "_on_victory")
+	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	draw_systems()
+	_set_background_ratio()
+
+func _on_resize_window():
+	_set_background_ratio()
+
+func _set_background_ratio():
+	$ParallaxBackground/Background.set_scale(OS.get_window_size() / Vector2(1920.0,1080.0))
 
 func draw_systems():
 	var map = $ParallaxBackground/ParallaxLayer0/Map
