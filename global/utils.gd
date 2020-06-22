@@ -46,3 +46,19 @@ func get_label_of_event(event):
 	if event is InputEventMouseButton:
 		return tr("action.key.mouse_key_" + (event.button_index as String))
 	return ""
+
+func set_windows_resizable(is_resizable):
+	var size = OS.window_size
+	var position = OS.window_position
+	if OS.window_resizable  == is_resizable:
+		return
+	OS.set_window_resizable(is_resizable)
+	if is_resizable:
+		OS.min_window_size = Vector2(1280,720)
+	else:
+		OS.min_window_size = Vector2.ZERO
+#	OS.set_window_size(size)
+#	if is_resizable:
+#		OS.set_window_position(position-Vector2(6,6))
+#	else:
+#		OS.set_window_position(position+Vector2(6,6))

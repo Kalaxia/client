@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://hud/notifications.tscn" type="PackedScene" id=2]
 [ext_resource path="res://hud/wallet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://hud/system/details.tscn" type="PackedScene" id=4]
+[ext_resource path="res://hud/hud_menu.tscn" type="PackedScene" id=5]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -32,5 +33,8 @@ margin_bottom = 694.0
 [node name="SystemDetails" parent="ParallaxBackground/HUD" instance=ExtResource( 4 )]
 margin_right = 200.0
 margin_bottom = 188.0
+
+[node name="HudMenu" parent="ParallaxBackground/HUD" instance=ExtResource( 5 )]
+rect_min_size = Vector2( 80, 40 )
 
 [node name="Level" type="CanvasLayer" parent="."]

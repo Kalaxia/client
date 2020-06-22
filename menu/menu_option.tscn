@@ -99,8 +99,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
 margin_top = 32.0
-margin_right = -1236.0
-margin_bottom = -549.0
+margin_right = -4.0
+margin_bottom = -4.0
 
 [node name="AudioScrollContainer2" type="ScrollContainer" parent="TabContainer/Graphique"]
 margin_right = 1272.0

@@ -1,4 +1,4 @@
-extends Control
+extends PanelContainer
 
 
 # Declare member variables here. Examples:

@@ -92,13 +92,13 @@ __meta__ = {
 [node name="seperator1" type="Control" parent="GUI/Body/MainSection/Menu"]
 margin_top = 44.0
 margin_right = 275.0
-margin_bottom = 69.0
+margin_bottom = 65.0
 size_flags_vertical = 3
 
 [node name="OptionButton" type="Button" parent="GUI/Body/MainSection/Menu"]
-margin_top = 73.0
+margin_top = 69.0
 margin_right = 275.0
-margin_bottom = 113.0
+margin_bottom = 109.0
 rect_min_size = Vector2( 0, 40 )
 text = "menu.main.options"
 __meta__ = {
@@ -106,23 +106,39 @@ __meta__ = {
 }
 
 [node name="seperator2" type="Control" parent="GUI/Body/MainSection/Menu"]
-margin_top = 117.0
+margin_top = 113.0
 margin_right = 275.0
-margin_bottom = 142.0
+margin_bottom = 134.0
 size_flags_vertical = 3
 
 [node name="CreditsButton" type="Button" parent="GUI/Body/MainSection/Menu"]
-margin_top = 146.0
+margin_top = 138.0
 margin_right = 275.0
-margin_bottom = 186.0
+margin_bottom = 178.0
 rect_min_size = Vector2( 0, 40 )
 text = "menu.main.credits"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="seperator3" type="Control" parent="GUI/Body/MainSection/Menu"]
+margin_top = 182.0
+margin_right = 275.0
+margin_bottom = 203.0
+size_flags_vertical = 3
+
+[node name="Quit" type="Button" parent="GUI/Body/MainSection/Menu"]
+margin_top = 207.0
+margin_right = 275.0
+margin_bottom = 247.0
+rect_min_size = Vector2( 0, 40 )
+text = "Quitter"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="footer" type="Control" parent="GUI/Body/MainSection/Menu"]
-margin_top = 190.0
+margin_top = 251.0
 margin_right = 275.0
 margin_bottom = 569.0
 size_flags_vertical = 3

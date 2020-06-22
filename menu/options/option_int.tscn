@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://menu/options/option_boolean.gd" type="Script" id=1]
+[ext_resource path="res://menu/options/option_int.gd" type="Script" id=1]
 
-[node name="OptionBoolean" type="PanelContainer"]
+[node name="OptionInt" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 30 )
@@ -40,13 +40,14 @@ margin_right = 338.0
 margin_bottom = 706.0
 rect_min_size = Vector2( 10, 0 )
 
-[node name="Button" type="CheckButton" parent="HBoxContainer"]
+[node name="RangeInt" type="SpinBox" parent="HBoxContainer"]
 margin_left = 342.0
-margin_right = 418.0
+margin_right = 416.0
 margin_bottom = 706.0
+max_value = 0.0
 
 [node name="Control3" type="Control" parent="HBoxContainer"]
-margin_left = 422.0
+margin_left = 420.0
 margin_right = 1266.0
 margin_bottom = 706.0
 size_flags_horizontal = 3

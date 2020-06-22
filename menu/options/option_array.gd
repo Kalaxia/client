@@ -1,4 +1,4 @@
-extends Control
+extends PanelContainer
 
 
 export(Array,String) var option_list = [] setget set_option_list
@@ -24,4 +24,4 @@ func set_selected_item(item_id : int):
 	
 func set_disabled(is_disabled : bool):
 	disabled = is_disabled
-	#todo
+	$HBoxContainer/MenuButton.disabled = disabled

@@ -9,8 +9,11 @@ var api = {
 	'ws_scheme': null
 }
 
-var config
-const PATH_CONFIG = "res://config/" + ENV + ".cfg"
+var config_newtork
+var config_user
+const PATH_CONFIG_NETWORK = "res://config/" + ENV + ".cfg"
+const PATH_CONFIG_USER = "res://config/config.cfg"
+
 const ENABLE_KEY_BINDING_CHANGE = [
 	"ui_zoom_out_map",
 	"ui_zoom_in_map",
@@ -27,18 +30,22 @@ const SOUND_SECTION_NAME = "Audio"
 
 func _ready():
 	TranslationServer.set_locale("fr")
-	config = ConfigFile.new()
-	var err = config.load(PATH_CONFIG)
+	config_newtork = ConfigFile.new()
+	var err = config_newtork.load(PATH_CONFIG_NETWORK)
 	if err == OK:
-		api.dns = config.get_value('network', 'api_dns', '127.0.0.1')
-		api.port = config.get_value('network', 'api_port', 8080)
-		api.scheme = config.get_value('network', 'api_scheme', 'http')
-		api.ws_scheme = config.get_value('network', 'ws_scheme', 'ws')
-		
+		api.dns = config_newtork.get_value('network', 'api_dns', '127.0.0.1')
+		api.port = config_newtork.get_value('network', 'api_port', 8080)
+		api.scheme = config_newtork.get_value('network', 'api_scheme', 'http')
+		api.ws_scheme = config_newtork.get_value('network', 'ws_scheme', 'ws')
+	else:
+		print("error while parsing configuration file "+PATH_CONFIG_NETWORK+" : " + str(err))
+	config_user = ConfigFile.new()
+	var err_config_user = config_user.load(PATH_CONFIG_USER)
+	if err_config_user == OK:
 		for action in ENABLE_KEY_BINDING_CHANGE:
-			if config.has_section_key(KEY_BINDING_SECTION_NAME,action):
+			if config_user.has_section_key(KEY_BINDING_SECTION_NAME,action):
 				InputMap.action_erase_events(action)
-				var events_input = config.get_value(KEY_BINDING_SECTION_NAME,action)
+				var events_input = config_user.get_value(KEY_BINDING_SECTION_NAME,action)
 				for i in events_input.keys:
 					var event = InputEventKey.new()
 					event.scancode = i
@@ -54,13 +61,13 @@ func _ready():
 			if index_bus > Utils.MAX_BUS_TO_SCAN || name_bus == "" || name_bus == null:
 				continue_looking_for_audio_bus = false
 			else:
-				if config.has_section_key(SOUND_SECTION_NAME,name_bus):
-					var volume_linear = config.get_value(SOUND_SECTION_NAME,name_bus)
+				if config_user.has_section_key(SOUND_SECTION_NAME,name_bus):
+					var volume_linear = config_user.get_value(SOUND_SECTION_NAME,name_bus)
 					var volume_db = linear2db(volume_linear) if volume_linear!= 0 else Utils.AUDIO_VOLUME_DB_MIN
 					AudioServer.set_bus_volume_db(index_bus,volume_db)
 				index_bus += 1
 	else:
-		print(tr("error while parsing configuration file : ") + str(err))
+		print( (tr("error while parsing configuration file %s : ") % PATH_CONFIG_USER) + str(err))
 
 func save_key_binding(action):
 	var events_to_save = {"keys": [] ,"mouse":[]}
@@ -69,12 +76,12 @@ func save_key_binding(action):
 			events_to_save.keys.push_back(event.scancode)
 		elif event is InputEventMouseButton:
 			events_to_save.mouse.push_back(event.button_mask)
-	config.set_value(KEY_BINDING_SECTION_NAME,action,events_to_save)
+	config_user.set_value(KEY_BINDING_SECTION_NAME,action,events_to_save)
 
 func save_audio_volume(bus_name,linear_volume):
-	config.set_value(SOUND_SECTION_NAME,bus_name,linear_volume)
+	config_user.set_value(SOUND_SECTION_NAME,bus_name,linear_volume)
 
 func save_config_file():
-	var err = config.save(PATH_CONFIG)
+	var err = config_user.save(PATH_CONFIG_USER)
 	if err != OK :
 		print(tr("Error while saving the config : ") + str(err))

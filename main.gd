@@ -16,7 +16,13 @@ func change_level(level_scene):
 	for l in $Level.get_children(): l.queue_free()
 	var level = level_scene.instance()
 	level.connect("scene_requested", self, "_on_scene_request")
+	$ParallaxBackground/HUD/HudMenu.connect("back_main_menu", self, "_on_back_to_main_menu")
 	$Level.add_child(level)
+
+func _on_back_to_main_menu():
+	$ParallaxBackground/HUD/Wallet.visible = false
+	$ParallaxBackground/HUD/SystemDetails.visible = false
+	change_level(option_menu)
 
 func _on_scene_request(scene):
 	if scene == 'lobby':
