@@ -36,4 +36,4 @@ func set_bus_id(new_id : int):
 
 func set_disabled(is_disabled : bool):
 	disabled = is_disabled
-	#todo
+	$HBoxContainer/VolumeSlider.editable = ! is_disabled

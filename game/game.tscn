@@ -26,7 +26,6 @@ editor_draw_limits = true
 layer = -10
 
 [node name="Background" type="Sprite" parent="ParallaxBackground"]
-scale = Vector2( 0.666705, 0.66642 )
 texture = ExtResource( 2 )
 centered = false
 __meta__ = {

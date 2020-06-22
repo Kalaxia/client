@@ -14,12 +14,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="borderless" parent="." instance=ExtResource( 2 )]
+[node name="fullscreen" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1272.0
 margin_bottom = 54.0
-option_name = "Borderless"
+option_name = "Plein écran"
 
 [node name="Maximize" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0

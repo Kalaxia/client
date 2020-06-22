@@ -12,8 +12,8 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
-margin_top = 353.0
+margin_top = 533.0
 margin_right = 400.0
-margin_bottom = 367.0
+margin_bottom = 547.0
 rect_min_size = Vector2( 400, 0 )
 text = "no_translate.label_key_binding"
