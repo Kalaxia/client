@@ -57,7 +57,7 @@ margin_bottom = 82.0
 margin_right = 1280.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
-text = "Kalaxia"
+text = "menu.main.title_kalaxia"
 align = 1
 
 [node name="space" type="Control" parent="GUI/Body"]
@@ -84,7 +84,7 @@ margin_right = 275.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_vertical = 0
-text = "Créer une partie"
+text = "menu.main.create_lobby"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -100,7 +100,7 @@ margin_top = 73.0
 margin_right = 275.0
 margin_bottom = 113.0
 rect_min_size = Vector2( 0, 40 )
-text = "Options"
+text = "menu.main.options"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -116,7 +116,7 @@ margin_top = 146.0
 margin_right = 275.0
 margin_bottom = 186.0
 rect_min_size = Vector2( 0, 40 )
-text = "Crédits"
+text = "menu.main.credits"
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -123,7 +123,7 @@ ui_move_map_down={
 
 [locale]
 
-translations=PoolStringArray( "res://locals/fr.po" )
+translations=PoolStringArray( "res://locales/fr.po", "res://locales/en.po" )
 locale_filter=[ 1, [ "en", "fr" ] ]
 
 [rendering]

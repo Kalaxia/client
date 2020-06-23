@@ -9,6 +9,6 @@ var banners = {
 }
 
 func _ready():
-	$Name.set_text(faction.name)
-	$NbSystems.set_text(str(nb_systems) + " systèmes contrôlés")
+	$Name.set_text(tr(faction.name))
+	$NbSystems.set_text(tr("game.faction_score.number_systems") % nb_systems)
 	$Banner.set_texture(banners[faction.name])

@@ -19,7 +19,7 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 10.0
 margin_bottom = 24.0
-text = "Kern"
+text = "no_translate.Kern"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -43,16 +43,16 @@ expand = true
 [node name="NbShips" type="Label" parent="Ships"]
 margin_left = 36.0
 margin_top = 9.0
-margin_right = 156.0
+margin_right = 126.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
-text = "1"
+text = "no_translate.1"
 align = 2
 
 [node name="CreationButton" type="Button" parent="Ships"]
-margin_left = 160.0
+margin_left = 130.0
 margin_top = 6.0
-margin_right = 180.0
+margin_right = 295.0
 margin_bottom = 26.0
 size_flags_vertical = 4
-text = "+"
+text = "hud.fleet_item.add_ship"

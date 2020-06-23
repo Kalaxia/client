@@ -28,32 +28,32 @@ margin_right = 1273.0
 margin_bottom = 47.0
 
 [node name="FactionChoice" type="OptionButton" parent="Container"]
-margin_right = 571.0
+margin_right = 514.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 disabled = true
-text = "Faction"
+text = "no_translate.Faction"
 flat = true
 align = 1
 expand_icon = true
 
 [node name="UsernameInput" type="LineEdit" parent="Container"]
-margin_left = 575.0
-margin_right = 1146.0
+margin_left = 518.0
+margin_right = 1032.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 max_length = 30
 editable = false
-placeholder_text = "nom d'utilisateur"
+placeholder_text = "menu.player_info.input_text_placeholder"
 
 [node name="UpdateNameTimer" type="Timer" parent="Container/UsernameInput"]
 wait_time = 0.7
 one_shot = true
 
 [node name="ReadyInput" type="CheckButton" parent="Container"]
-margin_left = 1150.0
-margin_right = 1266.0
+margin_left = 1036.0
+margin_right = 1265.0
 margin_bottom = 40.0
 disabled = true
-text = "Prêt ?"
+text = "menu.player_info.ready"
 align = 1

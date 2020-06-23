@@ -14,7 +14,7 @@ class ButtonKeyBinding:
 	var index_key_binding
 
 func _ready():
-	$Label.text = action
+	$Label.text = tr("action." + action)
 	_refresh_data()
 
 func _refresh_data():
@@ -26,7 +26,7 @@ func _refresh_data():
 		var button = ButtonKeyBinding.new()
 		button.toggle_mode = true
 		button.rect_min_size = Vector2(100,10)
-		button.index_key_binding = i as String # todo find a better way
+		button.index_key_binding = i # todo find a better way
 		button.disabled = ! is_enabled
 		button.connect("toggled",self,"_on_button_toggled",[i])
 		var text_button = Utils.get_label_of_event(keys[i])
@@ -36,7 +36,7 @@ func _refresh_data():
 
 func on_button_press(action_param,index_param):
 	for node in get_children():
-		if node is Button && (node.index_key_binding != index_param as String || action_param != action):
+		if node is Button && (node.index_key_binding != index_param || action_param != action):
 			node.pressed = false
 	# we set the index to the correct one after deactivate the otehr button
 	# as when it is toggled it will call _on_button_toggled and set index_pressed to -1
@@ -72,5 +72,5 @@ func set_is_enabled(new_value):
 
 func set_action(new_value):
 	action = new_value
-	$Label.text = action
+	$Label.text = tr("action." + action)
 	_refresh_data()

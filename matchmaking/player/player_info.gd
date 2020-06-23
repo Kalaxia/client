@@ -17,6 +17,7 @@ func _ready():
 	var ready_input = get_node("Container/ReadyInput")
 	ready_input.pressed = player.ready
 	init_faction_choices()
+	$Container/UsernameInput.placeholder_text = tr("menu.player_info.input_text_placeholder")
 	if player.id == Store._state.player.id:
 		new_username = player.username
 		$Background.color = Color(0,0,0)
@@ -41,14 +42,15 @@ func _on_timer_timeout():
 
 func init_faction_choices():
 	var faction_choice = get_node("Container/FactionChoice")
-	faction_choice.add_item("Faction", 0)
+	faction_choice.add_item(tr("menu.player_info.faction_drop_down_0"), 0)
 	faction_choice.set_item_disabled(0, true)
 	for faction in Store._state.factions.values():
 		var image = banners[faction.name]
 		var texture = ImageTexture.new()
 		texture.create_from_image(image, ImageTexture.FLAG_MIPMAPS | ImageTexture.FLAG_FILTER | ImageTexture.FLAG_ANISOTROPIC_FILTER)
 		texture.set_size_override(Vector2(50, 50))
-		faction_choice.add_icon_item(texture, faction.name, faction.id)
+		# not keys for faction
+		faction_choice.add_icon_item(texture, tr(faction.name), faction.id)
 	if player.id == Store._state.player.id:
 		faction_choice.disabled = false
 		faction_choice.flat = false
@@ -59,7 +61,7 @@ func get_username():
 	if player.id == Store._state.player.id:
 		return new_username
 	else:
-		return "Inconnu" if (player.username == "") else player.username
+		return tr("general.unkown_username") if (player.username == "") else player.username
 	
 func update_data(data):
 	player = data

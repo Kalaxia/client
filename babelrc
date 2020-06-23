@@ -8,5 +8,5 @@ encoding = utf-8
 [godot_scene: *.godot.tscn]
 encoding = utf-8
 
-[python: locals/*.txt]
+[python: locales/*.txt]
 encoding = utf-8

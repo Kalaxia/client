@@ -31,24 +31,24 @@ __meta__ = {
 
 [node name="Section" type="HBoxContainer" parent="Body"]
 margin_left = 4.0
-margin_right = 223.0
+margin_right = 147.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="Control" type="Control" parent="Body/Section"]
-margin_right = 107.0
+margin_right = 69.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="Players" type="Label" parent="Body/Section"]
-margin_left = 111.0
+margin_left = 73.0
 margin_top = 13.0
-margin_right = 219.0
+margin_right = 143.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
 
 [node name="Join" type="Button" parent="Body"]
-margin_left = 227.0
+margin_left = 151.0
 margin_right = 300.0
 margin_bottom = 40.0
-text = "Rejoindre"
+text = "menu.lobby_card.join"

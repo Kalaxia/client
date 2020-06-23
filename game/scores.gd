@@ -8,9 +8,9 @@ func _ready():
 	get_node("Footer/BackToMenu").connect("pressed", self, "_back_to_menu")
 	var scores = Store._state.scores
 	if Store._state.player.faction == Store._state.victorious_faction:
-		$Label.set_text("Victoire !")
+		$Label.set_text(tr("game.score.victory"))
 	else:
-		$Label.set_text("Défaite !")
+		$Label.set_text(tr("game.score.defeat"))
 	
 	for dominion in scores:
 		var fid = float(dominion.faction_id)

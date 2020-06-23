@@ -69,18 +69,18 @@ margin_right = 636.0
 margin_bottom = 129.0
 size_flags_vertical = 4
 disabled = true
-text = "Lancer"
+text = "menu.lobby.launch"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="LeaveButton" type="Button" parent="GUI/Body/Footer"]
-margin_left = 611.0
+margin_left = 581.0
 margin_top = 109.0
-margin_right = 669.0
+margin_right = 698.0
 margin_bottom = 129.0
 size_flags_vertical = 4
-text = "Quitter"
+text = "menu.lobby.quit"
 
 [node name="HUD" type="CanvasLayer" parent="."]
 layer = 2

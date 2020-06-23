@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-23 18:09+0200\n"
+"POT-Creation-Date: 2020-06-24 17:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,116 +17,371 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: hud/hud_menu.tscn:18
-msgid "Retourner au menu principal"
+#: config/config.gd:50
+msgid "error while parsing configuration file : "
+msgstr ""
+
+#: config/config.gd:62
+msgid "Error while saving the config : "
+msgstr ""
+
+#: game/faction_score.gd:13
+msgid "game.faction_score.number_systems"
+msgstr ""
+
+#: game/scores.gd:11 game/scores.tscn:20
+msgid "game.score.victory"
+msgstr ""
+
+#: game/scores.gd:13
+msgid "game.score.defeat"
+msgstr ""
+
+#: game/scores.tscn:62
+msgid "game.score.back_main_menu"
+msgstr ""
+
+#: global/error.gd:7 global/error.gd:19 global/error.gd:20
+msgid "error.network_error"
+msgstr ""
+
+#: global/error.gd:13 global/error.gd:15
+msgid "error.connexion_impossible"
+msgstr ""
+
+#: global/error.gd:13 global/error.gd:17
+msgid "error.server_not_avaliable"
+msgstr ""
+
+#: global/error.gd:15
+msgid "error.unkown_domain_name"
+msgstr ""
+
+#: global/error.gd:17
+msgid "error.http_not_connected"
+msgstr ""
+
+#: global/error.gd:19
+msgid "error.network_error_content"
+msgstr ""
+
+#: global/loading_screen.tscn:24
+msgid "global.loading.loading"
+msgstr ""
+
+#: global/network.gd:75
+msgid "network.unable_connect"
+msgstr ""
+
+#: global/network.gd:81
+msgid "network.close_clean_ws"
+msgstr ""
+
+#: global/network.gd:87
+msgid "Connected with protocol: "
+msgstr ""
+
+#: global/network.gd:95
+msgid "received data from server: "
+msgstr ""
+
+#: global/store.gd:32
+msgid "store.game_of"
+msgstr ""
+
+#: global/store.gd:32
+msgid "store.new_game"
+msgstr ""
+
+#: global/utils.gd:44
+msgid "action.key.mouse_key_"
+msgstr ""
+
+#: hud/notifications.gd:13
+msgid "notification.ok"
 msgstr ""
 
 #: hud/wallet.tscn:29
-msgid "0"
+msgid "no_translate.0"
 msgstr ""
 
-#: hud/system/details.gd:26
-msgid ": ajouter 5 vaisseaux"
+#: hud/system/details.gd:24 hud/system/details.tscn:48
+msgid "hud.system.add_fleet.key_binding"
+msgstr ""
+
+#: hud/system/details.gd:25 hud/system/details.tscn:60
+msgid "hud.system.add_one_ship.key_binding"
+msgstr ""
+
+#: hud/system/details.gd:26 hud/system/details.tscn:66
+msgid "hud.system.add_five_ship.key_binding"
 msgstr ""
 
 #: hud/system/details.tscn:42
-msgid "Flottes"
-msgstr ""
-
-#: hud/system/details.tscn:48
-msgid "F: créer une flotte"
+msgid "hud.system.fleet"
 msgstr ""
 
 #: hud/system/details.tscn:54
-msgid "1-9: sélectionner une flotte"
-msgstr ""
-
-#: hud/system/details.tscn:60
-msgid "A: ajouter un vaisseau"
-msgstr ""
-
-#: hud/system/details.tscn:66
-msgid "SHIFT-A: ajouter 5 vaisseaux"
+msgid "hud.system.select_fleet.key_binding"
 msgstr ""
 
 #: hud/system/details.tscn:78
-msgid "Créer une flotte"
+msgid "hud.system.add_fleet"
 msgstr ""
 
 #: hud/system/fleet_item.tscn:22
-msgid "Kern"
+msgid "no_translate.Kern"
 msgstr ""
 
 #: hud/system/fleet_item.tscn:49
-msgid "1"
+msgid "no_translate.1"
 msgstr ""
 
 #: hud/system/fleet_item.tscn:58
-msgid "+"
+msgid "hud.fleet_item.add_ship"
 msgstr ""
 
-#: locals/test.txt:1
-msgid "Foo Bar"
+#: locales/strings.txt:1
+msgid "action.ui_accept"
 msgstr ""
 
-#: matchmaking/game/game_loading.tscn:50
-msgid "2 joueurs"
+#: locales/strings.txt:2
+msgid "action.ui_select"
+msgstr ""
+
+#: locales/strings.txt:3
+msgid "action.ui_cancel"
+msgstr ""
+
+#: locales/strings.txt:4
+msgid "action.ui_focus_next"
+msgstr ""
+
+#: locales/strings.txt:5
+msgid "action.ui_focus_prev"
+msgstr ""
+
+#: locales/strings.txt:6
+msgid "action.ui_left"
+msgstr ""
+
+#: locales/strings.txt:7
+msgid "action.ui_right"
+msgstr ""
+
+#: locales/strings.txt:8
+msgid "action.ui_up"
+msgstr ""
+
+#: locales/strings.txt:9
+msgid "action.ui_down"
+msgstr ""
+
+#: locales/strings.txt:10
+msgid "action.page_up"
+msgstr ""
+
+#: locales/strings.txt:11
+msgid "action.page_down"
+msgstr ""
+
+#: locales/strings.txt:12
+msgid "action.ui_home"
+msgstr ""
+
+#: locales/strings.txt:13
+msgid "action.ui_end"
+msgstr ""
+
+#: locales/strings.txt:14
+msgid "action.ui_add_fleet"
+msgstr ""
+
+#: locales/strings.txt:15
+msgid "action.ui_select_fleet"
+msgstr ""
+
+#: locales/strings.txt:16
+msgid "action.ui_add_ships"
+msgstr ""
+
+#: locales/strings.txt:17
+msgid "action.ui_zoom_in_map"
+msgstr ""
+
+#: locales/strings.txt:18
+msgid "action.ui_zoom_out_map"
+msgstr ""
+
+#: locales/strings.txt:19
+msgid "action.ui_drag_map"
+msgstr ""
+
+#: locales/strings.txt:20
+msgid "action.ui_move_map_left"
+msgstr ""
+
+#: locales/strings.txt:21
+msgid "action.ui_move_map_right"
+msgstr ""
+
+#: locales/strings.txt:22
+msgid "action.ui_move_map_up"
+msgstr ""
+
+#: locales/strings.txt:23
+msgid "action.ui_move_map_down"
+msgstr ""
+
+#: locales/strings.txt:24
+msgid "action.key.mouse_key_1"
+msgstr ""
+
+#: locales/strings.txt:25
+msgid "action.key.mouse_key_2"
+msgstr ""
+
+#: locales/strings.txt:26
+msgid "action.key.mouse_key_3"
+msgstr ""
+
+#: locales/strings.txt:27
+msgid "action.key.mouse_key_4"
+msgstr ""
+
+#: locales/strings.txt:28
+msgid "action.key.mouse_key_5"
+msgstr ""
+
+#: locales/strings.txt:29
+msgid "action.key.mouse_key_6"
+msgstr ""
+
+#: locales/strings.txt:30
+msgid "action.key.mouse_key_7"
+msgstr ""
+
+#: locales/strings.txt:31
+msgid "action.key.mouse_key_8"
+msgstr ""
+
+#: locales/strings.txt:32
+msgid "action.key.mouse_key_9"
+msgstr ""
+
+#: locales/strings.txt:33
+msgid "action.key.mouse_key_128"
+msgstr ""
+
+#: locales/strings.txt:34
+msgid "action.key.mouse_key_256"
+msgstr ""
+
+#: locales/strings.txt:35
+msgid "Adranite"
+msgstr ""
+
+#: locales/strings.txt:36
+msgid "Kalankar"
+msgstr ""
+
+#: locales/strings.txt:37
+msgid "Valkar"
+msgstr ""
+
+#: matchmaking/game/game_loading.gd:30 matchmaking/game/game_loading.tscn:54
+msgid "menu.loading.number_player"
+msgstr ""
+
+#: matchmaking/game/game_loading.tscn:42
+msgid "menu.loading.loading"
 msgstr ""
 
 #: matchmaking/lobby/lobby.tscn:72
-msgid "Lancer"
+msgid "menu.lobby.launch"
 msgstr ""
 
 #: matchmaking/lobby/lobby.tscn:83
-msgid "Quitter"
+msgid "menu.lobby.quit"
 msgstr ""
 
-#: menu/menu_credits.tscn:80
-msgid "Développé par la communauté de Kalaxia"
+#: matchmaking/lobby/lobby_card.gd:18
+msgid "menu.lobby_card.player_count"
 msgstr ""
 
-#: menu/menu_credits.tscn:104
-msgid "Site web"
+#: matchmaking/lobby/lobby_card.tscn:45
+msgid "menu.lobby_card.join"
 msgstr ""
 
-#: menu/menu_credits.tscn:121
-msgid "Serveur Discord"
+#: matchmaking/player/player_info.gd:20
+msgid "menu.player_info.input_text_placeholder"
 msgstr ""
 
-#: menu/menu_credits.tscn:163
-msgid "Retour au menu principal"
+#: matchmaking/player/player_info.gd:45
+msgid "menu.player_info.faction_drop_down_0"
 msgstr ""
 
-#: menu/menu_option.tscn:49
-msgid "Raccourcis"
+#: matchmaking/player/player_info.gd:64
+msgid "general.unkown_username"
 msgstr ""
 
-#: menu/menu_option.tscn:143
-msgid "Sauver et retourner au menu principal"
+#: matchmaking/player/player_info.gd:111
+msgid "player updated"
 msgstr ""
 
-#: menu/options/audio_volume_control.gd:18
-#, python-format
-msgid "%3.3d %s (%7.2f dB)"
+#: matchmaking/player/player_info.tscn:35
+msgid "no_translate.Faction"
 msgstr ""
 
-#: menu/options/audio_volume_control.tscn:34
-msgid "Bus name"
+#: matchmaking/player/player_info.tscn:58
+msgid "menu.player_info.ready"
 msgstr ""
 
-#: menu/options/audio_volume_control.tscn:66
-msgid "  Volume :"
+#: menu/menu_credits.gd:10 menu/menu_credits.tscn:88
+msgid "menu.credits.website"
 msgstr ""
 
-#: menu/options/audio_volume_control.tscn:75
-msgid "100 % (0 dB)"
+#: menu/menu_credits.gd:11 menu/menu_credits.tscn:105
+msgid "menu.credits.discord"
 msgstr ""
 
-#: menu/options/option_int.tscn:35
-msgid "Option Label"
+#: menu/menu_credits.tscn:64
+msgid "menu.credits.dev_comunity_label"
 msgstr ""
 
-#: menu/options/option_key_binding.tscn:19
-msgid "test"
+#: menu/menu_credits.tscn:125
+msgid "menu.credits.legal_notice_godot"
+msgstr ""
+
+#: menu/menu_credits.tscn:142
+msgid "menu.credits.back_main_menu"
+msgstr ""
+
+#: menu/menu_option.tscn:50
+msgid "menu.option.back_main_menu"
+msgstr ""
+
+#: menu/menu_screen.tscn:55
+msgid "menu.main.title_kalaxia"
+msgstr ""
+
+#: menu/menu_screen.tscn:88
+msgid "menu.main.create_lobby"
+msgstr ""
+
+#: menu/menu_screen.tscn:105
+msgid "menu.main.options"
+msgstr ""
+
+#: menu/menu_screen.tscn:125
+msgid "menu.main.credits"
+msgstr ""
+
+#: menu/option_key_binding.gd:17 menu/option_key_binding.gd:75
+msgid "action."
+msgstr ""
+
+#: menu/option_key_binding.tscn:19
+msgid "no_translate.label_key_binding"
 msgstr ""
 

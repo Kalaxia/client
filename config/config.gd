@@ -60,7 +60,7 @@ func _ready():
 					AudioServer.set_bus_volume_db(index_bus,volume_db)
 				index_bus += 1
 	else:
-		print("error while parsing configuration file : " + str(err))
+		print(tr("error while parsing configuration file : ") + str(err))
 
 func save_key_binding(action):
 	var events_to_save = {"keys": [] ,"mouse":[]}
@@ -77,4 +77,4 @@ func save_audio_volume(bus_name,linear_volume):
 func save_config_file():
 	var err = config.save(PATH_CONFIG)
 	if err != OK :
-		print("Error while saving the config : " + str(err))
+		print(tr("Error while saving the config : ") + str(err))

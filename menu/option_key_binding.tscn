@@ -16,4 +16,4 @@ margin_top = 353.0
 margin_right = 400.0
 margin_bottom = 367.0
 rect_min_size = Vector2( 400, 0 )
-text = "no_translate.test"
+text = "no_translate.label_key_binding"

@@ -1,3 +1,5 @@
 *.x86_64
 *.exe*
 *.pck
+locales/en.po.back
+locales/fr.po.back
