@@ -26,6 +26,7 @@ const KEY_BINDING_SECTION_NAME = "key binding"
 const SOUND_SECTION_NAME = "Audio"
 
 func _ready():
+	TranslationServer.set_locale("fr")
 	config = ConfigFile.new()
 	var err = config.load(PATH_CONFIG)
 	if err == OK:

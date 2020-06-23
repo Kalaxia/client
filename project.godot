@@ -121,6 +121,11 @@ ui_move_map_down={
  ]
 }
 
+[locale]
+
+translations=PoolStringArray( "res://locals/fr.po" )
+locale_filter=[ 1, [ "en", "fr" ] ]
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

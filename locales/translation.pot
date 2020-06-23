@@ -1,0 +1,132 @@
+# Translations template for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-06-23 18:09+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: hud/hud_menu.tscn:18
+msgid "Retourner au menu principal"
+msgstr ""
+
+#: hud/wallet.tscn:29
+msgid "0"
+msgstr ""
+
+#: hud/system/details.gd:26
+msgid ": ajouter 5 vaisseaux"
+msgstr ""
+
+#: hud/system/details.tscn:42
+msgid "Flottes"
+msgstr ""
+
+#: hud/system/details.tscn:48
+msgid "F: créer une flotte"
+msgstr ""
+
+#: hud/system/details.tscn:54
+msgid "1-9: sélectionner une flotte"
+msgstr ""
+
+#: hud/system/details.tscn:60
+msgid "A: ajouter un vaisseau"
+msgstr ""
+
+#: hud/system/details.tscn:66
+msgid "SHIFT-A: ajouter 5 vaisseaux"
+msgstr ""
+
+#: hud/system/details.tscn:78
+msgid "Créer une flotte"
+msgstr ""
+
+#: hud/system/fleet_item.tscn:22
+msgid "Kern"
+msgstr ""
+
+#: hud/system/fleet_item.tscn:49
+msgid "1"
+msgstr ""
+
+#: hud/system/fleet_item.tscn:58
+msgid "+"
+msgstr ""
+
+#: locals/test.txt:1
+msgid "Foo Bar"
+msgstr ""
+
+#: matchmaking/game/game_loading.tscn:50
+msgid "2 joueurs"
+msgstr ""
+
+#: matchmaking/lobby/lobby.tscn:72
+msgid "Lancer"
+msgstr ""
+
+#: matchmaking/lobby/lobby.tscn:83
+msgid "Quitter"
+msgstr ""
+
+#: menu/menu_credits.tscn:80
+msgid "Développé par la communauté de Kalaxia"
+msgstr ""
+
+#: menu/menu_credits.tscn:104
+msgid "Site web"
+msgstr ""
+
+#: menu/menu_credits.tscn:121
+msgid "Serveur Discord"
+msgstr ""
+
+#: menu/menu_credits.tscn:163
+msgid "Retour au menu principal"
+msgstr ""
+
+#: menu/menu_option.tscn:49
+msgid "Raccourcis"
+msgstr ""
+
+#: menu/menu_option.tscn:143
+msgid "Sauver et retourner au menu principal"
+msgstr ""
+
+#: menu/options/audio_volume_control.gd:18
+#, python-format
+msgid "%3.3d %s (%7.2f dB)"
+msgstr ""
+
+#: menu/options/audio_volume_control.tscn:34
+msgid "Bus name"
+msgstr ""
+
+#: menu/options/audio_volume_control.tscn:66
+msgid "  Volume :"
+msgstr ""
+
+#: menu/options/audio_volume_control.tscn:75
+msgid "100 % (0 dB)"
+msgstr ""
+
+#: menu/options/option_int.tscn:35
+msgid "Option Label"
+msgstr ""
+
+#: menu/options/option_key_binding.tscn:19
+msgid "test"
+msgstr ""
+
