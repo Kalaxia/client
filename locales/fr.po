@@ -33,7 +33,7 @@ msgstr "%d systèmes contrôlés"
 
 #: game/scores.gd:11 game/scores.tscn:20
 msgid "game.score.victory"
-msgstr "Victoir !"
+msgstr "Victoire !"
 
 #: game/scores.gd:13
 msgid "game.score.defeat"
@@ -49,7 +49,7 @@ msgstr "Erreur réseau"
 
 #: global/error.gd:13 global/error.gd:15
 msgid "error.connexion_impossible"
-msgstr "Connextion impossible"
+msgstr "Connexion impossible"
 
 #: global/error.gd:13 global/error.gd:17
 msgid "error.server_not_avaliable"
@@ -57,7 +57,7 @@ msgstr "Le serveur de jeu n'est pas disponible."
 
 #: global/error.gd:15
 msgid "error.unkown_domain_name"
-msgstr "Le nom de domaine du sserveur est inconnue."
+msgstr "Le nom de domaine du serveur est inconnu."
 
 #: global/error.gd:17
 msgid "error.http_not_connected"
@@ -65,7 +65,7 @@ msgstr "Client HTTP non connecté"
 
 #: global/error.gd:19
 msgid "error.network_error_content"
-msgstr "Une erreure réseau est survenue"
+msgstr "Une erreur réseau est survenue"
 
 #: global/loading_screen.tscn:24
 msgid "global.loading.loading"
@@ -117,7 +117,7 @@ msgstr "%s : ajouter un vaisseau"
 
 #: hud/system/details.gd:26 hud/system/details.tscn:66
 msgid "hud.system.add_five_ship.key_binding"
-msgstr "SHIFT+%s : ajouté 5 vaisseaux"
+msgstr "SHIFT+%s : ajouter 5 vaisseaux"
 
 #: hud/system/details.tscn:42
 msgid "hud.system.fleet"
@@ -221,31 +221,31 @@ msgstr "Déplacer la carte"
 
 #: locales/strings.txt:20
 msgid "action.ui_move_map_left"
-msgstr "déplacé la carte vers la gauche"
+msgstr "déplacer la carte vers la gauche"
 
 #: locales/strings.txt:21
 msgid "action.ui_move_map_right"
-msgstr "déplacé la carte vers la droite"
+msgstr "déplacer la carte vers la droite"
 
 #: locales/strings.txt:22
 msgid "action.ui_move_map_up"
-msgstr "déplacé la carte vers le haut"
+msgstr "déplacer la carte vers le haut"
 
 #: locales/strings.txt:23
 msgid "action.ui_move_map_down"
-msgstr "déplacé la carte vers le bas"
+msgstr "déplacer la carte vers le bas"
 
 #: locales/strings.txt:24
 msgid "action.key.mouse_key_1"
-msgstr "clique gauche"
+msgstr "clic gauche"
 
 #: locales/strings.txt:25
 msgid "action.key.mouse_key_2"
-msgstr "clique droit"
+msgstr "clic droit"
 
 #: locales/strings.txt:26
 msgid "action.key.mouse_key_3"
-msgstr "clique milieu"
+msgstr "clic milieu"
 
 #: locales/strings.txt:27
 msgid "action.key.mouse_key_4"
@@ -390,7 +390,7 @@ msgstr "Kalaxia"
 
 #: menu/menu_screen.tscn:88
 msgid "menu.main.create_lobby"
-msgstr "Crée une partie"
+msgstr "Créer une partie"
 
 #: menu/menu_screen.tscn:105
 msgid "menu.main.options"
