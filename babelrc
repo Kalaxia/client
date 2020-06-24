@@ -5,8 +5,5 @@ extract_messages = tr
 [godot_scene: **.tscn]
 encoding = utf-8
 
-[godot_scene: *.godot.tscn]
-encoding = utf-8
-
 [python: locales/*.txt]
 encoding = utf-8
