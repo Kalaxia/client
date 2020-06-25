@@ -40,12 +40,6 @@ margin_bottom = -4.0
 rect_min_size = Vector2( 500, 400 )
 size_flags_horizontal = 3
 
-[node name="label" type="Label" parent="TabContainer/Raccourcis"]
-visible = false
-margin_right = 1272.0
-margin_bottom = 14.0
-text = "Raccourcis"
-
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Raccourcis"]
 margin_right = 1272.0
 margin_bottom = 585.0
