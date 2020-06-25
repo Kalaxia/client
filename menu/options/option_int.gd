@@ -1,6 +1,6 @@
 extends PanelContainer
 
-export(String) var option_name setget set_option_name
+export(String) var text setget set_text
 export(int) var value = 0 setget set_value
 export(int) var max_value = 0 setget set_max_value
 export(int) var min_value = 0 setget set_min_value
@@ -12,8 +12,9 @@ signal option_changed(value)
 func _ready():
 	$HBoxContainer/RangeInt.connect("value_changed",self,"_on_value_changed")
 
-func set_option_name(new_label : String):
-	$HBoxContainer/Label.text = new_label
+func set_text(new_label : String):
+	text = new_label
+	$HBoxContainer/Label.text = tr(text)
 
 func _on_value_changed(new_value):
 	value = new_value

@@ -1,16 +1,18 @@
 extends PanelContainer
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export(String) var text setget set_text
+export(bool) var disabled = false setget set_disabled
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func set_text(new_label : String):
+	text = new_label
+	$HBoxContainer/Label.text = tr(text)
+
+
+func set_disabled(is_disabled : bool):
+	disabled = is_disabled
+	$HBoxContainer/Button.disabled = disabled

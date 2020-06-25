@@ -13,39 +13,38 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 1273.0
-margin_bottom = 713.0
+margin_right = 1913.0
+margin_bottom = 1073.0
 
 [node name="Control" type="Control" parent="HBoxContainer"]
 margin_right = 20.0
-margin_bottom = 706.0
+margin_bottom = 1066.0
 rect_min_size = Vector2( 20, 0 )
 
 [node name="label" type="Label" parent="HBoxContainer"]
 margin_left = 24.0
-margin_top = 346.0
-margin_right = 110.0
-margin_bottom = 360.0
-text = "Option Name"
+margin_top = 526.0
+margin_right = 194.0
+margin_bottom = 540.0
+text = "no_translate.Option_Name"
 
 [node name="Control2" type="Control" parent="HBoxContainer"]
-margin_left = 114.0
-margin_right = 368.0
-margin_bottom = 706.0
+margin_left = 198.0
+margin_right = 575.0
+margin_bottom = 1066.0
 size_flags_horizontal = 3
 
 [node name="MenuButton" type="OptionButton" parent="HBoxContainer"]
-margin_left = 372.0
-margin_right = 880.0
-margin_bottom = 706.0
+margin_left = 579.0
+margin_right = 1334.0
+margin_bottom = 1066.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
-text = "Item 0"
-selected = 0
+text = "no_transalte.item_0"
 
 [node name="Control3" type="Control" parent="HBoxContainer"]
-margin_left = 884.0
-margin_right = 1266.0
-margin_bottom = 706.0
+margin_left = 1338.0
+margin_right = 1906.0
+margin_bottom = 1066.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.5

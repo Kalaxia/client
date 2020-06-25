@@ -25,13 +25,13 @@ const ENABLE_KEY_BINDING_CHANGE = [
 	"ui_add_fleet",
 	"ui_add_ships",
 ]
-const KEY_BINDING_SECTION_NAME = "key binding"
+const KEY_BINDING_SECTION_NAME = "Key binding"
 const SOUND_SECTION_NAME = "Audio"
-const GRAPHICS_SECTION_NAME = "Graphique"
-const MAXIMIZE_CONFIG_NAME = "Maximiser"
+const GRAPHICS_SECTION_NAME = "Graphics"
+const MAXIMIZE_CONFIG_NAME = "Maximize"
 const FULLSCREEN_CONFIG_NAME = "Fullscreen"
 const RESOLUTION_CONFIG_NAME = "Resolution"
-const SCREEN_CONFIG_NAME = "Ecran"
+const SCREEN_CONFIG_NAME = "Display id"
 
 func _ready():
 	TranslationServer.set_locale("fr")

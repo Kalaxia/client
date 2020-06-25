@@ -19,7 +19,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1272.0
 margin_bottom = 54.0
-option_name = "Plein écran"
+text = "menu.option.graphical.fullscreen"
 
 [node name="Maximize" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
@@ -27,7 +27,7 @@ anchor_bottom = 0.0
 margin_top = 58.0
 margin_right = 1272.0
 margin_bottom = 112.0
-option_name = "Maximize"
+text = "menu.option.graphical.maximize"
 
 [node name="Redimentioner" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
@@ -35,7 +35,7 @@ anchor_bottom = 0.0
 margin_top = 116.0
 margin_right = 1272.0
 margin_bottom = 170.0
-option_name = "Redimentioner (Experimental)"
+text = "menu.option.graphical.resize"
 
 [node name="screen" parent="." instance=ExtResource( 3 )]
 anchor_right = 0.0
@@ -43,4 +43,4 @@ anchor_bottom = 0.0
 margin_top = 174.0
 margin_right = 1272.0
 margin_bottom = 212.0
-option_name = "Ecran"
+text = "menu.option.graphical.display_id"

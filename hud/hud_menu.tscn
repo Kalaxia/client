@@ -13,6 +13,6 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="."]
-margin_right = 194.0
+margin_right = 221.0
 margin_bottom = 20.0
-text = "Retourner au menu principal"
+text = "hud.hud_menu.back_main_menu"

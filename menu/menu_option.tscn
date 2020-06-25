@@ -17,15 +17,15 @@ __meta__ = {
 }
 
 [node name="Header" type="Control" parent="."]
-margin_right = 1280.0
-margin_bottom = 16.0
+margin_right = 1920.0
+margin_bottom = 25.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.4
 
 [node name="TabContainer" type="TabContainer" parent="."]
-margin_top = 20.0
-margin_right = 1280.0
-margin_bottom = 641.0
+margin_top = 29.0
+margin_right = 1920.0
+margin_bottom = 967.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
 tab_align = 0
@@ -41,8 +41,8 @@ rect_min_size = Vector2( 500, 400 )
 size_flags_horizontal = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Raccourcis"]
-margin_right = 1272.0
-margin_bottom = 585.0
+margin_right = 1912.0
+margin_bottom = 902.0
 rect_min_size = Vector2( 800, 400 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -120,27 +120,27 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HSeparator" type="Control" parent="."]
-margin_top = 645.0
-margin_right = 1280.0
-margin_bottom = 661.0
+margin_top = 971.0
+margin_right = 1920.0
+margin_bottom = 996.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.4
 
 [node name="ButtonsContainer" type="VBoxContainer" parent="."]
-margin_top = 665.0
-margin_right = 1280.0
-margin_bottom = 706.0
+margin_top = 1000.0
+margin_right = 1920.0
+margin_bottom = 1062.0
 size_flags_vertical = 3
 
 [node name="MainMenu" type="Button" parent="ButtonsContainer"]
-margin_right = 1280.0
-margin_bottom = 41.0
+margin_right = 1920.0
+margin_bottom = 62.0
 size_flags_vertical = 3
 text = "menu.option.back_main_menu"
 
 [node name="Control" type="Control" parent="."]
-margin_top = 710.0
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_top = 1066.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2

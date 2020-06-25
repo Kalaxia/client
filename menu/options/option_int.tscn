@@ -32,7 +32,7 @@ margin_top = 526.0
 margin_right = 324.0
 margin_bottom = 540.0
 rect_min_size = Vector2( 300, 0 )
-text = "Option Label"
+text = "no_translate.Option_Label"
 
 [node name="Control2" type="Control" parent="HBoxContainer"]
 margin_left = 328.0

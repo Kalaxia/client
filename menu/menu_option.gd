@@ -3,10 +3,15 @@ extends Control
 var key_binding_option = preload("res://menu/options/option_key_binding.tscn")
 var audio_volume = preload("res://menu/options/audio_volume_control.tscn")
 
+# this cannot be a constant as we want to reloads name if the local changes
+onready var _tabs_name = [tr("menu.option.tab.shortcuts"),tr("menu.option.tab.audio"),tr("menu.option.tab.graphical")]
+
 
 signal scene_requested(scene)
 
 func _ready():
+	for i in range($TabContainer.get_tab_count()):
+		$TabContainer.set_tab_title(i,_tabs_name[i])
 	var actions = InputMap.get_actions()
 	actions.sort()
 	for i in actions:

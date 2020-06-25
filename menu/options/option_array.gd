@@ -4,6 +4,7 @@ extends PanelContainer
 export(Array,String) var option_list = [] setget set_option_list
 export(int) var selected_item setget set_selected_item
 export(bool) var disabled = false setget set_disabled
+export(String) var text setget set_text
 
 signal item_selected(item_id)
 
@@ -25,3 +26,7 @@ func set_selected_item(item_id : int):
 func set_disabled(is_disabled : bool):
 	disabled = is_disabled
 	$HBoxContainer/MenuButton.disabled = disabled
+
+func set_text(new_text: String):
+	text = new_text
+	$HBoxContainer/label.text = tr(new_text)

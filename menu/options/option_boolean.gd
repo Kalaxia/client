@@ -1,6 +1,6 @@
 extends PanelContainer
 
-export(String) var option_name setget set_option_name
+export(String) var text setget set_text
 export(bool) var is_checked = false setget set_is_checked
 export(bool) var disabled = false setget set_disabled
 
@@ -10,8 +10,9 @@ signal option_pressed(is_pressed)
 func _ready():
 	$HBoxContainer/Button.connect("pressed",self,"_on_button_toggle")
 
-func set_option_name(new_label : String):
-	$HBoxContainer/Label.text = new_label
+func set_text(new_label : String):
+	text = new_label
+	$HBoxContainer/Label.text = tr(text)
 
 func _on_button_toggle():
 	is_checked = $HBoxContainer/Button.pressed
