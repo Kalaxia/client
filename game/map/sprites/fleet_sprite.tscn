@@ -4,7 +4,7 @@
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
-load_path = "res://.import/Picto_flotte_2.png-9ec74a576b671c4738a42c6e1ee4d43e.stex"
+load_path = "res://.import/picto_flotte_2.png-7690f89049c3d62083c913b47bdc6ade.stex"
 
 [node name="FleetSprite" type="Sprite"]
 scale = Vector2( 0.08, 0.08 )

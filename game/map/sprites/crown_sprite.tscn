@@ -4,7 +4,7 @@
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
-load_path = "res://.import/Picto_flotte_couronne-01.png-64354e6e9ecb5d1347ccb8ea99c190bb.stex"
+load_path = "res://.import/picto_flotte_couronne-01.png-2d48f28e4fc625d3b23983dd732f1a77.stex"
 
 [node name="CrownSprite" type="Sprite"]
 scale = Vector2( 0.08, 0.08 )
