@@ -81,7 +81,7 @@ func _ready():
 		else:
 			OS.window_fullscreen = true
 	else:
-		print( (tr("error while parsing configuration file %s : ") % PATH_CONFIG_USER) + str(err))
+		print( tr("error while parsing configuration file %s : %s ") % [ PATH_CONFIG_USER, str(err)] )
 		# by default we try to borerless maximize
 		OS.window_fullscreen = true
 
@@ -100,7 +100,7 @@ func save_audio_volume(bus_name: String,linear_volume : float) -> void:
 func save_config_file():
 	var err = config_user.save(PATH_CONFIG_USER)
 	if err != OK :
-		print(tr("Error while saving the config : ") + str(err))
+		print( tr("Error while saving configuration file %s : %s ") % [PATH_CONFIG_USER , str(err)] )
 	return err
 
 func set_config_windows_maximized(is_maximizer : bool) -> void:

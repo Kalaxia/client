@@ -48,26 +48,26 @@ __meta__ = {
 }
 
 [node name="space" type="Control" parent="Forground/CenterH"]
-margin_right = 136.0
-margin_bottom = 720.0
+margin_right = 456.0
+margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="CenterV" type="VBoxContainer" parent="Forground/CenterH"]
-margin_left = 140.0
-margin_right = 1140.0
-margin_bottom = 720.0
+margin_left = 460.0
+margin_right = 1460.0
+margin_bottom = 1080.0
 
 [node name="space3" type="Control" parent="Forground/CenterH/CenterV"]
 margin_right = 1000.0
-margin_bottom = 106.0
+margin_bottom = 286.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="CreditsContainer" type="VBoxContainer" parent="Forground/CenterH/CenterV"]
-margin_top = 110.0
+margin_top = 290.0
 margin_right = 1000.0
-margin_bottom = 610.0
+margin_bottom = 790.0
 rect_min_size = Vector2( 1000, 500 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -158,15 +158,15 @@ __meta__ = {
 }
 
 [node name="space4" type="Control" parent="Forground/CenterH/CenterV"]
-margin_top = 614.0
+margin_top = 794.0
 margin_right = 1000.0
-margin_bottom = 720.0
+margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="space2" type="Control" parent="Forground/CenterH"]
-margin_left = 1144.0
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_left = 1464.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

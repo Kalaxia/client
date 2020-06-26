@@ -21,17 +21,17 @@ __meta__ = {
 }
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 240.0
-margin_top = 318.0
-margin_right = 1040.0
-margin_bottom = 402.0
+margin_left = 560.0
+margin_top = 498.0
+margin_right = 1360.0
+margin_bottom = 582.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -13,14 +13,14 @@ __meta__ = {
 }
 
 [node name="Counter" type="Label" parent="."]
-margin_left = 606.0
-margin_top = 353.0
-margin_right = 606.0
-margin_bottom = 367.0
+margin_left = 926.0
+margin_top = 533.0
+margin_right = 926.0
+margin_bottom = 547.0
 valign = 1
 
 [node name="Picto" type="TextureRect" parent="."]
-margin_left = 610.0
-margin_right = 674.0
-margin_bottom = 720.0
+margin_left = 930.0
+margin_right = 994.0
+margin_bottom = 1080.0
 texture = ExtResource( 2 )
