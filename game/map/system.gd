@@ -20,9 +20,9 @@ const _SCALE_CHANGE_FACTOR = 5.0
 
 const _TEXTURE_SYSTEM = {
 	0 : preload("res://resources/assets/2d/map/picto_syteme.png"),
-	1 : preload("res://resources/assets/2d/map/kalankar/picto_syteme_masqueV2-01.png"),
-	2 : preload("res://resources/assets/2d/map/valkar/picto_syteme_serpentV2-01.png"),
-	3 : preload("res://resources/assets/2d/map/adranite/picto_syteme_epeeV2-01.png"),
+	1 : preload("res://resources/assets/2d/map/kalankar/picto_syteme_masque_v2-01.png"),
+	2 : preload("res://resources/assets/2d/map/valkar/picto_syteme_serpent_v2-01.png"),
+	3 : preload("res://resources/assets/2d/map/adranite/picto_syteme_epee_v2-01.png"),
 }
 
 
