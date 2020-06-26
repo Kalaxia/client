@@ -17,4 +17,4 @@ func network_response_error(err):
 			Store.notify("Client HTTP non connecté", "Le serveur de jeu n'est pas disponible.'")
 		var err:
 			Store.notify("Erreur réseau", "Une erreur réseau est survenue.")
-			printerr("Erreur reseau: " + err)
+			printerr("Erreur reseau: " + err as String)
