@@ -2,27 +2,51 @@ extends Node2D
 
 var system = null
 var is_hover = false
-var scale_ratio = 1.0
+export(float) var scale_ratio = 1.0 setget set_scale_ratio
 var system_fleet_pin_scene = preload("res://game/map/system_fleet_pin.tscn")
 var is_in_range_sailing_fleet = false
 var _time = 0.0
 var _alpha = 1.0
+var _target_scale = scale_ratio
+var _current_scale = scale_ratio
+
 
 const ALPHA_SPEED_GAIN = 2.0
 const SNAP_ALPHA_DISTANCE = 0.05
 const ALPHA_APLITUDE = 0.4
+const BASE_POSITION_PIN = Vector2(-30.0,-30.0)
+const SCALE_FACTOR_ON_HIGHLIGHT = 1.5
+const _SCALE_CHANGE_FACTOR = 5.0
+
+const _TEXTURE_SYSTEM = {
+	0 : preload("res://resources/assets/2d/map/Picto_syteme.png"),
+	1 : preload("res://resources/assets/2d/map/kalankar/Picto_syteme_masqueV2-01.png"),
+	2 : preload("res://resources/assets/2d/map/valkar/Picto_syteme_serpentV2-01.png"),
+	3 : preload("res://resources/assets/2d/map/adranite/Picto_syteme_epeeV2-01.png"),
+}
+
+
+const _TEXTURE_CROWN = {
+	1 : preload("res://resources/assets/2d/map/kalankar/couronne.png"),
+	2 : preload("res://resources/assets/2d/map/valkar/couronne.png"),
+	3 : preload("res://resources/assets/2d/map/adranite/couronne.png"),
+}
 
 func _ready():
 	set_position(Vector2(system.coordinates.x * 50, system.coordinates.y * 50))
+	_set_system_texture()
 	_modulate_color(1.0)
 	$Star.connect("input_event", self, "_on_input_event")
 	$Star.connect("mouse_entered", self, "_on_mouse_entered")
 	$Star.connect("mouse_exited", self, "_on_mouse_exited")
 	Store.connect("fleet_selected",self,"_on_fleet_selected")
 	Store.connect("fleet_unselected",self,"_on_fleet_unselected")
+	_set_crown_state()
 	if system.player == Store._state.player.id:
 		Store.select_system(system)
-		$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
+		_set_target_scale(SCALE_FACTOR_ON_HIGHLIGHT)
+	else :
+		_set_target_scale(1.0)
 		
 func _process(delta):
 	_time += delta
@@ -34,6 +58,31 @@ func _process(delta):
 		if abs(target_alpha-_alpha)<SNAP_ALPHA_DISTANCE:
 			_alpha=target_alpha
 		_modulate_color(_alpha)
+	if ! is_equal_approx(_target_scale,_current_scale):
+		if _target_scale > _current_scale:
+			_current_scale = min(_current_scale + _SCALE_CHANGE_FACTOR * delta, _target_scale)
+		else:
+			_current_scale = max(_current_scale - _SCALE_CHANGE_FACTOR * delta, _target_scale)
+		_scale_star_system(_current_scale)
+
+func _set_crown_state():
+	var is_current_player = (system.player == Store._state.player.id)
+	$Star/Crown.visible = is_current_player
+	if is_current_player:
+		$Star/Crown.texture = _TEXTURE_CROWN[Store.get_game_player(system.player).faction as int]
+
+func _set_system_texture():
+	if system.player == null:
+		$Star/Spot.texture = _TEXTURE_SYSTEM[0]
+	else:
+		$Star/Spot.texture = _TEXTURE_SYSTEM[Store.get_game_player(system.player).faction as int]
+
+func _scale_star_system(factor):
+	$Star.set_scale(Vector2(scale_ratio * factor, scale_ratio * factor))
+	$FleetPins.rect_position = BASE_POSITION_PIN * factor * scale_ratio
+
+func _set_target_scale(factor):
+	_target_scale = factor
 
 func _on_fleet_selected(fleet):
 	is_in_range_sailing_fleet = Store.is_in_range(fleet,system)
@@ -42,17 +91,14 @@ func _on_fleet_unselected():
 	is_in_range_sailing_fleet = false
 
 func _modulate_color(alpha):
-	var star_sprite = get_node("Star/Sprite")
-	if system.player != null:
-		var player = Store.get_game_player(system.player)
-		var faction = Store.get_faction(player.faction)
-		star_sprite.set_modulate(Color(faction.color[0]/255.0, faction.color[1]/255.0, faction.color[2]/255.0,alpha))
-	else:
-		star_sprite.set_modulate(Color(1.0,1.0,1.0,alpha))
+	var star_sprite = get_node("Star")
+	var color = Store.get_player_color(null) if system.player == null else Store.get_player_color(Store.get_game_player(system.player))
+	color.a = alpha
+	star_sprite.set_modulate(color)
 	
 func unselect():
 	if system.player == null || system.player != Store._state.player.id:
-		$Star.set_scale(Vector2(scale_ratio, scale_ratio))
+		_set_target_scale(1.0)
 		
 func refresh_fleet_pins():
 	var is_current_player_included = false
@@ -62,26 +108,28 @@ func refresh_fleet_pins():
 		var p = Store.get_game_player(fleet.player)
 		if !is_current_player_included && p.id == Store._state.player.id:
 			is_current_player_included = true
-			add_fleet_pin(p, Store.get_faction(p.faction).color)
+			add_fleet_pin(p)
 		elif !is_another_player_included && p.id != Store._state.player.id:
 			is_another_player_included = true
-			add_fleet_pin(p, Store.get_faction(p.faction).color)
+			add_fleet_pin(p)
 		
-func add_fleet_pin(player, color):
+func add_fleet_pin(player):
 	var fleet_pin = system_fleet_pin_scene.instance()
 	fleet_pin.faction = player.faction
 	fleet_pin.is_current_player = (player.id == Store._state.player.id)
-	fleet_pin.color = color
+	fleet_pin.color = Store.get_player_color(player)
 	$FleetPins.add_child(fleet_pin)
 
 func refresh():
 	system = Store._state.game.systems[system.id]
+	_set_system_texture()
 	_modulate_color(1.0)
 	refresh_fleet_pins()
+	get_node("Star/Crown").visible = (system.player == Store._state.player.id)
 	if system.player == Store._state.player.id:
-		$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
+		_set_target_scale(SCALE_FACTOR_ON_HIGHLIGHT)
 	else:
-		$Star.set_scale(Vector2(scale_ratio, scale_ratio))
+		_set_target_scale(1.0)
 
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.is_pressed():
@@ -107,9 +155,19 @@ func _on_fleet_send(err, response_code, headers, body):
 
 func _on_mouse_entered():
 	is_hover = true
-	$Star.set_scale(Vector2(scale_ratio * 2, scale_ratio * 2))
+	_set_target_scale(SCALE_FACTOR_ON_HIGHLIGHT)
 	
 func _on_mouse_exited():
 	is_hover = false
 	if system.player != Store._state.player.id && system != Store._state.selected_system:
-		$Star.set_scale(Vector2(scale_ratio, scale_ratio))
+		_set_target_scale(1.0)
+
+func refresh_scale():
+	if is_hover || system.player == Store._state.player.id:
+		_set_target_scale(SCALE_FACTOR_ON_HIGHLIGHT)
+	else:
+		_set_target_scale(1.0)
+
+func set_scale_ratio(new_factor : float):
+	scale_ratio = new_factor
+	refresh_scale()

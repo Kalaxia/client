@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://game/map/sprites/crown_sprite.gd" type="Script" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/Picto_flotte_couronne-01.png-64354e6e9ecb5d1347ccb8ea99c190bb.stex"
+
+[node name="CrownSprite" type="Sprite"]
+scale = Vector2( 0.08, 0.08 )
+texture = SubResource( 1 )
+script = ExtResource( 1 )
