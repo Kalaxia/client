@@ -9,7 +9,7 @@ var banners = {
 	"Adranite": preload("res://resources/assets/2d/faction/adranite/banner_image.png"),
 }
 var new_username = ""
-var _is_locked_unsername_change = Utils.Lock.new()
+var _is_locked_username_change = Utils.Lock.new()
 
 func _ready():
 	var username_input = get_node("Container/UsernameInput")
@@ -72,50 +72,46 @@ func update_data(data):
 	get_node("Container/ReadyInput").pressed = player.ready
 	
 func update_username(username):
-	if _is_locked_unsername_change.try_lock() != Utils.Lock.LOCK_STATE.OK:
+	if _is_locked_username_change.try_lock() != Utils.Lock.LOCK_STATE.OK:
 		new_username = username
 		$Container/UsernameInput/UpdateNameTimer.start() 
 		# if we can not lock we start the timer and try later
 		return
 	Store._state.player.username = username
-	Network.req(self, "_on_name_update"
-		, "/api/players/me/username"
-		, HTTPClient.METHOD_PATCH
-		, [ "Content-Type: application/json" ]
-		, JSON.print({ "username": username })
-	)
-
-func _on_name_update(result, response_code, headers, body):
-	_is_locked_unsername_change.unlock()
-	_on_request_completed(result, response_code, headers, body)
+	send_update()
 
 func update_faction(index):
 	Store._state.player.faction = get_node("Container/FactionChoice").get_item_id(index)
-	Network.req(self, "_on_request_completed"
-		, "/api/players/me/faction"
-		, HTTPClient.METHOD_PATCH
-		, [ "Content-Type: application/json" ]
-		, JSON.print({ "faction_id": Store._state.player.faction })
-	)
+	send_update()
 	
 func toggle_ready():
 	Store._state.player.ready = !player.ready
+	send_update()
+	
+func send_update():
+	_check_ready_state()
 	Network.req(self, "_on_request_completed"
-		, "/api/players/me/ready"
+		, "/api/players/me/"
 		, HTTPClient.METHOD_PATCH
+		, [ "Content-Type: application/json" ]
+		, JSON.print({
+			"username": Store._state.player.username,
+			"faction_id": Store._state.player.faction,
+			"is_ready": Store._state.player.ready
+		})
 	)
 
 func _on_request_completed(result, response_code, headers, body):
-	print("player updated")
+	_is_locked_username_change.unlock()
 	emit_signal("player_updated", Store._state.player)
-	_check_toggle_button_state()
 
-func _check_toggle_button_state():
+func _check_ready_state():
 	if player.id != Store._state.player.id:
 		return
 	# we want to do thar only if this is the current player
 	var is_info_missing = Store._state.player.faction == null || Store._state.player.username == ''
-	get_node("Container/ReadyInput").disabled = is_info_missing
-	if is_info_missing && get_node("Container/ReadyInput").pressed:
-		get_node("Container/ReadyInput").pressed = false
-		toggle_ready()
+	var input = $Container/ReadyInput
+	input.disabled = is_info_missing
+	if is_info_missing:
+		Store._state.player.ready = false
+		input.pressed = false

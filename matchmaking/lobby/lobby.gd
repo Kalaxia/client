@@ -93,9 +93,9 @@ func _on_player_disconnected(player):
 	Store.remove_player_lobby(player)
 	check_ready_state()
 
-func _on_lobby_launched(game):
+func _on_lobby_launched(game_id):
 	Store.reset_player_lobby_data()
-	Store._state.game = game
+	Store._state.game = { "id": game_id }
 	emit_signal("scene_requested", "game_loading")
 	
 func _on_lobby_owner_update(pid):
