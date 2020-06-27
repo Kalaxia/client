@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-26 20:02+0200\n"
+"POT-Creation-Date: 2020-06-27 09:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: config/config.gd:84
+#: config/config.gd:89
 #, python-format
 msgid "error while parsing configuration file %s : %s "
 msgstr ""
 
-#: config/config.gd:103
+#: config/config.gd:109
 #, python-format
 msgid "Error while saving configuration file %s : %s "
 msgstr ""
@@ -379,7 +379,11 @@ msgstr ""
 msgid "menu.option.tab.graphical"
 msgstr ""
 
-#: menu/menu_option.tscn:136
+#: menu/menu_option.gd:11
+msgid "menu.option.tab.lang"
+msgstr ""
+
+#: menu/menu_option.tscn:166
 msgid "menu.option.back_main_menu"
 msgstr ""
 
@@ -437,11 +441,11 @@ msgstr ""
 msgid "menu.option.graphical.display_id"
 msgstr ""
 
-#: menu/options/option_array.tscn:29
+#: menu/options/option_array.tscn:30
 msgid "no_translate.Option_Name"
 msgstr ""
 
-#: menu/options/option_array.tscn:43
+#: menu/options/option_array.tscn:44
 msgid "no_transalte.item_0"
 msgstr ""
 
@@ -455,5 +459,9 @@ msgstr ""
 
 #: menu/options/option_key_binding.tscn:19
 msgid "no_translate.label_key_binding"
+msgstr ""
+
+#: menu/options/option_lang.tscn:19
+msgid "menu.option.lang.language"
 msgstr ""
 

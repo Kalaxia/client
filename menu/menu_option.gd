@@ -7,15 +7,15 @@ var audio_volume = preload("res://menu/options/audio_volume_control.tscn")
 onready var _tabs_name = [
 		tr("menu.option.tab.shortcuts"),
 		tr("menu.option.tab.audio"),
-		tr("menu.option.tab.graphical")
+		tr("menu.option.tab.graphical"),
+		tr("menu.option.tab.lang"),
 	]
 
 
 signal scene_requested(scene)
 
 func _ready():
-	for i in range($TabContainer.get_tab_count()):
-		$TabContainer.set_tab_title(i,_tabs_name[i])
+	_update_language_tabs()
 	var actions = InputMap.get_actions()
 	actions.sort()
 	for i in actions:
@@ -24,9 +24,8 @@ func _ready():
 		node_key.action = i
 		node_key.connect("mark_button_key_binding",self,"_on_mark_button_key_binding")
 		node_key.connect("unmark_button_key_binding",self,"_on_unmark_button_key_binding")
-		for allowed_actions in Config.ENABLE_KEY_BINDING_CHANGE:
-			if i == allowed_actions :
-				node_key.is_enabled = true
+		if Config.ENABLE_KEY_BINDING_CHANGE.has(i) :
+			node_key.is_enabled = true
 		$TabContainer/Raccourcis/ScrollContainer/keyBindingContainer.add_child(node_key)
 	$ButtonsContainer/MainMenu.connect("pressed",self,"_on_back_to_main_menu")
 	var continue_looking_for_audio_bus = true
@@ -41,6 +40,10 @@ func _ready():
 			$TabContainer/Audio/AudioScrollContainer/AudioContainer.add_child(node)
 			index_bus += 1
 
+func _update_language_tabs():
+	for i in range($TabContainer.get_tab_count()):
+		$TabContainer.set_tab_title(i,_tabs_name[i])
+
 func _on_mark_button_key_binding(action,index):
 	#$CenterContainer/VBoxContainer/ScrollContainer.mouse_filter(MOUSE_FILTER_IGNORE)
 	for i in $TabContainer/Raccourcis/ScrollContainer/keyBindingContainer.get_children():
@@ -52,5 +55,6 @@ func _on_unmark_button_key_binding():
 	pass
 
 func _on_back_to_main_menu():
+	Config.load_locale()
 	Config.save_config_file()
 	emit_signal("scene_requested","menu")

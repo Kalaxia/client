@@ -1,9 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://menu/menu_option.gd" type="Script" id=1]
 [ext_resource path="res://menu/options/graphical_option.tscn" type="PackedScene" id=2]
+[ext_resource path="res://menu/options/option_lang.tscn" type="PackedScene" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.172549, 0.172549, 0.172549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.172549, 0.172549, 0.172549, 1 )
 
 [node name="MenuOption" type="VBoxContainer"]
@@ -70,8 +74,8 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.05
 
 [node name="AudioScrollContainer" type="ScrollContainer" parent="TabContainer/Audio"]
-margin_right = 1272.0
-margin_bottom = 585.0
+margin_right = 1912.0
+margin_bottom = 902.0
 rect_min_size = Vector2( 800, 400 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -81,8 +85,8 @@ __meta__ = {
 }
 
 [node name="AudioContainer" type="VBoxContainer" parent="TabContainer/Audio/AudioScrollContainer"]
-margin_right = 1272.0
-margin_bottom = 585.0
+margin_right = 1912.0
+margin_bottom = 902.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -104,8 +108,8 @@ margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="GraphicsScrollContainer2" type="ScrollContainer" parent="TabContainer/Graphics"]
-margin_right = 1272.0
-margin_bottom = 585.0
+margin_right = 1912.0
+margin_bottom = 902.0
 rect_min_size = Vector2( 800, 400 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -115,6 +119,32 @@ __meta__ = {
 }
 
 [node name="GraphicsOption" parent="TabContainer/Graphics/GraphicsScrollContainer2" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1912.0
+margin_bottom = 902.0
+
+[node name="language" type="VBoxContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/language"]
+margin_right = 1912.0
+margin_bottom = 902.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = SubResource( 2 )
+
+[node name="OptionLang" parent="TabContainer/language/ScrollContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 14.0
+margin_bottom = 55.0
 
 [node name="HSeparator" type="Control" parent="."]
 margin_top = 971.0

@@ -5,8 +5,8 @@
 [ext_resource path="res://menu/options/option_int.tscn" type="PackedScene" id=3]
 
 [node name="GraphicsOption" type="VBoxContainer"]
-margin_right = 1272.0
-margin_bottom = 585.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
@@ -17,30 +17,30 @@ __meta__ = {
 [node name="fullscreen" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 1272.0
-margin_bottom = 54.0
+margin_right = 1920.0
+margin_bottom = 55.0
 text = "menu.option.graphical.fullscreen"
 
 [node name="Maximize" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 58.0
-margin_right = 1272.0
-margin_bottom = 112.0
+margin_top = 59.0
+margin_right = 1920.0
+margin_bottom = 114.0
 text = "menu.option.graphical.maximize"
 
 [node name="Redimentioner" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 116.0
-margin_right = 1272.0
-margin_bottom = 170.0
+margin_top = 118.0
+margin_right = 1920.0
+margin_bottom = 173.0
 text = "menu.option.graphical.resize"
 
 [node name="screen" parent="." instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 174.0
-margin_right = 1272.0
-margin_bottom = 212.0
+margin_top = 177.0
+margin_right = 1920.0
+margin_bottom = 232.0
 text = "menu.option.graphical.display_id"

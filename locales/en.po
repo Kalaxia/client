@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-26 19:54+0200\n"
-"PO-Revision-Date: 2020-06-23 22:48+0200\n"
+"POT-Creation-Date: 2020-06-27 09:52+0200\n"
+"PO-Revision-Date: 2020-06-27 09:08+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -19,19 +19,19 @@ msgstr ""
 "X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config/config.gd:84
+#: config/config.gd:89
 #, python-format
 msgid "error while parsing configuration file %s : %s "
 msgstr ""
 
-#: config/config.gd:103
+#: config/config.gd:109
 #, python-format
 msgid "Error while saving configuration file %s : %s "
 msgstr ""
 
 #: game/faction_score.gd:13
 msgid "game.faction_score.number_systems"
-msgstr ""
+msgstr "%d controlled systems"
 
 #: game/scores.gd:11 game/scores.tscn:20
 msgid "game.score.victory"
@@ -91,7 +91,7 @@ msgstr ""
 
 #: global/store.gd:32
 msgid "store.game_of"
-msgstr ""
+msgstr "%s's game"
 
 #: global/store.gd:32
 msgid "store.new_game"
@@ -115,15 +115,15 @@ msgstr ""
 
 #: hud/system/details.gd:24 hud/system/details.tscn:48
 msgid "hud.system.add_fleet.key_binding"
-msgstr ""
+msgstr "%s : create a fleet"
 
 #: hud/system/details.gd:25 hud/system/details.tscn:60
 msgid "hud.system.add_one_ship.key_binding"
-msgstr ""
+msgstr "%s : add a ship"
 
 #: hud/system/details.gd:26 hud/system/details.tscn:66
 msgid "hud.system.add_five_ship.key_binding"
-msgstr ""
+msgstr "SHIFT+%s : add five ships"
 
 #: hud/system/details.tscn:42
 msgid "hud.system.fleet"
@@ -307,7 +307,7 @@ msgstr ""
 
 #: matchmaking/game/game_loading.tscn:42
 msgid "menu.loading.loading"
-msgstr ""
+msgstr "%d players"
 
 #: matchmaking/lobby/lobby.tscn:72
 msgid "menu.lobby.launch"
@@ -319,7 +319,7 @@ msgstr ""
 
 #: matchmaking/lobby/lobby_card.gd:18
 msgid "menu.lobby_card.player_count"
-msgstr ""
+msgstr "%d / %d"
 
 #: matchmaking/lobby/lobby_card.tscn:54
 msgid "menu.lobby_card.join"
@@ -381,7 +381,12 @@ msgstr ""
 msgid "menu.option.tab.graphical"
 msgstr ""
 
-#: menu/menu_option.tscn:136
+#: menu/menu_option.gd:11
+#, fuzzy
+msgid "menu.option.tab.lang"
+msgstr "%d players"
+
+#: menu/menu_option.tscn:166
 msgid "menu.option.back_main_menu"
 msgstr ""
 
@@ -413,7 +418,7 @@ msgstr ""
 
 #: menu/options/audio_volume_control.gd:19
 msgid "menu.option.audio.volume_label"
-msgstr ""
+msgstr "Volume : %3.3d %s (%7.2f dB)"
 
 #: menu/options/audio_volume_control.tscn:34
 msgid "no_translate.bus_name"
@@ -439,11 +444,11 @@ msgstr ""
 msgid "menu.option.graphical.display_id"
 msgstr ""
 
-#: menu/options/option_array.tscn:29
+#: menu/options/option_array.tscn:30
 msgid "no_translate.Option_Name"
 msgstr ""
 
-#: menu/options/option_array.tscn:43
+#: menu/options/option_array.tscn:44
 msgid "no_transalte.item_0"
 msgstr ""
 
@@ -458,3 +463,8 @@ msgstr ""
 #: menu/options/option_key_binding.tscn:19
 msgid "no_translate.label_key_binding"
 msgstr ""
+
+#: menu/options/option_lang.tscn:19
+#, fuzzy
+msgid "menu.option.lang.language"
+msgstr "Volume : %3.3d %s (%7.2f dB)"

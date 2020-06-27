@@ -32,9 +32,12 @@ const MAXIMIZE_CONFIG_NAME = "Maximize"
 const FULLSCREEN_CONFIG_NAME = "Fullscreen"
 const RESOLUTION_CONFIG_NAME = "Resolution"
 const SCREEN_CONFIG_NAME = "Display id"
+const LOCALE_SECTION_NAME = "Language"
+const LOCALE_CONFIG_NAME = "local"
+
+const DEFAULT_LOCALE = "fr"
 
 func _ready():
-	TranslationServer.set_locale("fr")
 	config_newtork = ConfigFile.new()
 	var err = config_newtork.load(PATH_CONFIG_NETWORK)
 	if err == OK:
@@ -80,10 +83,13 @@ func _ready():
 			OS.window_fullscreen = config_user.get_value(GRAPHICS_SECTION_NAME,FULLSCREEN_CONFIG_NAME)
 		else:
 			OS.window_fullscreen = true
+		load_locale()
+		
 	else:
 		print( tr("error while parsing configuration file %s : %s ") % [ PATH_CONFIG_USER, str(err)] )
 		# by default we try to borerless maximize
 		OS.window_fullscreen = true
+		TranslationServer.set_locale(DEFAULT_LOCALE)
 
 func save_key_binding(action : String):
 	var events_to_save = {"keys": [] ,"mouse": []}
@@ -118,3 +124,15 @@ func set_config_windows_screen(screen : int) -> void:
 func get_windows_resolution() -> Vector2:
 	return config_user.get_value(GRAPHICS_SECTION_NAME,RESOLUTION_CONFIG_NAME) if config_user.has_section_key(GRAPHICS_SECTION_NAME,RESOLUTION_CONFIG_NAME) else Vector2(1280,720)
 
+func set_config_locale(locale : String) -> void:
+	config_user.set_value(LOCALE_SECTION_NAME,LOCALE_CONFIG_NAME,locale)
+
+func load_locale():
+	if config_user.has_section_key(LOCALE_SECTION_NAME,LOCALE_CONFIG_NAME):
+		var locale_to_load = config_user.get_value(LOCALE_SECTION_NAME,LOCALE_CONFIG_NAME)
+		if TranslationServer.get_loaded_locales().has(locale_to_load):
+			TranslationServer.set_locale(locale_to_load)
+		else:
+			TranslationServer.set_locale(DEFAULT_LOCALE)
+	else:
+		TranslationServer.set_locale(DEFAULT_LOCALE)
