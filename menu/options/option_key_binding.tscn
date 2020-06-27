@@ -2,18 +2,28 @@
 
 [ext_resource path="res://menu/options/option_key_binding.gd" type="Script" id=1]
 
-[node name="OptionKeyBinding" type="HBoxContainer"]
+[node name="OptionKeyBinding" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="."]
-margin_top = 533.0
+[node name="Container" type="HBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1913.0
+margin_bottom = 1073.0
+rect_min_size = Vector2( 0, 40 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Container"]
+margin_top = 526.0
 margin_right = 400.0
-margin_bottom = 547.0
+margin_bottom = 540.0
 rect_min_size = Vector2( 400, 0 )
 text = "no_translate.label_key_binding"

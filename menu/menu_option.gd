@@ -28,17 +28,11 @@ func _ready():
 			node_key.is_enabled = true
 		$TabContainer/Raccourcis/ScrollContainer/keyBindingContainer.add_child(node_key)
 	$ButtonsContainer/MainMenu.connect("pressed",self,"_on_back_to_main_menu")
-	var continue_looking_for_audio_bus = true
-	var index_bus = 0
-	while continue_looking_for_audio_bus:
+	for index_bus in range(AudioServer.bus_count):
 		var name_bus = AudioServer.get_bus_name(index_bus)
-		if index_bus > Utils.MAX_BUS_TO_SCAN || name_bus == "" || name_bus == null:
-			continue_looking_for_audio_bus = false
-		else:
-			var node = audio_volume.instance()
-			node.bus_id = index_bus
-			$TabContainer/Audio/AudioScrollContainer/AudioContainer.add_child(node)
-			index_bus += 1
+		var node = audio_volume.instance()
+		node.bus_id = index_bus
+		$TabContainer/Audio/AudioScrollContainer/AudioContainer.add_child(node)
 
 func _update_language_tabs():
 	for i in range($TabContainer.get_tab_count()):
@@ -55,6 +49,6 @@ func _on_unmark_button_key_binding():
 	pass
 
 func _on_back_to_main_menu():
-	Config.load_locale()
 	Config.save_config_file()
+	Config.reload_locale()
 	emit_signal("scene_requested","menu")

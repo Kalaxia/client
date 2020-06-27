@@ -1,7 +1,6 @@
 extends Node
 
 const AUDIO_VOLUME_DB_MIN = -100.0 # in dB
-const MAX_BUS_TO_SCAN = 20
 
 class Lock:
 	extends Reference

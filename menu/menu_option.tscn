@@ -11,7 +11,8 @@ bg_color = Color( 0.172549, 0.172549, 0.172549, 1 )
 bg_color = Color( 0.172549, 0.172549, 0.172549, 1 )
 
 [node name="MenuOption" type="VBoxContainer"]
-anchor_right = 1.0
+anchor_left = 0.02
+anchor_right = 0.98
 anchor_bottom = 1.0
 rect_min_size = Vector2( 500, 720 )
 size_flags_horizontal = 3
@@ -22,14 +23,14 @@ __meta__ = {
 }
 
 [node name="Header" type="Control" parent="."]
-margin_right = 1920.0
+margin_right = 1843.0
 margin_bottom = 25.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.4
 
 [node name="TabContainer" type="TabContainer" parent="."]
 margin_top = 29.0
-margin_right = 1920.0
+margin_right = 1843.0
 margin_bottom = 967.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
@@ -46,7 +47,7 @@ rect_min_size = Vector2( 500, 400 )
 size_flags_horizontal = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Raccourcis"]
-margin_right = 1912.0
+margin_right = 1835.0
 margin_bottom = 902.0
 rect_min_size = Vector2( 800, 400 )
 size_flags_horizontal = 3
@@ -57,6 +58,8 @@ __meta__ = {
 }
 
 [node name="keyBindingContainer" type="VBoxContainer" parent="TabContainer/Raccourcis/ScrollContainer"]
+margin_right = 1835.0
+size_flags_horizontal = 3
 
 [node name="Audio" type="HBoxContainer" parent="TabContainer"]
 visible = false
@@ -143,31 +146,31 @@ custom_styles/bg = SubResource( 2 )
 [node name="OptionLang" parent="TabContainer/language/ScrollContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 14.0
+margin_right = 1912.0
 margin_bottom = 55.0
 
 [node name="HSeparator" type="Control" parent="."]
 margin_top = 971.0
-margin_right = 1920.0
+margin_right = 1843.0
 margin_bottom = 996.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.4
 
 [node name="ButtonsContainer" type="VBoxContainer" parent="."]
 margin_top = 1000.0
-margin_right = 1920.0
+margin_right = 1843.0
 margin_bottom = 1062.0
 size_flags_vertical = 3
 
 [node name="MainMenu" type="Button" parent="ButtonsContainer"]
-margin_right = 1920.0
+margin_right = 1843.0
 margin_bottom = 62.0
 size_flags_vertical = 3
 text = "menu.option.back_main_menu"
 
 [node name="Control" type="Control" parent="."]
 margin_top = 1066.0
-margin_right = 1920.0
+margin_right = 1843.0
 margin_bottom = 1080.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2

@@ -37,6 +37,8 @@ const LOCALE_CONFIG_NAME = "local"
 
 const DEFAULT_LOCALE = "fr"
 
+signal reload_locale()
+
 func _ready():
 	config_newtork = ConfigFile.new()
 	var err = config_newtork.load(PATH_CONFIG_NETWORK)
@@ -59,20 +61,14 @@ func _ready():
 					InputMap.action_add_event(action,event)
 				for i in events_input.mouse:
 					var event = InputEventMouseButton.new()
-					event.button_mask = i
+					event.button_index = i
 					InputMap.action_add_event(action,event)
-		var continue_looking_for_audio_bus = true
-		var index_bus = 0
-		while continue_looking_for_audio_bus:
-			var name_bus = AudioServer.get_bus_name(index_bus)
-			if index_bus > Utils.MAX_BUS_TO_SCAN || name_bus == "" || name_bus == null:
-				continue_looking_for_audio_bus = false
-			else:
-				if config_user.has_section_key(SOUND_SECTION_NAME,name_bus):
-					var volume_linear = config_user.get_value(SOUND_SECTION_NAME,name_bus)
-					var volume_db = linear2db(volume_linear) if volume_linear!= 0 else Utils.AUDIO_VOLUME_DB_MIN
-					AudioServer.set_bus_volume_db(index_bus,volume_db)
-				index_bus += 1
+		for index_bus in range(AudioServer.bus_count):
+			var name_bus = AudioServer.get_bus_name(index_bus).replace(" ","_")
+			if config_user.has_section_key(SOUND_SECTION_NAME,name_bus):
+				var volume_linear = config_user.get_value(SOUND_SECTION_NAME,name_bus)
+				var volume_db = linear2db(volume_linear) if volume_linear!= 0 else Utils.AUDIO_VOLUME_DB_MIN
+				AudioServer.set_bus_volume_db(index_bus,volume_db)
 		OS.window_size = get_windows_resolution()
 		if config_user.has_section_key(GRAPHICS_SECTION_NAME,SCREEN_CONFIG_NAME):
 			# we need to chnage the screen before putting un full screen
@@ -97,11 +93,11 @@ func save_key_binding(action : String):
 		if event is InputEventKey:
 			events_to_save.keys.push_back(event.scancode)
 		elif event is InputEventMouseButton:
-			events_to_save.mouse.push_back(event.button_mask)
+			events_to_save.mouse.push_back(event.button_index)
 	config_user.set_value(KEY_BINDING_SECTION_NAME,action,events_to_save)
 
 func save_audio_volume(bus_name: String,linear_volume : float) -> void:
-	config_user.set_value(SOUND_SECTION_NAME,bus_name,linear_volume)
+	config_user.set_value(SOUND_SECTION_NAME,bus_name.replace(" ","_"),linear_volume)
 
 func save_config_file():
 	var err = config_user.save(PATH_CONFIG_USER)
@@ -136,3 +132,9 @@ func load_locale():
 			TranslationServer.set_locale(DEFAULT_LOCALE)
 	else:
 		TranslationServer.set_locale(DEFAULT_LOCALE)
+
+func reload_locale():
+	var previous_locale = TranslationServer.get_locale()
+	load_locale()
+	if previous_locale != TranslationServer.get_locale():
+		emit_signal("reload_locale")
