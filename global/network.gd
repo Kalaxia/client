@@ -39,12 +39,13 @@ var pending_request = null
 var processed_body = PoolByteArray()
 
 func connect_to_host():
-	self.client.connect_to_host("%s://%s" % [Config.api.scheme, Config.api.dns], Config.api.port)
-	
-func _ready():	
-	api_url = "%s://%s:%d" % [Config.api.scheme, Config.api.dns, Config.api.port]
-	websocket_url = "%s://%s:%d/ws/" % [Config.api.ws_scheme, Config.api.dns, Config.api.port]
+	var uri = "{scheme}://{dns}".format(Config.api)
+	self.client.connect_to_host(uri, Config.api.port)
 
+func _ready():
+	api_url = "{scheme}://{dns}:{port}".format(Config.api)
+	websocket_url = "{ws_scheme}://{dns}:{port}/ws/".format(Config.api)
+	self.client.close()
 	auth()
 	
 func auth():
@@ -102,7 +103,10 @@ func _process(delta):
 	
 	# handle HTTPClient life
 	self.client.poll()
-	match self.client.get_status():
+	var status = self.client.get_status()
+	match status:
+		HTTPClient.STATUS_DISCONNECTED:
+			self.connect_to_host()
 		# whenever the http client has a body to fetch, fetch it
 		HTTPClient.STATUS_BODY:
 			self.processed_body.append_array(self.client.read_response_body_chunk())
@@ -120,18 +124,10 @@ func _process(delta):
 					response_headers,
 					self.processed_body
 				)
-
-			# Process next request if there is place
-			if not self.pending_request and not self.requests.empty():
+				self.client.close()
+			elif not self.requests.empty():
 				self.pending_request = self.requests.pop_front()
 				self.launch_pending_request()
-		HTTPClient.STATUS_CONNECTION_ERROR:
-			# reconnect to the server
-			self.connect_to_host()
-			# if we had a pending request, push it in front of the others
-			# it will be handled first
-			if self.pending_request:
-				self.trigger_handler(ERR_CANT_CONNECT, null, null, null)
 		# for every other status
 		var other:
 			# get the error code corresponding to the status
@@ -140,11 +136,12 @@ func _process(delta):
 			# of it IS a bad status, flush the requests and trigger their
 			# handlers with an error code
 			if err != OK:
+				self.client.close()
 				if self.pending_request:
 					self.trigger_handler(err, null, null, null)
-				while not self.requests.empty():
-					self.pending_request = self.requests.pop_front()
-					self.launch_pending_request()
+				#while not self.requests.empty():
+				#	self.pending_request = self.requests.pop_front()
+				#	self.launch_pending_request()
 
 # Helper function used only to clear the state of the HTTPClient.
 # This "cleanup" code is in a function in order to do the exact same cleanup
