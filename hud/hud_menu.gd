@@ -9,7 +9,7 @@ func _ready():
 	set_visible(false)
 
 
-func _on_victory():
+func _on_victory(data):
 	set_visible(false)
 
 

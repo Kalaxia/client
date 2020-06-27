@@ -11,6 +11,8 @@ const CAMERA_DRAG_COEFF = 4000.0
 const CAMERA_DRAG_COEFF_WHEN_DRAGGING = 40000.0
 const CAMERA_MOVE_KEY_AMOUNT = 300
 const _ZOOM_FACTOR = 1.1
+const _MIN_ZOOM_FACTOR = -15
+const _MAX_ZOOM_FACTOR = 5
 var _motion_camera = {
 		Vector2.LEFT : false,
 		Vector2.RIGHT : false,
@@ -50,7 +52,8 @@ func draw_systems():
 func update_fleet_system(fleet):
 	Store.update_fleet_system(fleet)
 	get_node("ParallaxBackground/ParallaxLayer0/Map/" + fleet.system).refresh_fleet_pins()
-	get_node("ParallaxBackground/ParallaxLayer0/Map/FleetContainer/" + fleet.id).queue_free()
+	if has_node("ParallaxBackground/ParallaxLayer0/Map/FleetContainer/" + fleet.id):
+		get_node("ParallaxBackground/ParallaxLayer0/Map/FleetContainer/" + fleet.id).queue_free()
 	
 func _on_combat_ended(data):
 	for fleet in data.fleets.values():
@@ -111,11 +114,11 @@ func _on_victory(data):
 func _input(event):
 	if event is InputEventKey || event is InputEventMouseButton:
 		if event.is_action_pressed("ui_zoom_in_map"):
-			$Camera2D.zoom.x = max($Camera2D.zoom.x / _ZOOM_FACTOR, pow(_ZOOM_FACTOR,-10))
-			$Camera2D.zoom.y = max($Camera2D.zoom.y / _ZOOM_FACTOR, pow(_ZOOM_FACTOR,-10))
+			$Camera2D.zoom.x = max($Camera2D.zoom.x / _ZOOM_FACTOR, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR))
+			$Camera2D.zoom.y = max($Camera2D.zoom.y / _ZOOM_FACTOR, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR))
 		if event.is_action_pressed("ui_zoom_out_map"):
-			$Camera2D.zoom.x = min($Camera2D.zoom.x *_ZOOM_FACTOR,pow(_ZOOM_FACTOR,10))
-			$Camera2D.zoom.y = min($Camera2D.zoom.y *_ZOOM_FACTOR,pow(_ZOOM_FACTOR,10))
+			$Camera2D.zoom.x = min($Camera2D.zoom.x *_ZOOM_FACTOR,pow(_ZOOM_FACTOR, _MAX_ZOOM_FACTOR))
+			$Camera2D.zoom.y = min($Camera2D.zoom.y *_ZOOM_FACTOR,pow(_ZOOM_FACTOR, _MAX_ZOOM_FACTOR))
 		if event.is_action_pressed("ui_drag_map"):
 			_is_map_being_dragged = true
 		if event.is_action_released("ui_drag_map"):

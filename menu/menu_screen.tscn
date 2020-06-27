@@ -24,34 +24,49 @@ __meta__ = {
 
 [node name="Header" type="VBoxContainer" parent="GUI/Body"]
 margin_right = 1920.0
-margin_bottom = 82.0
+margin_bottom = 106.0
 size_flags_stretch_ratio = 0.5
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TopHeader" type="HBoxContainer" parent="GUI/Body/Header"]
+[node name="Control" type="Control" parent="GUI/Body/Header"]
 margin_right = 1920.0
-margin_bottom = 64.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="TopHeader" type="HBoxContainer" parent="GUI/Body/Header"]
+margin_top = 24.0
+margin_right = 1920.0
+margin_bottom = 88.0
 alignment = 2
 
 [node name="Control" type="Control" parent="GUI/Body/Header/TopHeader"]
-margin_right = 1848.0
+margin_right = 1799.0
 margin_bottom = 64.0
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
 
 [node name="PlayersCounter" parent="GUI/Body/Header/TopHeader" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 1852.0
-margin_right = 1920.0
+margin_left = 1803.0
+margin_right = 1871.0
 margin_bottom = 64.0
 
-[node name="SubHeader" type="HBoxContainer" parent="GUI/Body/Header"]
-margin_top = 68.0
+[node name="Control2" type="Control" parent="GUI/Body/Header/TopHeader"]
+margin_left = 1875.0
 margin_right = 1920.0
-margin_bottom = 82.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="SubHeader" type="HBoxContainer" parent="GUI/Body/Header"]
+margin_top = 92.0
+margin_right = 1920.0
+margin_bottom = 106.0
 
 [node name="Title" type="Label" parent="GUI/Body/Header/SubHeader"]
 margin_right = 1920.0
@@ -61,26 +76,33 @@ text = "menu.main.title_kalaxia"
 align = 1
 
 [node name="space" type="Control" parent="GUI/Body"]
-margin_top = 86.0
+margin_top = 110.0
 margin_right = 1920.0
-margin_bottom = 130.0
+margin_bottom = 153.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.05
 
 [node name="MainSection" type="HBoxContainer" parent="GUI/Body"]
-margin_top = 134.0
+margin_top = 157.0
 margin_right = 1920.0
-margin_bottom = 1030.0
+margin_bottom = 1031.0
 size_flags_vertical = 3
 
+[node name="margin" type="Control" parent="GUI/Body/MainSection"]
+margin_right = 20.0
+margin_bottom = 874.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+
 [node name="Menu" type="VBoxContainer" parent="GUI/Body/MainSection"]
-margin_right = 414.0
-margin_bottom = 896.0
+margin_left = 24.0
+margin_right = 433.0
+margin_bottom = 874.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="LobbyCreationButton" type="Button" parent="GUI/Body/MainSection/Menu"]
-margin_right = 414.0
+margin_right = 409.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_vertical = 0
@@ -91,14 +113,14 @@ __meta__ = {
 
 [node name="seperator1" type="Control" parent="GUI/Body/MainSection/Menu"]
 margin_top = 44.0
-margin_right = 414.0
-margin_bottom = 83.0
+margin_right = 409.0
+margin_bottom = 82.0
 size_flags_vertical = 3
 
 [node name="OptionButton" type="Button" parent="GUI/Body/MainSection/Menu"]
-margin_top = 87.0
-margin_right = 414.0
-margin_bottom = 127.0
+margin_top = 86.0
+margin_right = 409.0
+margin_bottom = 126.0
 rect_min_size = Vector2( 0, 40 )
 text = "menu.main.options"
 __meta__ = {
@@ -106,15 +128,15 @@ __meta__ = {
 }
 
 [node name="seperator2" type="Control" parent="GUI/Body/MainSection/Menu"]
-margin_top = 131.0
-margin_right = 414.0
-margin_bottom = 170.0
+margin_top = 130.0
+margin_right = 409.0
+margin_bottom = 168.0
 size_flags_vertical = 3
 
 [node name="CreditsButton" type="Button" parent="GUI/Body/MainSection/Menu"]
-margin_top = 174.0
-margin_right = 414.0
-margin_bottom = 214.0
+margin_top = 172.0
+margin_right = 409.0
+margin_bottom = 212.0
 rect_min_size = Vector2( 0, 40 )
 text = "menu.main.credits"
 __meta__ = {
@@ -122,15 +144,15 @@ __meta__ = {
 }
 
 [node name="seperator3" type="Control" parent="GUI/Body/MainSection/Menu"]
-margin_top = 218.0
-margin_right = 414.0
-margin_bottom = 257.0
+margin_top = 216.0
+margin_right = 409.0
+margin_bottom = 254.0
 size_flags_vertical = 3
 
 [node name="Quit" type="Button" parent="GUI/Body/MainSection/Menu"]
-margin_top = 261.0
-margin_right = 414.0
-margin_bottom = 301.0
+margin_top = 258.0
+margin_right = 409.0
+margin_bottom = 298.0
 rect_min_size = Vector2( 0, 40 )
 text = "menu.main.quit"
 __meta__ = {
@@ -138,42 +160,42 @@ __meta__ = {
 }
 
 [node name="footer" type="Control" parent="GUI/Body/MainSection/Menu"]
-margin_top = 305.0
-margin_right = 414.0
-margin_bottom = 896.0
+margin_top = 302.0
+margin_right = 409.0
+margin_bottom = 874.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
 
 [node name="space" type="Control" parent="GUI/Body/MainSection"]
-margin_left = 418.0
-margin_right = 542.0
-margin_bottom = 896.0
+margin_left = 437.0
+margin_right = 559.0
+margin_bottom = 874.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
 [node name="Section" type="ScrollContainer" parent="GUI/Body/MainSection"]
-margin_left = 546.0
-margin_right = 1790.0
-margin_bottom = 896.0
+margin_left = 563.0
+margin_right = 1791.0
+margin_bottom = 874.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
 [node name="Lobbies" type="VBoxContainer" parent="GUI/Body/MainSection/Section"]
-margin_right = 1244.0
-margin_bottom = 896.0
+margin_right = 1228.0
+margin_bottom = 874.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="space2" type="Control" parent="GUI/Body/MainSection"]
-margin_left = 1794.0
+margin_left = 1795.0
 margin_right = 1920.0
-margin_bottom = 896.0
+margin_bottom = 874.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
 [node name="Footer" type="Control" parent="GUI/Body"]
-margin_top = 1034.0
+margin_top = 1035.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 size_flags_vertical = 3

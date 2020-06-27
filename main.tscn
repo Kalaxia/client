@@ -31,10 +31,15 @@ margin_right = 96.0
 margin_bottom = 694.0
 
 [node name="SystemDetails" parent="ParallaxBackground/HUD" instance=ExtResource( 4 )]
-margin_right = 200.0
-margin_bottom = 188.0
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 259.0
+margin_bottom = 203.0
 
 [node name="HudMenu" parent="ParallaxBackground/HUD" instance=ExtResource( 5 )]
+margin_top = 15.0
+margin_right = 1221.0
+margin_bottom = 55.0
 rect_min_size = Vector2( 80, 40 )
 
 [node name="Level" type="CanvasLayer" parent="."]

@@ -21,32 +21,32 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="HBoxContainer"]
-margin_right = 20.0
+margin_right = 30.0
 margin_bottom = 1066.0
-rect_min_size = Vector2( 20, 0 )
+rect_min_size = Vector2( 30, 0 )
 size_flags_stretch_ratio = 0.1
 
 [node name="Label" type="Label" parent="HBoxContainer"]
-margin_left = 24.0
+margin_left = 34.0
 margin_top = 526.0
-margin_right = 324.0
+margin_right = 334.0
 margin_bottom = 540.0
 rect_min_size = Vector2( 300, 0 )
 text = "no_translate.Option_Label"
 
 [node name="Control2" type="Control" parent="HBoxContainer"]
-margin_left = 328.0
-margin_right = 338.0
+margin_left = 338.0
+margin_right = 348.0
 margin_bottom = 1066.0
 rect_min_size = Vector2( 10, 0 )
 
 [node name="Button" type="CheckButton" parent="HBoxContainer"]
-margin_left = 342.0
-margin_right = 418.0
+margin_left = 352.0
+margin_right = 428.0
 margin_bottom = 1066.0
 
 [node name="Control3" type="Control" parent="HBoxContainer"]
-margin_left = 422.0
+margin_left = 432.0
 margin_right = 1906.0
 margin_bottom = 1066.0
 size_flags_horizontal = 3

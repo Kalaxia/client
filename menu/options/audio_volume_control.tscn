@@ -5,6 +5,7 @@
 [node name="AudioVolumeControl" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_min_size = Vector2( 0, 55 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -19,17 +20,16 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Control" type="Control" parent="HBoxContainer"]
-margin_right = 67.0
+margin_right = 30.0
 margin_bottom = 1066.0
-rect_min_size = Vector2( 0, 40 )
-size_flags_horizontal = 3
+rect_min_size = Vector2( 30, 0 )
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.05
 
 [node name="BusName" type="Label" parent="HBoxContainer"]
-margin_left = 71.0
+margin_left = 34.0
 margin_top = 526.0
-margin_right = 218.0
+margin_right = 181.0
 margin_bottom = 540.0
 text = "no_translate.bus_name"
 __meta__ = {
@@ -37,19 +37,19 @@ __meta__ = {
 }
 
 [node name="Control2" type="Control" parent="HBoxContainer"]
-margin_left = 222.0
-margin_right = 235.0
+margin_left = 185.0
+margin_right = 215.0
 margin_bottom = 1066.0
-size_flags_horizontal = 3
+rect_min_size = Vector2( 30, 0 )
 size_flags_stretch_ratio = 0.01
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VolumeSlider" type="HSlider" parent="HBoxContainer"]
-margin_left = 239.0
+margin_left = 219.0
 margin_top = 525.0
-margin_right = 1590.0
+margin_right = 1559.0
 margin_bottom = 541.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -57,8 +57,18 @@ max_value = 1.0
 step = 0.001
 value = 1.0
 
+[node name="Control3" type="Control" parent="HBoxContainer"]
+margin_left = 1563.0
+margin_right = 1593.0
+margin_bottom = 1066.0
+rect_min_size = Vector2( 30, 0 )
+size_flags_stretch_ratio = 0.01
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="volume" type="Label" parent="HBoxContainer"]
-margin_left = 1594.0
+margin_left = 1597.0
 margin_top = 526.0
 margin_right = 1906.0
 margin_bottom = 540.0

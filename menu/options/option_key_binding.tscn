@@ -21,9 +21,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Control" type="Control" parent="Container"]
+margin_right = 30.0
+margin_bottom = 1066.0
+rect_min_size = Vector2( 30, 0 )
+
 [node name="Label" type="Label" parent="Container"]
+margin_left = 34.0
 margin_top = 526.0
-margin_right = 400.0
+margin_right = 434.0
 margin_bottom = 540.0
 rect_min_size = Vector2( 400, 0 )
 text = "no_translate.label_key_binding"

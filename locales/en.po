@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-27 09:52+0200\n"
+"POT-Creation-Date: 2020-06-27 16:52+0200\n"
 "PO-Revision-Date: 2020-06-27 09:08+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: \n"
@@ -19,12 +19,16 @@ msgstr ""
 "X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config/config.gd:89
+#: main.gd:47
+msgid "Unknown requested scene : "
+msgstr ""
+
+#: config/config.gd:85
 #, python-format
 msgid "error while parsing configuration file %s : %s "
 msgstr ""
 
-#: config/config.gd:109
+#: config/config.gd:105
 #, python-format
 msgid "Error while saving configuration file %s : %s "
 msgstr ""
@@ -97,7 +101,7 @@ msgstr "%s's game"
 msgid "store.new_game"
 msgstr ""
 
-#: global/utils.gd:47
+#: global/utils.gd:46
 msgid "action.key.mouse_key_"
 msgstr ""
 
@@ -309,11 +313,11 @@ msgstr ""
 msgid "menu.loading.loading"
 msgstr "%d players"
 
-#: matchmaking/lobby/lobby.tscn:72
+#: matchmaking/lobby/lobby.tscn:84
 msgid "menu.lobby.launch"
 msgstr ""
 
-#: matchmaking/lobby/lobby.tscn:83
+#: matchmaking/lobby/lobby.tscn:95
 msgid "menu.lobby.quit"
 msgstr ""
 
@@ -386,27 +390,27 @@ msgstr ""
 msgid "menu.option.tab.lang"
 msgstr "%d players"
 
-#: menu/menu_option.tscn:166
+#: menu/menu_option.tscn:169
 msgid "menu.option.back_main_menu"
 msgstr ""
 
-#: menu/menu_screen.tscn:60
+#: menu/menu_screen.tscn:75
 msgid "menu.main.title_kalaxia"
 msgstr ""
 
-#: menu/menu_screen.tscn:87
+#: menu/menu_screen.tscn:109
 msgid "menu.main.create_lobby"
 msgstr ""
 
-#: menu/menu_screen.tscn:103
+#: menu/menu_screen.tscn:125
 msgid "menu.main.options"
 msgstr ""
 
-#: menu/menu_screen.tscn:119
+#: menu/menu_screen.tscn:141
 msgid "menu.main.credits"
 msgstr ""
 
-#: menu/menu_screen.tscn:135
+#: menu/menu_screen.tscn:157
 msgid "menu.main.quit"
 msgstr ""
 
@@ -424,7 +428,7 @@ msgstr "Volume : %3.3d %s (%7.2f dB)"
 msgid "no_translate.bus_name"
 msgstr ""
 
-#: menu/options/audio_volume_control.tscn:67
+#: menu/options/audio_volume_control.tscn:77
 msgid "no_translate.Volume : 100 % (0 dB)"
 msgstr ""
 
@@ -444,11 +448,11 @@ msgstr ""
 msgid "menu.option.graphical.display_id"
 msgstr ""
 
-#: menu/options/option_array.tscn:30
+#: menu/options/option_array.tscn:31
 msgid "no_translate.Option_Name"
 msgstr ""
 
-#: menu/options/option_array.tscn:44
+#: menu/options/option_array.tscn:46
 msgid "no_transalte.item_0"
 msgstr ""
 
@@ -460,11 +464,11 @@ msgstr ""
 msgid "action."
 msgstr ""
 
-#: menu/options/option_key_binding.tscn:19
+#: menu/options/option_key_binding.tscn:35
 msgid "no_translate.label_key_binding"
 msgstr ""
 
-#: menu/options/option_lang.tscn:19
+#: menu/options/option_lang.tscn:20
 #, fuzzy
 msgid "menu.option.lang.language"
 msgstr "Volume : %3.3d %s (%7.2f dB)"
