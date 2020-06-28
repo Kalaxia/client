@@ -31,31 +31,35 @@ __meta__ = {
 margin_left = 240.0
 margin_top = 318.0
 margin_right = 1040.0
-margin_bottom = 401.0
+margin_bottom = 402.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
 margin_right = 800.0
-margin_bottom = 31.0
-text = "Chargement...
-"
+margin_bottom = 14.0
+text = "menu.loading.loading"
 align = 1
 
-[node name="NbPlayers" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_top = 35.0
+[node name="space" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_top = 18.0
 margin_right = 800.0
-margin_bottom = 49.0
-text = "2 joueurs"
+margin_bottom = 32.0
+
+[node name="NbPlayers" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_top = 36.0
+margin_right = 800.0
+margin_bottom = 50.0
+text = "menu.loading.number_player"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ProgressBar" type="ProgressBar" parent="CenterContainer/VBoxContainer"]
-margin_top = 53.0
+margin_top = 54.0
 margin_right = 800.0
-margin_bottom = 83.0
+margin_bottom = 84.0
 rect_min_size = Vector2( 800, 30 )
 custom_styles/fg = SubResource( 1 )

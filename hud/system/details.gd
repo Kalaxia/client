@@ -21,9 +21,9 @@ func _ready():
 	Network.connect("Victory", self, "_on_victory")
 	$FleetCreationButton.connect("pressed", self, "create_fleet")
 	set_visible(false)
-	$Legend.text = Utils.get_label_of_event(InputMap.get_action_list("ui_add_fleet")[0]) + ": créer une flotte"
-	$Legend3.text = Utils.get_label_of_event(InputMap.get_action_list("ui_add_ships")[0]) + ": ajouter un vaisseau"
-	$Legend4.text = "SHIFT+"+Utils.get_label_of_event(InputMap.get_action_list("ui_add_ships")[0]) + ": ajouter 5 vaisseaux"
+	$Legend.text = tr("hud.system.add_fleet.key_binding") % Utils.get_label_of_event(InputMap.get_action_list("ui_add_fleet")[0])
+	$Legend3.text = tr("hud.system.add_one_ship.key_binding") % Utils.get_label_of_event(InputMap.get_action_list("ui_add_ships")[0])
+	$Legend4.text = tr("hud.system.add_five_ship.key_binding") % Utils.get_label_of_event(InputMap.get_action_list("ui_add_ships")[0])
 	
 func _on_system_selected(system, old_system):
 	set_visible(true)

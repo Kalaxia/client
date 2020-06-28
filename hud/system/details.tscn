@@ -14,7 +14,7 @@ __meta__ = {
 }
 
 [node name="Header" type="HBoxContainer" parent="."]
-margin_right = 200.0
+margin_right = 244.0
 margin_bottom = 70.0
 size_flags_horizontal = 3
 
@@ -29,50 +29,50 @@ __meta__ = {
 }
 
 [node name="Player" type="Label" parent="Header"]
-margin_left = 200.0
+margin_left = 244.0
 margin_top = 28.0
-margin_right = 200.0
+margin_right = 244.0
 margin_bottom = 42.0
 size_flags_horizontal = 10
 
 [node name="FleetsTitle" type="Label" parent="."]
 margin_top = 74.0
-margin_right = 200.0
+margin_right = 244.0
 margin_bottom = 88.0
-text = "Flottes"
+text = "hud.system.fleet"
 
 [node name="Legend" type="Label" parent="."]
 margin_top = 92.0
-margin_right = 200.0
+margin_right = 244.0
 margin_bottom = 106.0
-text = "F: créer une flotte"
+text = "hud.system.add_fleet.key_binding"
 
 [node name="Legend2" type="Label" parent="."]
 margin_top = 110.0
-margin_right = 200.0
+margin_right = 244.0
 margin_bottom = 124.0
-text = "1-9: sélectionner une flotte"
+text = "hud.system.select_fleet.key_binding"
 
 [node name="Legend3" type="Label" parent="."]
 margin_top = 128.0
-margin_right = 200.0
+margin_right = 244.0
 margin_bottom = 142.0
-text = "A: ajouter un vaisseau"
+text = "hud.system.add_one_ship.key_binding"
 
 [node name="Legend4" type="Label" parent="."]
 margin_top = 146.0
-margin_right = 200.0
+margin_right = 244.0
 margin_bottom = 160.0
-text = "SHIFT-A: ajouter 5 vaisseaux"
+text = "hud.system.add_five_ship.key_binding"
 
 [node name="Fleets" type="VBoxContainer" parent="."]
 margin_top = 164.0
-margin_right = 200.0
+margin_right = 244.0
 margin_bottom = 164.0
 
 [node name="FleetCreationButton" type="Button" parent="."]
 margin_top = 168.0
-margin_right = 200.0
+margin_right = 244.0
 margin_bottom = 188.0
 disabled = true
-text = "Créer une flotte"
+text = "hud.system.add_fleet"

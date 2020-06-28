@@ -110,7 +110,7 @@ size_flags_vertical = 3
 margin_right = 1280.0
 margin_bottom = 41.0
 size_flags_vertical = 3
-text = "Sauver et retourer au menu principal"
+text = "menu.option.back_main_menu"
 
 [node name="Control" type="Control" parent="."]
 margin_top = 710.0

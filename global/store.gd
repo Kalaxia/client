@@ -29,7 +29,7 @@ func _ready():
 	pass
 
 func get_lobby_name(lobby):
-	return 'Partie de ' + lobby.owner.username if typeof(lobby.owner) == TYPE_DICTIONARY && lobby.owner.username != '' else 'Nouvelle Partie'
+	return tr('store.game_of') % lobby.owner.username if typeof(lobby.owner) == TYPE_DICTIONARY && lobby.owner.username != '' else tr('store.new_game')
 
 func get_lobby_player(pid):
 	for p in _state.lobby.players:

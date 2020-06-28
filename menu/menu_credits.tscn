@@ -3,22 +3,22 @@
 [ext_resource path="res://menu/menu_credits.gd" type="Script" id=1]
 [ext_resource path="res://menu/dynamic_font.tres" type="DynamicFont" id=2]
 
-[sub_resource type="StreamTexture" id=2]
+[sub_resource type="StreamTexture" id=1]
 flags = 4
 load_path = "res://.import/white_logo.png-417d587854d8832fd65f9e0b69877e95.stex"
 
-[sub_resource type="StreamTexture" id=3]
+[sub_resource type="StreamTexture" id=2]
 flags = 4
 load_path = "res://.import/discord.png-858b26e15c0466b191ca3806c2857b32.stex"
 
-[sub_resource type="DynamicFontData" id=4]
+[sub_resource type="DynamicFontData" id=3]
 font_path = "res://resources/fonts/Swansea/Swansea-q3pd.ttf"
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 size = 14
 use_filter = true
 extra_spacing_bottom = 4
-font_data = SubResource( 4 )
+font_data = SubResource( 3 )
 
 [node name="MenuCredits" type="Control"]
 anchor_right = 1.0
@@ -77,7 +77,7 @@ __meta__ = {
 margin_right = 1000.0
 margin_bottom = 26.0
 custom_fonts/font = ExtResource( 2 )
-text = "Développé par la communauté de Kalaxia"
+text = "menu.credits.dev_comunity_label"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -92,33 +92,33 @@ columns = 2
 margin_right = 31.0
 margin_bottom = 31.0
 rect_min_size = Vector2( 31, 31 )
-texture = SubResource( 2 )
+texture = SubResource( 1 )
 expand = true
 
 [node name="LinkButtonKalaxia" type="LinkButton" parent="Forground/CenterH/CenterV/CreditsContainer/GridContainer"]
 margin_left = 35.0
-margin_right = 230.0
+margin_right = 288.0
 margin_bottom = 31.0
 hint_tooltip = "https://kalaxia.org"
 custom_fonts/font = ExtResource( 2 )
-text = "Site web"
+text = "menu.credits.website"
 
 [node name="TextureRect2" type="TextureRect" parent="Forground/CenterH/CenterV/CreditsContainer/GridContainer"]
 margin_top = 35.0
 margin_right = 31.0
 margin_bottom = 66.0
 rect_min_size = Vector2( 31, 31 )
-texture = SubResource( 3 )
+texture = SubResource( 2 )
 expand = true
 
 [node name="LinkButtonDiscord" type="LinkButton" parent="Forground/CenterH/CenterV/CreditsContainer/GridContainer"]
 margin_left = 35.0
 margin_top = 35.0
-margin_right = 230.0
+margin_right = 288.0
 margin_bottom = 66.0
 hint_tooltip = "https://discord.com/invite/mDTms5c"
 custom_fonts/font = ExtResource( 2 )
-text = "Serveur Discord"
+text = "menu.credits.discord"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -126,41 +126,33 @@ __meta__ = {
 [node name="vSeparator1" type="VBoxContainer" parent="Forground/CenterH/CenterV/CreditsContainer"]
 margin_top = 100.0
 margin_right = 1000.0
-margin_bottom = 166.0
+margin_bottom = 250.0
 size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="LabelGodotLicence" type="Label" parent="Forground/CenterH/CenterV/CreditsContainer"]
-margin_top = 170.0
+margin_top = 254.0
 margin_right = 1000.0
-margin_bottom = 392.0
-custom_fonts/font = SubResource( 5 )
-text = "Ce jeu utilise Godot Engine, disponible sous la licence suivante :
-
-Copyright (c) 2007-2020 Juan Linietsky, Ariel Manzur. Copyright (c) 2014-2020 Contributeurs du moteur Godot.
-
-L’autorisation est par les présentes accordée, à titre gratuit, à toute personne obtenant une copie de ce logiciel et des fichiers de documentation associés (le « Logiciel »), d’utiliser le Logiciel sans restriction, y compris, sans limitation, les droits d’utilisation, de copie, de modification, de fusion, de publication, de distribution, de sous-licence et/ou de vente de copies du Logiciel, et d’autoriser les personnes à qui le Logiciel est fourni à le faire, sous réserve des conditions suivantes :
-
-L’avis de droit d’auteur ci-dessus et cet avis d’autorisation doivent être inclus dans toutes les copies ou parties substantielles du logiciel.
-
-THE SOFTWARE IS PROVIDED « AS IS », WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+margin_bottom = 266.0
+custom_fonts/font = SubResource( 4 )
+text = "menu.credits.legal_notice_godot"
 autowrap = true
 
 [node name="vSeparator2" type="VBoxContainer" parent="Forground/CenterH/CenterV/CreditsContainer"]
-margin_top = 396.0
+margin_top = 270.0
 margin_right = 1000.0
-margin_bottom = 462.0
+margin_bottom = 420.0
 size_flags_vertical = 3
 
 [node name="BackMainMenu" type="Button" parent="Forground/CenterH/CenterV/CreditsContainer"]
-margin_top = 466.0
+margin_top = 424.0
 margin_right = 1000.0
 margin_bottom = 500.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
-text = "Retour au menu principal"
+text = "menu.credits.back_main_menu"
 __meta__ = {
 "_edit_use_anchors_": false
 }

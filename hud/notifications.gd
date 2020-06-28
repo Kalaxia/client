@@ -10,4 +10,4 @@ func _on_new_notification(notification):
 	var notif = notification_scene.instance()
 	notif.notif = notification
 	$List.add_child(notif)
-	print("ok")
+	print(tr("notification.ok"))

@@ -44,5 +44,5 @@ func get_label_of_event(event):
 	if event is InputEventKey:
 		return event.as_text()
 	if event is InputEventMouseButton:
-		return "mouse_key_" + (event.button_index as String)
+		return tr("action.key.mouse_key_" + (event.button_index as String))
 	return ""

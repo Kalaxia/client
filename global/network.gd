@@ -73,19 +73,19 @@ func connect_ws():
 	_ws_client.connect("data_received", self, "_on_data")
 	var err = _ws_client.connect_to_url(websocket_url, [], false, ["Authorization: Bearer " + token])
 	if err != OK:
-		print("Unable to connect")
+		print(tr("network.unable_connect"))
 		set_process(false)
 		
 func _closed(was_clean = false):
 	# was_clean will tell you if the disconnection was correctly notified
 	# by the remote peer before closing the socket.
-	print("Closed, clean: ", was_clean)
+	print(tr("network.close_clean_ws"), was_clean)
 	set_process(false)
 
 func _connected(proto = ""):
 	# This is called on connection, "proto" will be the selected WebSocket
 	# sub-protocol (which is optional)
-	print("Connected with protocol: ", proto)
+	print(tr("Connected with protocol: "), proto)
 	# You MUST always use get_peer(1).put_packet to send data to server,
 	# and not put_packet directly when not using the MultiplayerAPI.
 	_ws_client.get_peer(1).put_packet("Test packet".to_utf8())
@@ -93,7 +93,7 @@ func _connected(proto = ""):
 func _on_data():
 	var data = JSON.parse(_ws_client.get_peer(1).get_packet().get_string_from_utf8()).result
 	
-	print("received data from server: ", data.action)
+	print(tr("received data from server: "), data.action)
 	
 	emit_signal(data.action, data.data)
 

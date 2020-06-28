@@ -26,7 +26,7 @@ margin_top = 33.0
 margin_right = 250.0
 margin_bottom = 47.0
 size_flags_horizontal = 3
-text = "0"
+text = "no_translate.0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
