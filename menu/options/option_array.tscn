@@ -39,9 +39,11 @@ size_flags_stretch_ratio = 0.5
 
 [node name="OptionButton" type="OptionButton" parent="HBoxContainer"]
 margin_left = 382.0
+margin_top = 515.0
 margin_right = 537.0
-margin_bottom = 1066.0
-rect_min_size = Vector2( 150, 0 )
+margin_bottom = 550.0
+rect_min_size = Vector2( 150, 35 )
+size_flags_vertical = 4
 size_flags_stretch_ratio = 2.0
 text = "no_transalte.item_0"
 

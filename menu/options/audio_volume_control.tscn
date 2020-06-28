@@ -72,6 +72,7 @@ margin_left = 1597.0
 margin_top = 526.0
 margin_right = 1906.0
 margin_bottom = 540.0
+rect_min_size = Vector2( 250, 0 )
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.23
 text = "no_translate.Volume : 100 % (0 dB)"

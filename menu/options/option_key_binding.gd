@@ -12,6 +12,7 @@ signal unmark_button_key_binding()
 class ButtonKeyBinding:
 	extends Button
 	var index_key_binding
+	
 
 func _ready():
 	$Container/Label.text = tr("action." + action)

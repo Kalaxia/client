@@ -42,8 +42,10 @@ rect_min_size = Vector2( 10, 0 )
 
 [node name="Button" type="CheckButton" parent="HBoxContainer"]
 margin_left = 352.0
+margin_top = 513.0
 margin_right = 428.0
-margin_bottom = 1066.0
+margin_bottom = 553.0
+size_flags_vertical = 4
 
 [node name="Control3" type="Control" parent="HBoxContainer"]
 margin_left = 432.0
