@@ -18,8 +18,14 @@ func _process(delta):
 	_time += delta
 	get_node("CenterContainer/VBoxContainer/ProgressBar").set_value(min(_time/TIME_LOADING*100.0,99.99))
 
-func _on_game_started(game):
-	Store._state.game.systems = game.systems
+func init_systems(systems):
+	Store._state.game.systems = {}
+	for s in systems:
+		s.fleets = {}
+		Store._state.game.systems[s.id] = s
+
+func _on_game_started(systems):
+	init_systems(systems)
 	Store._state.player.wallet = 0
 	emit_signal("scene_requested", "game")
 

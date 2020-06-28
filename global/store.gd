@@ -70,12 +70,13 @@ func select_system(system):
 	emit_signal("system_selected", system, _state.selected_system)
 	_state.selected_system = system
 
-func update_system(system):
+func update_system(s):
+	var system = _state.game.systems[s.id]
 	for fid in system.fleets.keys():
 		if system.fleets[fid].destination_system != null:
 			system.fleets.erase(fid)
-	_state.game.systems[system.id] = system
-	emit_signal("system_update",system)
+	system.player = s.player
+	emit_signal("system_update", system)
 
 func add_fleet(fleet):
 	_state.game.systems[fleet.system].fleets[fleet.id] = fleet
