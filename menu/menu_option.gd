@@ -5,10 +5,10 @@ var audio_volume = preload("res://menu/options/audio_volume_control.tscn")
 
 # this cannot be a constant as we want to reloads name if the local changes
 onready var _tabs_name = [
-		tr("menu.option.tab.shortcuts"),
-		tr("menu.option.tab.audio"),
-		tr("menu.option.tab.graphical"),
-		tr("menu.option.tab.lang"),
+	tr("menu.option.tab.shortcuts"),
+	tr("menu.option.tab.audio"),
+	tr("menu.option.tab.graphical"),
+	tr("menu.option.tab.lang"),
 	]
 
 

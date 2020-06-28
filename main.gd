@@ -12,10 +12,7 @@ var credits_menu = preload("res://menu/menu_credits.tscn")
 func _ready():
 	Config.connect("reload_locale",self,"_on_reload_locale")
 	$ParallaxBackground/HUD/HudMenu.connect("back_main_menu", self, "_on_back_to_main_menu")
-	if Network.token == null:
-		change_level(loading_scene)
-	else:
-		change_level(menu_scene)
+	change_level(loading_scene) if Network.token == null else change_level(menu_scene)
 
 func change_level(level_scene):
 	for l in $Level.get_children(): l.queue_free()

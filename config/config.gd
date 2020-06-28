@@ -9,7 +9,7 @@ var api = {
 	'ws_scheme': null
 }
 
-var config_newtork = ConfigFile.new()
+var config_network = ConfigFile.new()
 var config_user = ConfigFile.new()
 const PATH_CONFIG_NETWORK = "res://config/" + ENV + ".cfg"
 const PATH_CONFIG_USER = "res://config/config.cfg"
@@ -40,13 +40,13 @@ const DEFAULT_LOCALE = "fr"
 signal reload_locale()
 
 func _ready():
-	config_newtork = ConfigFile.new()
-	var err = config_newtork.load(PATH_CONFIG_NETWORK)
+	config_network = ConfigFile.new()
+	var err = config_network.load(PATH_CONFIG_NETWORK)
 	if err == OK:
-		api.dns = config_newtork.get_value('network', 'api_dns', '127.0.0.1')
-		api.port = config_newtork.get_value('network', 'api_port', 8080)
-		api.scheme = config_newtork.get_value('network', 'api_scheme', 'http')
-		api.ws_scheme = config_newtork.get_value('network', 'ws_scheme', 'ws')
+		api.dns = config_network.get_value('network', 'api_dns', '127.0.0.1')
+		api.port = config_network.get_value('network', 'api_port', 8080)
+		api.scheme = config_network.get_value('network', 'api_scheme', 'http')
+		api.ws_scheme = config_network.get_value('network', 'ws_scheme', 'ws')
 	else:
 		print("error while parsing configuration file "+PATH_CONFIG_NETWORK+" : " + str(err))
 	var err_config_user = config_user.load(PATH_CONFIG_USER)
@@ -124,14 +124,11 @@ func set_config_locale(locale : String) -> void:
 	config_user.set_value(LOCALE_SECTION_NAME,LOCALE_CONFIG_NAME,locale)
 
 func load_locale():
+	TranslationServer.set_locale(DEFAULT_LOCALE)
 	if config_user.has_section_key(LOCALE_SECTION_NAME,LOCALE_CONFIG_NAME):
 		var locale_to_load = config_user.get_value(LOCALE_SECTION_NAME,LOCALE_CONFIG_NAME)
 		if TranslationServer.get_loaded_locales().has(locale_to_load):
 			TranslationServer.set_locale(locale_to_load)
-		else:
-			TranslationServer.set_locale(DEFAULT_LOCALE)
-	else:
-		TranslationServer.set_locale(DEFAULT_LOCALE)
 
 func reload_locale():
 	var previous_locale = TranslationServer.get_locale()
