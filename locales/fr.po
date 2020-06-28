@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-27 16:52+0200\n"
-"PO-Revision-Date: 2020-06-27 17:45+0200\n"
+"POT-Creation-Date: 2020-06-28 15:32+0200\n"
+"PO-Revision-Date: 2020-06-28 15:33+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -105,7 +105,7 @@ msgstr "Nouvelle partie"
 msgid "action.key.mouse_key_"
 msgstr ""
 
-#: hud/hud_menu.tscn:18
+#: hud/hud_menu.tscn:20
 msgid "hud.hud_menu.back_main_menu"
 msgstr "Retourner au menu principal"
 
@@ -114,30 +114,30 @@ msgid "notification.ok"
 msgstr "OK"
 
 #: hud/wallet.tscn:29
-msgid "no_translate.0"
-msgstr ""
+msgid "hud.wallet.0"
+msgstr "0"
 
-#: hud/system/details.gd:24 hud/system/details.tscn:48
+#: hud/system/details.gd:24 hud/system/details.tscn:50
 msgid "hud.system.add_fleet.key_binding"
 msgstr "%s : créer une flotte"
 
-#: hud/system/details.gd:25 hud/system/details.tscn:60
+#: hud/system/details.gd:25 hud/system/details.tscn:62
 msgid "hud.system.add_one_ship.key_binding"
 msgstr "%s : ajouter un vaisseau"
 
-#: hud/system/details.gd:26 hud/system/details.tscn:66
+#: hud/system/details.gd:26 hud/system/details.tscn:68
 msgid "hud.system.add_five_ship.key_binding"
 msgstr "SHIFT+%s : ajouter 5 vaisseaux"
 
-#: hud/system/details.tscn:42
+#: hud/system/details.tscn:44
 msgid "hud.system.fleet"
 msgstr "Flottes"
 
-#: hud/system/details.tscn:54
+#: hud/system/details.tscn:56
 msgid "hud.system.select_fleet.key_binding"
 msgstr "1-9 : sélectionner une flotte"
 
-#: hud/system/details.tscn:78
+#: hud/system/details.tscn:80
 msgid "hud.system.add_fleet"
 msgstr "Ajouter une flotte"
 
@@ -305,11 +305,11 @@ msgstr "Kalankar"
 msgid "Valkar"
 msgstr "Valkar"
 
-#: matchmaking/game/game_loading.gd:30 matchmaking/game/game_loading.tscn:54
+#: matchmaking/game/game_loading.gd:30 matchmaking/game/game_loading.tscn:56
 msgid "menu.loading.number_player"
 msgstr "%d joueurs"
 
-#: matchmaking/game/game_loading.tscn:42
+#: matchmaking/game/game_loading.tscn:44
 msgid "menu.loading.loading"
 msgstr "Chargement"
 
@@ -325,7 +325,7 @@ msgstr "Quitter"
 msgid "menu.lobby_card.player_count"
 msgstr "%d / %d"
 
-#: matchmaking/lobby/lobby_card.tscn:54
+#: matchmaking/lobby/lobby_card.tscn:64
 msgid "menu.lobby_card.join"
 msgstr "Rejoindre"
 
@@ -345,11 +345,11 @@ msgstr "Inconnu"
 msgid "player updated"
 msgstr ""
 
-#: matchmaking/player/player_info.tscn:35
+#: matchmaking/player/player_info.tscn:37
 msgid "no_translate.Faction"
 msgstr ""
 
-#: matchmaking/player/player_info.tscn:58
+#: matchmaking/player/player_info.tscn:60
 msgid "menu.player_info.ready"
 msgstr "Prêt.e ?"
 
@@ -410,27 +410,27 @@ msgstr "Graphiques"
 msgid "menu.option.tab.lang"
 msgstr "Langues"
 
-#: menu/menu_option.tscn:169
+#: menu/menu_option.tscn:161
 msgid "menu.option.back_main_menu"
 msgstr "Sauver et retourner au menu principal"
 
-#: menu/menu_screen.tscn:75
+#: menu/menu_screen.tscn:89
 msgid "menu.main.title_kalaxia"
 msgstr "Kalaxia"
 
-#: menu/menu_screen.tscn:109
+#: menu/menu_screen.tscn:124
 msgid "menu.main.create_lobby"
 msgstr "Créer une partie"
 
-#: menu/menu_screen.tscn:125
+#: menu/menu_screen.tscn:141
 msgid "menu.main.options"
 msgstr "Options"
 
-#: menu/menu_screen.tscn:141
+#: menu/menu_screen.tscn:158
 msgid "menu.main.credits"
 msgstr "Crédits"
 
-#: menu/menu_screen.tscn:157
+#: menu/menu_screen.tscn:175
 msgid "menu.main.quit"
 msgstr "Quitter"
 
@@ -448,23 +448,23 @@ msgstr "Volume : %3.3d %s (%7.2f dB)"
 msgid "no_translate.bus_name"
 msgstr ""
 
-#: menu/options/audio_volume_control.tscn:77
+#: menu/options/audio_volume_control.tscn:78
 msgid "no_translate.Volume : 100 % (0 dB)"
 msgstr ""
 
-#: menu/options/graphical_option.tscn:22
+#: menu/options/graphical_option.tscn:24
 msgid "menu.option.graphical.fullscreen"
 msgstr "Plein écran"
 
-#: menu/options/graphical_option.tscn:30
+#: menu/options/graphical_option.tscn:32
 msgid "menu.option.graphical.maximize"
 msgstr "Maximiser"
 
-#: menu/options/graphical_option.tscn:38
+#: menu/options/graphical_option.tscn:40
 msgid "menu.option.graphical.resize"
 msgstr "Redimentioner"
 
-#: menu/options/graphical_option.tscn:46
+#: menu/options/graphical_option.tscn:48
 msgid "menu.option.graphical.display_id"
 msgstr "Ecran"
 
@@ -472,7 +472,7 @@ msgstr "Ecran"
 msgid "no_translate.Option_Name"
 msgstr ""
 
-#: menu/options/option_array.tscn:46
+#: menu/options/option_array.tscn:48
 msgid "no_transalte.item_0"
 msgstr ""
 
@@ -480,7 +480,7 @@ msgstr ""
 msgid "no_translate.Option_Label"
 msgstr ""
 
-#: menu/options/option_key_binding.gd:17 menu/options/option_key_binding.gd:75
+#: menu/options/option_key_binding.gd:18 menu/options/option_key_binding.gd:76
 msgid "action."
 msgstr ""
 
