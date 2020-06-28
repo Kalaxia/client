@@ -1,7 +1,6 @@
 extends Node
 
 const AUDIO_VOLUME_DB_MIN = -100.0 # in dB
-const MAX_BUS_TO_SCAN = 20
 
 class Lock:
 	extends Reference
@@ -46,3 +45,12 @@ func get_label_of_event(event):
 	if event is InputEventMouseButton:
 		return tr("action.key.mouse_key_" + (event.button_index as String))
 	return ""
+
+func set_windows_resizable(is_resizable):
+	var size = OS.window_size
+	var position = OS.window_position
+	if OS.window_resizable == is_resizable:
+		return
+	OS.set_window_resizable(is_resizable)
+	OS.min_window_size = Vector2(1280,720) if is_resizable else Vector2.ZERO
+	

@@ -1,35 +1,37 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://matchmaking/player/player_info.gd" type="Script" id=1]
+[ext_resource path="res://themes/theme_main_square_button.tres" type="Theme" id=2]
 
 [node name="PlayerInfo" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = -666.0
 rect_min_size = Vector2( 54, 0 )
+theme = ExtResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Background" type="ColorRect" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 1273.0
-margin_bottom = 47.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1917.0
+margin_bottom = 412.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0.207843, 0.207843, 0.207843, 1 )
 
 [node name="Container" type="HBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 1273.0
-margin_bottom = 47.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1917.0
+margin_bottom = 412.0
 
 [node name="FactionChoice" type="OptionButton" parent="Container"]
-margin_right = 514.0
-margin_bottom = 40.0
+margin_right = 835.0
+margin_bottom = 410.0
 size_flags_horizontal = 3
 disabled = true
 text = "no_translate.Faction"
@@ -38,9 +40,9 @@ align = 1
 expand_icon = true
 
 [node name="UsernameInput" type="LineEdit" parent="Container"]
-margin_left = 518.0
-margin_right = 1032.0
-margin_bottom = 40.0
+margin_left = 839.0
+margin_right = 1674.0
+margin_bottom = 410.0
 size_flags_horizontal = 3
 max_length = 30
 editable = false
@@ -51,9 +53,9 @@ wait_time = 0.7
 one_shot = true
 
 [node name="ReadyInput" type="CheckButton" parent="Container"]
-margin_left = 1036.0
-margin_right = 1265.0
-margin_bottom = 40.0
+margin_left = 1678.0
+margin_right = 1914.0
+margin_bottom = 410.0
 disabled = true
 text = "menu.player_info.ready"
 align = 1

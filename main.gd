@@ -10,13 +10,20 @@ var option_menu = preload("res://menu/menu_option.tscn")
 var credits_menu = preload("res://menu/menu_credits.tscn")
 
 func _ready():
-	change_level(loading_scene)
+	Config.connect("reload_locale",self,"_on_reload_locale")
+	$ParallaxBackground/HUD/HudMenu.connect("back_main_menu", self, "_on_back_to_main_menu")
+	change_level(loading_scene) if Network.token == null else change_level(menu_scene)
 
 func change_level(level_scene):
 	for l in $Level.get_children(): l.queue_free()
 	var level = level_scene.instance()
 	level.connect("scene_requested", self, "_on_scene_request")
 	$Level.add_child(level)
+
+func _on_back_to_main_menu():
+	$ParallaxBackground/HUD/Wallet.visible = false
+	$ParallaxBackground/HUD/SystemDetails.visible = false
+	change_level(menu_scene)
 
 func _on_scene_request(scene):
 	if scene == 'lobby':
@@ -34,5 +41,7 @@ func _on_scene_request(scene):
 	elif scene == "scores":
 		change_level(scores_scene)
 	else:
-		printerr("Unknown requested scene : " + scene)
+		printerr(tr("Unknown requested scene : ") + scene)
 
+func _on_reload_locale():
+	get_tree().reload_current_scene()

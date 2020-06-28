@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://menu/options/option_array.gd" type="Script" id=1]
+
+[node name="OptionArray" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 0, 55 )
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1913.0
+margin_bottom = 1073.0
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+margin_right = 30.0
+margin_bottom = 1066.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="label" type="Label" parent="HBoxContainer"]
+margin_left = 34.0
+margin_top = 526.0
+margin_right = 204.0
+margin_bottom = 540.0
+text = "no_translate.Option_Name"
+
+[node name="Control2" type="Control" parent="HBoxContainer"]
+margin_left = 208.0
+margin_right = 378.0
+margin_bottom = 1066.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer"]
+margin_left = 382.0
+margin_top = 515.0
+margin_right = 537.0
+margin_bottom = 550.0
+rect_min_size = Vector2( 150, 35 )
+size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
+text = "no_transalte.item_0"
+
+[node name="Control3" type="Control" parent="HBoxContainer"]
+margin_left = 541.0
+margin_right = 1906.0
+margin_bottom = 1066.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0

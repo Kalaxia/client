@@ -1,7 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://menu/menu_screen.gd" type="Script" id=1]
 [ext_resource path="res://matchmaking/player/players_counter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://themes/theme_u_main.tres" type="Theme" id=3]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://resources/fonts/Muli/static/Muli-Bold.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.341176 )
+use_mipmaps = true
+use_filter = true
+font_data = SubResource( 1 )
 
 [node name="MenuScreen" type="Control"]
 anchor_right = 1.0
@@ -23,67 +35,92 @@ __meta__ = {
 }
 
 [node name="Header" type="VBoxContainer" parent="GUI/Body"]
-margin_right = 1280.0
-margin_bottom = 82.0
+margin_right = 1920.0
+margin_bottom = 143.0
 size_flags_stretch_ratio = 0.5
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Control" type="Control" parent="GUI/Body/Header"]
+margin_right = 1920.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+
 [node name="TopHeader" type="HBoxContainer" parent="GUI/Body/Header"]
-margin_right = 1280.0
-margin_bottom = 64.0
+margin_top = 24.0
+margin_right = 1920.0
+margin_bottom = 88.0
 alignment = 2
 
 [node name="Control" type="Control" parent="GUI/Body/Header/TopHeader"]
-margin_right = 1208.0
+margin_right = 1799.0
 margin_bottom = 64.0
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
 
 [node name="PlayersCounter" parent="GUI/Body/Header/TopHeader" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 1212.0
-margin_right = 1280.0
+margin_left = 1803.0
+margin_right = 1871.0
 margin_bottom = 64.0
 
+[node name="Control2" type="Control" parent="GUI/Body/Header/TopHeader"]
+margin_left = 1875.0
+margin_right = 1920.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
 [node name="SubHeader" type="HBoxContainer" parent="GUI/Body/Header"]
-margin_top = 68.0
-margin_right = 1280.0
-margin_bottom = 82.0
+margin_top = 92.0
+margin_right = 1920.0
+margin_bottom = 143.0
 
 [node name="Title" type="Label" parent="GUI/Body/Header/SubHeader"]
-margin_right = 1280.0
-margin_bottom = 14.0
+margin_right = 1920.0
+margin_bottom = 51.0
 size_flags_horizontal = 3
+theme = ExtResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "menu.main.title_kalaxia"
 align = 1
 
 [node name="space" type="Control" parent="GUI/Body"]
-margin_top = 86.0
-margin_right = 1280.0
-margin_bottom = 114.0
+margin_top = 147.0
+margin_right = 1920.0
+margin_bottom = 189.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.05
 
 [node name="MainSection" type="HBoxContainer" parent="GUI/Body"]
-margin_top = 118.0
-margin_right = 1280.0
-margin_bottom = 687.0
+margin_top = 193.0
+margin_right = 1920.0
+margin_bottom = 1033.0
 size_flags_vertical = 3
 
+[node name="margin" type="Control" parent="GUI/Body/MainSection"]
+margin_right = 20.0
+margin_bottom = 840.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+
 [node name="Menu" type="VBoxContainer" parent="GUI/Body/MainSection"]
-margin_right = 275.0
-margin_bottom = 569.0
+margin_left = 24.0
+margin_right = 433.0
+margin_bottom = 840.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="LobbyCreationButton" type="Button" parent="GUI/Body/MainSection/Menu"]
-margin_right = 275.0
+margin_right = 409.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_vertical = 0
+theme = ExtResource( 3 )
 text = "menu.main.create_lobby"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -91,75 +128,94 @@ __meta__ = {
 
 [node name="seperator1" type="Control" parent="GUI/Body/MainSection/Menu"]
 margin_top = 44.0
-margin_right = 275.0
-margin_bottom = 69.0
+margin_right = 409.0
+margin_bottom = 80.0
 size_flags_vertical = 3
 
 [node name="OptionButton" type="Button" parent="GUI/Body/MainSection/Menu"]
-margin_top = 73.0
-margin_right = 275.0
-margin_bottom = 113.0
+margin_top = 84.0
+margin_right = 409.0
+margin_bottom = 124.0
 rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 3 )
 text = "menu.main.options"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="seperator2" type="Control" parent="GUI/Body/MainSection/Menu"]
-margin_top = 117.0
-margin_right = 275.0
-margin_bottom = 142.0
+margin_top = 128.0
+margin_right = 409.0
+margin_bottom = 164.0
 size_flags_vertical = 3
 
 [node name="CreditsButton" type="Button" parent="GUI/Body/MainSection/Menu"]
-margin_top = 146.0
-margin_right = 275.0
-margin_bottom = 186.0
+margin_top = 168.0
+margin_right = 409.0
+margin_bottom = 208.0
 rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 3 )
 text = "menu.main.credits"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="seperator3" type="Control" parent="GUI/Body/MainSection/Menu"]
+margin_top = 212.0
+margin_right = 409.0
+margin_bottom = 248.0
+size_flags_vertical = 3
+
+[node name="Quit" type="Button" parent="GUI/Body/MainSection/Menu"]
+margin_top = 252.0
+margin_right = 409.0
+margin_bottom = 292.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 3 )
+text = "menu.main.quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="footer" type="Control" parent="GUI/Body/MainSection/Menu"]
-margin_top = 190.0
-margin_right = 275.0
-margin_bottom = 569.0
+margin_top = 296.0
+margin_right = 409.0
+margin_bottom = 840.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
 
 [node name="space" type="Control" parent="GUI/Body/MainSection"]
-margin_left = 279.0
-margin_right = 361.0
-margin_bottom = 569.0
+margin_left = 437.0
+margin_right = 559.0
+margin_bottom = 840.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
 [node name="Section" type="ScrollContainer" parent="GUI/Body/MainSection"]
-margin_left = 365.0
-margin_right = 1191.0
-margin_bottom = 569.0
+margin_left = 563.0
+margin_right = 1791.0
+margin_bottom = 840.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
 [node name="Lobbies" type="VBoxContainer" parent="GUI/Body/MainSection/Section"]
-margin_right = 826.0
-margin_bottom = 569.0
+margin_right = 1228.0
+margin_bottom = 840.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="space2" type="Control" parent="GUI/Body/MainSection"]
-margin_left = 1195.0
-margin_right = 1280.0
-margin_bottom = 569.0
+margin_left = 1795.0
+margin_right = 1920.0
+margin_bottom = 840.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
 [node name="Footer" type="Control" parent="GUI/Body"]
-margin_top = 691.0
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_top = 1037.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.05
 

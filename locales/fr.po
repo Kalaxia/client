@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-24 17:03+0200\n"
-"PO-Revision-Date: 2020-06-24 17:03+0200\n"
+"POT-Creation-Date: 2020-06-28 15:32+0200\n"
+"PO-Revision-Date: 2020-06-28 15:33+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -19,12 +19,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.3.1\n"
 
-#: config/config.gd:50
-msgid "error while parsing configuration file : "
+#: main.gd:47
+msgid "Unknown requested scene : "
 msgstr ""
 
-#: config/config.gd:62
-msgid "Error while saving the config : "
+#: config/config.gd:85
+#, python-format
+msgid "error while parsing configuration file %s : %s "
+msgstr ""
+
+#: config/config.gd:105
+#, python-format
+msgid "Error while saving configuration file %s : %s "
 msgstr ""
 
 #: game/faction_score.gd:13
@@ -95,39 +101,43 @@ msgstr "Partie de %s"
 msgid "store.new_game"
 msgstr "Nouvelle partie"
 
-#: global/utils.gd:44
+#: global/utils.gd:46
 msgid "action.key.mouse_key_"
 msgstr ""
+
+#: hud/hud_menu.tscn:20
+msgid "hud.hud_menu.back_main_menu"
+msgstr "Retourner au menu principal"
 
 #: hud/notifications.gd:13
 msgid "notification.ok"
 msgstr "OK"
 
 #: hud/wallet.tscn:29
-msgid "no_translate.0"
-msgstr ""
+msgid "hud.wallet.0"
+msgstr "0"
 
-#: hud/system/details.gd:24 hud/system/details.tscn:48
+#: hud/system/details.gd:24 hud/system/details.tscn:50
 msgid "hud.system.add_fleet.key_binding"
 msgstr "%s : créer une flotte"
 
-#: hud/system/details.gd:25 hud/system/details.tscn:60
+#: hud/system/details.gd:25 hud/system/details.tscn:62
 msgid "hud.system.add_one_ship.key_binding"
 msgstr "%s : ajouter un vaisseau"
 
-#: hud/system/details.gd:26 hud/system/details.tscn:66
+#: hud/system/details.gd:26 hud/system/details.tscn:68
 msgid "hud.system.add_five_ship.key_binding"
 msgstr "SHIFT+%s : ajouter 5 vaisseaux"
 
-#: hud/system/details.tscn:42
+#: hud/system/details.tscn:44
 msgid "hud.system.fleet"
 msgstr "Flottes"
 
-#: hud/system/details.tscn:54
+#: hud/system/details.tscn:56
 msgid "hud.system.select_fleet.key_binding"
 msgstr "1-9 : sélectionner une flotte"
 
-#: hud/system/details.tscn:78
+#: hud/system/details.tscn:80
 msgid "hud.system.add_fleet"
 msgstr "Ajouter une flotte"
 
@@ -144,166 +154,170 @@ msgid "hud.fleet_item.add_ship"
 msgstr "+"
 
 #: locales/strings.txt:1
+msgid "audio.bus.Master"
+msgstr "Volume général"
+
+#: locales/strings.txt:2
 msgid "action.ui_accept"
 msgstr ""
 
-#: locales/strings.txt:2
+#: locales/strings.txt:3
 msgid "action.ui_select"
 msgstr ""
 
-#: locales/strings.txt:3
+#: locales/strings.txt:4
 msgid "action.ui_cancel"
 msgstr ""
 
-#: locales/strings.txt:4
+#: locales/strings.txt:5
 msgid "action.ui_focus_next"
 msgstr ""
 
-#: locales/strings.txt:5
+#: locales/strings.txt:6
 msgid "action.ui_focus_prev"
 msgstr ""
 
-#: locales/strings.txt:6
+#: locales/strings.txt:7
 msgid "action.ui_left"
 msgstr ""
 
-#: locales/strings.txt:7
+#: locales/strings.txt:8
 msgid "action.ui_right"
 msgstr ""
 
-#: locales/strings.txt:8
+#: locales/strings.txt:9
 msgid "action.ui_up"
 msgstr ""
 
-#: locales/strings.txt:9
+#: locales/strings.txt:10
 msgid "action.ui_down"
 msgstr ""
 
-#: locales/strings.txt:10
+#: locales/strings.txt:11
 msgid "action.page_up"
 msgstr ""
 
-#: locales/strings.txt:11
+#: locales/strings.txt:12
 msgid "action.page_down"
 msgstr ""
 
-#: locales/strings.txt:12
+#: locales/strings.txt:13
 msgid "action.ui_home"
 msgstr ""
 
-#: locales/strings.txt:13
+#: locales/strings.txt:14
 msgid "action.ui_end"
 msgstr ""
 
-#: locales/strings.txt:14
+#: locales/strings.txt:15
 msgid "action.ui_add_fleet"
 msgstr "Ajouter une flotte"
 
-#: locales/strings.txt:15
+#: locales/strings.txt:16
 msgid "action.ui_select_fleet"
 msgstr "Sélectionner une flotte"
 
-#: locales/strings.txt:16
+#: locales/strings.txt:17
 msgid "action.ui_add_ships"
 msgstr "Ajouter un vaisseau"
 
-#: locales/strings.txt:17
+#: locales/strings.txt:18
 msgid "action.ui_zoom_in_map"
 msgstr "Zoomer"
 
-#: locales/strings.txt:18
+#: locales/strings.txt:19
 msgid "action.ui_zoom_out_map"
 msgstr "Dézoomer"
 
-#: locales/strings.txt:19
+#: locales/strings.txt:20
 msgid "action.ui_drag_map"
 msgstr "Déplacer la carte"
 
-#: locales/strings.txt:20
+#: locales/strings.txt:21
 msgid "action.ui_move_map_left"
 msgstr "déplacer la carte vers la gauche"
 
-#: locales/strings.txt:21
+#: locales/strings.txt:22
 msgid "action.ui_move_map_right"
 msgstr "déplacer la carte vers la droite"
 
-#: locales/strings.txt:22
+#: locales/strings.txt:23
 msgid "action.ui_move_map_up"
 msgstr "déplacer la carte vers le haut"
 
-#: locales/strings.txt:23
+#: locales/strings.txt:24
 msgid "action.ui_move_map_down"
 msgstr "déplacer la carte vers le bas"
 
-#: locales/strings.txt:24
+#: locales/strings.txt:25
 msgid "action.key.mouse_key_1"
 msgstr "clic gauche"
 
-#: locales/strings.txt:25
+#: locales/strings.txt:26
 msgid "action.key.mouse_key_2"
 msgstr "clic droit"
 
-#: locales/strings.txt:26
+#: locales/strings.txt:27
 msgid "action.key.mouse_key_3"
 msgstr "clic milieu"
 
-#: locales/strings.txt:27
+#: locales/strings.txt:28
 msgid "action.key.mouse_key_4"
 msgstr "scroll haut"
 
-#: locales/strings.txt:28
+#: locales/strings.txt:29
 msgid "action.key.mouse_key_5"
 msgstr "scroll bas"
 
-#: locales/strings.txt:29
+#: locales/strings.txt:30
 msgid "action.key.mouse_key_6"
 msgstr ""
 
-#: locales/strings.txt:30
+#: locales/strings.txt:31
 msgid "action.key.mouse_key_7"
 msgstr ""
 
-#: locales/strings.txt:31
+#: locales/strings.txt:32
 msgid "action.key.mouse_key_8"
 msgstr ""
 
-#: locales/strings.txt:32
+#: locales/strings.txt:33
 msgid "action.key.mouse_key_9"
 msgstr ""
 
-#: locales/strings.txt:33
+#: locales/strings.txt:34
 msgid "action.key.mouse_key_128"
 msgstr ""
 
-#: locales/strings.txt:34
+#: locales/strings.txt:35
 msgid "action.key.mouse_key_256"
 msgstr ""
 
-#: locales/strings.txt:35
+#: locales/strings.txt:36
 msgid "Adranite"
 msgstr "Adranite"
 
-#: locales/strings.txt:36
+#: locales/strings.txt:37
 msgid "Kalankar"
 msgstr "Kalankar"
 
-#: locales/strings.txt:37
+#: locales/strings.txt:38
 msgid "Valkar"
 msgstr "Valkar"
 
-#: matchmaking/game/game_loading.gd:30 matchmaking/game/game_loading.tscn:54
+#: matchmaking/game/game_loading.gd:30 matchmaking/game/game_loading.tscn:56
 msgid "menu.loading.number_player"
 msgstr "%d joueurs"
 
-#: matchmaking/game/game_loading.tscn:42
+#: matchmaking/game/game_loading.tscn:44
 msgid "menu.loading.loading"
 msgstr "Chargement"
 
-#: matchmaking/lobby/lobby.tscn:72
+#: matchmaking/lobby/lobby.tscn:84
 msgid "menu.lobby.launch"
 msgstr "Lancer"
 
-#: matchmaking/lobby/lobby.tscn:83
+#: matchmaking/lobby/lobby.tscn:95
 msgid "menu.lobby.quit"
 msgstr "Quitter"
 
@@ -311,7 +325,7 @@ msgstr "Quitter"
 msgid "menu.lobby_card.player_count"
 msgstr "%d / %d"
 
-#: matchmaking/lobby/lobby_card.tscn:45
+#: matchmaking/lobby/lobby_card.tscn:64
 msgid "menu.lobby_card.join"
 msgstr "Rejoindre"
 
@@ -331,27 +345,27 @@ msgstr "Inconnu"
 msgid "player updated"
 msgstr ""
 
-#: matchmaking/player/player_info.tscn:35
+#: matchmaking/player/player_info.tscn:37
 msgid "no_translate.Faction"
 msgstr ""
 
-#: matchmaking/player/player_info.tscn:58
+#: matchmaking/player/player_info.tscn:60
 msgid "menu.player_info.ready"
 msgstr "Prêt.e ?"
 
-#: menu/menu_credits.gd:10 menu/menu_credits.tscn:88
+#: menu/menu_credits.gd:10 menu/menu_credits.tscn:104
 msgid "menu.credits.website"
 msgstr "Site web"
 
-#: menu/menu_credits.gd:11 menu/menu_credits.tscn:105
+#: menu/menu_credits.gd:11 menu/menu_credits.tscn:121
 msgid "menu.credits.discord"
 msgstr "Serveur Discord"
 
-#: menu/menu_credits.tscn:64
+#: menu/menu_credits.tscn:80
 msgid "menu.credits.dev_comunity_label"
 msgstr "Développé par la communauté de Kalaxia"
 
-#: menu/menu_credits.tscn:125
+#: menu/menu_credits.tscn:140
 msgid "menu.credits.legal_notice_godot"
 msgstr ""
 "Copyright (c) 2007-2020 Juan Linietsky, Ariel Manzur. Copyright (c) "
@@ -376,34 +390,104 @@ msgstr ""
 "FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS "
 "IN THE SOFTWARE."
 
-#: menu/menu_credits.tscn:142
+#: menu/menu_credits.tscn:155
 msgid "menu.credits.back_main_menu"
 msgstr "Retourner au menu principal"
 
-#: menu/menu_option.tscn:50
-msgid "menu.option.back_main_menu"
-msgstr "Retourner au menu principal"
+#: menu/menu_option.gd:8
+msgid "menu.option.tab.shortcuts"
+msgstr "Raccourcis"
 
-#: menu/menu_screen.tscn:55
+#: menu/menu_option.gd:9
+msgid "menu.option.tab.audio"
+msgstr "Volumes et sons"
+
+#: menu/menu_option.gd:10
+msgid "menu.option.tab.graphical"
+msgstr "Graphiques"
+
+#: menu/menu_option.gd:11
+msgid "menu.option.tab.lang"
+msgstr "Langues"
+
+#: menu/menu_option.tscn:161
+msgid "menu.option.back_main_menu"
+msgstr "Sauver et retourner au menu principal"
+
+#: menu/menu_screen.tscn:89
 msgid "menu.main.title_kalaxia"
 msgstr "Kalaxia"
 
-#: menu/menu_screen.tscn:88
+#: menu/menu_screen.tscn:124
 msgid "menu.main.create_lobby"
 msgstr "Créer une partie"
 
-#: menu/menu_screen.tscn:105
+#: menu/menu_screen.tscn:141
 msgid "menu.main.options"
 msgstr "Options"
 
-#: menu/menu_screen.tscn:125
+#: menu/menu_screen.tscn:158
 msgid "menu.main.credits"
 msgstr "Crédits"
 
-#: menu/option_key_binding.gd:17 menu/option_key_binding.gd:75
+#: menu/menu_screen.tscn:175
+msgid "menu.main.quit"
+msgstr "Quitter"
+
+#: menu/options/audio_volume_control.gd:12
+#: menu/options/audio_volume_control.gd:34
+#, python-format
+msgid "audio.bus.%s"
+msgstr ""
+
+#: menu/options/audio_volume_control.gd:19
+msgid "menu.option.audio.volume_label"
+msgstr "Volume : %3.3d %s (%7.2f dB)"
+
+#: menu/options/audio_volume_control.tscn:34
+msgid "no_translate.bus_name"
+msgstr ""
+
+#: menu/options/audio_volume_control.tscn:78
+msgid "no_translate.Volume : 100 % (0 dB)"
+msgstr ""
+
+#: menu/options/graphical_option.tscn:24
+msgid "menu.option.graphical.fullscreen"
+msgstr "Plein écran"
+
+#: menu/options/graphical_option.tscn:32
+msgid "menu.option.graphical.maximize"
+msgstr "Maximiser"
+
+#: menu/options/graphical_option.tscn:40
+msgid "menu.option.graphical.resize"
+msgstr "Redimentioner"
+
+#: menu/options/graphical_option.tscn:48
+msgid "menu.option.graphical.display_id"
+msgstr "Ecran"
+
+#: menu/options/option_array.tscn:31
+msgid "no_translate.Option_Name"
+msgstr ""
+
+#: menu/options/option_array.tscn:48
+msgid "no_transalte.item_0"
+msgstr ""
+
+#: menu/options/option_boolean.tscn:35 menu/options/option_int.tscn:35
+msgid "no_translate.Option_Label"
+msgstr ""
+
+#: menu/options/option_key_binding.gd:18 menu/options/option_key_binding.gd:76
 msgid "action."
 msgstr ""
 
-#: menu/option_key_binding.tscn:19
+#: menu/options/option_key_binding.tscn:35
 msgid "no_translate.label_key_binding"
 msgstr ""
+
+#: menu/options/option_lang.tscn:20
+msgid "menu.option.lang.language"
+msgstr "Langues"

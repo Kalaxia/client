@@ -3,3 +3,4 @@
 *.pck
 locales/en.po.back
 locales/fr.po.back
+config/config.cfg

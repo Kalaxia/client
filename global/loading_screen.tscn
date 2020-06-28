@@ -18,9 +18,9 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="MarginContainer"]
-margin_top = 353.0
-margin_right = 1280.0
-margin_bottom = 367.0
+margin_top = 533.0
+margin_right = 1920.0
+margin_bottom = 547.0
 text = "global.loading.loading"
 align = 1
 __meta__ = {

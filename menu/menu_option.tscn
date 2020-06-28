@@ -1,64 +1,68 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://menu/menu_option.gd" type="Script" id=1]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.172549, 0.172549, 0.172549, 1 )
+[ext_resource path="res://menu/options/graphical_option.tscn" type="PackedScene" id=2]
+[ext_resource path="res://menu/options/option_lang.tscn" type="PackedScene" id=3]
+[ext_resource path="res://themes/theme_u_main.tres" type="Theme" id=4]
 
 [node name="MenuOption" type="VBoxContainer"]
-anchor_right = 1.0
+anchor_left = 0.02
+anchor_right = 0.98
 anchor_bottom = 1.0
 rect_min_size = Vector2( 500, 720 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 4 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Header" type="Control" parent="."]
-margin_right = 1280.0
-margin_bottom = 16.0
+margin_right = 1843.0
+margin_bottom = 25.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.4
 
 [node name="TabContainer" type="TabContainer" parent="."]
-margin_top = 20.0
-margin_right = 1280.0
-margin_bottom = 641.0
+margin_top = 29.0
+margin_right = 1843.0
+margin_bottom = 967.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
 tab_align = 0
 
 [node name="Raccourcis" type="VBoxContainer" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 37.0
 margin_right = -4.0
 margin_bottom = -4.0
 rect_min_size = Vector2( 500, 400 )
 size_flags_horizontal = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Raccourcis"]
-margin_right = 1272.0
-margin_bottom = 585.0
+margin_right = 1835.0
+margin_bottom = 897.0
 rect_min_size = Vector2( 800, 400 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/bg = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="keyBindingContainer" type="VBoxContainer" parent="TabContainer/Raccourcis/ScrollContainer"]
+margin_right = 1835.0
+size_flags_horizontal = 3
 
 [node name="Audio" type="HBoxContainer" parent="TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 37.0
 margin_right = -4.0
 margin_bottom = -4.0
 
@@ -69,19 +73,18 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.05
 
 [node name="AudioScrollContainer" type="ScrollContainer" parent="TabContainer/Audio"]
-margin_right = 1272.0
-margin_bottom = 585.0
+margin_right = 1835.0
+margin_bottom = 897.0
 rect_min_size = Vector2( 800, 400 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/bg = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AudioContainer" type="VBoxContainer" parent="TabContainer/Audio/AudioScrollContainer"]
-margin_right = 1272.0
-margin_bottom = 585.0
+margin_right = 1835.0
+margin_bottom = 897.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -93,28 +96,73 @@ margin_bottom = 596.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.05
 
+[node name="Graphics" type="VBoxContainer" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 31.0
+margin_right = -1.0
+margin_bottom = -1.0
+
+[node name="GraphicsScrollContainer2" type="ScrollContainer" parent="TabContainer/Graphics"]
+margin_right = 1841.0
+margin_bottom = 906.0
+rect_min_size = Vector2( 800, 400 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GraphicsOption" parent="TabContainer/Graphics/GraphicsScrollContainer2" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1841.0
+margin_bottom = 906.0
+
+[node name="language" type="VBoxContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 37.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/language"]
+margin_right = 1835.0
+margin_bottom = 897.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="OptionLang" parent="TabContainer/language/ScrollContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1835.0
+margin_bottom = 55.0
+
 [node name="HSeparator" type="Control" parent="."]
-margin_top = 645.0
-margin_right = 1280.0
-margin_bottom = 661.0
+margin_top = 971.0
+margin_right = 1843.0
+margin_bottom = 996.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.4
 
 [node name="ButtonsContainer" type="VBoxContainer" parent="."]
-margin_top = 665.0
-margin_right = 1280.0
-margin_bottom = 706.0
+margin_top = 1000.0
+margin_right = 1843.0
+margin_bottom = 1062.0
 size_flags_vertical = 3
 
 [node name="MainMenu" type="Button" parent="ButtonsContainer"]
-margin_right = 1280.0
-margin_bottom = 41.0
+margin_right = 1843.0
+margin_bottom = 62.0
 size_flags_vertical = 3
 text = "menu.option.back_main_menu"
 
 [node name="Control" type="Control" parent="."]
-margin_top = 710.0
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_top = 1066.0
+margin_right = 1843.0
+margin_bottom = 1080.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2

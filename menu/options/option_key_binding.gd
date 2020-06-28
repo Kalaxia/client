@@ -12,13 +12,14 @@ signal unmark_button_key_binding()
 class ButtonKeyBinding:
 	extends Button
 	var index_key_binding
+	
 
 func _ready():
-	$Label.text = tr("action." + action)
+	$Container/Label.text = tr("action." + action)
 	_refresh_data()
 
 func _refresh_data():
-	for node in get_children():
+	for node in $Container.get_children():
 		if node is Button:
 			node.queue_free()
 	var keys = InputMap.get_action_list(action)
@@ -32,10 +33,10 @@ func _refresh_data():
 		var text_button = Utils.get_label_of_event(keys[i])
 		if text_button != "":
 			button.text = text_button
-			add_child(button)
+			$Container.add_child(button)
 
 func on_button_press(action_param,index_param):
-	for node in get_children():
+	for node in $Container.get_children():
 		if node is Button && (node.index_key_binding != index_param || action_param != action):
 			node.pressed = false
 	# we set the index to the correct one after deactivate the otehr button
@@ -57,7 +58,7 @@ func _input(event):
 		InputMap.action_erase_event(action,previous_event)
 		InputMap.action_add_event(action,event)
 		Config.save_key_binding(action)
-		for node in get_children():
+		for node in $Container.get_children():
 			if node is Button:
 				node.pressed = false
 		index_pressed = -1
@@ -66,11 +67,11 @@ func _input(event):
 
 func set_is_enabled(new_value):
 	is_enabled = new_value
-	for node in get_children():
+	for node in $Container.get_children():
 		if node is Button:
 			node.disabled = ! is_enabled
 
 func set_action(new_value):
 	action = new_value
-	$Label.text = tr("action." + action)
+	$Container/Label.text = tr("action." + action)
 	_refresh_data()

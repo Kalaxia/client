@@ -14,19 +14,19 @@ __meta__ = {
 }
 
 [node name="Picto" type="TextureRect" parent="."]
-margin_top = 8.0
+margin_top = 188.0
 margin_right = 64.0
-margin_bottom = 72.0
+margin_bottom = 252.0
 size_flags_vertical = 4
 texture = ExtResource( 1 )
 
 [node name="Amount" type="Label" parent="."]
 margin_left = 68.0
-margin_top = 33.0
-margin_right = 250.0
-margin_bottom = 47.0
+margin_top = 213.0
+margin_right = 890.0
+margin_bottom = 227.0
 size_flags_horizontal = 3
-text = "no_translate.0"
+text = "hud.wallet.0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
