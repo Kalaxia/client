@@ -19,7 +19,6 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 10.0
 margin_bottom = 24.0
-text = "no_translate.Kern"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -46,7 +45,6 @@ margin_top = 9.0
 margin_right = 126.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
-text = "no_translate.1"
 align = 2
 
 [node name="CreationButton" type="Button" parent="Ships"]
