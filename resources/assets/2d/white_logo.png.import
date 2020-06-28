@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Picto_flotte_couronne-01.png-0127462a356e1dcecbd0b79ea48f1260.stex"
+path="res://.import/white_logo.png-417d587854d8832fd65f9e0b69877e95.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/assets/2d/map/kalankar/Picto_flotte_couronne-01.png"
-dest_files=[ "res://.import/Picto_flotte_couronne-01.png-0127462a356e1dcecbd0b79ea48f1260.stex" ]
+source_file="res://resources/assets/2d/white_logo.png"
+dest_files=[ "res://.import/white_logo.png-417d587854d8832fd65f9e0b69877e95.stex" ]
 
 [params]
 

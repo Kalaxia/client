@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Picto_syteme_serpentV2-01.png-412abcb5ed763c74d6f72b77e854074f.stex"
+path="res://.import/picto_flotte_2.png-92bb262342d3bcef9b566ea9d0eef3ee.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/assets/2d/map/valkar/Picto_syteme_serpentV2-01.png"
-dest_files=[ "res://.import/Picto_syteme_serpentV2-01.png-412abcb5ed763c74d6f72b77e854074f.stex" ]
+source_file="res://resources/assets/2d/map/valkar/picto_flotte_2.png"
+dest_files=[ "res://.import/picto_flotte_2.png-92bb262342d3bcef9b566ea9d0eef3ee.stex" ]
 
 [params]
 

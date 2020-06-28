@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Picto_flotte_epee_NoCadre-01.png-1a210f827058229bc913f83adbbaedbd.stex"
+path="res://.import/picto_syteme_epee_v2-01.png-9e5d6663ab23ab9d0f463b537f11979c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/assets/2d/map/adranite/Picto_flotte_epee_NoCadre-01.png"
-dest_files=[ "res://.import/Picto_flotte_epee_NoCadre-01.png-1a210f827058229bc913f83adbbaedbd.stex" ]
+source_file="res://resources/assets/2d/map/adranite/picto_syteme_epee_v2-01.png"
+dest_files=[ "res://.import/picto_syteme_epee_v2-01.png-9e5d6663ab23ab9d0f463b537f11979c.stex" ]
 
 [params]
 

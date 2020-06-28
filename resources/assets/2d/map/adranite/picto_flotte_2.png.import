@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Picto_flotte_couronne-01.png-64354e6e9ecb5d1347ccb8ea99c190bb.stex"
+path="res://.import/picto_flotte_2.png-a409225f2f80fb4cf6c2fc9a47a3edfd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/assets/2d/map/adranite/Picto_flotte_couronne-01.png"
-dest_files=[ "res://.import/Picto_flotte_couronne-01.png-64354e6e9ecb5d1347ccb8ea99c190bb.stex" ]
+source_file="res://resources/assets/2d/map/adranite/picto_flotte_2.png"
+dest_files=[ "res://.import/picto_flotte_2.png-a409225f2f80fb4cf6c2fc9a47a3edfd.stex" ]
 
 [params]
 

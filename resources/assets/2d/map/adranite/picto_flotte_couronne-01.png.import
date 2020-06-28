@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Picto_flotte_masque_NoCadre-01.png-39f8356954c5a592d1061485ef1046a9.stex"
+path="res://.import/picto_flotte_couronne-01.png-2d48f28e4fc625d3b23983dd732f1a77.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/assets/2d/map/kalankar/Picto_flotte_masque_NoCadre-01.png"
-dest_files=[ "res://.import/Picto_flotte_masque_NoCadre-01.png-39f8356954c5a592d1061485ef1046a9.stex" ]
+source_file="res://resources/assets/2d/map/adranite/picto_flotte_couronne-01.png"
+dest_files=[ "res://.import/picto_flotte_couronne-01.png-2d48f28e4fc625d3b23983dd732f1a77.stex" ]
 
 [params]
 
