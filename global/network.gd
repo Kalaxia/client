@@ -182,8 +182,6 @@ func req(calling_object, method_to_trigger, route, method = HTTPClient.METHOD_GE
 func launch_pending_request():
 	var headers = self.pending_request[2]
 	headers.append("Authorization: Bearer %s" % self.token)
-	headers.append("Connection: keep-alive")
-	headers.append("Keep-Alive: timeout=10,max=100")
 	var err = self.client.request(self.pending_request[0], self.pending_request[1], headers, self.pending_request[3])
 	if err != OK:
 		self.trigger_handler(err, null, null, null)
