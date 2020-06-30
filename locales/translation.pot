@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-28 15:32+0200\n"
+"POT-Creation-Date: 2020-06-30 16:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: main.gd:47
+#: main.gd:44
 msgid "Unknown requested scene : "
 msgstr ""
 
@@ -75,19 +75,19 @@ msgstr ""
 msgid "global.loading.loading"
 msgstr ""
 
-#: global/network.gd:75
+#: global/network.gd:82
 msgid "network.unable_connect"
 msgstr ""
 
-#: global/network.gd:81
+#: global/network.gd:88
 msgid "network.close_clean_ws"
 msgstr ""
 
-#: global/network.gd:87
+#: global/network.gd:94
 msgid "Connected with protocol: "
 msgstr ""
 
-#: global/network.gd:95
+#: global/network.gd:102
 msgid "received data from server: "
 msgstr ""
 
@@ -139,15 +139,7 @@ msgstr ""
 msgid "hud.system.add_fleet"
 msgstr ""
 
-#: hud/system/fleet_item.tscn:22
-msgid "no_translate.Kern"
-msgstr ""
-
-#: hud/system/fleet_item.tscn:49
-msgid "no_translate.1"
-msgstr ""
-
-#: hud/system/fleet_item.tscn:58
+#: hud/system/fleet_item.tscn:56
 msgid "hud.fleet_item.add_ship"
 msgstr ""
 
@@ -192,11 +184,11 @@ msgid "action.ui_down"
 msgstr ""
 
 #: locales/strings.txt:11
-msgid "action.page_up"
+msgid "action.ui_page_up"
 msgstr ""
 
 #: locales/strings.txt:12
-msgid "action.page_down"
+msgid "action.ui_page_down"
 msgstr ""
 
 #: locales/strings.txt:13
@@ -303,7 +295,7 @@ msgstr ""
 msgid "Valkar"
 msgstr ""
 
-#: matchmaking/game/game_loading.gd:30 matchmaking/game/game_loading.tscn:56
+#: matchmaking/game/game_loading.gd:36 matchmaking/game/game_loading.tscn:56
 msgid "menu.loading.number_player"
 msgstr ""
 
@@ -337,10 +329,6 @@ msgstr ""
 
 #: matchmaking/player/player_info.gd:64
 msgid "general.unkown_username"
-msgstr ""
-
-#: matchmaking/player/player_info.gd:111
-msgid "player updated"
 msgstr ""
 
 #: matchmaking/player/player_info.tscn:37
