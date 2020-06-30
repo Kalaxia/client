@@ -128,14 +128,14 @@ func is_in_range(fleet,system):
 	if fleet == null || system == null:
 		return false
 	var coord_system_fleet = Store._state.game.systems[fleet.system].coordinates
-	var vector_diff = Vector2(coord_system_fleet.x,coord_system_fleet.y) - Vector2(system.coordinates.x,system.coordinates.y)
-	return abs(vector_diff.x) <=1.0 && abs(vector_diff.y) <=1.0 && vector_diff != Vector2.ZERO
+	var vector_diff = Vector2(coord_system_fleet.x, coord_system_fleet.y) - Vector2(system.coordinates.x, system.coordinates.y)
+	return vector_diff.length() < 20.0 && vector_diff != Vector2.ZERO
 
 func _get_faction_color(faction, is_current_player := false) :
 	if is_current_player:
 		return Color(_lighten_color(faction.color[0]) /255.0, _lighten_color(faction.color[1]) /255.0, _lighten_color(faction.color[2])/255.0)
 	else:
-		return Color(faction.color[0] /255.0,faction.color[1] /255.0,faction.color[2] /255.0)
+		return Color(faction.color[0] / 255.0, faction.color[1] / 255.0, faction.color[2] / 255.0)
 
 func _lighten_color(color_component):
 	return min( color_component + 40, 255)

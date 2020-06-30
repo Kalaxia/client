@@ -39,8 +39,8 @@ func _ready():
 	$Star.connect("input_event", self, "_on_input_event")
 	$Star.connect("mouse_entered", self, "_on_mouse_entered")
 	$Star.connect("mouse_exited", self, "_on_mouse_exited")
-	Store.connect("fleet_selected",self,"_on_fleet_selected")
-	Store.connect("fleet_unselected",self,"_on_fleet_unselected")
+	Store.connect("fleet_selected", self, "_on_fleet_selected")
+	Store.connect("fleet_unselected", self, "_on_fleet_unselected")
 	_set_crown_state()
 	if system.player == Store._state.player.id:
 		Store.select_system(system)
@@ -85,7 +85,7 @@ func _set_target_scale(factor):
 	_target_scale = factor
 
 func _on_fleet_selected(fleet):
-	is_in_range_sailing_fleet = Store.is_in_range(fleet,system)
+	is_in_range_sailing_fleet = Store.is_in_range(fleet, system)
 
 func _on_fleet_unselected():
 	is_in_range_sailing_fleet = false
