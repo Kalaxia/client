@@ -8,6 +8,7 @@ signal scene_requested(scene)
 
 func _ready():
 	Network.connect("GameStarted", self, "_on_game_started")
+	Network.connect("SystemsCreated", self, "_on_systems_created")
 	Network.req(self, "_on_players_loaded", "/api/games/" + Store._state.game.id + "/players/")
 	var forground = get_node("CenterContainer/VBoxContainer/ProgressBar").get("custom_styles/fg")
 	var faction = Store.get_faction(float(Store._state.player.faction))
@@ -19,13 +20,28 @@ func _process(delta):
 	get_node("CenterContainer/VBoxContainer/ProgressBar").set_value(min(_time/TIME_LOADING*100.0,99.99))
 
 func init_systems(systems):
-	Store._state.game.systems = {}
 	for s in systems:
 		s.fleets = {}
 		Store._state.game.systems[s.id] = s
 
-func _on_game_started(systems):
-	init_systems(systems)
+func _on_systems_created(data):
+	Store._state.game.systems = {}
+	Network.req(self, "_on_systems_loaded", "/api/games/" + Store._state.game.id + "/systems/?page=1&limit=100")
+	
+func _on_systems_loaded(err, response_code, headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+	print(headers)
+	if int(headers["pagination-count"]) > int(headers["pagination-page"]) * int(headers["pagination-limit"]):
+		Network.req(
+			self,
+			"_on_systems_loaded",
+			"/api/games/" + Store._state.game.id +
+			"/systems/?page=" + str(int(headers["pagination-page"]) + 1) +
+			"&limit=" + headers["pagination-limit"])
+	init_systems(JSON.parse(body.get_string_from_utf8()).result)
+
+func _on_game_started(data):
 	Store._state.player.wallet = 0
 	emit_signal("scene_requested", "game")
 

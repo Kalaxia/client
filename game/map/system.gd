@@ -33,7 +33,7 @@ const _TEXTURE_CROWN = {
 }
 
 func _ready():
-	set_position(Vector2(system.coordinates.x * 50, system.coordinates.y * 50))
+	set_position(Vector2(system.coordinates.x * 20, system.coordinates.y * 20))
 	_set_system_texture()
 	_modulate_color(1.0)
 	$Star.connect("input_event", self, "_on_input_event")

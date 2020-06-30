@@ -10,8 +10,8 @@ var _is_map_being_dragged = false
 const CAMERA_DRAG_COEFF = 4000.0
 const CAMERA_DRAG_COEFF_WHEN_DRAGGING = 40000.0
 const CAMERA_MOVE_KEY_AMOUNT = 300
-const _ZOOM_FACTOR = 1.1
-const _MIN_ZOOM_FACTOR = -15
+const _ZOOM_FACTOR = 1.2
+const _MIN_ZOOM_FACTOR = -20
 const _MAX_ZOOM_FACTOR = 5
 var _motion_camera = {
 		Vector2.LEFT : false,
@@ -43,6 +43,7 @@ func _set_background_ratio():
 
 func draw_systems():
 	var map = $ParallaxBackground/ParallaxLayer0/Map
+	print(Store._state.game.systems.size())
 	for i in Store._state.game.systems.keys():
 		var system = system_scene.instance()
 		system.set_name(Store._state.game.systems[i].id)
