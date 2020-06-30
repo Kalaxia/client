@@ -1,5 +1,8 @@
 extends Node
 
+const MAX_CO_RETRIES = 5
+const TIME_BEFORE_CLOSE = 2.0
+
 var api_url = null
 var websocket_url = null
 var _ws_client = WebSocketClient.new()
@@ -37,6 +40,9 @@ var requests = []
 var pending_request = null
 # the processing response body
 var processed_body = PoolByteArray()
+var old_status = 99
+var nb_connection_try = 0
+var waiting_for_request = TIME_BEFORE_CLOSE
 
 func connect_to_host():
 	var uri = "{scheme}://{dns}".format(Config.api)
@@ -104,18 +110,31 @@ func _process(delta):
 	# handle HTTPClient life
 	self.client.poll()
 	var status = self.client.get_status()
+	if self.old_status != status:
+		print("[HTTP] Status: ", status)
+		self.old_status = status
+
 	match status:
 		HTTPClient.STATUS_DISCONNECTED:
-			self.connect_to_host()
+			if not self.requests.empty():
+				self.nb_connection_try += 1
+				print("[HTTP] connection try number ", self.nb_connection_try)
+				if self.nb_connection_try < MAX_CO_RETRIES:
+					self.connect_to_host()
+				else:
+					self.pending_request = self.requests.pop_front()
+					self.launch_pending_request()
 		# whenever the http client has a body to fetch, fetch it
 		HTTPClient.STATUS_BODY:
 			self.processed_body.append_array(self.client.read_response_body_chunk())
 		# this is the default status, after we managed to connect to the host
 		HTTPClient.STATUS_CONNECTED:
+			self.nb_connection_try = 0
 			# if the client has a response while having status "CONNECTED"
 			# it means the whole response was received and its handler needs
 			# to be triggered
 			if self.client.has_response():
+				print("[HTTP] response received, processing handler")
 				var response_code = self.client.get_response_code()
 				var response_headers = self.client.get_response_headers_as_dictionary()
 				self.trigger_handler(
@@ -124,8 +143,14 @@ func _process(delta):
 					response_headers,
 					self.processed_body
 				)
-				self.client.close()
-			elif not self.requests.empty():
+
+			if self.requests.empty():
+				self.waiting_for_request -= delta
+				if self.waiting_for_request < 0:
+					self.client.close()
+			else:
+				self.waiting_for_request = TIME_BEFORE_CLOSE
+				print("[HTTP] requests are waiting, process one")
 				self.pending_request = self.requests.pop_front()
 				self.launch_pending_request()
 		# for every other status
@@ -139,9 +164,6 @@ func _process(delta):
 				self.client.close()
 				if self.pending_request:
 					self.trigger_handler(err, null, null, null)
-				#while not self.requests.empty():
-				#	self.pending_request = self.requests.pop_front()
-				#	self.launch_pending_request()
 
 # Helper function used only to clear the state of the HTTPClient.
 # This "cleanup" code is in a function in order to do the exact same cleanup
