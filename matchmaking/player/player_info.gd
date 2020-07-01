@@ -13,7 +13,6 @@ var _is_locked_username_change = Utils.Lock.new()
 
 func _ready():
 	var username_input = get_node("Container/UsernameInput")
-	username_input.set_text(get_username())
 	var ready_input = get_node("Container/ReadyInput")
 	ready_input.pressed = player.ready
 	init_faction_choices()
@@ -26,7 +25,10 @@ func _ready():
 		username_input.connect("text_entered", self, "_on_text_entered")
 		ready_input.connect("pressed", self, "toggle_ready")
 		$Container/UsernameInput/UpdateNameTimer.connect("timeout",self,"_on_timer_timeout")
-		
+		if player.username != "" or (player.faction != null or player.faction != 0.0 ):
+			send_update()
+	username_input.set_text(get_username())
+
 func _on_text_entered(input_text):
 	new_username = input_text
 	$Container/UsernameInput/UpdateNameTimer.stop()
@@ -68,11 +70,10 @@ func update_data(data):
 	var caret_position = get_node("Container/UsernameInput").caret_position
 	get_node("Container/UsernameInput").set_text(get_username())
 	get_node("Container/UsernameInput").caret_position = caret_position
-	if player.faction != null:
-		var faction_choice = get_node("Container/FactionChoice")
-		faction_choice.selected = faction_choice.get_item_index(player.faction)
+	var faction_choice = get_node("Container/FactionChoice")
+	faction_choice.selected = faction_choice.get_item_index(player.faction) if player.faction != null else 0
 	get_node("Container/ReadyInput").pressed = player.ready
-	
+
 func update_username(username):
 	if _is_locked_username_change.try_lock() != Utils.Lock.LOCK_STATE.OK:
 		new_username = username
@@ -85,11 +86,11 @@ func update_username(username):
 func update_faction(index):
 	Store._state.player.faction = get_node("Container/FactionChoice").get_item_id(index)
 	send_update()
-	
+
 func toggle_ready():
 	Store._state.player.ready = !player.ready
 	send_update()
-	
+
 func send_update():
 	_check_ready_state()
 	Network.req(self, "_on_request_completed"

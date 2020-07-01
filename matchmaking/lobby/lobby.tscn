@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://matchmaking/lobby/lobby.gd" type="Script" id=1]
-[ext_resource path="res://themes/theme_u_main.tres" type="Theme" id=2]
+[ext_resource path="res://matchmaking/lobby/faction_column.tscn" type="PackedScene" id=2]
+[ext_resource path="res://matchmaking/lobby/section_columns.gd" type="Script" id=3]
+[ext_resource path="res://themes/theme_u_main.tres" type="Theme" id=4]
 
 [node name="Lobby" type="Control"]
 anchor_right = 1.0
@@ -24,55 +26,101 @@ __meta__ = {
 
 [node name="Header" type="HBoxContainer" parent="GUI/Body"]
 margin_right = 1920.0
-margin_bottom = 357.0
+margin_bottom = 267.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
 alignment = 1
 
 [node name="Name" type="Label" parent="GUI/Body/Header"]
 margin_left = 960.0
-margin_top = 171.0
+margin_top = 126.0
 margin_right = 960.0
-margin_bottom = 185.0
+margin_bottom = 140.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Section" type="HBoxContainer" parent="GUI/Body"]
-margin_top = 361.0
+margin_top = 271.0
 margin_right = 1920.0
-margin_bottom = 718.0
+margin_bottom = 377.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="Control" type="Control" parent="GUI/Body/Section"]
+margin_right = 30.0
+margin_bottom = 106.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="Players" type="VBoxContainer" parent="GUI/Body/Section"]
+margin_left = 34.0
+margin_right = 1886.0
+margin_bottom = 106.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Control2" type="Control" parent="GUI/Body/Section"]
-margin_right = 30.0
-margin_bottom = 357.0
-rect_min_size = Vector2( 30, 0 )
-
-[node name="PlayersContainer" type="ScrollContainer" parent="GUI/Body/Section"]
-margin_left = 34.0
-margin_right = 1886.0
-margin_bottom = 357.0
-size_flags_horizontal = 3
-
-[node name="Players" type="VBoxContainer" parent="GUI/Body/Section/PlayersContainer"]
-margin_right = 1852.0
-margin_bottom = 357.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Control" type="Control" parent="GUI/Body/Section"]
 margin_left = 1890.0
 margin_right = 1920.0
-margin_bottom = 357.0
+margin_bottom = 106.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="SectionColumn" type="HBoxContainer" parent="GUI/Body"]
+margin_top = 381.0
+margin_right = 1920.0
+margin_bottom = 915.0
+size_flags_vertical = 3
+script = ExtResource( 3 )
+
+[node name="ControlLeft" type="Control" parent="GUI/Body/SectionColumn"]
+margin_right = 30.0
+margin_bottom = 534.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="FactionColumn0" parent="GUI/Body/SectionColumn" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 34.0
+margin_right = 494.0
+margin_bottom = 534.0
+
+[node name="FactionColumn1" parent="GUI/Body/SectionColumn" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 498.0
+margin_right = 958.0
+margin_bottom = 534.0
+faction = 1
+
+[node name="FactionColumn2" parent="GUI/Body/SectionColumn" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 962.0
+margin_right = 1422.0
+margin_bottom = 534.0
+faction = 2
+
+[node name="FactionColumn3" parent="GUI/Body/SectionColumn" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1426.0
+margin_right = 1886.0
+margin_bottom = 534.0
+faction = 3
+
+[node name="ControlRight" type="Control" parent="GUI/Body/SectionColumn"]
+margin_left = 1890.0
+margin_right = 1920.0
+margin_bottom = 534.0
 rect_min_size = Vector2( 30, 0 )
 
 [node name="Footer" type="HBoxContainer" parent="GUI/Body"]
-margin_top = 722.0
+margin_top = 919.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 size_flags_vertical = 3
-theme = ExtResource( 2 )
+size_flags_stretch_ratio = 0.3
 alignment = 1
 
 [node name="LaunchButton" type="Button" parent="GUI/Body/Footer"]
@@ -90,9 +138,9 @@ __meta__ = {
 
 [node name="LeaveButton" type="Button" parent="GUI/Body/Footer"]
 margin_left = 901.0
-margin_top = 166.0
+margin_top = 70.0
 margin_right = 1018.0
-margin_bottom = 191.0
+margin_bottom = 90.0
 size_flags_vertical = 4
 text = "menu.lobby.quit"
 

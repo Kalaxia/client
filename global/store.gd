@@ -86,9 +86,9 @@ func fleet_sail(fleet):
 	_state.game.systems[fleet.system].fleets.erase(fleet.id)
 	emit_signal("fleet_sailed", fleet)
 	
-func remove_player_lobby(player):
+func remove_player_lobby(player_id):
 	for i in range(Store._state.lobby.players.size()):
-		if Store._state.lobby.players[i].id == player.id:
+		if Store._state.lobby.players[i].id == player_id:
 			Store._state.lobby.players.remove(i)
 			break
 			
