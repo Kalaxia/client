@@ -35,7 +35,7 @@ __meta__ = {
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.4, 0.4 )
 
-[node name="Particles2D3" type="Particles2D" parent="ParallaxBackground/ParallaxLayer3"]
+[node name="Particles2D" type="Particles2D" parent="ParallaxBackground/ParallaxLayer3"]
 amount = 200
 lifetime = 30.0
 preprocess = 10.0
@@ -47,7 +47,7 @@ texture = SubResource( 1 )
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.6, 0.6 )
 
-[node name="Particles2D2" type="Particles2D" parent="ParallaxBackground/ParallaxLayer2"]
+[node name="Particles2D" type="Particles2D" parent="ParallaxBackground/ParallaxLayer2"]
 amount = 200
 lifetime = 30.0
 preprocess = 10.0
