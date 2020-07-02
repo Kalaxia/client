@@ -129,7 +129,7 @@ func is_in_range(fleet,system):
 		return false
 	var coord_system_fleet = Store._state.game.systems[fleet.system].coordinates
 	var vector_diff = Vector2(coord_system_fleet.x, coord_system_fleet.y) - Vector2(system.coordinates.x, system.coordinates.y)
-	return vector_diff.length() < 20.0 && vector_diff != Vector2.ZERO
+	return vector_diff.length() < Utils.FLEET_RANGE && vector_diff != Vector2.ZERO
 
 func _get_faction_color(faction, is_current_player := false) :
 	if is_current_player:

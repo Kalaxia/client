@@ -41,13 +41,25 @@ func _ready():
 	$Star.connect("mouse_exited", self, "_on_mouse_exited")
 	Store.connect("fleet_selected", self, "_on_fleet_selected")
 	Store.connect("fleet_unselected", self, "_on_fleet_unselected")
+#	$Star.connect("area_entered", self, "_on_area_enter")
+#	$Star.connect("area_exited", self, "_on_area_exited")
+	var scale_factor = (1.0/ scale.x) if scale.x != 0 else 0
+	var scale_range = Utils.FLEET_RANGE * Utils.SCALE_SYSTEMS_COORDS * scale_factor
+	$RangeArea/RangeCollision.shape.radius = scale_range
+	$RangeArea/Sprite.scale = Vector2(scale_range,scale_range) / 400.0
 	_set_crown_state()
 	if system.player == Store._state.player.id:
 		Store.select_system(system)
 		_set_target_scale(SCALE_FACTOR_ON_HIGHLIGHT)
 	else :
 		_set_target_scale(1.0)
-		
+
+#func _on_area_enter(aera):
+#	is_in_range_sailing_fleet = true
+#
+#func _on_area_exited(aera):
+#	is_in_range_sailing_fleet = false
+
 func _process(delta):
 	_time += delta
 	var target_alpha = 1.0
@@ -85,10 +97,15 @@ func _set_target_scale(factor):
 	_target_scale = factor
 
 func _on_fleet_selected(fleet):
-	is_in_range_sailing_fleet = Store.is_in_range(fleet, system)
+#	is_in_range_sailing_fleet = false
+#	$RangeArea.monitorable = (fleet.system == system.id)
+#	is_in_range_sailing_fleet = Store.is_in_range(fleet, system)
+	$RangeArea/Sprite.visible = (fleet.system == system.id)
 
 func _on_fleet_unselected():
-	is_in_range_sailing_fleet = false
+#	is_in_range_sailing_fleet = false
+#	$RangeArea.monitorable = false
+	$RangeArea/Sprite.visible = false
 
 func _modulate_color(alpha):
 	var star_sprite = get_node("Star")
@@ -156,9 +173,11 @@ func _on_fleet_send(err, response_code, headers, body):
 func _on_mouse_entered():
 	is_hover = true
 	_set_target_scale(SCALE_FACTOR_ON_HIGHLIGHT)
+	is_in_range_sailing_fleet = Store.is_in_range(Store._state.selected_fleet,system)
 	
 func _on_mouse_exited():
 	is_hover = false
+	is_in_range_sailing_fleet = false
 	if system.player != Store._state.player.id && system != Store._state.selected_system:
 		_set_target_scale(1.0)
 
