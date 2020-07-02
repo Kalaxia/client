@@ -3,8 +3,7 @@
 [ext_resource path="res://hud/notifications.gd" type="Script" id=1]
 
 [node name="Notifications" type="MarginContainer"]
-margin_right = 200.0
-margin_bottom = 400.0
+rect_min_size = Vector2( 200, 400 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
