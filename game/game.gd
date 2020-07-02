@@ -6,13 +6,17 @@ var system_scene = preload("res://game/map/system.tscn")
 var moving_fleet_scene = preload("res://game/map/fleet_sailing.tscn")
 var _camera_speed = Vector2.ZERO
 var _is_map_being_dragged = false
+var limits = [ 0, 0, 0, 0]
+#left top right down
 
+const PARTICLE_AMMONT = 200.0
+const LIMITS_MARGIN = 50
 const CAMERA_DRAG_COEFF = 4000.0
 const CAMERA_DRAG_COEFF_WHEN_DRAGGING = 40000.0
-const CAMERA_MOVE_KEY_AMOUNT = 300
-const _ZOOM_FACTOR = 1.1
+const CAMERA_MOVE_KEY_AMOUNT = 600
+const _ZOOM_FACTOR = 1.2
 const _MIN_ZOOM_FACTOR = -15
-const _MAX_ZOOM_FACTOR = 5
+const _MAX_ZOOM_FACTOR = 10
 var _motion_camera = {
 		Vector2.LEFT : false,
 		Vector2.RIGHT : false,
@@ -32,7 +36,24 @@ func _ready():
 	Network.connect("SystemConquerred", self, "_on_system_conquerred")
 	Network.connect("Victory", self, "_on_victory")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
-	draw_systems()
+	limits = draw_systems()
+	$Camera2D.limit_left = (limits[0] - LIMITS_MARGIN - OS.get_window_size().x /2) as int
+	$Camera2D.limit_top = (limits[1] - LIMITS_MARGIN - OS.get_window_size().y /2) as int
+	$Camera2D.limit_right = (limits[2] + LIMITS_MARGIN + OS.get_window_size().x /2) as int
+	$Camera2D.limit_bottom = (limits[3] + LIMITS_MARGIN + OS.get_window_size().y /2) as int
+	var rect_visibility = Rect2(limits[0] - LIMITS_MARGIN - OS.get_window_size().x / 2.0, limits[1] - LIMITS_MARGIN - OS.get_window_size().y / 2.0, limits[2]-limits[0] + 2.0 * LIMITS_MARGIN + OS.get_window_size().x, limits[3]-limits[1] + 2.0 * LIMITS_MARGIN + OS.get_window_size().y)
+	$ParallaxBackground/ParallaxLayer1/Particles2D.visibility_rect = rect_visibility
+	$ParallaxBackground/ParallaxLayer2/Particles2D.visibility_rect = rect_visibility
+	$ParallaxBackground/ParallaxLayer3/Particles2D.visibility_rect = rect_visibility
+	var material_part = $ParallaxBackground/ParallaxLayer3/Particles2D.get("process_material")
+	var x_extend_particule = max(-limits[0],limits[2]) + LIMITS_MARGIN + OS.get_window_size().x /2
+	var y_extend_particule = max(-limits[1],limits[3]) + LIMITS_MARGIN + OS.get_window_size().y /2
+	material_part.emission_box_extents.x = x_extend_particule
+	material_part.emission_box_extents.y = y_extend_particule
+	var particle_ammont = x_extend_particule * y_extend_particule / (1280 * 720 ) * PARTICLE_AMMONT as int
+	$ParallaxBackground/ParallaxLayer1/Particles2D.amount = particle_ammont
+	$ParallaxBackground/ParallaxLayer2/Particles2D.amount = particle_ammont
+	$ParallaxBackground/ParallaxLayer3/Particles2D.amount = particle_ammont
 	_set_background_ratio()
 
 func _on_resize_window():
@@ -43,11 +64,17 @@ func _set_background_ratio():
 
 func draw_systems():
 	var map = $ParallaxBackground/ParallaxLayer0/Map
+	var limits_systems = [ -1920, -1920, 1920, 1920 ]
 	for i in Store._state.game.systems.keys():
 		var system = system_scene.instance()
 		system.set_name(Store._state.game.systems[i].id)
 		system.system = Store._state.game.systems[i]
 		map.add_child(system)
+		limits_systems[0] = min(Utils.SCALE_SYSTEMS_COORDS * Store._state.game.systems[i].coordinates.x, limits_systems[0])
+		limits_systems[1] = min(Utils.SCALE_SYSTEMS_COORDS * Store._state.game.systems[i].coordinates.y, limits_systems[1])
+		limits_systems[2] = max(Utils.SCALE_SYSTEMS_COORDS * Store._state.game.systems[i].coordinates.x, limits_systems[2])
+		limits_systems[3] = max(Utils.SCALE_SYSTEMS_COORDS * Store._state.game.systems[i].coordinates.y, limits_systems[3])
+	return limits_systems
 	
 func update_fleet_system(fleet):
 	Store.update_fleet_system(fleet)

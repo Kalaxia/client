@@ -16,7 +16,7 @@ signal LobbyOwnerUpdated(data)
 signal LobbyNameUpdated(data)
 signal LobbyRemoved(lobby)
 signal LobbyLaunched(launchData)
-signal GameStarted(game)
+signal GameStarted(data)
 signal PlayerConnected(player)
 signal PlayerDisconnected(player)
 signal PlayerUpdate(player)
@@ -27,6 +27,7 @@ signal FleetCreated(fleet)
 signal FleetSailed(fleet) 
 signal FleetArrived(fleet) 
 signal SystemConquerred(data)
+signal SystemsCreated(data)
 signal Victory(data)
 
 #
@@ -206,3 +207,14 @@ func http_client_status_to_error(status):
 	}
 	
 	return error_dict.get(status, OK)
+
+func extract_pagination_data(content_range):
+	var data = content_range.split(" ")[1].split("/")
+	var r = data[0].split("-")
+	var limit = int(r[1]) - int(r[0])
+	
+	return {
+		"count": int(data[1]),
+		"limit": limit,
+		"page": int(floor(int(r[0]) / limit)) + 1,
+	}

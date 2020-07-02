@@ -1,6 +1,7 @@
 extends Node
 
 const AUDIO_VOLUME_DB_MIN = -100.0 # in dB
+const SCALE_SYSTEMS_COORDS = 20
 
 class Lock:
 	extends Reference
