@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://game/map/system.gd" type="Script" id=1]
 
@@ -11,9 +11,6 @@ load_path = "res://.import/picto_syteme.png-64483ceb7a666f41f079c453a2972643.ste
 [sub_resource type="StreamTexture" id=3]
 flags = 4
 load_path = "res://.import/couronne.png-08143636af1578706da4d82d2f6130eb.stex"
-
-[sub_resource type="CircleShape2D" id=4]
-radius = 400.0
 
 [sub_resource type="StreamTexture" id=5]
 flags = 12
@@ -51,17 +48,9 @@ position = Vector2( 0, -20 )
 scale = Vector2( 0.15, 0.15 )
 texture = SubResource( 3 )
 
-[node name="RangeArea" type="Area2D" parent="."]
-input_pickable = false
-monitoring = false
-monitorable = false
+[node name="Range" type="Node2D" parent="."]
 
-[node name="RangeCollision" type="CollisionShape2D" parent="RangeArea"]
-visible = false
-shape = SubResource( 4 )
-disabled = true
-
-[node name="Sprite" type="Sprite" parent="RangeArea"]
+[node name="Sprite" type="Sprite" parent="Range"]
 visible = false
 modulate = Color( 1, 1, 1, 0.392157 )
 scale = Vector2( 1, 1 )
