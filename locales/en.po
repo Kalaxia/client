@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2020-06-30 16:34+0200\n"
-"PO-Revision-Date: 2020-06-30 16:38+0200\n"
+"PO-Revision-Date: 2020-07-02 18:48+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -43,7 +43,7 @@ msgstr "Victory !"
 
 #: game/scores.gd:13
 msgid "game.score.defeat"
-msgstr "Defeat :("
+msgstr "Defeat"
 
 #: game/scores.tscn:62
 msgid "game.score.back_main_menu"
@@ -55,7 +55,7 @@ msgstr "Network error"
 
 #: global/error.gd:13 global/error.gd:15
 msgid "error.connexion_impossible"
-msgstr "Connection impossible"
+msgstr "Connection failure"
 
 #: global/error.gd:13 global/error.gd:17
 msgid "error.server_not_avaliable"
@@ -67,7 +67,7 @@ msgstr "The domain name of the game server is unknown."
 
 #: global/error.gd:17
 msgid "error.http_not_connected"
-msgstr "HTTP client not connected"
+msgstr "HTTP client is not connected"
 
 #: global/error.gd:19
 msgid "error.network_error_content"

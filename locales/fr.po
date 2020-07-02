@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2020-06-30 16:34+0200\n"
-"PO-Revision-Date: 2020-06-30 16:41+0200\n"
+"PO-Revision-Date: 2020-07-02 18:49+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -43,7 +43,7 @@ msgstr "Victoire !"
 
 #: game/scores.gd:13
 msgid "game.score.defeat"
-msgstr "Défaite :("
+msgstr "Défaite"
 
 #: game/scores.tscn:62
 msgid "game.score.back_main_menu"
@@ -79,7 +79,7 @@ msgstr "Chargement"
 
 #: global/network.gd:82
 msgid "network.unable_connect"
-msgstr "Le programe n'arrive pas à se connecter"
+msgstr "Le programme n'arrive pas à se connecter"
 
 #: global/network.gd:88
 msgid "network.close_clean_ws"
@@ -155,7 +155,7 @@ msgstr "UI accepter"
 
 #: locales/strings.txt:3
 msgid "action.ui_select"
-msgstr "UI slectioner"
+msgstr "UI sélectionner"
 
 #: locales/strings.txt:4
 msgid "action.ui_cancel"
