@@ -48,7 +48,7 @@ func get_label_of_event(event):
 		return tr("action.key.mouse_key_" + (event.button_index as String))
 	return ""
 
-func set_windows_resizable(is_resizable):
+func set_window_resizable(is_resizable):
 	var size = OS.window_size
 	var position = OS.window_position
 	if OS.window_resizable == is_resizable:
