@@ -31,14 +31,14 @@ func _on_systems_created(data):
 func _on_systems_loaded(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
-	print(headers)
-	if int(headers["pagination-count"]) > int(headers["pagination-page"]) * int(headers["pagination-limit"]):
+	var pagination = Network.extract_pagination_data(headers["content-range"])
+	if pagination["count"] > pagination["page"] * pagination["limit"]:
 		Network.req(
 			self,
 			"_on_systems_loaded",
 			"/api/games/" + Store._state.game.id +
-			"/systems/?page=" + str(int(headers["pagination-page"]) + 1) +
-			"&limit=" + headers["pagination-limit"])
+			"/systems/?page=" + str(pagination["page"] + 1) +
+			"&limit=" + str(pagination["limit"]))
 	init_systems(JSON.parse(body.get_string_from_utf8()).result)
 
 func _on_game_started(data):

@@ -207,3 +207,14 @@ func http_client_status_to_error(status):
 	}
 	
 	return error_dict.get(status, OK)
+
+func extract_pagination_data(content_range):
+	var data = content_range.split(" ")[1].split("/")
+	var r = data[0].split("-")
+	var limit = int(r[1]) - int(r[0])
+	
+	return {
+		"count": int(data[1]),
+		"limit": limit,
+		"page": int(floor(int(r[0]) / limit)) + 1,
+	}
