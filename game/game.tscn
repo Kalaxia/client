@@ -71,6 +71,5 @@ texture = SubResource( 1 )
 [node name="ParallaxLayer0" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="Map" type="Node2D" parent="ParallaxBackground/ParallaxLayer0"]
-position = Vector2( -240, -210 )
 
 [node name="FleetContainer" type="Node2D" parent="ParallaxBackground/ParallaxLayer0/Map"]

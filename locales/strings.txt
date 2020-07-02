@@ -36,3 +36,4 @@ _("action.key.mouse_key_256")
 _("Adranite")
 _("Kalankar")
 _("Valkar")
+_("action.ui_map_center_system")_
