@@ -101,6 +101,7 @@ func _on_combat_ended(data):
 func _on_system_selected(system, old_system):
 	if old_system != null:
 		get_node("ParallaxBackground/ParallaxLayer0/Map/" + old_system.id).unselect()
+	get_node("ParallaxBackground/ParallaxLayer0/Map/" + system.id).select()
 
 func _on_player_income(data):
 	Store.update_wallet(data.income)

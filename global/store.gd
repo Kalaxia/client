@@ -67,8 +67,9 @@ func update_wallet(new_amount):
 	
 func select_system(system):
 	# _state.selected_system is the old system
-	emit_signal("system_selected", system, _state.selected_system)
+	var old_system = _state.selected_system
 	_state.selected_system = system
+	emit_signal("system_selected", system, old_system)
 
 func update_system(s):
 	var system = _state.game.systems[s.id]
