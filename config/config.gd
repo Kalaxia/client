@@ -24,6 +24,7 @@ const ENABLE_KEY_BINDING_CHANGE = [
 	"ui_move_map_right",
 	"ui_add_fleet",
 	"ui_add_ships",
+	"ui_map_center_system",
 ]
 const KEY_BINDING_SECTION_NAME = "Key binding"
 const SOUND_SECTION_NAME = "Audio"

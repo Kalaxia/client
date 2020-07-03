@@ -41,13 +41,16 @@ func _ready():
 	$Star.connect("mouse_exited", self, "_on_mouse_exited")
 	Store.connect("fleet_selected", self, "_on_fleet_selected")
 	Store.connect("fleet_unselected", self, "_on_fleet_unselected")
+	var scale_factor = (1.0/ scale.x) if scale.x != 0 else 0
+	var scale_range = Utils.FLEET_RANGE * Utils.SCALE_SYSTEMS_COORDS * scale_factor
+	$Range/Sprite.scale = Vector2(scale_range,scale_range) / 400.0
 	_set_crown_state()
 	if system.player == Store._state.player.id:
 		Store.select_system(system)
 		_set_target_scale(SCALE_FACTOR_ON_HIGHLIGHT)
 	else :
 		_set_target_scale(1.0)
-		
+
 func _process(delta):
 	_time += delta
 	var target_alpha = 1.0
@@ -85,10 +88,10 @@ func _set_target_scale(factor):
 	_target_scale = factor
 
 func _on_fleet_selected(fleet):
-	is_in_range_sailing_fleet = Store.is_in_range(fleet, system)
+	$Range/Sprite.visible = (fleet.system == system.id)
 
 func _on_fleet_unselected():
-	is_in_range_sailing_fleet = false
+	$Range/Sprite.visible = false
 
 func _modulate_color(alpha):
 	var star_sprite = get_node("Star")
@@ -156,9 +159,11 @@ func _on_fleet_send(err, response_code, headers, body):
 func _on_mouse_entered():
 	is_hover = true
 	_set_target_scale(SCALE_FACTOR_ON_HIGHLIGHT)
+	is_in_range_sailing_fleet = Store.is_in_range(Store._state.selected_fleet,system)
 	
 func _on_mouse_exited():
 	is_hover = false
+	is_in_range_sailing_fleet = false
 	if system.player != Store._state.player.id && system != Store._state.selected_system:
 		_set_target_scale(1.0)
 

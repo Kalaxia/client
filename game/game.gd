@@ -55,6 +55,8 @@ func _ready():
 	$ParallaxBackground/ParallaxLayer2/Particles2D.amount = particle_ammont
 	$ParallaxBackground/ParallaxLayer3/Particles2D.amount = particle_ammont
 	_set_background_ratio()
+	#normaly by that point we have a systeme selected (see _ready of res://game/map/system.gd)
+	center_on_selected_system()
 
 func _on_resize_window():
 	_set_background_ratio()
@@ -166,13 +168,28 @@ func _input(event):
 			_motion_camera[Vector2.DOWN] = true
 		elif event.is_action_released("ui_move_map_down"):
 			_motion_camera[Vector2.DOWN] = false
+		if event.is_action_pressed("ui_map_center_system"):
+			center_on_selected_system()
 	elif event is InputEventMouseMotion:
 		if _is_map_being_dragged:
 			_move_camera(-event.get_relative() * $Camera2D.zoom)
 			_camera_speed = event.speed
 
+func center_on_selected_system():
+	if Store._state.selected_system != null:
+		_set_camera_position(Vector2(Store._state.selected_system.coordinates.x * Utils.SCALE_SYSTEMS_COORDS,Store._state.selected_system.coordinates.y * Utils.SCALE_SYSTEMS_COORDS))
+		_camera_speed = Vector2.ZERO
+
 func _move_camera(vector):
-	var new_position = $Camera2D.position + vector
+	_set_camera_position($Camera2D.position + vector)
+
+func _set_camera_position(position_camera_set):
+	# this verify that the camera is within the limits.
+	# godot's camera limits the view inside the limits closest to the camera position
+	# this means that the camera position cal go out of bounds,
+	# this is however inuititiev when draggind the camera
+	# call this function instand of $Camera2D.position.
+	var new_position = position_camera_set
 	new_position.x = max(min(new_position.x,$Camera2D.limit_right - OS.get_window_size().x/2 * $Camera2D.zoom.x ),$Camera2D.limit_left + OS.get_window_size().x/2 * $Camera2D.zoom.x)
 	new_position.y = max(min(new_position.y,$Camera2D.limit_bottom - OS.get_window_size().y/2 * $Camera2D.zoom.y),$Camera2D.limit_top + OS.get_window_size().y/2 * $Camera2D.zoom.y)
 	$Camera2D.position = new_position

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-30 16:34+0200\n"
-"PO-Revision-Date: 2020-07-02 18:49+0200\n"
+"POT-Creation-Date: 2020-07-02 15:48+0200\n"
+"PO-Revision-Date: 2020-07-02 15:49+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -23,12 +23,12 @@ msgstr ""
 msgid "Unknown requested scene : "
 msgstr ""
 
-#: config/config.gd:85
+#: config/config.gd:86
 #, python-format
 msgid "error while parsing configuration file %s : %s "
 msgstr ""
 
-#: config/config.gd:105
+#: config/config.gd:106
 #, python-format
 msgid "Error while saving configuration file %s : %s "
 msgstr ""
@@ -77,19 +77,19 @@ msgstr "Une erreur réseau est survenue"
 msgid "global.loading.loading"
 msgstr "Chargement"
 
-#: global/network.gd:82
+#: global/network.gd:83
 msgid "network.unable_connect"
 msgstr "Le programme n'arrive pas à se connecter"
 
-#: global/network.gd:88
+#: global/network.gd:89
 msgid "network.close_clean_ws"
 msgstr "Fermé, clean :"
 
-#: global/network.gd:94
+#: global/network.gd:95
 msgid "Connected with protocol: "
 msgstr ""
 
-#: global/network.gd:102
+#: global/network.gd:103
 msgid "received data from server: "
 msgstr ""
 
@@ -101,7 +101,7 @@ msgstr "Partie de %s"
 msgid "store.new_game"
 msgstr "Nouvelle partie"
 
-#: global/utils.gd:46
+#: global/utils.gd:47
 msgid "action.key.mouse_key_"
 msgstr ""
 
@@ -297,7 +297,11 @@ msgstr "Kalankar"
 msgid "Valkar"
 msgstr "Valkar"
 
-#: matchmaking/game/game_loading.gd:36 matchmaking/game/game_loading.tscn:56
+#: locales/strings.txt:39
+msgid "action.ui_map_center_system"
+msgstr "Centrer sur le syteme selectioné"
+
+#: matchmaking/game/game_loading.gd:52 matchmaking/game/game_loading.tscn:56
 msgid "menu.loading.number_player"
 msgstr "%d joueurs"
 
