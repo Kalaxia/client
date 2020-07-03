@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-28 15:32+0200\n"
-"PO-Revision-Date: 2020-06-28 15:33+0200\n"
+"POT-Creation-Date: 2020-06-30 16:34+0200\n"
+"PO-Revision-Date: 2020-07-02 18:49+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.3.1\n"
 
-#: main.gd:47
+#: main.gd:44
 msgid "Unknown requested scene : "
 msgstr ""
 
@@ -43,7 +43,7 @@ msgstr "Victoire !"
 
 #: game/scores.gd:13
 msgid "game.score.defeat"
-msgstr "Défaite :("
+msgstr "Défaite"
 
 #: game/scores.tscn:62
 msgid "game.score.back_main_menu"
@@ -77,19 +77,19 @@ msgstr "Une erreur réseau est survenue"
 msgid "global.loading.loading"
 msgstr "Chargement"
 
-#: global/network.gd:75
+#: global/network.gd:82
 msgid "network.unable_connect"
-msgstr "Le programe n'arrive pas à me connecter"
+msgstr "Le programme n'arrive pas à se connecter"
 
-#: global/network.gd:81
+#: global/network.gd:88
 msgid "network.close_clean_ws"
 msgstr "Fermé, clean :"
 
-#: global/network.gd:87
+#: global/network.gd:94
 msgid "Connected with protocol: "
 msgstr ""
 
-#: global/network.gd:95
+#: global/network.gd:102
 msgid "received data from server: "
 msgstr ""
 
@@ -141,15 +141,7 @@ msgstr "1-9 : sélectionner une flotte"
 msgid "hud.system.add_fleet"
 msgstr "Ajouter une flotte"
 
-#: hud/system/fleet_item.tscn:22
-msgid "no_translate.Kern"
-msgstr ""
-
-#: hud/system/fleet_item.tscn:49
-msgid "no_translate.1"
-msgstr ""
-
-#: hud/system/fleet_item.tscn:58
+#: hud/system/fleet_item.tscn:56
 msgid "hud.fleet_item.add_ship"
 msgstr "+"
 
@@ -159,55 +151,55 @@ msgstr "Volume général"
 
 #: locales/strings.txt:2
 msgid "action.ui_accept"
-msgstr ""
+msgstr "UI accepter"
 
 #: locales/strings.txt:3
 msgid "action.ui_select"
-msgstr ""
+msgstr "UI sélectionner"
 
 #: locales/strings.txt:4
 msgid "action.ui_cancel"
-msgstr ""
+msgstr "UI annuler"
 
 #: locales/strings.txt:5
 msgid "action.ui_focus_next"
-msgstr ""
+msgstr "UI focus suivant"
 
 #: locales/strings.txt:6
 msgid "action.ui_focus_prev"
-msgstr ""
+msgstr "UI focus précédent"
 
 #: locales/strings.txt:7
 msgid "action.ui_left"
-msgstr ""
+msgstr "UI gauche"
 
 #: locales/strings.txt:8
 msgid "action.ui_right"
-msgstr ""
+msgstr "UI droite"
 
 #: locales/strings.txt:9
 msgid "action.ui_up"
-msgstr ""
+msgstr "UI haut"
 
 #: locales/strings.txt:10
 msgid "action.ui_down"
-msgstr ""
+msgstr "UI bas"
 
 #: locales/strings.txt:11
-msgid "action.page_up"
-msgstr ""
+msgid "action.ui_page_up"
+msgstr "Page up"
 
 #: locales/strings.txt:12
-msgid "action.page_down"
-msgstr ""
+msgid "action.ui_page_down"
+msgstr "Page down"
 
 #: locales/strings.txt:13
 msgid "action.ui_home"
-msgstr ""
+msgstr "Home"
 
 #: locales/strings.txt:14
 msgid "action.ui_end"
-msgstr ""
+msgstr "Fin"
 
 #: locales/strings.txt:15
 msgid "action.ui_add_fleet"
@@ -305,7 +297,7 @@ msgstr "Kalankar"
 msgid "Valkar"
 msgstr "Valkar"
 
-#: matchmaking/game/game_loading.gd:30 matchmaking/game/game_loading.tscn:56
+#: matchmaking/game/game_loading.gd:36 matchmaking/game/game_loading.tscn:56
 msgid "menu.loading.number_player"
 msgstr "%d joueurs"
 
@@ -341,10 +333,6 @@ msgstr "Faction"
 msgid "general.unkown_username"
 msgstr "Inconnu"
 
-#: matchmaking/player/player_info.gd:111
-msgid "player updated"
-msgstr ""
-
 #: matchmaking/player/player_info.tscn:37
 msgid "no_translate.Faction"
 msgstr ""
@@ -368,6 +356,8 @@ msgstr "Développé par la communauté de Kalaxia"
 #: menu/menu_credits.tscn:140
 msgid "menu.credits.legal_notice_godot"
 msgstr ""
+"Ce jeu utilise Godot Engine, disponible sous la licence suivante :\n"
+"\n"
 "Copyright (c) 2007-2020 Juan Linietsky, Ariel Manzur. Copyright (c) "
 "2014-2020 Contributeurs du moteur Godot.\n"
 "\n"
