@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "OptionKeyBinding",
 "language": "GDScript",
 "path": "res://menu/options/option_key_binding.gd"
+}, {
+"base": "PanelContainer",
+"class": "PlayerInfoFactionColumn",
+"language": "GDScript",
+"path": "res://matchmaking/player/player_info_faction_column.gd"
 } ]
 _global_script_class_icons={
 "AudioStacking": "",
 "FleetItem": "",
-"OptionKeyBinding": ""
+"OptionKeyBinding": "",
+"PlayerInfoFactionColumn": ""
 }
 
 [application]

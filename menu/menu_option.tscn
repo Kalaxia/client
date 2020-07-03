@@ -33,19 +33,18 @@ size_flags_stretch_ratio = 15.0
 tab_align = 0
 
 [node name="Raccourcis" type="VBoxContainer" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 37.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 1.0
+margin_top = 31.0
+margin_right = -1.0
+margin_bottom = -1.0
 rect_min_size = Vector2( 500, 400 )
 size_flags_horizontal = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Raccourcis"]
-margin_right = 1835.0
-margin_bottom = 897.0
+margin_right = 1841.0
+margin_bottom = 906.0
 rect_min_size = Vector2( 800, 400 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -54,17 +53,17 @@ __meta__ = {
 }
 
 [node name="keyBindingContainer" type="VBoxContainer" parent="TabContainer/Raccourcis/ScrollContainer"]
-margin_right = 1835.0
+margin_right = 1841.0
 size_flags_horizontal = 3
 
 [node name="Audio" type="HBoxContainer" parent="TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 37.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 1.0
+margin_top = 31.0
+margin_right = -1.0
+margin_bottom = -1.0
 
 [node name="Control" type="Control" parent="TabContainer/Audio"]
 visible = false
@@ -97,6 +96,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.05
 
 [node name="Graphics" type="VBoxContainer" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -124,10 +124,10 @@ margin_bottom = 906.0
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 37.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 1.0
+margin_top = 31.0
+margin_right = -1.0
+margin_bottom = -1.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/language"]
 margin_right = 1835.0
