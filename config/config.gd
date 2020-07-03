@@ -32,7 +32,7 @@ const GRAPHICS_SECTION_NAME = "Graphics"
 const MAXIMIZE_CONFIG_NAME = "Maximize"
 const FULLSCREEN_CONFIG_NAME = "Fullscreen"
 const RESOLUTION_CONFIG_NAME = "Resolution"
-const SCREEN_CONFIG_NAME = "Display id"
+const SCREEN_CONFIG_NAME = "Display_id"
 const LOCALE_SECTION_NAME = "Language"
 const LOCALE_CONFIG_NAME = "local"
 
@@ -70,7 +70,7 @@ func _ready():
 				var volume_linear = config_user.get_value(SOUND_SECTION_NAME,name_bus)
 				var volume_db = linear2db(volume_linear) if volume_linear!= 0 else Utils.AUDIO_VOLUME_DB_MIN
 				AudioServer.set_bus_volume_db(index_bus,volume_db)
-		OS.window_size = get_windows_resolution()
+		OS.window_size = get_window_resolution_from_config()
 		if config_user.has_section_key(GRAPHICS_SECTION_NAME,SCREEN_CONFIG_NAME):
 			# we need to chnage the screen before putting un full screen
 			OS.current_screen = config_user.get_value(GRAPHICS_SECTION_NAME,SCREEN_CONFIG_NAME)
@@ -106,20 +106,23 @@ func save_config_file():
 		print( tr("Error while saving configuration file %s : %s ") % [PATH_CONFIG_USER , str(err)] )
 	return err
 
-func set_config_windows_maximized(is_maximizer : bool) -> void:
+func set_config_window_maximized(is_maximizer : bool) -> void:
 	config_user.set_value(GRAPHICS_SECTION_NAME,MAXIMIZE_CONFIG_NAME,is_maximizer)
 
-func set_config_windows_fullscreen(is_fullscreen : bool) -> void:
+func set_config_window_fullscreen(is_fullscreen : bool) -> void:
 	config_user.set_value(GRAPHICS_SECTION_NAME,FULLSCREEN_CONFIG_NAME,is_fullscreen)
 	
-func set_config_windows_resolution(resolution : Vector2) -> void:
+func set_config_window_resolution(resolution : Vector2) -> void:
 	config_user.set_value(GRAPHICS_SECTION_NAME,RESOLUTION_CONFIG_NAME,resolution)
 	
-func set_config_windows_screen(screen : int) -> void:
+func set_config_window_screen(screen : int) -> void:
 	config_user.set_value(GRAPHICS_SECTION_NAME,SCREEN_CONFIG_NAME,screen)
 
-func get_windows_resolution() -> Vector2:
-	return config_user.get_value(GRAPHICS_SECTION_NAME,RESOLUTION_CONFIG_NAME) if config_user.has_section_key(GRAPHICS_SECTION_NAME,RESOLUTION_CONFIG_NAME) else Vector2(1280,720)
+func get_window_resolution_from_config() -> Vector2:
+	var resolution = config_user.get_value(GRAPHICS_SECTION_NAME,RESOLUTION_CONFIG_NAME) if config_user.has_section_key(GRAPHICS_SECTION_NAME,RESOLUTION_CONFIG_NAME) else Vector2(1280,720)
+	resolution.x = max(resolution.x,1280)
+	resolution.y = max(resolution.y,720)
+	return resolution
 
 func set_config_locale(locale : String) -> void:
 	config_user.set_value(LOCALE_SECTION_NAME,LOCALE_CONFIG_NAME,locale)
