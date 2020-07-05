@@ -144,5 +144,5 @@ func _get_faction_color(faction, is_victory_system = false, is_current_player = 
 
 func get_player_color(player,is_victory_system = false) :
 	if player == null :
-		return Color(186.0 / 255.0, 1.0, 176.0 / 255.0) if is_victory_system else Color(1.0,1.0,1.0)
+		return Color(1.0,1.0,1.0)
 	return _get_faction_color(Store.get_faction(player.faction), is_victory_system, player.id == _state.player.id)
