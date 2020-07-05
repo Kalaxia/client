@@ -19,10 +19,18 @@ const SCALE_FACTOR_ON_HIGHLIGHT = 1.5
 const _SCALE_CHANGE_FACTOR = 5.0
 
 const _TEXTURE_SYSTEM = {
-	0 : preload("res://resources/assets/2d/map/picto_syteme.png"),
-	1 : preload("res://resources/assets/2d/map/kalankar/picto_syteme_masque_v2-01.png"),
-	2 : preload("res://resources/assets/2d/map/valkar/picto_syteme_serpent_v2-01.png"),
-	3 : preload("res://resources/assets/2d/map/adranite/picto_syteme_epee_v2-01.png"),
+	"BaseSystem":{
+		0 : preload("res://resources/assets/2d/map/picto_syteme.png"),
+		1 : preload("res://resources/assets/2d/map/kalankar/picto_syteme_masque_v2-01.png"),
+		2 : preload("res://resources/assets/2d/map/valkar/picto_syteme_serpent_v2-01.png"),
+		3 : preload("res://resources/assets/2d/map/adranite/picto_syteme_epee_v2-01.png"),
+	},
+	"VictorySystem"  : {
+		0 : preload("res://resources/assets/2d/map/picto_syteme_1_neutral.png"),
+		1 : preload("res://resources/assets/2d/map/kalankar/picto_syteme_masque-01.png"),
+		2 : preload("res://resources/assets/2d/map/valkar/picto_syteme_serpent-01.png"),
+		3 : preload("res://resources/assets/2d/map/adranite/picto_systeme_epee-01.png"),
+	},
 }
 
 
@@ -76,9 +84,9 @@ func _set_crown_state():
 
 func _set_system_texture():
 	if system.player == null:
-		$Star/Spot.texture = _TEXTURE_SYSTEM[0]
+		$Star/Spot.texture = _TEXTURE_SYSTEM[system.kind][0]
 	else:
-		$Star/Spot.texture = _TEXTURE_SYSTEM[Store.get_game_player(system.player).faction as int]
+		$Star/Spot.texture = _TEXTURE_SYSTEM[system.kind][Store.get_game_player(system.player).faction as int]
 
 func _scale_star_system(factor):
 	$Star.set_scale(Vector2(scale_ratio * factor, scale_ratio * factor))
@@ -95,7 +103,8 @@ func _on_fleet_unselected():
 
 func _modulate_color(alpha):
 	var star_sprite = get_node("Star")
-	var color = Store.get_player_color(null) if system.player == null else Store.get_player_color(Store.get_game_player(system.player))
+	var is_victory_system = (system.kind == "VictorySystem")
+	var color = Store.get_player_color(null, is_victory_system) if system.player == null else Store.get_player_color(Store.get_game_player(system.player),is_victory_system)
 	color.a = alpha
 	star_sprite.set_modulate(color)
 	
