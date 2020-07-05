@@ -131,6 +131,7 @@ func _on_remote_fleet_sailed(fleet):
 	Store.fleet_sail(fleet)
 
 func _on_system_conquerred(data):
+	Store.erase_all_fleet_system(data.system)
 	update_fleet_system(data.fleet)
 	Store.update_system(data.system)
 	get_node("ParallaxBackground/ParallaxLayer0/Map/" + data.system.id).refresh()
