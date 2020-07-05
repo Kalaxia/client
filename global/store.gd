@@ -104,6 +104,9 @@ func erase_fleet(fleet):
 	Store._state.game.systems[fleet.system].fleets.erase(fleet.id)
 	emit_signal("fleet_erased",fleet)
 
+func erase_all_fleet_system(system):
+	Store._state.game.systems[system.id].fleets.clear()
+
 func select_fleet(fleet):
 	_state.selected_fleet = fleet
 	emit_signal("fleet_selected", fleet)
