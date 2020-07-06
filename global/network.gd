@@ -29,6 +29,7 @@ signal FleetArrived(fleet)
 signal SystemConquerred(data)
 signal SystemsCreated(data)
 signal Victory(data)
+signal FactionPointsUpdate(scores)
 
 #
 # Everything related to HTTP requests

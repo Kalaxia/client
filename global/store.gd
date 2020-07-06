@@ -24,9 +24,10 @@ signal fleet_erased(fleet)
 signal system_update(system)
 signal fleet_update_nb_ships(fleet)
 signal fleet_unselected()
+signal score_updated(scores)
 
 func _ready():
-	pass
+	Network.connect("FactionPointsUpdate", self, "_on_faction_points_update")
 
 func get_lobby_name(lobby):
 	return tr('store.game_of') % lobby.owner.username if typeof(lobby.owner) == TYPE_DICTIONARY && lobby.owner.username != '' else tr('store.new_game')
@@ -146,3 +147,10 @@ func get_player_color(player,is_victory_system = false) :
 	if player == null :
 		return Color(1.0,1.0,1.0)
 	return _get_faction_color(Store.get_faction(player.faction), is_victory_system, player.id == _state.player.id)
+
+func _on_faction_points_update(scores):
+	update_scores(scores)
+
+func update_scores(scores):
+	_state.scores = scores
+	emit_signal("score_updated",scores)
