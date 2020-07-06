@@ -134,16 +134,15 @@ func is_in_range(fleet,system):
 	var vector_diff = Vector2(coord_system_fleet.x, coord_system_fleet.y) - Vector2(system.coordinates.x, system.coordinates.y)
 	return vector_diff.length() < Utils.FLEET_RANGE && vector_diff != Vector2.ZERO
 
-func _get_faction_color(faction, is_current_player := false) :
+func _get_faction_color(faction, is_victory_system = false, is_current_player = false) :
+	var color = Color(faction.color[0] / 255.0, faction.color[1] / 255.0, faction.color[2] / 255.0)
 	if is_current_player:
-		return Color(_lighten_color(faction.color[0]) /255.0, _lighten_color(faction.color[1]) /255.0, _lighten_color(faction.color[2])/255.0)
-	else:
-		return Color(faction.color[0] / 255.0, faction.color[1] / 255.0, faction.color[2] / 255.0)
+		color = Utils.lighten_color(color)
+	if is_victory_system:
+		color = Utils.lighten_color(color)
+	return color
 
-func _lighten_color(color_component):
-	return min( color_component + 40, 255)
-
-func get_player_color(player) :
+func get_player_color(player,is_victory_system = false) :
 	if player == null :
 		return Color(1.0,1.0,1.0)
-	return _get_faction_color(Store.get_faction(player.faction),player.id == _state.player.id)
+	return _get_faction_color(Store.get_faction(player.faction), is_victory_system, player.id == _state.player.id)

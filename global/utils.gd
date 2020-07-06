@@ -55,4 +55,9 @@ func set_window_resizable(is_resizable):
 		return
 	OS.set_window_resizable(is_resizable)
 	OS.min_window_size = Vector2(1280,720) if is_resizable else Vector2.ZERO
-	
+
+static func lighten_color(color):
+	color.r = min( color.r + 40 / 255.0, 1.0)
+	color.g = min( color.g + 40 / 255.0, 1.0)
+	color.b = min( color.b + 40 / 255.0, 1.0)
+	return color

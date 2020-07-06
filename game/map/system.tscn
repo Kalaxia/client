@@ -12,7 +12,7 @@ load_path = "res://.import/picto_syteme.png-64483ceb7a666f41f079c453a2972643.ste
 flags = 4
 load_path = "res://.import/couronne.png-08143636af1578706da4d82d2f6130eb.stex"
 
-[sub_resource type="StreamTexture" id=5]
+[sub_resource type="StreamTexture" id=4]
 flags = 12
 load_path = "res://.import/ring.png-72423beb9219b7eef0830722282924c8.stex"
 
@@ -53,5 +53,4 @@ texture = SubResource( 3 )
 [node name="Sprite" type="Sprite" parent="Range"]
 visible = false
 modulate = Color( 1, 1, 1, 0.392157 )
-scale = Vector2( 1, 1 )
-texture = SubResource( 5 )
+texture = SubResource( 4 )
