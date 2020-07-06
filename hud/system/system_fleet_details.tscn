@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://hud/system/system_fleet_details.gd" type="Script" id=1]
+
+[node name="SystemFleetDetails" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1913.0
+margin_bottom = 1073.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+margin_right = 1906.0
+margin_bottom = 1066.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="ScrollContainer/HBoxContainer"]
+margin_right = 1715.0
+margin_bottom = 1066.0
+size_flags_horizontal = 3
+
+[node name="Fleets" type="HBoxContainer" parent="ScrollContainer/HBoxContainer"]
+margin_left = 1719.0
+margin_right = 1719.0
+margin_bottom = 1066.0
+
+[node name="Control2" type="Control" parent="ScrollContainer/HBoxContainer"]
+margin_left = 1723.0
+margin_right = 1753.0
+margin_bottom = 1066.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="FleetCreationButton" type="Button" parent="ScrollContainer/HBoxContainer"]
+margin_left = 1757.0
+margin_top = 518.0
+margin_right = 1906.0
+margin_bottom = 548.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_vertical = 4
+text = "hud.system.add_fleet"

@@ -3,6 +3,12 @@ extends Node
 const AUDIO_VOLUME_DB_MIN = -100.0 # in dB
 const SCALE_SYSTEMS_COORDS = 20
 const FLEET_RANGE = 20.0
+const BANNERS = {
+	1 : preload("res://resources/assets/2d/faction/kalankar/banner.png"),
+	2 : preload("res://resources/assets/2d/faction/valkar/banner.png"),
+	3 : preload("res://resources/assets/2d/faction/adranite/banner.png"),
+}
+
 
 class Lock:
 	extends Reference

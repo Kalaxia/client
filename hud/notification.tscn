@@ -1,34 +1,63 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://hud/notification.gd" type="Script" id=1]
 
-[node name="Notification" type="Panel"]
+[sub_resource type="Animation" id=1]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Notification" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = 0.594604
 margin_right = -1080.0
-margin_bottom = -620.0
+margin_bottom = -619.405
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Container" type="MarginContainer" parent="."]
-margin_right = 200.0
-margin_bottom = 100.0
+[node name="Container" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 833.0
+margin_bottom = 453.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Title" type="Label" parent="Container"]
-margin_right = 200.0
+margin_right = 826.0
 margin_bottom = 14.0
 size_flags_vertical = 0
 align = 1
 
+[node name="HSeparator" type="HSeparator" parent="Container"]
+margin_top = 18.0
+margin_right = 826.0
+margin_bottom = 22.0
+
 [node name="Content" type="RichTextLabel" parent="Container"]
-margin_top = 50.0
-margin_right = 200.0
-margin_bottom = 50.0
+margin_top = 26.0
+margin_right = 826.0
+margin_bottom = 41.0
+size_flags_horizontal = 5
 size_flags_vertical = 4
+fit_content_height = true
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+method_call_mode = 1
+anims/fade_in = SubResource( 1 )
