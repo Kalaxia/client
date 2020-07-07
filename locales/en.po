@@ -34,8 +34,8 @@ msgid "Error while saving configuration file %s : %s "
 msgstr ""
 
 #: game/faction_score.gd:13
-msgid "game.faction_score.number_systems"
-msgstr "%d controlled systems"
+msgid "game.faction_score.victory_points"
+msgstr "%d victory points"
 
 #: game/scores.gd:11 game/scores.tscn:20
 msgid "game.score.victory"

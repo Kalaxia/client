@@ -12,13 +12,13 @@ func _ready():
 	else:
 		$Label.set_text(tr("game.score.defeat"))
 	
-	for dominion in scores:
-		var fid = float(dominion.faction_id)
+	for score in scores:
+		var fid = float(score.faction)
 		var faction = Store.get_faction(fid)
 		
 		var faction_score = faction_score_scene.instance()
 		faction_score.faction = faction
-		faction_score.nb_systems = dominion.nb_systems
+		faction_score.victory_points = score.victory_points
 		
 		if fid == Store._state.victorious_faction:
 			$WinningFaction.add_child(faction_score)
