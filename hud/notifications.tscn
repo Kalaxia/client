@@ -3,7 +3,8 @@
 [ext_resource path="res://hud/notifications.gd" type="Script" id=1]
 
 [node name="Notifications" type="MarginContainer"]
-rect_min_size = Vector2( 200, 400 )
+rect_min_size = Vector2( 200, 200 )
+mouse_filter = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -11,4 +12,5 @@ __meta__ = {
 
 [node name="List" type="VBoxContainer" parent="."]
 margin_right = 200.0
-margin_bottom = 400.0
+margin_bottom = 200.0
+mouse_filter = 2

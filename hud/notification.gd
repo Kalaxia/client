@@ -1,4 +1,4 @@
-extends Panel
+extends PanelContainer
 
 var notif = null
 var timer = null
@@ -10,10 +10,12 @@ func _ready():
 	timer.set_one_shot(true)
 	timer.connect("timeout", self, "_on_timer_timeout") 
 	timer.start(5)
+	$AnimationPlayer.current_animation = "fade_in"
 
 func _on_timer_timeout():
-	queue_free()
+	$AnimationPlayer.play_backwards()
+	$AnimationPlayer.connect("animation_finished",self,"_on_animation_finished")
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+func _on_animation_finished(animation_name):
+	queue_free()

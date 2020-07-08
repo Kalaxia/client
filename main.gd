@@ -21,7 +21,6 @@ func change_level(level_scene):
 	$Level.add_child(level)
 
 func _on_back_to_main_menu():
-	$ParallaxBackground/HUD/Wallet.visible = false
 	$ParallaxBackground/HUD/SystemDetails.visible = false
 	change_level(menu_scene)
 

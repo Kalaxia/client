@@ -6,6 +6,7 @@
 [node name="Wallet" type="HBoxContainer"]
 margin_right = -1030.0
 margin_bottom = -640.0
+mouse_filter = 2
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false

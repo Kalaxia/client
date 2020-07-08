@@ -3,26 +3,25 @@ extends Control
 class_name FleetItem
 
 var fleet = null
-var theme_highlight = preload("res://hud/system/theme_1_selectioned.tres")
-var theme_not_highlight = preload("res://hud/system/theme_1_not_selectioned.tres")
-var theme_sailing = preload("res://hud/system/theme_1_sailing.tres")
+var theme_highlight = preload("res://themes/theme_main_square_button_highlight.tres")
+var theme_not_highlight = preload("res://themes/theme_main_square_button.tres")
 var _quantity = 0
 var _is_locked = Utils.Lock.new()
 
 const SHIP_COST = 10
 
 func _ready():
-	$Player.set_text(Store.get_game_player(fleet.player).username)
+	$Container/Player.set_text(Store.get_game_player(fleet.player).username)
 	if fleet.player != Store._state.player.id:
-		$Ships.set_visible(false)
+		$Container/Ships.set_visible(false)
 		return
 	Store.connect("wallet_updated", self, "_on_wallet_update")
 	Store.connect("fleet_selected",self,"_on_fleet_selected")
 	Store.connect("fleet_sailed",self,"_on_fleet_sailed")
 	Store.connect("fleet_update_nb_ships",self,"_on_fleet_update_nb_ships")
 	Store.connect("fleet_unselected",self,"_on_fleet_unselected")
-	get_node("Ships/NbShips").set_text(str(fleet.nb_ships))
-	get_node("Ships/CreationButton").connect("pressed", self, "add_ship")
+	get_node("Container/Ships/NbShips").set_text(str(fleet.nb_ships))
+	get_node("Container/Ships/CreationButton").connect("pressed", self, "add_ship")
 	connect("gui_input", self, "button_sail_fleet")
 	check_button_add_ship_state()
 	update_highlight_state()
@@ -47,13 +46,13 @@ func add_ships(quantity):
 		, [ "Content-Type: application/json" ]
 		, JSON.print({ "quantity": quantity })
 	)
-	get_node("Ships/CreationButton").disabled = true
+	get_node("Container/Ships/CreationButton").disabled = true
 	
 func check_button_add_ship_state():
-	get_node("Ships/CreationButton").disabled = Store._state.player.wallet < SHIP_COST || _is_locked.get_is_locked()
+	get_node("Container/Ships/CreationButton").disabled = Store._state.player.wallet < SHIP_COST || _is_locked.get_is_locked()
 	
 func check_button_sail_state():
-	get_node("Ships/SailFleet").disabled = (fleet.destination_system != null)
+	get_node("Container/Ships/SailFleet").disabled = (fleet.destination_system != null)
 	#todo highlight if it is selected fleet
 
 func button_sail_fleet(event):
@@ -85,13 +84,10 @@ func _on_fleet_unselected():
 
 func _on_fleet_update_nb_ships(fleet_param):
 	if fleet_param.id == fleet.id:
-		get_node("Ships/NbShips").set_text(str(fleet.nb_ships))
+		get_node("Container/Ships/NbShips").set_text(str(fleet.nb_ships))
 
 func update_highlight_state():
-	if fleet.destination_system != null:
-		set_theme(theme_sailing)
-		#this should not appear as in store the fleet is not inside the system of departure
-	elif Store._state.selected_fleet != null && Store._state.selected_fleet.id == fleet.id:
+	if Store._state.selected_fleet != null && Store._state.selected_fleet.id == fleet.id:
 		set_theme(theme_highlight)
 	else:
 		set_theme(theme_not_highlight)

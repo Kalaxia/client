@@ -1,76 +1,141 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://hud/system/details.gd" type="Script" id=1]
-[ext_resource path="res://resources/assets/2d/faction/valkar/banner.png" type="Texture" id=2]
-[ext_resource path="res://themes/theme_u_main.tres" type="Theme" id=3]
+[ext_resource path="res://hud/wallet.tscn" type="PackedScene" id=3]
 
-[node name="SystemDetails" type="VBoxContainer"]
-theme = ExtResource( 3 )
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/picto_syteme_1_neutral.png-aafcc6ffed038c32f94131da380f45fb.stex"
+
+[node name="SystemDetails" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Header" type="HBoxContainer" parent="."]
-margin_right = 267.0
-margin_bottom = 70.0
-size_flags_horizontal = 3
+[node name="Wallet" parent="." instance=ExtResource( 3 )]
+margin_top = 1016.0
+margin_right = 160.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 160, 0 )
+size_flags_vertical = 8
 
-[node name="FactionBanner" type="TextureRect" parent="Header"]
-margin_right = 70.0
-margin_bottom = 70.0
-rect_min_size = Vector2( 70, 70 )
-texture = ExtResource( 2 )
-expand = true
+[node name="MenuSystem" type="HBoxContainer" parent="."]
+margin_left = 164.0
+margin_right = 1569.0
+margin_bottom = 1080.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="."]
+margin_left = 1573.0
+margin_right = 1603.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 30, 0 )
+mouse_filter = 2
+
+[node name="System" type="VBoxContainer" parent="."]
+margin_left = 1607.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="System"]
+margin_right = 313.0
+margin_bottom = 956.0
+mouse_filter = 2
+size_flags_vertical = 3
+
+[node name="Container" type="HBoxContainer" parent="System"]
+margin_top = 960.0
+margin_right = 313.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 200, 120 )
+mouse_filter = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+__meta__ = {
+"_editor_description_": "todo write custom container"
+}
+
+[node name="ButtonContainer" type="VBoxContainer" parent="System/Container"]
+margin_right = 142.0
+margin_bottom = 120.0
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="System/Container/ButtonContainer"]
+margin_right = 142.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Player" type="Label" parent="Header"]
-margin_left = 267.0
-margin_top = 25.0
-margin_right = 267.0
-margin_bottom = 44.0
-size_flags_horizontal = 10
-
-[node name="FleetsTitle" type="Label" parent="."]
-margin_top = 74.0
-margin_right = 267.0
-margin_bottom = 93.0
+[node name="ButtonFleet" type="Button" parent="System/Container/ButtonContainer"]
+margin_top = 14.0
+margin_right = 142.0
+margin_bottom = 34.0
+toggle_mode = true
+pressed = true
 text = "hud.system.fleet"
 
-[node name="Legend" type="Label" parent="."]
-margin_top = 97.0
-margin_right = 267.0
-margin_bottom = 116.0
-text = "hud.system.add_fleet.key_binding"
+[node name="Control2" type="Control" parent="System/Container/ButtonContainer"]
+margin_top = 38.0
+margin_right = 142.0
+margin_bottom = 43.0
+rect_min_size = Vector2( 0, 5 )
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Legend2" type="Label" parent="."]
-margin_top = 120.0
-margin_right = 267.0
-margin_bottom = 139.0
-text = "hud.system.select_fleet.key_binding"
+[node name="ButtonBuilding" type="Button" parent="System/Container/ButtonContainer"]
+margin_top = 47.0
+margin_right = 142.0
+margin_bottom = 67.0
+toggle_mode = true
+text = "hud.system.building"
 
-[node name="Legend3" type="Label" parent="."]
-margin_top = 143.0
-margin_right = 267.0
-margin_bottom = 162.0
-text = "hud.system.add_one_ship.key_binding"
+[node name="Control3" type="Control" parent="System/Container/ButtonContainer"]
+margin_top = 71.0
+margin_right = 142.0
+margin_bottom = 76.0
+rect_min_size = Vector2( 0, 5 )
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Legend4" type="Label" parent="."]
-margin_top = 166.0
-margin_right = 267.0
-margin_bottom = 185.0
-text = "hud.system.add_five_ship.key_binding"
+[node name="ContainerSystem" type="VBoxContainer" parent="System/Container"]
+margin_left = 146.0
+margin_right = 309.0
+margin_bottom = 120.0
+mouse_filter = 2
 
-[node name="Fleets" type="VBoxContainer" parent="."]
-margin_top = 189.0
-margin_right = 267.0
-margin_bottom = 189.0
+[node name="PlayerName" type="Label" parent="System/Container/ContainerSystem"]
+margin_right = 163.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "no_translate.player_name"
+align = 1
 
-[node name="FleetCreationButton" type="Button" parent="."]
-margin_top = 193.0
-margin_right = 267.0
-margin_bottom = 218.0
-disabled = true
-text = "hud.system.add_fleet"
+[node name="TextureRect" type="TextureRect" parent="System/Container/ContainerSystem"]
+margin_top = 18.0
+margin_right = 163.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 60, 60 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="Control" type="Control" parent="System/Container"]
+margin_left = 313.0
+margin_right = 313.0
+margin_bottom = 120.0
+mouse_filter = 2

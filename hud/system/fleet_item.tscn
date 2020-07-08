@@ -4,53 +4,67 @@
 [ext_resource path="res://resources/assets/2d/picto/ship_64px.png" type="Texture" id=2]
 [ext_resource path="res://themes/theme_main_square_button.tres" type="Theme" id=3]
 
-[node name="FleetItem" type="Panel"]
+[node name="FleetItem" type="PanelContainer"]
 anchor_right = 0.15625
 anchor_bottom = 0.0972222
-rect_min_size = Vector2( 200, 70 )
+rect_min_size = Vector2( 70, 70 )
+size_flags_vertical = 3
 theme = ExtResource( 3 )
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_use_anchors_": true
+"_edit_use_anchors_": false
 }
 
-[node name="Player" type="Label" parent="."]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 10.0
-margin_bottom = 24.0
+[node name="Container" type="VBoxContainer" parent="."]
+margin_left = 3.0
+margin_top = 20.0
+margin_right = 297.0
+margin_bottom = 83.0
+size_flags_vertical = 4
+
+[node name="Player" type="Label" parent="Container"]
+margin_right = 294.0
+margin_bottom = 19.0
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Ships" type="HBoxContainer" parent="."]
-margin_left = 10.0
-margin_top = 25.0
-margin_right = 190.0
-margin_bottom = 57.0
+[node name="HSeparator" type="HSeparator" parent="Container"]
+margin_top = 23.0
+margin_right = 294.0
+margin_bottom = 27.0
+
+[node name="Ships" type="HBoxContainer" parent="Container"]
+margin_top = 31.0
+margin_right = 294.0
+margin_bottom = 63.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Picto" type="TextureRect" parent="Ships"]
+[node name="Picto" type="TextureRect" parent="Container/Ships"]
 margin_right = 32.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 texture = ExtResource( 2 )
 expand = true
+stretch_mode = 6
 
-[node name="NbShips" type="Label" parent="Ships"]
+[node name="NbShips" type="Label" parent="Container/Ships"]
 margin_left = 36.0
 margin_top = 6.0
-margin_right = 135.0
+margin_right = 119.0
 margin_bottom = 25.0
+rect_min_size = Vector2( 60, 0 )
 size_flags_horizontal = 3
 align = 2
 
-[node name="CreationButton" type="Button" parent="Ships"]
-margin_left = 139.0
-margin_right = 310.0
-margin_bottom = 30.0
+[node name="CreationButton" type="Button" parent="Container/Ships"]
+margin_left = 123.0
+margin_top = 1.0
+margin_right = 294.0
+margin_bottom = 31.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_vertical = 4
 text = "hud.fleet_item.add_ship"

@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://hud/notifications.tscn" type="PackedScene" id=2]
-[ext_resource path="res://hud/wallet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://hud/system/details.tscn" type="PackedScene" id=4]
 [ext_resource path="res://hud/hud_menu.tscn" type="PackedScene" id=5]
 
@@ -10,7 +9,7 @@
 script = ExtResource( 1 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-layer = -5
+layer = 2
 
 [node name="HUD" type="Control" parent="ParallaxBackground"]
 anchor_right = 1.0
@@ -21,37 +20,21 @@ __meta__ = {
 }
 
 [node name="Notifications" parent="ParallaxBackground/HUD" instance=ExtResource( 2 )]
-anchor_left = 0.85
-anchor_top = 0.6
-anchor_right = 0.98
-anchor_bottom = 0.98
-rect_min_size = Vector2( 0, 0 )
-mouse_filter = 2
-
-[node name="Wallet" parent="ParallaxBackground/HUD" instance=ExtResource( 3 )]
-anchor_left = 0.02
-anchor_top = 0.9
+anchor_left = 0.4
+anchor_top = 0.2
 anchor_right = 0.6
-anchor_bottom = 0.98
-margin_right = 0.0
-margin_bottom = 0.0
-mouse_filter = 2
+anchor_bottom = 0.3
+rect_min_size = Vector2( 0, 0 )
 
 [node name="SystemDetails" parent="ParallaxBackground/HUD" instance=ExtResource( 4 )]
 anchor_left = 0.02
-anchor_top = 0.02
-anchor_right = 0.04
-anchor_bottom = 0.32
-margin_right = 267.0
-margin_bottom = 218.0
+anchor_top = 0.86
+anchor_right = 0.98
+anchor_bottom = 0.98
 mouse_filter = 2
 
 [node name="HudMenu" parent="ParallaxBackground/HUD" instance=ExtResource( 5 )]
-anchor_left = 0.8
 anchor_top = 0.02
-anchor_right = 0.98
-anchor_bottom = 0.02
-rect_min_size = Vector2( 80, 40 )
-mouse_filter = 2
+anchor_bottom = 0.1
 
 [node name="Level" type="CanvasLayer" parent="."]
