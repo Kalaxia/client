@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://hud/system/details.gd" type="Script" id=1]
-[ext_resource path="res://resources/assets/2d/faction/valkar/banner.png" type="Texture" id=2]
 [ext_resource path="res://hud/wallet.tscn" type="PackedScene" id=3]
 
 [sub_resource type="StreamTexture" id=1]
@@ -16,81 +15,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="temp" type="VBoxContainer" parent="."]
-visible = false
-margin_right = 244.0
-margin_bottom = 1080.0
-
-[node name="Header" type="HBoxContainer" parent="temp"]
-margin_right = 244.0
-margin_bottom = 70.0
-size_flags_horizontal = 3
-
-[node name="FactionBanner" type="TextureRect" parent="temp/Header"]
-margin_right = 70.0
-margin_bottom = 70.0
-rect_min_size = Vector2( 70, 70 )
-texture = ExtResource( 2 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Player" type="Label" parent="temp/Header"]
-margin_left = 244.0
-margin_top = 28.0
-margin_right = 244.0
-margin_bottom = 42.0
-size_flags_horizontal = 10
-
-[node name="FleetsTitle" type="Label" parent="temp"]
-margin_top = 74.0
-margin_right = 244.0
-margin_bottom = 88.0
-text = "hud.system.fleet"
-
-[node name="Legend" type="Label" parent="temp"]
-margin_top = 92.0
-margin_right = 244.0
-margin_bottom = 106.0
-text = "hud.system.add_fleet.key_binding"
-
-[node name="Legend2" type="Label" parent="temp"]
-margin_top = 110.0
-margin_right = 244.0
-margin_bottom = 124.0
-text = "hud.system.select_fleet.key_binding"
-
-[node name="Legend3" type="Label" parent="temp"]
-margin_top = 128.0
-margin_right = 244.0
-margin_bottom = 142.0
-text = "hud.system.add_one_ship.key_binding"
-
-[node name="Legend4" type="Label" parent="temp"]
-margin_top = 146.0
-margin_right = 244.0
-margin_bottom = 160.0
-text = "hud.system.add_five_ship.key_binding"
-
-[node name="Fleets" type="VBoxContainer" parent="temp"]
-margin_top = 164.0
-margin_right = 244.0
-margin_bottom = 164.0
-
-[node name="FleetCreationButton" type="Button" parent="temp"]
-margin_top = 168.0
-margin_right = 244.0
-margin_bottom = 188.0
-disabled = true
-text = "hud.system.add_fleet"
-
 [node name="Wallet" parent="." instance=ExtResource( 3 )]
 margin_top = 1016.0
 margin_right = 160.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 160, 0 )
-mouse_filter = 2
 size_flags_vertical = 8
 
 [node name="MenuSystem" type="HBoxContainer" parent="."]
@@ -99,6 +28,7 @@ margin_right = 1569.0
 margin_bottom = 1080.0
 mouse_filter = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Control" type="Control" parent="."]
 margin_left = 1573.0
@@ -111,6 +41,7 @@ mouse_filter = 2
 margin_left = 1607.0
 margin_right = 1920.0
 margin_bottom = 1080.0
+mouse_filter = 2
 
 [node name="Control" type="Control" parent="System"]
 margin_right = 313.0
@@ -183,6 +114,7 @@ __meta__ = {
 margin_left = 146.0
 margin_right = 309.0
 margin_bottom = 120.0
+mouse_filter = 2
 
 [node name="PlayerName" type="Label" parent="System/Container/ContainerSystem"]
 margin_right = 163.0

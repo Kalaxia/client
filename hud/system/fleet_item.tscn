@@ -17,9 +17,10 @@ __meta__ = {
 
 [node name="Container" type="VBoxContainer" parent="."]
 margin_left = 3.0
-margin_top = 2.0
+margin_top = 20.0
 margin_right = 297.0
-margin_bottom = 103.0
+margin_bottom = 83.0
+size_flags_vertical = 4
 
 [node name="Player" type="Label" parent="Container"]
 margin_right = 294.0
@@ -29,10 +30,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Ships" type="HBoxContainer" parent="Container"]
+[node name="HSeparator" type="HSeparator" parent="Container"]
 margin_top = 23.0
 margin_right = 294.0
-margin_bottom = 55.0
+margin_bottom = 27.0
+
+[node name="Ships" type="HBoxContainer" parent="Container"]
+margin_top = 31.0
+margin_right = 294.0
+margin_bottom = 63.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -50,6 +56,7 @@ margin_left = 36.0
 margin_top = 6.0
 margin_right = 119.0
 margin_bottom = 25.0
+rect_min_size = Vector2( 60, 0 )
 size_flags_horizontal = 3
 align = 2
 
