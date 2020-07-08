@@ -85,7 +85,7 @@ func _on_system_update(system):
 	if system.id == Store._state.selected_system.id:
 		refresh_data(Store._state.selected_system)
 
-func _on_fleet_sailed(fleet):
+func _on_fleet_sailed(fleet, arrival_time):
 	if fleet.system == Store._state.selected_system.id:
 		refresh_data(Store._state.selected_system)
 
