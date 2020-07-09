@@ -103,8 +103,8 @@ func _input(event):
 		if Store._state.selected_system.fleets.size() > index:
 			Store.select_fleet(Store._state.selected_system.fleets.values()[index])
 	elif Store._state.selected_fleet != null && event.is_action_pressed("ui_add_ships"):
-		if has_node("Fleets/" + Store._state.selected_fleet.id):
-			var node = get_node("Fleets/" + Store._state.selected_fleet.id)
+		if has_node("ScrollContainer/HBoxContainer/Fleets/" + Store._state.selected_fleet.id):
+			var node = get_node("ScrollContainer/HBoxContainer/Fleets/" + Store._state.selected_fleet.id)
 			if Input.is_key_pressed(KEY_SHIFT):
 				node.add_ships(5)
 			else:

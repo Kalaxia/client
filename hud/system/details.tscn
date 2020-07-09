@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://hud/system/details.gd" type="Script" id=1]
+[ext_resource path="res://themes/theme_main_square_button.tres" type="Theme" id=2]
 [ext_resource path="res://hud/wallet.tscn" type="PackedScene" id=3]
 
 [sub_resource type="StreamTexture" id=1]
@@ -24,34 +25,35 @@ size_flags_vertical = 8
 
 [node name="MenuSystem" type="HBoxContainer" parent="."]
 margin_left = 164.0
-margin_right = 1569.0
+margin_right = 1550.0
 margin_bottom = 1080.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Control" type="Control" parent="."]
-margin_left = 1573.0
-margin_right = 1603.0
+margin_left = 1554.0
+margin_right = 1584.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 30, 0 )
 mouse_filter = 2
 
 [node name="System" type="VBoxContainer" parent="."]
-margin_left = 1607.0
+margin_left = 1588.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 mouse_filter = 2
+theme = ExtResource( 2 )
 
 [node name="Control" type="Control" parent="System"]
-margin_right = 313.0
+margin_right = 332.0
 margin_bottom = 956.0
 mouse_filter = 2
 size_flags_vertical = 3
 
 [node name="Container" type="HBoxContainer" parent="System"]
 margin_top = 960.0
-margin_right = 313.0
+margin_right = 332.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 200, 120 )
 mouse_filter = 2
@@ -62,12 +64,12 @@ __meta__ = {
 }
 
 [node name="ButtonContainer" type="VBoxContainer" parent="System/Container"]
-margin_right = 142.0
+margin_right = 144.0
 margin_bottom = 120.0
 mouse_filter = 2
 
 [node name="Control" type="Control" parent="System/Container/ButtonContainer"]
-margin_right = 142.0
+margin_right = 144.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 mouse_filter = 2
@@ -77,16 +79,16 @@ __meta__ = {
 
 [node name="ButtonFleet" type="Button" parent="System/Container/ButtonContainer"]
 margin_top = 14.0
-margin_right = 142.0
-margin_bottom = 34.0
+margin_right = 144.0
+margin_bottom = 39.0
 toggle_mode = true
 pressed = true
 text = "hud.system.fleet"
 
 [node name="Control2" type="Control" parent="System/Container/ButtonContainer"]
-margin_top = 38.0
-margin_right = 142.0
-margin_bottom = 43.0
+margin_top = 43.0
+margin_right = 144.0
+margin_bottom = 48.0
 rect_min_size = Vector2( 0, 5 )
 mouse_filter = 2
 __meta__ = {
@@ -94,16 +96,16 @@ __meta__ = {
 }
 
 [node name="ButtonBuilding" type="Button" parent="System/Container/ButtonContainer"]
-margin_top = 47.0
-margin_right = 142.0
-margin_bottom = 67.0
+margin_top = 52.0
+margin_right = 144.0
+margin_bottom = 77.0
 toggle_mode = true
 text = "hud.system.building"
 
 [node name="Control3" type="Control" parent="System/Container/ButtonContainer"]
-margin_top = 71.0
-margin_right = 142.0
-margin_bottom = 76.0
+margin_top = 81.0
+margin_right = 144.0
+margin_bottom = 86.0
 rect_min_size = Vector2( 0, 5 )
 mouse_filter = 2
 __meta__ = {
@@ -111,21 +113,21 @@ __meta__ = {
 }
 
 [node name="ContainerSystem" type="VBoxContainer" parent="System/Container"]
-margin_left = 146.0
-margin_right = 309.0
+margin_left = 148.0
+margin_right = 328.0
 margin_bottom = 120.0
 mouse_filter = 2
 
 [node name="PlayerName" type="Label" parent="System/Container/ContainerSystem"]
-margin_right = 163.0
-margin_bottom = 14.0
+margin_right = 180.0
+margin_bottom = 19.0
 size_flags_horizontal = 3
 text = "no_translate.player_name"
 align = 1
 
 [node name="TextureRect" type="TextureRect" parent="System/Container/ContainerSystem"]
-margin_top = 18.0
-margin_right = 163.0
+margin_top = 23.0
+margin_right = 180.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 60, 60 )
 size_flags_horizontal = 3
@@ -135,7 +137,7 @@ expand = true
 stretch_mode = 6
 
 [node name="Control" type="Control" parent="System/Container"]
-margin_left = 313.0
-margin_right = 313.0
+margin_left = 332.0
+margin_right = 332.0
 margin_bottom = 120.0
 mouse_filter = 2

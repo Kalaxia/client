@@ -35,6 +35,7 @@ func _ready():
 	Network.connect("FleetArrived", self, "_on_fleet_arrival")
 	Network.connect("SystemConquerred", self, "_on_system_conquerred")
 	Network.connect("Victory", self, "_on_victory")
+	Network.connect("FactionPointsUpdated", self, "_on_faction_points_update")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	limits = draw_systems()
 	$Camera2D.limit_left = (limits[0] - LIMITS_MARGIN - OS.get_window_size().x /2) as int
@@ -57,6 +58,9 @@ func _ready():
 	_set_background_ratio()
 	#normaly by that point we have a systeme selected (see _ready of res://game/map/system.gd)
 	center_on_selected_system()
+
+func _on_faction_points_update(scores):
+	Store.update_scores(scores)
 
 func _on_resize_window():
 	_set_background_ratio()
