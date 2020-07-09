@@ -27,7 +27,7 @@ signal fleet_unselected()
 signal score_updated(scores)
 
 func _ready():
-	Network.connect("FactionPointsUpdate", self, "_on_faction_points_update")
+	Network.connect("FactionPointsUpdated", self, "_on_faction_points_update")
 
 func get_lobby_name(lobby):
 	return tr('store.game_of') % lobby.owner.username if typeof(lobby.owner) == TYPE_DICTIONARY && lobby.owner.username != '' else tr('store.new_game')

@@ -1,6 +1,5 @@
 extends Control
 
-
 export(int) var faction = 0 setget set_faction
 
 func _ready():
@@ -13,15 +12,15 @@ func _on_score_updated(scores):
 	_update_scores(scores)
 
 func _update_scores(scores):
-	for i in scores:
-		if i.faction as int == faction:
-			$ProgressBar.value = i.victory_points
+	for score in scores.values():
+		if score.faction == faction:
+			$ProgressBar.value = score.victory_points
 
 func _on_progress_bar_changed(new_value):
 	$ProgressBar/Label.text = "%3d / %3d" % [new_value , $ProgressBar.max_value]
 
-func set_faction(new_faction):
-	faction = new_faction as int
+func set_faction(f):
+	faction = int(f)
 	_update_faction()
 
 func _update_faction():
