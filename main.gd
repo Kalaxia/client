@@ -25,6 +25,12 @@ func change_level(level_scene):
 	$Level.add_child(level)
 
 func _on_back_to_main_menu():
+	Network.req(self, "_on_player_left_game", "/api/games/" + Store._state.game.id + "/players/", HTTPClient.METHOD_DELETE)
+	
+func _on_player_left_game(err, response_code, headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+	$ParallaxBackground/HUD/Wallet.visible = false
 	$ParallaxBackground/HUD/SystemDetails.visible = false
 	change_level(menu_scene)
 
