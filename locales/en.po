@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-02 15:48+0200\n"
-"PO-Revision-Date: 2020-07-02 15:49+0200\n"
+"POT-Creation-Date: 2020-07-10 19:03+0200\n"
+"PO-Revision-Date: 2020-07-10 19:06+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: main.gd:44
+#: main.gd:49
 msgid "Unknown requested scene : "
 msgstr ""
 
@@ -77,19 +77,19 @@ msgstr "A network error occurred."
 msgid "global.loading.loading"
 msgstr "Loading..."
 
-#: global/network.gd:83
+#: global/network.gd:84
 msgid "network.unable_connect"
 msgstr "The client can not connect."
 
-#: global/network.gd:89
+#: global/network.gd:90
 msgid "network.close_clean_ws"
 msgstr "Closed, clean :"
 
-#: global/network.gd:95
+#: global/network.gd:96
 msgid "Connected with protocol: "
 msgstr ""
 
-#: global/network.gd:103
+#: global/network.gd:104
 msgid "received data from server: "
 msgstr ""
 
@@ -101,11 +101,11 @@ msgstr "%s's game"
 msgid "store.new_game"
 msgstr "New game"
 
-#: global/utils.gd:47
+#: global/utils.gd:54
 msgid "action.key.mouse_key_"
 msgstr ""
 
-#: hud/hud_menu.tscn:20
+#: hud/hud_menu.tscn:65
 msgid "hud.hud_menu.back_main_menu"
 msgstr "Back to main menu"
 
@@ -113,37 +113,41 @@ msgstr "Back to main menu"
 msgid "notification.ok"
 msgstr "OK"
 
-#: hud/wallet.tscn:29
+#: hud/wallet.tscn:27
 msgid "hud.wallet.0"
 msgstr "0"
 
-#: hud/system/details.gd:24 hud/system/details.tscn:50
-msgid "hud.system.add_fleet.key_binding"
-msgstr "%s : create a fleet"
+#: hud/scores/score_faction.tscn:61
+msgid "0 / 250"
+msgstr ""
 
-#: hud/system/details.gd:25 hud/system/details.tscn:62
-msgid "hud.system.add_one_ship.key_binding"
-msgstr "%s : add a ship"
+#: hud/scores/scores.tscn:30
+msgid "hud.scores"
+msgstr ""
 
-#: hud/system/details.gd:26 hud/system/details.tscn:68
-msgid "hud.system.add_five_ship.key_binding"
-msgstr "SHIFT+%s : add five ships"
-
-#: hud/system/details.tscn:44
+#: hud/system/details.tscn:86
 msgid "hud.system.fleet"
 msgstr "Fleets"
 
-#: hud/system/details.tscn:56
-msgid "hud.system.select_fleet.key_binding"
-msgstr "1-9 : select a fleet"
+#: hud/system/details.tscn:103
+msgid "hud.system.building"
+msgstr "Buildings"
 
-#: hud/system/details.tscn:80
-msgid "hud.system.add_fleet"
-msgstr "Add a fleet"
+#: hud/system/details.tscn:125
+msgid "no_translate.player_name"
+msgstr ""
 
-#: hud/system/fleet_item.tscn:56
+#: hud/system/fleet_item.tscn:70
 msgid "hud.fleet_item.add_ship"
 msgstr "Add a ship"
+
+#: hud/system/system_building_details.tscn:35
+msgid "general.WIP"
+msgstr "Work in progress"
+
+#: hud/system/system_fleet_details.tscn:56
+msgid "hud.system.add_fleet"
+msgstr "Add a fleet"
 
 #: locales/strings.txt:1
 msgid "audio.bus.Master"
@@ -301,6 +305,10 @@ msgstr "Valkar"
 msgid "action.ui_map_center_system"
 msgstr "Center on selected system"
 
+#: locales/strings.txt:40
+msgid "action.ui_hud_scores"
+msgstr "Show scores"
+
 #: matchmaking/game/game_loading.gd:52 matchmaking/game/game_loading.tscn:56
 msgid "menu.loading.number_player"
 msgstr "%d players"
@@ -309,11 +317,11 @@ msgstr "%d players"
 msgid "menu.loading.loading"
 msgstr "Loading"
 
-#: matchmaking/lobby/lobby.tscn:84
+#: matchmaking/lobby/lobby.tscn:134
 msgid "menu.lobby.launch"
 msgstr "Launch"
 
-#: matchmaking/lobby/lobby.tscn:95
+#: matchmaking/lobby/lobby.tscn:145
 msgid "menu.lobby.quit"
 msgstr "Quit"
 
@@ -325,15 +333,16 @@ msgstr "%d / %d"
 msgid "menu.lobby_card.join"
 msgstr "Join"
 
-#: matchmaking/player/player_info.gd:20
+#: matchmaking/player/player_info.gd:19
 msgid "menu.player_info.input_text_placeholder"
 msgstr "username"
 
-#: matchmaking/player/player_info.gd:45
+#: matchmaking/player/player_info.gd:47
 msgid "menu.player_info.faction_drop_down_0"
 msgstr "Faction"
 
-#: matchmaking/player/player_info.gd:64
+#: matchmaking/player/player_info.gd:66
+#: matchmaking/player/player_info_faction_column.gd:18
 msgid "general.unkown_username"
 msgstr "Unknown"
 
@@ -484,3 +493,15 @@ msgstr ""
 #: menu/options/option_lang.tscn:20
 msgid "menu.option.lang.language"
 msgstr "Language"
+
+#~ msgid "hud.system.add_fleet.key_binding"
+#~ msgstr "%s : create a fleet"
+
+#~ msgid "hud.system.add_one_ship.key_binding"
+#~ msgstr "%s : add a ship"
+
+#~ msgid "hud.system.add_five_ship.key_binding"
+#~ msgstr "SHIFT+%s : add five ships"
+
+#~ msgid "hud.system.select_fleet.key_binding"
+#~ msgstr "1-9 : select a fleet"

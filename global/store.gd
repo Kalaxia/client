@@ -97,6 +97,8 @@ func update_fleet_system(fleet):
 	emit_signal("fleet_update",fleet)
 
 func update_fleet_nb_ships(fleet,nb_ships):
+	if not Store._state.game.systems[fleet.system].fleets.has(fleet.id) :
+		return
 	Store._state.game.systems[fleet.system].fleets[fleet.id].nb_ships = nb_ships
 	emit_signal("fleet_update_nb_ships",Store._state.game.systems[fleet.system].fleets[fleet.id])
 
@@ -146,3 +148,6 @@ func get_player_color(player,is_victory_system = false) :
 	if player == null :
 		return Color(1.0,1.0,1.0)
 	return _get_faction_color(Store.get_faction(player.faction), is_victory_system, player.id == _state.player.id)
+
+func update_scores(scores):
+	_state.scores = scores

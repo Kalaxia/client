@@ -37,3 +37,5 @@ _("Adranite")
 _("Kalankar")
 _("Valkar")
 _("action.ui_map_center_system")_
+_("action.ui_hud_scores")_
+

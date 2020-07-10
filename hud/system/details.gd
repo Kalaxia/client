@@ -51,10 +51,6 @@ func _on_system_update(system):
 	if system.id == Store._state.selected_system.id:
 		refresh_data(Store._state.selected_system)
 
-func _input(event):
-	pass
-	# todo
-	
 func _on_building_pressed():
 	for node in $MenuSystem.get_children():
 		node.queue_free()

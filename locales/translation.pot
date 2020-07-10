@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-02 15:48+0200\n"
+"POT-Creation-Date: 2020-07-10 19:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: main.gd:44
+#: main.gd:49
 msgid "Unknown requested scene : "
 msgstr ""
 
@@ -75,19 +75,19 @@ msgstr ""
 msgid "global.loading.loading"
 msgstr ""
 
-#: global/network.gd:83
+#: global/network.gd:84
 msgid "network.unable_connect"
 msgstr ""
 
-#: global/network.gd:89
+#: global/network.gd:90
 msgid "network.close_clean_ws"
 msgstr ""
 
-#: global/network.gd:95
+#: global/network.gd:96
 msgid "Connected with protocol: "
 msgstr ""
 
-#: global/network.gd:103
+#: global/network.gd:104
 msgid "received data from server: "
 msgstr ""
 
@@ -99,11 +99,11 @@ msgstr ""
 msgid "store.new_game"
 msgstr ""
 
-#: global/utils.gd:47
+#: global/utils.gd:54
 msgid "action.key.mouse_key_"
 msgstr ""
 
-#: hud/hud_menu.tscn:20
+#: hud/hud_menu.tscn:65
 msgid "hud.hud_menu.back_main_menu"
 msgstr ""
 
@@ -111,36 +111,40 @@ msgstr ""
 msgid "notification.ok"
 msgstr ""
 
-#: hud/wallet.tscn:29
+#: hud/wallet.tscn:27
 msgid "hud.wallet.0"
 msgstr ""
 
-#: hud/system/details.gd:24 hud/system/details.tscn:50
-msgid "hud.system.add_fleet.key_binding"
+#: hud/scores/score_faction.tscn:61
+msgid "0 / 250"
 msgstr ""
 
-#: hud/system/details.gd:25 hud/system/details.tscn:62
-msgid "hud.system.add_one_ship.key_binding"
+#: hud/scores/scores.tscn:30
+msgid "hud.scores"
 msgstr ""
 
-#: hud/system/details.gd:26 hud/system/details.tscn:68
-msgid "hud.system.add_five_ship.key_binding"
-msgstr ""
-
-#: hud/system/details.tscn:44
+#: hud/system/details.tscn:86
 msgid "hud.system.fleet"
 msgstr ""
 
-#: hud/system/details.tscn:56
-msgid "hud.system.select_fleet.key_binding"
+#: hud/system/details.tscn:103
+msgid "hud.system.building"
 msgstr ""
 
-#: hud/system/details.tscn:80
-msgid "hud.system.add_fleet"
+#: hud/system/details.tscn:125
+msgid "no_translate.player_name"
 msgstr ""
 
-#: hud/system/fleet_item.tscn:56
+#: hud/system/fleet_item.tscn:70
 msgid "hud.fleet_item.add_ship"
+msgstr ""
+
+#: hud/system/system_building_details.tscn:35
+msgid "general.WIP"
+msgstr ""
+
+#: hud/system/system_fleet_details.tscn:56
+msgid "hud.system.add_fleet"
 msgstr ""
 
 #: locales/strings.txt:1
@@ -299,6 +303,10 @@ msgstr ""
 msgid "action.ui_map_center_system"
 msgstr ""
 
+#: locales/strings.txt:40
+msgid "action.ui_hud_scores"
+msgstr ""
+
 #: matchmaking/game/game_loading.gd:52 matchmaking/game/game_loading.tscn:56
 msgid "menu.loading.number_player"
 msgstr ""
@@ -307,11 +315,11 @@ msgstr ""
 msgid "menu.loading.loading"
 msgstr ""
 
-#: matchmaking/lobby/lobby.tscn:84
+#: matchmaking/lobby/lobby.tscn:134
 msgid "menu.lobby.launch"
 msgstr ""
 
-#: matchmaking/lobby/lobby.tscn:95
+#: matchmaking/lobby/lobby.tscn:145
 msgid "menu.lobby.quit"
 msgstr ""
 
@@ -323,15 +331,16 @@ msgstr ""
 msgid "menu.lobby_card.join"
 msgstr ""
 
-#: matchmaking/player/player_info.gd:20
+#: matchmaking/player/player_info.gd:19
 msgid "menu.player_info.input_text_placeholder"
 msgstr ""
 
-#: matchmaking/player/player_info.gd:45
+#: matchmaking/player/player_info.gd:47
 msgid "menu.player_info.faction_drop_down_0"
 msgstr ""
 
-#: matchmaking/player/player_info.gd:64
+#: matchmaking/player/player_info.gd:66
+#: matchmaking/player/player_info_faction_column.gd:18
 msgid "general.unkown_username"
 msgstr ""
 
