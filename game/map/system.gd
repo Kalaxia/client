@@ -55,7 +55,7 @@ func _ready():
 	_set_crown_state()
 	if system.player == Store._state.player.id:
 		Store.select_system(system)
-		_set_target_scale(SCALE_FACTOR_ON_HIGHLIGHT)
+		refresh_scale()
 	else :
 		_set_target_scale(1.0)
 
@@ -109,9 +109,11 @@ func _modulate_color(alpha):
 	star_sprite.set_modulate(color)
 	
 func unselect():
-	if system.player == null || system.player != Store._state.player.id:
-		_set_target_scale(1.0)
-		
+	refresh_scale()
+
+func select():
+	refresh_scale()
+
 func refresh_fleet_pins():
 	var is_current_player_included = false
 	var is_another_player_included = false
@@ -138,10 +140,7 @@ func refresh():
 	_modulate_color(1.0)
 	refresh_fleet_pins()
 	get_node("Star/Crown").visible = (system.player == Store._state.player.id)
-	if system.player == Store._state.player.id:
-		_set_target_scale(SCALE_FACTOR_ON_HIGHLIGHT)
-	else:
-		_set_target_scale(1.0)
+	refresh_scale()
 
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.is_pressed():
@@ -167,20 +166,19 @@ func _on_fleet_send(err, response_code, headers, body):
 
 func _on_mouse_entered():
 	is_hover = true
-	_set_target_scale(SCALE_FACTOR_ON_HIGHLIGHT)
+	refresh_scale()
 	is_in_range_sailing_fleet = Store.is_in_range(Store._state.selected_fleet,system)
 	
 func _on_mouse_exited():
 	is_hover = false
 	is_in_range_sailing_fleet = false
-	if system.player != Store._state.player.id && system != Store._state.selected_system:
-		_set_target_scale(1.0)
+	refresh_scale()
 
 func refresh_scale():
-	if is_hover || system.player == Store._state.player.id:
-		_set_target_scale(SCALE_FACTOR_ON_HIGHLIGHT)
-	else:
-		_set_target_scale(1.0)
+	var scale_refreshed = SCALE_FACTOR_ON_HIGHLIGHT if system.player == Store._state.player.id else 1.0
+	if system == Store._state.selected_system || is_hover:
+		scale_refreshed *= SCALE_FACTOR_ON_HIGHLIGHT
+	_set_target_scale(scale_refreshed)
 
 func set_scale_ratio(new_factor : float):
 	scale_ratio = new_factor
