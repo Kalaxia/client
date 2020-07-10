@@ -20,6 +20,8 @@ func _on_progress_bar_changed(new_value):
 	$ProgressBar/Label.text = "%3d / %3d" % [new_value , $ProgressBar.max_value]
 
 func set_faction(f):
+	if f <= 0:
+		return
 	faction = int(f)
 	_update_faction()
 
