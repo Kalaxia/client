@@ -17,7 +17,7 @@ signal notification_added(notification)
 signal system_selected(system, old_system)
 signal wallet_updated(amount)
 signal fleet_created(fleet)
-signal fleet_sailed(fleet)
+signal fleet_sailed(fleet, arrival_time )
 signal fleet_selected(fleet)
 signal fleet_update(fleet)
 signal fleet_erased(fleet)
@@ -83,9 +83,9 @@ func add_fleet(fleet):
 	_state.game.systems[fleet.system].fleets[fleet.id] = fleet
 	emit_signal("fleet_created", fleet)
 	
-func fleet_sail(fleet):
+func fleet_sail(fleet, arrival_time ):
 	_state.game.systems[fleet.system].fleets.erase(fleet.id)
-	emit_signal("fleet_sailed", fleet)
+	emit_signal("fleet_sailed", fleet, arrival_time)
 	
 func remove_player_lobby(player_id):
 	for i in range(Store._state.lobby.players.size()):

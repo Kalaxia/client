@@ -76,7 +76,7 @@ func _on_wallet_update(amount):
 func _on_fleet_selected(fleet):
 	update_highlight_state()
 	
-func _on_fleet_sailed(fleet):
+func _on_fleet_sailed(fleet, arrival_time):
 	update_highlight_state()
 
 func _on_fleet_unselected():

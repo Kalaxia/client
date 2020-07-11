@@ -30,7 +30,6 @@ func _on_back_to_main_menu():
 func _on_player_left_game(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
-	$ParallaxBackground/HUD/Wallet.visible = false
 	$ParallaxBackground/HUD/SystemDetails.visible = false
 	change_level(menu_scene)
 

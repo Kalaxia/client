@@ -118,13 +118,14 @@ func _on_fleet_created(fleet):
 func _on_fleet_arrival(fleet):
 	update_fleet_system(fleet)
 
-func _on_fleet_sailed(fleet):
+func _on_fleet_sailed(fleet, arrival_time):
 	Store._state.game.systems[fleet.system].fleets.erase(fleet.id)
 	var sailing_fleet = moving_fleet_scene.instance()
 	sailing_fleet.set_name(fleet.id)
 	var origin_system = get_node("ParallaxBackground/ParallaxLayer0/Map/" + fleet.system)
 	origin_system.refresh()
 	sailing_fleet.fleet = fleet
+	sailing_fleet.arrival_time = arrival_time
 	sailing_fleet.color = Store.get_player_color(Store.get_game_player(fleet.player))
 	sailing_fleet.origin_position = origin_system.get_position()
 	sailing_fleet.destination_position = get_node("ParallaxBackground/ParallaxLayer0/Map/" + fleet.destination_system).get_position()
@@ -132,8 +133,8 @@ func _on_fleet_sailed(fleet):
 
 # This method is called when the websocket notifies an another player's fleet sailing
 # It notifies the store which call _on_fleet_sailed back
-func _on_remote_fleet_sailed(fleet):
-	Store.fleet_sail(fleet)
+func _on_remote_fleet_sailed(data):
+	Store.fleet_sail(data.fleet, data.arrival_time )
 
 func _on_system_conquerred(data):
 	Store.erase_all_fleet_system(data.system)

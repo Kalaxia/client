@@ -1,11 +1,11 @@
 extends Node2D
 
-const FLIGHT_TIME = 10.0 # in second
-var _time = 0.0
 var origin_position = Vector2.ZERO
 var destination_position = Vector2.ZERO
 var color = null
 var fleet = null
+var arrival_time
+onready var _time_departure = OS.get_system_time_msecs()
 
 const _SCALE_CURRENT_PLAYER_FACTOR = 1.0
 
@@ -29,8 +29,13 @@ func _ready():
 	_set_crown_state()
 
 func _process(delta):
-	_time += delta
-	get_node("FleetPath/Follower").unit_offset = _time/FLIGHT_TIME
+	get_node("FleetPath/Follower").unit_offset = _get_flight_ratio()
+
+func _get_flight_time_ms():
+	return (arrival_time - _time_departure)
+
+func _get_flight_ratio():
+	return (OS.get_system_time_msecs () - _time_departure) as float / _get_flight_time_ms() as float
 
 func _set_icone_texture():
 	$FleetPath/Follower/SpritesContainer/FleetIcon.faction = Store.get_game_player(fleet.player).faction
