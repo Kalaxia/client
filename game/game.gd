@@ -58,6 +58,7 @@ func _ready():
 	_set_background_ratio()
 	#normaly by that point we have a systeme selected (see _ready of res://game/map/system.gd)
 	center_on_selected_system()
+	Store.notify(tr("game.notification.goal.title"), tr("game.notification.goal.content"))
 
 func _on_faction_points_update(scores):
 	Store.update_scores(scores)

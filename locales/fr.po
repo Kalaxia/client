@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-10 19:03+0200\n"
-"PO-Revision-Date: 2020-07-10 19:05+0200\n"
+"POT-Creation-Date: 2020-07-11 11:36+0200\n"
+"PO-Revision-Date: 2020-07-11 11:37+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.3.1\n"
 
-#: main.gd:49
+#: main.gd:55
 msgid "Unknown requested scene : "
 msgstr ""
 
@@ -36,6 +36,14 @@ msgstr ""
 #: game/faction_score.gd:13
 msgid "game.faction_score.victory_points"
 msgstr "%d points de victoire"
+
+#: game/game.gd:61
+msgid "game.notification.goal.title"
+msgstr "Objectifs"
+
+#: game/game.gd:61
+msgid "game.notification.goal.content"
+msgstr "Capturer et tenir les systèmes stratégiques"
 
 #: game/scores.gd:11 game/scores.tscn:20
 msgid "game.score.victory"
