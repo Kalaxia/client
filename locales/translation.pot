@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-10 19:03+0200\n"
+"POT-Creation-Date: 2020-07-11 11:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: main.gd:49
+#: main.gd:55
 msgid "Unknown requested scene : "
 msgstr ""
 
@@ -33,6 +33,14 @@ msgstr ""
 
 #: game/faction_score.gd:13
 msgid "game.faction_score.victory_points"
+msgstr ""
+
+#: game/game.gd:61
+msgid "game.notification.goal.title"
+msgstr ""
+
+#: game/game.gd:61
+msgid "game.notification.goal.content"
 msgstr ""
 
 #: game/scores.gd:11 game/scores.tscn:20
