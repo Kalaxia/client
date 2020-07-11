@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://audio/audio_stacking.gd"
 }, {
 "base": "Control",
+"class": "CircularButton",
+"language": "GDScript",
+"path": "res://gui/circular_button.gd"
+}, {
+"base": "Control",
 "class": "FleetItem",
 "language": "GDScript",
 "path": "res://hud/system/fleet_item.gd"
@@ -31,6 +36,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AudioStacking": "",
+"CircularButton": "",
 "FleetItem": "",
 "OptionKeyBinding": "",
 "PlayerInfoFactionColumn": ""
