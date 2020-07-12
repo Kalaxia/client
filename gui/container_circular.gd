@@ -21,7 +21,7 @@ export(float) var radius_ratio = 1.0 setget set_radius_ratio
 
 export(ANCHOR_POSITION) var anchor_position = ANCHOR_POSITION.TOP_LEFT setget set_anchor_position
 
-export(bool) var aspect_ratio_square = true setget set_aspect_ratio_square
+export(bool) var aspect_ratio_force = true setget set_aspect_ratio_force
 export(bool) var clip_center_node = false setget set_clip_center_node
 
 var _warning_string = ""
@@ -34,26 +34,53 @@ func _notification(what):
 		sort_children()
 
 func sort_children():
-	if aspect_ratio_square:
-		rect_size = Vector2(max(rect_size.x,rect_size.y), max(rect_size.x,rect_size.y))
 	_reset_warning()
+	# children_check
 	if get_child_count() == 0:
 		return
 	var number_of_circular_button = 0
 	var number_of_centered_node = 0
 	for node in get_children():
-		if not node is CircularButton:
+		if not node is CircularButton and node.visible:
 			node.raise()
 			number_of_centered_node += 1
-		else:
+		elif node.visible:
 			number_of_circular_button += 1
 	if number_of_centered_node > 1 :
 		_warn("There is more than one non circular button node.")
 	elif number_of_centered_node == 0:
 		_warn("There is less than one non circular button node.")
+	var center_node = get_child(get_child_count() -1 )
+	if not center_node is Control:
+		_warn("The lowest center node is not a Control, aborting ...")
+		return
+	# size set up
+	var rect_size_element_use 
+	var aspect_ratio = Vector2(1.0,1.0)
+	match anchor_position:
+		ANCHOR_POSITION.BOTTOM, ANCHOR_POSITION.TOP:
+			if aspect_ratio_force:
+				var y_extra = 0.0 if clip_center_node else center_node.rect_size.y /2.0
+				var y_comp =  max(rect_size.x, 1) / 2.0  + y_extra
+				rect_size = Vector2(max(rect_size.x, 1.0),y_comp)
+				aspect_ratio.y = 0.5 + y_extra/rect_size.x
+			rect_size_element_use = rect_size.y
+		ANCHOR_POSITION.LEFT, ANCHOR_POSITION.RIGTH:
+			if aspect_ratio_force:
+				var x_extra = 0.0 if clip_center_node else center_node.rect_size.y /2.0
+				var x_comp =  max(rect_size.y, 1) / 2.0  + x_extra
+				rect_size = Vector2(x_comp,max(rect_size.y, 1.0))
+				aspect_ratio.x = 0.5 + x_extra/rect_size.y
+			rect_size_element_use = rect_size.x
+		_ :
+			if aspect_ratio_force:
+				rect_size = Vector2(max(rect_size.x, rect_size.y), max(rect_size.x, rect_size.y))
+			rect_size_element_use = min(rect_size.x, rect_size.y)
+	rect_size_element_use = max(rect_size_element_use,1.0)
+	# position of center node
 	for i in range (get_child_count()-number_of_centered_node,get_child_count()):
 		var child_center = get_child(i)
-		if child_center is Control:
+		if child_center is Control and child_center.visible:
 			match anchor_position:
 				ANCHOR_POSITION.TOP_LEFT:
 					child_center.set_anchors_and_margins_preset(Control.PRESET_TOP_LEFT)
@@ -89,12 +116,9 @@ func sort_children():
 				match anchor_position:
 					ANCHOR_POSITION.TOP_RIGHT, ANCHOR_POSITION.RIGTH, ANCHOR_POSITION.BOTTOM_RIGHT:
 						child_center.grow_horizontal = Control.GROW_DIRECTION_BEGIN
-		else:
+		elif not child_center is Control:
 			_warn("A center node is not a Control.")
-	var center_node = get_child(get_child_count() -1 )
-	if not center_node is Control:
-		_warn("The lowest center node is not a Control, aborting ...")
-		return
+	# angle
 	var angle_start = 0.0
 	var angle_end = 0.0
 	var is_in_corner = false
@@ -129,21 +153,21 @@ func sort_children():
 			is_in_corner = true
 	angle_start = angle_start + angle_start_offset
 	angle_end = angle_end + angle_end_offset
+	# position of circular button
 	for i in range(get_child_count()-number_of_centered_node):
 		var node = get_child(i)
-		if node is CircularButton:
+		if node is CircularButton and node.visible:
 			node.set_margins_preset(Control.PRESET_TOP_LEFT)
 			node.set_anchors_preset(Control.PRESET_TOP_LEFT)
 			node.angle_start = angle_start + i * (angle_end-angle_start) / number_of_circular_button
 			node.angle_end = angle_start + (i+1) * (angle_end-angle_start) / number_of_circular_button
 			if is_in_corner:
-				node.rect_size = (rect_size - center_node.rect_size/2.0)*2.0
-				node.radius_in = center_node.rect_size.x / rect_size.x * radius_ratio / 2.0
+				node.rect_size = (rect_size * Vector2( 1.0 / aspect_ratio.x, 1.0 / aspect_ratio.y) - center_node.rect_size/2.0)*2.0
+				node.radius_in = center_node.rect_size.x / rect_size_element_use * radius_ratio / 2.0
 			else:
-				node.rect_size = rect_size
-				node.radius_in = center_node.rect_size.x / rect_size.x * radius_ratio
+				node.rect_size = rect_size * Vector2( 1.0 / aspect_ratio.x, 1.0 / aspect_ratio.y)
+				node.radius_in = center_node.rect_size.x / rect_size_element_use * radius_ratio
 			node.rect_position = center_node.rect_size / 2.0 + center_node.rect_position - node.rect_size/2.0
-			pass
 
 func set_radius_ratio(new_ratio):
 	if new_ratio < 0.0 :
@@ -151,8 +175,8 @@ func set_radius_ratio(new_ratio):
 	radius_ratio = new_ratio
 	queue_sort()
 
-func set_aspect_ratio_square(ratio_square):
-	aspect_ratio_square = ratio_square
+func set_aspect_ratio_force(ratio_force):
+	aspect_ratio_force = ratio_force
 	queue_sort()
 
 func _reset_warning():
