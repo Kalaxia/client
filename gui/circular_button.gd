@@ -3,10 +3,6 @@ extends Control
 
 class_name CircularButton
 
-#todo check how to stop event propagation
-#export(bool) var propagate_event = false 
-# if true the hover and click events are not consumed and can be propagated
-
 export(float) var angle_start = 0.0 setget set_angle_start
 export(float) var angle_end = 0.0 setget set_angle_end
 export(float) var radius_out = 1.0 setget set_radius_out
@@ -21,12 +17,13 @@ export(Vector2) var texture_size setget set_texture_size
 var _hover = false
 
 const _NUMBER_OF_POINT_ARC = 32
+export(bool) var block_mouse_motion = false
 
 signal pressed()
+signal mouse_entered_area()
+signal mouse_exited_area()
 
 func _ready():
-	self.mouse_filter = MOUSE_FILTER_IGNORE # todo see how I can set that by default or prenvent to be chnaged at all
-	_update_shape()
 	if base_style != null:
 		if not base_style.is_connected("changed",self,"_on_changed"):
 			base_style.connect("changed",self,"_on_changed")
@@ -36,56 +33,49 @@ func _ready():
 	if texture != null:
 		if not texture.is_connected("changed",self,"_on_changed"):
 			texture.connect("changed",self,"_on_changed")
+	connect("mouse_exited", self, "_on_mouse_exited")
 
 func _on_changed():
 	update()
 
-func _add_area_2d():
-	var area = Area2D.new()
-	area.monitorable = false
-	area.name = "Area2D"
-	area.monitorable = false
-	area.visible = true
-	add_child(area)
+func _input(event):
+	if mouse_filter == MOUSE_FILTER_IGNORE:
+		return
+	if event is InputEventMouse:
+		var inside = is_inside(event.position - rect_global_position)
+		if inside:
+			if mouse_filter == MOUSE_FILTER_STOP and (block_mouse_motion or event is InputEventMouseButton):
+				accept_event()
+			if event is InputEventMouseButton and event.is_pressed() and event.get_button_index() == BUTTON_LEFT:
+				emit_signal("pressed")
+		if event is InputEventMouseMotion:
+			if _hover != inside:
+				_hover = inside
+				update()
+				emit_signal("mouse_entered_area" if inside else "mouse_exited_area") 
 
-func _add_collision_shape():
-	var collision = CollisionPolygon2D.new()
-	collision.name = "CollisionPolygon2D"
-	collision.visible = false
-	$Area2D.add_child(collision)
-
-func _update_shape():
-	if not has_node("Area2D"):
-		_add_area_2d()
-	else:
-		$Area2D.disconnect("mouse_entered",self, "_on_mouse_entered")
-		$Area2D.disconnect("mouse_exited", self, "_on_mouse_exited")
-		$Area2D.disconnect("input_event",self,"_on_input_event")
-	if not has_node("Area2D/CollisionPolygon2D"):
-		_add_collision_shape()
-	$Area2D/CollisionPolygon2D.polygon = _get_array_points()
-	var a = $Area2D/CollisionPolygon2D
-	$Area2D.connect("input_event",self,"_on_input_event")
-	$Area2D.connect("mouse_entered",self, "_on_mouse_entered")
-	$Area2D.connect("mouse_exited", self, "_on_mouse_exited")
-
-func _on_input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton and event.is_pressed() and event.get_button_index() == BUTTON_LEFT:
-		emit_signal("pressed")
-		print("pressed")
+func is_inside(position):
+	var rel_to_center : Vector2 = position - rect_size / 2.0 
+	if rect_size.x == 0:
+		return false
+	var radius = rel_to_center.length() / (rect_size.x / 2.0)
+	var angle = fposmod(-rel_to_center.angle_to(Vector2.RIGHT), 2 * PI)
+	var angle_1 = fposmod(deg2rad(min(angle_start, angle_end)), 2 * PI)
+	var angle_2 = fposmod(deg2rad(max(angle_start, angle_end)), 2 * PI)
+	return radius <= radius_out and radius >= radius_in and ((angle_1 <= angle_2 and angle >= angle_1 and angle <= angle_2) or (angle_1 > angle_2 and not (angle >= angle_2 and angle <= angle_1) ) )
 
 func update():
 	.update()
 
-func _on_mouse_entered():
-	_hover = true
-	update()
-
 func _on_mouse_exited():
-	_hover = false
-	update()
+	if _hover:
+		_hover = false
+		update()
+		emit_signal("mouse_exited_area")
 
 func _draw():
+	if rect_size.x == 0.0 or rect_size.y == 0.0:
+		return
 	# style setup
 	var colors_bg
 	var color_border
@@ -188,7 +178,7 @@ func _get_left_border(width = 1.0,details = 8,border_scale = false):
 	for i in range(details+1):
 		var unit_vect_angle = Vector2(cos(deg2rad(angle_start) + sign_inner * i * angle_diff_outer / details), sin(deg2rad(angle_start) + sign_inner*  i * angle_diff_outer / details )) 
 		points_arc.push_back(center + unit_vect_angle * radius_out * rect_size/2.0)
-	var angle_diff_inner = float(width) / (rect_size.x* radius_in ) if not border_scale else angle_diff_outer
+	var angle_diff_inner = ((float(width) / (rect_size.x* radius_in )) if radius_in != 0.0 else 0.0) if not border_scale else angle_diff_outer
 	for i in range(details+1):
 		var unit_vect_angle = Vector2(cos(deg2rad(angle_start) + sign_inner * (details-i) * angle_diff_inner / details), sin(deg2rad(angle_start) + sign_inner*  (details-i) * angle_diff_inner / details )) 
 		points_arc.push_back(center + unit_vect_angle * radius_in * rect_size/2.0)
@@ -202,7 +192,7 @@ func _get_right_border(width = 1.0,details = 8,border_scale = false):
 	for i in range(details+1):
 		var unit_vect_angle = Vector2(cos(deg2rad(angle_end) + sign_inner * i * angle_diff_outer / details), sin(deg2rad(angle_end) + sign_inner*  i * angle_diff_outer / details )) 
 		points_arc.push_back(center + unit_vect_angle * radius_out * rect_size/2.0)
-	var angle_diff_inner = float(width) / (rect_size.x* radius_in) if not border_scale else angle_diff_outer
+	var angle_diff_inner = ( (float(width) / (rect_size.x* radius_in)) if radius_in != 0.0 else 0.0) if not border_scale else angle_diff_outer
 	for i in range(details+1):
 		var unit_vect_angle = Vector2(cos(deg2rad(angle_end) + sign_inner * (details-i) * angle_diff_inner / details), sin(deg2rad(angle_end) + sign_inner*  (details-i) * angle_diff_inner / details )) 
 		points_arc.push_back(center + unit_vect_angle * radius_in * rect_size/2.0)
@@ -212,24 +202,20 @@ func set_radius_out(new_radius):
 	if new_radius < radius_in:
 		return
 	radius_out = new_radius
-	_update_shape()
 	update()
 
 func set_radius_in(new_radius):
 	if new_radius > radius_out or new_radius < 0.0:
 		return
 	radius_in = new_radius
-	_update_shape()
 	update()
 
 func set_angle_end(new_angle):
 	angle_end = new_angle
-	_update_shape()
 	update()
 
 func set_angle_start(new_angle):
 	angle_start = new_angle
-	_update_shape()
 	update()
 
 func set_base_style(style):
