@@ -352,6 +352,14 @@ msgstr ""
 msgid "general.unkown_username"
 msgstr ""
 
+#: matchmaking/player/player_info.gd:111
+msgid "matchmaking.error.username_already_taken.title"
+msgstr ""
+
+#: matchmaking/player/player_info.gd:112
+msgid "matchmaking.error.username_already_taken.content"
+msgstr ""
+
 #: matchmaking/player/player_info.tscn:37
 msgid "no_translate.Faction"
 msgstr ""
@@ -359,6 +367,7 @@ msgstr ""
 #: matchmaking/player/player_info.tscn:60
 msgid "menu.player_info.ready"
 msgstr ""
+
 
 #: menu/menu_credits.gd:10 menu/menu_credits.tscn:104
 msgid "menu.credits.website"
