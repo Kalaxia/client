@@ -354,6 +354,14 @@ msgstr "Faction"
 msgid "general.unkown_username"
 msgstr "Inconnu"
 
+#: matchmaking/player/player_info.gd:111
+msgid "matchmaking.error.username_already_taken.title"
+msgstr "Ce pseudo existe déjà"
+
+#: matchmaking/player/player_info.gd:112
+msgid "matchmaking.error.username_already_taken.content"
+msgstr "Un autre joueur de cette partie utilise déjà ce pseudo"
+
 #: matchmaking/player/player_info.tscn:37
 msgid "no_translate.Faction"
 msgstr ""

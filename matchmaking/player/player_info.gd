@@ -25,7 +25,7 @@ func _ready():
 		username_input.connect("text_entered", self, "_on_text_entered")
 		ready_input.connect("pressed", self, "toggle_ready")
 		$Container/UsernameInput/UpdateNameTimer.connect("timeout",self,"_on_timer_timeout")
-		if player.username != "" or (player.faction != null or player.faction != 0.0 ):
+		if player.username != "" || (player.faction != null && player.faction != 0.0 ):
 			send_update()
 	username_input.set_text(get_username())
 
@@ -104,8 +104,14 @@ func send_update():
 		})
 	)
 
-func _on_request_completed(result, response_code, headers, body):
+func _on_request_completed(err, response_code, headers, body):
 	_is_locked_username_change.unlock()
+	if response_code != HTTPClient.RESPONSE_NO_CONTENT:
+		Store.notify(
+			tr("matchmaking.error.username_already_taken.title"),
+			tr("matchmaking.error.username_already_taken.content")
+		)
+		return
 	emit_signal("player_updated", Store._state.player)
 
 func _check_ready_state():

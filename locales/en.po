@@ -362,6 +362,14 @@ msgstr ""
 msgid "menu.player_info.ready"
 msgstr "Ready ?"
 
+#: matchmaking/player/player_info.gd:111
+msgid "matchmaking.error.username_already_taken.title"
+msgstr "Already taken username"
+
+#: matchmaking/player/player_info.gd:112
+msgid "matchmaking.error.username_already_taken.content"
+msgstr "Another player in this lobby is using this username"
+
 #: menu/menu_credits.gd:10 menu/menu_credits.tscn:104
 msgid "menu.credits.website"
 msgstr "Website"
