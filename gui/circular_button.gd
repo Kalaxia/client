@@ -1,5 +1,5 @@
 tool
-extends Control
+extends CustomShapeButton
 
 class_name CircularButton
 
@@ -14,47 +14,22 @@ export(StyleBoxFlat) var hover_style setget set_hover_style
 export(Texture) var texture setget set_texture
 export(Vector2) var texture_size setget set_texture_size
 
-var _hover = false
 
 const _NUMBER_OF_POINT_ARC = 32
-export(bool) var block_mouse_motion = false
-
-signal pressed()
-signal mouse_entered_area()
-signal mouse_exited_area()
 
 func _ready():
-	if base_style != null:
-		if not base_style.is_connected("changed",self,"_on_changed"):
-			base_style.connect("changed",self,"_on_changed")
-	if hover_style != null:
-		if not hover_style.is_connected("changed",self,"_on_changed"):
-			hover_style.connect("changed",self,"_on_changed")
-	if texture != null:
-		if not texture.is_connected("changed",self,"_on_changed"):
-			texture.connect("changed",self,"_on_changed")
-	connect("mouse_exited", self, "_on_mouse_exited")
+	if base_style != null and not base_style.is_connected("changed",self,"_on_changed"):
+		base_style.connect("changed",self,"_on_changed")
+	if hover_style != null and not hover_style.is_connected("changed",self,"_on_changed"):
+		hover_style.connect("changed",self,"_on_changed")
+	if texture != null and not texture.is_connected("changed",self,"_on_changed"):
+		texture.connect("changed",self,"_on_changed")
+	._ready()
 
 func _on_changed():
 	update()
 
-func _input(event):
-	if mouse_filter == MOUSE_FILTER_IGNORE:
-		return
-	if event is InputEventMouse:
-		var inside = is_inside(event.position - rect_global_position)
-		if inside:
-			if mouse_filter == MOUSE_FILTER_STOP and (block_mouse_motion or event is InputEventMouseButton):
-				accept_event()
-			if event is InputEventMouseButton and event.is_pressed() and event.get_button_index() == BUTTON_LEFT:
-				emit_signal("pressed")
-		if event is InputEventMouseMotion:
-			if _hover != inside:
-				_hover = inside
-				update()
-				emit_signal("mouse_entered_area" if inside else "mouse_exited_area") 
-
-func is_inside(position):
+func _is_inside(position):
 	var rel_to_center : Vector2 = position - rect_size / 2.0 
 	if rect_size.x == 0:
 		return false
@@ -66,12 +41,6 @@ func is_inside(position):
 
 func update():
 	.update()
-
-func _on_mouse_exited():
-	if _hover:
-		_hover = false
-		update()
-		emit_signal("mouse_exited_area")
 
 func _draw():
 	if rect_size.x == 0.0 or rect_size.y == 0.0:
