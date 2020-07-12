@@ -59,18 +59,18 @@ func sort_children():
 	var aspect_ratio = Vector2(1.0,1.0)
 	match anchor_position:
 		ANCHOR_POSITION.BOTTOM, ANCHOR_POSITION.TOP:
+			var y_extra = 0.0 if clip_center_node else center_node.rect_size.y /2.0
+			var y_comp =  max(rect_size.x, 1) / 2.0  + y_extra
 			if aspect_ratio_force:
-				var y_extra = 0.0 if clip_center_node else center_node.rect_size.y /2.0
-				var y_comp =  max(rect_size.x, 1) / 2.0  + y_extra
 				rect_size = Vector2(max(rect_size.x, 1.0),y_comp)
-				aspect_ratio.y = 0.5 + y_extra/rect_size.x
+			aspect_ratio.y = 0.5 + y_extra/rect_size.x
 			rect_size_element_use = rect_size.y
 		ANCHOR_POSITION.LEFT, ANCHOR_POSITION.RIGTH:
+			var x_extra = 0.0 if clip_center_node else center_node.rect_size.y /2.0
+			var x_comp =  max(rect_size.y, 1) / 2.0  + x_extra
 			if aspect_ratio_force:
-				var x_extra = 0.0 if clip_center_node else center_node.rect_size.y /2.0
-				var x_comp =  max(rect_size.y, 1) / 2.0  + x_extra
 				rect_size = Vector2(x_comp,max(rect_size.y, 1.0))
-				aspect_ratio.x = 0.5 + x_extra/rect_size.y
+			aspect_ratio.x = 0.5 + x_extra/rect_size.y
 			rect_size_element_use = rect_size.x
 		_ :
 			if aspect_ratio_force:

@@ -143,11 +143,11 @@ func _get_left_border(width = 1.0,details = 8,border_scale = false):
 	var sign_inner = sign (- angle_start + angle_end)
 	var points_arc = PoolVector2Array()
 	# TODO revoir les taille des bord
-	var angle_diff_outer = float(width) / (rect_size.x* radius_out ) 
+	var angle_diff_outer = float(width) * 2.0 / (rect_size.x* radius_out )
 	for i in range(details+1):
 		var unit_vect_angle = Vector2(cos(deg2rad(angle_start) + sign_inner * i * angle_diff_outer / details), sin(deg2rad(angle_start) + sign_inner*  i * angle_diff_outer / details )) 
 		points_arc.push_back(center + unit_vect_angle * radius_out * rect_size/2.0)
-	var angle_diff_inner = ((float(width) / (rect_size.x* radius_in )) if radius_in != 0.0 else 0.0) if not border_scale else angle_diff_outer
+	var angle_diff_inner = ((float(width * 2.0) / (rect_size.x* radius_in )) if radius_in != 0.0 else 0.0) if not border_scale else angle_diff_outer
 	for i in range(details+1):
 		var unit_vect_angle = Vector2(cos(deg2rad(angle_start) + sign_inner * (details-i) * angle_diff_inner / details), sin(deg2rad(angle_start) + sign_inner*  (details-i) * angle_diff_inner / details )) 
 		points_arc.push_back(center + unit_vect_angle * radius_in * rect_size/2.0)
@@ -157,11 +157,11 @@ func _get_right_border(width = 1.0,details = 8,border_scale = false):
 	var center = rect_size / 2.0
 	var sign_inner = sign (angle_start - angle_end)
 	var points_arc = PoolVector2Array()
-	var angle_diff_outer = float(width) / (rect_size.x* radius_out)
+	var angle_diff_outer = float(width) * 2.0 / (rect_size.x* radius_out) 
 	for i in range(details+1):
 		var unit_vect_angle = Vector2(cos(deg2rad(angle_end) + sign_inner * i * angle_diff_outer / details), sin(deg2rad(angle_end) + sign_inner*  i * angle_diff_outer / details )) 
 		points_arc.push_back(center + unit_vect_angle * radius_out * rect_size/2.0)
-	var angle_diff_inner = ( (float(width) / (rect_size.x* radius_in)) if radius_in != 0.0 else 0.0) if not border_scale else angle_diff_outer
+	var angle_diff_inner = ( (float(width) * 2.0 / (rect_size.x* radius_in)) if radius_in != 0.0 else 0.0) if not border_scale else angle_diff_outer
 	for i in range(details+1):
 		var unit_vect_angle = Vector2(cos(deg2rad(angle_end) + sign_inner * (details-i) * angle_diff_inner / details), sin(deg2rad(angle_end) + sign_inner*  (details-i) * angle_diff_inner / details )) 
 		points_arc.push_back(center + unit_vect_angle * radius_in * rect_size/2.0)

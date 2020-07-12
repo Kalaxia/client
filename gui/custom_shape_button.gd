@@ -30,9 +30,10 @@ func _input(event):
 				update()
 				if inside:
 					_mouse_entered_area()
+					emit_signal("mouse_entered_area")
 				else:
 					_mouse_exited_area()
-				emit_signal("mouse_entered_area" if inside else "mouse_exited_area") 
+					emit_signal("mouse_exited_area")
 
 func _is_inside(position : Vector2) -> bool:
 	return false
