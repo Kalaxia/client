@@ -184,13 +184,10 @@ func _input(event):
 			_camera_speed = event.speed
 
 func _zoom_camera(factor):
-	
 	var max_screen_size = Vector2($Camera2D.limit_right - $Camera2D.limit_left, $Camera2D.limit_bottom - $Camera2D.limit_top)
 	var max_zoom_factor_fit = floor(min(log(max_screen_size.x / OS.window_size.x), log(max_screen_size.y / OS.window_size.y)) / log(_ZOOM_FACTOR))
-	
 	_target_zoom.x = clamp($Camera2D.zoom.x * factor, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR), pow(_ZOOM_FACTOR, min(_MAX_ZOOM_FACTOR, max_zoom_factor_fit)))
 	_target_zoom.y = clamp($Camera2D.zoom.y * factor, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR), pow(_ZOOM_FACTOR, min(_MAX_ZOOM_FACTOR, max_zoom_factor_fit)))
-	
 
 func center_on_selected_system():
 	if Store._state.selected_system != null:
