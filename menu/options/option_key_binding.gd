@@ -62,7 +62,7 @@ func _input(event):
 			if node is Button:
 				node.pressed = false
 		index_pressed = -1
-		emit_signal("unmark_button_key_binging")
+		emit_signal("unmark_button_key_binding")
 		_refresh_data()
 
 func set_is_enabled(new_value):
