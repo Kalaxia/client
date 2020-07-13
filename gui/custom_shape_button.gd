@@ -3,6 +3,7 @@ extends Control
 class_name CustomShapeButton
 
 export(bool) var block_mouse_motion = false
+#determine if aborbe the mouse motion event if mouse_filter = MOUSE_FILTER_STOP
 
 var _hover = false
 
@@ -11,7 +12,8 @@ signal mouse_entered_area()
 signal mouse_exited_area()
 
 func _ready():
-	connect("mouse_exited", self, "_on_mouse_exited")
+	if not is_connected("mouse_exited", self, "_on_mouse_exited"):
+		connect("mouse_exited", self, "_on_mouse_exited")
 
 func _input(event):
 	if mouse_filter == MOUSE_FILTER_IGNORE:
@@ -25,7 +27,7 @@ func _input(event):
 				_pressed()
 				emit_signal("pressed")
 		if event is InputEventMouseMotion:
-			if _hover != inside:
+			if _hover != inside: # we do things only if the state changes
 				_hover = inside
 				update()
 				if inside:
@@ -34,11 +36,17 @@ func _input(event):
 				else:
 					_mouse_exited_area()
 					emit_signal("mouse_exited_area")
+	else:
+		# manage other event in the heritage
+		._input(event)
 
 func _is_inside(position : Vector2) -> bool:
+	# this dertermine the area where the button is
 	return false
 
 func _on_mouse_exited():
+	# this is used to add a extra check when the mouse exit the node
+	# this is mainly use in the case where two custom button overlapp and block_mouse_motion  is true
 	if _hover:
 		_hover = false
 		update()
