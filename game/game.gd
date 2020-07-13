@@ -6,6 +6,7 @@ var system_scene = preload("res://game/map/system.tscn")
 var moving_fleet_scene = preload("res://game/map/fleet_sailing.tscn")
 var _camera_speed = Vector2.ZERO
 var _is_map_being_dragged = false
+onready var _target_zoom = $Camera2D.zoom
 var limits = [ 0, 0, 0, 0]
 #left top right down
 
@@ -17,6 +18,7 @@ const CAMERA_MOVE_KEY_AMOUNT = 600
 const _ZOOM_FACTOR = 1.2
 const _MIN_ZOOM_FACTOR = -15
 const _MAX_ZOOM_FACTOR = 10
+const _CAMERA_ZOOM_SPEED = 7.0
 var _motion_camera = {
 		Vector2.LEFT : false,
 		Vector2.RIGHT : false,
@@ -151,11 +153,9 @@ func _on_victory(data):
 func _input(event):
 	if event is InputEventKey || event is InputEventMouseButton:
 		if event.is_action_pressed("ui_zoom_in_map"):
-			$Camera2D.zoom.x = max($Camera2D.zoom.x / _ZOOM_FACTOR, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR))
-			$Camera2D.zoom.y = max($Camera2D.zoom.y / _ZOOM_FACTOR, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR))
+			_zoom_camera(1.0 / _ZOOM_FACTOR)
 		if event.is_action_pressed("ui_zoom_out_map"):
-			$Camera2D.zoom.x = min($Camera2D.zoom.x *_ZOOM_FACTOR,pow(_ZOOM_FACTOR, _MAX_ZOOM_FACTOR))
-			$Camera2D.zoom.y = min($Camera2D.zoom.y *_ZOOM_FACTOR,pow(_ZOOM_FACTOR, _MAX_ZOOM_FACTOR))
+			_zoom_camera(_ZOOM_FACTOR)
 		if event.is_action_pressed("ui_drag_map"):
 			_is_map_being_dragged = true
 		if event.is_action_released("ui_drag_map"):
@@ -182,6 +182,12 @@ func _input(event):
 		if _is_map_being_dragged:
 			_move_camera(-event.get_relative() * $Camera2D.zoom)
 			_camera_speed = event.speed
+
+func _zoom_camera(factor):
+	var max_screen_size = Vector2($Camera2D.limit_right - $Camera2D.limit_left, $Camera2D.limit_bottom - $Camera2D.limit_top)
+	var max_zoom_factor_fit = floor(min(log(max_screen_size.x / OS.window_size.x), log(max_screen_size.y / OS.window_size.y)) / log(_ZOOM_FACTOR))
+	_target_zoom.x = clamp($Camera2D.zoom.x * factor, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR), pow(_ZOOM_FACTOR, min(_MAX_ZOOM_FACTOR, max_zoom_factor_fit)))
+	_target_zoom.y = clamp($Camera2D.zoom.y * factor, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR), pow(_ZOOM_FACTOR, min(_MAX_ZOOM_FACTOR, max_zoom_factor_fit)))
 
 func center_on_selected_system():
 	if Store._state.selected_system != null:
@@ -221,3 +227,10 @@ func _process(delta):
 		abs_vector.x = max(abs_vector.x - coeff * delta * abs(_camera_speed.x) / _camera_speed.length(), 0.0)
 		abs_vector.y = max(abs_vector.y - coeff * delta * abs(_camera_speed.y) / _camera_speed.length(), 0.0)
 		_camera_speed = abs_vector * sign_vector
+	if not _target_zoom.is_equal_approx($Camera2D.zoom):
+		var sign_vector = ( _target_zoom - $Camera2D.zoom).sign()
+		var new_zoom = $Camera2D.zoom + Vector2(_CAMERA_ZOOM_SPEED,_CAMERA_ZOOM_SPEED) * delta * sign_vector
+		new_zoom.x = min(new_zoom.x, _target_zoom.x) if sign_vector.x > 0 else max(new_zoom.x, _target_zoom.x)
+		new_zoom.y = min(new_zoom.y, _target_zoom.y) if sign_vector.y > 0 else max(new_zoom.y, _target_zoom.y)
+		$Camera2D.zoom = new_zoom
+		

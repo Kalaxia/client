@@ -2,6 +2,7 @@ extends Control
 
 var fleet_item_scene = preload("res://hud/system/fleet_item.tscn")
 var _create_fleet_lock = Utils.Lock.new()
+var _lock_add_fleet_item = Utils.Lock.new()
 
 const FLEET_COST = 10
 
@@ -22,18 +23,28 @@ func _on_system_selected(system, old_system):
 	refresh_data(system)
 
 func refresh_data(system):
+	# because of the yield it is possible to add the nodes multiple times 
+	# the lock prevents that
+	if not _lock_add_fleet_item.try_lock():
+		return # we do not have to retry as the data are taken after the yield
 	for f in $ScrollContainer/HBoxContainer/Fleets.get_children(): f.queue_free()
-	if system == null:
+	# we need to wait one frame for objects to be deleted before inserting new
+	# otherwise name get duplicated as queue_free() does not free the node imediatly
+	yield(get_tree(),"idle_frame")
+	if system == null || system.id == null:
 		$ScrollContainer/HBoxContainer/FleetCreationButton.set_visible(false)
+		_lock_add_fleet_item.unlock()
 		return
+	var system_refreshed =Store._state.game.systems[system.id] # refresh the data in the case where the data changed after the yield
 	var create_fleet_button = $ScrollContainer/HBoxContainer/FleetCreationButton
 	create_fleet_button.set_visible(false)
-	if system.player != null:
-		var player = Store.get_game_player(system.player)
-		if system.player == Store._state.player.id:
+	if system_refreshed.player != null:
+		var player = Store.get_game_player(system_refreshed.player)
+		if system_refreshed.player == Store._state.player.id:
 			create_fleet_button.set_visible(true)
 			create_fleet_button.disabled = Store._state.player.wallet < FLEET_COST
-	for id in system.fleets: add_fleet_item(system.fleets[id])
+	for id in system_refreshed.fleets: add_fleet_item(system_refreshed.fleets[id])
+	_lock_add_fleet_item.unlock()
 
 func create_fleet():
 	if _create_fleet_lock.try_lock() != Utils.Lock.LOCK_STATE.OK:
