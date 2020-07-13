@@ -23,6 +23,9 @@ func _on_system_selected(system, old_system):
 
 func refresh_data(system):
 	for f in $ScrollContainer/HBoxContainer/Fleets.get_children(): f.queue_free()
+	# we need to wait one frame for objects to be deleted before inserting new
+	# otherwise name get duplicated as queue_free() does not free the node imediatly
+	yield(get_tree(),"idle_frame")
 	if system == null:
 		$ScrollContainer/HBoxContainer/FleetCreationButton.set_visible(false)
 		return

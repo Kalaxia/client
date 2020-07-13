@@ -35,7 +35,7 @@ func _get_flight_time_ms():
 	return (arrival_time - _time_departure)
 
 func _get_flight_ratio():
-	return (OS.get_system_time_msecs () - _time_departure) as float / _get_flight_time_ms() as float
+	return ((OS.get_system_time_msecs () - _time_departure) as float / _get_flight_time_ms() as float) if _get_flight_time_ms() != 0 else 1.0
 
 func _set_icone_texture():
 	$FleetPath/Follower/SpritesContainer/FleetIcon.faction = Store.get_game_player(fleet.player).faction
