@@ -78,7 +78,10 @@ func _ready():
 		if config_user.has_section_key(GRAPHICS_SECTION_NAME,MAXIMIZE_CONFIG_NAME):
 			OS.window_maximized = config_user.get_value(GRAPHICS_SECTION_NAME,MAXIMIZE_CONFIG_NAME)
 		if config_user.has_section_key(GRAPHICS_SECTION_NAME,FULLSCREEN_CONFIG_NAME):
-			OS.window_fullscreen = config_user.get_value(GRAPHICS_SECTION_NAME,FULLSCREEN_CONFIG_NAME)
+			var full_screen = config_user.get_value(GRAPHICS_SECTION_NAME,FULLSCREEN_CONFIG_NAME)
+			OS.window_fullscreen = full_screen
+			if not full_screen:
+				OS.center_window()
 		else:
 			OS.window_fullscreen = true
 		load_locale()

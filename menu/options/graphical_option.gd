@@ -35,6 +35,7 @@ func _on_fullscreen_pressed(is_fullscreen):
 	Config.set_config_window_fullscreen(is_fullscreen)
 	if ! is_fullscreen:
 		OS.set_window_size(Config.get_window_resolution_from_config())
+		OS.center_window()
 	_check_option_state()
 
 func _on_maximize_pressed(is_maximize):
