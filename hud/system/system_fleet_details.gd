@@ -29,15 +29,17 @@ func refresh_data(system):
 		return # we do not have to retry as the data are taken after the yield
 	for f in $ScrollContainer/HBoxContainer/Fleets.get_children(): f.queue_free()
 	# we need to wait one frame for objects to be deleted before inserting new
-	# otherwise name get duplicated as queue_free() does not free the node imediatly
-	yield(get_tree(),"idle_frame")
-	if system == null || system.id == null:
-		$ScrollContainer/HBoxContainer/FleetCreationButton.set_visible(false)
-		_lock_add_fleet_item.unlock()
-		return
-	var system_refreshed =Store._state.game.systems[system.id] # refresh the data in the case where the data changed after the yield
+	# otherwise name get duplicated as queue_free() does not free the node immediately
+	while $ScrollContainer/HBoxContainer/Fleets.get_child_count() > 0 :
+		yield($ScrollContainer/HBoxContainer/Fleets.get_child(0),"tree_exited")
 	var create_fleet_button = $ScrollContainer/HBoxContainer/FleetCreationButton
 	create_fleet_button.set_visible(false)
+	if system == null || system.id == null:
+		_lock_add_fleet_item.unlock()
+		return
+	var system_refreshed = Store._state.selected_system # refresh the data in the case where the data changed after the yield
+	if system_refreshed == null:
+		return
 	if system_refreshed.player != null:
 		var player = Store.get_game_player(system_refreshed.player)
 		if system_refreshed.player == Store._state.player.id:
@@ -65,7 +67,8 @@ func add_fleet_item(fleet):
 	fleet_node.set_name(fleet.id)
 	fleet_node.fleet = fleet
 	$ScrollContainer/HBoxContainer/Fleets.add_child(fleet_node)
-	Store.select_fleet(fleet)
+	if ( Store._state.selected_fleet == null or Store._state.selected_fleet.system != Store._state.selected_system.id ) and fleet.player == Store._state.player.id:
+		Store.select_fleet(fleet)
 
 func _on_fleet_created(fleet):
 	if Store._state.selected_system == null || fleet.system != Store._state.selected_system.id:
@@ -90,7 +93,8 @@ func _on_fleet_erased(fleet):
 		refresh_data(Store._state.selected_system)
 
 func _on_fleet_update(fleet):
-	refresh_data(Store._state.selected_system)
+	if fleet.system == Store._state.selected_system.id:
+		refresh_data(Store._state.selected_system)
 
 func _on_system_update(system):
 	if system.id == Store._state.selected_system.id:
