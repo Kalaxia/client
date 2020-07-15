@@ -36,18 +36,21 @@ func _on_changed():
 	update()
 
 func _is_inside(position):
-	var rel_to_center : Vector2 = position - rect_size / 2.0 
-	if rect_size.x == 0 || rect_size.y == 0:
+	var rel_to_center : Vector2 = position - rect_size * rect_scale / 2.0 
+	if rect_size.x * rect_scale.x == 0 || rect_size.y * rect_scale.y == 0:
 		return false
 	# this is the vector corrected with the aspect ration of the box size
 	# rect_size.tangent().abs() juste swap the coordinates (as rect_size has both component > 0)
-	var vector_to_compute_angle = rel_to_center * rect_size.tangent().abs().normalized()
+	var vector_to_compute_angle = rel_to_center * (rect_size * rect_scale.abs()).tangent().abs().normalized()
+	# correction for the sign of the angle
+	var sign_correction = sign(rect_scale.x) * sign(rect_scale.y)
+	var angle_correction =  (PI if sign(rect_scale.x) < 0 else 0.0)
 	# we need to take -angle because when we convert deg to rad we chnage the orientation 
 	# degrees grows in the anti trigo orientation (clockwise)
-	var angle = fposmod(-vector_to_compute_angle.angle_to(Vector2.RIGHT), 2 * PI)
-	var angle_1 = fposmod(deg2rad(min(angle_start, angle_end)), 2 * PI)
+	var angle = fposmod(-vector_to_compute_angle.angle_to(Vector2.RIGHT) * sign_correction + angle_correction, 2 * PI)
+	var angle_1 = fposmod(deg2rad(min(angle_start, angle_end )), 2 * PI)
 	var angle_2 = fposmod(deg2rad(max(angle_start, angle_end)), 2 * PI)
-	var radius = rel_to_center.length() / (rect_size * Vector2(cos(angle), sin(angle)  ) / 2.0).length()
+	var radius = rel_to_center.length() / (rect_scale * rect_size * Vector2(cos(angle), sin(angle)  ) / 2.0).length()
 	# as we take the mod of the angle angle_1 can be greater angle_2
 	# in that case we need to check that angle is not between [angle_2, angle_1]
 	return radius <= radius_out and radius >= radius_in and ((angle_1 <= angle_2 and angle >= angle_1 and angle <= angle_2) or (angle_1 > angle_2 and not (angle >= angle_2 and angle <= angle_1) ) )

@@ -36,9 +36,6 @@ func _input(event):
 				else:
 					_mouse_exited_area()
 					emit_signal("mouse_exited_area")
-	else:
-		# manage other event in the heritage
-		._input(event)
 
 func _is_inside(position : Vector2) -> bool:
 	# this dertermine the area where the button is
