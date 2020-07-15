@@ -20,17 +20,18 @@ const _SCALE_CHANGE_FACTOR = 5.0
 
 
 func _ready():
+	$Range.visible = false
 	set_position(Vector2(system.coordinates.x * Utils.SCALE_SYSTEMS_COORDS, system.coordinates.y * Utils.SCALE_SYSTEMS_COORDS))
 	_set_system_texture()
 	_modulate_color(1.0)
-	$Star.connect("input_event", self, "_on_input_event")
+	$Star.connect("mouse_input", self, "_on_mouse_input")
 	$Star.connect("mouse_entered", self, "_on_mouse_entered")
 	$Star.connect("mouse_exited", self, "_on_mouse_exited")
 	Store.connect("fleet_selected", self, "_on_fleet_selected")
 	Store.connect("fleet_unselected", self, "_on_fleet_unselected")
 	var scale_factor = (1.0/ scale.x) if scale.x != 0 else 0
 	var scale_range = Utils.FLEET_RANGE * Utils.SCALE_SYSTEMS_COORDS * scale_factor
-	$Range/Sprite.scale = Vector2(scale_range,scale_range) / 400.0
+	$Range.scale = Vector2(scale_range,scale_range)
 	_set_crown_state()
 	if system.player == Store._state.player.id:
 		Store.select_system(system)
@@ -68,17 +69,17 @@ func _set_system_texture():
 		$Star/Spot.texture = Utils.TEXTURE_SYSTEM[system.kind][Store.get_game_player(system.player).faction as int]
 
 func _scale_star_system(factor):
-	$Star.set_scale(Vector2(scale_ratio * factor, scale_ratio * factor))
+	$Star.rect_scale = Vector2(scale_ratio * factor, scale_ratio * factor)
 	$FleetPins.rect_position = BASE_POSITION_PIN * factor * scale_ratio
 
 func _set_target_scale(factor):
 	_target_scale = factor
 
 func _on_fleet_selected(fleet):
-	$Range/Sprite.visible = (fleet.system == system.id)
+	$Range.visible = (fleet.system == system.id)
 
 func _on_fleet_unselected():
-	$Range/Sprite.visible = false
+	$Range.visible = false
 
 func _modulate_color(alpha):
 	var star_sprite = get_node("Star")
@@ -121,7 +122,7 @@ func refresh():
 	get_node("Star/Crown").visible = (system.player == Store._state.player.id)
 	refresh_scale()
 
-func _on_input_event(viewport, event, shape_idx):
+func _on_mouse_input(event):
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.get_button_index() == BUTTON_LEFT:
 			Store.select_system(system)
