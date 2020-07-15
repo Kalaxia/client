@@ -36,21 +36,18 @@ func _on_changed():
 	update()
 
 func _is_inside(position):
-	var rel_to_center : Vector2 = position - rect_size * rect_scale / 2.0 
-	if rect_size.x * rect_scale.x == 0 || rect_size.y * rect_scale.y == 0:
+	var rel_to_center : Vector2 = position -  get_rect().size / 2.0 
+	if rect_size.x == 0 or rect_size.y == 0:
 		return false
 	# this is the vector corrected with the aspect ration of the box size
 	# rect_size.tangent().abs() juste swap the coordinates (as rect_size has both component > 0)
-	var vector_to_compute_angle = rel_to_center * (rect_size * rect_scale.abs()).tangent().abs().normalized()
-	# correction for the sign of the angle
-	var sign_correction = sign(rect_scale.x) * sign(rect_scale.y)
-	var angle_correction =  (PI if sign(rect_scale.x) < 0 else 0.0)
+	var vector_to_compute_angle = rel_to_center * (get_rect().size ).tangent().abs().normalized()
 	# we need to take -angle because when we convert deg to rad we chnage the orientation 
 	# degrees grows in the anti trigo orientation (clockwise)
-	var angle = fposmod(-vector_to_compute_angle.angle_to(Vector2.RIGHT) * sign_correction + angle_correction, 2 * PI)
+	var angle = fposmod(-vector_to_compute_angle.angle_to(Vector2.RIGHT), 2 * PI)
 	var angle_1 = fposmod(deg2rad(min(angle_start, angle_end )), 2 * PI)
 	var angle_2 = fposmod(deg2rad(max(angle_start, angle_end)), 2 * PI)
-	var radius = rel_to_center.length() / (rect_scale * rect_size * Vector2(cos(angle), sin(angle)  ) / 2.0).length()
+	var radius = rel_to_center.length() / (get_rect().size * Vector2(cos(angle), sin(angle)  ) / 2.0).length()
 	# as we take the mod of the angle angle_1 can be greater angle_2
 	# in that case we need to check that angle is not between [angle_2, angle_1]
 	return radius <= radius_out and radius >= radius_in and ((angle_1 <= angle_2 and angle >= angle_1 and angle <= angle_2) or (angle_1 > angle_2 and not (angle >= angle_2 and angle <= angle_1) ) )
@@ -170,7 +167,7 @@ func _get_left_border(width = 1.0, details = 8, border_scale = false):
 	else:
 		 angle_diff_inner = angle_diff_outer # if we scale the border then the angle_diff should be the same
 		# we choose to take the outer one, meaning the border will nerver be greater than width
-	for i in range(details+1): # arc innder
+	for i in range(details+1): # arc inner
 		var unit_vect_angle = Vector2(cos(deg2rad(angle_start) + sign_inner * (details-i) * angle_diff_inner / details), sin(deg2rad(angle_start) + sign_inner*  (details-i) * angle_diff_inner / details )) 
 		points_arc.push_back(center + unit_vect_angle * radius_in * rect_size/2.0)
 	return points_arc
@@ -191,7 +188,7 @@ func _get_right_border(width = 1.0, details = 8, border_scale = false):
 			angle_diff_inner = 0.0
 	else:
 		 angle_diff_inner = angle_diff_outer # see _get_left_border
-	for i in range(details+1): # arc innder
+	for i in range(details+1): # arc inner
 		var unit_vect_angle = Vector2(cos(deg2rad(angle_end) + sign_inner * (details-i) * angle_diff_inner / details), sin(deg2rad(angle_end) + sign_inner*  (details-i) * angle_diff_inner / details )) 
 		points_arc.push_back(center + unit_vect_angle * radius_in * rect_size/2.0)
 	return points_arc
@@ -209,10 +206,14 @@ func set_radius_in(new_radius):
 	update()
 
 func set_angle_end(new_angle):
+	if new_angle >= angle_start + 360.0 or new_angle <= angle_start - 360.0:
+		return
 	angle_end = new_angle
 	update()
 
 func set_angle_start(new_angle):
+	if new_angle >= angle_end + 360.0 or new_angle <= angle_end - 360.0:
+		return
 	angle_start = new_angle
 	update()
 

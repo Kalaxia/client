@@ -8,5 +8,5 @@ func _ready():
 	._ready()
 
 func _is_inside(position):
-	var rel_to_center = position - rect_size * rect_scale / 2.0 
-	return rel_to_center.length() < min(rect_size.x * abs(rect_scale.x) / 2.0, rect_size.y * abs(rect_scale.y) / 2.0)
+	var rel_to_center = position - get_rect().size  / 2.0
+	return rel_to_center.length() < min(get_global_rect().size.x/ 2.0, get_global_rect().size.y / 2.0)

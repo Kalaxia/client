@@ -168,15 +168,14 @@ func sort_children():
 	angle_start = angle_start + angle_start_offset
 	angle_end = angle_end + angle_end_offset
 	# position of circular button
+	var number_current_button = 0
 	# this will be usefull later, this determine the correction of the center node if it is not clipped
 	var clip_correction = center_node.rect_size/2.0 if not clip_center_node else Vector2(0.0, 0.0)
 	for i in range(get_child_count()-number_of_centered_node):
 		var node = get_child(i)
 		if node is CircularButton and node.visible:
-			node.set_margins_preset(Control.PRESET_TOP_LEFT) # this is juste tpo reste the anchors and margins
-			node.set_anchors_preset(Control.PRESET_TOP_LEFT) 
-			node.angle_start = angle_start + i * (angle_end-angle_start) / number_of_circular_button
-			node.angle_end = angle_start + (i+1) * (angle_end-angle_start) / number_of_circular_button
+			node.angle_start = angle_start + number_current_button * (angle_end-angle_start) / number_of_circular_button
+			node.angle_end = angle_start + (number_current_button + 1) * (angle_end-angle_start) / number_of_circular_button
 			if is_in_corner:
 				# we find the rect site : this is the size of the container minus the clip correction
 				node.rect_size = (rect_size - clip_correction) *2.0
@@ -195,6 +194,7 @@ func sort_children():
 				var radius_in_y_dirr = (center_node.rect_size.y)  / (rect_size.y - clip_correction.y)  * aspect_ratio_ideal.x
 				node.radius_in = max(radius_in_x_dirr,radius_in_y_dirr) * radius_ratio # this time we take the max
 			node.rect_position = center_node.rect_size / 2.0 + center_node.rect_position - node.rect_size/2.0 # we ceneter the button on the center of center_node
+			number_current_button = number_current_button + 1
 
 func set_radius_ratio(new_ratio):
 	if new_ratio < 0.0 :
