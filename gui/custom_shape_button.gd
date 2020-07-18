@@ -3,6 +3,7 @@ extends Control
 class_name CustomShapeButton
 
 var _hover = false
+var selected = false setget set_selected
 
 signal pressed()
 signal mouse_input(event)
@@ -28,14 +29,16 @@ func has_point(point):
 	return _is_inside(point)
 
 func _pressed():
-	pass
+	selected = not selected
 
 func _mouse_entered_area():
 	_hover = true
 	update()
-	pass
 
 func _mouse_exited_area():
 	_hover = false
 	update()
-	pass
+
+func set_selected(new_selected):
+	selected = new_selected
+	update()

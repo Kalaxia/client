@@ -15,6 +15,7 @@ export(bool) var does_border_scale = false setget set_does_border_scale
 
 export(StyleBoxFlat) var base_style setget set_base_style
 export(StyleBoxFlat) var hover_style setget set_hover_style
+export(StyleBoxFlat) var selected_style setget set_selected_style
 
 export(Texture) var texture setget set_texture
 export(Vector2) var texture_size setget set_texture_size
@@ -26,6 +27,8 @@ func _ready():
 	# we ned to do this verifiaction because of the this is a tool and the editor can call _ready multiple time
 	if base_style != null and not base_style.is_connected("changed",self,"_on_changed"):
 		base_style.connect("changed",self,"_on_changed")
+	if selected_style != null and not selected_style.is_connected("changed",self,"_on_changed"):
+		selected_style.connect("changed",self,"_on_changed")
 	if hover_style != null and not hover_style.is_connected("changed",self,"_on_changed"):
 		hover_style.connect("changed",self,"_on_changed")
 	if texture != null and not texture.is_connected("changed",self,"_on_changed"):
@@ -68,9 +71,15 @@ func _draw():
 	var shadow_offseet = Vector2(0,0)
 	var anti_alaising = true
 	var draw_center = true
-	var style_active = hover_style if _hover else base_style
+	var style_active 
+	if selected:
+		style_active = selected_style
+	elif _hover:
+		style_active = hover_style
+	else:
+		style_active = base_style
 	if style_active == null or base_style is StyleBoxEmpty:
-		colors_bg = Color(0.5,0.5,0.5) if _hover else  Color(0.7,0.7,0.7)
+		colors_bg = Color(0.5,0.5,0.5) if (_hover or selected) else  Color(0.7,0.7,0.7)
 		color_border = Color(0.0, 0.0, 0.0)
 		border_width = [1,1,1,1]
 	else:
@@ -239,6 +248,14 @@ func set_texture(new_texture):
 	texture = new_texture
 	if texture != null:
 		texture.connect("changed",self,"_on_changed")
+	update()
+
+func set_selected_style(style):
+	if selected_style != null:
+		selected_style.disconnect("changed",self,"_on_changed")
+	selected_style = style
+	if selected_style != null:
+		selected_style.connect("changed",self,"_on_changed")
 	update()
 
 func set_texture_size(new_size):
