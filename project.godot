@@ -14,6 +14,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://audio/audio_stacking.gd"
 }, {
+"base": "CustomShapeButton",
+"class": "CircularButton",
+"language": "GDScript",
+"path": "res://gui/circular_button.gd"
+}, {
+"base": "Container",
+"class": "CircularContainer",
+"language": "GDScript",
+"path": "res://gui/container_circular.gd"
+}, {
+"base": "Control",
+"class": "CustomShapeButton",
+"language": "GDScript",
+"path": "res://gui/custom_shape_button.gd"
+}, {
 "base": "Control",
 "class": "FleetItem",
 "language": "GDScript",
@@ -28,12 +43,21 @@ _global_script_classes=[ {
 "class": "PlayerInfoFactionColumn",
 "language": "GDScript",
 "path": "res://matchmaking/player/player_info_faction_column.gd"
+}, {
+"base": "CustomShapeButton",
+"class": "TransparentCircleButton",
+"language": "GDScript",
+"path": "res://gui/transparent_circle_button.gd"
 } ]
 _global_script_class_icons={
 "AudioStacking": "",
+"CircularButton": "",
+"CircularContainer": "",
+"CustomShapeButton": "",
 "FleetItem": "",
 "OptionKeyBinding": "",
-"PlayerInfoFactionColumn": ""
+"PlayerInfoFactionColumn": "",
+"TransparentCircleButton": ""
 }
 
 [application]

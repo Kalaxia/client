@@ -26,23 +26,23 @@ func _ready():
 	set_visible(false)
 	var fleet_details = fleet_details_scene.instance()
 	$MenuSystem.add_child(fleet_details)
-	$System/Container/ButtonContainer/ButtonBuilding.connect("pressed",self,"_on_building_pressed")
-	$System/Container/ButtonContainer/ButtonFleet.connect("pressed",self,"_on_fleet_pressed")
+	$System/CircularContainer/Bluilding.connect("pressed",self,"_on_building_pressed")
+	$System/CircularContainer/Fleet.connect("pressed",self,"_on_fleet_pressed")
 
 func _on_system_selected(system, old_system):
 	set_visible(true)
 	refresh_data(system)
 
 func refresh_data(system):
-	var player_node = $System/Container/ContainerSystem/PlayerName
+	var player_node = $System/CircularContainer/ContainerSystem/PlayerName
 	var player = null
 	if system.player != null:
 		player = Store.get_game_player(system.player)
 		player_node.text = player.username
 	else:
 		player_node.text = ""
-	$System/Container/ContainerSystem/TextureRect.texture = _TEXTURE_SYSTEM[system.kind][0 if player == null else player.faction as int]
-	$System/Container/ContainerSystem/TextureRect.modulate = Store.get_player_color(player, system.kind == "VictorySystem")
+	$System/CircularContainer/ContainerSystem/TextureRect.texture = _TEXTURE_SYSTEM[system.kind][0 if player == null else player.faction as int]
+	$System/CircularContainer/ContainerSystem/TextureRect.modulate = Store.get_player_color(player, system.kind == "VictorySystem")
 
 func _on_victory(data):
 	set_visible(false)
@@ -54,16 +54,16 @@ func _on_system_update(system):
 func _on_building_pressed():
 	for node in $MenuSystem.get_children():
 		node.queue_free()
-	if $System/Container/ButtonContainer/ButtonBuilding.pressed:
-		$System/Container/ButtonContainer/ButtonFleet.pressed = false
+	if $System/CircularContainer/Bluilding.selected:
+		$System/CircularContainer/Fleet.selected = false
 		$MenuSystem.add_child(building_details_scene.instance())
 		
 
 func _on_fleet_pressed():
 	for node in $MenuSystem.get_children():
 		node.queue_free()
-	if $System/Container/ButtonContainer/ButtonFleet.pressed:
-		$System/Container/ButtonContainer/ButtonBuilding.pressed = false
+	if $System/CircularContainer/Fleet.selected:
+		$System/CircularContainer/Bluilding.selected = false
 		$MenuSystem.add_child(fleet_details_scene.instance())
 
 
