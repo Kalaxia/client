@@ -1,6 +1,6 @@
 extends Control
 
-var fleet_item_scene = preload("res://hud/system/fleet_item.tscn")
+var fleet_item_scene = preload("res://hud/system/fleet/fleet_item.tscn")
 var _create_fleet_lock = Utils.Lock.new()
 var _lock_add_fleet_item = Utils.Lock.new()
 
@@ -12,15 +12,27 @@ func _ready():
 	Store.connect("fleet_created", self, "_on_fleet_created")
 	Store.connect("fleet_update", self, "_on_fleet_update")
 	Store.connect("fleet_erased", self, "_on_fleet_erased")
+	Store.connect("fleet_selected", self, "_on_fleet_selected")
 	Store.connect("system_update", self, "_on_system_update")
 	Store.connect("fleet_sailed", self, "_on_fleet_sailed")
 	Network.connect("Victory", self, "_on_victory")
 	$ScrollContainer/HBoxContainer/FleetCreationButton.connect("pressed", self, "create_fleet")
 	$ScrollContainer/HBoxContainer/FleetCreationButton.set_visible(false)
 	refresh_data(Store._state.selected_system)
+	$HBoxContainer/HBoxContainer/MenuFleet.visible = false
 
 func _on_system_selected(system, old_system):
 	refresh_data(system)
+	# todo update hangar
+
+func _on_fleet_selected(fleet):
+	$HBoxContainer/HBoxContainer/MenuFleet.visible = false
+
+func _on_button_menu_fleet(fleet):
+	var visible_new = not $HBoxContainer/HBoxContainer/MenuFleet.visible or fleet.id != $HBoxContainer/HBoxContainer/MenuFleet.fleet.id
+	$HBoxContainer/HBoxContainer/MenuFleet.visible = visible_new
+	if visible_new:
+		$HBoxContainer/HBoxContainer/MenuFleet.fleet = fleet
 
 func refresh_data(system):
 	# because of the yield it is possible to add the nodes multiple times 
@@ -67,6 +79,7 @@ func add_fleet_item(fleet):
 	fleet_node.set_name(fleet.id)
 	fleet_node.fleet = fleet
 	$ScrollContainer/HBoxContainer/Fleets.add_child(fleet_node)
+	fleet_node.connect("pressed_open_ship_menu", self, "_on_button_menu_fleet")
 	if ( Store._state.selected_fleet == null or Store._state.selected_fleet.system != Store._state.selected_system.id ) and fleet.player == Store._state.player.id:
 		Store.select_fleet(fleet)
 
@@ -117,11 +130,11 @@ func _input(event):
 		var index = event.scancode - KEY_1
 		if Store._state.selected_system.fleets.size() > index:
 			Store.select_fleet(Store._state.selected_system.fleets.values()[index])
-	elif Store._state.selected_fleet != null && event.is_action_pressed("ui_add_ships"):
-		if has_node("ScrollContainer/HBoxContainer/Fleets/" + Store._state.selected_fleet.id):
-			var node = get_node("ScrollContainer/HBoxContainer/Fleets/" + Store._state.selected_fleet.id)
-			if Input.is_key_pressed(KEY_SHIFT):
-				node.add_ships(5)
-			else:
-				node.add_ships(1)
+#	elif Store._state.selected_fleet != null && event.is_action_pressed("ui_add_ships"):
+#		if has_node("ScrollContainer/HBoxContainer/Fleets/" + Store._state.selected_fleet.id):
+#			var node = get_node("ScrollContainer/HBoxContainer/Fleets/" + Store._state.selected_fleet.id)
+#			if Input.is_key_pressed(KEY_SHIFT):
+#				node.add_ships(5)
+#			else:
+#				node.add_ships(1)
 

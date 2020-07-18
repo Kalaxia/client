@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://hud/system/buildings/hangar.gd" type="Script" id=1]
+[ext_resource path="res://hud/system/buildings/hangar/ship_type_build.tscn" type="PackedScene" id=4]
+
+[node name="Hangar" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShipProductionList" type="PanelContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 996.0
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ShipProductionList"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1913.0
+margin_bottom = 989.0
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ShipProductionList/ScrollContainer"]
+margin_right = 1906.0
+margin_bottom = 982.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ShipTypeList" type="PanelContainer" parent="."]
+margin_top = 1000.0
+margin_right = 1920.0
+margin_bottom = 1062.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ShipTypeList"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1913.0
+margin_bottom = 55.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ShipType" parent="ShipTypeList/VBoxContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1906.0
+margin_bottom = 48.0
+
+[node name="ShipHangar" type="PanelContainer" parent="."]
+margin_top = 1066.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_stretch_ratio = 0.5
+
+[node name="HBoxContainer" type="ScrollContainer" parent="ShipHangar"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1913.0
+margin_bottom = 7.0
+size_flags_vertical = 3
+scroll_vertical_enabled = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShipHangar/HBoxContainer"]
+margin_right = 1906.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ship_64px.png-651e8220804c725baf5ec4d2323909b5.stex"
+path="res://.import/frigate.svg-29bc4d2efaf198503b5f3105f61de273.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/assets/2d/picto/ship_64px.png"
-dest_files=[ "res://.import/ship_64px.png-651e8220804c725baf5ec4d2323909b5.stex" ]
+source_file="res://resources/assets/2d/picto/ships/frigate.svg"
+dest_files=[ "res://.import/frigate.svg-29bc4d2efaf198503b5f3105f61de273.stex" ]
 
 [params]
 

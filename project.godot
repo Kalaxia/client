@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "FleetItem",
 "language": "GDScript",
-"path": "res://hud/system/fleet_item.gd"
+"path": "res://hud/system/fleet/fleet_item.gd"
 }, {
 "base": "Control",
 "class": "OptionKeyBinding",
@@ -43,6 +43,11 @@ _global_script_classes=[ {
 "class": "PlayerInfoFactionColumn",
 "language": "GDScript",
 "path": "res://matchmaking/player/player_info_faction_column.gd"
+}, {
+"base": "PanelContainer",
+"class": "SelectablePanelContainer",
+"language": "GDScript",
+"path": "res://gui/slectable_panel_container.gd"
 }, {
 "base": "CustomShapeButton",
 "class": "TransparentCircleButton",
@@ -57,6 +62,7 @@ _global_script_class_icons={
 "FleetItem": "",
 "OptionKeyBinding": "",
 "PlayerInfoFactionColumn": "",
+"SelectablePanelContainer": "",
 "TransparentCircleButton": ""
 }
 

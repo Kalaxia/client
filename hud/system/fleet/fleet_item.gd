@@ -8,6 +8,8 @@ var theme_not_highlight = preload("res://themes/theme_main_square_button.tres")
 var _quantity = 0
 var _is_locked = Utils.Lock.new()
 
+signal pressed_open_ship_menu(fleet)
+
 const SHIP_COST = 10
 
 func _ready():
@@ -27,7 +29,9 @@ func _ready():
 	update_highlight_state()
 	
 func add_ship():
-	add_ships(1)
+	if Store._state.selected_fleet == null or Store._state.selected_fleet.id != fleet.id:
+		Store.select_fleet(fleet)
+	emit_signal("pressed_open_ship_menu",fleet)
 
 func add_ships(quantity):
 	# prevent keyboard shortcuts as well
@@ -84,7 +88,10 @@ func _on_fleet_unselected():
 
 func _on_fleet_update_nb_ships(fleet_param):
 	if fleet_param.id == fleet.id:
-		get_node("Container/Ships/NbShips").set_text(str(fleet.nb_ships))
+		var quantity = 0
+		for i in fleet_param.ship_group:
+			quantity +=  i.quantity
+		get_node("Container/Ships/NbShips").text = str(quantity)
 
 func update_highlight_state():
 	if Store._state.selected_fleet != null && Store._state.selected_fleet.id == fleet.id:

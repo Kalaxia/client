@@ -9,6 +9,21 @@ const BANNERS = {
 	3 : preload("res://resources/assets/2d/faction/adranite/banner.png"),
 }
 
+const SHIP_MODEL = [
+	"fighter",
+	"frigate",
+]
+
+const TEXTURE_SHIP_MODEL = {
+	"" : preload("res://resources/assets/2d/picto/ships/ship_64px.png"),
+	"fighter" : preload("res://resources/assets/2d/picto/ships/fighter.svg"),
+	"frigate" : preload("res://resources/assets/2d/picto/ships/frigate.svg"),
+}
+
+const SHIP_PRICES = {
+	"fighter" : 10,
+	"frigate" : 100,
+}
 
 class Lock:
 	extends Reference
@@ -54,7 +69,7 @@ func get_label_of_event(event):
 		return tr("action.key.mouse_key_" + (event.button_index as String))
 	return ""
 
-func set_window_resizable(is_resizable):
+static func set_window_resizable(is_resizable):
 	var size = OS.window_size
 	var position = OS.window_position
 	if OS.window_resizable == is_resizable:
