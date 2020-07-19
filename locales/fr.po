@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-19 10:53+0200\n"
-"PO-Revision-Date: 2020-07-19 11:05+0200\n"
+"POT-Creation-Date: 2020-07-19 18:04+0200\n"
+"PO-Revision-Date: 2020-07-19 18:08+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -113,6 +113,18 @@ msgstr "Nouvelle partie"
 msgid "action.key.mouse_key_"
 msgstr ""
 
+#: gui/menu/menu_header.tscn:22 gui/menu/menu_header.tscn:54
+msgid "no_translate.menu_title"
+msgstr ""
+
+#: gui/menu/menu_header.tscn:63
+msgid "gui.menu.minimize"
+msgstr "minimizer"
+
+#: gui/menu/menu_header.tscn:73
+msgid "gui.menu.close"
+msgstr "fermer"
+
 #: hud/hud_menu.tscn:65
 msgid "hud.hud_menu.back_main_menu"
 msgstr "Retourner au menu principal"
@@ -137,11 +149,11 @@ msgstr "Scores"
 msgid "no_translate.player_name"
 msgstr ""
 
-#: hud/system/system_building_details.tscn:108
+#: hud/system/system_building_details.tscn:104
 msgid "hud.system_details.building.hangar"
 msgstr "Hangar"
 
-#: hud/system/system_building_details.tscn:163
+#: hud/system/system_building_details.tscn:159
 msgid "hud.system_details.building.shipyard"
 msgstr ""
 
@@ -149,28 +161,33 @@ msgstr ""
 msgid "hud.system.add_fleet"
 msgstr "Ajouter une flotte"
 
-#: hud/system/buildings/hangar.tscn:28
+#: hud/system/buildings/hangar.tscn:22
+#, fuzzy
+msgid "hud.details.building.hangar.menu_title"
+msgstr "Commande de vaisseaux"
+
+#: hud/system/buildings/hangar.tscn:41
 msgid "hud.details.building.hangar.production_line"
 msgstr "Fille de production :"
 
-#: hud/system/buildings/hangar.tscn:59
+#: hud/system/buildings/hangar.tscn:72
 msgid "hud.details.building.hangar.order_ship"
 msgstr "Commande de vaisseaux"
 
-#: hud/system/buildings/hangar.tscn:83
+#: hud/system/buildings/hangar.tscn:96
 msgid "hud.details.building.hangar.hangar_ship"
 msgstr "Vaisseaux dans le hangar"
 
 #: hud/system/buildings/hangar/ship_production_line.gd:27
-#: hud/system/buildings/hangar/ship_production_line.tscn:88
+#: hud/system/buildings/hangar/ship_production_line.tscn:92
 #, python-format
 msgid "hud.details.building.hangar.number_of_ships %d"
 msgstr "%d"
 
 #: hud/system/buildings/hangar/ship_production_line.gd:28
-#: hud/system/buildings/hangar/ship_production_line.tscn:58
+#: hud/system/buildings/hangar/ship_production_line.tscn:62
 #: hud/system/buildings/hangar/ship_type_build.gd:33
-#: hud/system/buildings/hangar/ship_type_build.tscn:50
+#: hud/system/buildings/hangar/ship_type_build.tscn:51
 #, python-format
 msgid "hud.details.building.hangar.ship_model %s"
 msgstr "Modèle : %s"
@@ -182,13 +199,13 @@ msgid "ship."
 msgstr ""
 
 #: hud/system/buildings/hangar/ship_production_line.gd:35
-#: hud/system/buildings/hangar/ship_production_line.tscn:123
+#: hud/system/buildings/hangar/ship_production_line.tscn:137
 #, python-format
 msgid "hud.details.building.hangar.time_remaining %d"
 msgstr "temps restant : %d s"
 
 #: hud/system/buildings/hangar/ship_type_build.gd:27
-#: hud/system/buildings/hangar/ship_type_build.tscn:101
+#: hud/system/buildings/hangar/ship_type_build.tscn:102
 #, python-format
 msgid "hud.details.building.hangar.price %d"
 msgstr "prix : %d"
@@ -201,7 +218,7 @@ msgstr "Commande impossible"
 msgid "notification.error.not_enought_cred.content"
 msgstr "Pas assez de credits"
 
-#: hud/system/buildings/hangar/ship_type_build.tscn:128
+#: hud/system/buildings/hangar/ship_type_build.tscn:129
 msgid "hud.system.building.hangar.build"
 msgstr "Commander"
 
@@ -211,11 +228,11 @@ msgstr "Commander"
 msgid "hud.details.building.hangar.number_of_ship %d"
 msgstr "%d"
 
-#: hud/system/fleet/fleet_item.tscn:73
+#: hud/system/fleet/fleet_item.tscn:74
 msgid "hud.fleet_item.open_menu"
 msgstr "Composition"
 
-#: hud/system/fleet/menu_fleet.tscn:22
+#: hud/system/fleet/menu_fleet.tscn:21
 msgid "hud.details.fleet.fleet_composition_assignation"
 msgstr "Assigner des vaisseaux à la flotte"
 
@@ -421,11 +438,11 @@ msgstr "%d joueurs"
 msgid "menu.loading.loading"
 msgstr "Chargement"
 
-#: matchmaking/lobby/lobby.tscn:134
+#: matchmaking/lobby/lobby.tscn:135
 msgid "menu.lobby.launch"
 msgstr "Lancer"
 
-#: matchmaking/lobby/lobby.tscn:145
+#: matchmaking/lobby/lobby.tscn:146
 msgid "menu.lobby.quit"
 msgstr "Quitter"
 
@@ -477,6 +494,14 @@ msgstr "Serveur Discord"
 #: menu/menu_credits.tscn:80
 msgid "menu.credits.dev_comunity_label"
 msgstr "Développé par la communauté de Kalaxia"
+
+#: menu/menu_credits.tscn:102
+msgid "https://kalaxia.org"
+msgstr ""
+
+#: menu/menu_credits.tscn:119
+msgid "https://discord.com/invite/mDTms5c"
+msgstr ""
 
 #: menu/menu_credits.tscn:140
 msgid "menu.credits.legal_notice_godot"

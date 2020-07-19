@@ -37,7 +37,7 @@ func _deselect_other_building(node = null):
 	for node in $MenuSelectedBuilding.get_children() :
 		node.queue_free()
 	for buiding_panel in _building_panel_list:
-		if node != null and buiding_panel.name != node.name:
+		if node == null or buiding_panel.name != node.name:
 			buiding_panel.is_selected = false
 
 func _on_hangar_pressed():

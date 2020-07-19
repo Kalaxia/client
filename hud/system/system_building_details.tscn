@@ -43,23 +43,23 @@ size_flags_stretch_ratio = 3.0
 [node name="MenuSelectedBuilding" type="MarginContainer" parent="."]
 margin_top = 14.0
 margin_right = 1920.0
-margin_bottom = 785.0
+margin_bottom = 870.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 3.0
+size_flags_stretch_ratio = 5.0
 custom_constants/margin_right = 30
 custom_constants/margin_left = 30
 
 [node name="Control2" type="Control" parent="."]
-margin_top = 789.0
+margin_top = 874.0
 margin_right = 1920.0
-margin_bottom = 819.0
+margin_bottom = 904.0
 rect_min_size = Vector2( 30, 30 )
 mouse_filter = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-margin_top = 823.0
+margin_top = 908.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 0, 80 )
@@ -70,7 +70,7 @@ scroll_vertical_enabled = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
 margin_right = 1920.0
-margin_bottom = 257.0
+margin_bottom = 172.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -79,7 +79,7 @@ alignment = 2
 [node name="Hangar" type="PanelContainer" parent="ScrollContainer/HBoxContainer"]
 margin_left = 1681.0
 margin_right = 1920.0
-margin_bottom = 257.0
+margin_bottom = 172.0
 script = ExtResource( 2 )
 base_style = ExtResource( 3 )
 hover_style = ExtResource( 5 )
@@ -89,33 +89,33 @@ slected_style = ExtResource( 4 )
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 232.0
-margin_bottom = 250.0
+margin_bottom = 165.0
 
 [node name="Control" type="Control" parent="ScrollContainer/HBoxContainer/Hangar/VBoxContainer"]
 margin_right = 225.0
-margin_bottom = 83.0
+margin_bottom = 40.0
 mouse_filter = 1
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/Hangar/VBoxContainer"]
-margin_top = 87.0
+margin_top = 44.0
 margin_right = 225.0
-margin_bottom = 101.0
+margin_bottom = 58.0
 text = "hud.system_details.building.hangar"
 align = 1
 valign = 1
 
 [node name="Control2" type="Control" parent="ScrollContainer/HBoxContainer/Hangar/VBoxContainer"]
-margin_top = 105.0
+margin_top = 62.0
 margin_right = 225.0
-margin_bottom = 120.0
+margin_bottom = 77.0
 rect_min_size = Vector2( 0, 15 )
 mouse_filter = 1
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/HBoxContainer/Hangar/VBoxContainer"]
-margin_top = 124.0
+margin_top = 81.0
 margin_right = 225.0
-margin_bottom = 156.0
+margin_bottom = 113.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_stretch_ratio = 2.0
 texture = SubResource( 1 )
@@ -123,9 +123,9 @@ expand = true
 stretch_mode = 6
 
 [node name="Control3" type="Control" parent="ScrollContainer/HBoxContainer/Hangar/VBoxContainer"]
-margin_top = 160.0
+margin_top = 117.0
 margin_right = 225.0
-margin_bottom = 243.0
+margin_bottom = 158.0
 mouse_filter = 1
 size_flags_vertical = 3
 

@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://hud/system/system_fleet_details.gd" type="Script" id=1]
 [ext_resource path="res://hud/system/fleet/menu_fleet.tscn" type="PackedScene" id=2]
+[ext_resource path="res://gui/menu/menu_header.tscn" type="PackedScene" id=3]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/picto_flotte_2.png-7690f89049c3d62083c913b47bdc6ade.stex"
 
 [node name="SystemFleetDetails" type="VBoxContainer"]
 anchor_right = 1.0
@@ -34,9 +39,16 @@ alignment = 2
 [node name="MenuFleet" parent="HBoxContainer/HBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 1584.0
+margin_left = 1457.0
 margin_right = 1820.0
 margin_bottom = 886.0
+
+[node name="MenuHeader" parent="HBoxContainer/HBoxContainer/MenuFleet" instance=ExtResource( 3 )]
+margin_right = 363.0
+margin_bottom = 31.0
+text = "hud.details.fleet.fleet_composition_assignation"
+closable = false
+texture = SubResource( 1 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 margin_top = 900.0

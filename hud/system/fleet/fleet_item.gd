@@ -82,17 +82,17 @@ func _on_fleet_unselected():
 	update_highlight_state()
 
 func _on_fleet_update_nb_ships(fleet_param):
-	if fleet_param.id == fleet.id:
+	if fleet_param.id == fleet.id or fleet.ship_groups == null:
 		var quantity = 0
-		for i in fleet_param.ship_group:
+		for i in fleet_param.ship_groups:
 			quantity +=  i.quantity
 		get_node("Container/Ships/NbShips").text = str(quantity)
 
 func update_quantity():
-	if fleet == null:
+	if fleet == null or fleet.ship_groups == null:
 		return
 	var quantity = 0
-	for i in fleet.ship_group:
+	for i in fleet.ship_groups:
 		quantity +=  i.quantity
 	get_node("Container/Ships/NbShips").text = str(quantity)
 

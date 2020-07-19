@@ -63,7 +63,7 @@ func build_ship(quantity):
 func _on_ship_build_requested(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
-	if response_code == HTTPClient.RESPONSE_CREATED:
+	if response_code == HTTPClient.RESPONSE_CREATED or response_code == HTTPClient.RESPONSE_OK:
 		var result = JSON.parse(body.get_string_from_utf8()).result
 		Store.update_wallet(-Utils.SHIP_PRICES[_model_orderred] * _quantity_orderred)
 		_quantity_orderred = 0

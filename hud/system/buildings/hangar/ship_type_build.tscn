@@ -2,13 +2,13 @@
 
 [ext_resource path="res://hud/system/buildings/hangar/ship_type_build.gd" type="Script" id=1]
 
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="StreamTexture" id=1]
+[sub_resource type="StreamTexture" id=2]
 flags = 4
 load_path = "res://.import/ship_64px.png-0d665bcf942a48fa390e6ccbc93bfc35.stex"
 
-[sub_resource type="StreamTexture" id=2]
+[sub_resource type="StreamTexture" id=3]
 flags = 4
 load_path = "res://.import/money_64px.png-14695073b2b7bd4dbc437a5f1f5458b7.stex"
 
@@ -31,7 +31,7 @@ margin_left = 10.0
 margin_top = 5.0
 margin_right = 1910.0
 margin_bottom = 1075.0
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 margin_right = 1900.0
@@ -64,7 +64,7 @@ margin_right = 352.0
 margin_bottom = 551.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 4
-texture = SubResource( 1 )
+texture = SubResource( 2 )
 expand = true
 stretch_mode = 6
 
@@ -109,7 +109,7 @@ margin_right = 758.0
 margin_bottom = 545.0
 rect_min_size = Vector2( 20, 20 )
 size_flags_vertical = 4
-texture = SubResource( 2 )
+texture = SubResource( 3 )
 expand = true
 stretch_mode = 6
 

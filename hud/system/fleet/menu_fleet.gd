@@ -46,11 +46,11 @@ func update_hangar():
 	)
 
 func update_element_fleet():
-	if fleet == null:
+	if fleet == null or fleet.ship_groups == null:
 		for node in ship_group_element_container.get_children():
 			node.quantity_fleet = 0
 	else:
-		for i in fleet.ship_group:
+		for i in fleet.ship_groups:
 			ship_group_element_container.get_node(i.model).quantity_fleet = i.quantity
 
 func _on_ship_group_recieved(err, response_code, headers, body):

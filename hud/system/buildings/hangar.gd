@@ -9,9 +9,10 @@ const _SHIP_PRODUCTION_LINE = preload("res://hud/system/buildings/hangar/ship_pr
 const _SHIP_TYPE_BUILD = preload("res://hud/system/buildings/hangar/ship_type_build.tscn")
 const _SHIP_HANGARD = preload("res://hud/system/buildings/hangar/ship_type_hangar.tscn")
 
-onready var production_list_vbox_elements = $ShipProductionList/VBoxContainer/ScrollContainer/VBoxContainer
-onready var ship_order_element = $ShipOrder/VBoxContainer/ShipTypeBuild
-onready var hangar_element = $ShipHangar/VBoxContainer/ScrollContainer/HBoxContainer
+
+onready var production_list_vbox_elements = $PanelContainer/VBoxContainer/ShipProductionList/VBoxContainer/ScrollContainer/VBoxContainer
+onready var ship_order_element = $PanelContainer/VBoxContainer/ShipOrder/VBoxContainer/ShipTypeBuild
+onready var hangar_element = $PanelContainer/VBoxContainer/ShipHangar/VBoxContainer/ScrollContainer/HBoxContainer
 onready var menu_header = $MenuHeader
 
 signal closed()
@@ -76,7 +77,9 @@ func _on_ship_queue_finished(ship_data):
 			return
 
 func _on_ship_construction_started(ship_queue):
-	add_ship_queue(ship_queue)
+	print(ship_queue)
+	if ship_queue != null:
+		add_ship_queue(ship_queue)
 
 func select_group(model):
 	if hangar_element.has_node(model):
