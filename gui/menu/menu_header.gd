@@ -1,4 +1,7 @@
+tool
 extends PanelContainer
+
+class_name MenuHeader, "res://resources/editor/menu_header.svg"
 
 export(String, MULTILINE) var text = "" setget set_text
 export(bool) var closable = true setget set_closable
@@ -17,6 +20,8 @@ func _ready():
 	button_close.connect("pressed",self,"_request_close")
 	button_minimize.connect("pressed", self, "_request_minimize")
 	update_elements()
+	if Engine.editor_hint:
+		self.set_owner(get_tree().edited_scene_root)
 
 func update_elements():
 	button_close.visible = closable

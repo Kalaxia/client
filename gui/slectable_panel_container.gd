@@ -1,6 +1,6 @@
 extends PanelContainer
 
-class_name SelectablePanelContainer
+class_name SelectablePanelContainer, "res://resources/editor/selectable_container.svg"
 
 export(StyleBox) var base_style
 export(StyleBox) var hover_style

@@ -44,6 +44,7 @@ size_flags_stretch_ratio = 3.0
 margin_top = 14.0
 margin_right = 1920.0
 margin_bottom = 785.0
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
@@ -73,12 +74,7 @@ margin_bottom = 257.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="Control" type="Control" parent="ScrollContainer/HBoxContainer"]
-margin_right = 1677.0
-margin_bottom = 257.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+alignment = 2
 
 [node name="Hangar" type="PanelContainer" parent="ScrollContainer/HBoxContainer"]
 margin_left = 1681.0

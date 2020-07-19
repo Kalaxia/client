@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://hud/system/fleet/fleet_item.gd"
 }, {
+"base": "PanelContainer",
+"class": "MenuHeader",
+"language": "GDScript",
+"path": "res://gui/menu/menu_header.gd"
+}, {
 "base": "Control",
 "class": "OptionKeyBinding",
 "language": "GDScript",
@@ -59,7 +64,8 @@ _global_script_class_icons={
 "CircularButton": "res://resources/editor/custom_circular_button.svg",
 "CircularContainer": "res://resources/editor/circular_container.svg",
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
-"FleetItem": "",
+"FleetItem": "res://resources/editor/fleet_item.svg",
+"MenuHeader": "res://resources/editor/menu_header.svg",
 "OptionKeyBinding": "",
 "PlayerInfoFactionColumn": "",
 "SelectablePanelContainer": "res://resources/editor/selectable_container.svg",

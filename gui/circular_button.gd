@@ -1,7 +1,7 @@
 tool
 extends CustomShapeButton
 
-class_name CircularButton
+class_name CircularButton, "res://resources/editor/custom_circular_button.svg"
 
 export(float) var angle_start = 0.0 setget set_angle_start
 export(float) var angle_end = 0.0 setget set_angle_end

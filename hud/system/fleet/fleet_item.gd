@@ -1,6 +1,6 @@
 extends Control
 
-class_name FleetItem
+class_name FleetItem, "res://resources/editor/fleet_item.svg"
 
 var fleet = null setget set_fleet
 var theme_highlight = preload("res://themes/theme_main_square_button_highlight.tres")
