@@ -53,8 +53,8 @@ func build_ship(quantity):
 		return
 	_quantity_orderred = quantity
 	_model_orderred = ship_model
-	Network.req(self,"_on_ship_build_requested",
-		"/games/"+ Store._state.game.id +"/systems/"+ Store._state.selected_system.id +"/ships/",
+	Network.req(self, "_on_ship_build_requested",
+		"/api/games/"+ Store._state.game.id + "/systems/" + Store._state.selected_system.id + "/ship-queues/",
 		HTTPClient.METHOD_POST,
 		[ "Content-Type: application/json" ],
 		JSON.print({"category" : ship_model, "quantity" : quantity})
