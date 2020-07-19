@@ -5,7 +5,7 @@
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
-load_path = "res://.import/ship_64px.png-0d665bcf942a48fa390e6ccbc93bfc35.stex"
+load_path = "res://.import/picto_flotte_2.png-7690f89049c3d62083c913b47bdc6ade.stex"
 
 [node name="FleetItem" type="PanelContainer"]
 anchor_right = 0.15625
@@ -57,17 +57,17 @@ stretch_mode = 6
 [node name="NbShips" type="Label" parent="Container/Ships"]
 margin_left = 36.0
 margin_top = 6.0
-margin_right = 121.0
+margin_right = 103.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 60, 0 )
 size_flags_horizontal = 3
 align = 2
 
-[node name="CreationButton" type="Button" parent="Container/Ships"]
-margin_left = 125.0
+[node name="ButtonMenu" type="Button" parent="Container/Ships"]
+margin_left = 107.0
 margin_top = 1.0
 margin_right = 296.0
 margin_bottom = 31.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_vertical = 4
-text = "hud.fleet_item.add_ship"
+text = "hud.fleet_item.open_menu"

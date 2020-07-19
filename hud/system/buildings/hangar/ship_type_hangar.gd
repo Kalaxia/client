@@ -25,7 +25,7 @@ func set_is_selected(selected):
 
 
 func update_quantity():
-	$SelectablePanelContainer/VBoxContainer/MarginContainer/Label.text = quantity as String
+	$SelectablePanelContainer/VBoxContainer/MarginContainer/Label.text = tr("hud.details.building.hangar.number_of_ship %d") % quantity
 
 func set_model(new_model):
 	if not Utils.SHIP_MODEL.has(new_model) and new_model != null:

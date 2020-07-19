@@ -10,12 +10,12 @@ func _ready():
 	update_quantities()
 
 func update_texture():
-	$PanelContainer/HBoxContainer/ShipModel.text = tr("ship." + ship_model)
+	$PanelContainer/HBoxContainer/ShipModel.text = tr("hud.details.fleet.ship_model %s") % tr("ship." + ship_model)
 	$PanelContainer/HBoxContainer/TextureModel.texture = Utils.TEXTURE_SHIP_MODEL[ship_model]
 
 func update_quantities():
-	$PanelContainer/HBoxContainer/ShipFleet/Label.text = quantity_fleet as String
-	$PanelContainer/HBoxContainer/ShipAvaliable/Label.text = (quantity_hangar + quantity_fleet) as String
+	$PanelContainer/HBoxContainer/ShipFleet/Label.text = tr("hud.details.fleet.number_of_ship_fleet %d") % quantity_fleet
+	$PanelContainer/HBoxContainer/ShipAvaliable/Label.text = tr("hud.details.fleet.number_of_ship_total %d") % (quantity_hangar + quantity_fleet)
 	$PanelContainer/HBoxContainer/SpinBox.max_value = quantity_hangar + quantity_fleet
 
 func _on_set_button():

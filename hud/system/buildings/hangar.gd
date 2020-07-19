@@ -9,6 +9,10 @@ const _SHIP_PRODUCTION_LINE = preload("res://hud/system/buildings/hangar/ship_pr
 const _SHIP_TYPE_BUILD = preload("res://hud/system/buildings/hangar/ship_type_build.tscn")
 const _SHIP_HANGARD = preload("res://hud/system/buildings/hangar/ship_type_hangar.tscn")
 
+onready var production_list_vbox_elements = $ShipProductionList/VBoxContainer/ScrollContainer/VBoxContainer
+onready var ship_order_element = $ShipOrder/VBoxContainer/ShipTypeBuild
+onready var hangar_element = $ShipHangar/VBoxContainer/ScrollContainer/HBoxContainer
+
 func _ready():
 	Network.connect("ShipQueueFinished",self,"_on_ship_queue_finished")
 	for model in Utils.SHIP_MODEL:
@@ -16,10 +20,10 @@ func _ready():
 		node.model = model
 		node.quantity = 0
 		node.name = model
-		$ShipHangar/HBoxContainer/HBoxContainer.add_child(node)
+		hangar_element.add_child(node)
 		node.connect("pressed", self, "select_group",[model])
 	select_group(Utils.SHIP_MODEL[0])
-	$ShipTypeList/VBoxContainer/ShipType.connect("ship_construction_started", self, "_on_ship_construction_started")
+	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
 	Network.req(self, "_on_ship_group_recieved"
 		, "/api/games/" +
 			Store._state.game.id+  "/systems/" +
@@ -43,7 +47,7 @@ func _on_ship_group_recieved(err, response_code, headers, body):
 func set_ship_group_array(new_array):
 	ship_group_array = new_array
 	for ship_group in ship_group_array:
-		$ShipHangar/HBoxContainer/HBoxContainer.get_node(ship_group.model).quantity = ship_group.quantity
+		hangar_element.get_node(ship_group.model).quantity = ship_group.quantity
 
 func _on_queue_ships_received(err, response_code, headers, body):
 	if err:
@@ -59,21 +63,20 @@ func _on_ship_queue_finished(ship_data):
 	for ship_group in ship_group_array:
 		if ship_group.model == ship_data.model:
 			ship_group.quantity += ship_data.quantity
-			$ShipHangar/HBoxContainer/HBoxContainer.get_node(ship_data.model).quantity = ship_group.quantity
+			hangar_element.get_node(ship_data.model).quantity = ship_group.quantity
 			return
 
 func _on_ship_construction_started(ship_queue):
 	add_ship_queue(ship_queue)
 
 func select_group(model):
-	if has_node("ShipHangar/HBoxContainer/HBoxContainer/" + model):
-		for node in $ShipHangar/HBoxContainer/HBoxContainer.get_children():
+	if hangar_element.has_node(model):
+		for node in hangar_element.get_children():
 			if node.name != model:
 				node.is_selected = false
 			else:
 				node.is_selected = true
-				var node_prod = $ShipTypeList/VBoxContainer.get_child(0)
-				node_prod.ship_model = model
+				ship_order_element.ship_model = model
 
 func set_ship_queue_array(new_array):
 	ship_queue_array = new_array
@@ -96,35 +99,34 @@ func _sort_queue_ship():
 
 func _sort_queue_ship_node():
 	for i in range(ship_queue_array.size()):
-		if $ShipProductionList/ScrollContainer/VBoxContainer.has_node(ship_queue_array[i].hash() as String):
-			$ShipProductionList/ScrollContainer/VBoxContainer.get_node(ship_queue_array[i].hash() as String).raise()
+		if production_list_vbox_elements.has_node(ship_queue_array[i].hash() as String):
+			production_list_vbox_elements.get_node(ship_queue_array[i].hash() as String).raise()
 
 func update_ship_queue():
 	# we lock to only update once until all node are free
 	if not _lock_ship_prod_update.try_lock():
 		return
-	var container_prod = $ShipProductionList/ScrollContainer/VBoxContainer
-	for node in container_prod.get_children():
+	for node in production_list_vbox_elements.get_children():
 		node.queue_free()
 	# we need to wait for objects to be deleted before inserting new
 	# otherwise name get duplicated as queue_free() does not free the node imediatly
-	while container_prod.get_child_count() > 0 :
-		yield(container_prod.get_child(0),"tree_exited")
+	while production_list_vbox_elements.get_child_count() > 0 :
+		yield(production_list_vbox_elements.get_child(0),"tree_exited")
 	_lock_ship_prod_update.unlock()
 	for ship_queue in ship_queue_array:
 		var ship_prod_node = _SHIP_PRODUCTION_LINE.instance()
 		ship_prod_node.name = ship_queue.hash() as String
 		ship_prod_node.ship_queue = ship_queue
-		container_prod.add_child(ship_prod_node)
+		production_list_vbox_elements.add_child(ship_prod_node)
 
 func remove_ship_queue_pos(pos):
 	if pos < 0 or pos >= ship_queue_array.size():
 		return
 	var element = ship_queue_array[pos]
 	ship_queue_array.remove(pos)
-	var does_node_exist = $ShipProductionList/ScrollContainer/VBoxContainer.has_node(element.hash() as String)
+	var does_node_exist = production_list_vbox_elements.has_node(element.hash() as String)
 	if does_node_exist:
-		$ShipProductionList/ScrollContainer/VBoxContainer.get_node(element.hash() as String).queue_free()
+		production_list_vbox_elements.get_node(element.hash() as String).queue_free()
 	return does_node_exist
 
 func remove_ship_queue_id(ship_queue_id):
@@ -137,7 +139,7 @@ func add_ship_queue(ship_queue):
 	var ship_prod_node = _SHIP_PRODUCTION_LINE.instance()
 	ship_prod_node.name = ship_queue.hash() as String
 	ship_prod_node.ship_queue = ship_queue
-	$ShipProductionList/ScrollContainer/VBoxContainer.add_child(ship_prod_node)
+	production_list_vbox_elements.add_child(ship_prod_node)
 	_sort_queue_ship()
 	_sort_queue_ship_node()
 

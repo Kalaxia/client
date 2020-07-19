@@ -64,12 +64,12 @@ custom_constants/margin_left = 20
 custom_constants/margin_bottom = 10
 
 [node name="Label" type="Label" parent="SelectablePanelContainer/VBoxContainer/MarginContainer"]
-margin_left = 865.0
+margin_left = 801.0
 margin_top = 10.0
-margin_right = 1039.0
+margin_right = 1102.0
 margin_bottom = 24.0
 size_flags_horizontal = 4
-text = "no_translate.numer_of_sips"
+text = "hud.details.building.hangar.number_of_ship %d"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

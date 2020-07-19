@@ -7,6 +7,8 @@ var system_id = null
 
 const _SHIP_GROUP_ELEMENT = preload("res://hud/system/fleet/ship_group_fleet_menu.tscn")
 
+onready var ship_group_element_container = $VBoxContainer/ScrollContainer/VBoxContainer
+
 func _ready():
 	Store.connect("fleet_update_nb_ships",self,"_on_fleet_update_nb_ships")
 	Network.connect("ShipQueueFinished",self,"_on_ship_queue_finished")
@@ -14,7 +16,7 @@ func _ready():
 		var node = _SHIP_GROUP_ELEMENT.instance()
 		node.ship_model = model
 		node.name = model
-		$ScrollContainer/VBoxContainer.add_child(node)
+		ship_group_element_container.add_child(node)
 	update_hangar()
 	update_element_fleet()
 
@@ -24,7 +26,7 @@ func _on_ship_queue_finished(ship_data):
 	for i in ship_group_hangar:
 		if i.model == ship_data.model:
 			i.quantity += ship_data.quantity
-			$ScrollContainer/VBoxContainer.get_node(i.model).quantity_hangar = i.quantity
+			ship_group_element_container.get_node(i.model).quantity_hangar = i.quantity
 			return
 
 func update_hangar():
@@ -40,11 +42,11 @@ func update_hangar():
 
 func update_element_fleet():
 	if fleet == null:
-		for node in $ScrollContainer/VBoxContainer.get_children():
+		for node in ship_group_element_container.get_children():
 			node.quantity_fleet = 0
 	else:
 		for i in fleet.ship_group:
-			$ScrollContainer/VBoxContainer.get_node(i.model).quantity_fleet = i.quantity
+			ship_group_element_container.get_node(i.model).quantity_fleet = i.quantity
 
 func _on_ship_group_recieved(err, response_code, headers, body):
 	if err:
@@ -62,7 +64,7 @@ func set_fleet(new_fleet):
 func set_ship_group_hangar(array):
 	ship_group_hangar = array
 	for i in ship_group_hangar:
-		$ScrollContainer/VBoxContainer.get_node(i.model).quantity_hangar = i.quantity
+		ship_group_element_container.get_node(i.model).quantity_hangar = i.quantity
 
 func _on_fleet_update_nb_ships(fleet_param):
 	if fleet_param.id == fleet.id:

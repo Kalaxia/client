@@ -53,20 +53,20 @@ mouse_filter = 1
 [node name="ShipModel" type="Label" parent="PanelContainer/hBoxContainer"]
 margin_left = 14.0
 margin_top = 525.0
-margin_right = 163.0
+margin_right = 287.0
 margin_bottom = 539.0
-text = "no_translate.shipModel"
+text = "hud.details.building.hangar.ship_model %s"
 
 [node name="Control6" type="Control" parent="PanelContainer/hBoxContainer"]
-margin_left = 167.0
-margin_right = 177.0
+margin_left = 291.0
+margin_right = 301.0
 margin_bottom = 1064.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 1
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/hBoxContainer"]
-margin_left = 181.0
-margin_right = 213.0
+margin_left = 305.0
+margin_right = 337.0
 margin_bottom = 1064.0
 rect_min_size = Vector2( 32, 32 )
 texture = SubResource( 1 )
@@ -74,31 +74,31 @@ expand = true
 stretch_mode = 6
 
 [node name="Control" type="Control" parent="PanelContainer/hBoxContainer"]
-margin_left = 217.0
-margin_right = 1053.0
+margin_left = 341.0
+margin_right = 795.0
 margin_bottom = 1064.0
 mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="ShipNumber" type="Label" parent="PanelContainer/hBoxContainer"]
-margin_left = 1057.0
+margin_left = 799.0
 margin_top = 525.0
-margin_right = 1222.0
+margin_right = 1107.0
 margin_bottom = 539.0
-text = "no_translate.ship_number"
+text = "hud.details.building.hangar.number_of_ships %d"
 align = 2
 
 [node name="Control2" type="Control" parent="PanelContainer/hBoxContainer"]
-margin_left = 1226.0
-margin_right = 1236.0
+margin_left = 1111.0
+margin_right = 1121.0
 margin_bottom = 1064.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="PanelContainer/hBoxContainer"]
-margin_left = 1240.0
+margin_left = 1125.0
 margin_top = 523.0
-margin_right = 1640.0
+margin_right = 1525.0
 margin_bottom = 541.0
 rect_min_size = Vector2( 400, 18 )
 size_flags_vertical = 4
@@ -108,19 +108,19 @@ step = 0.001
 value = 0.5
 
 [node name="Control3" type="Control" parent="PanelContainer/hBoxContainer"]
-margin_left = 1644.0
-margin_right = 1654.0
+margin_left = 1529.0
+margin_right = 1539.0
 margin_bottom = 1064.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 1
 
 [node name="TimeRemaining" type="Label" parent="PanelContainer/hBoxContainer"]
-margin_left = 1658.0
+margin_left = 1543.0
 margin_top = 525.0
 margin_right = 1843.0
 margin_bottom = 539.0
 rect_min_size = Vector2( 185, 0 )
-text = "no_translate.remaining_time"
+text = "hud.details.building.hangar.time_remaining %d"
 
 [node name="Control4" type="Control" parent="PanelContainer/hBoxContainer"]
 margin_left = 1847.0

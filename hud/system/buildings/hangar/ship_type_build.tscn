@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://hud/system/buildings/hangar/ship_type_build.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=3]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -15,7 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 custom_constants/margin_right = 10
-custom_constants/margin_top = 1
+custom_constants/margin_top = 5
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 1
 script = ExtResource( 1 )
@@ -25,41 +27,40 @@ __meta__ = {
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 margin_left = 10.0
-margin_top = 1.0
+margin_top = 5.0
 margin_right = 1910.0
 margin_bottom = 1079.0
+custom_styles/panel = SubResource( 3 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 1893.0
-margin_bottom = 1071.0
+margin_right = 1900.0
+margin_bottom = 1074.0
 
 [node name="Control4" type="Control" parent="PanelContainer/HBoxContainer"]
 margin_right = 25.0
-margin_bottom = 1064.0
+margin_bottom = 1074.0
 rect_min_size = Vector2( 25, 0 )
 mouse_filter = 1
 
 [node name="Label" type="Label" parent="PanelContainer/HBoxContainer"]
 margin_left = 29.0
-margin_top = 525.0
-margin_right = 185.0
-margin_bottom = 539.0
-text = "no_translate.ship_model"
+margin_top = 530.0
+margin_right = 302.0
+margin_bottom = 544.0
+text = "hud.details.building.hangar.ship_model %s"
 
 [node name="Control" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 189.0
-margin_right = 199.0
-margin_bottom = 1064.0
+margin_left = 306.0
+margin_right = 316.0
+margin_bottom = 1074.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 1
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer"]
-margin_left = 203.0
-margin_top = 516.0
-margin_right = 235.0
-margin_bottom = 548.0
+margin_left = 320.0
+margin_top = 521.0
+margin_right = 352.0
+margin_bottom = 553.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 4
 texture = SubResource( 1 )
@@ -67,17 +68,17 @@ expand = true
 stretch_mode = 6
 
 [node name="Control2" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 239.0
-margin_right = 289.0
-margin_bottom = 1064.0
+margin_left = 356.0
+margin_right = 406.0
+margin_bottom = 1074.0
 rect_min_size = Vector2( 50, 0 )
 mouse_filter = 1
 
 [node name="SpinBox" type="SpinBox" parent="PanelContainer/HBoxContainer"]
-margin_left = 293.0
-margin_top = 520.0
-margin_right = 367.0
-margin_bottom = 544.0
+margin_left = 410.0
+margin_top = 525.0
+margin_right = 484.0
+margin_bottom = 549.0
 size_flags_vertical = 4
 min_value = 1.0
 max_value = 100000.0
@@ -85,26 +86,26 @@ value = 1.0
 allow_greater = true
 
 [node name="Control3" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 371.0
-margin_right = 381.0
-margin_bottom = 1064.0
+margin_left = 488.0
+margin_right = 498.0
+margin_bottom = 1074.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 1
 
 [node name="Price" type="Label" parent="PanelContainer/HBoxContainer"]
-margin_left = 385.0
-margin_top = 525.0
-margin_right = 537.0
-margin_bottom = 539.0
+margin_left = 502.0
+margin_top = 530.0
+margin_right = 734.0
+margin_bottom = 544.0
 rect_min_size = Vector2( 80, 0 )
-text = "not_translate.ship_price"
+text = "hud.details.building.hangar.price %d"
 align = 2
 
 [node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer"]
-margin_left = 541.0
-margin_top = 522.0
-margin_right = 561.0
-margin_bottom = 542.0
+margin_left = 738.0
+margin_top = 527.0
+margin_right = 758.0
+margin_bottom = 547.0
 rect_min_size = Vector2( 20, 20 )
 size_flags_vertical = 4
 texture = SubResource( 2 )
@@ -112,16 +113,16 @@ expand = true
 stretch_mode = 6
 
 [node name="Control5" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 565.0
-margin_right = 575.0
-margin_bottom = 1064.0
+margin_left = 762.0
+margin_right = 772.0
+margin_bottom = 1074.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 1
 
 [node name="Button" type="Button" parent="PanelContainer/HBoxContainer"]
-margin_left = 579.0
-margin_top = 522.0
-margin_right = 803.0
-margin_bottom = 542.0
+margin_left = 776.0
+margin_top = 527.0
+margin_right = 1000.0
+margin_bottom = 547.0
 size_flags_vertical = 4
 text = "hud.system.building.hangar.build"
