@@ -121,6 +121,7 @@ margin_right = 1920.0
 margin_bottom = 1080.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.3
+theme = ExtResource( 4 )
 alignment = 1
 
 [node name="LaunchButton" type="Button" parent="GUI/Body/Footer"]
@@ -138,9 +139,9 @@ __meta__ = {
 
 [node name="LeaveButton" type="Button" parent="GUI/Body/Footer"]
 margin_left = 901.0
-margin_top = 70.0
+margin_top = 68.0
 margin_right = 1018.0
-margin_bottom = 90.0
+margin_bottom = 93.0
 size_flags_vertical = 4
 text = "menu.lobby.quit"
 

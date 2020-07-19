@@ -2,11 +2,11 @@
 
 [ext_resource path="res://hud/system/fleet/ship_group_fleet_menu.gd" type="Script" id=1]
 
-[sub_resource type="StreamTexture" id=1]
+[sub_resource type="StreamTexture" id=4]
 flags = 4
 load_path = "res://.import/ship_64px.png-0d665bcf942a48fa390e6ccbc93bfc35.stex"
 
-[sub_resource type="StreamTexture" id=2]
+[sub_resource type="StreamTexture" id=5]
 flags = 4
 load_path = "res://.import/fleet.png-7b3afe225b29b788c820a5d01173695d.stex"
 
@@ -50,7 +50,7 @@ margin_left = 34.0
 margin_top = 525.0
 margin_right = 239.0
 margin_bottom = 539.0
-rect_min_size = Vector2( 100, 0 )
+rect_min_size = Vector2( 150, 0 )
 text = "hud.details.fleet.ship_model %s"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -73,7 +73,7 @@ margin_right = 289.0
 margin_bottom = 548.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 4
-texture = SubResource( 1 )
+texture = SubResource( 4 )
 expand = true
 stretch_mode = 6
 
@@ -141,7 +141,7 @@ margin_right = 32.0
 margin_bottom = 548.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 4
-texture = SubResource( 2 )
+texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 

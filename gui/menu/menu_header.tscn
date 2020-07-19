@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://themes/panel_container/styleboxflat_panel_selected.tres" type="StyleBox" id=1]
+[ext_resource path="res://gui/menu/menu_header.gd" type="Script" id=2]
+
+[sub_resource type="StreamTexture" id=2]
+flags = 4
+load_path = "res://.import/minimise.svg-f291a447e9a63cc54c193ab85c971a52.stex"
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/x.svg-47a3a67eca4bee58f25f23dd32e35e3d.stex"
+
+[node name="MenuHeader" type="PanelContainer"]
+margin_right = 1920.0
+margin_bottom = 24.0
+custom_styles/panel = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 1918.0
+margin_bottom = 24.0
+custom_constants/margin_right = 2
+custom_constants/margin_top = 1
+custom_constants/margin_left = 3
+custom_constants/margin_bottom = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 3.0
+margin_top = 1.0
+margin_right = 1914.0
+margin_bottom = 21.0
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+margin_top = 3.0
+margin_right = 1853.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "not_translate.menu_title"
+align = 1
+valign = 1
+
+[node name="ButtonMinimize" type="Button" parent="MarginContainer/HBoxContainer"]
+margin_left = 1857.0
+margin_right = 1882.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 25, 0 )
+icon = SubResource( 2 )
+clip_text = true
+expand_icon = true
+
+[node name="ButtonClose" type="Button" parent="MarginContainer/HBoxContainer"]
+margin_left = 1886.0
+margin_right = 1911.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 25, 0 )
+icon = SubResource( 1 )
+expand_icon = true

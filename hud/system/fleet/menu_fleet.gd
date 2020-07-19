@@ -7,7 +7,8 @@ var system_id = null
 
 const _SHIP_GROUP_ELEMENT = preload("res://hud/system/fleet/ship_group_fleet_menu.tscn")
 
-onready var ship_group_element_container = $VBoxContainer/ScrollContainer/VBoxContainer
+onready var ship_group_element_container = $PanelContainer/ScrollContainer/ShipList
+onready var menu_header = $MenuHeader
 
 func _ready():
 	Store.connect("fleet_update_nb_ships",self,"_on_fleet_update_nb_ships")
@@ -17,8 +18,12 @@ func _ready():
 		node.ship_model = model
 		node.name = model
 		ship_group_element_container.add_child(node)
+	menu_header.connect("minimize_request", self, "_on_minimize_request")
 	update_hangar()
 	update_element_fleet()
+
+func _on_minimize_request():
+	visible = false
 
 func _on_ship_queue_finished(ship_data):
 	if ship_data.system != Store._state.selected_system.id:

@@ -56,14 +56,14 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AudioStacking": "",
-"CircularButton": "",
-"CircularContainer": "",
-"CustomShapeButton": "",
+"CircularButton": "res://resources/editor/custom_circular_button.svg",
+"CircularContainer": "res://resources/editor/circular_container.svg",
+"CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
 "FleetItem": "",
 "OptionKeyBinding": "",
 "PlayerInfoFactionColumn": "",
-"SelectablePanelContainer": "",
-"TransparentCircleButton": ""
+"SelectablePanelContainer": "res://resources/editor/selectable_container.svg",
+"TransparentCircleButton": "res://resources/editor/custom_circle_button.svg"
 }
 
 [application]

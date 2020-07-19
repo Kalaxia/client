@@ -12,6 +12,9 @@ const _SHIP_HANGARD = preload("res://hud/system/buildings/hangar/ship_type_hanga
 onready var production_list_vbox_elements = $ShipProductionList/VBoxContainer/ScrollContainer/VBoxContainer
 onready var ship_order_element = $ShipOrder/VBoxContainer/ShipTypeBuild
 onready var hangar_element = $ShipHangar/VBoxContainer/ScrollContainer/HBoxContainer
+onready var menu_header = $MenuHeader
+
+signal closed()
 
 func _ready():
 	Network.connect("ShipQueueFinished",self,"_on_ship_queue_finished")
@@ -36,6 +39,12 @@ func _ready():
 			Store._state.selected_system.id + "/ship-queues/"
 		, HTTPClient.METHOD_GET
 	)
+	menu_header.connect("close_request", self, "_on_close_menu_pressed")
+
+func _on_close_menu_pressed():
+	queue_free()
+	emit_signal("closed")
+	
 
 func _on_ship_group_recieved(err, response_code, headers, body):
 	if err:

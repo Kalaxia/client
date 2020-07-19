@@ -24,7 +24,7 @@ func update_order_button_state():
 	$PanelContainer/HBoxContainer/Button.disabled = Store._state.player.wallet < $PanelContainer/HBoxContainer/SpinBox.value * Utils.SHIP_PRICES[ship_model]
 
 func update_price():
-	$PanelContainer/HBoxContainer/Price.text = tr("hud.details.building.hangar.price %d") % Utils.SHIP_PRICES[ship_model] * $PanelContainer/HBoxContainer/SpinBox.value
+	$PanelContainer/HBoxContainer/Price.text = tr("hud.details.building.hangar.price %d") % (Utils.SHIP_PRICES[ship_model] * $PanelContainer/HBoxContainer/SpinBox.value)
 	update_order_button_state()
 
 func update_elements():

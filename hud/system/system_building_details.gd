@@ -1,6 +1,6 @@
 extends Control
 
-var hangar_menu = preload("res://hud/system/buildings/hangar.tscn")
+const HANGAR_MENU = preload("res://hud/system/buildings/hangar.tscn")
 
 var _building_panel_list = []
 onready var hangar_node = $ScrollContainer/HBoxContainer/Hangar
@@ -33,6 +33,7 @@ func update_visibility():
 		_deselect_other_building()
 
 func _deselect_other_building(node = null):
+	# if node is null deselect all buildings
 	for node in $MenuSelectedBuilding.get_children() :
 		node.queue_free()
 	for buiding_panel in _building_panel_list:
@@ -42,7 +43,12 @@ func _deselect_other_building(node = null):
 func _on_hangar_pressed():
 	_deselect_other_building(hangar_node)
 	if hangar_node.is_selected:
-		$MenuSelectedBuilding.add_child(hangar_menu.instance())
+		var node_menu = HANGAR_MENU.instance()
+		node_menu.connect("closed", self, "_on_menu_closed")
+		$MenuSelectedBuilding.add_child(node_menu)
+
+func _on_menu_closed():
+	_deselect_other_building()
 
 func _on_shipyard_pressed():
 	_deselect_other_building($ScrollContainer/HBoxContainer/Shipyard)
