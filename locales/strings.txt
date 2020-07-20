@@ -42,3 +42,13 @@ _("ship.fighter")_
 _("ship.corvette")_
 _("ship.frigate")_
 _("ship.cruiser")_
+_("global.loading.ressource.loading")_
+_("global.loading.ressource.menu")_
+_("global.loading.ressource.lobby")_
+_("global.loading.ressource.game_loading")_
+_("global.loading.ressource.game")_
+_("global.loading.ressource.scores")_
+_("global.loading.ressource.option_menu")_
+_("global.loading.ressource.credits_menu")_
+_("global.loading.ressource.scores_hud")_
+_("global.loading.ressource.hud")_
