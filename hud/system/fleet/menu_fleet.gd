@@ -1,6 +1,5 @@
 extends Control
 
-
 var fleet = null setget set_fleet
 var ship_group_hangar = [] setget set_ship_group_hangar
 var system_id = null 

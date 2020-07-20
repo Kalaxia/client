@@ -4,8 +4,7 @@ const HANGAR_MENU = preload("res://hud/system/buildings/hangar.tscn")
 
 var _building_panel_list = []
 onready var hangar_node = $ScrollContainer/HBoxContainer/Hangar
-
-
+onready var menu_selected_building = $MenuSelectedBuilding
 
 func _ready():
 	_building_panel_list = []
@@ -28,13 +27,13 @@ func system_update(system):
 
 func update_visibility():
 	var visible_state = Store._state.selected_system != null and Store._state.selected_system.player == Store._state.player.id
-	$ScrollContainer/HBoxContainer/Hangar.visible = visible_state
+	hangar_node.visible = visible_state
 	if not visible_state:
 		_deselect_other_building()
 
 func _deselect_other_building(node = null):
 	# if node is null deselect all buildings
-	for node in $MenuSelectedBuilding.get_children() :
+	for node in menu_selected_building.get_children() :
 		node.queue_free()
 	for buiding_panel in _building_panel_list:
 		if node == null or buiding_panel.name != node.name:
@@ -45,7 +44,7 @@ func _on_hangar_pressed():
 	if hangar_node.is_selected:
 		var node_menu = HANGAR_MENU.instance()
 		node_menu.connect("closed", self, "_on_menu_closed")
-		$MenuSelectedBuilding.add_child(node_menu)
+		menu_selected_building.add_child(node_menu)
 
 func _on_menu_closed():
 	_deselect_other_building()

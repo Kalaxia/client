@@ -3,7 +3,7 @@
 [ext_resource path="res://gui/menu/menu_header.gd" type="Script" id=2]
 [ext_resource path="res://themes/theme_main_square_button.tres" type="Theme" id=3]
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.305882, 0.309804, 0.321569, 1 )
 border_width_left = 2
 border_width_top = 2
@@ -23,18 +23,19 @@ shadow_color = Color( 0, 0, 0, 0.211765 )
 shadow_size = 1
 shadow_offset = Vector2( 1, 1 )
 
-[sub_resource type="StreamTexture" id=5]
+[sub_resource type="StreamTexture" id=2]
 flags = 4
 load_path = "res://.import/minimise.svg-f291a447e9a63cc54c193ab85c971a52.stex"
 
-[sub_resource type="StreamTexture" id=6]
+[sub_resource type="StreamTexture" id=3]
 flags = 4
 load_path = "res://.import/x.svg-47a3a67eca4bee58f25f23dd32e35e3d.stex"
 
 [node name="MenuHeader" type="PanelContainer"]
 margin_right = 1920.0
 margin_bottom = 24.0
-custom_styles/panel = SubResource( 4 )
+rect_min_size = Vector2( 0, 31 )
+custom_styles/panel = SubResource( 1 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -95,7 +96,7 @@ margin_right = -0.0992432
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = SubResource( 5 )
+texture = SubResource( 2 )
 expand = true
 stretch_mode = 6
 __meta__ = {
@@ -121,7 +122,7 @@ margin_right = 0.0992432
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = SubResource( 6 )
+texture = SubResource( 3 )
 expand = true
 stretch_mode = 6
 __meta__ = {

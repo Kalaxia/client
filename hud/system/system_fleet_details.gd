@@ -6,6 +6,10 @@ var _lock_add_fleet_item = Utils.Lock.new()
 
 const FLEET_COST = 10
 
+onready var fleet_creation_button = $ScrollContainer/HBoxContainer/FleetCreationButton
+onready var menu_fleet = $HBoxContainer/HBoxContainer/MenuFleet
+onready var fleet_container = $ScrollContainer/HBoxContainer/Fleets
+
 func _ready():
 	Store.connect("system_selected", self, "_on_system_selected")
 	Store.connect("wallet_updated", self, "_on_wallet_update")
@@ -16,36 +20,35 @@ func _ready():
 	Store.connect("system_update", self, "_on_system_update")
 	Store.connect("fleet_sailed", self, "_on_fleet_sailed")
 	Network.connect("Victory", self, "_on_victory")
-	$ScrollContainer/HBoxContainer/FleetCreationButton.connect("pressed", self, "create_fleet")
-	$ScrollContainer/HBoxContainer/FleetCreationButton.set_visible(false)
+	fleet_creation_button.connect("pressed", self, "create_fleet")
+	fleet_creation_button.set_visible(false)
 	refresh_data(Store._state.selected_system)
-	$HBoxContainer/HBoxContainer/MenuFleet.visible = false
+	menu_fleet.visible = false
 
 func _on_system_selected(system, old_system):
 	refresh_data(system)
 	# todo update hangar
 
 func _on_fleet_selected(fleet):
-	$HBoxContainer/HBoxContainer/MenuFleet.visible = false
+	menu_fleet.visible = false
 
 func _on_button_menu_fleet(fleet):
-	var visible_new = not $HBoxContainer/HBoxContainer/MenuFleet.visible or fleet.id != $HBoxContainer/HBoxContainer/MenuFleet.fleet.id
-	$HBoxContainer/HBoxContainer/MenuFleet.visible = visible_new
+	var visible_new = not menu_fleet.visible or fleet.id != menu_fleet.fleet.id
+	menu_fleet.visible = visible_new
 	if visible_new:
-		$HBoxContainer/HBoxContainer/MenuFleet.fleet = fleet
+		menu_fleet.fleet = fleet
 
 func refresh_data(system):
 	# because of the yield it is possible to add the nodes multiple times 
 	# the lock prevents that
 	if not _lock_add_fleet_item.try_lock():
 		return # we do not have to retry as the data are taken after the yield
-	for f in $ScrollContainer/HBoxContainer/Fleets.get_children(): f.queue_free()
+	for f in fleet_container.get_children(): f.queue_free()
 	# we need to wait one frame for objects to be deleted before inserting new
 	# otherwise name get duplicated as queue_free() does not free the node immediately
-	while $ScrollContainer/HBoxContainer/Fleets.get_child_count() > 0 :
-		yield($ScrollContainer/HBoxContainer/Fleets.get_child(0),"tree_exited")
-	var create_fleet_button = $ScrollContainer/HBoxContainer/FleetCreationButton
-	create_fleet_button.set_visible(false)
+	while fleet_container.get_child_count() > 0 :
+		yield(fleet_container.get_child(0),"tree_exited")
+	fleet_creation_button.set_visible(false)
 	if system == null || system.id == null:
 		_lock_add_fleet_item.unlock()
 		return
@@ -55,8 +58,8 @@ func refresh_data(system):
 	if system_refreshed.player != null:
 		var player = Store.get_game_player(system_refreshed.player)
 		if system_refreshed.player == Store._state.player.id:
-			create_fleet_button.set_visible(true)
-			create_fleet_button.disabled = Store._state.player.wallet < FLEET_COST
+			fleet_creation_button.set_visible(true)
+			fleet_creation_button.disabled = Store._state.player.wallet < FLEET_COST
 	for id in system_refreshed.fleets: add_fleet_item(system_refreshed.fleets[id])
 	_lock_add_fleet_item.unlock()
 
@@ -78,7 +81,7 @@ func add_fleet_item(fleet):
 	var fleet_node = fleet_item_scene.instance()
 	fleet_node.set_name(fleet.id)
 	fleet_node.fleet = fleet
-	$ScrollContainer/HBoxContainer/Fleets.add_child(fleet_node)
+	fleet_container.add_child(fleet_node)
 	fleet_node.connect("pressed_open_ship_menu", self, "_on_button_menu_fleet")
 	if ( Store._state.selected_fleet == null or Store._state.selected_fleet.system != Store._state.selected_system.id ) and fleet.player == Store._state.player.id:
 		Store.select_fleet(fleet)
@@ -91,7 +94,7 @@ func _on_fleet_created(fleet):
 func _on_wallet_update(amount):
 	if Store._state.selected_system == null || Store._state.selected_system.player != Store._state.player.id:
 		return
-	$ScrollContainer/HBoxContainer/FleetCreationButton.disabled = Store._state.player.wallet < FLEET_COST
+	fleet_creation_button.disabled = Store._state.player.wallet < FLEET_COST
 
 func _on_request_completed(err, response_code, headers, body):
 	if err:

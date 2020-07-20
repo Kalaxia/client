@@ -20,7 +20,7 @@ func _ready():
 	button_close.connect("pressed",self,"_request_close")
 	button_minimize.connect("pressed", self, "_request_minimize")
 	update_elements()
-	if Engine.editor_hint:
+	if Engine.editor_hint and owner == null:
 		self.set_owner(get_tree().edited_scene_root)
 
 func update_elements():

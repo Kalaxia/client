@@ -5,11 +5,14 @@ var _lock_build_ships = Utils.Lock.new()
 var _quantity_orderred = 0
 var _model_orderred = ""
 
+onready var spinbox = $PanelContainer/HBoxContainer/SpinBox
+onready var button_order = $PanelContainer/HBoxContainer/Button
+
 signal ship_construction_started(ship_queue)
 
 func _ready():
-	$PanelContainer/HBoxContainer/Button.connect("pressed", self, "_on_pressed_build")
-	$PanelContainer/HBoxContainer/SpinBox.connect("value_changed", self, "_on_spinbox_changed")
+	button_order.connect("pressed", self, "_on_pressed_build")
+	spinbox.connect("value_changed", self, "_on_spinbox_changed")
 	Store.connect("wallet_updated", self, "_on_wallet_update")
 	update_elements()
 	update_price()
@@ -21,10 +24,10 @@ func _on_spinbox_changed(value):
 	update_price()
 
 func update_order_button_state():
-	$PanelContainer/HBoxContainer/Button.disabled = Store._state.player.wallet < $PanelContainer/HBoxContainer/SpinBox.value * Utils.SHIP_PRICES[ship_model]
+	button_order.disabled = Store._state.player.wallet < spinbox.value * Utils.SHIP_PRICES[ship_model]
 
 func update_price():
-	$PanelContainer/HBoxContainer/Price.text = tr("hud.details.building.hangar.price %d") % (Utils.SHIP_PRICES[ship_model] * $PanelContainer/HBoxContainer/SpinBox.value)
+	$PanelContainer/HBoxContainer/Price.text = tr("hud.details.building.hangar.price %d") % (Utils.SHIP_PRICES[ship_model] * spinbox.value)
 	update_order_button_state()
 
 func update_elements():
@@ -40,7 +43,7 @@ func set_ship_model(new_model):
 	update_price()
 
 func _on_pressed_build():
-	var quantity = $PanelContainer/HBoxContainer/SpinBox.value
+	var quantity = spinbox.value
 	if quantity > 0:
 		build_ship(quantity)
 

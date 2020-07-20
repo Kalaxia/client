@@ -22,7 +22,7 @@ func _ready():
 	Store.connect("fleet_sailed",self,"_on_fleet_sailed")
 	Store.connect("fleet_update_nb_ships",self,"_on_fleet_update_nb_ships")
 	Store.connect("fleet_unselected",self,"_on_fleet_unselected")
-	get_node("Container/Ships/ButtonMenu").connect("pressed", self, "open_menu_ship_pressed")
+	$Container/Ships/ButtonMenu.connect("pressed", self, "open_menu_ship_pressed")
 	connect("gui_input", self, "button_sail_fleet")
 	update_quantity()
 	update_highlight_state()
@@ -86,7 +86,7 @@ func _on_fleet_update_nb_ships(fleet_param):
 		var quantity = 0
 		for i in fleet_param.ship_groups:
 			quantity +=  i.quantity
-		get_node("Container/Ships/NbShips").text = str(quantity)
+		$Container/Ships/NbShips.text = str(quantity)
 
 func update_quantity():
 	if fleet == null or fleet.ship_groups == null:
@@ -94,7 +94,7 @@ func update_quantity():
 	var quantity = 0
 	for i in fleet.ship_groups:
 		quantity +=  i.quantity
-	get_node("Container/Ships/NbShips").text = str(quantity)
+	$Container/Ships/NbShips.text = str(quantity)
 
 func set_fleet(new_fleet):
 	fleet = new_fleet
