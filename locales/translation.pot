@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: main.gd:54
+#: main.gd:99
 msgid "Unknown requested scene : "
 msgstr ""
 
@@ -56,10 +56,11 @@ msgid "game.score.back_main_menu"
 msgstr ""
 
 #: global/error.gd:7 global/error.gd:19 global/error.gd:20
+#: global/loading_screen.gd:43
 msgid "error.network_error"
 msgstr ""
 
-#: global/error.gd:13 global/error.gd:15
+#: global/error.gd:13 global/error.gd:15 global/loading_screen.gd:43
 msgid "error.connexion_impossible"
 msgstr ""
 
@@ -71,7 +72,7 @@ msgstr ""
 msgid "error.unkown_domain_name"
 msgstr ""
 
-#: global/error.gd:17
+#: global/error.gd:17 global/loading_screen.gd:43
 msgid "error.http_not_connected"
 msgstr ""
 
@@ -79,11 +80,59 @@ msgstr ""
 msgid "error.network_error_content"
 msgstr ""
 
-#: global/loading_screen.tscn:24
+#: global/loading_screen.gd:33 global/loading_screen.gd:38
+#: global/loading_screen.gd:56 global/loading_screen.gd:64
+msgid "global.loading.ok"
+msgstr ""
+
+#: global/loading_screen.gd:45 global/loading_screen.gd:47
+#: global/loading_screen.gd:59
+msgid "global.loading.error"
+msgstr ""
+
+#: global/loading_screen.gd:127 global/loading_screen.gd:130
+#, python-format
+msgid "global.loading.progressbar_ressource %d %d"
+msgstr ""
+
+#: global/loading_screen.gd:133
+msgid "global.loading.ressource."
+msgstr ""
+
+#: global/loading_screen.gd:133
+msgid "global.loading.none_loading"
+msgstr ""
+
+#: global/loading_screen.gd:136
+#, python-format
+msgid "global.loading.progressbar_global %d %d"
+msgstr ""
+
+#: global/loading_screen.tscn:61
 msgid "global.loading.loading"
 msgstr ""
 
-#: global/network.gd:85
+#: global/loading_screen.tscn:86 global/loading_screen.tscn:111
+msgid "0 / 0"
+msgstr ""
+
+#: global/loading_screen.tscn:139
+msgid "global.loading.network"
+msgstr ""
+
+#: global/loading_screen.tscn:151
+msgid "global.loading.auth_status"
+msgstr ""
+
+#: global/loading_screen.tscn:158 global/loading_screen.tscn:177
+msgid "global.loading.wating"
+msgstr ""
+
+#: global/loading_screen.tscn:170
+msgid "global.loading.faction_status"
+msgstr ""
+
+#: global/network.gd:84
 msgid "network.unable_connect"
 msgstr ""
 
@@ -483,6 +532,43 @@ msgstr ""
 
 #: locales/strings.txt:44
 msgid "ship.cruiser"
+msgid "global.loading.ressource.loading"
+msgstr ""
+
+#: locales/strings.txt:42
+msgid "global.loading.ressource.menu"
+msgstr ""
+
+#: locales/strings.txt:43
+msgid "global.loading.ressource.lobby"
+msgstr ""
+
+#: locales/strings.txt:44
+msgid "global.loading.ressource.game_loading"
+msgstr ""
+
+#: locales/strings.txt:45
+msgid "global.loading.ressource.game"
+msgstr ""
+
+#: locales/strings.txt:46
+msgid "global.loading.ressource.scores"
+msgstr ""
+
+#: locales/strings.txt:47
+msgid "global.loading.ressource.option_menu"
+msgstr ""
+
+#: locales/strings.txt:48
+msgid "global.loading.ressource.credits_menu"
+msgstr ""
+
+#: locales/strings.txt:49
+msgid "global.loading.ressource.scores_hud"
+msgstr ""
+
+#: locales/strings.txt:50
+msgid "global.loading.ressource.hud"
 msgstr ""
 
 #: matchmaking/game/game_loading.gd:52 matchmaking/game/game_loading.tscn:56

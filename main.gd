@@ -47,7 +47,7 @@ var _is_in_game = false setget _set_is_in_game
 
 func _ready():
 	Config.connect("reload_locale",self,"_on_reload_locale")
-	if scenes["menu"].scene == null or  Network.token == null:
+	if scenes["menu"].scene == null or Network.token == null:
 		change_scene_loading(scenes)
 		yield($Level.get_child(0), "finished")
 	$ParallaxBackground.add_child(scenes.hud.scene.instance())
