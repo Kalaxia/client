@@ -1,50 +1,89 @@
 extends Control
 
+enum STATE_NETWORK_ELEMENT {
+	WAIT,
+	OK,
+	ERROR,
+}
+
 const GREEN = Color(50.0 / 255.0, 191.0 / 255.0, 87.0/ 255.0)
 const RED = Color(191.0 / 255.0, 62.0 / 255.0, 50.0/ 255.0)
+const ORANGE = Color(214.0 / 255.0, 150.0 / 255.0, 0.0)
+const TIME_MAX = 1000.0 / 60.0
 
 var load_queue = {} setget set_load_queue
 var queue_finished = false
 var loader = null
 var current_load_element = null
-var time_max = 1000.0 / 60.0
 
 var has_emited_finished = false
-
 var _number_of_element_to_load = 0
 var _current_loading_component_load = 0
 
-onready var global_progressbar = $MarginContainer/VBoxContainer/ressources/ressourceLoading/GlobalProgress
-onready var ressource_progressbar = $MarginContainer/VBoxContainer/ressources/ressourceLoading/ProgressBar
-onready var loading_componenet_label = $MarginContainer/VBoxContainer/ressources/ressourceLoading/LoadingComponenet
-onready var label_network_status = $MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/LabelAuth
-onready var label_faction_status = $MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/LabelFaction
+onready var global_progressbar = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/GlobalProgress
+onready var ressource_progressbar = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/ProgressBar
+onready var loading_componenet_label = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/LoadingComponenet
+onready var label_network_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/LabelAuth
+onready var label_faction_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/LabelFaction
+onready var timer_auth = $TimerAuth
+onready var quit_button = $Foreground/MarginContainer/VBoxContainer/VBoxContainer/QuitButton
+onready var label_loading_error = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/LoadingError
+onready var timer_res = $TimerRessource
 
 signal ressource_loaded(ressource_name, ressource)
 signal finished()
 signal scene_requested(scene) # not used used finished instead
 
 func _ready():
+	quit_button.visible = false
 	if Network.token == null:
 		Network.connect_to_host()
 		Network.connect("authenticated", self, "_on_authentication")
 	else:
-		label_network_status.add_color_override("font_color", GREEN)
-		label_network_status.text = tr("global.loading.ok")
+		set_state_label(STATE_NETWORK_ELEMENT.OK, label_network_status)
 	if Store._state.factions.size() == 0:
 		Network.req(self, "_on_factions_loaded", "/api/factions/")
 	else:
-		label_faction_status.add_color_override("font_color", GREEN)
-		label_faction_status.text = tr("global.loading.ok")
+		set_state_label(STATE_NETWORK_ELEMENT.OK, label_faction_status)
 	Store.connect("notification_added",self,"_on_notification_added")
+	timer_auth.connect("timeout", self, "_on_timeout_auth")
+	timer_res.connect("timeout", self, "_on_timeout_res")
+	# if we wait too much and there is no queue of element to load we want to quit
+	quit_button.connect("pressed", self, "_on_press_quit")
+
+func _on_timeout_res():
+	queue_finished = load_queue.size() == 0 # if the queue is empty we set that we have finished
+	verify_is_finished()
+
+func _on_press_quit():
+	get_tree().quit()
+
+func set_state_label(state, node):
+	match state:
+		STATE_NETWORK_ELEMENT.OK:
+			node.add_color_override("font_color", GREEN)
+			node.text = tr("global.loading.ok")
+		STATE_NETWORK_ELEMENT.WAIT:
+			node.add_color_override("font_color", ORANGE)
+			node.text = tr("global.loading.waiting")
+		STATE_NETWORK_ELEMENT.ERROR:
+			node.add_color_override("font_color", RED)
+			node.text = tr("global.loading.error")
+		
 
 func _on_notification_added(notif):
-	print(notif)
 	if notif.title == tr("error.connexion_impossible") or notif.title == tr("error.http_not_connected") or notif.title == tr("error.network_error"):
-		label_network_status.add_color_override("font_color", RED)
-		label_network_status.text = tr("global.loading.error")
-		label_faction_status.add_color_override("font_color", RED)
-		label_faction_status.text = tr("global.loading.error")
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_network_status)
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
+		quit_button.visible = true
+
+func _on_timeout_auth():
+	if Network.token == null: 
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_network_status)
+		quit_button.visible = true
+	if Store._state.factions.size() == 0:
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
+		quit_button.visible = true
 
 func _on_factions_loaded(err, response_code, headers, body):
 	if err:
@@ -52,11 +91,9 @@ func _on_factions_loaded(err, response_code, headers, body):
 	var factions = JSON.parse(body.get_string_from_utf8()).result
 	if factions != null:
 		Store.set_factions(factions)
-		label_faction_status.add_color_override("font_color", GREEN)
-		label_faction_status.text = tr("global.loading.ok")
+		set_state_label(STATE_NETWORK_ELEMENT.OK, label_faction_status)
 	else:
-		label_faction_status.add_color_override("font_color", RED)
-		label_faction_status.text = tr("global.loading.error")
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
 	verify_is_finished()
 
 func _on_authentication():
@@ -96,12 +133,13 @@ func _process(delta):
 		if current_load_element != null:
 			loader = ResourceLoader.load_interactive(load_queue[current_load_element].path)
 		else:
-			queue_finished = true
+			queue_finished = keys.size() > 0 # we only set as finished if the queue has element, we have a timer for mark as finished if the queue is emtpy
+			# however this menu is not meant to be shown if there is no elements to load
 			verify_is_finished()
 			set_process(false)
 			return
 	var t = OS.get_ticks_msec()
-	while OS.get_ticks_msec() < t + time_max: # use "time_max" to control for how long we block this thread
+	while OS.get_ticks_msec() < t + TIME_MAX: # use "time_max" to control for how long we block this thread
  # poll your loader
 		var err = loader.poll()
 		if err == ERR_FILE_EOF: # Finished loading.
@@ -115,6 +153,9 @@ func _process(delta):
 		elif err == OK:
 			pass
 		else: # error during loading
+			quit_button.visible = true
+			label_loading_error.text += (tr("global.loading.ressource.error %s %d") % [tr("global.loading.ressource." + current_load_element) ,err]) + "\n"
+			set_process(false)
 			loader = null
 			current_load_element = null
 			break

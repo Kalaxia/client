@@ -58,11 +58,11 @@ msgid "game.score.back_main_menu"
 msgstr "Retourner au menu principal"
 
 #: global/error.gd:7 global/error.gd:19 global/error.gd:20
-#: global/loading_screen.gd:43
+#: global/loading_screen.gd:68
 msgid "error.network_error"
 msgstr "Erreur réseau"
 
-#: global/error.gd:13 global/error.gd:15 global/loading_screen.gd:43
+#: global/error.gd:13 global/error.gd:15 global/loading_screen.gd:68
 msgid "error.connexion_impossible"
 msgstr "Connexion impossible"
 
@@ -74,7 +74,7 @@ msgstr "Le serveur de jeu n'est pas disponible."
 msgid "error.unkown_domain_name"
 msgstr "Le nom de domaine du serveur est inconnu."
 
-#: global/error.gd:17 global/loading_screen.gd:43
+#: global/error.gd:17 global/loading_screen.gd:68
 msgid "error.http_not_connected"
 msgstr "Client HTTP non connecté"
 
@@ -82,57 +82,68 @@ msgstr "Client HTTP non connecté"
 msgid "error.network_error_content"
 msgstr "Une erreur réseau est survenue"
 
-#: global/loading_screen.gd:33 global/loading_screen.gd:38
-#: global/loading_screen.gd:56 global/loading_screen.gd:64
+#: global/loading_screen.gd:58 global/loading_screen.gd:94
 msgid "global.loading.ok"
 msgstr "OK"
 
-#: global/loading_screen.gd:45 global/loading_screen.gd:47
-#: global/loading_screen.gd:59
+#: global/loading_screen.gd:61
+msgid "global.loading.waiting"
+msgstr "Connexion"
+
+#: global/loading_screen.gd:64
 msgid "global.loading.error"
 msgstr "Erreur"
 
-#: global/loading_screen.gd:127 global/loading_screen.gd:130
+#: global/loading_screen.gd:147
+#, python-format
+msgid "global.loading.ressource.error %s %d"
+msgstr "Erreur pendant le chargement de %s : %d"
+
+#: global/loading_screen.gd:147 global/loading_screen.gd:166
+msgid "global.loading.ressource."
+msgstr ""
+
+#: global/loading_screen.gd:160 global/loading_screen.gd:163
 #, python-format
 msgid "global.loading.progressbar_ressource %d %d"
 msgstr "%d / %d"
 
-#: global/loading_screen.gd:133
-msgid "global.loading.ressource."
-msgstr ""
-
-#: global/loading_screen.gd:133
+#: global/loading_screen.gd:166
 msgid "global.loading.none_loading"
 msgstr "Fini"
 
-#: global/loading_screen.gd:136
+#: global/loading_screen.gd:169
 #, python-format
 msgid "global.loading.progressbar_global %d %d"
 msgstr "%d / %d"
 
-#: global/loading_screen.tscn:61
+#: global/loading_screen.tscn:63
 msgid "global.loading.loading"
 msgstr "Chargement"
 
-#: global/loading_screen.tscn:86 global/loading_screen.tscn:111
+#: global/loading_screen.tscn:88 global/loading_screen.tscn:115
 msgid "0 / 0"
 msgstr ""
 
-#: global/loading_screen.tscn:139
+#: global/loading_screen.tscn:143
 msgid "global.loading.network"
 msgstr "Reseau"
 
-#: global/loading_screen.tscn:151
+#: global/loading_screen.tscn:155
 msgid "global.loading.auth_status"
 msgstr "Authentification"
 
-#: global/loading_screen.tscn:158 global/loading_screen.tscn:177
+#: global/loading_screen.tscn:163 global/loading_screen.tscn:183
 msgid "global.loading.wating"
 msgstr "Connexion"
 
-#: global/loading_screen.tscn:170
+#: global/loading_screen.tscn:175
 msgid "global.loading.faction_status"
 msgstr "Receptions des factions"
+
+#: global/loading_screen.tscn:205
+msgid "global.loading.quit"
+msgstr "Quitter le jeu"
 
 #: global/network.gd:84
 msgid "network.unable_connect"
