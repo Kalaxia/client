@@ -17,7 +17,6 @@ func _ready():
 	if fleet.player != Store._state.player.id:
 		$Container/Ships.set_visible(false)
 		return
-	Store.connect("wallet_updated", self, "_on_wallet_update")
 	Store.connect("fleet_selected",self,"_on_fleet_selected")
 	Store.connect("fleet_sailed",self,"_on_fleet_sailed")
 	Store.connect("fleet_update_nb_ships",self,"_on_fleet_update_nb_ships")
@@ -32,45 +31,10 @@ func open_menu_ship_pressed():
 		Store.select_fleet(fleet)
 	emit_signal("pressed_open_ship_menu",fleet)
 
-#func add_ships(quantity):
-#	# prevent keyboard shortcuts as well
-#	if _is_locked.try_lock() != Utils.Lock.LOCK_STATE.OK:
-#		return
-#	if Store._state.player.wallet < quantity*SHIP_COST :
-#		_is_locked.unlock()
-#		return
-#	_quantity = quantity
-#	Network.req(self, "_on_ship_added"
-#		, "/api/games/" +
-#			Store._state.game.id+  "/systems/" +
-#			Store._state.selected_system.id + "/fleets/" +
-#			fleet.id + "/ships/"
-#		, HTTPClient.METHOD_POST
-#		, [ "Content-Type: application/json" ]
-#		, JSON.print({ "quantity": quantity })
-#	)
-#	get_node("Container/Ships/CreationButton").disabled = true
-	
-#func check_button_add_ship_state():
-#	get_node("Container/Ships/CreationButton").disabled = Store._state.player.wallet < SHIP_COST || _is_locked.get_is_locked()
-
 func button_sail_fleet(event):
 	if event is InputEventMouseButton and event.is_pressed() && event.get_button_index() == BUTTON_LEFT && fleet.destination_system == null:
 		Store.select_fleet(fleet)
 		#this will call _on_fleet_selected as the store emit a signal
-
-#func _on_ship_added(err, response_code, headers, body):
-#	if err:
-#		ErrorHandler.network_response_error(err)
-#	if response_code == HTTPClient.RESPONSE_CREATED:
-#		Store.update_wallet(-SHIP_COST * _quantity)
-#		Store.update_fleet_nb_ships(fleet, fleet.nb_ships + _quantity)
-#	_quantity = 0
-#	_is_locked.unlock()
-#	check_button_add_ship_state()
-
-#func _on_wallet_update(amount):
-#	check_button_add_ship_state()
 
 func _on_fleet_selected(fleet):
 	update_highlight_state()
