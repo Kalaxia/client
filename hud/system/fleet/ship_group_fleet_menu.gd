@@ -54,8 +54,10 @@ func update_quantities():
 	spinbox.max_value = quantity_hangar + quantity_fleet
 	spinbox.value = min(previous_spinbox_value, spinbox.max_value)
 
+
 func _on_text_entered(text = null):
 	_on_set_button()
+
 
 func _on_set_button():
 	if not _lock_assign_ship.try_lock():

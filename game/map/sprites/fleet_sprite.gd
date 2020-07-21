@@ -1,14 +1,7 @@
+class_name FleetSprite, "res://resources/assets/2d/map/picto_flotte_2.png"
 extends Sprite
 
-var faction = 0
-
-const _TEXTURE = {
-	0 : preload("res://resources/assets/2d/map/picto_flotte_2.png"),
-	1 : preload("res://resources/assets/2d/map/kalankar/picto_flotte_2.png"),
-	2 : preload("res://resources/assets/2d/map/valkar/picto_flotte_2.png"),
-	3 : preload("res://resources/assets/2d/map/adranite/picto_flotte_2.png"),
-}
- 
+var faction = 0 setget set_faction
 
 
 func _ready():
@@ -16,4 +9,10 @@ func _ready():
 
 
 func set_faction_texture():
-	texture = _TEXTURE[faction as int]
+	if faction != 0:
+		texture = Utils.FLEET_TEXTURE[faction as int]
+
+
+func set_faction(new_faction):
+	faction = new_faction as int
+	set_faction_texture()

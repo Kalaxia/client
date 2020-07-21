@@ -17,9 +17,11 @@ func _ready():
 	button_building.connect("pressed",self,"_on_building_pressed")
 	button_fleet.connect("pressed",self,"_on_fleet_pressed")
 
+
 func _on_system_selected(system, old_system):
 	set_visible(true)
 	refresh_data(system)
+
 
 func refresh_data(system):
 	var player_node = $System/CircularContainer/ContainerSystem/PlayerName
@@ -32,12 +34,15 @@ func refresh_data(system):
 	$System/CircularContainer/ContainerSystem/TextureRect.texture = Utils.TEXTURE_SYSTEM[system.kind][0 if player == null else player.faction as int]
 	$System/CircularContainer/ContainerSystem/TextureRect.modulate = Store.get_player_color(player, system.kind == "VictorySystem")
 
+
 func _on_victory(data):
 	set_visible(false)
+
 
 func _on_system_update(system):
 	if system.id == Store._state.selected_system.id:
 		refresh_data(Store._state.selected_system)
+
 
 func _on_building_pressed():
 	for node in menu_system.get_children():
@@ -47,11 +52,10 @@ func _on_building_pressed():
 		menu_system.add_child(building_details_scene.instance())
 		
 
+
 func _on_fleet_pressed():
 	for node in menu_system.get_children():
 		node.queue_free()
 	if button_fleet.selected:
 		button_building.selected = false
 		menu_system.add_child(fleet_details_scene.instance())
-
-

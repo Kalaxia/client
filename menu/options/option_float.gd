@@ -1,11 +1,11 @@
 extends PanelContainer
 
 
-export(String) var text setget set_text
+export(String) var text = "" setget set_text
 export(bool) var disabled = false setget set_disabled
 
 func _ready():
-	pass # Replace with function body.
+	pass 
 
 
 func set_text(new_label : String):
