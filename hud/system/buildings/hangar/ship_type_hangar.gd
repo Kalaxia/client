@@ -1,6 +1,6 @@
 extends Control
 
-var model setget set_model
+var category setget set_category
 var quantity = 0 setget set_quantity
 
 var is_selected = false setget set_is_selected
@@ -13,8 +13,8 @@ func _ready():
 	update_texture()
 
 func update_texture():
-	if model != null:
-		$SelectablePanelContainer/VBoxContainer/TextureRect.texture = Utils.TEXTURE_SHIP_MODEL[model]
+	if category != null:
+		$SelectablePanelContainer/VBoxContainer/TextureRect.texture = Utils.TEXTURE_SHIP_CATEGORIES[category]
 
 func _on_pressed():
 	emit_signal("pressed")
@@ -27,10 +27,10 @@ func set_is_selected(selected):
 func update_quantity():
 	$SelectablePanelContainer/VBoxContainer/MarginContainer/Label.text = tr("hud.details.building.hangar.number_of_ship %d") % quantity
 
-func set_model(new_model):
-	if not Utils.SHIP_MODEL.has(new_model) and new_model != null:
+func set_category(new_category):
+	if not Utils.SHIP_CATEGORIES.has(new_category) and new_category != null:
 		return
-	model = new_model
+	category = new_category
 	update_texture()
 
 func set_quantity(new_quantity):

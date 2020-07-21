@@ -23,9 +23,9 @@ func _on_cancel_construction(err, response_code, headers, body):
 func update_elements():
 	if ship_queue == null:
 		return
-	$PanelContainer/hBoxContainer/TextureRect.texture = Utils.TEXTURE_SHIP_MODEL[ship_queue.model]
+	$PanelContainer/hBoxContainer/TextureRect.texture = Utils.TEXTURE_SHIP_CATEGORIES[ship_queue.category]
 	$PanelContainer/hBoxContainer/ShipNumber.text = tr("hud.details.building.hangar.number_of_ships %d") % ship_queue.quantity
-	$PanelContainer/hBoxContainer/ShipModel.text = tr("hud.details.building.hangar.ship_model %s") % tr("ship." + ship_queue.model) 
+	$PanelContainer/hBoxContainer/ShipModel.text = tr("hud.details.building.hangar.ship_model %s") % tr("ship." + ship_queue.category) 
 	update_time()
 
 func update_time():

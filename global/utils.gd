@@ -6,13 +6,13 @@ const AUDIO_VOLUME_DB_MIN = -100.0 # in dB
 const SCALE_SYSTEMS_COORDS = 20
 const FLEET_RANGE = 20.0
 
-const SHIP_MODEL = [
+const SHIP_CATEGORIES = [
 	"fighter",
 	"frigate",
 ]
 
 const SHIP_PRICES = {
-	"fighter" : 10,
+	"fighter" : 20,
 	"frigate" : 100,
 }
 
@@ -45,7 +45,7 @@ const TEXTURE_CROWN = {
 	3 : preload("res://resources/assets/2d/map/adranite/couronne.png"),
 }
 
-const TEXTURE_SHIP_MODEL = {
+const TEXTURE_SHIP_CATEGORIES = {
 	"" : preload("res://resources/assets/2d/picto/ships/ship_64px.png"),
 	"fighter" : preload("res://resources/assets/2d/picto/ships/fighter.svg"),
 	"frigate" : preload("res://resources/assets/2d/picto/ships/frigate.svg"),

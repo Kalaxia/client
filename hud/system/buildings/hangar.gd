@@ -19,14 +19,14 @@ signal closed()
 
 func _ready():
 	Network.connect("ShipQueueFinished",self,"_on_ship_queue_finished")
-	for model in Utils.SHIP_MODEL:
+	for category in Utils.SHIP_CATEGORIES:
 		var node = _SHIP_HANGARD.instance()
-		node.model = model
+		node.category = category
 		node.quantity = 0
-		node.name = model
+		node.name = category
 		hangar_element.add_child(node)
-		node.connect("pressed", self, "select_group",[model])
-	select_group(Utils.SHIP_MODEL[0])
+		node.connect("pressed", self, "select_group", [category])
+	select_group(Utils.SHIP_CATEGORIES[0])
 	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
 	Network.req(self, "_on_ship_group_recieved"
 		, "/api/games/" +
@@ -57,7 +57,7 @@ func _on_ship_group_recieved(err, response_code, headers, body):
 func set_ship_group_array(new_array):
 	ship_group_array = new_array
 	for ship_group in ship_group_array:
-		hangar_element.get_node(ship_group.model).quantity = ship_group.quantity
+		hangar_element.get_node(ship_group.category).quantity = ship_group.quantity
 
 func _on_queue_ships_received(err, response_code, headers, body):
 	if err:
@@ -71,9 +71,9 @@ func _on_ship_queue_finished(ship_data):
 		return
 	remove_ship_queue_id(ship_data.id)
 	for ship_group in ship_group_array:
-		if ship_group.model == ship_data.model:
+		if ship_group.category == ship_data.category:
 			ship_group.quantity += ship_data.quantity
-			hangar_element.get_node(ship_data.model).quantity = ship_group.quantity
+			hangar_element.get_node(ship_data.category).quantity = ship_group.quantity
 			return
 
 func _on_ship_construction_started(ship_queue):
@@ -81,14 +81,14 @@ func _on_ship_construction_started(ship_queue):
 	if ship_queue != null:
 		add_ship_queue(ship_queue)
 
-func select_group(model):
-	if hangar_element.has_node(model):
+func select_group(category):
+	if hangar_element.has_node(category):
 		for node in hangar_element.get_children():
-			if node.name != model:
+			if node.name != category:
 				node.is_selected = false
 			else:
 				node.is_selected = true
-				ship_order_element.ship_model = model
+				ship_order_element.ship_category = category
 
 func set_ship_queue_array(new_array):
 	ship_queue_array = new_array
