@@ -52,3 +52,4 @@ _("global.loading.ressource.option_menu")_
 _("global.loading.ressource.credits_menu")_
 _("global.loading.ressource.scores_hud")_
 _("global.loading.ressource.hud")_
+_("hud.details.buidlng.hangar")_

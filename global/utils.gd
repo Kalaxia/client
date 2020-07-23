@@ -58,6 +58,16 @@ const TEXTURE_SHIP_CATEGORIES = {
 	"cruiser" : preload("res://resources/assets/2d/picto/ships/cruiser.svg"),
 }
 
+const BUILDING_LIST = [
+	"hangar",
+	"mine"
+]
+
+const TEXTURE_BUILDING = {
+	"" : preload("res://resources/assets/2d/picto/building/area.png"),
+	"hangar" : preload("res://resources/assets/2d/picto/building/shipyard_64px.png"),
+}
+
 ############## varaibles ##############
 
 var fleet_range

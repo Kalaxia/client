@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://hud/system/buildings/contruction/construction_building_item.gd" type="Script" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/area.png-126ffb5246382c62b6c20ddfdaf31cfa.stex"
+
+[node name="ConstructionBuildingItem" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 2
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = 5.0
+margin_top = 2.0
+margin_right = 1915.0
+margin_bottom = 1078.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1903.0
+margin_bottom = 1069.0
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer"]
+margin_top = 524.0
+margin_right = 175.0
+margin_bottom = 538.0
+text = "no_translate.building_name"
+
+[node name="Control" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_left = 179.0
+margin_right = 199.0
+margin_bottom = 1062.0
+rect_min_size = Vector2( 20, 0 )
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer"]
+margin_left = 203.0
+margin_top = 515.0
+margin_right = 235.0
+margin_bottom = 547.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 4
+texture = SubResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="Control2" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_left = 239.0
+margin_right = 259.0
+margin_bottom = 1062.0
+rect_min_size = Vector2( 20, 0 )
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="PanelContainer/HBoxContainer"]
+margin_left = 263.0
+margin_top = 521.0
+margin_right = 637.0
+margin_bottom = 541.0
+size_flags_vertical = 4
+text = "hud.details.buidlng.construction.construction_item.build"

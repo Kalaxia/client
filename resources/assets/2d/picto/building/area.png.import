@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Shipyard_64px.png-543b197559b122ff581ec9e53c4141c8.stex"
+path="res://.import/area.png-126ffb5246382c62b6c20ddfdaf31cfa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/assets/2d/picto/Shipyard_64px.png"
-dest_files=[ "res://.import/Shipyard_64px.png-543b197559b122ff581ec9e53c4141c8.stex" ]
+source_file="res://resources/assets/2d/picto/building/area.png"
+dest_files=[ "res://.import/area.png-126ffb5246382c62b6c20ddfdaf31cfa.stex" ]
 
 [params]
 
