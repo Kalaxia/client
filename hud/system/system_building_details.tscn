@@ -2,8 +2,8 @@
 
 [ext_resource path="res://hud/system/system_building_details.gd" type="Script" id=1]
 [ext_resource path="res://gui/slectable_panel_container.gd" type="Script" id=2]
-[ext_resource path="res://themes/panel_container/styleboxflat_panel_base.tres" type="StyleBox" id=3]
-[ext_resource path="res://themes/panel_container/styleboxflat_panel_selected.tres" type="StyleBox" id=4]
+[ext_resource path="res://themes/panel_container/styleboxflat_panel_selected.tres" type="StyleBox" id=3]
+[ext_resource path="res://themes/panel_container/styleboxflat_panel_base.tres" type="StyleBox" id=4]
 [ext_resource path="res://themes/panel_container/styleboxflat_panel_hover.tres" type="StyleBox" id=5]
 
 [sub_resource type="StreamTexture" id=1]
@@ -29,14 +29,14 @@ __meta__ = {
 margin_right = 1920.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="Control" type="Control" parent="."]
 visible = false
 margin_top = 14.0
 margin_right = 1920.0
 margin_bottom = 452.0
-mouse_filter = 1
+mouse_filter = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
@@ -44,7 +44,7 @@ size_flags_stretch_ratio = 3.0
 margin_top = 14.0
 margin_right = 1920.0
 margin_bottom = 870.0
-mouse_filter = 1
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
@@ -56,14 +56,14 @@ margin_top = 874.0
 margin_right = 1920.0
 margin_bottom = 904.0
 rect_min_size = Vector2( 30, 30 )
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 margin_top = 908.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 0, 80 )
-mouse_filter = 2
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_vertical_enabled = false
@@ -81,9 +81,9 @@ margin_left = 1681.0
 margin_right = 1920.0
 margin_bottom = 172.0
 script = ExtResource( 2 )
-base_style = ExtResource( 3 )
+base_style = ExtResource( 4 )
 hover_style = ExtResource( 5 )
-slected_style = ExtResource( 4 )
+slected_style = ExtResource( 3 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/Hangar"]
 margin_left = 7.0

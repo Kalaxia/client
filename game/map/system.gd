@@ -141,7 +141,7 @@ func _on_fleet_send(err, response_code, headers, body):
 	if response_code == HTTPClient.RESPONSE_OK:
 		var data = JSON.parse(body.get_string_from_utf8()).result
 		Store._state.selected_fleet.destination_system = system.id
-		Store.fleet_sail(Store._state.selected_fleet, data.arrival_time)
+		Store.fleet_sail(Store._state.selected_fleet, data.destination_arrival_date)
 		Store.unselect_fleet()
 
 func _on_mouse_entered():

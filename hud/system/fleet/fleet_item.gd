@@ -5,12 +5,8 @@ class_name FleetItem, "res://resources/editor/fleet_item.svg"
 var fleet = null setget set_fleet
 var theme_highlight = preload("res://themes/theme_main_square_button_highlight.tres")
 var theme_not_highlight = preload("res://themes/theme_main_square_button.tres")
-#var _quantity = 0
-#var _is_locked = Utils.Lock.new()
 
 signal pressed_open_ship_menu(fleet)
-
-const SHIP_COST = 10
 
 func _ready():
 	$Container/Player.set_text(Store.get_game_player(fleet.player).username)
@@ -29,7 +25,7 @@ func _ready():
 func open_menu_ship_pressed():
 	if Store._state.selected_fleet == null or Store._state.selected_fleet.id != fleet.id:
 		Store.select_fleet(fleet)
-	emit_signal("pressed_open_ship_menu",fleet)
+	emit_signal("pressed_open_ship_menu", fleet)
 
 func button_sail_fleet(event):
 	if event is InputEventMouseButton and event.is_pressed() && event.get_button_index() == BUTTON_LEFT && fleet.destination_system == null:
@@ -49,7 +45,7 @@ func _on_fleet_update_nb_ships(fleet_param):
 	if fleet_param.id == fleet.id or fleet.ship_groups == null:
 		var quantity = 0
 		for i in fleet_param.ship_groups:
-			quantity +=  i.quantity
+			quantity += i.quantity
 		$Container/Ships/NbShips.text = str(quantity)
 
 func update_quantity():

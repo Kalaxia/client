@@ -17,7 +17,6 @@ func _ready():
 	update_style()
 
 func _on_mouse_entered():
-	print("enter")
 	_hover = true
 	update_style()
 

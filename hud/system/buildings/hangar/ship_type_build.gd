@@ -1,39 +1,59 @@
 extends Control
 
+signal ship_construction_started(ship_queue)
+
 var ship_category = Utils.SHIP_CATEGORIES[0] setget set_ship_category
 var _lock_build_ships = Utils.Lock.new()
 var _quantity_orderred = 0
 var _category_orderred = ""
 
 onready var spinbox = $PanelContainer/HBoxContainer/SpinBox
+onready var line_edit_spin_box = spinbox.get_line_edit()
 onready var button_order = $PanelContainer/HBoxContainer/Button
 
-signal ship_construction_started(ship_queue)
 
 func _ready():
 	button_order.connect("pressed", self, "_on_pressed_build")
 	spinbox.connect("value_changed", self, "_on_spinbox_changed")
 	Store.connect("wallet_updated", self, "_on_wallet_update")
+	line_edit_spin_box.connect("text_changed", self, "_on_line_edit_text_changed")
+	line_edit_spin_box.connect("text_entered", self, "_on_text_entered")
 	update_elements()
 	update_price()
+
+
+func _on_line_edit_text_changed(text = null):
+	var caret_position = line_edit_spin_box.caret_position
+	spinbox.apply()
+	line_edit_spin_box.caret_position = caret_position
+
+
+func _on_text_entered(text = null):
+	_on_pressed_build()
+
 
 func _on_wallet_update(ammount):
 	update_order_button_state()
 
+
 func _on_spinbox_changed(value):
 	update_price()
 
+
 func update_order_button_state():
 	button_order.disabled = Store._state.player.wallet < spinbox.value * Utils.SHIP_PRICES[ship_category]
+
 
 func update_price():
 	$PanelContainer/HBoxContainer/Price.text = tr("hud.details.building.hangar.price %d") % (Utils.SHIP_PRICES[ship_category] * spinbox.value)
 	update_order_button_state()
 
+
 func update_elements():
 	if ship_category != null:
 		$PanelContainer/HBoxContainer/TextureRect.texture = Utils.TEXTURE_SHIP_CATEGORIES[ship_category]
 		$PanelContainer/HBoxContainer/Label.text = tr("hud.details.building.hangar.ship_model %s") % tr("ship." + ship_category)
+
 
 func set_ship_category(new_category):
 	if not Utils.SHIP_CATEGORIES.has(new_category):
@@ -42,15 +62,17 @@ func set_ship_category(new_category):
 	update_elements()
 	update_price()
 
+
 func _on_pressed_build():
 	var quantity = spinbox.value
 	if quantity > 0:
 		build_ship(quantity)
 
+
 func build_ship(quantity):
 	if not _lock_build_ships.try_lock():
 		return
-	if Store._state.player.wallet <= quantity * Utils.SHIP_PRICES[ship_category] :
+	if Store._state.player.wallet < quantity * Utils.SHIP_PRICES[ship_category] :
 		_lock_build_ships.unlock()
 		Store.notify(tr("notification.error.not_enought_cred.title"), tr("notification.error.not_enought_cred.content"))
 		return
@@ -62,6 +84,7 @@ func build_ship(quantity):
 		[ "Content-Type: application/json" ],
 		JSON.print({"category" : ship_category, "quantity" : quantity})
 	)
+
 
 func _on_ship_build_requested(err, response_code, headers, body):
 	if err:

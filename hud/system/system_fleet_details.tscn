@@ -29,12 +29,13 @@ custom_constants/margin_bottom = 10
 margin_left = 50.0
 margin_right = 1870.0
 margin_bottom = 886.0
+mouse_filter = 2
 alignment = 2
 
 [node name="MenuFleet" parent="HBoxContainer/HBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 1457.0
+margin_left = 1452.0
 margin_right = 1820.0
 margin_bottom = 886.0
 

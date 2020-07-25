@@ -61,9 +61,9 @@ alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
 visible = false
-margin_right = 20.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 20, 20 )
+margin_right = 25.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
 expand = true
 stretch_mode = 6
 

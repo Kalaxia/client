@@ -16,9 +16,9 @@ load_path = "res://.import/money_64px.png-14695073b2b7bd4dbc437a5f1f5458b7.stex"
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-custom_constants/margin_right = 10
+custom_constants/margin_right = 5
 custom_constants/margin_top = 5
-custom_constants/margin_left = 10
+custom_constants/margin_left = 5
 custom_constants/margin_bottom = 5
 script = ExtResource( 1 )
 __meta__ = {
@@ -27,21 +27,21 @@ __meta__ = {
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-margin_left = 10.0
+margin_left = 5.0
 margin_top = 5.0
-margin_right = 1910.0
+margin_right = 1915.0
 margin_bottom = 1075.0
 custom_styles/panel = SubResource( 1 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
-margin_right = 1900.0
+margin_right = 1910.0
 margin_bottom = 1070.0
 
 [node name="Control4" type="Control" parent="PanelContainer/HBoxContainer"]
 margin_right = 25.0
 margin_bottom = 1070.0
 rect_min_size = Vector2( 25, 0 )
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="PanelContainer/HBoxContainer"]
 margin_left = 29.0
@@ -73,7 +73,7 @@ margin_left = 356.0
 margin_right = 406.0
 margin_bottom = 1070.0
 rect_min_size = Vector2( 50, 0 )
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="SpinBox" type="SpinBox" parent="PanelContainer/HBoxContainer"]
 margin_left = 410.0

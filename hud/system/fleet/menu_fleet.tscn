@@ -20,7 +20,6 @@ __meta__ = {
 margin_bottom = 31.0
 text = "hud.details.fleet.fleet_composition_assignation"
 closable = false
-minimisable = true
 texture = SubResource( 1 )
 
 [node name="PanelContainer" type="PanelContainer" parent="."]

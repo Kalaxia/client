@@ -97,11 +97,32 @@ func update_fleet_system(fleet):
 	_state.game.systems[fleet.system].fleets[fleet.id] = fleet
 	emit_signal("fleet_update",fleet)
 
-func update_fleet_nb_ships(fleet,nb_ships):
+func update_fleet_nb_ships(fleet, ship_category, nb_ships):
 	if not Store._state.game.systems[fleet.system].fleets.has(fleet.id) :
 		return
-	Store._state.game.systems[fleet.system].fleets[fleet.id].nb_ships = nb_ships
-	emit_signal("fleet_update_nb_ships",Store._state.game.systems[fleet.system].fleets[fleet.id])
+	var fleet_in_store = Store._state.game.systems[fleet.system].fleets[fleet.id]
+	var has_updated_number = false
+	for ship_group in fleet_in_store.ship_groups:
+		if ship_group.category == ship_category:
+			ship_group.quantity = nb_ships
+			has_updated_number = true
+	if not has_updated_number:
+		fleet_in_store.ship_groups.push_back({
+			"category" : ship_category, 
+			"quantity" : nb_ships,
+			"fleet" : fleet_in_store.id,
+			"system": fleet_in_store.system,
+		})
+	emit_signal("fleet_update_nb_ships", fleet_in_store)
+
+
+func update_fleet_ship_groups(fleet, ship_groups):
+	if not Store._state.game.systems[fleet.system].fleets.has(fleet.id) :
+		return
+	var fleet_in_store = Store._state.game.systems[fleet.system].fleets[fleet.id]
+	fleet_in_store.ship_groups = ship_groups
+	emit_signal("fleet_update_nb_ships", fleet_in_store)
+
 
 func erase_fleet(fleet):
 	Store._state.game.systems[fleet.system].fleets.erase(fleet.id)
