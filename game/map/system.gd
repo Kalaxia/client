@@ -19,10 +19,13 @@ const SCALE_FACTOR_ON_HIGHLIGHT = 1.5
 const _SCALE_CHANGE_FACTOR = 5.0
 
 
+onready var light_glow_bg = $Star/Light2DGlowBG
+
 func _ready():
 	$Range.visible = false
 	set_position(Vector2(system.coordinates.x * Utils.SCALE_SYSTEMS_COORDS, system.coordinates.y * Utils.SCALE_SYSTEMS_COORDS))
 	_set_system_texture()
+	_set_glow_effet()
 	_modulate_color(1.0)
 	$Star.connect("mouse_input", self, "_on_mouse_input")
 	$Star.connect("mouse_entered", self, "_on_mouse_entered")
@@ -56,11 +59,21 @@ func _process(delta):
 			_current_scale = max(_current_scale - _SCALE_CHANGE_FACTOR * delta, _target_scale)
 		_scale_star_system(_current_scale)
 
+
 func _set_crown_state():
 	var is_current_player = (system.player == Store._state.player.id)
 	$Star/Crown.visible = is_current_player
 	if is_current_player:
 		$Star/Crown.texture = Utils.TEXTURE_CROWN[Store.get_game_player(system.player).faction as int]
+
+
+func _set_glow_effet():
+	var is_victory_system = system.kind == "VictorySystem"
+	light_glow_bg.visible = is_victory_system
+	if is_victory_system:
+		var color = get_color_of_system()
+		light_glow_bg.color = color
+
 
 func _set_system_texture():
 	if system.player == null:
@@ -83,8 +96,7 @@ func _on_fleet_unselected():
 
 func _modulate_color(alpha):
 	var star_sprite = get_node("Star")
-	var is_victory_system = (system.kind == "VictorySystem")
-	var color = Store.get_player_color(null, is_victory_system) if system.player == null else Store.get_player_color(Store.get_game_player(system.player),is_victory_system)
+	var color = get_color_of_system()
 	color.a = alpha
 	star_sprite.set_modulate(color)
 	
@@ -117,6 +129,7 @@ func add_fleet_pin(player):
 func refresh():
 	system = Store._state.game.systems[system.id]
 	_set_system_texture()
+	_set_glow_effet()
 	_modulate_color(1.0)
 	refresh_fleet_pins()
 	get_node("Star/Crown").visible = (system.player == Store._state.player.id)
@@ -164,3 +177,8 @@ func refresh_scale():
 func set_scale_ratio(new_factor : float):
 	scale_ratio = new_factor
 	refresh_scale()
+
+
+func get_color_of_system():
+	var is_victory_system = system.kind == "VictorySystem"
+	return Store.get_player_color(null, is_victory_system) if system.player == null else Store.get_player_color(Store.get_game_player(system.player),is_victory_system)
