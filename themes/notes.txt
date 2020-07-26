@@ -1,0 +1,55 @@
+
+
+Common
+
+BG 1
+
+BG 2
+
+BG 3
+
+
+red faction
+-------------
+
+red 1 (normal)
+af2323
+
+red 2 (pressed)
+5f0000
+
+red 3 highlight
+bd4343
+
+red 4 (boder panel)
+572f2f
+
+yellow faction
+----------
+
+yellow 1 (normal)
+ad9d46
+
+yellow 2 (pressed)
+706907
+
+yellow 3 highlight
+dad452
+
+yellow 4 (boder panel)
+5e601e
+
+blue faction
+-------------
+
+blue 1 (normal)
+2374af
+
+blue 2 (pressed)
+00395f
+
+blue 3 highlight
+55addc
+
+blue 4 (boder panel)
+2f4057
