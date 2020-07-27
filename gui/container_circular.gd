@@ -1,7 +1,7 @@
 tool
 extends Container
 
-class_name CircularContainer
+class_name CircularContainer, "res://resources/editor/circular_container.svg"
 
 enum ANCHOR_POSITION {
 	TOP_LEFT,

@@ -18,27 +18,6 @@ const BASE_POSITION_PIN = Vector2(-30.0,-30.0)
 const SCALE_FACTOR_ON_HIGHLIGHT = 1.5
 const _SCALE_CHANGE_FACTOR = 5.0
 
-const _TEXTURE_SYSTEM = {
-	"VictorySystem":{
-		0 : preload("res://resources/assets/2d/map/picto_syteme.png"),
-		1 : preload("res://resources/assets/2d/map/kalankar/picto_syteme_masque_v2-01.png"),
-		2 : preload("res://resources/assets/2d/map/valkar/picto_syteme_serpent_v2-01.png"),
-		3 : preload("res://resources/assets/2d/map/adranite/picto_syteme_epee_v2-01.png"),
-	},
-	"BaseSystem"  : {
-		0 : preload("res://resources/assets/2d/map/picto_syteme_1_neutral.png"),
-		1 : preload("res://resources/assets/2d/map/kalankar/picto_syteme_masque-01.png"),
-		2 : preload("res://resources/assets/2d/map/valkar/picto_syteme_serpent-01.png"),
-		3 : preload("res://resources/assets/2d/map/adranite/picto_systeme_epee-01.png"),
-	},
-}
-
-
-const _TEXTURE_CROWN = {
-	1 : preload("res://resources/assets/2d/map/kalankar/couronne.png"),
-	2 : preload("res://resources/assets/2d/map/valkar/couronne.png"),
-	3 : preload("res://resources/assets/2d/map/adranite/couronne.png"),
-}
 
 func _ready():
 	set_position(Vector2(system.coordinates.x * Utils.SCALE_SYSTEMS_COORDS, system.coordinates.y * Utils.SCALE_SYSTEMS_COORDS))
@@ -80,13 +59,13 @@ func _set_crown_state():
 	var is_current_player = (system.player == Store._state.player.id)
 	$Star/Crown.visible = is_current_player
 	if is_current_player:
-		$Star/Crown.texture = _TEXTURE_CROWN[Store.get_game_player(system.player).faction as int]
+		$Star/Crown.texture = Utils.TEXTURE_CROWN[Store.get_game_player(system.player).faction as int]
 
 func _set_system_texture():
 	if system.player == null:
-		$Star/Spot.texture = _TEXTURE_SYSTEM[system.kind][0]
+		$Star/Spot.texture = Utils.TEXTURE_SYSTEM[system.kind][0]
 	else:
-		$Star/Spot.texture = _TEXTURE_SYSTEM[system.kind][Store.get_game_player(system.player).faction as int]
+		$Star/Spot.texture = Utils.TEXTURE_SYSTEM[system.kind][Store.get_game_player(system.player).faction as int]
 
 func _scale_star_system(factor):
 	$Star.set_scale(Vector2(scale_ratio * factor, scale_ratio * factor))
@@ -162,7 +141,7 @@ func _on_fleet_send(err, response_code, headers, body):
 	if response_code == HTTPClient.RESPONSE_OK:
 		var data = JSON.parse(body.get_string_from_utf8()).result
 		Store._state.selected_fleet.destination_system = system.id
-		Store.fleet_sail(Store._state.selected_fleet, data.arrival_time)
+		Store.fleet_sail(Store._state.selected_fleet, data.destination_arrival_date)
 		Store.unselect_fleet()
 
 func _on_mouse_entered():

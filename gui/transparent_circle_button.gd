@@ -1,6 +1,6 @@
 extends CustomShapeButton
 
-class_name TransparentCircleButton
+class_name TransparentCircleButton, "res://resources/editor/custom_circle_button.svg"
 
 # as we have no draw the button is transparent
 

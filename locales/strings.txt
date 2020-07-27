@@ -38,4 +38,7 @@ _("Kalankar")
 _("Valkar")
 _("action.ui_map_center_system")_
 _("action.ui_hud_scores")_
-
+_("ship.fighter")_
+_("ship.corvette")_
+_("ship.frigate")_
+_("ship.cruiser")_

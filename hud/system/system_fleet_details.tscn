@@ -1,56 +1,85 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://hud/system/system_fleet_details.gd" type="Script" id=1]
+[ext_resource path="res://hud/system/fleet/menu_fleet.tscn" type="PackedScene" id=2]
 
-[node name="SystemFleetDetails" type="HBoxContainer"]
+[node name="SystemFleetDetails" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="HBoxContainer" type="MarginContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 896.0
+mouse_filter = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+custom_constants/margin_right = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
+margin_left = 50.0
+margin_right = 1870.0
+margin_bottom = 886.0
+mouse_filter = 2
+alignment = 2
+
+[node name="MenuFleet" parent="HBoxContainer/HBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1452.0
+margin_right = 1820.0
+margin_bottom = 886.0
+
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_top = 900.0
 margin_right = 1920.0
 margin_bottom = 1080.0
+rect_min_size = Vector2( 0, 150 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
 margin_right = 1920.0
-margin_bottom = 1080.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 0, 80 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Control" type="Control" parent="ScrollContainer/HBoxContainer"]
 margin_right = 1729.0
-margin_bottom = 1080.0
+margin_bottom = 180.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
 [node name="Fleets" type="HBoxContainer" parent="ScrollContainer/HBoxContainer"]
 margin_left = 1733.0
 margin_right = 1733.0
-margin_bottom = 1080.0
+margin_bottom = 180.0
 mouse_filter = 2
 
 [node name="Control2" type="Control" parent="ScrollContainer/HBoxContainer"]
 margin_left = 1737.0
 margin_right = 1767.0
-margin_bottom = 1080.0
+margin_bottom = 180.0
 rect_min_size = Vector2( 30, 0 )
 mouse_filter = 2
 
 [node name="FleetCreationButton" type="Button" parent="ScrollContainer/HBoxContainer"]
 margin_left = 1771.0
-margin_top = 525.0
+margin_top = 75.0
 margin_right = 1920.0
-margin_bottom = 555.0
+margin_bottom = 105.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_vertical = 4
 text = "hud.system.add_fleet"

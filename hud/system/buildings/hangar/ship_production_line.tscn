@@ -1,0 +1,172 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://hud/system/buildings/hangar/ship_production_line.gd" type="Script" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.270588, 0.545098, 0.203922, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.270588, 0.545098, 0.203922, 0 )
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StreamTexture" id=3]
+flags = 4
+load_path = "res://.import/hourglass_3.svg-77d4a30fdcd7c2651a2574df43f6a01c.stex"
+
+[sub_resource type="StreamTexture" id=4]
+flags = 4
+load_path = "res://.import/x.svg-47a3a67eca4bee58f25f23dd32e35e3d.stex"
+
+[node name="ShipProductionLine" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/margin_right = 10
+custom_constants/margin_top = 1
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = 10.0
+margin_top = 1.0
+margin_right = 1910.0
+margin_bottom = 1079.0
+rect_min_size = Vector2( 0, 30 )
+
+[node name="hBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1893.0
+margin_bottom = 1071.0
+
+[node name="Control5" type="Control" parent="PanelContainer/hBoxContainer"]
+margin_right = 10.0
+margin_bottom = 1064.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 1
+
+[node name="ShipModel" type="Label" parent="PanelContainer/hBoxContainer"]
+margin_left = 14.0
+margin_top = 525.0
+margin_right = 287.0
+margin_bottom = 539.0
+text = "hud.details.building.hangar.ship_model %s"
+
+[node name="Control6" type="Control" parent="PanelContainer/hBoxContainer"]
+margin_left = 291.0
+margin_right = 301.0
+margin_bottom = 1064.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/hBoxContainer"]
+margin_left = 305.0
+margin_top = 516.0
+margin_right = 337.0
+margin_bottom = 548.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 4
+texture = SubResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="Control" type="Control" parent="PanelContainer/hBoxContainer"]
+margin_left = 341.0
+margin_right = 785.0
+margin_bottom = 1064.0
+mouse_filter = 2
+size_flags_horizontal = 3
+
+[node name="ShipNumber" type="Label" parent="PanelContainer/hBoxContainer"]
+margin_left = 789.0
+margin_top = 525.0
+margin_right = 1097.0
+margin_bottom = 539.0
+text = "hud.details.building.hangar.number_of_ships %d"
+align = 2
+
+[node name="Control2" type="Control" parent="PanelContainer/hBoxContainer"]
+margin_left = 1101.0
+margin_right = 1111.0
+margin_bottom = 1064.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/hBoxContainer"]
+margin_left = 1115.0
+margin_top = 523.0
+margin_right = 1515.0
+margin_bottom = 541.0
+rect_min_size = Vector2( 400, 18 )
+size_flags_vertical = 4
+custom_styles/fg = SubResource( 2 )
+max_value = 1.0
+step = 0.001
+value = 0.5
+
+[node name="Control3" type="Control" parent="PanelContainer/hBoxContainer"]
+visible = false
+margin_left = 1505.0
+margin_right = 1515.0
+margin_bottom = 1064.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 1
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/hBoxContainer"]
+margin_left = 1519.0
+margin_right = 1539.0
+margin_bottom = 1064.0
+rect_min_size = Vector2( 20, 20 )
+texture = SubResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="TimeRemaining" type="Label" parent="PanelContainer/hBoxContainer"]
+margin_left = 1543.0
+margin_top = 525.0
+margin_right = 1843.0
+margin_bottom = 539.0
+rect_min_size = Vector2( 185, 0 )
+text = "hud.details.building.hangar.time_remaining %d"
+
+[node name="Control4" type="Control" parent="PanelContainer/hBoxContainer"]
+margin_left = 1847.0
+margin_right = 1857.0
+margin_bottom = 1064.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="PanelContainer/hBoxContainer"]
+margin_left = 1861.0
+margin_top = 522.0
+margin_right = 1886.0
+margin_bottom = 542.0
+rect_min_size = Vector2( 25, 0 )
+size_flags_vertical = 4
+custom_constants/hseparation = -1
+disabled = true
+expand_icon = true
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/hBoxContainer/Button"]
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}

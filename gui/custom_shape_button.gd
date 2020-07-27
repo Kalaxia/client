@@ -1,6 +1,6 @@
 extends Control
 
-class_name CustomShapeButton
+class_name CustomShapeButton, "res://resources/editor/custom_shape_button.svg"
 
 var _hover = false
 var selected = false setget set_selected

@@ -32,7 +32,12 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "FleetItem",
 "language": "GDScript",
-"path": "res://hud/system/fleet_item.gd"
+"path": "res://hud/system/fleet/fleet_item.gd"
+}, {
+"base": "PanelContainer",
+"class": "MenuHeader",
+"language": "GDScript",
+"path": "res://gui/menu/menu_header.gd"
 }, {
 "base": "Control",
 "class": "OptionKeyBinding",
@@ -44,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://matchmaking/player/player_info_faction_column.gd"
 }, {
+"base": "PanelContainer",
+"class": "SelectablePanelContainer",
+"language": "GDScript",
+"path": "res://gui/slectable_panel_container.gd"
+}, {
 "base": "CustomShapeButton",
 "class": "TransparentCircleButton",
 "language": "GDScript",
@@ -51,13 +61,15 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AudioStacking": "",
-"CircularButton": "",
-"CircularContainer": "",
-"CustomShapeButton": "",
-"FleetItem": "",
+"CircularButton": "res://resources/editor/custom_circular_button.svg",
+"CircularContainer": "res://resources/editor/circular_container.svg",
+"CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
+"FleetItem": "res://resources/editor/fleet_item.svg",
+"MenuHeader": "res://resources/editor/menu_header.svg",
 "OptionKeyBinding": "",
 "PlayerInfoFactionColumn": "",
-"TransparentCircleButton": ""
+"SelectablePanelContainer": "res://resources/editor/selectable_container.svg",
+"TransparentCircleButton": "res://resources/editor/custom_circle_button.svg"
 }
 
 [application]

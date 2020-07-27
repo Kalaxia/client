@@ -95,10 +95,10 @@ func _on_combat_ended(data):
 	for fleet in data.fleets.values():
 		if fleet.destination_system != null:
 			get_node("ParallaxBackground/ParallaxLayer0/Map/FleetContainer/" + fleet.id).queue_free()
-		if fleet.nb_ships == 0:
+		elif fleet.ship_groups == null or fleet.ship_groups == []:
 			Store.erase_fleet(fleet)
 		else:
-			Store.update_fleet_nb_ships(fleet,fleet.nb_ships)
+			Store.update_fleet_ship_groups(fleet, fleet.ship_groups)
 	get_node("ParallaxBackground/ParallaxLayer0/Map/" + data.system.id).refresh_fleet_pins()
 	
 func _on_system_selected(system, old_system):
@@ -136,8 +136,8 @@ func _on_fleet_sailed(fleet, arrival_time):
 
 # This method is called when the websocket notifies an another player's fleet sailing
 # It notifies the store which call _on_fleet_sailed back
-func _on_remote_fleet_sailed(data):
-	Store.fleet_sail(data.fleet, data.arrival_time )
+func _on_remote_fleet_sailed(fleet):
+	Store.fleet_sail(fleet, fleet.destination_arrival_date)
 
 func _on_system_conquerred(data):
 	Store.erase_all_fleet_system(data.system)
@@ -150,7 +150,9 @@ func _on_victory(data):
 	Store._state.scores = data.scores
 	emit_signal("scene_requested", "scores")
 
+
 func _input(event):
+	# mouse event has priority on the GUI
 	if event is InputEventKey || event is InputEventMouseButton:
 		if event.is_action_pressed("ui_zoom_in_map"):
 			_zoom_camera(1.0 / _ZOOM_FACTOR)
@@ -160,6 +162,15 @@ func _input(event):
 			_is_map_being_dragged = true
 		if event.is_action_released("ui_drag_map"):
 			_is_map_being_dragged = false
+	elif event is InputEventMouseMotion:
+		if _is_map_being_dragged:
+			_move_camera(-event.get_relative() * $Camera2D.zoom)
+			_camera_speed = event.speed
+
+
+func _unhandled_input(event):
+	# key events has not priority over gui
+	if event is InputEventKey || event is InputEventMouseButton:
 		if event.is_action_pressed("ui_move_map_left"):
 			_motion_camera[Vector2.LEFT] = true
 		elif event.is_action_released("ui_move_map_left"):
@@ -178,10 +189,7 @@ func _input(event):
 			_motion_camera[Vector2.DOWN] = false
 		if event.is_action_pressed("ui_map_center_system"):
 			center_on_selected_system()
-	elif event is InputEventMouseMotion:
-		if _is_map_being_dragged:
-			_move_camera(-event.get_relative() * $Camera2D.zoom)
-			_camera_speed = event.speed
+
 
 func _zoom_camera(factor):
 	var max_screen_size = Vector2($Camera2D.limit_right - $Camera2D.limit_left, $Camera2D.limit_bottom - $Camera2D.limit_top)

@@ -30,6 +30,7 @@ signal SystemConquerred(data)
 signal SystemsCreated(data)
 signal Victory(data)
 signal FactionPointsUpdated(scores)
+signal ShipQueueFinished(ship_group)
 
 #
 # Everything related to HTTP requests

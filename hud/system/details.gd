@@ -1,23 +1,11 @@
 extends Control
 
-const _TEXTURE_SYSTEM = {
-	"VictorySystem":{
-		0 : preload("res://resources/assets/2d/map/picto_syteme.png"),
-		1 : preload("res://resources/assets/2d/map/kalankar/picto_syteme_masque_v2-01.png"),
-		2 : preload("res://resources/assets/2d/map/valkar/picto_syteme_serpent_v2-01.png"),
-		3 : preload("res://resources/assets/2d/map/adranite/picto_syteme_epee_v2-01.png"),
-	},
-	"BaseSystem"  : {
-		0 : preload("res://resources/assets/2d/map/picto_syteme_1_neutral.png"),
-		1 : preload("res://resources/assets/2d/map/kalankar/picto_syteme_masque-01.png"),
-		2 : preload("res://resources/assets/2d/map/valkar/picto_syteme_serpent-01.png"),
-		3 : preload("res://resources/assets/2d/map/adranite/picto_systeme_epee-01.png"),
-	},
-}
-
 var fleet_details_scene = preload("res://hud/system/system_fleet_details.tscn")
 var building_details_scene = preload("res://hud/system/system_building_details.tscn")
 
+onready var menu_system = $MenuSystem
+onready var button_building = $System/CircularContainer/Bluilding
+onready var button_fleet = $System/CircularContainer/Fleet
 
 func _ready():
 	Store.connect("system_selected", self, "_on_system_selected")
@@ -25,9 +13,9 @@ func _ready():
 	Network.connect("Victory", self, "_on_victory")
 	set_visible(false)
 	var fleet_details = fleet_details_scene.instance()
-	$MenuSystem.add_child(fleet_details)
-	$System/CircularContainer/Bluilding.connect("pressed",self,"_on_building_pressed")
-	$System/CircularContainer/Fleet.connect("pressed",self,"_on_fleet_pressed")
+	menu_system.add_child(fleet_details)
+	button_building.connect("pressed",self,"_on_building_pressed")
+	button_fleet.connect("pressed",self,"_on_fleet_pressed")
 
 func _on_system_selected(system, old_system):
 	set_visible(true)
@@ -41,7 +29,7 @@ func refresh_data(system):
 		player_node.text = player.username
 	else:
 		player_node.text = ""
-	$System/CircularContainer/ContainerSystem/TextureRect.texture = _TEXTURE_SYSTEM[system.kind][0 if player == null else player.faction as int]
+	$System/CircularContainer/ContainerSystem/TextureRect.texture = Utils.TEXTURE_SYSTEM[system.kind][0 if player == null else player.faction as int]
 	$System/CircularContainer/ContainerSystem/TextureRect.modulate = Store.get_player_color(player, system.kind == "VictorySystem")
 
 func _on_victory(data):
@@ -52,18 +40,18 @@ func _on_system_update(system):
 		refresh_data(Store._state.selected_system)
 
 func _on_building_pressed():
-	for node in $MenuSystem.get_children():
+	for node in menu_system.get_children():
 		node.queue_free()
-	if $System/CircularContainer/Bluilding.selected:
-		$System/CircularContainer/Fleet.selected = false
-		$MenuSystem.add_child(building_details_scene.instance())
+	if button_building.selected:
+		button_fleet.selected = false
+		menu_system.add_child(building_details_scene.instance())
 		
 
 func _on_fleet_pressed():
-	for node in $MenuSystem.get_children():
+	for node in menu_system.get_children():
 		node.queue_free()
-	if $System/CircularContainer/Fleet.selected:
-		$System/CircularContainer/Bluilding.selected = false
-		$MenuSystem.add_child(fleet_details_scene.instance())
+	if button_fleet.selected:
+		button_building.selected = false
+		menu_system.add_child(fleet_details_scene.instance())
 
 
