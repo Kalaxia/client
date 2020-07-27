@@ -13,10 +13,10 @@ onready var menu_header = $MenuHeader
 func _ready():
 	Store.connect("fleet_update_nb_ships",self,"_on_fleet_update_nb_ships")
 	Network.connect("ShipQueueFinished",self,"_on_ship_queue_finished")
-	for cathegory in Utils.SHIP_CATEGORIES:
+	for category in Store._state.ship_models:
 		var node = _SHIP_GROUP_ELEMENT.instance()
-		node.ship_category = cathegory
-		node.name = cathegory
+		node.ship_category = category
+		node.name = category.category
 		ship_group_element_container.add_child(node)
 	menu_header.connect("minimize_request", self, "_on_minimize_request")
 	update_hangar()

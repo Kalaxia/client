@@ -19,14 +19,14 @@ onready var menu_header = $MenuHeader
 
 func _ready():
 	Network.connect("ShipQueueFinished",self,"_on_ship_queue_finished")
-	for category in Utils.SHIP_CATEGORIES:
+	for category in Store._state.ship_models:
 		var node = _SHIP_HANGARD.instance()
 		node.category = category
 		node.quantity = 0
-		node.name = category
+		node.name = category.category
 		hangar_element.add_child(node)
 		node.connect("pressed", self, "select_group", [category])
-	select_group(Utils.SHIP_CATEGORIES[0])
+	select_group(Store._state.ship_models[0])
 	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
 	Network.req(self, "_on_ship_group_recieved"
 		, "/api/games/" +
@@ -91,9 +91,9 @@ func _on_ship_construction_started(ship_queue):
 
 
 func select_group(category):
-	if hangar_element.has_node(category):
+	if hangar_element.has_node(category.category):
 		for node in hangar_element.get_children():
-			if node.name != category:
+			if node.name != category.category:
 				node.is_selected = false
 			else:
 				node.is_selected = true

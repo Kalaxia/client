@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://hud/system/buildings/hangar/ship_type_build.gd" type="Script" id=1]
+[ext_resource path="res://resources/assets/2d/picto/ships/stat/Health.svg" type="Texture" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -11,6 +12,18 @@ load_path = "res://.import/ship_64px.png-0d665bcf942a48fa390e6ccbc93bfc35.stex"
 [sub_resource type="StreamTexture" id=3]
 flags = 4
 load_path = "res://.import/money_64px.png-14695073b2b7bd4dbc437a5f1f5458b7.stex"
+
+[sub_resource type="StreamTexture" id=4]
+flags = 4
+load_path = "res://.import/hourglass_3.svg-77d4a30fdcd7c2651a2574df43f6a01c.stex"
+
+[sub_resource type="StreamTexture" id=5]
+flags = 4
+load_path = "res://.import/Damage.svg-926cdbe820d5d839b9d3d962a6963660.stex"
+
+[sub_resource type="StreamTexture" id=6]
+flags = 4
+load_path = "res://.import/Precision.svg-49c8a2035941f98d4e05ebd44b03227a.stex"
 
 [node name="ShipTypeBuild" type="MarginContainer"]
 anchor_right = 1.0
@@ -29,12 +42,12 @@ __meta__ = {
 [node name="PanelContainer" type="PanelContainer" parent="."]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 1915.0
+margin_right = 2142.0
 margin_bottom = 1075.0
 custom_styles/panel = SubResource( 1 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
-margin_right = 1910.0
+margin_right = 2137.0
 margin_bottom = 1070.0
 
 [node name="Control4" type="Control" parent="PanelContainer/HBoxContainer"]
@@ -70,15 +83,15 @@ stretch_mode = 6
 
 [node name="Control2" type="Control" parent="PanelContainer/HBoxContainer"]
 margin_left = 356.0
-margin_right = 406.0
+margin_right = 366.0
 margin_bottom = 1070.0
-rect_min_size = Vector2( 50, 0 )
+rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 
 [node name="SpinBox" type="SpinBox" parent="PanelContainer/HBoxContainer"]
-margin_left = 410.0
+margin_left = 370.0
 margin_top = 523.0
-margin_right = 484.0
+margin_right = 444.0
 margin_bottom = 547.0
 size_flags_vertical = 4
 min_value = 1.0
@@ -87,25 +100,24 @@ value = 1.0
 allow_greater = true
 
 [node name="Control3" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 488.0
-margin_right = 498.0
+margin_left = 448.0
+margin_right = 458.0
 margin_bottom = 1070.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 1
 
 [node name="Price" type="Label" parent="PanelContainer/HBoxContainer"]
-margin_left = 502.0
+margin_left = 462.0
 margin_top = 528.0
-margin_right = 734.0
+margin_right = 694.0
 margin_bottom = 542.0
-rect_min_size = Vector2( 80, 0 )
 text = "hud.details.building.hangar.price %d"
 align = 2
 
 [node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer"]
-margin_left = 738.0
+margin_left = 698.0
 margin_top = 525.0
-margin_right = 758.0
+margin_right = 718.0
 margin_bottom = 545.0
 rect_min_size = Vector2( 20, 20 )
 size_flags_vertical = 4
@@ -114,16 +126,108 @@ expand = true
 stretch_mode = 6
 
 [node name="Control5" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 762.0
-margin_right = 772.0
+margin_left = 722.0
+margin_right = 742.0
+margin_bottom = 1070.0
+rect_min_size = Vector2( 20, 0 )
+mouse_filter = 2
+
+[node name="TextureRect3" type="TextureRect" parent="PanelContainer/HBoxContainer"]
+margin_left = 746.0
+margin_right = 766.0
+margin_bottom = 1070.0
+rect_min_size = Vector2( 20, 20 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="Time" type="Label" parent="PanelContainer/HBoxContainer"]
+margin_left = 770.0
+margin_top = 528.0
+margin_right = 1008.0
+margin_bottom = 542.0
+text = "hud.details.building.hangar.time %f.1"
+
+[node name="Control6" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_left = 1012.0
+margin_right = 1022.0
 margin_bottom = 1070.0
 rect_min_size = Vector2( 10, 0 )
-mouse_filter = 1
+mouse_filter = 2
+
+[node name="TextureRect4" type="TextureRect" parent="PanelContainer/HBoxContainer"]
+margin_left = 1026.0
+margin_right = 1046.0
+margin_bottom = 1070.0
+rect_min_size = Vector2( 20, 20 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="HitPoint" type="Label" parent="PanelContainer/HBoxContainer"]
+margin_left = 1050.0
+margin_top = 528.0
+margin_right = 1306.0
+margin_bottom = 542.0
+text = "hud.details.building.hangar.hit_point %d"
+
+[node name="Control7" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_left = 1310.0
+margin_right = 1320.0
+margin_bottom = 1070.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 2
+
+[node name="TextureRect5" type="TextureRect" parent="PanelContainer/HBoxContainer"]
+margin_left = 1324.0
+margin_right = 1344.0
+margin_bottom = 1070.0
+rect_min_size = Vector2( 20, 20 )
+texture = SubResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="Damage" type="Label" parent="PanelContainer/HBoxContainer"]
+margin_left = 1348.0
+margin_top = 528.0
+margin_right = 1598.0
+margin_bottom = 542.0
+text = "hud.details.building.hangar.damage %d"
+
+[node name="Control8" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_left = 1602.0
+margin_right = 1612.0
+margin_bottom = 1070.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 2
+
+[node name="TextureRect6" type="TextureRect" parent="PanelContainer/HBoxContainer"]
+margin_left = 1616.0
+margin_right = 1636.0
+margin_bottom = 1070.0
+rect_min_size = Vector2( 20, 20 )
+texture = SubResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="Accuracy" type="Label" parent="PanelContainer/HBoxContainer"]
+margin_left = 1640.0
+margin_top = 528.0
+margin_right = 1895.0
+margin_bottom = 542.0
+text = "hud.details.building.hangar.accuracy %d"
+
+[node name="Control9" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_left = 1899.0
+margin_right = 1909.0
+margin_bottom = 1070.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 2
 
 [node name="Button" type="Button" parent="PanelContainer/HBoxContainer"]
-margin_left = 776.0
+margin_left = 1913.0
 margin_top = 525.0
-margin_right = 1000.0
+margin_right = 2137.0
 margin_bottom = 545.0
 size_flags_vertical = 4
 text = "hud.system.building.hangar.build"

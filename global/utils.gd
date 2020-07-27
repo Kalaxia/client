@@ -6,16 +6,6 @@ const AUDIO_VOLUME_DB_MIN = -100.0 # in dB
 const SCALE_SYSTEMS_COORDS = 20
 const FLEET_RANGE = 20.0
 
-const SHIP_CATEGORIES = [
-	"fighter",
-	"frigate",
-]
-
-const SHIP_PRICES = {
-	"fighter" : 20,
-	"frigate" : 100,
-}
-
 ############## TEXTURES ##############
 
 const BANNERS = {
@@ -48,7 +38,9 @@ const TEXTURE_CROWN = {
 const TEXTURE_SHIP_CATEGORIES = {
 	"" : preload("res://resources/assets/2d/picto/ships/ship_64px.png"),
 	"fighter" : preload("res://resources/assets/2d/picto/ships/fighter.svg"),
+	"corvette" : preload("res://resources/assets/2d/picto/ships/corvette.svg"),
 	"frigate" : preload("res://resources/assets/2d/picto/ships/frigate.svg"),
+	"cruiser" : preload("res://resources/assets/2d/picto/ships/cruiser.svg"),
 }
 
 ############## LOCK ##############

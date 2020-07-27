@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-26 18:58+0200\n"
+"POT-Creation-Date: 2020-07-27 20:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,15 +99,15 @@ msgstr ""
 msgid "received data from server: "
 msgstr ""
 
-#: global/store.gd:32
+#: global/store.gd:66
 msgid "store.game_of"
 msgstr ""
 
-#: global/store.gd:32
+#: global/store.gd:66
 msgid "store.new_game"
 msgstr ""
 
-#: global/utils.gd:99
+#: global/utils.gd:91
 msgid "action.key.mouse_key_"
 msgstr ""
 
@@ -163,15 +163,15 @@ msgstr ""
 msgid "hud.details.building.hangar.menu_title"
 msgstr ""
 
-#: hud/system/buildings/hangar.tscn:55
+#: hud/system/buildings/hangar.tscn:54
 msgid "hud.details.building.hangar.production_line"
 msgstr ""
 
-#: hud/system/buildings/hangar.tscn:86
+#: hud/system/buildings/hangar.tscn:85
 msgid "hud.details.building.hangar.order_ship"
 msgstr ""
 
-#: hud/system/buildings/hangar.tscn:110
+#: hud/system/buildings/hangar.tscn:109
 msgid "hud.details.building.hangar.hangar_ship"
 msgstr ""
 
@@ -183,15 +183,15 @@ msgstr ""
 
 #: hud/system/buildings/hangar/ship_production_line.gd:30
 #: hud/system/buildings/hangar/ship_production_line.tscn:65
-#: hud/system/buildings/hangar/ship_type_build.gd:42
-#: hud/system/buildings/hangar/ship_type_build.tscn:51
+#: hud/system/buildings/hangar/ship_type_build.gd:63
+#: hud/system/buildings/hangar/ship_type_build.tscn:64
 #, python-format
 msgid "hud.details.building.hangar.ship_model %s"
 msgstr ""
 
 #: hud/system/buildings/hangar/ship_production_line.gd:30
-#: hud/system/buildings/hangar/ship_type_build.gd:42
-#: hud/system/fleet/ship_group_fleet_menu.gd:27
+#: hud/system/buildings/hangar/ship_type_build.gd:63
+#: hud/system/fleet/ship_group_fleet_menu.gd:39
 msgid "ship."
 msgstr ""
 
@@ -201,26 +201,54 @@ msgstr ""
 msgid "hud.details.building.hangar.time_remaining %d"
 msgstr ""
 
-#: hud/system/buildings/hangar/ship_type_build.gd:35
-#: hud/system/buildings/hangar/ship_type_build.tscn:102
+#: hud/system/buildings/hangar/ship_type_build.gd:54
+#: hud/system/buildings/hangar/ship_type_build.tscn:115
 #, python-format
 msgid "hud.details.building.hangar.price %d"
 msgstr ""
 
-#: hud/system/buildings/hangar/ship_type_build.gd:64
+#: hud/system/buildings/hangar/ship_type_build.gd:56
+#, python-format
+msgid "hud.details.building.hangar.time %.1f"
+msgstr ""
+
+#: hud/system/buildings/hangar/ship_type_build.gd:65
+#: hud/system/buildings/hangar/ship_type_build.tscn:173
+#, python-format
+msgid "hud.details.building.hangar.hit_point %d"
+msgstr ""
+
+#: hud/system/buildings/hangar/ship_type_build.gd:67
+#: hud/system/buildings/hangar/ship_type_build.tscn:196
+#, python-format
+msgid "hud.details.building.hangar.damage %d"
+msgstr ""
+
+#: hud/system/buildings/hangar/ship_type_build.gd:69
+#: hud/system/buildings/hangar/ship_type_build.tscn:219
+#, python-format
+msgid "hud.details.building.hangar.accuracy %d"
+msgstr ""
+
+#: hud/system/buildings/hangar/ship_type_build.gd:89
 msgid "notification.error.not_enought_cred.title"
 msgstr ""
 
-#: hud/system/buildings/hangar/ship_type_build.gd:64
+#: hud/system/buildings/hangar/ship_type_build.gd:89
 msgid "notification.error.not_enought_cred.content"
 msgstr ""
 
-#: hud/system/buildings/hangar/ship_type_build.tscn:129
+#: hud/system/buildings/hangar/ship_type_build.tscn:150
+#, python-format
+msgid "hud.details.building.hangar.time %f.1"
+msgstr ""
+
+#: hud/system/buildings/hangar/ship_type_build.tscn:234
 msgid "hud.system.building.hangar.build"
 msgstr ""
 
 #: hud/system/buildings/hangar/ship_type_hangar.gd:31
-#: hud/system/buildings/hangar/ship_type_hangar.tscn:75
+#: hud/system/buildings/hangar/ship_type_hangar.tscn:72
 #, python-format
 msgid "hud.details.building.hangar.number_of_ship %d"
 msgstr ""
@@ -233,32 +261,50 @@ msgstr ""
 msgid "hud.details.fleet.fleet_composition_assignation"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:27
-#: hud/system/fleet/ship_group_fleet_menu.tscn:54
+#: hud/system/fleet/ship_group_fleet_menu.gd:39
+#: hud/system/fleet/ship_group_fleet_menu.tscn:66
 #, python-format
 msgid "hud.details.fleet.ship_model %s"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:33
+#: hud/system/fleet/ship_group_fleet_menu.gd:43
+#: hud/system/fleet/ship_group_fleet_menu.tscn:119
+#, python-format
+msgid "hud.details.fleet.hit_point %d"
+msgstr ""
+
+#: hud/system/fleet/ship_group_fleet_menu.gd:45
+#: hud/system/fleet/ship_group_fleet_menu.tscn:151
+#, python-format
+msgid "hud.details.fleet.damage %d"
+msgstr ""
+
+#: hud/system/fleet/ship_group_fleet_menu.gd:47
+#: hud/system/fleet/ship_group_fleet_menu.tscn:183
+#, python-format
+msgid "hud.details.fleet.accuracy %d"
+msgstr ""
+
+#: hud/system/fleet/ship_group_fleet_menu.gd:51
 #, python-format
 msgid "hud.details.fleet.number_of_ship_fleet %d %d"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:34
-#: hud/system/fleet/ship_group_fleet_menu.tscn:210
+#: hud/system/fleet/ship_group_fleet_menu.gd:52
+#: hud/system/fleet/ship_group_fleet_menu.tscn:318
 #, python-format
 msgid "hud.details.fleet.number_of_ship_total %d"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:95
+#: hud/system/fleet/ship_group_fleet_menu.tscn:203
 msgid "hud.details.fleet.ship_to_assign"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:121
+#: hud/system/fleet/ship_group_fleet_menu.tscn:229
 msgid "hud.details.system.fleet.menu.group_ship.set"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:164
+#: hud/system/fleet/ship_group_fleet_menu.tscn:272
 #, python-format
 msgid "hud.details.fleet.number_of_ship_fleet %d"
 msgstr ""
@@ -428,7 +474,15 @@ msgid "ship.fighter"
 msgstr ""
 
 #: locales/strings.txt:42
+msgid "ship.corvette"
+msgstr ""
+
+#: locales/strings.txt:43
 msgid "ship.frigate"
+msgstr ""
+
+#: locales/strings.txt:44
+msgid "ship.cruiser"
 msgstr ""
 
 #: matchmaking/game/game_loading.gd:52 matchmaking/game/game_loading.tscn:56

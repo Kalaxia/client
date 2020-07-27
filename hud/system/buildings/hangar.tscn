@@ -20,7 +20,6 @@ __meta__ = {
 [node name="MenuHeader" parent="." instance=ExtResource( 2 )]
 margin_bottom = 31.0
 text = "hud.details.building.hangar.menu_title"
-closable = true
 minimisable = false
 texture = SubResource( 1 )
 

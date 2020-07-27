@@ -15,7 +15,7 @@ func _ready():
 
 func update_texture():
 	if category != null:
-		$SelectablePanelContainer/VBoxContainer/TextureRect.texture = Utils.TEXTURE_SHIP_CATEGORIES[category]
+		$SelectablePanelContainer/VBoxContainer/TextureRect.texture = Utils.TEXTURE_SHIP_CATEGORIES[category.category]
 
 
 func _on_pressed():
@@ -32,7 +32,7 @@ func update_quantity():
 
 
 func set_category(new_category):
-	if not Utils.SHIP_CATEGORIES.has(new_category) and new_category != null:
+	if new_category == null:
 		return
 	category = new_category
 	update_texture()

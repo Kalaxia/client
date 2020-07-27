@@ -9,6 +9,40 @@ const _STATE_EMPTY = {
 	"selected_fleet": null,
 	"scores": {},
 	"victorious_faction": null,
+	"ship_models" : [
+		{
+			"category": "fighter",
+			"construction_time": 400,
+			"cost": 20,
+			"damage": 15,
+			"hit_points": 10,
+			"precision": 60,
+		},
+		{
+			"category": "corvette",
+			"construction_time": 1500,
+			"cost": 140,
+			"damage": 40,
+			"hit_points": 60,
+			"precision": 45,
+		},
+		{
+			"category": "frigate",
+			"construction_time": 2000,
+			"cost": 250,
+			"damage": 25,
+			"hit_points": 100,
+			"precision": 50,
+		},
+		{
+			"category": "cruiser",
+			"construction_time": 7000,
+			"cost": 600,
+			"damage": 80,
+			"hit_points": 200,
+			"precision": 45,
+		},
+	],
 }
 
 var _state = _STATE_EMPTY.duplicate(true)
@@ -142,12 +176,14 @@ func unselect_fleet():
 func unload_data():
 	var player = _state.player
 	var factions = _state.factions
+	var ship_models = _state.ship_models
 	if player != null:
 		player.game = null
 		player.lobby = null
 	_state = _STATE_EMPTY.duplicate(true)
 	_state.player = player
 	_state.factions = factions
+	_state.ship_models = ship_models
 
 func is_in_range(fleet,system):
 	# check that the system is adjacent and not equal
