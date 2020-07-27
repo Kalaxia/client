@@ -9,7 +9,7 @@
 script = ExtResource( 1 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-layer = 2
+layer = 10
 
 [node name="HUD" type="Control" parent="ParallaxBackground"]
 anchor_right = 1.0
