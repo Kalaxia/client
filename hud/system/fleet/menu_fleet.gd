@@ -20,6 +20,7 @@ func _ready():
 		ship_group_element_container.add_child(node)
 		node.connect("ship_assigned", self, "_on_ship_assigned", [category])
 	menu_header.connect("minimize_request", self, "_on_minimize_request")
+	menu_header.connect("close_request", self, "_on_minimize_request")
 	update_hangar()
 	update_element_fleet()
 

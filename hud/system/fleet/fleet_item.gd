@@ -6,8 +6,13 @@ signal pressed_open_ship_menu(fleet)
 var fleet = null setget set_fleet
 
 
+
+onready var key_binding_compo = $Container/Ships/ButtonMenu/KeyBindingLabelsContainer
+
 func _ready():
 	._ready()
+	connect("focus_entered", self, "_on_focus_entered")
+	connect("focus_exited", self, "_on_focus_exited")
 	$Container/Player.set_text(Store.get_game_player(fleet.player).username)
 	if fleet.player != Store._state.player.id:
 		$Container/Ships.set_visible(false)
@@ -19,6 +24,19 @@ func _ready():
 	$Container/Ships/ButtonMenu.connect("pressed", self, "open_menu_ship_pressed")
 	connect("pressed", self, "_on_pressed")
 	update_quantity()
+
+
+func _gui_input(event):
+	if has_focus() and event.is_action_pressed("ui_accept"):
+		open_menu_ship_pressed()
+
+
+func _on_focus_entered():
+	key_binding_compo.visibility = true
+
+
+func _on_focus_exited():
+	key_binding_compo.visibility = false
 
 
 func open_menu_ship_pressed():
@@ -66,3 +84,10 @@ func update_quantity():
 func set_fleet(new_fleet):
 	fleet = new_fleet
 	update_quantity()
+
+
+func set_key_binding_number(position_of_event):
+	$KeyBindingLabelsContainer.pos_of_events = PoolIntArray([position_of_event])
+	$KeyBindingLabelsContainer.visibility = true
+	
+

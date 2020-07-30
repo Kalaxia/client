@@ -52,7 +52,7 @@ func refresh_data(system):
 	# otherwise name get duplicated as queue_free() does not free the node immediately
 	while fleet_container.get_child_count() > 0 :
 		yield(fleet_container.get_child(0), "tree_exited")
-	fleet_creation_button.set_visible(false)
+	fleet_creation_button.set_visible(true)
 	if system == null || system.id == null:
 		_lock_add_fleet_item.unlock()
 		return
@@ -64,7 +64,9 @@ func refresh_data(system):
 		if system_refreshed.player == Store._state.player.id:
 			fleet_creation_button.set_visible(true)
 			fleet_creation_button.disabled = Store._state.player.wallet < FLEET_COST
-	for id in system_refreshed.fleets: add_fleet_item(system_refreshed.fleets[id])
+	for id in range(system_refreshed.fleets.values().size()): 
+		var fleet_node = add_fleet_item(system_refreshed.fleets.values()[id])
+		fleet_node.set_key_binding_number(id)
 	_lock_add_fleet_item.unlock()
 
 
@@ -91,12 +93,14 @@ func add_fleet_item(fleet):
 	fleet_node.connect("pressed_open_ship_menu", self, "_on_button_menu_fleet")
 	if ( Store._state.selected_fleet == null or Store._state.selected_fleet.system != Store._state.selected_system.id ) and fleet.player == Store._state.player.id:
 		Store.select_fleet(fleet)
+	return fleet_node
 
 
 func _on_fleet_created(fleet):
 	if Store._state.selected_system == null || fleet.system != Store._state.selected_system.id:
 		return
-	add_fleet_item(fleet)
+	var fleet_node = add_fleet_item(fleet)
+	fleet_node.set_key_binding_number(Store._state.selected_system.fleets.size()-1)
 
 
 func _on_wallet_update(amount):

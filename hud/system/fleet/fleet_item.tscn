@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://hud/system/fleet/fleet_item.gd" type="Script" id=1]
+[ext_resource path="res://gui/key_binding_label/key_binding_labels_container.tscn" type="PackedScene" id=3]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -10,6 +11,7 @@ load_path = "res://.import/picto_flotte_2.png-7690f89049c3d62083c913b47bdc6ade.s
 anchor_right = 0.15625
 anchor_bottom = 0.0972222
 rect_min_size = Vector2( 70, 70 )
+focus_mode = 2
 size_flags_vertical = 3
 script = ExtResource( 1 )
 __meta__ = {
@@ -68,5 +70,15 @@ margin_top = 1.0
 margin_right = 286.0
 margin_bottom = 31.0
 rect_min_size = Vector2( 0, 30 )
+focus_mode = 0
 size_flags_vertical = 4
+enabled_focus_mode = 0
 text = "hud.fleet_item.open_menu"
+
+[node name="KeyBindingLabelsContainer" parent="Container/Ships/ButtonMenu" instance=ExtResource( 3 )]
+action = "ui_accept"
+
+[node name="KeyBindingLabelsContainer" parent="." instance=ExtResource( 3 )]
+visible = false
+action = "ui_select_fleet"
+visibility = false

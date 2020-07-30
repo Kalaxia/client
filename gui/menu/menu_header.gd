@@ -82,3 +82,10 @@ func _update_theme():
 	else:
 		var style = get_stylebox("panel", "MenuHeader")
 		set("custom_styles/panel", style)
+
+
+func _gui_input(event):
+	if event.is_action_pressed("ui_cancel"):
+		_request_close()
+	if event.is_action_pressed("ui_minimize"):
+		_request_minimize()

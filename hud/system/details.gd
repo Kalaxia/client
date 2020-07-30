@@ -6,6 +6,7 @@ var building_details_scene = preload("res://hud/system/system_building_details.t
 onready var menu_system = $MenuSystem
 onready var button_building = $System/CircularContainer/Bluilding
 onready var button_fleet = $System/CircularContainer/Fleet
+onready var player_node = $System/CircularContainer/ContainerSystem/TextureRect/PlayerName
 
 
 func _ready():
@@ -25,7 +26,6 @@ func _on_system_selected(system, old_system):
 
 
 func refresh_data(system):
-	var player_node = $System/CircularContainer/ContainerSystem/PlayerName
 	var player = null
 	if system.player != null:
 		player = Store.get_game_player(system.player)

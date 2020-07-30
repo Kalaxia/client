@@ -92,15 +92,8 @@ func _process(delta):
 
 func _input(event):
 	# mouse event has priority on the GUI
-	if event is InputEventKey || event is InputEventMouseButton:
-		if event.is_action_pressed("ui_zoom_in_map"):
-			_zoom_camera(1.0 / _ZOOM_FACTOR)
-		if event.is_action_pressed("ui_zoom_out_map"):
-			_zoom_camera(_ZOOM_FACTOR)
-		if event.is_action_pressed("ui_drag_map"):
-			_is_map_being_dragged = true
-		if event.is_action_released("ui_drag_map"):
-			_is_map_being_dragged = false
+	if event is InputEventMouseButton:
+		_manage_input(event)
 	elif event is InputEventMouseMotion:
 		if _is_map_being_dragged:
 			_move_camera( - event.get_relative() * $Camera2D.zoom)
@@ -109,7 +102,12 @@ func _input(event):
 
 func _unhandled_input(event):
 	# key events has not priority over gui
-	if event is InputEventKey || event is InputEventMouseButton:
+	if event is InputEventKey:
+		_manage_input(event)
+
+
+func _manage_input(event):
+	if event is InputEventKey or event is InputEventMouseButton:
 		if event.is_action_pressed("ui_move_map_left"):
 			_motion_camera[Vector2.LEFT] = true
 		elif event.is_action_released("ui_move_map_left"):
@@ -128,6 +126,14 @@ func _unhandled_input(event):
 			_motion_camera[Vector2.DOWN] = false
 		if event.is_action_pressed("ui_map_center_system"):
 			center_on_selected_system()
+		if event.is_action_pressed("ui_zoom_in_map"):
+			_zoom_camera(1.0 / _ZOOM_FACTOR)
+		if event.is_action_pressed("ui_zoom_out_map"):
+			_zoom_camera(_ZOOM_FACTOR)
+		if event.is_action_pressed("ui_drag_map"):
+			_is_map_being_dragged = true
+		if event.is_action_released("ui_drag_map"):
+			_is_map_being_dragged = false
 
 
 func draw_systems():
@@ -282,6 +288,7 @@ func _on_victory(data):
 	Store._state.victorious_faction = data.victorious_faction
 	Store._state.scores = data.scores
 	emit_signal("scene_requested", "scores")
+
 
 
 func _zoom_camera(factor):
