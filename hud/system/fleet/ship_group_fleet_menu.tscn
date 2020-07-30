@@ -42,13 +42,13 @@ __meta__ = {
 [node name="PanelContainer" type="PanelContainer" parent="."]
 margin_left = 1.0
 margin_top = 1.0
-margin_right = 2251.0
+margin_right = 2047.0
 margin_bottom = 1079.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 2243.0
+margin_right = 2039.0
 margin_bottom = 1071.0
 
 [node name="Control" type="Control" parent="PanelContainer/HBoxContainer"]
@@ -196,6 +196,7 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="PanelContainer/HBoxContainer"]
+visible = false
 margin_left = 963.0
 margin_top = 525.0
 margin_right = 1163.0
@@ -203,16 +204,16 @@ margin_bottom = 539.0
 text = "hud.details.fleet.ship_to_assign"
 
 [node name="SpinBox" type="SpinBox" parent="PanelContainer/HBoxContainer"]
-margin_left = 1167.0
+margin_left = 963.0
 margin_top = 520.0
-margin_right = 1241.0
+margin_right = 1037.0
 margin_bottom = 544.0
 size_flags_vertical = 4
 rounded = true
 
 [node name="Control4" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 1245.0
-margin_right = 1255.0
+margin_left = 1041.0
+margin_right = 1051.0
 margin_bottom = 1064.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 1
@@ -221,16 +222,16 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="PanelContainer/HBoxContainer"]
-margin_left = 1259.0
+margin_left = 1055.0
 margin_top = 522.0
-margin_right = 1564.0
+margin_right = 1360.0
 margin_bottom = 542.0
 size_flags_vertical = 4
 text = "hud.details.system.fleet.menu.group_ship.set"
 
 [node name="Control5" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 1568.0
-margin_right = 1578.0
+margin_left = 1364.0
+margin_right = 1374.0
 margin_bottom = 1064.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 1
@@ -239,8 +240,8 @@ __meta__ = {
 }
 
 [node name="ShipFleet" type="HBoxContainer" parent="PanelContainer/HBoxContainer"]
-margin_left = 1582.0
-margin_right = 1900.0
+margin_left = 1378.0
+margin_right = 1696.0
 margin_bottom = 1064.0
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/ShipFleet"]
@@ -272,8 +273,8 @@ rect_min_size = Vector2( 30, 0 )
 text = "hud.details.fleet.number_of_ship_fleet %d"
 
 [node name="Control7" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 1904.0
-margin_right = 1914.0
+margin_left = 1700.0
+margin_right = 1710.0
 margin_bottom = 1064.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 1
@@ -282,8 +283,8 @@ __meta__ = {
 }
 
 [node name="ShipAvaliable" type="HBoxContainer" parent="PanelContainer/HBoxContainer"]
-margin_left = 1918.0
-margin_right = 2236.0
+margin_left = 1714.0
+margin_right = 2032.0
 margin_bottom = 1064.0
 __meta__ = {
 "_edit_use_anchors_": false

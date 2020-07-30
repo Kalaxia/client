@@ -138,8 +138,8 @@ func _on_victory(data):
 	set_visible(false)
 
 
-func _input(event):
-	if !event is InputEventKey || !is_visible():
+func _unhandled_input(event):
+	if not event is InputEventKey or not is_visible():
 		return
 	if event.is_action_pressed("ui_add_fleet"):
 		create_fleet()
