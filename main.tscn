@@ -1,11 +1,18 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
+[ext_resource path="res://hud/notifications.tscn" type="PackedScene" id=2]
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 layer = 10
+
+[node name="Notifications" parent="ParallaxBackground" instance=ExtResource( 2 )]
+anchor_left = 0.4
+anchor_top = 0.2
+anchor_right = 0.6
+anchor_bottom = 0.3
 
 [node name="Level" type="CanvasLayer" parent="."]
