@@ -16,6 +16,7 @@ export(bool) var does_border_scale = false setget set_does_border_scale
 export(StyleBoxFlat) var base_style setget set_base_style
 export(StyleBoxFlat) var hover_style setget set_hover_style
 export(StyleBoxFlat) var selected_style setget set_selected_style
+export(StyleBoxFlat) var focus_style setget set_focus_style
 
 export(Texture) var texture setget set_texture
 export(Vector2) var texture_size setget set_texture_size
@@ -29,6 +30,8 @@ func _ready():
 		selected_style.connect("changed",self,"_on_changed")
 	if hover_style != null and not hover_style.is_connected("changed",self,"_on_changed"):
 		hover_style.connect("changed",self,"_on_changed")
+	if focus_style != null and not focus_style.is_connected("changed", self, "_on_changed"):
+		focus_style.connect("changed", self, "_on_changed")
 	if texture != null and not texture.is_connected("changed",self,"_on_changed"):
 		texture.connect("changed",self,"_on_changed")
 	._ready()
@@ -47,13 +50,16 @@ func _draw():
 	var shadow_offseet = Vector2(0,0)
 	var anti_alaising = true
 	var draw_center = true
-	var style_active 
+	var style_active
 	if selected:
-		style_active = selected_style
+		var theme_style = theme.get("CircularButton/styles/selected_style") if theme != null else null
+		style_active = selected_style if selected_style != null else theme_style
 	elif _hover:
-		style_active = hover_style
+		var theme_style = theme.get("CircularButton/styles/hover_style") if theme != null else null
+		style_active = hover_style if hover_style != null else theme_style
 	else:
-		style_active = base_style
+		var theme_style = theme.get("CircularButton/styles/base_style") if theme != null else null
+		style_active = base_style if base_style != null else theme_style
 	if style_active == null or base_style is StyleBoxEmpty:
 		colors_bg = Color(0.5,0.5,0.5) if (_hover or selected) else  Color(0.7,0.7,0.7)
 		color_border = Color(0.0, 0.0, 0.0)
@@ -90,6 +96,27 @@ func _draw():
 	# draw texture
 	if texture != null:
 		_draw_texture()
+	if has_focus():
+		_draw_focus()
+
+
+func _draw_focus():
+	var theme_style = theme.get("CircularButton/styles/focus_style") if theme != null else null
+	var style = focus_style if focus_style != null else theme_style
+	if style == null:
+		return
+	var points = _get_array_points()
+	if style.draw_center:
+		draw_polygon(points, PoolColorArray([ style.bg_color ]), PoolVector2Array(), null, null, style.anti_aliasing)
+	# draw border
+	if style.border_width_left > 0:
+		draw_polygon(_get_left_border(style.border_width_left, style.corner_detail, does_border_scale), PoolColorArray([style.border_color]), PoolVector2Array(), null, null, style.anti_aliasing)
+	if style.border_width_right > 0:
+		draw_polygon(_get_right_border(style.border_width_right, style.corner_detail, does_border_scale), PoolColorArray([style.border_color]), PoolVector2Array(), null, null, style.anti_aliasing)
+	if style.border_width_top > 0:
+		draw_polygon(_get_outer_arc_border(style.border_width_top),PoolColorArray([style.border_color]), PoolVector2Array(), null, null, style.anti_aliasing)
+	if style.border_width_bottom > 0:
+		draw_polygon(_get_inner_arc_border(style.border_width_bottom),PoolColorArray([style.border_color]), PoolVector2Array(), null, null, style.anti_aliasing)
 
 
 func _is_inside(position):
@@ -178,6 +205,15 @@ func set_selected_style(style):
 	selected_style = style
 	if selected_style != null:
 		selected_style.connect("changed",self,"_on_changed")
+	update()
+
+
+func set_focus_style(style):
+	if focus_style != null:
+		focus_style.disconnect("changed",self,"_on_changed")
+	focus_style = style
+	if focus_style != null:
+		focus_style.connect("changed",self,"_on_changed")
 	update()
 
 

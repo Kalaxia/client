@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=19 format=2]
+[gd_resource type="Theme" load_steps=24 format=2]
 
 [ext_resource path="res://themes/font/font_muli_text_normal.tres" type="DynamicFont" id=1]
 [ext_resource path="res://themes/theme_faction/valkar/V_scroll/styleboxflat_scroll.tres" type="StyleBox" id=2]
@@ -18,6 +18,11 @@
 [ext_resource path="res://themes/theme_faction/valkar/tab_container/styleboxflat_panel.tres" type="StyleBox" id=16]
 [ext_resource path="res://themes/theme_faction/valkar/V_scroll/styleboxflat_grabber.tres" type="StyleBox" id=17]
 [ext_resource path="res://themes/theme_faction/valkar/tab_container/styleboxflat_tab_bg.tres" type="StyleBox" id=18]
+[ext_resource path="res://themes/theme_faction/valkar/selectable_elements/styleboxflat_panel_focus.tres" type="StyleBox" id=19]
+[ext_resource path="res://themes/theme_faction/valkar/selectable_elements/styleboxflat_panel_base.tres" type="StyleBox" id=20]
+[ext_resource path="res://themes/theme_faction/valkar/selectable_elements/styleboxflat_panel_selected.tres" type="StyleBox" id=21]
+[ext_resource path="res://themes/theme_faction/valkar/selectable_elements/styleboxflat_panel_hover.tres" type="StyleBox" id=22]
+[ext_resource path="res://themes/theme_faction/valkar/menu_header/styleboxflat_panel.tres" type="StyleBox" id=23]
 
 [resource]
 default_font = ExtResource( 1 )
@@ -50,6 +55,10 @@ CheckButton/styles/hover = null
 CheckButton/styles/hover_pressed = null
 CheckButton/styles/normal = null
 CheckButton/styles/pressed = ExtResource( 14 )
+CircularButton/styles/base_style = ExtResource( 20 )
+CircularButton/styles/focus_style = ExtResource( 19 )
+CircularButton/styles/hover_style = ExtResource( 22 )
+CircularButton/styles/selected_style = ExtResource( 21 )
 Label/colors/font_color = Color( 1, 1, 1, 1 )
 Label/colors/font_color_shadow = Color( 0, 0, 0, 0.384314 )
 Label/colors/font_outline_modulate = Color( 0, 0, 0, 0.156863 )
@@ -72,6 +81,7 @@ LineEdit/icons/clear = null
 LineEdit/styles/focus = ExtResource( 12 )
 LineEdit/styles/normal = ExtResource( 10 )
 LineEdit/styles/read_only = null
+MenuHeader/styles/panel = ExtResource( 23 )
 PanelContainer/styles/panel = ExtResource( 15 )
 PopupMenu/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
 PopupMenu/colors/font_color_accel = Color( 0.7, 0.7, 0.7, 0.8 )
@@ -91,6 +101,10 @@ PopupMenu/styles/labeled_separator_right = null
 PopupMenu/styles/panel = ExtResource( 8 )
 PopupMenu/styles/panel_disabled = null
 PopupMenu/styles/separator = null
+SelectablePanelContainer/styles/base_style = ExtResource( 20 )
+SelectablePanelContainer/styles/focus_style = ExtResource( 19 )
+SelectablePanelContainer/styles/hover_style = ExtResource( 22 )
+SelectablePanelContainer/styles/selected_style = ExtResource( 21 )
 SpinBox/icons/updown = null
 TabContainer/colors/font_color_bg = Color( 0.69, 0.69, 0.69, 1 )
 TabContainer/colors/font_color_disabled = Color( 0.901961, 0.901961, 0.901961, 0.258824 )
