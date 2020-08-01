@@ -35,7 +35,7 @@ func _ready():
 	Store.connect("fleet_selected", self, "_on_fleet_selected")
 	Store.connect("fleet_unselected", self, "_on_fleet_unselected")
 	var scale_factor = (1.0 / scale.x) if scale.x != 0 else 0.0
-	var scale_range = Utils.FLEET_RANGE * Utils.SCALE_SYSTEMS_COORDS * scale_factor
+	var scale_range = Utils.fleet_range * Utils.SCALE_SYSTEMS_COORDS * scale_factor
 	range_draw_node.scale = Vector2(scale_range,scale_range)
 	_set_crown_state()
 	_set_system_texture()

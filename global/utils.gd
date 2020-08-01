@@ -4,7 +4,6 @@ extends Node
 
 const AUDIO_VOLUME_DB_MIN = -100.0 # in dB
 const SCALE_SYSTEMS_COORDS = 20
-const FLEET_RANGE = 20.0
 
 ############## TEXTURES ##############
 
@@ -59,6 +58,12 @@ const TEXTURE_SHIP_CATEGORIES = {
 	"cruiser" : preload("res://resources/assets/2d/picto/ships/cruiser.svg"),
 }
 
+############## varaibles ##############
+
+var fleet_range
+var victory_point_max
+var victory_point_per_minute
+
 ############## LOCK ##############
 
 class Lock:
@@ -106,12 +111,23 @@ class Lock:
 func _ready():
 	pass
 
+
 func get_label_of_event(event):
 	if event is InputEventKey:
 		return event.as_text()
 	if event is InputEventMouseButton:
 		return tr("action.key.mouse_key_" + (event.button_index as String))
 	return ""
+
+
+func set_constants(constants):
+	fleet_range = constants.fleet_range
+	victory_point_max = constants.victory_points
+	victory_point_per_minute = constants.victory_points_per_minute
+
+
+func has_constants():
+	return fleet_range != null and victory_point_max != null and victory_point_per_minute != null
 
 ############## STATICS METHODS ##############
 

@@ -32,6 +32,8 @@ onready var timer_auth = $TimerAuth
 onready var quit_button = $Foreground/MarginContainer/VBoxContainer/VBoxContainer/QuitButton
 onready var label_loading_error = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/LoadingError
 onready var timer_res = $TimerRessource
+onready var label_constant_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/LabelConstante
+onready var label_ship_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/LabelShips
 
 
 func _ready():
@@ -45,6 +47,14 @@ func _ready():
 		Network.req(self, "_on_factions_loaded", "/api/factions/")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_faction_status)
+	if not Utils.has_constants():
+		Network.req(self, "_on_constants_loaded", "/api/constants/")
+	else:
+		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
+	if Store._state.ship_models.size() == 0:
+		Network.req(self, "_on_ship_models_loaded", "/api/ship-models/")
+	else:
+		set_state_label(STATE_NETWORK_ELEMENT.OK, label_ship_status)
 	Store.connect("notification_added",self,"_on_notification_added")
 	timer_auth.connect("timeout", self, "_on_timeout_auth")
 	timer_res.connect("timeout", self, "_on_timeout_res")
@@ -79,6 +89,8 @@ func _on_notification_added(notif):
 	if notif.title == tr("error.connexion_impossible") or notif.title == tr("error.http_not_connected") or notif.title == tr("error.network_error"):
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_network_status)
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
 		quit_button.visible = true
 
 
@@ -88,6 +100,12 @@ func _on_timeout_auth():
 		quit_button.visible = true
 	if Store._state.factions.size() == 0:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
+		quit_button.visible = true
+	if Store._state.ship_models.size() == 0:
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
+		quit_button.visible = true
+	if not Utils.has_constants():
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
 		quit_button.visible = true
 
 
@@ -101,6 +119,31 @@ func _on_factions_loaded(err, response_code, headers, body):
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
 	verify_is_finished()
+
+
+func _on_constants_loaded(err, response_code, headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+	var constants = JSON.parse(body.get_string_from_utf8()).result
+	if constants != null:
+		Utils.set_constants(constants)
+		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
+	else:
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
+	verify_is_finished()
+
+
+func _on_ship_models_loaded(err, response_code, headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+	var ship_model = JSON.parse(body.get_string_from_utf8()).result
+	if ship_model != null:
+		Store.set_ships_model(ship_model)
+		set_state_label(STATE_NETWORK_ELEMENT.OK, label_ship_status)
+	else:
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
+	verify_is_finished()
+
 
 
 func _on_authentication():
@@ -125,7 +168,7 @@ func set_load_queue(load_queue_param):
 
 
 func verify_is_finished():
-	if Store._state.factions.size() > 0 and queue_finished and Network.token != null and not has_emited_finished:
+	if Store._state.factions.size() > 0 and queue_finished and Network.token != null and Store._state.ship_models.size() > 0 and Utils.has_constants() and not has_emited_finished:
 		has_emited_finished = true
 		emit_signal("finished")
 
