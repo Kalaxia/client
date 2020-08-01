@@ -1,27 +1,36 @@
 extends PanelContainer
 
-export(String) var text setget set_text
+signal option_pressed(is_pressed)
+
+export(String) var text = "" setget set_text
 export(bool) var is_checked = false setget set_is_checked
 export(bool) var disabled = false setget set_disabled
 
-signal option_pressed(is_pressed)
+onready var button = $HBoxContainer/Button
+onready var label = $HBoxContainer/Label
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	$HBoxContainer/Button.connect("pressed",self,"_on_button_toggle")
+	button.connect("pressed", self, "_on_button_toggle")
+	label.text = tr(text)
+
 
 func set_text(new_label : String):
 	text = new_label
-	$HBoxContainer/Label.text = tr(text)
+	if label != null:
+		label.text = tr(text)
+
 
 func _on_button_toggle():
-	is_checked = $HBoxContainer/Button.pressed
-	emit_signal("option_pressed",is_checked)
+	is_checked = button.pressed
+	emit_signal("option_pressed", is_checked)
+
 
 func set_is_checked(new_is_checked : bool):
 	is_checked = new_is_checked
-	$HBoxContainer/Button.pressed = is_checked
+	button.pressed = is_checked
+
 
 func set_disabled(is_disabled : bool):
 	disabled = is_disabled
-	$HBoxContainer/Button.disabled = disabled
+	button.disabled = disabled

@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://gui/container_circular.gd"
 }, {
+"base": "Sprite",
+"class": "CrownSprite",
+"language": "GDScript",
+"path": "res://game/map/sprites/crown_sprite.gd"
+}, {
 "base": "Control",
 "class": "CustomShapeButton",
 "language": "GDScript",
@@ -33,6 +38,11 @@ _global_script_classes=[ {
 "class": "FleetItem",
 "language": "GDScript",
 "path": "res://hud/system/fleet/fleet_item.gd"
+}, {
+"base": "Sprite",
+"class": "FleetSprite",
+"language": "GDScript",
+"path": "res://game/map/sprites/fleet_sprite.gd"
 }, {
 "base": "PanelContainer",
 "class": "MenuHeader",
@@ -60,11 +70,13 @@ _global_script_classes=[ {
 "path": "res://gui/transparent_circle_button.gd"
 } ]
 _global_script_class_icons={
-"AudioStacking": "",
+"AudioStacking": "res://resources/editor/audio_stacking.svg",
 "CircularButton": "res://resources/editor/custom_circular_button.svg",
 "CircularContainer": "res://resources/editor/circular_container.svg",
+"CrownSprite": "res://resources/assets/2d/map/kalankar/picto_flotte_couronne-01.png",
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
 "FleetItem": "res://resources/editor/fleet_item.svg",
+"FleetSprite": "res://resources/assets/2d/map/picto_flotte_2.png",
 "MenuHeader": "res://resources/editor/menu_header.svg",
 "OptionKeyBinding": "",
 "PlayerInfoFactionColumn": "",

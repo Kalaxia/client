@@ -14,6 +14,28 @@ const BANNERS = {
 	3 : preload("res://resources/assets/2d/faction/adranite/banner.png"),
 }
 
+const BANNERS_SMALL = {
+	1 : preload("res://resources/assets/2d/faction/kalankar/banner_image.png"),
+	2 : preload("res://resources/assets/2d/faction/valkar/banner_image.png"),
+	3 : preload("res://resources/assets/2d/faction/adranite/banner_image.png"),
+}
+
+const TEXTURE_CROWN_FLEET = {
+	1 : preload("res://resources/assets/2d/map/kalankar/picto_flotte_couronne-01.png"),
+	2 : preload("res://resources/assets/2d/map/valkar/picto_flotte_couronne-01.png"),
+	3 : preload("res://resources/assets/2d/map/adranite/picto_flotte_couronne-01.png"),
+}
+const FLEET_TEXTURE = {
+	0 : preload("res://resources/assets/2d/map/picto_flotte_2.png"),
+	1 : preload("res://resources/assets/2d/map/kalankar/picto_flotte_2.png"),
+	2 : preload("res://resources/assets/2d/map/valkar/picto_flotte_2.png"),
+	3 : preload("res://resources/assets/2d/map/adranite/picto_flotte_2.png"),
+}
+const TEXTURE_CROWN_SYSTEM = {
+	1 : preload("res://resources/assets/2d/map/kalankar/couronne.png"),
+	2 : preload("res://resources/assets/2d/map/valkar/couronne.png"),
+	3 : preload("res://resources/assets/2d/map/adranite/couronne.png"),
+}
 const TEXTURE_SYSTEM = {
 	"VictorySystem":{
 		0 : preload("res://resources/assets/2d/map/picto_syteme.png"),
@@ -29,12 +51,6 @@ const TEXTURE_SYSTEM = {
 	},
 }
 
-const TEXTURE_CROWN = {
-	1 : preload("res://resources/assets/2d/map/kalankar/couronne.png"),
-	2 : preload("res://resources/assets/2d/map/valkar/couronne.png"),
-	3 : preload("res://resources/assets/2d/map/adranite/couronne.png"),
-}
-
 const TEXTURE_SHIP_CATEGORIES = {
 	"" : preload("res://resources/assets/2d/picto/ships/ship_64px.png"),
 	"fighter" : preload("res://resources/assets/2d/picto/ships/fighter.svg"),
@@ -48,41 +64,47 @@ const TEXTURE_SHIP_CATEGORIES = {
 class Lock:
 	extends Reference
 	
-	var _is_locked = false setget _private_setter,get_is_locked
-
 	enum LOCK_STATE {
 		BUSY = 0,
 		OK = 1,
 	} # can be used in if directly like they are bools
-
 	enum CAN_LOCK_STATE{
 		CANNOT_LOCK = 0,
 		CAN_LOCK = 1,
 	}
-
+	
+	var _is_locked = false setget _private_setter, get_is_locked
+	
+	
 	func _private_setter(variable):
 		# cannot be set from outisde
 		pass
-
+	
+	
 	func get_is_locked():
 		return _is_locked
-
+	
+	
 	func try_lock():
 		if _is_locked:
 			return LOCK_STATE.BUSY
 		_is_locked = true
 		return LOCK_STATE.OK
-
+	
+	
 	func unlock():
 		_is_locked = false
-
+	
+	
 	func can_lock():
 		return CAN_LOCK_STATE.CANNOT_LOCK if _is_locked else CAN_LOCK_STATE.CAN_LOCK
 
+
 ############## METHODS ##############
 
+
 func _ready():
-	pass # Replace with function body.
+	pass
 
 func get_label_of_event(event):
 	if event is InputEventKey:
@@ -99,10 +121,10 @@ static func set_window_resizable(is_resizable):
 	if OS.window_resizable == is_resizable:
 		return
 	OS.set_window_resizable(is_resizable)
-	OS.min_window_size = Vector2(1280,720) if is_resizable else Vector2.ZERO
+	OS.min_window_size = Vector2(1280, 720) if is_resizable else Vector2.ZERO
 
 static func lighten_color(color):
-	color.r = min( color.r + 40 / 255.0, 1.0)
-	color.g = min( color.g + 40 / 255.0, 1.0)
-	color.b = min( color.b + 40 / 255.0, 1.0)
+	color.r = min(color.r + 40.0 / 255.0, 1.0)
+	color.g = min(color.g + 40.0 / 255.0, 1.0)
+	color.b = min(color.b + 40.0 / 255.0, 1.0)
 	return color

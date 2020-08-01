@@ -45,8 +45,9 @@ var scenes = {
 
 var _is_in_game = false setget _set_is_in_game
 
+
 func _ready():
-	Config.connect("reload_locale",self,"_on_reload_locale")
+	Config.connect("locale_reloaded", self, "_on_locale_reloaded")
 	if scenes["menu"].scene == null or Network.token == null:
 		change_scene_loading(scenes)
 		yield($Level.get_child(0), "finished")
@@ -54,6 +55,7 @@ func _ready():
 	$ParallaxBackground/HUD/HudMenu.connect("back_main_menu", self, "_on_back_to_main_menu")
 	$ParallaxBackground/HUD/ScoresContainer.visible = false
 	change_level(scenes.menu.scene)
+
 
 func change_scene_loading(load_queue_param):
 	change_level(scenes.loading.scene)
@@ -64,11 +66,14 @@ func change_scene_loading(load_queue_param):
 	if not loading_node.is_connected("finished", self, "_on_load_finished"):
 		loading_node.connect("finished", self, "_on_load_finished")
 
+
 func _on_ressource_loaded(ressource_name, ressource):
 	scenes[ressource_name].scene = ressource
 
+
 func _on_load_finished():
 	pass
+
 
 func change_level(level_scene):
 	for l in $Level.get_children(): l.queue_free()
@@ -76,14 +81,17 @@ func change_level(level_scene):
 	level.connect("scene_requested", self, "_on_scene_request")
 	$Level.add_child(level)
 
+
 func _on_back_to_main_menu():
 	Network.req(self, "_on_player_left_game", "/api/games/" + Store._state.game.id + "/players/", HTTPClient.METHOD_DELETE)
-	
+
+
 func _on_player_left_game(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 	$ParallaxBackground/HUD/SystemDetails.visible = false
 	change_level(scenes.menu.scene)
+
 
 func _on_scene_request(scene):
 	print(scene)
@@ -98,8 +106,10 @@ func _on_scene_request(scene):
 	else:
 		printerr(tr("Unknown requested scene : ") + scene)
 
-func _on_reload_locale():
+
+func _on_locale_reloaded():
 	get_tree().reload_current_scene()
+
 
 func _set_is_in_game(is_in_game_new):
 	if is_in_game_new == _is_in_game:
@@ -111,6 +121,7 @@ func _set_is_in_game(is_in_game_new):
 			i.queue_free()
 	else:
 		$ParallaxBackground/HUD/ScoresContainer.add_child(scenes.scores_hud.scene.instance())
+
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_hud_scores"):

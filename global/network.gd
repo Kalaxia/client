@@ -1,14 +1,6 @@
 extends Node
 
-const MAX_CO_RETRIES = 5
-const TIME_BEFORE_CLOSE = 2.0
-
-var api_url = null
-var websocket_url = null
-var _ws_client = WebSocketClient.new()
-var token = null
-
-signal authenticated
+signal authenticated()
 signal CombatEnded(data)
 signal LobbyCreated(lobby)
 signal LobbyUpdated(lobby)
@@ -32,6 +24,14 @@ signal Victory(data)
 signal FactionPointsUpdated(scores)
 signal ShipQueueFinished(ship_group)
 
+const MAX_CO_RETRIES = 5
+const TIME_BEFORE_CLOSE = 2.0
+
+var api_url = null
+var websocket_url = null
+var token = null
+var _ws_client = WebSocketClient.new()
+
 #
 # Everything related to HTTP requests
 # 
@@ -47,19 +47,23 @@ var old_status = 99
 var nb_connection_try = 0
 var waiting_for_request = TIME_BEFORE_CLOSE
 
+
 func connect_to_host():
 	var uri = "{scheme}://{dns}".format(Config.api)
 	self.client.connect_to_host(uri, Config.api.port)
+
 
 func _ready():
 	api_url = "{scheme}://{dns}:{port}".format(Config.api)
 	websocket_url = "{ws_scheme}://{dns}:{port}/ws/".format(Config.api)
 	self.client.close()
 	auth()
-	
+
+
 func auth():
 	Network.req(self, "confirm_auth", "/login", HTTPClient.METHOD_POST)
-	
+
+
 func confirm_auth(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
@@ -68,13 +72,15 @@ func confirm_auth(err, response_code, headers, body):
 	connect_ws()
 	Network.req(self, "set_current_player", "/api/players/me/")
 	emit_signal("authenticated")
-	
+
+
 func set_current_player(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 		return
 	Store._state.player = JSON.parse(body.get_string_from_utf8()).result
-	
+
+
 func connect_ws():
 	_ws_client.connect("connection_closed", self, "_closed")
 	_ws_client.connect("connection_error", self, "_closed")
@@ -84,12 +90,14 @@ func connect_ws():
 	if err != OK:
 		print(tr("network.unable_connect"))
 		set_process(false)
-		
+
+
 func _closed(was_clean = false):
 	# was_clean will tell you if the disconnection was correctly notified
 	# by the remote peer before closing the socket.
 	print(tr("network.close_clean_ws"), was_clean)
 	set_process(false)
+
 
 func _connected(proto = ""):
 	# This is called on connection, "proto" will be the selected WebSocket
@@ -99,12 +107,14 @@ func _connected(proto = ""):
 	# and not put_packet directly when not using the MultiplayerAPI.
 	_ws_client.get_peer(1).put_packet("Test packet".to_utf8())
 
+
 func _on_data():
 	var data = JSON.parse(_ws_client.get_peer(1).get_packet().get_string_from_utf8()).result
 	
 	print(tr("received data from server: "), data.action)
 	
 	emit_signal(data.action, data.data)
+
 
 func _process(delta):
 	# handle WebSoocketClient life
@@ -168,6 +178,7 @@ func _process(delta):
 				if self.pending_request:
 					self.trigger_handler(err, null, null, null)
 
+
 # Helper function used only to clear the state of the HTTPClient.
 # This "cleanup" code is in a function in order to do the exact same cleanup
 # procedure each time we need to.
@@ -175,9 +186,11 @@ func cleanup_request_state():
 	self.processed_body.resize(0)
 	self.pending_request = null
 
+
 # Use this function to make an HTTP Request instead of the standard "request" method.
 func req(calling_object, method_to_trigger, route, method = HTTPClient.METHOD_GET, headers=PoolStringArray(), body="", params=[]):
 	self.requests.push_back([method, route, headers, body, calling_object, method_to_trigger, params])
+
 
 # This function tries to launch the request stored in self.pending_request
 # If it cannot (request() returning non-OK value) it triggers the handler
@@ -189,6 +202,7 @@ func launch_pending_request():
 	if err != OK:
 		self.trigger_handler(err, null, null, null)
 
+
 func trigger_handler(res_code, http_code, headers, body):
 	# call the listener of the pending request
 	var f = funcref(self.pending_request[4], self.pending_request[5])
@@ -197,6 +211,7 @@ func trigger_handler(res_code, http_code, headers, body):
 	
 	# clean the state to be able to send another request
 	self.cleanup_request_state()
+
 
 # Translate an HTTPClient status value to an Error value.
 # This is used to check if a blocking error occurred or not.
@@ -209,6 +224,7 @@ func http_client_status_to_error(status):
 	}
 	
 	return error_dict.get(status, OK)
+
 
 func extract_pagination_data(content_range):
 	var data = content_range.split(" ")[1].split("/")

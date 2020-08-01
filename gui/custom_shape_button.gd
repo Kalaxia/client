@@ -1,18 +1,19 @@
-extends Control
-
 class_name CustomShapeButton, "res://resources/editor/custom_shape_button.svg"
-
-var _hover = false
-var selected = false setget set_selected
+extends Control
 
 signal pressed()
 signal mouse_input(event)
+
+var selected = false setget set_selected
+var _hover = false
+
 
 func _ready():
 	if not is_connected("mouse_exited", self, "_mouse_exited_area"):
 		connect("mouse_exited", self, "_mouse_exited_area")
 	if not is_connected("mouse_entered", self, "_mouse_entered_area"):
 		connect("mouse_entered", self, "_mouse_entered_area")
+
 
 func _gui_input(event):
 	if event is InputEventMouse:
@@ -21,24 +22,31 @@ func _gui_input(event):
 			_pressed()
 			emit_signal("pressed")
 
-func _is_inside(position : Vector2) -> bool:
-	# this dertermine the area where the button is
-	return false
 
 func has_point(point):
 	return _is_inside(point)
 
+
+func set_selected(new_selected):
+	selected = new_selected
+	update()
+
+
+func _is_inside(position : Vector2) -> bool:
+	# this dertermine the area where the button is
+	return false
+
+
 func _pressed():
 	selected = not selected
+
 
 func _mouse_entered_area():
 	_hover = true
 	update()
 
+
 func _mouse_exited_area():
 	_hover = false
 	update()
-
-func set_selected(new_selected):
-	selected = new_selected
-	update()
+	

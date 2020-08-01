@@ -2,7 +2,8 @@ extends Control
 
 signal scene_requested(scene)
 
-var faction_score_scene = preload("res://game/faction_score.tscn")
+const FACTION_SCORE_SCENE = preload("res://game/faction_score.tscn")
+
 
 func _ready():
 	get_node("Footer/BackToMenu").connect("pressed", self, "_back_to_menu")
@@ -16,7 +17,7 @@ func _ready():
 		var fid = float(score.faction)
 		var faction = Store.get_faction(fid)
 		
-		var faction_score = faction_score_scene.instance()
+		var faction_score = FACTION_SCORE_SCENE.instance()
 		faction_score.faction = faction
 		faction_score.victory_points = score.victory_points
 		
@@ -24,6 +25,7 @@ func _ready():
 			$WinningFaction.add_child(faction_score)
 		else:
 			$DefeatedFactions.add_child(faction_score)
+
 
 func _back_to_menu():
 	Store.unload_data()

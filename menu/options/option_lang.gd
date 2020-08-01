@@ -4,6 +4,8 @@ signal locale_updated()
 
 var _locales = []
 
+onready var option_array = $OptionArray
+
 func _ready():
 	_locales = TranslationServer.get_loaded_locales()
 	_locales.sort()
@@ -12,14 +14,15 @@ func _ready():
 		var a = TranslationServer.get_locale()
 		if _locales[i] == a:
 			selected_locale = i
-	$OptionArray.option_list = _locales
-	$OptionArray.selected_item = selected_locale
+	option_array.option_list = _locales
+	option_array.selected_item = selected_locale
 	if _locales.size() < 2:
-		$OptionArray.disabled = true
-	$OptionArray.connect("item_selected",self,"_on_language_selected")
+		option_array.disabled = true
+	option_array.connect("item_selected", self, "_on_language_selected")
+
 
 func _on_language_selected(item_id):
-	if  item_id < 0 || item_id >= _locales.size():
+	if  item_id < 0 or item_id >= _locales.size():
 		return
 	# we do not set the local yet. We wait to quit the main menu
 	# the reason is that we need to reload nodes to update the translations

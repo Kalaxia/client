@@ -1,7 +1,9 @@
 tool
+class_name MenuHeader, "res://resources/editor/menu_header.svg"
 extends PanelContainer
 
-class_name MenuHeader, "res://resources/editor/menu_header.svg"
+signal close_request()
+signal minimize_request()
 
 export(String, MULTILINE) var text = "" setget set_text
 export(bool) var closable = true setget set_closable
@@ -13,8 +15,6 @@ onready var button_minimize = $MarginContainer/HBoxContainer/ButtonMinimize
 onready var label = $MarginContainer/HBoxContainer/Label
 onready var texture_rect = $MarginContainer/HBoxContainer/TextureRect
 
-signal close_request()
-signal minimize_request()
 
 func _ready():
 	button_close.connect("pressed",self,"_request_close")
@@ -23,6 +23,7 @@ func _ready():
 	if Engine.editor_hint and owner == null:
 		self.set_owner(get_tree().edited_scene_root)
 
+
 func update_elements():
 	button_close.visible = closable
 	button_minimize.visible = minimisable
@@ -30,28 +31,34 @@ func update_elements():
 	texture_rect.visible = texture != null
 	texture_rect.texture = texture
 
+
 func set_text(new_text):
 	text = new_text
 	if label != null:
 		label.text = tr(text)
 
+
 func _request_close():
 	if closable:
 		emit_signal("close_request")
 
+
 func _request_minimize():
 	if minimisable:
 		emit_signal("minimize_request")
+
 
 func set_closable(new_bool):
 	closable = new_bool
 	if button_close != null:
 		button_close.visible = closable
 
+
 func set_minimisable(new_bool):
 	minimisable = new_bool
 	if button_minimize != null:
 		button_minimize.visible = minimisable
+
 
 func set_texture(new_texture):
 	texture = new_texture

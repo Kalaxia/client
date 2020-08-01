@@ -83,5 +83,5 @@ func set_ship_group_hangar(array):
 
 
 func _on_fleet_update_nb_ships(fleet_param):
-	if fleet_param.id == fleet.id:
+	if fleet != null and fleet_param.id == fleet.id:
 		set_fleet(fleet_param)

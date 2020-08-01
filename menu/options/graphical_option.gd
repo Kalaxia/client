@@ -1,7 +1,9 @@
 extends VBoxContainer
 
-var is_resizable = false
 const FORCE_DISABLED_RESIZABLE_ON_EXIT = true
+
+var is_resizable = false
+
 
 func _ready():
 	$fullscreen.connect("option_pressed",self,"_on_fullscreen_pressed")
@@ -10,7 +12,8 @@ func _ready():
 	$screen.connect("option_changed",self,"_on_screen_changed")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	_check_option_state()
-	
+
+
 func _check_option_state():
 	$fullscreen.is_checked = OS.window_fullscreen
 	$Maximize.is_checked = OS.window_maximized
@@ -20,11 +23,13 @@ func _check_option_state():
 	$screen.disabled = OS.get_screen_count() <= 1
 	$screen.max_value = OS.get_screen_count()-1
 	$screen.value = OS.current_screen
-	
+
+
 func _on_resize_window():
 	if is_resizable:
 		Config.set_config_window_resolution(OS.window_size)
 	_check_option_state()
+
 
 func _on_fullscreen_pressed(is_fullscreen):
 	if is_fullscreen:
@@ -33,10 +38,11 @@ func _on_fullscreen_pressed(is_fullscreen):
 		Config.set_config_window_maximized(false)
 	OS.window_fullscreen = is_fullscreen
 	Config.set_config_window_fullscreen(is_fullscreen)
-	if ! is_fullscreen:
+	if not is_fullscreen:
 		OS.set_window_size(Config.get_window_resolution_from_config())
 		OS.center_window()
 	_check_option_state()
+
 
 func _on_maximize_pressed(is_maximize):
 	if is_maximize:
@@ -46,9 +52,11 @@ func _on_maximize_pressed(is_maximize):
 	OS.set_window_maximized(is_maximize)
 	_check_option_state()
 
+
 func _on_resize_pressed(bool_resize):
 	is_resizable = bool_resize
 	Utils.set_window_resizable(bool_resize)
+
 
 func _on_screen_changed(screen_id):
 	Config.set_config_window_screen(screen_id)
@@ -60,6 +68,7 @@ func _on_screen_changed(screen_id):
 		OS.window_fullscreen = true
 	else:
 		OS.set_current_screen (screen_id)
+
 
 func _exit_tree():
 	if FORCE_DISABLED_RESIZABLE_ON_EXIT:
