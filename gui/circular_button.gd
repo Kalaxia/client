@@ -143,6 +143,7 @@ func update():
 static func get_vector_radial(angle, radius = 1.0):
 	return  Vector2(cos(angle), sin(angle)) * radius
 
+
 func set_radius_out(new_radius):
 	if new_radius < radius_in:
 		return

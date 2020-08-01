@@ -79,6 +79,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://hud/system/buildings/contruction/construction_building_item.gd"
 }, {
+"base": "Polygon",
+"class": "ConvexPolygon2D",
+"language": "GDScript",
+"path": "res://global/geometry/convex_polygon_2d.gd"
+}, {
 "base": "Sprite",
 "class": "CrownSprite",
 "language": "GDScript",
@@ -209,6 +214,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://matchmaking/player/player_info_faction_column.gd"
 }, {
+"base": "Resource",
+"class": "Polygon",
+"language": "GDScript",
+"path": "res://global/geometry/polygon.gd"
+}, {
+"base": "CustomShapeButton",
+"class": "PolygonalButton",
+"language": "GDScript",
+"path": "res://gui/polygonal_button.gd"
+}, {
 "base": "DictResource",
 "class": "RemoteDictResource",
 "language": "GDScript",
@@ -309,6 +324,7 @@ _global_script_class_icons={
 "CircularContainer": "res://resources/editor/circular_container.svg",
 "ConstanteRemoteResource": "",
 "ConstructionBuildingItem": "",
+"ConvexPolygon2D": "",
 "CrownSprite": "res://resources/assets/2d/map/kalankar/crown_bottom.png",
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
 "DictResource": "",
@@ -335,6 +351,8 @@ _global_script_class_icons={
 "OptionKeyBinding": "",
 "Player": "",
 "PlayerInfoFactionColumn": "",
+"Polygon": "",
+"PolygonalButton": "res://resources/editor/polygonal_button.svg",
 "RemoteDictResource": "",
 "RoundedSelectablePanelLeft": "",
 "RoundedSelectablePanelRight": "",

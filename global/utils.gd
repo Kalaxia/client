@@ -119,3 +119,7 @@ static func int_max(a: int, b: int) -> int:
 		return a
 	else:
 		return b
+
+
+static func xor(bool_1, bool_2):
+	return (bool_1 and not bool_2) or (not bool_1 and bool_2)
