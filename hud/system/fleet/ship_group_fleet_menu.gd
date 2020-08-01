@@ -52,7 +52,7 @@ func update_quantities():
 	label_ship_total.text = tr("hud.details.fleet.number_of_ship_total %d") % (quantity_hangar)
 	var previous_spinbox_value = spinbox.value 
 	spinbox.max_value = quantity_hangar + quantity_fleet
-	spinbox.value = previous_spinbox_value
+	spinbox.value = min(previous_spinbox_value, spinbox.max_value)
 
 func _on_text_entered(text = null):
 	_on_set_button()
