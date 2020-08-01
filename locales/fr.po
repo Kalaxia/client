@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-28 20:59+0200\n"
-"PO-Revision-Date: 2020-07-28 21:01+0200\n"
+"POT-Creation-Date: 2020-08-01 16:22+0200\n"
+"PO-Revision-Date: 2020-08-01 16:24+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -23,12 +23,12 @@ msgstr ""
 msgid "Unknown requested scene : "
 msgstr ""
 
-#: config/config.gd:51 config/config.gd:56
+#: config/config.gd:50 config/config.gd:55
 #, python-format
 msgid "error while parsing configuration file %s : %s "
 msgstr ""
 
-#: config/config.gd:78
+#: config/config.gd:77
 #, python-format
 msgid "Error while saving configuration file %s : %s "
 msgstr ""
@@ -58,62 +58,62 @@ msgstr "Défaite"
 msgid "game.score.back_main_menu"
 msgstr "Retourner au menu principal"
 
-#: global/error.gd:8 global/error.gd:21 global/error.gd:22
-#: global/loading_screen.gd:75
+#: global/error.gd:9 global/error.gd:22 global/error.gd:23
+#: global/loading_screen.gd:89
 msgid "error.network_error"
 msgstr "Erreur réseau"
 
-#: global/error.gd:15 global/error.gd:17 global/loading_screen.gd:75
+#: global/error.gd:16 global/error.gd:18 global/loading_screen.gd:89
 msgid "error.connexion_impossible"
 msgstr "Connexion impossible"
 
-#: global/error.gd:15 global/error.gd:19
+#: global/error.gd:16 global/error.gd:20
 msgid "error.server_not_avaliable"
 msgstr "Le serveur de jeu n'est pas disponible."
 
-#: global/error.gd:17
+#: global/error.gd:18
 msgid "error.unkown_domain_name"
 msgstr "Le nom de domaine du serveur est inconnu."
 
-#: global/error.gd:19 global/loading_screen.gd:75
+#: global/error.gd:20 global/loading_screen.gd:89
 msgid "error.http_not_connected"
 msgstr "Client HTTP non connecté"
 
-#: global/error.gd:21
+#: global/error.gd:22
 msgid "error.network_error_content"
 msgstr "Une erreur réseau est survenue"
 
-#: global/loading_screen.gd:65 global/loading_screen.gd:101
+#: global/loading_screen.gd:78 global/loading_screen.gd:151
 msgid "global.loading.ok"
 msgstr "OK"
 
-#: global/loading_screen.gd:68
+#: global/loading_screen.gd:81
 msgid "global.loading.waiting"
 msgstr "Connexion"
 
-#: global/loading_screen.gd:71
+#: global/loading_screen.gd:84
 msgid "global.loading.error"
 msgstr "Erreur"
 
-#: global/loading_screen.gd:157
+#: global/loading_screen.gd:210
 #, python-format
 msgid "global.loading.ressource.error %s %d"
 msgstr "Erreur pendant le chargement de %s : %d"
 
-#: global/loading_screen.gd:157 global/loading_screen.gd:174
+#: global/loading_screen.gd:210 global/loading_screen.gd:229
 msgid "global.loading.ressource."
 msgstr ""
 
-#: global/loading_screen.gd:168 global/loading_screen.gd:171
+#: global/loading_screen.gd:222 global/loading_screen.gd:225
 #, python-format
 msgid "global.loading.progressbar_ressource %d %d"
 msgstr "%d / %d"
 
-#: global/loading_screen.gd:174
+#: global/loading_screen.gd:229
 msgid "global.loading.none_loading"
 msgstr "Fini"
 
-#: global/loading_screen.gd:177
+#: global/loading_screen.gd:232
 #, python-format
 msgid "global.loading.progressbar_global %d %d"
 msgstr "%d / %d"
@@ -135,6 +135,7 @@ msgid "global.loading.auth_status"
 msgstr "Authentification"
 
 #: global/loading_screen.tscn:191 global/loading_screen.tscn:211
+#: global/loading_screen.tscn:231 global/loading_screen.tscn:251
 msgid "global.loading.wating"
 msgstr "Connexion"
 
@@ -142,7 +143,15 @@ msgstr "Connexion"
 msgid "global.loading.faction_status"
 msgstr "Receptions des factions"
 
-#: global/loading_screen.tscn:233
+#: global/loading_screen.tscn:223
+msgid "global.loading.constants_status"
+msgstr "Receptions des constantes"
+
+#: global/loading_screen.tscn:243
+msgid "global.loading.ships_status"
+msgstr "Receptions des vaisseaux"
+
+#: global/loading_screen.tscn:273
 msgid "global.loading.quit"
 msgstr "Quitter le jeu"
 
@@ -162,16 +171,16 @@ msgstr ""
 msgid "received data from server: "
 msgstr ""
 
-#: global/store.gd:68
+#: global/store.gd:35
 #, python-format
 msgid "store.game_of %s"
 msgstr "Partie de %s"
 
-#: global/store.gd:68
+#: global/store.gd:35
 msgid "store.new_game"
 msgstr "Nouvelle partie"
 
-#: global/utils.gd:107
+#: global/utils.gd:119
 msgid "action.key.mouse_key_"
 msgstr ""
 
@@ -355,20 +364,20 @@ msgid "hud.details.fleet.number_of_ship_fleet %d %d"
 msgstr "%d / %d"
 
 #: hud/system/fleet/ship_group_fleet_menu.gd:52
-#: hud/system/fleet/ship_group_fleet_menu.tscn:318
+#: hud/system/fleet/ship_group_fleet_menu.tscn:319
 #, python-format
 msgid "hud.details.fleet.number_of_ship_total %d"
 msgstr "%d"
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:203
+#: hud/system/fleet/ship_group_fleet_menu.tscn:204
 msgid "hud.details.fleet.ship_to_assign"
 msgstr "nombre de vaisseaux à assigner"
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:229
+#: hud/system/fleet/ship_group_fleet_menu.tscn:230
 msgid "hud.details.system.fleet.menu.group_ship.set"
 msgstr "Assigner"
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:272
+#: hud/system/fleet/ship_group_fleet_menu.tscn:273
 #, python-format
 msgid "hud.details.fleet.number_of_ship_fleet %d"
 msgstr "%d"
@@ -630,7 +639,7 @@ msgid "menu.player_info.faction_drop_down_0"
 msgstr "Faction"
 
 #: matchmaking/player/player_info.gd:71
-#: matchmaking/player/player_info_faction_column.gd:24
+#: matchmaking/player/player_info_faction_column.gd:27
 msgid "general.unkown_username"
 msgstr "Inconnu"
 
@@ -787,7 +796,7 @@ msgstr ""
 msgid "no_translate.Option_Label"
 msgstr ""
 
-#: menu/options/option_key_binding.gd:21 menu/options/option_key_binding.gd:34
+#: menu/options/option_key_binding.gd:21 menu/options/option_key_binding.gd:39
 msgid "action."
 msgstr ""
 

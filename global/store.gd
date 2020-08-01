@@ -21,40 +21,7 @@ const _STATE_EMPTY = {
 	"selected_fleet": null,
 	"scores": {},
 	"victorious_faction": null,
-	"ship_models" : [
-		{
-			"category": "fighter",
-			"construction_time": 400,
-			"cost": 20,
-			"damage": 15,
-			"hit_points": 10,
-			"precision": 60,
-		},
-		{
-			"category": "corvette",
-			"construction_time": 1500,
-			"cost": 140,
-			"damage": 40,
-			"hit_points": 60,
-			"precision": 45,
-		},
-		{
-			"category": "frigate",
-			"construction_time": 2000,
-			"cost": 250,
-			"damage": 25,
-			"hit_points": 100,
-			"precision": 50,
-		},
-		{
-			"category": "cruiser",
-			"construction_time": 7000,
-			"cost": 600,
-			"damage": 80,
-			"hit_points": 200,
-			"precision": 45,
-		},
-	],
+	"ship_models" : [],
 }
 
 var _state = _STATE_EMPTY.duplicate(true)
@@ -90,6 +57,9 @@ func set_factions(factions):
 	for faction in factions:
 		_state.factions[faction.id] = faction
 
+
+func set_ships_model(models):
+	_state.ship_models = models
 
 func get_faction(id):
 	return _state.factions[id]
