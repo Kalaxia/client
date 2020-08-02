@@ -120,7 +120,7 @@ func refresh_building_pins():
 func _process_modulate_alpha(delta):
 	var target_alpha = 1.0
 	if is_in_range_sailing_fleet:
-		target_alpha = cos (_time * PI ) * _ALPHA_APLITUDE + (1.0 - _ALPHA_APLITUDE)
+		target_alpha = cos(_time * PI ) * _ALPHA_APLITUDE + (1.0 - _ALPHA_APLITUDE)
 	if  not is_equal_approx(_alpha, target_alpha):
 		_alpha = clamp((target_alpha - _alpha) * _ALPHA_SPEED_GAIN * delta + _alpha, 0.0, 1.0)
 		if abs(target_alpha - _alpha) < _SNAP_ALPHA_DISTANCE:

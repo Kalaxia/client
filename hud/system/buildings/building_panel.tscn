@@ -7,7 +7,7 @@
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
-load_path = "res://.import/Shipyard_64px.png-543b197559b122ff581ec9e53c4141c8.stex"
+load_path = "res://.import/area.png-126ffb5246382c62b6c20ddfdaf31cfa.stex"
 
 [node name="BuildingPanel" type="PanelContainer"]
 margin_left = 1681.0

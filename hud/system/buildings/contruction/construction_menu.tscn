@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://hud/system/buildings/contruction/construction_menu.gd" type="Script" id=1]
 [ext_resource path="res://gui/menu/menu_header.tscn" type="PackedScene" id=2]
-[ext_resource path="res://hud/system/buildings/contruction/construction_building_item.tscn" type="PackedScene" id=3]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -19,7 +18,7 @@ __meta__ = {
 
 [node name="MenuHeader" parent="." instance=ExtResource( 2 )]
 margin_bottom = 31.0
-text = "hud-details.building.construction_menu-title"
+text = "hud.details.building.construction_menu.title"
 minimisable = false
 texture = SubResource( 1 )
 
@@ -35,18 +34,3 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 1913.0
 margin_bottom = 1044.0
-
-[node name="ConstructionBuildingItem" parent="PanelContainer/VBoxContainer" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 1906.0
-margin_bottom = 50.0
-building_type = "hangar"
-
-[node name="ConstructionBuildingItem2" parent="PanelContainer/VBoxContainer" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 54.0
-margin_right = 1906.0
-margin_bottom = 104.0
-building_type = "mine"

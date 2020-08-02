@@ -50,6 +50,8 @@ func _on_panel_pressed(node):
 		var menu = MENU[node.building_type]
 		if menu != null:
 			var node_menu = menu.instance()
+			if node.building_type == "":
+				node_menu.connect("building_contructing", self, "_on_building_contructing", [node])
 			node_menu.connect("closed", self, "_on_menu_closed")
 			menu_selected_building.add_child(node_menu)
 
@@ -65,3 +67,7 @@ func _deselect_other_building(node = null):
 
 func _on_menu_closed():
 	_deselect_other_building()
+
+
+func _on_building_contructing(node, build_queue):
+	node.build_queue = build_queue

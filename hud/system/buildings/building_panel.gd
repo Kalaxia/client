@@ -36,4 +36,4 @@ func _update_elements():
 
 func set_build_queue(queue):
 	build_queue =  queue
-	_update_elements()
+	set_building_type(build_queue.building_type)

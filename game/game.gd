@@ -22,7 +22,7 @@ var _motion_camera = {
 	Vector2.LEFT : false,
 	Vector2.RIGHT : false,
 	Vector2.UP : false,
-	Vector2.DOWN : false
+	Vector2.DOWN : false,
 }
 
 onready var camera2D = $Camera2D
@@ -101,7 +101,7 @@ func _input(event):
 			_is_map_being_dragged = false
 	elif event is InputEventMouseMotion:
 		if _is_map_being_dragged:
-			_move_camera(-event.get_relative() * $Camera2D.zoom)
+			_move_camera( - event.get_relative() * $Camera2D.zoom)
 			_camera_speed = event.speed
 
 

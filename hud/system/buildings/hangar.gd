@@ -135,8 +135,8 @@ func update_ship_queue():
 		node.queue_free()
 	# we need to wait for objects to be deleted before inserting new
 	# otherwise name get duplicated as queue_free() does not free the node imediatly
-	while production_list_vbox_elements.get_child_count() > 0 :
-		yield(production_list_vbox_elements.get_child(0),"tree_exited")
+	while production_list_vbox_elements.get_child_count() > 0:
+		yield(production_list_vbox_elements.get_child(0), "tree_exited")
 	_lock_ship_prod_update.unlock()
 	for ship_queue in ship_queue_array:
 		var ship_prod_node = _SHIP_PRODUCTION_LINE.instance()
