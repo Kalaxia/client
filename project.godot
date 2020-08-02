@@ -44,6 +44,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://gui/custom_shape_button.gd"
 }, {
+"base": "Reference",
+"class": "FSM",
+"language": "GDScript",
+"path": "res://global/finite_state_machine/fsm.gd"
+}, {
+"base": "Reference",
+"class": "FSMEvent",
+"language": "GDScript",
+"path": "res://global/finite_state_machine/fsm_event.gd"
+}, {
 "base": "SelectablePanelContainer",
 "class": "FleetItem",
 "language": "GDScript",
@@ -99,6 +109,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://gui/selectable_panel_container.gd"
 }, {
+"base": "Reference",
+"class": "State",
+"language": "GDScript",
+"path": "res://global/finite_state_machine/state.gd"
+}, {
 "base": "CustomShapeButton",
 "class": "TransparentCircleButton",
 "language": "GDScript",
@@ -112,6 +127,8 @@ _global_script_class_icons={
 "ConstructionBuildingItem": "",
 "CrownSprite": "res://resources/assets/2d/map/kalankar/picto_flotte_couronne-01.png",
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
+"FSM": "",
+"FSMEvent": "",
 "FleetItem": "res://resources/editor/fleet_item.svg",
 "FleetSprite": "res://resources/assets/2d/map/picto_flotte_2.png",
 "MenuBody": "res://resources/editor/menu_body.svg",
@@ -123,6 +140,7 @@ _global_script_class_icons={
 "RoundedSelectablePanelLeft": "",
 "RoundedSelectablePanelRight": "",
 "SelectablePanelContainer": "res://resources/editor/selectable_container.svg",
+"State": "",
 "TransparentCircleButton": "res://resources/editor/custom_circle_button.svg"
 }
 
