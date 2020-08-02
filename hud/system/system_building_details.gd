@@ -5,6 +5,7 @@ const BUILDING_AREA = preload("res://hud/system/buildings/building_panel.tscn")
 const MENU = {
 	"" : preload("res://hud/system/buildings/contruction/construction_menu.tscn"),
 	"hangar" :  preload("res://hud/system/buildings/hangar.tscn"),
+	"mine" : null,
 }
 
 var _building_panel_list = []
@@ -47,9 +48,11 @@ func update_visibility():
 func _on_panel_pressed(node):
 	_deselect_other_building(node)
 	if node.is_selected:
-		var node_menu = MENU[node.building_type].instance()
-		node_menu.connect("closed", self, "_on_menu_closed")
-		menu_selected_building.add_child(node_menu)
+		var menu = MENU[node.building_type]
+		if menu != null:
+			var node_menu = menu.instance()
+			node_menu.connect("closed", self, "_on_menu_closed")
+			menu_selected_building.add_child(node_menu)
 
 
 func _deselect_other_building(node = null):

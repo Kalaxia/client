@@ -20,6 +20,8 @@ func set_building_type(new_type):
 
 
 func _updates_elements():
+	if texture_rect == null:
+		return
 	texture_rect.texture = Utils.TEXTURE_BUILDING[building_type]
 	label.text = tr("hud.details.buidlng." + building_type) if building_type != "" else tr("hud.details.buidlng.contruction")
 

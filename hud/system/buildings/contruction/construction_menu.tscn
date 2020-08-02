@@ -20,7 +20,6 @@ __meta__ = {
 [node name="MenuHeader" parent="." instance=ExtResource( 2 )]
 margin_bottom = 31.0
 text = "hud-details.building.construction_menu-title"
-closable = true
 minimisable = false
 texture = SubResource( 1 )
 
@@ -43,3 +42,11 @@ anchor_bottom = 0.0
 margin_right = 1906.0
 margin_bottom = 50.0
 building_type = "hangar"
+
+[node name="ConstructionBuildingItem2" parent="PanelContainer/VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 54.0
+margin_right = 1906.0
+margin_bottom = 104.0
+building_type = "mine"

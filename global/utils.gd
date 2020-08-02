@@ -60,12 +60,13 @@ const TEXTURE_SHIP_CATEGORIES = {
 
 const BUILDING_LIST = [
 	"hangar",
-	"mine"
+	"mine",
 ]
 
 const TEXTURE_BUILDING = {
 	"" : preload("res://resources/assets/2d/picto/building/area.png"),
 	"hangar" : preload("res://resources/assets/2d/picto/building/shipyard_64px.png"),
+	"mine" : preload("res://resources/assets/2d/picto/building/mine.svg"),
 }
 
 ############## varaibles ##############
