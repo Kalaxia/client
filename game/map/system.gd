@@ -3,10 +3,13 @@ extends Node2D
 const _ALPHA_SPEED_GAIN = 2.0
 const _SNAP_ALPHA_DISTANCE = 0.05
 const _ALPHA_APLITUDE = 0.4
-const _BASE_POSITION_PIN = Vector2(-30.0, -30.0)
+const _BASE_POSITION_PIN_FLEET = Vector2(-20.0, -30.0)
+const _BASE_POSITION_PIN_BUILDING = Vector2(20.0, -30.0)
+const _BASE_POSITION_PIN_SHIP = Vector2(0.0, -35.0)
 const _SCALE_FACTOR_ON_HIGHLIGHT = 1.5
 const _SCALE_CHANGE_FACTOR = 5.0
 const SYSTEM_FLEET_PIN_SCENE = preload("res://game/map/system_fleet_pin.tscn")
+const SYSTEM_BUILDING_PIN_SCENE = preload("res://game/map/system_building_pin.tscn")
 
 export(float) var scale_ratio = 1.0 setget set_scale_ratio
 
@@ -24,6 +27,8 @@ onready var crown = $Star/Crown
 onready var spot = $Star/Spot
 onready var fleet_pins = $FleetPins
 onready var range_draw_node = $Range
+onready var building_pins = $BuildingPins
+onready var ship_pins = $ShipPins
 
 
 func _ready():
@@ -77,6 +82,14 @@ func refresh_fleet_pins():
 			add_fleet_pin(p)
 
 
+func show_ship_pin():
+	ship_pins.visible = true
+
+
+func hide_ship_pin():
+	ship_pins.visible = false
+
+
 func add_fleet_pin(player):
 	var fleet_pin = SYSTEM_FLEET_PIN_SCENE.instance()
 	fleet_pin.faction = player.faction
@@ -91,8 +104,17 @@ func refresh():
 	_set_glow_effet()
 	_modulate_color(1.0) # we need to refresh the color even if the alpha does not change as in _process we refresh only if alpha has to be modified
 	refresh_fleet_pins()
+	refresh_building_pins()
 	crown.visible = (system.player == Store._state.player.id)
 	refresh_scale()
+
+
+func refresh_building_pins():
+	for node in building_pins.get_children():
+		node.queue_free()
+	for i in system.buildings:
+		var node = SYSTEM_BUILDING_PIN_SCENE.instance()
+		node.building_type = i
 
 
 func _process_modulate_alpha(delta):
@@ -139,7 +161,9 @@ func _set_system_texture():
 
 func _scale_star_system(factor):
 	star.set_scale(Vector2(scale_ratio * factor, scale_ratio * factor))
-	fleet_pins.rect_position = _BASE_POSITION_PIN * factor * scale_ratio
+	fleet_pins.rect_position = _BASE_POSITION_PIN_FLEET * factor * scale_ratio
+	building_pins.rect_position = _BASE_POSITION_PIN_BUILDING * factor * scale_ratio
+	ship_pins.rect_position = _BASE_POSITION_PIN_SHIP * factor * scale_ratio
 
 
 func _set_target_scale(factor):

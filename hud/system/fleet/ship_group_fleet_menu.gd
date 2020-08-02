@@ -1,5 +1,7 @@
 extends Control
 
+signal ship_assigned(ship_in_fleet, ship_in_hangar)
+
 var ship_category = Store._state.ship_models[0] setget set_ship_category 
 var quantity_fleet = 0 setget set_quantity_fleet
 var quantity_hangar = 0 setget set_quantity_hangar
@@ -83,6 +85,7 @@ func _on_ship_assigned(err, response_code, headers, body):
 		quantity_fleet = _quantity_assigned
 		update_quantities()
 		Store.update_fleet_nb_ships(_fleet_ship_assigned, ship_category.category, _quantity_assigned)
+		emit_signal("ship_assigned", quantity_fleet, quantity_hangar)
 	_quantity_assigned = 0
 	_fleet_ship_assigned = null
 	_lock_assign_ship.unlock()

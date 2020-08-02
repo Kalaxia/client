@@ -37,6 +37,7 @@ func _ready():
 	Store.connect("system_selected", self, "_on_system_selected")
 	Store.connect("fleet_created", self, "_on_fleet_created")
 	Store.connect("fleet_sailed", self, "_on_fleet_sailed")
+	Store.connect("hangar_updated", self, "_on_hangar_updated")
 	Network.connect("CombatEnded", self, "_on_combat_ended")
 	Network.connect("PlayerIncome", self, "_on_player_income")
 	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
@@ -45,6 +46,8 @@ func _ready():
 	Network.connect("SystemConquerred", self, "_on_system_conquerred")
 	Network.connect("Victory", self, "_on_victory")
 	Network.connect("FactionPointsUpdated", self, "_on_faction_points_update")
+	#Network.connect( , self, "") todo
+	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	limits = draw_systems()
 	camera2D.limit_left = (limits[0] - LIMITS_MARGIN - OS.get_window_size().x / 2.0) as int
@@ -150,6 +153,20 @@ func update_fleet_system(fleet):
 	map.get_node(fleet.system).refresh_fleet_pins()
 	if fleet_container.has(fleet.id):
 		fleet_container.get_node(fleet.id).queue_free()
+
+
+func _on_ship_queue_finished(ship_data):
+	if map.has_node(ship_data.system):
+		map.get_node(ship_data.system).show_ship_pin()
+
+
+func _on_hangar_updated(system, number):
+	if map.has_node(system):
+		var node = map.get_node(system)
+		if number == 0:
+			node.hide_ship_pin()
+		else:
+			node.show_ship_pin()
 
 
 func _setup_particle():

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://game/map/system_building_pin.gd" type="Script" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/area.png-126ffb5246382c62b6c20ddfdaf31cfa.stex"
+
+[node name="SystemBuildingPin" type="TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1899.0
+margin_bottom = -1059.0
+rect_min_size = Vector2( 21, 21 )
+texture = SubResource( 1 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

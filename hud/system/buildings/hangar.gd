@@ -18,7 +18,7 @@ onready var menu_header = $MenuHeader
 
 
 func _ready():
-	Network.connect("ShipQueueFinished",self,"_on_ship_queue_finished")
+	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
 	for category in Store._state.ship_models:
 		var node = _SHIP_HANGARD.instance()
 		node.category = category

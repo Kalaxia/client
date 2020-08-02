@@ -9,7 +9,7 @@
 flags = 4
 load_path = "res://.import/Shipyard_64px.png-543b197559b122ff581ec9e53c4141c8.stex"
 
-[node name="Hangar" type="PanelContainer"]
+[node name="BuildingPanel" type="PanelContainer"]
 margin_left = 1681.0
 margin_right = 1920.0
 margin_bottom = 172.0

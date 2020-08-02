@@ -18,9 +18,20 @@ func _ready():
 		node.ship_category = category
 		node.name = category.category
 		ship_group_element_container.add_child(node)
+		node.connect("ship_assigned", self, "_on_ship_assigned", [category])
 	menu_header.connect("minimize_request", self, "_on_minimize_request")
 	update_hangar()
 	update_element_fleet()
+
+
+func _on_ship_assigned(category, quantity_fleet, quantity_hangar):
+	var total_number_of_ships_in_hangar = 0
+	for i in ship_group_hangar:
+		if i.category == category:
+			i.quantity = quantity_hangar
+		total_number_of_ships_in_hangar += i.quantity
+	if total_number_of_ships_in_hangar == 0:
+		Store.hangar_updated_signal(fleet.system, total_number_of_ships_in_hangar)
 
 
 func _on_minimize_request():

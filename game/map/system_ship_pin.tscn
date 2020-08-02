@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/ship_64px.png-0d665bcf942a48fa390e6ccbc93bfc35.stex"
+
+[node name="SystemShipPin" type="TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1905.0
+margin_bottom = -1065.0
+rect_min_size = Vector2( 15, 15 )
+texture = SubResource( 1 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}

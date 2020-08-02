@@ -11,6 +11,7 @@ signal fleet_erased(fleet)
 signal system_update(system)
 signal fleet_update_nb_ships(fleet)
 signal fleet_unselected()
+signal hangar_updated(system, number_of_ships)
 
 const _STATE_EMPTY = {
 	"factions": {},
@@ -204,3 +205,7 @@ func get_player_color(player,is_victory_system = false) :
 
 func update_scores(scores):
 	_state.scores = scores
+
+
+func hangar_updated_signal(system, number_of_ships):
+	emit_signal("hangar_updated", system, number_of_ships)
