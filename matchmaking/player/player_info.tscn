@@ -15,22 +15,22 @@ __meta__ = {
 }
 
 [node name="Background" type="ColorRect" parent="."]
-margin_left = 3.0
+margin_left = 2.0
 margin_top = 2.0
-margin_right = 1917.0
+margin_right = 1918.0
 margin_bottom = 412.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0.207843, 0.207843, 0.207843, 1 )
 
 [node name="Container" type="HBoxContainer" parent="."]
-margin_left = 3.0
+margin_left = 2.0
 margin_top = 2.0
-margin_right = 1917.0
+margin_right = 1918.0
 margin_bottom = 412.0
 
 [node name="FactionChoice" type="OptionButton" parent="Container"]
-margin_right = 835.0
+margin_right = 836.0
 margin_bottom = 410.0
 size_flags_horizontal = 3
 disabled = true
@@ -40,8 +40,8 @@ align = 1
 expand_icon = true
 
 [node name="UsernameInput" type="LineEdit" parent="Container"]
-margin_left = 839.0
-margin_right = 1674.0
+margin_left = 840.0
+margin_right = 1676.0
 margin_bottom = 410.0
 size_flags_horizontal = 3
 max_length = 30
@@ -53,8 +53,8 @@ wait_time = 0.7
 one_shot = true
 
 [node name="ReadyInput" type="CheckButton" parent="Container"]
-margin_left = 1678.0
-margin_right = 1914.0
+margin_left = 1680.0
+margin_right = 1916.0
 margin_bottom = 410.0
 disabled = true
 text = "menu.player_info.ready"

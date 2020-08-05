@@ -1,11 +1,14 @@
 extends Node
 
+
 func _ready():
 	pass
+
 
 func network_error(err):
 	print(tr("error.network_error"))
 	print(str(err))
+
 
 func network_response_error(err):
 	match err:

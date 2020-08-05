@@ -50,14 +50,15 @@ func update_hangar():
 
 
 func update_element_fleet():
-	if fleet == null or fleet.ship_groups == null:
-		for node in ship_group_element_container.get_children():
-			node.quantity_fleet = 0
-	else:
-		for node in ship_group_element_container.get_children():
-			node.quantity_fleet = 0
+	var node_updated = []
+	if fleet != null and fleet.ship_groups != null and ship_group_element_container != null:
 		for i in fleet.ship_groups:
-			ship_group_element_container.get_node(i.category).quantity_fleet = i.quantity
+			var node_ship_group = ship_group_element_container.get_node(i.category)
+			node_ship_group.quantity_fleet = i.quantity
+			node_updated.push_back(node_ship_group.name)
+	for node in ship_group_element_container.get_children():
+		if not node_updated.has(node.name):
+			node.quantity_fleet = 0
 
 
 func _on_ship_group_received(err, response_code, headers, body):
@@ -82,5 +83,5 @@ func set_ship_group_hangar(array):
 
 
 func _on_fleet_update_nb_ships(fleet_param):
-	if fleet_param.id == fleet.id:
+	if fleet != null and fleet_param.id == fleet.id:
 		set_fleet(fleet_param)

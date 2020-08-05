@@ -1,4 +1,5 @@
 tool
+class_name FleetSprite, "res://resources/assets/2d/map/picto_flotte_2.png"
 extends Sprite
 
 export var faction : int setget set_faction

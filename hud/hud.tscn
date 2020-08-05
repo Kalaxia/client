@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://hud/hud_menu.tscn" type="PackedScene" id=5]
-[ext_resource path="res://hud/notifications.tscn" type="PackedScene" id=6]
 [ext_resource path="res://hud/system/details.tscn" type="PackedScene" id=7]
 
 [node name="HUD" type="Control"]
@@ -12,17 +11,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Notifications" parent="." instance=ExtResource( 6 )]
-anchor_left = 0.4
-anchor_top = 0.2
-anchor_right = 0.6
-anchor_bottom = 0.3
-
 [node name="SystemDetails" parent="." instance=ExtResource( 7 )]
 anchor_left = 0.02
 anchor_top = 0.3
 anchor_right = 0.98
 anchor_bottom = 0.98
+grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
 

@@ -1,4 +1,5 @@
 tool
+class_name CrownSprite, "res://resources/assets/2d/map/kalankar/crown_bottom.png"
 extends Sprite
 
 export var faction : int setget set_faction

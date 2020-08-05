@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-27 20:46+0200\n"
-"PO-Revision-Date: 2020-07-27 20:48+0200\n"
+"POT-Creation-Date: 2020-08-01 16:22+0200\n"
+"PO-Revision-Date: 2020-08-01 16:24+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -19,37 +19,38 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.4\n"
 
-#: main.gd:99
+#: main.gd:107
 msgid "Unknown requested scene : "
 msgstr ""
 
-#: config/config.gd:90
+#: config/config.gd:50 config/config.gd:55
 #, python-format
 msgid "error while parsing configuration file %s : %s "
 msgstr ""
 
-#: config/config.gd:110
+#: config/config.gd:77
 #, python-format
 msgid "Error while saving configuration file %s : %s "
 msgstr ""
 
 #: game/faction_score.gd:13
-msgid "game.faction_score.victory_points"
+#, python-format
+msgid "game.faction_score.victory_points %d"
 msgstr "%d points de victoire"
 
-#: game/game.gd:63
+#: game/game.gd:58
 msgid "game.notification.goal.title"
 msgstr "Objectifs"
 
-#: game/game.gd:63
+#: game/game.gd:58
 msgid "game.notification.goal.content"
 msgstr "Capturer et tenir les systèmes stratégiques"
 
-#: game/scores.gd:11 game/scores.tscn:20
+#: game/scores.gd:12 game/scores.tscn:20
 msgid "game.score.victory"
 msgstr "Victoire !"
 
-#: game/scores.gd:13
+#: game/scores.gd:14
 msgid "game.score.defeat"
 msgstr "Défaite"
 
@@ -57,119 +58,129 @@ msgstr "Défaite"
 msgid "game.score.back_main_menu"
 msgstr "Retourner au menu principal"
 
-#: global/error.gd:7 global/error.gd:19 global/error.gd:20
-#: global/loading_screen.gd:68
+#: global/error.gd:9 global/error.gd:22 global/error.gd:23
+#: global/loading_screen.gd:89
 msgid "error.network_error"
 msgstr "Erreur réseau"
 
-#: global/error.gd:13 global/error.gd:15 global/loading_screen.gd:68
+#: global/error.gd:16 global/error.gd:18 global/loading_screen.gd:89
 msgid "error.connexion_impossible"
 msgstr "Connexion impossible"
 
-#: global/error.gd:13 global/error.gd:17
+#: global/error.gd:16 global/error.gd:20
 msgid "error.server_not_avaliable"
 msgstr "Le serveur de jeu n'est pas disponible."
 
-#: global/error.gd:15
+#: global/error.gd:18
 msgid "error.unkown_domain_name"
 msgstr "Le nom de domaine du serveur est inconnu."
 
-#: global/error.gd:17 global/loading_screen.gd:68
+#: global/error.gd:20 global/loading_screen.gd:89
 msgid "error.http_not_connected"
 msgstr "Client HTTP non connecté"
 
-#: global/error.gd:19
+#: global/error.gd:22
 msgid "error.network_error_content"
 msgstr "Une erreur réseau est survenue"
 
-#: global/loading_screen.gd:58 global/loading_screen.gd:94
+#: global/loading_screen.gd:78 global/loading_screen.gd:151
 msgid "global.loading.ok"
 msgstr "OK"
 
-#: global/loading_screen.gd:61
+#: global/loading_screen.gd:81
 msgid "global.loading.waiting"
 msgstr "Connexion"
 
-#: global/loading_screen.gd:64
+#: global/loading_screen.gd:84
 msgid "global.loading.error"
 msgstr "Erreur"
 
-#: global/loading_screen.gd:147
+#: global/loading_screen.gd:210
 #, python-format
 msgid "global.loading.ressource.error %s %d"
 msgstr "Erreur pendant le chargement de %s : %d"
 
-#: global/loading_screen.gd:147 global/loading_screen.gd:166
+#: global/loading_screen.gd:210 global/loading_screen.gd:229
 msgid "global.loading.ressource."
 msgstr ""
 
-#: global/loading_screen.gd:160 global/loading_screen.gd:163
+#: global/loading_screen.gd:222 global/loading_screen.gd:225
 #, python-format
 msgid "global.loading.progressbar_ressource %d %d"
 msgstr "%d / %d"
 
-#: global/loading_screen.gd:166
+#: global/loading_screen.gd:229
 msgid "global.loading.none_loading"
 msgstr "Fini"
 
-#: global/loading_screen.gd:169
+#: global/loading_screen.gd:232
 #, python-format
 msgid "global.loading.progressbar_global %d %d"
 msgstr "%d / %d"
 
-#: global/loading_screen.tscn:63
+#: global/loading_screen.tscn:83
 msgid "global.loading.loading"
 msgstr "Chargement"
 
-#: global/loading_screen.tscn:88 global/loading_screen.tscn:115
+#: global/loading_screen.tscn:108 global/loading_screen.tscn:135
 msgid "0 / 0"
 msgstr ""
 
-#: global/loading_screen.tscn:143
+#: global/loading_screen.tscn:171
 msgid "global.loading.network"
 msgstr "Reseau"
 
-#: global/loading_screen.tscn:155
+#: global/loading_screen.tscn:183
 msgid "global.loading.auth_status"
 msgstr "Authentification"
 
-#: global/loading_screen.tscn:163 global/loading_screen.tscn:183
+#: global/loading_screen.tscn:191 global/loading_screen.tscn:211
+#: global/loading_screen.tscn:231 global/loading_screen.tscn:251
 msgid "global.loading.wating"
 msgstr "Connexion"
 
-#: global/loading_screen.tscn:175
+#: global/loading_screen.tscn:203
 msgid "global.loading.faction_status"
 msgstr "Receptions des factions"
 
-#: global/loading_screen.tscn:205
+#: global/loading_screen.tscn:223
+msgid "global.loading.constants_status"
+msgstr "Receptions des constantes"
+
+#: global/loading_screen.tscn:243
+msgid "global.loading.ships_status"
+msgstr "Receptions des vaisseaux"
+
+#: global/loading_screen.tscn:273
 msgid "global.loading.quit"
 msgstr "Quitter le jeu"
 
-#: global/network.gd:84
+#: global/network.gd:91
 msgid "network.unable_connect"
 msgstr "Le programme n'arrive pas à se connecter"
 
-#: global/network.gd:91
+#: global/network.gd:98
 msgid "network.close_clean_ws"
 msgstr "Fermé, clean :"
 
-#: global/network.gd:97
+#: global/network.gd:105
 msgid "Connected with protocol: "
 msgstr ""
 
-#: global/network.gd:105
+#: global/network.gd:114
 msgid "received data from server: "
 msgstr ""
 
-#: global/store.gd:66
-msgid "store.game_of"
+#: global/store.gd:35
+#, python-format
+msgid "store.game_of %s"
 msgstr "Partie de %s"
 
-#: global/store.gd:66
+#: global/store.gd:35
 msgid "store.new_game"
 msgstr "Nouvelle partie"
 
-#: global/utils.gd:91
+#: global/utils.gd:119
 msgid "action.key.mouse_key_"
 msgstr ""
 
@@ -189,7 +200,7 @@ msgstr "fermer"
 msgid "hud.hud_menu.back_main_menu"
 msgstr "Retourner au menu principal"
 
-#: hud/notifications.gd:13
+#: hud/notifications.gd:15
 msgid "notification.ok"
 msgstr "OK"
 
@@ -205,7 +216,7 @@ msgstr ""
 msgid "hud.scores"
 msgstr "Scores"
 
-#: hud/system/details.tscn:111
+#: hud/system/details.tscn:122
 msgid "no_translate.player_name"
 msgstr ""
 
@@ -245,14 +256,14 @@ msgstr "%d"
 
 #: hud/system/buildings/hangar/ship_production_line.gd:30
 #: hud/system/buildings/hangar/ship_production_line.tscn:65
-#: hud/system/buildings/hangar/ship_type_build.gd:63
+#: hud/system/buildings/hangar/ship_type_build.gd:64
 #: hud/system/buildings/hangar/ship_type_build.tscn:64
 #, python-format
 msgid "hud.details.building.hangar.ship_model %s"
 msgstr "Modèle : %s"
 
 #: hud/system/buildings/hangar/ship_production_line.gd:30
-#: hud/system/buildings/hangar/ship_type_build.gd:63
+#: hud/system/buildings/hangar/ship_type_build.gd:64
 #: hud/system/fleet/ship_group_fleet_menu.gd:39
 msgid "ship."
 msgstr ""
@@ -263,49 +274,49 @@ msgstr ""
 msgid "hud.details.building.hangar.time_remaining %d"
 msgstr "temps restant : %d s"
 
-#: hud/system/buildings/hangar/ship_type_build.gd:54
-#: hud/system/buildings/hangar/ship_type_build.tscn:115
+#: hud/system/buildings/hangar/ship_type_build.gd:55
+#: hud/system/buildings/hangar/ship_type_build.tscn:114
 #, python-format
 msgid "hud.details.building.hangar.price %d"
 msgstr "prix : %d"
 
-#: hud/system/buildings/hangar/ship_type_build.gd:56
+#: hud/system/buildings/hangar/ship_type_build.gd:57
 #, python-format
 msgid "hud.details.building.hangar.time %.1f"
 msgstr "%.1f s"
 
-#: hud/system/buildings/hangar/ship_type_build.gd:65
-#: hud/system/buildings/hangar/ship_type_build.tscn:173
+#: hud/system/buildings/hangar/ship_type_build.gd:66
+#: hud/system/buildings/hangar/ship_type_build.tscn:172
 #, python-format
 msgid "hud.details.building.hangar.hit_point %d"
 msgstr "%d"
 
-#: hud/system/buildings/hangar/ship_type_build.gd:67
-#: hud/system/buildings/hangar/ship_type_build.tscn:196
+#: hud/system/buildings/hangar/ship_type_build.gd:68
+#: hud/system/buildings/hangar/ship_type_build.tscn:195
 #, python-format
 msgid "hud.details.building.hangar.damage %d"
 msgstr "%d"
 
-#: hud/system/buildings/hangar/ship_type_build.gd:69
-#: hud/system/buildings/hangar/ship_type_build.tscn:219
+#: hud/system/buildings/hangar/ship_type_build.gd:70
+#: hud/system/buildings/hangar/ship_type_build.tscn:218
 #, python-format
 msgid "hud.details.building.hangar.accuracy %d"
 msgstr "%d %%"
 
-#: hud/system/buildings/hangar/ship_type_build.gd:89
+#: hud/system/buildings/hangar/ship_type_build.gd:90
 msgid "notification.error.not_enought_cred.title"
 msgstr "Commande impossible"
 
-#: hud/system/buildings/hangar/ship_type_build.gd:89
+#: hud/system/buildings/hangar/ship_type_build.gd:90
 msgid "notification.error.not_enought_cred.content"
 msgstr "Pas assez de credits"
 
-#: hud/system/buildings/hangar/ship_type_build.tscn:150
+#: hud/system/buildings/hangar/ship_type_build.tscn:149
 #, python-format
 msgid "hud.details.building.hangar.time %f.1"
 msgstr "%f.1"
 
-#: hud/system/buildings/hangar/ship_type_build.tscn:234
+#: hud/system/buildings/hangar/ship_type_build.tscn:233
 msgid "hud.system.building.hangar.build"
 msgstr "Commander"
 
@@ -353,20 +364,20 @@ msgid "hud.details.fleet.number_of_ship_fleet %d %d"
 msgstr "%d / %d"
 
 #: hud/system/fleet/ship_group_fleet_menu.gd:52
-#: hud/system/fleet/ship_group_fleet_menu.tscn:318
+#: hud/system/fleet/ship_group_fleet_menu.tscn:319
 #, python-format
 msgid "hud.details.fleet.number_of_ship_total %d"
 msgstr "%d"
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:203
+#: hud/system/fleet/ship_group_fleet_menu.tscn:204
 msgid "hud.details.fleet.ship_to_assign"
 msgstr "nombre de vaisseaux à assigner"
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:229
+#: hud/system/fleet/ship_group_fleet_menu.tscn:230
 msgid "hud.details.system.fleet.menu.group_ship.set"
 msgstr "Assigner"
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:272
+#: hud/system/fleet/ship_group_fleet_menu.tscn:273
 #, python-format
 msgid "hud.details.fleet.number_of_ship_fleet %d"
 msgstr "%d"
@@ -547,90 +558,96 @@ msgstr "frégate"
 msgid "ship.cruiser"
 msgstr "croiseur"
 
-
+#: locales/strings.txt:45
 msgid "global.loading.ressource.loading"
 msgstr ""
 "Vous ne devriez pas voir ce texte. Si vous le voyez contatcter les "
 "developpeur. Chargement cyclique"
 
-#: locales/strings.txt:42
+#: locales/strings.txt:46
 msgid "global.loading.ressource.menu"
 msgstr "Menu"
 
-#: locales/strings.txt:43
+#: locales/strings.txt:47
 msgid "global.loading.ressource.lobby"
 msgstr "Lobby"
 
-#: locales/strings.txt:44
+#: locales/strings.txt:48
 msgid "global.loading.ressource.game_loading"
 msgstr "Ecran de chargement pre-jeu"
 
-#: locales/strings.txt:45
+#: locales/strings.txt:49
 msgid "global.loading.ressource.game"
 msgstr "Carte"
 
-#: locales/strings.txt:46
+#: locales/strings.txt:50
 msgid "global.loading.ressource.scores"
 msgstr "Scores"
 
-#: locales/strings.txt:47
+#: locales/strings.txt:51
 msgid "global.loading.ressource.option_menu"
 msgstr "Options"
 
-#: locales/strings.txt:48
+#: locales/strings.txt:52
 msgid "global.loading.ressource.credits_menu"
 msgstr "Credits"
 
-#: locales/strings.txt:49
+#: locales/strings.txt:53
 msgid "global.loading.ressource.scores_hud"
 msgstr "Scores dans HUD"
 
-#: locales/strings.txt:50
+#: locales/strings.txt:54
 msgid "global.loading.ressource.hud"
 msgstr "HUD"
 
-#: matchmaking/game/game_loading.gd:52 matchmaking/game/game_loading.tscn:56
-msgid "menu.loading.number_player"
+#: matchmaking/game/game_loading.gd:63
+#, python-format
+msgid "menu.loading.number_player %d"
 msgstr "%d joueurs"
 
 #: matchmaking/game/game_loading.tscn:44
 msgid "menu.loading.loading"
 msgstr "Chargement"
 
-#: matchmaking/lobby/lobby.tscn:135
+#: matchmaking/game/game_loading.tscn:56
+msgid "menu.loading.number_player"
+msgstr "%d joueurs"
+
+#: matchmaking/lobby/lobby.tscn:137
 msgid "menu.lobby.launch"
 msgstr "Lancer"
 
-#: matchmaking/lobby/lobby.tscn:146
+#: matchmaking/lobby/lobby.tscn:148
 msgid "menu.lobby.quit"
 msgstr "Quitter"
 
-#: matchmaking/lobby/lobby_card.gd:18
-msgid "menu.lobby_card.player_count"
+#: matchmaking/lobby/lobby_card.gd:21
+#, python-format
+msgid "menu.lobby_card.player_count %d %d"
 msgstr "%d / %d"
 
 #: matchmaking/lobby/lobby_card.tscn:64
 msgid "menu.lobby_card.join"
 msgstr "Rejoindre"
 
-#: matchmaking/player/player_info.gd:19
+#: matchmaking/player/player_info.gd:20
 msgid "menu.player_info.input_text_placeholder"
 msgstr "nom d'utilisateur"
 
-#: matchmaking/player/player_info.gd:47
+#: matchmaking/player/player_info.gd:51
 msgid "menu.player_info.faction_drop_down_0"
 msgstr "Faction"
 
-#: matchmaking/player/player_info.gd:66
-#: matchmaking/player/player_info_faction_column.gd:18
+#: matchmaking/player/player_info.gd:71
+#: matchmaking/player/player_info_faction_column.gd:27
 msgid "general.unkown_username"
 msgstr "Inconnu"
 
-#: matchmaking/player/player_info.gd:111
+#: matchmaking/player/player_info.gd:121
 msgid "matchmaking.error.username_already_taken.title"
 msgstr "Ce pseudo existe déjà"
 
-#: matchmaking/player/player_info.gd:112
+#: matchmaking/player/player_info.gd:122
 msgid "matchmaking.error.username_already_taken.content"
 msgstr "Un autre joueur de cette partie utilise déjà ce pseudo"
 
@@ -642,11 +659,11 @@ msgstr ""
 msgid "menu.player_info.ready"
 msgstr "Prêt.e ?"
 
-#: menu/menu_credits.gd:10 menu/menu_credits.tscn:104
+#: menu/menu_credits.gd:11 menu/menu_credits.tscn:104
 msgid "menu.credits.website"
 msgstr "Site web"
 
-#: menu/menu_credits.gd:11 menu/menu_credits.tscn:121
+#: menu/menu_credits.gd:12 menu/menu_credits.tscn:121
 msgid "menu.credits.discord"
 msgstr "Serveur Discord"
 
@@ -693,19 +710,19 @@ msgstr ""
 msgid "menu.credits.back_main_menu"
 msgstr "Retourner au menu principal"
 
-#: menu/menu_option.gd:8
+#: menu/menu_option.gd:10
 msgid "menu.option.tab.shortcuts"
 msgstr "Raccourcis"
 
-#: menu/menu_option.gd:9
+#: menu/menu_option.gd:11
 msgid "menu.option.tab.audio"
 msgstr "Volumes et sons"
 
-#: menu/menu_option.gd:10
+#: menu/menu_option.gd:12
 msgid "menu.option.tab.graphical"
 msgstr "Graphiques"
 
-#: menu/menu_option.gd:11
+#: menu/menu_option.gd:13
 msgid "menu.option.tab.lang"
 msgstr "Langues"
 
@@ -733,15 +750,15 @@ msgstr "Crédits"
 msgid "menu.main.quit"
 msgstr "Quitter"
 
-#: menu/options/audio_volume_control.gd:12
-#: menu/options/audio_volume_control.gd:34
-#, python-format
-msgid "audio.bus.%s"
+#: menu/options/audio_volume_control.gd:17
+#: menu/options/audio_volume_control.gd:42
+msgid "audio.bus."
 msgstr ""
 
-#: menu/options/audio_volume_control.gd:19
-msgid "menu.option.audio.volume_label"
-msgstr "Volume : %3.3d %s (%7.2f dB)"
+#: menu/options/audio_volume_control.gd:25
+#, python-format
+msgid "menu.option.audio.volume_label %d %f"
+msgstr "Volume : %3.3d %% (%7.2f dB)"
 
 #: menu/options/audio_volume_control.tscn:34
 msgid "no_translate.bus_name"
@@ -779,7 +796,7 @@ msgstr ""
 msgid "no_translate.Option_Label"
 msgstr ""
 
-#: menu/options/option_key_binding.gd:18 menu/options/option_key_binding.gd:76
+#: menu/options/option_key_binding.gd:21 menu/options/option_key_binding.gd:39
 msgid "action."
 msgstr ""
 
