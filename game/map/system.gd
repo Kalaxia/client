@@ -20,6 +20,7 @@ const _SCALE_CHANGE_FACTOR = 5.0
 
 
 onready var light_glow_bg = $Star/Light2DGlowBG
+const assets = preload("res://resources/assets.tres")
 
 func _ready():
 	$Range.visible = false
@@ -64,7 +65,7 @@ func _set_crown_state():
 	var is_current_player = (system.player == Store._state.player.id)
 	$Star/Crown.visible = is_current_player
 	if is_current_player:
-		$Star/Crown.texture = Utils.TEXTURE_CROWN[Store.get_game_player(system.player).faction as int]
+		$Star/Crown.texture = assets.factions[Store.get_game_player(system.player).faction].picto.crown_bottom
 
 
 func _set_glow_effet():
@@ -76,10 +77,10 @@ func _set_glow_effet():
 
 
 func _set_system_texture():
-	if system.player == null:
-		$Star/Spot.texture = Utils.TEXTURE_SYSTEM[system.kind][0]
-	else:
-		$Star/Spot.texture = Utils.TEXTURE_SYSTEM[system.kind][Store.get_game_player(system.player).faction as int]
+	var faction = assets.factions.neutral
+	if system.player:
+		system = assets.factions[Store.get_game_player(system.player).faction]
+	$Star/Spot.texture = faction.system_by_kind(system.kind)
 
 func _scale_star_system(factor):
 	$Star.rect_scale = Vector2(scale_ratio * factor, scale_ratio * factor)

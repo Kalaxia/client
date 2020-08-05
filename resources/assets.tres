@@ -1,0 +1,33 @@
+[gd_resource type="Resource" load_steps=16 format=2]
+
+[ext_resource path="res://resources/assets/2d/faction/neutral.tres" type="Resource" id=1]
+[ext_resource path="res://resources/assets/2d/picto/ships/ship_64px.png" type="Texture" id=2]
+[ext_resource path="res://resources/assets/2d/picto/ships/frigate.svg" type="Texture" id=3]
+[ext_resource path="res://resources/assets/2d/picto/ships/fighter.svg" type="Texture" id=4]
+[ext_resource path="res://resources/assets/2d/picto/ships/corvette.svg" type="Texture" id=5]
+[ext_resource path="res://resources/assets/2d/picto/ships/cruiser.svg" type="Texture" id=6]
+[ext_resource path="res://resources/assets/assets.gd" type="Script" id=8]
+[ext_resource path="res://resources/assets/2d/faction/valkar/valkar.tres" type="Resource" id=9]
+[ext_resource path="res://resources/assets/2d/picto/general/hourglass_3.svg" type="Texture" id=12]
+[ext_resource path="res://resources/assets/2d/faction/adranite/adranite.tres" type="Resource" id=14]
+[ext_resource path="res://resources/assets/2d/picto/general/minimise.svg" type="Texture" id=15]
+[ext_resource path="res://resources/assets/2d/faction/kalankar/kalankar.tres" type="Resource" id=16]
+[ext_resource path="res://resources/assets/2d/picto/general/hourglass.svg" type="Texture" id=17]
+[ext_resource path="res://resources/assets/2d/picto/general/hourglass_2.svg" type="Texture" id=18]
+[ext_resource path="res://resources/assets/2d/picto/general/x.svg" type="Texture" id=19]
+
+[resource]
+script = ExtResource( 8 )
+factions = [ ExtResource( 1 ), ExtResource( 14 ), ExtResource( 16 ), ExtResource( 9 ) ]
+ship = {
+"corvette": ExtResource( 5 ),
+"cruiser": ExtResource( 6 ),
+"fighter": ExtResource( 4 ),
+"frigate": ExtResource( 3 ),
+"generic": ExtResource( 2 )
+}
+gui = {
+"hourglass": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 12 ) ],
+"minimise": ExtResource( 15 ),
+"x": ExtResource( 19 )
+}

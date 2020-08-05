@@ -1,47 +1,10 @@
-extends Node
+extends Object
 
 ############## CONSTANTS ##############
 
 const AUDIO_VOLUME_DB_MIN = -100.0 # in dB
 const SCALE_SYSTEMS_COORDS = 20
 const FLEET_RANGE = 20.0
-
-############## TEXTURES ##############
-
-const BANNERS = {
-	1 : preload("res://resources/assets/2d/faction/kalankar/banner.png"),
-	2 : preload("res://resources/assets/2d/faction/valkar/banner.png"),
-	3 : preload("res://resources/assets/2d/faction/adranite/banner.png"),
-}
-
-const TEXTURE_SYSTEM = {
-	"VictorySystem":{
-		0 : preload("res://resources/assets/2d/map/picto_syteme.png"),
-		1 : preload("res://resources/assets/2d/map/kalankar/picto_syteme_masque_v2-01.png"),
-		2 : preload("res://resources/assets/2d/map/valkar/picto_syteme_serpent_v2-01.png"),
-		3 : preload("res://resources/assets/2d/map/adranite/picto_syteme_epee_v2-01.png"),
-	},
-	"BaseSystem"  : {
-		0 : preload("res://resources/assets/2d/map/picto_syteme_1_neutral.png"),
-		1 : preload("res://resources/assets/2d/map/kalankar/picto_syteme_masque-01.png"),
-		2 : preload("res://resources/assets/2d/map/valkar/picto_syteme_serpent-01.png"),
-		3 : preload("res://resources/assets/2d/map/adranite/picto_systeme_epee-01.png"),
-	},
-}
-
-const TEXTURE_CROWN = {
-	1 : preload("res://resources/assets/2d/map/kalankar/couronne.png"),
-	2 : preload("res://resources/assets/2d/map/valkar/couronne.png"),
-	3 : preload("res://resources/assets/2d/map/adranite/couronne.png"),
-}
-
-const TEXTURE_SHIP_CATEGORIES = {
-	"" : preload("res://resources/assets/2d/picto/ships/ship_64px.png"),
-	"fighter" : preload("res://resources/assets/2d/picto/ships/fighter.svg"),
-	"corvette" : preload("res://resources/assets/2d/picto/ships/corvette.svg"),
-	"frigate" : preload("res://resources/assets/2d/picto/ships/frigate.svg"),
-	"cruiser" : preload("res://resources/assets/2d/picto/ships/cruiser.svg"),
-}
 
 ############## LOCK ##############
 
@@ -81,9 +44,6 @@ class Lock:
 
 ############## METHODS ##############
 
-func _ready():
-	pass # Replace with function body.
-
 func get_label_of_event(event):
 	if event is InputEventKey:
 		return event.as_text()
@@ -106,3 +66,12 @@ static func lighten_color(color):
 	color.g = min( color.g + 40 / 255.0, 1.0)
 	color.b = min( color.b + 40 / 255.0, 1.0)
 	return color
+
+static func translate_system_kind(server_kind : String) -> String:
+	match server_kind:
+		"VictorySystem":
+			return "system_disk"
+		"BaseSystem":
+			return "system_circle"
+		var x:
+			return x

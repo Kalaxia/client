@@ -18,6 +18,7 @@ onready var hit_point_label = $PanelContainer/HBoxContainer/HitPoint
 onready var damage_label = $PanelContainer/HBoxContainer/Damage
 onready var accuracy_label = $PanelContainer/HBoxContainer/Accuracy
 
+const assets : KalaxiaAssets = preload("res://resources/assets.tres")
 
 func _ready():
 	button_set.connect("pressed", self, "_on_set_button")
@@ -38,7 +39,7 @@ func update_elements():
 	if ship_category_label != null:
 		ship_category_label.text = tr("hud.details.fleet.ship_model %s") % tr("ship." + ship_category.category)
 	if texture_rect_cathegory != null:
-		texture_rect_cathegory.texture = Utils.TEXTURE_SHIP_CATEGORIES[ship_category.category]
+		texture_rect_cathegory.texture = assets.ship[ship_category.category]
 	if hit_point_label != null:
 		hit_point_label.text = tr("hud.details.fleet.hit_point %d") % ship_category.hit_points
 	if damage_label != null:

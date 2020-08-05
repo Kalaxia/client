@@ -6,6 +6,7 @@ var category setget set_category
 var quantity = 0 setget set_quantity
 var is_selected = false setget set_is_selected
 
+const assets = preload("res://resources/assets.tres")
 
 func _ready():
 	$SelectablePanelContainer.connect("pressed", self, "_on_pressed")
@@ -15,7 +16,7 @@ func _ready():
 
 func update_texture():
 	if category != null:
-		$SelectablePanelContainer/VBoxContainer/TextureRect.texture = Utils.TEXTURE_SHIP_CATEGORIES[category.category]
+		$SelectablePanelContainer/VBoxContainer/TextureRect.texture = assets.ship[category.category]
 
 
 func _on_pressed():

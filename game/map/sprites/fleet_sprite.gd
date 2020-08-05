@@ -1,19 +1,14 @@
+tool
 extends Sprite
 
-var faction = 0
+export var faction : int setget set_faction
 
-const _TEXTURE = {
-	0 : preload("res://resources/assets/2d/map/picto_flotte_2.png"),
-	1 : preload("res://resources/assets/2d/map/kalankar/picto_flotte_2.png"),
-	2 : preload("res://resources/assets/2d/map/valkar/picto_flotte_2.png"),
-	3 : preload("res://resources/assets/2d/map/adranite/picto_flotte_2.png"),
-}
- 
-
+const assets = preload("res://resources/assets.tres")
 
 func _ready():
-	set_faction_texture()
+	pass
 
 
-func set_faction_texture():
-	texture = _TEXTURE[faction as int]
+func set_faction(p_faction : int) -> void:
+	faction = p_faction
+	texture = assets.factions[faction].picto.fleet

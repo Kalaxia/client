@@ -23,14 +23,17 @@ func _on_system_selected(system, old_system):
 
 func refresh_data(system):
 	var player_node = $System/CircularContainer/ContainerSystem/PlayerName
-	var player = null
+	
+	var assets = load("res://resources/assets.tres")
+	var faction = assets.factions.neutral
+	player_node.text = ""
 	if system.player != null:
-		player = Store.get_game_player(system.player)
+		var player = Store.get_game_player(system.player).faction
+		faction = assets[player.faction]
 		player_node.text = player.username
-	else:
-		player_node.text = ""
-	$System/CircularContainer/ContainerSystem/TextureRect.texture = Utils.TEXTURE_SYSTEM[system.kind][0 if player == null else player.faction as int]
-	$System/CircularContainer/ContainerSystem/TextureRect.modulate = Store.get_player_color(player, system.kind == "VictorySystem")
+
+	$System/CircularContainer/ContainerSystem/TextureRect.texture = faction.picto.system_by_kind(system.kind)
+	$System/CircularContainer/ContainerSystem/TextureRect.modulate = faction.get_color(system.kind == "VictorySystem")
 
 func _on_victory(data):
 	set_visible(false)

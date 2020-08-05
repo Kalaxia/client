@@ -1,11 +1,6 @@
 extends VBoxContainer
 
-
-const BANNERS = {
-	"Kalankar": preload("res://resources/assets/2d/faction/kalankar/banner.png"),
-	"Valkar": preload("res://resources/assets/2d/faction/valkar/banner.png"),
-	"Adranite": preload("res://resources/assets/2d/faction/adranite/banner.png"),
-}
+const assets = preload("res://resources/assets.tres")
 const PLAYER_INFO_FACTION_COLUMN = preload("res://matchmaking/player/player_info_faction_column.tscn")
 
 export(int) var faction = 0 setget set_faction
@@ -56,8 +51,8 @@ func _update_faction_banner():
 	var duplicated_style = style.duplicate()
 	if faction != 0:
 		$Header/banner.visible = true
-		$Header/banner.texture = BANNERS[Store._state.factions[faction as float].name]
-		var color = Store._state.factions[faction as float].color
+		$Header/banner.texture = assets.factions[faction].banner
+		var color = assets.factions[faction].get_color()
 		duplicated_style.border_color =  Color(color[0] / 255.0, color[1] / 255.0, color[2] / 255.0)
 	else:
 		duplicated_style.border_color = Color(0.12,0.12,0.12)

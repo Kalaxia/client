@@ -16,6 +16,7 @@ onready var damage_label = $PanelContainer/HBoxContainer/Damage
 onready var accuracy_label = $PanelContainer/HBoxContainer/Accuracy
 onready var price_label = $PanelContainer/HBoxContainer/Price
 
+const assets = preload("res://resources/assets.tres")
 
 func _ready():
 	button_order.connect("pressed", self, "_on_pressed_build")
@@ -60,7 +61,7 @@ func update_price_and_time():
 
 func update_elements():
 	if ship_category != null:
-		$PanelContainer/HBoxContainer/TextureRect.texture = Utils.TEXTURE_SHIP_CATEGORIES[ship_category.category]
+		$PanelContainer/HBoxContainer/TextureRect.texture = assets.ship[ship_category.category]
 		$PanelContainer/HBoxContainer/Label.text = tr("hud.details.building.hangar.ship_model %s") % tr("ship." + ship_category.category)
 		if hit_point_label != null:
 			hit_point_label.text = tr("hud.details.building.hangar.hit_point %d") % ship_category.hit_points

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=9 format=2]
+
+[ext_resource path="res://resources/assets/2d/map/kalankar/system_circle.png" type="Texture" id=1]
+[ext_resource path="res://resources/assets/2d/map/kalankar/system_disk.png" type="Texture" id=2]
+[ext_resource path="res://resources/assets/2d/map/kalankar/fleet.png" type="Texture" id=3]
+[ext_resource path="res://resources/assets/2d/picto.gd" type="Script" id=4]
+[ext_resource path="res://resources/assets/2d/map/kalankar/fleet_pin_noframe.png" type="Texture" id=5]
+[ext_resource path="res://resources/assets/2d/map/kalankar/fleet_pin.png" type="Texture" id=6]
+[ext_resource path="res://resources/assets/2d/map/kalankar/crown_bottom.png" type="Texture" id=7]
+[ext_resource path="res://resources/assets/2d/map/kalankar/crown_top.png" type="Texture" id=8]
+
+[resource]
+script = ExtResource( 4 )
+fleet_pin = ExtResource( 6 )
+fleet_pin_noframe = ExtResource( 5 )
+fleet = ExtResource( 3 )
+system_circle = ExtResource( 1 )
+system_disk = ExtResource( 2 )
+crown_top = ExtResource( 8 )
+crown_bottom = ExtResource( 7 )

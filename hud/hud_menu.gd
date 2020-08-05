@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+const assets = preload("res://resources/assets.tres")
+
 signal back_main_menu() 
 
 func _ready():
@@ -14,7 +16,7 @@ func _on_victory(data):
 
 
 func _on_game_started(game):
-	$HBoxContainer/TextureRect.texture = Utils.BANNERS[Store._state.player.faction as int]
+	$HBoxContainer/TextureRect.texture = assets.factions[Store._state.player.faction].banner
 	set_visible(true)
 
 func _back_to_mainmenu():
