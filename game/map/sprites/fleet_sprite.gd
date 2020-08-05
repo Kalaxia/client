@@ -1,16 +1,19 @@
+tool
 class_name FleetSprite, "res://resources/assets/2d/map/picto_flotte_2.png"
 extends Sprite
 
-var faction = 0 setget set_faction
+var faction : int = 0 setget set_faction
+
+const assets = preload("res://resources/assets.tres")
 
 
 func _ready():
-	set_faction_texture()
+	pass
 
 
 func set_faction_texture():
 	if faction != 0:
-		texture = Utils.FLEET_TEXTURE[faction as int]
+		texture = assets.factions[faction].picto.fleet
 
 
 func set_faction(new_faction):

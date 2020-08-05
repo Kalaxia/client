@@ -16,6 +16,7 @@ onready var request_max_button = $PanelContainer/HBoxContainer/RequestMax
 onready var label_model = $PanelContainer/HBoxContainer/Label
 onready var texture_model = $PanelContainer/HBoxContainer/TextureRect
 
+const assets = preload("res://resources/assets.tres")
 
 func _ready():
 	_lock_build_ships.connect("changed_state", self, "_on_lock_changed_state")
@@ -82,7 +83,7 @@ func update_elements():
 	if ship_category == null:
 		return
 	if texture_model != null:
-		texture_model.texture = Utils.TEXTURE_SHIP_CATEGORIES[ship_category.category]
+		texture_model.texture = assets.ship[ship_category.category]
 	if label_model != null:
 		label_model.text = tr("hud.details.building.hangar.ship_model %s") % tr("ship." + ship_category.category)
 	if hit_point_label != null:

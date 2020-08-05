@@ -1,76 +1,9 @@
-extends Node
+extends Object
 
 ############## CONSTANTS ##############
 
 const AUDIO_VOLUME_DB_MIN = -100.0 # in dB
 const SCALE_SYSTEMS_COORDS = 20
-
-############## TEXTURES ##############
-
-const BANNERS = {
-	1 : preload("res://resources/assets/2d/faction/kalankar/banner.png"),
-	2 : preload("res://resources/assets/2d/faction/valkar/banner.png"),
-	3 : preload("res://resources/assets/2d/faction/adranite/banner.png"),
-}
-
-const BANNERS_SMALL = {
-	1 : preload("res://resources/assets/2d/faction/kalankar/banner_image.png"),
-	2 : preload("res://resources/assets/2d/faction/valkar/banner_image.png"),
-	3 : preload("res://resources/assets/2d/faction/adranite/banner_image.png"),
-}
-
-const TEXTURE_CROWN_FLEET = {
-	1 : preload("res://resources/assets/2d/map/kalankar/picto_flotte_couronne-01.png"),
-	2 : preload("res://resources/assets/2d/map/valkar/picto_flotte_couronne-01.png"),
-	3 : preload("res://resources/assets/2d/map/adranite/picto_flotte_couronne-01.png"),
-}
-const FLEET_TEXTURE = {
-	0 : preload("res://resources/assets/2d/map/picto_flotte_2.png"),
-	1 : preload("res://resources/assets/2d/map/kalankar/picto_flotte_2.png"),
-	2 : preload("res://resources/assets/2d/map/valkar/picto_flotte_2.png"),
-	3 : preload("res://resources/assets/2d/map/adranite/picto_flotte_2.png"),
-}
-const TEXTURE_CROWN_SYSTEM = {
-	1 : preload("res://resources/assets/2d/map/kalankar/couronne.png"),
-	2 : preload("res://resources/assets/2d/map/valkar/couronne.png"),
-	3 : preload("res://resources/assets/2d/map/adranite/couronne.png"),
-}
-const TEXTURE_SYSTEM = {
-	"VictorySystem":{
-		0 : preload("res://resources/assets/2d/map/picto_syteme.png"),
-		1 : preload("res://resources/assets/2d/map/kalankar/picto_syteme_masque_v2-01.png"),
-		2 : preload("res://resources/assets/2d/map/valkar/picto_syteme_serpent_v2-01.png"),
-		3 : preload("res://resources/assets/2d/map/adranite/picto_syteme_epee_v2-01.png"),
-	},
-	"BaseSystem"  : {
-		0 : preload("res://resources/assets/2d/map/picto_syteme_1_neutral.png"),
-		1 : preload("res://resources/assets/2d/map/kalankar/picto_syteme_masque-01.png"),
-		2 : preload("res://resources/assets/2d/map/valkar/picto_syteme_serpent-01.png"),
-		3 : preload("res://resources/assets/2d/map/adranite/picto_systeme_epee-01.png"),
-	},
-}
-
-const TEXTURE_SHIP_CATEGORIES = {
-	"" : preload("res://resources/assets/2d/picto/ships/ship_64px.png"),
-	"fighter" : preload("res://resources/assets/2d/picto/ships/fighter.svg"),
-	"corvette" : preload("res://resources/assets/2d/picto/ships/corvette.svg"),
-	"frigate" : preload("res://resources/assets/2d/picto/ships/frigate.svg"),
-	"cruiser" : preload("res://resources/assets/2d/picto/ships/cruiser.svg"),
-}
-const TEXTURE_BUILDING = {
-	"" : preload("res://resources/assets/2d/picto/building/area.png"),
-	"shipyard" : preload("res://resources/assets/2d/picto/building/shipyard_64px.png"),
-	"mine" : preload("res://resources/assets/2d/picto/building/mine.svg"),
-	"portal" : preload("res://resources/assets/2d/picto/building/portal.svg"),
-}
-const THEME_FACTION = {
-	0 : preload("res://themes/theme_u_main.tres"),
-	1 : preload("res://themes/theme_faction/valankar/theme_main.tres"),
-	2 : preload("res://themes/theme_faction/valkar/theme_main.tres"),
-	3 : preload("res://themes/theme_faction/adranite/theme_main.tres"),
-}
-
-############## varaibles ##############
 
 var fleet_range
 var victory_point_max
@@ -131,10 +64,6 @@ class Lock:
 ############## METHODS ##############
 
 
-func _ready():
-	pass
-
-
 func get_label_of_event(event):
 	if event is InputEventKey:
 		return event.as_text()
@@ -167,3 +96,12 @@ static func lighten_color(color):
 	color.g = min(color.g + 40.0 / 255.0, 1.0)
 	color.b = min(color.b + 40.0 / 255.0, 1.0)
 	return color
+
+static func translate_system_kind(server_kind : String) -> String:
+	match server_kind:
+		"VictorySystem":
+			return "system_disk"
+		"BaseSystem":
+			return "system_circle"
+		var x:
+			return x

@@ -10,6 +10,8 @@ onready var selectable_panel_container = $SelectablePanelContainer
 onready var texture_ship = $SelectablePanelContainer/VBoxContainer/TextureRect
 onready var label = $SelectablePanelContainer/VBoxContainer/MarginContainer/Label
 
+const assets = preload("res://resources/assets.tres")
+
 
 func _ready():
 	selectable_panel_container.connect("pressed", self, "_on_pressed")
@@ -20,7 +22,7 @@ func _ready():
 
 func update_texture():
 	if category != null and texture_ship != null:
-		texture_ship.texture = Utils.TEXTURE_SHIP_CATEGORIES[category.category]
+		texture_ship.texture = assets.ship[category.category]
 
 
 func _on_pressed():

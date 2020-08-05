@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+const assets = preload("res://resources/assets.tres")
+
 signal back_main_menu() 
 
 var menu_layer : MenuLayer setget set_menu_layer
@@ -18,7 +20,7 @@ func _ready():
 			node.connect("pressed", self, "_on_button_pressed", [node])
 	menu_button.connect("state_changed", self, "_toogle_menu")
 	popup_menu.connect("id_pressed", self, "_on_id_pressed")
-	texture_rect.texture = Utils.BANNERS[Store._state.player.faction as int]
+	texture_rect.texture = assets.factions[Store._state.player.faction].banner
 	finance_button.connect("pressed", self, "_on_finance_menu_pressed")
 
 

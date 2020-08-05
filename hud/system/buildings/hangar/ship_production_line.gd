@@ -9,6 +9,7 @@ onready var ship_category_label = $PanelContainer/hBoxContainer/ShipModel
 onready var time_remaining_label = $PanelContainer/hBoxContainer/TimeRemaining
 onready var progress_bar_time = $PanelContainer/hBoxContainer/ProgressBar
 
+const assets : KalaxiaAssets = preload("res://resources/assets.tres")
 
 func _ready():
 	cancel_button.connect("pressed", self, "_on_button_cancel")
@@ -23,7 +24,7 @@ func update_elements():
 	if ship_queue == null:
 		return
 	if texture_rect_category != null:
-		texture_rect_category.texture = Utils.TEXTURE_SHIP_CATEGORIES[ship_queue.category]
+		texture_rect_category.texture = assets.ship[ship_queue.category]
 	if ship_number_label != null:
 		ship_number_label.text = tr("hud.details.building.hangar.number_of_ships %d") % ship_queue.quantity
 	if ship_category_label != null:

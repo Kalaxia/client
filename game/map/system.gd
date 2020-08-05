@@ -29,6 +29,8 @@ onready var fleet_pins = $FleetPins
 onready var range_draw_node = $Range
 onready var building_pins = $BuildingPins
 
+const assets = preload("res://resources/assets.tres")
+
 
 func _ready():
 	range_draw_node.visible = false
@@ -156,7 +158,7 @@ func _set_crown_state():
 	var is_current_player = (system.player == Store._state.player.id)
 	crown.visible = is_current_player
 	if is_current_player:
-		crown.texture = Utils.TEXTURE_CROWN_SYSTEM[Store.get_game_player(system.player).faction as int]
+		crown.texture = assets.factions[Store.get_game_player(system.player).faction].picto.crown_bottom
 
 
 func _set_glow_effet():
@@ -168,10 +170,10 @@ func _set_glow_effet():
 
 
 func _set_system_texture():
-	if system.player == null:
-		spot.texture = Utils.TEXTURE_SYSTEM[system.kind][0]
-	else:
-		spot.texture = Utils.TEXTURE_SYSTEM[system.kind][Store.get_game_player(system.player).faction as int]
+	var faction = assets.factions.neutral
+	if system.player:
+		system = assets.factions[Store.get_game_player(system.player).faction]
+	spot.texture = faction.system_by_kind(system.kind)
 
 
 func _scale_star_system(factor):
