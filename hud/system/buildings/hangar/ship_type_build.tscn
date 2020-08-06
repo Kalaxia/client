@@ -42,12 +42,12 @@ __meta__ = {
 [node name="PanelContainer" type="PanelContainer" parent="."]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 2142.0
+margin_right = 2441.0
 margin_bottom = 1075.0
 custom_styles/panel = SubResource( 1 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
-margin_right = 2137.0
+margin_right = 2436.0
 margin_bottom = 1070.0
 
 [node name="Control4" type="Control" parent="PanelContainer/HBoxContainer"]
@@ -231,3 +231,18 @@ margin_right = 2137.0
 margin_bottom = 545.0
 size_flags_vertical = 4
 text = "hud.system.building.hangar.build"
+
+[node name="Control10" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_left = 2141.0
+margin_right = 2151.0
+margin_bottom = 1070.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 2
+
+[node name="RequestMax" type="Button" parent="PanelContainer/HBoxContainer"]
+margin_left = 2155.0
+margin_top = 525.0
+margin_right = 2436.0
+margin_bottom = 545.0
+size_flags_vertical = 4
+text = "hud.system.building.hangar.build_max %d"

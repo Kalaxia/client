@@ -80,6 +80,10 @@ var victory_point_per_minute
 class Lock:
 	extends Reference
 	
+	signal locked()
+	signal unlocked()
+	signal changed_sate(lock_sate)
+	
 	enum LOCK_STATE {
 		BUSY = 0,
 		OK = 1,
@@ -105,11 +109,18 @@ class Lock:
 		if _is_locked:
 			return LOCK_STATE.BUSY
 		_is_locked = true
+		emit_signal("locked")
+		emit_signal("changed_sate", true)
 		return LOCK_STATE.OK
 	
 	
 	func unlock():
+		var previous_sate = _is_locked
 		_is_locked = false
+		if previous_sate:
+			emit_signal("unlocked")
+			emit_signal("changed_sate", false)
+		return previous_sate
 	
 	
 	func can_lock():

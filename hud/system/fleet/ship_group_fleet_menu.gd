@@ -19,7 +19,7 @@ onready var label_ship_total = $PanelContainer/HBoxContainer/ShipAvaliable/Label
 onready var hit_point_label = $PanelContainer/HBoxContainer/HitPoint
 onready var damage_label = $PanelContainer/HBoxContainer/Damage
 onready var accuracy_label = $PanelContainer/HBoxContainer/Accuracy
-
+onready var max_assign_button = $PanelContainer/HBoxContainer/MaxAssign
 
 func _ready():
 	button_set.connect("pressed", self, "_on_set_button")
@@ -28,6 +28,7 @@ func _ready():
 	spinbox.value = quantity_fleet
 	line_edit_spin_box.connect("text_changed", self, "_on_line_edit_text_changed")
 	line_edit_spin_box.connect("text_entered", self, "_on_text_entered")
+	max_assign_button.connect("pressed", self, "_on_max_assign_pressed")
 
 
 func _on_line_edit_text_changed(text = null):
@@ -55,16 +56,26 @@ func update_quantities():
 	var previous_spinbox_value = spinbox.value 
 	spinbox.max_value = quantity_hangar + quantity_fleet
 	spinbox.value = min(previous_spinbox_value, spinbox.max_value)
+	if max_assign_button != null:
+		max_assign_button.text = tr("hud.details.fleet.max_assign %d") % quantity_hangar + quantity_fleet
 
 
 func _on_text_entered(text = null):
 	_on_set_button()
 
 
+func _on_max_assign_pressed():
+	_request_assignation(quantity_hangar + quantity_fleet)
+
+
 func _on_set_button():
+	_request_assignation(spinbox.value)
+
+
+func _request_assignation(quantity):
 	if not _lock_assign_ship.try_lock():
 		return
-	_quantity_assigned = spinbox.value
+	_quantity_assigned = quantity
 	_fleet_ship_assigned = Store._state.selected_fleet
 	Network.req(self, "_on_ship_assigned",
 			"/api/games/" + Store._state.game.id +
@@ -73,7 +84,7 @@ func _on_set_button():
 			"/ship-groups/",
 			HTTPClient.METHOD_POST,
 			[ "Content-Type: application/json" ],
-			JSON.print({"category" : ship_category.category, "quantity" : spinbox.value})
+			JSON.print({"category" : ship_category.category, "quantity" : quantity})
 	)
 
 
