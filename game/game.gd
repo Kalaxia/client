@@ -38,6 +38,7 @@ func _ready():
 	Store.connect("fleet_created", self, "_on_fleet_created")
 	Store.connect("fleet_sailed", self, "_on_fleet_sailed")
 	Store.connect("hangar_updated", self, "_on_hangar_updated")
+	Store.connect("building_updated", self, "_on_building_updated")
 	Network.connect("CombatEnded", self, "_on_combat_ended")
 	Network.connect("PlayerIncome", self, "_on_player_income")
 	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
@@ -46,8 +47,8 @@ func _ready():
 	Network.connect("SystemConquerred", self, "_on_system_conquerred")
 	Network.connect("Victory", self, "_on_victory")
 	Network.connect("FactionPointsUpdated", self, "_on_faction_points_update")
-	#Network.connect( , self, "") todo
 	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
+	Network.connect("BuildingConstructed", self, "_on_building_constructed")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	limits = draw_systems()
 	camera2D.limit_left = (limits[0] - LIMITS_MARGIN - OS.get_window_size().x / 2.0) as int
@@ -156,17 +157,33 @@ func update_fleet_system(fleet):
 
 
 func _on_ship_queue_finished(ship_data):
-	if map.has_node(ship_data.system):
-		map.get_node(ship_data.system).show_ship_pin()
+	Store.add_ship_group_to_hangar(ship_data)
 
 
-func _on_hangar_updated(system, number):
+func _on_hangar_updated(system, ship_group_hangar):
 	if map.has_node(system):
 		var node = map.get_node(system)
-		if number == 0:
+		if ship_group_hangar == null:
+			node.hide_ship_pin()
+			return
+		var total_number_of_ships_in_hangar = 0
+		for i in ship_group_hangar:
+			total_number_of_ships_in_hangar += i.quantity
+		if total_number_of_ships_in_hangar == 0:
 			node.hide_ship_pin()
 		else:
-			node.show_ship_pin()
+			node.show_ship_pin(total_number_of_ships_in_hangar)
+
+
+func _on_building_constructed(building):
+	Store.add_building_to_system({"id" : building.system}, building)
+
+
+func _on_building_updated(system):
+	if map.has_node(system):
+		var node = map.get_node(system)
+		node.refresh_building_pins()
+
 
 
 func _setup_particle():
@@ -260,6 +277,40 @@ func _on_system_conquerred(data):
 	update_fleet_system(data.fleet)
 	Store.update_system(data.system)
 	map.get_node(data.system.id).refresh()
+	if Store._state.game.players[data.system.player].faction == Store._state.player.faction:
+		Network.req(self, "_on_ship_group_received"
+			, "/api/games/" +
+				Store._state.game.id + "/systems/" +
+				data.system.id + "/ship-groups/"
+			, HTTPClient.METHOD_GET
+			, data.system.id
+		)
+		Network.req(self, "_on_ship_building"
+			,"/api/games/" +
+				Store._state.game.id + "/systems/" +
+				data.system.id + "/buildings/"
+			, HTTPClient.METHOD_GET
+			, data.system.id
+		)
+	else:
+		Store.update_buildings(data.system, null)
+		Store.update_hangar(data.system, null)
+
+
+func _on_ship_group_received(err, response_code, headers, body, system_id):
+	if err:
+		ErrorHandler.network_response_error(err)
+	if response_code == HTTPClient.RESPONSE_OK :
+		var result = JSON.parse(body.get_string_from_utf8()).result
+		Store.update_hangar_system_id(system_id, result)
+
+
+func _on_ship_building(err, response_code, headers, body, system_id):
+	if err:
+		ErrorHandler.network_response_error(err)
+	if response_code == HTTPClient.RESPONSE_OK :
+		var result = JSON.parse(body.get_string_from_utf8()).result
+		Store.update_buildings_system_id(system_id, result)
 
 
 func _on_victory(data):

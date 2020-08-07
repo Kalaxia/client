@@ -51,10 +51,6 @@ __meta__ = {
 }
 
 [node name="SystemBuildingPin" parent="ShipPins" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 15.0
-margin_bottom = 15.0
 
 [node name="Star" type="Control" parent="."]
 anchor_left = 0.5

@@ -12,6 +12,7 @@ signal system_update(system)
 signal fleet_update_nb_ships(fleet)
 signal fleet_unselected()
 signal hangar_updated(system, number_of_ships)
+signal building_updated(system)
 
 const _STATE_EMPTY = {
 	"factions": {},
@@ -207,5 +208,45 @@ func update_scores(scores):
 	_state.scores = scores
 
 
-func hangar_updated_signal(system, number_of_ships):
-	emit_signal("hangar_updated", system, number_of_ships)
+func update_buildings_system_id(system_id, buildings):
+	_state.game.systems[system_id].buildings = buildings
+	emit_signal("building_updated", _state.game.systems[system_id])
+
+
+func update_hangarsystem_id(system_id, ship_groups):
+	_state.game.systems[system_id].hangar = ship_groups
+	emit_signal("hangar_updated", _state.game.systems[system_id], ship_groups)
+
+
+func update_hangar(system, ship_groups):
+	update_hangarsystem_id(system.id, ship_groups)
+
+
+func update_buildings(system, buildings):
+	update_buildings_system_id(system.id, buildings)
+
+
+func add_building_to_system(system, building):
+	var total_buildings = Store._state.systems[system.id].buildings
+	if total_buildings == null:
+		total_buildings = [building]
+	else:
+		total_buildings.push_back(building)
+	Store.update_buildings(Store._state.systems[system.id], total_buildings)
+
+
+func add_ship_group_to_hangar(ship_group):
+	var hangar_ship_groups = []
+	if Store._state.game.systems[ship_group.system].hangar == null:
+		hangar_ship_groups.push_back(ship_group)
+	else:
+		var has_added_ships = false
+		hangar_ship_groups = Store._state.game.systems[ship_group.system].hangar
+		for i in hangar_ship_groups:
+			if i.category ==  ship_group.category:
+				i.quantity += ship_group.quanity
+				has_added_ships = true
+				break
+		if not has_added_ships:
+			hangar_ship_groups.push_back(ship_group)
+	Store.update_hangar(ship_group.system, hangar_ship_groups)

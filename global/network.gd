@@ -23,6 +23,7 @@ signal SystemsCreated(data)
 signal Victory(data)
 signal FactionPointsUpdated(scores)
 signal ShipQueueFinished(ship_group)
+signal BuildingConstructed(building)
 
 const MAX_CO_RETRIES = 5
 const TIME_BEFORE_CLOSE = 2.0
@@ -204,6 +205,8 @@ func launch_pending_request():
 
 
 func trigger_handler(res_code, http_code, headers, body):
+	if http_code >= 400:
+		print_debug(self.pending_request[1] + " - " + http_code as String + " : " + body.get_string_from_utf8() + ", " + JSON.print(headers))
 	# call the listener of the pending request
 	var f = funcref(self.pending_request[4], self.pending_request[5])
 	if f.is_valid():

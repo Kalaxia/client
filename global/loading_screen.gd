@@ -26,14 +26,14 @@ var _current_loading_component_load = 0
 onready var global_progressbar = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/GlobalProgress
 onready var ressource_progressbar = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/ProgressBar
 onready var loading_componenet_label = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/LoadingComponenet
-onready var label_network_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/LabelAuth
-onready var label_faction_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/LabelFaction
+onready var label_network_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerAuth/LabelAuth
+onready var label_faction_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerFaction/LabelFaction
 onready var timer_auth = $TimerAuth
 onready var quit_button = $Foreground/MarginContainer/VBoxContainer/VBoxContainer/QuitButton
 onready var label_loading_error = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/LoadingError
 onready var timer_res = $TimerRessource
-onready var label_constant_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/LabelConstante
-onready var label_ship_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/LabelShips
+onready var label_constant_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerConstantes/LabelConstante
+onready var label_ship_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerShips/LabelShips
 
 
 func _ready():

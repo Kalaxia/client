@@ -1,7 +1,7 @@
 class_name ConstructionBuildingItem
 extends MarginContainer
 
-signal building_contructing(building_queue)
+signal building_contructing(building)
 
 export(String) var building_type = "" setget set_building_type
 
@@ -29,7 +29,7 @@ func private_set(variant):
 
 
 func private_get():
-	pass
+	return null
 
 
 func _updates_elements():
@@ -56,6 +56,7 @@ func _on_building_construction_started(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_CREATED:
-		var building_queue = JSON.parse(body.get_string_from_utf8()).result
-		emit_signal("building_contructing", building_queue)
+		var building = JSON.parse(body.get_string_from_utf8()).result
+		Store.add_building_to_system(Store._state.selected_system, building)
+		emit_signal("building_contructing", building)
 	_lock_request_build.unlock()

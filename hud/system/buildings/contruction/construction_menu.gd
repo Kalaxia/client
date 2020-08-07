@@ -1,7 +1,7 @@
 extends Control
 
 signal closed()
-signal building_contructing(building_queue)
+signal building_contructing(building)
 
 const CONSTRUCTION_ITEM = preload("res://hud/system/buildings/contruction/construction_building_item.tscn")
 
@@ -23,6 +23,6 @@ func _on_close_request():
 	queue_free()
 
 
-func _on_building_contructing(building_queue):
-	emit_signal("building_contructing", building_queue)
+func _on_building_contructing(building):
+	emit_signal("building_contructing", building)
 	_on_close_request()

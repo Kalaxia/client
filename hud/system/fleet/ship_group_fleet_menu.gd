@@ -57,7 +57,7 @@ func update_quantities():
 	spinbox.max_value = quantity_hangar + quantity_fleet
 	spinbox.value = min(previous_spinbox_value, spinbox.max_value)
 	if max_assign_button != null:
-		max_assign_button.text = tr("hud.details.fleet.max_assign %d") % quantity_hangar + quantity_fleet
+		max_assign_button.text = tr("hud.details.fleet.max_assign %d") % (quantity_hangar + quantity_fleet)
 
 
 func _on_text_entered(text = null):

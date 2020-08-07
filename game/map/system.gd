@@ -82,8 +82,9 @@ func refresh_fleet_pins():
 			add_fleet_pin(p)
 
 
-func show_ship_pin():
+func show_ship_pin(number = 0):
 	ship_pins.visible = true
+	ship_pins.number = number
 
 
 func hide_ship_pin():
@@ -185,7 +186,6 @@ func _modulate_color(alpha):
 
 
 func _on_mouse_input(event):
-	print(event)
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.get_button_index() == BUTTON_LEFT:
 			Store.select_system(system)

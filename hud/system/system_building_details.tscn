@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://hud/system/system_building_details.gd" type="Script" id=1]
-[ext_resource path="res://hud/system/buildings/building_panel.tscn" type="PackedScene" id=6]
 
 [node name="SystemBuildingDetails" type="VBoxContainer"]
 anchor_right = 1.0
@@ -18,7 +17,7 @@ __meta__ = {
 margin_right = 1920.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="Control" type="Control" parent="."]
 visible = false
@@ -33,7 +32,7 @@ size_flags_stretch_ratio = 3.0
 margin_top = 14.0
 margin_right = 1920.0
 margin_bottom = 870.0
-mouse_filter = 1
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
@@ -64,5 +63,3 @@ mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 2
-
-[node name="Hangar" parent="ScrollContainer/HBoxContainer" instance=ExtResource( 6 )]

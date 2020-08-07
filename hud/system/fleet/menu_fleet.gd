@@ -30,8 +30,7 @@ func _on_ship_assigned(category, quantity_fleet, quantity_hangar):
 		if i.category == category:
 			i.quantity = quantity_hangar
 		total_number_of_ships_in_hangar += i.quantity
-	if total_number_of_ships_in_hangar == 0:
-		Store.hangar_updated_signal(fleet.system, total_number_of_ships_in_hangar)
+	Store.update_hangar(fleet.system, ship_group_hangar)
 
 
 func _on_minimize_request():
@@ -52,12 +51,16 @@ func update_hangar():
 	if fleet == null or system_id == fleet.system:
 		return
 	system_id = fleet.system
-	Network.req(self, "_on_ship_group_received"
-		, "/api/games/" +
-			Store._state.game.id+  "/systems/" +
-			fleet.system + "/ship-groups/"
-		, HTTPClient.METHOD_GET
-	)
+	if Store.selected_system.has("hangar") and Store.selected_system.hangar != null:
+		set_ship_group_hangar(Store.selected_system.hangar)
+	else:
+		Network.req(self, "_on_ship_group_received"
+			, "/api/games/" +
+				Store._state.game.id+  "/systems/" +
+				fleet.system + "/ship-groups/"
+			, HTTPClient.METHOD_GET
+			, [fleet.system]
+		)
 
 
 func update_element_fleet():
@@ -72,12 +75,13 @@ func update_element_fleet():
 			node.quantity_fleet = 0
 
 
-func _on_ship_group_received(err, response_code, headers, body):
+func _on_ship_group_received(err, response_code, headers, body, system_id):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_OK :
 		var result = JSON.parse(body.get_string_from_utf8()).result
 		set_ship_group_hangar(result)
+		Store.update_hangarsystem_id(system_id, result)
 
 
 func set_fleet(new_fleet):

@@ -19,6 +19,8 @@ onready var menu_header = $MenuHeader
 
 func _ready():
 	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
+	menu_header.connect("close_request", self, "_on_close_menu_pressed")
+	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
 	for category in Store._state.ship_models:
 		var node = _SHIP_HANGARD.instance()
 		node.category = category
@@ -27,20 +29,23 @@ func _ready():
 		hangar_element.add_child(node)
 		node.connect("pressed", self, "select_group", [category])
 	select_group(Store._state.ship_models[0])
-	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
-	Network.req(self, "_on_ship_group_recieved"
-		, "/api/games/" +
-			Store._state.game.id+  "/systems/" +
-			Store._state.selected_system.id + "/ship-groups/"
-		, HTTPClient.METHOD_GET
-	)
+	var ship_gp_hangar = Store.selected_system.hangar if Store.selected_system.has("hangar") else null
+	if ship_gp_hangar != null:
+		set_ship_group_array(ship_gp_hangar)
+	else:
+		Network.req(self, "_on_ship_group_recieved"
+			, "/api/games/" +
+				Store._state.game.id+  "/systems/" +
+				Store._state.selected_system.id + "/ship-groups/"
+			, HTTPClient.METHOD_GET
+			, Store._state.selected_system.id
+		)
 	Network.req(self, "_on_queue_ships_received"
 		, "/api/games/" +
 			Store._state.game.id+  "/systems/" +
 			Store._state.selected_system.id + "/ship-queues/"
 		, HTTPClient.METHOD_GET
 	)
-	menu_header.connect("close_request", self, "_on_close_menu_pressed")
 
 
 func _on_close_menu_pressed():
@@ -49,12 +54,13 @@ func _on_close_menu_pressed():
 	
 
 
-func _on_ship_group_recieved(err, response_code, headers, body):
+func _on_ship_group_recieved(err, response_code, headers, body, system_id):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_OK:
 		var result = JSON.parse(body.get_string_from_utf8()).result
 		set_ship_group_array(result)
+		Store.update_hangarsystem_id(system_id, result)
 
 
 func set_ship_group_array(new_array):

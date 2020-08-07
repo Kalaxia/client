@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://audio/audio_stacking.gd"
 }, {
+"base": "SelectablePanelContainer",
+"class": "BuildingPanel",
+"language": "GDScript",
+"path": "res://hud/system/buildings/building_panel.gd"
+}, {
 "base": "CustomShapeButton",
 "class": "CircularButton",
 "language": "GDScript",
@@ -76,6 +81,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
+"BuildingPanel": "",
 "CircularButton": "res://resources/editor/custom_circular_button.svg",
 "CircularContainer": "res://resources/editor/circular_container.svg",
 "ConstructionBuildingItem": "",
