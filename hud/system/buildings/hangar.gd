@@ -29,7 +29,7 @@ func _ready():
 		hangar_element.add_child(node)
 		node.connect("pressed", self, "select_group", [category])
 	select_group(Store._state.ship_models[0])
-	var ship_gp_hangar = Store.selected_system.hangar if Store.selected_system.has("hangar") else null
+	var ship_gp_hangar = Store._state.selected_system.hangar if Store._state.selected_system.has("hangar") else null
 	if ship_gp_hangar != null:
 		set_ship_group_array(ship_gp_hangar)
 	else:
@@ -82,12 +82,6 @@ func _on_ship_queue_finished(ship_data):
 		return
 	remove_ship_queue_id(ship_data.id)
 	hangar_element.get_node(ship_data.category).quantity += ship_data.quantity
-	for ship_group in ship_group_array:
-		if ship_group.category == ship_data.category:
-			ship_group.quantity += ship_data.quantity
-			return
-	# if we did not found any group ships of that cathegory
-	ship_group_array.push_back(ship_data)
 
 
 func _on_ship_construction_started(ship_queue):

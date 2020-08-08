@@ -3,7 +3,7 @@ extends Control
 var ship_queue setget set_ship_queue
 
 onready var cancel_button = $PanelContainer/hBoxContainer/Button
-onready var texture_rect_category = $PanelContainer/hBoxContainer/Button/TextureRect
+onready var texture_rect_category = $PanelContainer/hBoxContainer/TextureCategory
 onready var ship_number_label = $PanelContainer/hBoxContainer/ShipNumber
 onready var ship_category_label = $PanelContainer/hBoxContainer/ShipModel
 onready var time_remaining_label = $PanelContainer/hBoxContainer/TimeRemaining
@@ -47,7 +47,7 @@ func set_ship_queue(ship_queue_new):
 
 
 func _on_button_cancel():
-#	todo requ
+	# todo requ
 	pass
 
 

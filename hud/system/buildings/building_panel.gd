@@ -33,7 +33,7 @@ func _update_elements():
 func _update_process_bar():
 	if progress_bar == null or building == null:
 		return
-	if building.built_at > OS.get_system_time_msecs():
+	if building.status != "operational":
 		set_process(true)
 		progress_bar.visible = true
 		var time_construction = max(building.built_at - building.created_at as float, 1.0)

@@ -11,18 +11,22 @@ onready var conainer_contruction = $PanelContainer/VBoxContainer
 
 func _ready():
 	menu_header.connect("close_request", self, "_on_close_request")
-	for building in Utils.BUILDING_LIST:
+	for building in Store._state.building_list:
 		var node = CONSTRUCTION_ITEM.instance()
 		node.building_type = building
 		node.connect("building_contructing", self, "_on_building_contructing")
 		conainer_contruction.add_child(node)
 
 
-func _on_close_request():
+func close():
 	emit_signal("closed")
 	queue_free()
 
 
+func _on_close_request():
+	close()
+
+
 func _on_building_contructing(building):
 	emit_signal("building_contructing", building)
-	_on_close_request()
+	close()

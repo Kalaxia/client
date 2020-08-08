@@ -97,6 +97,7 @@ func set_ship_category(new_category):
 	ship_category = new_category
 	update_elements()
 	update_price_and_time()
+	_update_max_values()
 
 
 func _on_pressed_build():

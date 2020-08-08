@@ -205,7 +205,7 @@ func launch_pending_request():
 
 
 func trigger_handler(res_code, http_code, headers, body):
-	if http_code >= 400:
+	if http_code != null and http_code >= 400:
 		print_debug(self.pending_request[1] + " - " + http_code as String + " : " + body.get_string_from_utf8() + ", " + JSON.print(headers))
 	# call the listener of the pending request
 	var f = funcref(self.pending_request[4], self.pending_request[5])

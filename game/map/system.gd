@@ -5,7 +5,7 @@ const _SNAP_ALPHA_DISTANCE = 0.05
 const _ALPHA_APLITUDE = 0.4
 const _BASE_POSITION_PIN_FLEET = Vector2(-20.0, -30.0)
 const _BASE_POSITION_PIN_BUILDING = Vector2(20.0, -30.0)
-const _BASE_POSITION_PIN_SHIP = Vector2(0.0, -35.0)
+const _BASE_POSITION_PIN_SHIP = Vector2(-7.5, -50.0)
 const _SCALE_FACTOR_ON_HIGHLIGHT = 1.5
 const _SCALE_CHANGE_FACTOR = 5.0
 const SYSTEM_FLEET_PIN_SCENE = preload("res://game/map/system_fleet_pin.tscn")
@@ -29,6 +29,7 @@ onready var fleet_pins = $FleetPins
 onready var range_draw_node = $Range
 onready var building_pins = $BuildingPins
 onready var ship_pins = $ShipPins
+onready var ship_pin_element = $ShipPins/SystemShipPin
 
 
 func _ready():
@@ -51,6 +52,7 @@ func _ready():
 		refresh_scale()
 	else :
 		_set_target_scale(1.0)
+	refresh_building_pins()
 
 
 func _process(delta):
@@ -84,11 +86,13 @@ func refresh_fleet_pins():
 
 func show_ship_pin(number = 0):
 	ship_pins.visible = true
-	ship_pins.number = number
+	ship_pin_element.number = number as int
+	ship_pin_element.set_process(true)
 
 
 func hide_ship_pin():
 	ship_pins.visible = false
+	ship_pin_element.set_process(false)
 
 
 func add_fleet_pin(player):
@@ -113,9 +117,13 @@ func refresh():
 func refresh_building_pins():
 	for node in building_pins.get_children():
 		node.queue_free()
-	for i in system.buildings:
+	if not system.has("buildings") or system.buildings == null:
+		return
+	for building in system.buildings:
 		var node = SYSTEM_BUILDING_PIN_SCENE.instance()
-		node.building_type = i
+		node.building_type = building
+		node.faction_color = Store._get_faction_color(Store.get_game_player(system.player).faction)
+		building_pins.add_child(node)
 
 
 func _process_modulate_alpha(delta):

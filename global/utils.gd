@@ -58,15 +58,12 @@ const TEXTURE_SHIP_CATEGORIES = {
 	"cruiser" : preload("res://resources/assets/2d/picto/ships/cruiser.svg"),
 }
 
-const BUILDING_LIST = [
-	"hangar",
-	"mine",
-]
 
 const TEXTURE_BUILDING = {
 	"" : preload("res://resources/assets/2d/picto/building/area.png"),
-	"hangar" : preload("res://resources/assets/2d/picto/building/shipyard_64px.png"),
+	"shipyard" : preload("res://resources/assets/2d/picto/building/shipyard_64px.png"),
 	"mine" : preload("res://resources/assets/2d/picto/building/mine.svg"),
+	"portal" : preload("res://resources/assets/2d/picto/building/portal.svg")
 }
 
 ############## varaibles ##############

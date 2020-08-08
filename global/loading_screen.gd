@@ -34,6 +34,7 @@ onready var label_loading_error = $Foreground/MarginContainer/VBoxContainer/ress
 onready var timer_res = $TimerRessource
 onready var label_constant_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerConstantes/LabelConstante
 onready var label_ship_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerShips/LabelShips
+onready var label_building_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerBuiilding/LabelBuilding
 
 
 func _ready():
@@ -55,6 +56,10 @@ func _ready():
 		Network.req(self, "_on_ship_models_loaded", "/api/ship-models/")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_ship_status)
+	if Store._state.building_list.size() == 0:
+		Network.req(self, "_on_building_loaded", "/api/buildings/")
+	else:
+		set_state_label(STATE_NETWORK_ELEMENT.OK, label_building_status)
 	Store.connect("notification_added",self,"_on_notification_added")
 	timer_auth.connect("timeout", self, "_on_timeout_auth")
 	timer_res.connect("timeout", self, "_on_timeout_res")
@@ -63,7 +68,7 @@ func _ready():
 
 
 func _on_timeout_res():
-	queue_finished = load_queue.size() == 0 # if the queue is empty we set that we have finished
+	queue_finished = queue_finished or load_queue.size() == 0 # if the queue is empty we set that we have finished
 	verify_is_finished()
 
 
@@ -91,6 +96,7 @@ func _on_notification_added(notif):
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_building_status)
 		quit_button.visible = true
 
 
@@ -106,6 +112,9 @@ func _on_timeout_auth():
 		quit_button.visible = true
 	if not Utils.has_constants():
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
+		quit_button.visible = true
+	if Store._state.building_list.size() == 0:
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_building_status)
 		quit_button.visible = true
 
 
@@ -145,6 +154,17 @@ func _on_ship_models_loaded(err, response_code, headers, body):
 	verify_is_finished()
 
 
+func _on_building_loaded(err, response_code, headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+	var building_list = JSON.parse(body.get_string_from_utf8()).result
+	if building_list != null:
+		Store.set_building_list(building_list)
+		set_state_label(STATE_NETWORK_ELEMENT.OK, label_building_status)
+	else:
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_building_status)
+	verify_is_finished()
+
 
 func _on_authentication():
 	label_network_status.add_color_override("font_color", GREEN)
@@ -168,7 +188,7 @@ func set_load_queue(load_queue_param):
 
 
 func verify_is_finished():
-	if Store._state.factions.size() > 0 and queue_finished and Network.token != null and Store._state.ship_models.size() > 0 and Utils.has_constants() and not has_emited_finished:
+	if Store._state.factions.size() > 0 and queue_finished and Network.token != null and Store._state.ship_models.size() > 0 and Utils.has_constants() and Store._state.building_list.size() > 0 and not has_emited_finished:
 		has_emited_finished = true
 		emit_signal("finished")
 

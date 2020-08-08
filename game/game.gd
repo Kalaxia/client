@@ -34,6 +34,7 @@ onready var background = $ParallaxBackground/Background
 
 
 func _ready():
+	Store.update_player_me()
 	Store.connect("system_selected", self, "_on_system_selected")
 	Store.connect("fleet_created", self, "_on_fleet_created")
 	Store.connect("fleet_sailed", self, "_on_fleet_sailed")
@@ -152,7 +153,7 @@ func center_on_selected_system():
 func update_fleet_system(fleet):
 	Store.update_fleet_system(fleet)
 	map.get_node(fleet.system).refresh_fleet_pins()
-	if fleet_container.has(fleet.id):
+	if fleet_container.has_node(fleet.id):
 		fleet_container.get_node(fleet.id).queue_free()
 
 
@@ -161,8 +162,8 @@ func _on_ship_queue_finished(ship_data):
 
 
 func _on_hangar_updated(system, ship_group_hangar):
-	if map.has_node(system):
-		var node = map.get_node(system)
+	if map.has_node(system.id):
+		var node = map.get_node(system.id)
 		if ship_group_hangar == null:
 			node.hide_ship_pin()
 			return
@@ -176,12 +177,12 @@ func _on_hangar_updated(system, ship_group_hangar):
 
 
 func _on_building_constructed(building):
-	Store.add_building_to_system({"id" : building.system}, building)
+	Store.add_building_to_system_by_id(building.system, building)
 
 
 func _on_building_updated(system):
-	if map.has_node(system):
-		var node = map.get_node(system)
+	if map.has_node(system.id):
+		var node = map.get_node(system.id)
 		node.refresh_building_pins()
 
 
@@ -278,39 +279,10 @@ func _on_system_conquerred(data):
 	Store.update_system(data.system)
 	map.get_node(data.system.id).refresh()
 	if Store._state.game.players[data.system.player].faction == Store._state.player.faction:
-		Network.req(self, "_on_ship_group_received"
-			, "/api/games/" +
-				Store._state.game.id + "/systems/" +
-				data.system.id + "/ship-groups/"
-			, HTTPClient.METHOD_GET
-			, data.system.id
-		)
-		Network.req(self, "_on_ship_building"
-			,"/api/games/" +
-				Store._state.game.id + "/systems/" +
-				data.system.id + "/buildings/"
-			, HTTPClient.METHOD_GET
-			, data.system.id
-		)
+		Store.request_hangar_and_building(data.system)
 	else:
 		Store.update_buildings(data.system, null)
 		Store.update_hangar(data.system, null)
-
-
-func _on_ship_group_received(err, response_code, headers, body, system_id):
-	if err:
-		ErrorHandler.network_response_error(err)
-	if response_code == HTTPClient.RESPONSE_OK :
-		var result = JSON.parse(body.get_string_from_utf8()).result
-		Store.update_hangar_system_id(system_id, result)
-
-
-func _on_ship_building(err, response_code, headers, body, system_id):
-	if err:
-		ErrorHandler.network_response_error(err)
-	if response_code == HTTPClient.RESPONSE_OK :
-		var result = JSON.parse(body.get_string_from_utf8()).result
-		Store.update_buildings_system_id(system_id, result)
 
 
 func _on_victory(data):

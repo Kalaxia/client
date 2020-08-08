@@ -12,6 +12,7 @@ onready var menu_header = $MenuHeader
 
 func _ready():
 	Store.connect("fleet_update_nb_ships",self,"_on_fleet_update_nb_ships")
+	Store.connect("hangar_updated", self, "_on_hangar_updated")
 	Network.connect("ShipQueueFinished",self,"_on_ship_queue_finished")
 	for category in Store._state.ship_models:
 		var node = _SHIP_GROUP_ELEMENT.instance()
@@ -24,35 +25,30 @@ func _ready():
 	update_element_fleet()
 
 
-func _on_ship_assigned(category, quantity_fleet, quantity_hangar):
+func _on_hangar_updated(system):
+	if system.id == Store._state.selected_system.id:
+		set_ship_group_hangar(system.hangar)
+
+
+func _on_ship_assigned(quantity_fleet, quantity_hangar, category):
 	var total_number_of_ships_in_hangar = 0
 	for i in ship_group_hangar:
-		if i.category == category:
+		if i.category == category.category:
 			i.quantity = quantity_hangar
 		total_number_of_ships_in_hangar += i.quantity
-	Store.update_hangar(fleet.system, ship_group_hangar)
+	Store.update_hangar_system_id(fleet.system, ship_group_hangar)
 
 
 func _on_minimize_request():
 	visible = false
 
 
-func _on_ship_queue_finished(ship_data):
-	if ship_data.system != Store._state.selected_system.id:
-		return
-	for i in ship_group_hangar:
-		if i.category == ship_data.category:
-			i.quantity += ship_data.quantity
-			ship_group_element_container.get_node(i.category).quantity_hangar = i.quantity
-			return
-
-
 func update_hangar():
 	if fleet == null or system_id == fleet.system:
 		return
 	system_id = fleet.system
-	if Store.selected_system.has("hangar") and Store.selected_system.hangar != null:
-		set_ship_group_hangar(Store.selected_system.hangar)
+	if Store._state.selected_system.has("hangar") and Store._state.selected_system.hangar != null:
+		set_ship_group_hangar(Store._state.selected_system.hangar)
 	else:
 		Network.req(self, "_on_ship_group_received"
 			, "/api/games/" +

@@ -4,8 +4,9 @@ const BUILDING_AREA = preload("res://hud/system/buildings/building_panel.tscn")
 
 const MENU = {
 	"" : preload("res://hud/system/buildings/contruction/construction_menu.tscn"),
-	"hangar" :  preload("res://hud/system/buildings/hangar.tscn"),
+	"shipyard" :  preload("res://hud/system/buildings/hangar.tscn"),
 	"mine" : null,
+	"portal" : null,
 }
 
 var _building_panel_list = []
@@ -26,7 +27,7 @@ func _ready():
 func _on_system_selected(system, old_system):
 	update_building_panels()
 	update_visibility()
-
+	
 
 func update_building_panels():
 	while not _building_panel_list.empty():
@@ -58,8 +59,8 @@ func update_visibility():
 
 func _on_panel_pressed(node):
 	_deselect_other_building(node)
-	if node.is_selected:
-		var menu = MENU[node.building.king if node.building != null else ""]
+	if node.is_selected and (node.building == null or node.building.status == "operational"):
+		var menu = MENU[node.building.kind if node.building != null else ""]
 		if menu != null:
 			var node_menu = menu.instance()
 			if node.building == null:

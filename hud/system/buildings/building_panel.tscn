@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://themes/panel_container/styleboxflat_panel_base.tres" type="StyleBox" id=1]
 [ext_resource path="res://themes/panel_container/styleboxflat_panel_selected.tres" type="StyleBox" id=2]
@@ -8,6 +8,14 @@
 [sub_resource type="StreamTexture" id=1]
 flags = 4
 load_path = "res://.import/area.png-126ffb5246382c62b6c20ddfdaf31cfa.stex"
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.168627, 0.690196, 0.270588, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.8, 0.8, 0.8, 0 )
 
 [node name="BuildingPanel" type="PanelContainer"]
 margin_left = 1681.0
@@ -63,6 +71,7 @@ visible = false
 margin_top = 108.0
 margin_right = 225.0
 margin_bottom = 122.0
+custom_styles/fg = SubResource( 2 )
 max_value = 1.0
 step = 0.001
 __meta__ = {

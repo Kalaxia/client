@@ -191,6 +191,12 @@ ui_hud_scores={
  ]
 }
 
+[layer_names]
+
+2d_render/layer_1="Default"
+2d_render/layer_2="System"
+2d_render/layer_3="MapBackground"
+
 [locale]
 
 translations=PoolStringArray( "res://locales/fr.po", "res://locales/en.po" )

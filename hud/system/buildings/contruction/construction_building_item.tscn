@@ -1,10 +1,18 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://hud/system/buildings/contruction/construction_building_item.gd" type="Script" id=1]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
 load_path = "res://.import/area.png-126ffb5246382c62b6c20ddfdaf31cfa.stex"
+
+[sub_resource type="StreamTexture" id=2]
+flags = 4
+load_path = "res://.import/money_64px.png-14695073b2b7bd4dbc437a5f1f5458b7.stex"
+
+[sub_resource type="StreamTexture" id=3]
+flags = 4
+load_path = "res://.import/hourglass_3.svg-77d4a30fdcd7c2651a2574df43f6a01c.stex"
 
 [node name="ConstructionBuildingItem" type="MarginContainer"]
 anchor_right = 1.0
@@ -67,10 +75,68 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="PanelContainer/HBoxContainer"]
+[node name="TextureRectCost" type="TextureRect" parent="PanelContainer/HBoxContainer"]
 margin_left = 263.0
 margin_top = 521.0
-margin_right = 637.0
+margin_right = 283.0
+margin_bottom = 541.0
+rect_min_size = Vector2( 20, 20 )
+size_flags_vertical = 4
+texture = SubResource( 2 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelCost" type="Label" parent="PanelContainer/HBoxContainer"]
+margin_left = 287.0
+margin_top = 524.0
+margin_right = 464.0
+margin_bottom = 538.0
+text = "hud.details.buidlng.cost %d"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control3" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_left = 468.0
+margin_right = 488.0
+margin_bottom = 1062.0
+rect_min_size = Vector2( 20, 0 )
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRectTime" type="TextureRect" parent="PanelContainer/HBoxContainer"]
+margin_left = 492.0
+margin_top = 521.0
+margin_right = 512.0
+margin_bottom = 541.0
+rect_min_size = Vector2( 20, 20 )
+size_flags_vertical = 4
+texture = SubResource( 3 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelTime" type="Label" parent="PanelContainer/HBoxContainer"]
+margin_left = 516.0
+margin_top = 524.0
+margin_right = 696.0
+margin_bottom = 538.0
+text = "hud.details.buidlng.time %d"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="PanelContainer/HBoxContainer"]
+margin_left = 700.0
+margin_top = 521.0
+margin_right = 1074.0
 margin_bottom = 541.0
 size_flags_vertical = 4
 text = "hud.details.buidlng.construction.construction_item.build"
