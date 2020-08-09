@@ -24,10 +24,8 @@ func _ready():
 	button_minimize.connect("pressed", self, "_request_minimize")
 	update_elements()
 	_update_theme()
-	theme.connect("changed", self, "_update_theme")
-	if Engine.editor_hint and owner == null:
-		pass
-#		self.set_owner(get_tree().edited_scene_root)
+	if theme != null and not theme.is_connected("changed", self, "_update_theme"):
+		theme.connect("changed", self, "_update_theme")
 
 
 func update_elements():
@@ -82,5 +80,5 @@ func _update_theme():
 	if custom_style != null:
 		set("custom_styles/panel", custom_style)
 	else:
-		var style = theme.get("MenuHeader/styles/panel")
+		var style = get_stylebox("panel", "MenuHeader")
 		set("custom_styles/panel", style)

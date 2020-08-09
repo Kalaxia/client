@@ -52,15 +52,16 @@ func _draw():
 	var draw_center = true
 	var style_active
 	if selected:
-		var theme_style = theme.get("CircularButton/styles/selected_style") if theme != null else null
+		var theme_style = get_stylebox("selected_style", "CircularButton")
 		style_active = selected_style if selected_style != null else theme_style
 	elif _hover:
-		var theme_style = theme.get("CircularButton/styles/hover_style") if theme != null else null
+		var theme_style = get_stylebox("hover_style", "CircularButton")
 		style_active = hover_style if hover_style != null else theme_style
 	else:
-		var theme_style = theme.get("CircularButton/styles/base_style") if theme != null else null
+		var theme_style = get_stylebox("base_style", "CircularButton")
+		print(JSON.print(theme_style))
 		style_active = base_style if base_style != null else theme_style
-	if style_active == null or base_style is StyleBoxEmpty:
+	if style_active == null or not style_active is StyleBoxFlat:
 		colors_bg = Color(0.5,0.5,0.5) if (_hover or selected) else  Color(0.7,0.7,0.7)
 		color_border = Color(0.0, 0.0, 0.0)
 		border_width = [1,1,1,1]
@@ -101,7 +102,7 @@ func _draw():
 
 
 func _draw_focus():
-	var theme_style = theme.get("CircularButton/styles/focus_style") if theme != null else null
+	var theme_style =  get_stylebox("focus_style", "CircularButton")
 	var style = focus_style if focus_style != null else theme_style
 	if style == null:
 		return

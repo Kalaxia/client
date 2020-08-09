@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://themes/theme_u_main.tres" type="Theme" id=1]
+[ext_resource path="res://hud/hud.gd" type="Script" id=2]
 [ext_resource path="res://hud/hud_menu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://hud/system/details.tscn" type="PackedScene" id=7]
 
@@ -11,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 theme = ExtResource( 1 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -22,12 +24,10 @@ anchor_right = 0.98
 anchor_bottom = 0.98
 grow_vertical = 0
 mouse_filter = 2
-theme = null
 
 [node name="HudMenu" parent="." instance=ExtResource( 5 )]
 anchor_top = 0.02
 anchor_bottom = 0.1
-theme = null
 
 [node name="ScoresContainer" type="VBoxContainer" parent="."]
 anchor_left = 0.4
