@@ -1,14 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://hud/system/details.gd" type="Script" id=1]
 [ext_resource path="res://themes/theme_main_square_button.tres" type="Theme" id=2]
 [ext_resource path="res://hud/wallet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gui/container_circular.gd" type="Script" id=4]
 [ext_resource path="res://gui/circular_button.gd" type="Script" id=5]
-[ext_resource path="res://themes/panel_container/styleboxflat_panel_hover.tres" type="StyleBox" id=6]
-[ext_resource path="res://themes/panel_container/styleboxflat_panel_base.tres" type="StyleBox" id=7]
-[ext_resource path="res://themes/panel_container/styleboxflat_panel_selected.tres" type="StyleBox" id=8]
-[ext_resource path="res://themes/theme_u_main.tres" type="Theme" id=9]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -25,7 +21,6 @@ load_path = "res://.import/picto_syteme_1_neutral.png-aafcc6ffed038c32f94131da38
 [node name="SystemDetails" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 9 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -84,9 +79,6 @@ script = ExtResource( 5 )
 angle_start = 170.0
 angle_end = 225.0
 radius_in = 0.25
-base_style = ExtResource( 7 )
-hover_style = ExtResource( 6 )
-selected_style = ExtResource( 8 )
 texture = SubResource( 1 )
 texture_size = Vector2( 32, 32 )
 
@@ -97,9 +89,6 @@ script = ExtResource( 5 )
 angle_start = 225.0
 angle_end = 280.0
 radius_in = 0.25
-base_style = ExtResource( 7 )
-hover_style = ExtResource( 6 )
-selected_style = ExtResource( 8 )
 texture = SubResource( 2 )
 texture_size = Vector2( 32, 32 )
 

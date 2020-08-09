@@ -1,0 +1,136 @@
+[gd_resource type="Theme" load_steps=24 format=2]
+
+[ext_resource path="res://themes/font/font_muli_text_normal.tres" type="DynamicFont" id=1]
+[ext_resource path="res://themes/theme_faction/valankar/button/styleboxflat_focus.tres" type="StyleBox" id=2]
+[ext_resource path="res://themes/theme_faction/valankar/button/styleboxflat_hover.tres" type="StyleBox" id=3]
+[ext_resource path="res://themes/theme_faction/valankar/button/styleboxflat_disable.tres" type="StyleBox" id=4]
+[ext_resource path="res://themes/theme_faction/valankar/button/styleboxflat_normal.tres" type="StyleBox" id=5]
+[ext_resource path="res://themes/theme_faction/valankar/button/styleboxflat_pressed.tres" type="StyleBox" id=6]
+[ext_resource path="res://themes/theme_faction/valankar/panel_container/styleboxflat_non_selectable_normal.tres" type="StyleBox" id=7]
+[ext_resource path="res://themes/theme_faction/valankar/tab_container/styleboxflat_panel.tres" type="StyleBox" id=8]
+[ext_resource path="res://themes/theme_faction/valankar/V_scroll/styleboxflat_garbber_pressed.tres" type="StyleBox" id=9]
+[ext_resource path="res://themes/theme_faction/valankar/line_edit/styleboxflat_focus.tres" type="StyleBox" id=10]
+[ext_resource path="res://themes/theme_faction/valankar/V_scroll/styleboxflat_grabber_highlight.tres" type="StyleBox" id=11]
+[ext_resource path="res://themes/theme_faction/valankar/line_edit/styleboxflat_normal.tres" type="StyleBox" id=12]
+[ext_resource path="res://themes/theme_faction/valankar/check_button/styleboxflat_pressed.tres" type="StyleBox" id=13]
+[ext_resource path="res://themes/theme_faction/valankar/V_scroll/styleboxflat_grabber.tres" type="StyleBox" id=14]
+[ext_resource path="res://themes/theme_faction/valankar/V_scroll/styleboxflat_scroll.tres" type="StyleBox" id=15]
+[ext_resource path="res://themes/theme_faction/valankar/tab_container/styleboxflat_tab_bg.tres" type="StyleBox" id=16]
+[ext_resource path="res://themes/theme_faction/valankar/tab_container/styleboxflat_tab_fg.tres" type="StyleBox" id=17]
+[ext_resource path="res://themes/theme_faction/valankar/popup_menu/styleboxflat_panel.tres" type="StyleBox" id=18]
+[ext_resource path="res://themes/theme_faction/valankar/selectable_elements/styleboxflat_panel_hover.tres" type="StyleBox" id=19]
+[ext_resource path="res://themes/theme_faction/valankar/selectable_elements/styleboxflat_panel_selected.tres" type="StyleBox" id=20]
+[ext_resource path="res://themes/theme_faction/valankar/selectable_elements/styleboxflat_panel_base.tres" type="StyleBox" id=21]
+[ext_resource path="res://themes/theme_faction/valankar/selectable_elements/styleboxflat_panel_focus.tres" type="StyleBox" id=22]
+[ext_resource path="res://themes/theme_faction/valankar/menu_header/styleboxflat_panel.tres" type="StyleBox" id=23]
+
+[resource]
+default_font = ExtResource( 1 )
+Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+Button/colors/font_color_disabled = Color( 1, 1, 1, 0.403922 )
+Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 3
+Button/fonts/font = null
+Button/styles/disabled = ExtResource( 4 )
+Button/styles/focus = ExtResource( 2 )
+Button/styles/hover = ExtResource( 3 )
+Button/styles/normal = ExtResource( 5 )
+Button/styles/pressed = ExtResource( 6 )
+CheckButton/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+CheckButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+CheckButton/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+CheckButton/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+CheckButton/constants/check_vadjust = 0
+CheckButton/constants/hseparation = 4
+CheckButton/fonts/font = null
+CheckButton/icons/off = null
+CheckButton/icons/off_disabled = null
+CheckButton/icons/on = null
+CheckButton/icons/on_disabled = null
+CheckButton/styles/disabled = null
+CheckButton/styles/focus = null
+CheckButton/styles/hover = null
+CheckButton/styles/hover_pressed = null
+CheckButton/styles/normal = null
+CheckButton/styles/pressed = ExtResource( 13 )
+CircularButton/styles/base_style = ExtResource( 21 )
+CircularButton/styles/focus_style = ExtResource( 22 )
+CircularButton/styles/hover_style = ExtResource( 19 )
+CircularButton/styles/selected_style = ExtResource( 20 )
+Label/colors/font_color = Color( 1, 1, 1, 1 )
+Label/colors/font_color_shadow = Color( 0, 0, 0, 0.384314 )
+Label/colors/font_outline_modulate = Color( 0, 0, 0, 0.156863 )
+Label/constants/line_spacing = 1
+Label/constants/shadow_as_outline = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 0
+Label/fonts/font = null
+Label/styles/normal = null
+LineEdit/colors/clear_button_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+LineEdit/colors/clear_button_color_pressed = Color( 1, 1, 1, 1 )
+LineEdit/colors/cursor_color = Color( 0.94, 0.94, 0.94, 1 )
+LineEdit/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+LineEdit/colors/font_color_selected = Color( 0, 0, 0, 1 )
+LineEdit/colors/font_color_uneditable = Color( 0.88, 0.88, 0.88, 0.5 )
+LineEdit/colors/selection_color = Color( 0.49, 0.49, 0.49, 1 )
+LineEdit/constants/minimum_spaces = 12
+LineEdit/fonts/font = null
+LineEdit/icons/clear = null
+LineEdit/styles/focus = ExtResource( 10 )
+LineEdit/styles/normal = ExtResource( 12 )
+LineEdit/styles/read_only = null
+MenuHeader/styles/panel = ExtResource( 23 )
+PanelContainer/styles/panel = ExtResource( 7 )
+PopupMenu/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+PopupMenu/colors/font_color_accel = Color( 0.7, 0.7, 0.7, 0.8 )
+PopupMenu/colors/font_color_disabled = Color( 0.4, 0.4, 0.4, 0.8 )
+PopupMenu/colors/font_color_hover = Color( 0.88, 0.88, 0.88, 1 )
+PopupMenu/constants/hseparation = 4
+PopupMenu/constants/vseparation = 4
+PopupMenu/fonts/font = null
+PopupMenu/icons/checked = null
+PopupMenu/icons/radio_checked = null
+PopupMenu/icons/radio_unchecked = null
+PopupMenu/icons/submenu = null
+PopupMenu/icons/unchecked = null
+PopupMenu/styles/hover = null
+PopupMenu/styles/labeled_separator_left = null
+PopupMenu/styles/labeled_separator_right = null
+PopupMenu/styles/panel = ExtResource( 18 )
+PopupMenu/styles/panel_disabled = null
+PopupMenu/styles/separator = null
+SelectablePanelContainer/styles/base_style = ExtResource( 21 )
+SelectablePanelContainer/styles/focus_style = ExtResource( 22 )
+SelectablePanelContainer/styles/hover_style = ExtResource( 19 )
+SelectablePanelContainer/styles/selected_style = ExtResource( 20 )
+SpinBox/icons/updown = null
+TabContainer/colors/font_color_bg = Color( 0.69, 0.69, 0.69, 1 )
+TabContainer/colors/font_color_disabled = Color( 0.901961, 0.901961, 0.901961, 0.258824 )
+TabContainer/colors/font_color_fg = Color( 0.94, 0.94, 0.94, 1 )
+TabContainer/constants/hseparation = 4
+TabContainer/constants/label_valign_bg = 2
+TabContainer/constants/label_valign_fg = 0
+TabContainer/constants/side_margin = 8
+TabContainer/constants/top_margin = 24
+TabContainer/fonts/font = null
+TabContainer/icons/decrement = null
+TabContainer/icons/decrement_highlight = null
+TabContainer/icons/increment = null
+TabContainer/icons/increment_highlight = null
+TabContainer/icons/menu = null
+TabContainer/icons/menu_highlight = null
+TabContainer/styles/panel = ExtResource( 8 )
+TabContainer/styles/tab_bg = ExtResource( 16 )
+TabContainer/styles/tab_disabled = null
+TabContainer/styles/tab_fg = ExtResource( 17 )
+VScrollBar/icons/decrement = null
+VScrollBar/icons/decrement_highlight = null
+VScrollBar/icons/increment = null
+VScrollBar/icons/increment_highlight = null
+VScrollBar/styles/grabber = ExtResource( 9 )
+VScrollBar/styles/grabber_highlight = ExtResource( 14 )
+VScrollBar/styles/grabber_pressed = ExtResource( 11 )
+VScrollBar/styles/scroll = ExtResource( 15 )
+VScrollBar/styles/scroll_focus = null

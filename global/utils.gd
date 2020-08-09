@@ -57,13 +57,17 @@ const TEXTURE_SHIP_CATEGORIES = {
 	"frigate" : preload("res://resources/assets/2d/picto/ships/frigate.svg"),
 	"cruiser" : preload("res://resources/assets/2d/picto/ships/cruiser.svg"),
 }
-
-
 const TEXTURE_BUILDING = {
 	"" : preload("res://resources/assets/2d/picto/building/area.png"),
 	"shipyard" : preload("res://resources/assets/2d/picto/building/shipyard_64px.png"),
 	"mine" : preload("res://resources/assets/2d/picto/building/mine.svg"),
-	"portal" : preload("res://resources/assets/2d/picto/building/portal.svg")
+	"portal" : preload("res://resources/assets/2d/picto/building/portal.svg"),
+}
+const THEME_FACTION = {
+	0 : preload("res://themes/theme_u_main.tres"),
+	1 : preload("res://themes/theme_faction/valankar/theme_main.tres"),
+	2 : preload("res://themes/theme_faction/valkar/theme_main.tres"),
+	3 : preload("res://themes/theme_faction/adranite/theme_main.tres"),
 }
 
 ############## varaibles ##############

@@ -1,6 +1,11 @@
-[gd_resource type="Theme" load_steps=19 format=2]
+[gd_resource type="Theme" load_steps=24 format=2]
 
-[ext_resource path="res://themes/font_muli.tres" type="DynamicFont" id=1]
+[ext_resource path="res://themes/font/font_muli_text_normal.tres" type="DynamicFont" id=1]
+[ext_resource path="res://themes/panel_container/styleboxflat_panel_focus.tres" type="StyleBox" id=2]
+[ext_resource path="res://themes/panel_container/styleboxflat_panel_base.tres" type="StyleBox" id=3]
+[ext_resource path="res://themes/panel_container/styleboxflat_panel_selected.tres" type="StyleBox" id=4]
+[ext_resource path="res://themes/panel_container/styleboxflat_panel_hover.tres" type="StyleBox" id=5]
+[ext_resource path="res://themes/menu_header/styleboxflat_panel.tres" type="StyleBox" id=8]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.207843, 0.215686, 0.227451, 1 )
@@ -278,6 +283,10 @@ CheckButton/styles/hover = null
 CheckButton/styles/hover_pressed = null
 CheckButton/styles/normal = null
 CheckButton/styles/pressed = SubResource( 6 )
+CircularButton/styles/base_style = ExtResource( 3 )
+CircularButton/styles/focus_style = ExtResource( 2 )
+CircularButton/styles/hover_style = ExtResource( 5 )
+CircularButton/styles/selected_style = ExtResource( 4 )
 Label/colors/font_color = Color( 1, 1, 1, 1 )
 Label/colors/font_color_shadow = Color( 0, 0, 0, 0.384314 )
 Label/colors/font_outline_modulate = Color( 0, 0, 0, 0.156863 )
@@ -300,6 +309,7 @@ LineEdit/icons/clear = null
 LineEdit/styles/focus = SubResource( 7 )
 LineEdit/styles/normal = SubResource( 8 )
 LineEdit/styles/read_only = null
+MenuHeader/styles/panel = ExtResource( 8 )
 PanelContainer/styles/panel = SubResource( 9 )
 PopupMenu/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
 PopupMenu/colors/font_color_accel = Color( 0.7, 0.7, 0.7, 0.8 )
@@ -319,6 +329,10 @@ PopupMenu/styles/labeled_separator_right = null
 PopupMenu/styles/panel = SubResource( 10 )
 PopupMenu/styles/panel_disabled = null
 PopupMenu/styles/separator = null
+SelectablePanelContainer/styles/base_style = ExtResource( 3 )
+SelectablePanelContainer/styles/focus_style = ExtResource( 2 )
+SelectablePanelContainer/styles/hover_style = ExtResource( 5 )
+SelectablePanelContainer/styles/selected_style = ExtResource( 4 )
 SpinBox/icons/updown = null
 TabContainer/colors/font_color_bg = Color( 0.69, 0.69, 0.69, 1 )
 TabContainer/colors/font_color_disabled = Color( 0.901961, 0.901961, 0.901961, 0.258824 )

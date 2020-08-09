@@ -24,7 +24,7 @@ visible = false
 margin_top = 14.0
 margin_right = 1920.0
 margin_bottom = 452.0
-mouse_filter = 1
+mouse_filter = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
@@ -44,14 +44,14 @@ margin_top = 874.0
 margin_right = 1920.0
 margin_bottom = 904.0
 rect_min_size = Vector2( 30, 30 )
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 margin_top = 908.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 0, 80 )
-mouse_filter = 2
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_vertical_enabled = false

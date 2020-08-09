@@ -3,9 +3,10 @@ extends PanelContainer
 
 signal pressed()
 
-export(StyleBox) var base_style
-export(StyleBox) var hover_style
-export(StyleBox) var slected_style
+export(StyleBox) var base_style setget set_base_style
+export(StyleBox) var hover_style setget set_hover_style
+export(StyleBox) var selected_style setget set_selected_style
+export(StyleBox) var focus_style setget set_focus_style
 
 var is_selected = false setget set_is_selected
 var _hover = false
@@ -17,6 +18,14 @@ func _ready():
 	if not is_connected("mouse_exited", self, "_on_mouse_exited"):
 		connect("mouse_exited", self, "_on_mouse_exited")
 	update_style()
+
+
+func _draw():
+	if has_focus():
+		var theme_style = get_stylebox("focus_style", "SelectablePanelContainer")
+		var style = focus_style if focus_style!= null else theme_style
+		if style != null:
+			focus_style.draw(get_canvas_item(), get_rect())
 
 
 func _on_mouse_entered():
@@ -40,13 +49,37 @@ func _pressed():
 	update_style()
 
 
+
+func set_base_style(style):
+	base_style = style
+	update_style()
+
+
+func set_hover_style(style):
+	hover_style = style
+	update_style()
+
+
+func set_selected_style(style):
+	selected_style = style
+	update_style()
+
+
+func set_focus_style(style):
+	focus_style = style
+	update_style()
+
+
 func update_style():
 	if is_selected:
-		set("custom_styles/panel", slected_style)
+		var theme_style = get_stylebox("selected_style", "SelectablePanelContainer")
+		set("custom_styles/panel", selected_style if selected_style != null else theme_style)
 	elif _hover:
-		set("custom_styles/panel", hover_style)
+		var theme_style = get_stylebox("hover_style", "SelectablePanelContainer")
+		set("custom_styles/panel", hover_style if hover_style != null else theme_style)
 	else:
-		set("custom_styles/panel", base_style)
+		var theme_style = get_stylebox("base_style", "SelectablePanelContainer")
+		set("custom_styles/panel", base_style if base_style != null else theme_style)
 	update()
 
 

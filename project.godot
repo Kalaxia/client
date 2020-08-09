@@ -44,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://gui/custom_shape_button.gd"
 }, {
-"base": "Control",
+"base": "SelectablePanelContainer",
 "class": "FleetItem",
 "language": "GDScript",
 "path": "res://hud/system/fleet/fleet_item.gd"

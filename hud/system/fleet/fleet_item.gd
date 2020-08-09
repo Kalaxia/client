@@ -1,14 +1,13 @@
 class_name FleetItem, "res://resources/editor/fleet_item.svg"
-extends Control
+extends SelectablePanelContainer
 
 signal pressed_open_ship_menu(fleet)
 
 var fleet = null setget set_fleet
-var theme_highlight = preload("res://themes/theme_main_square_button_highlight.tres")
-var theme_not_highlight = preload("res://themes/theme_main_square_button.tres")
 
 
 func _ready():
+	._ready()
 	$Container/Player.set_text(Store.get_game_player(fleet.player).username)
 	if fleet.player != Store._state.player.id:
 		$Container/Ships.set_visible(false)
@@ -18,9 +17,8 @@ func _ready():
 	Store.connect("fleet_update_nb_ships",self,"_on_fleet_update_nb_ships")
 	Store.connect("fleet_unselected",self,"_on_fleet_unselected")
 	$Container/Ships/ButtonMenu.connect("pressed", self, "open_menu_ship_pressed")
-	connect("gui_input", self, "button_sail_fleet")
+	connect("pressed", self, "_on_pressed")
 	update_quantity()
-	update_highlight_state()
 
 
 func open_menu_ship_pressed():
@@ -29,22 +27,25 @@ func open_menu_ship_pressed():
 	emit_signal("pressed_open_ship_menu", fleet)
 
 
-func button_sail_fleet(event):
-	if event is InputEventMouseButton and event.is_pressed() && event.get_button_index() == BUTTON_LEFT && fleet.destination_system == null:
+func _on_pressed():
+	if fleet.destination_system == null and is_selected:
 		Store.select_fleet(fleet)
 		#this will call _on_fleet_selected as the store emit a signal
 
 
-func _on_fleet_selected(fleet):
-	update_highlight_state()
+func _on_fleet_selected(fleet_param):
+	print(fleet_param)
+	if fleet_param.id != fleet.id:
+		self.is_selected = false
 
 
-func _on_fleet_sailed(fleet, arrival_time):
-	update_highlight_state()
+func _on_fleet_sailed(fleet_param, arrival_time):
+	if fleet_param.id != fleet.id: 
+		self.is_selected = false
 
 
 func _on_fleet_unselected():
-	update_highlight_state()
+	self.is_selected = false
 
 
 func _on_fleet_update_nb_ships(fleet_param):
@@ -67,10 +68,3 @@ func update_quantity():
 func set_fleet(new_fleet):
 	fleet = new_fleet
 	update_quantity()
-
-
-func update_highlight_state():
-	if Store._state.selected_fleet != null && Store._state.selected_fleet.id == fleet.id:
-		set_theme(theme_highlight)
-	else:
-		set_theme(theme_not_highlight)

@@ -72,7 +72,6 @@ func _on_ship_queue_finished(ship_data):
 	if ship_data.system != Store._state.selected_system.id:
 		return
 	remove_ship_queue_id(ship_data.id)
-	hangar_element.get_node(ship_data.category).quantity += ship_data.quantity
 
 
 func _on_ship_construction_started(ship_queue):
