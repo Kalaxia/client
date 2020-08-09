@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+# unused elements
+
 const _ALPHA_SPEED_GAIN = 2.0
 const _SNAP_ALPHA_DISTANCE = 0.05
 const _ALPHA_APLITUDE = 0.4
@@ -8,6 +10,7 @@ export(int) var number = 0 setget set_number
 
 onready var label = $Label
 onready var texture = $texture
+
 
 func _ready():
 	set_process(false)

@@ -60,7 +60,7 @@ func _on_ship_group_recieved(err, response_code, headers, body, system_id):
 	if response_code == HTTPClient.RESPONSE_OK:
 		var result = JSON.parse(body.get_string_from_utf8()).result
 		set_ship_group_array(result)
-		Store.update_hangarsystem_id(system_id, result)
+		Store.update_system_hangar(system_id, result)
 
 
 func set_ship_group_array(new_array):

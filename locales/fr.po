@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-06 19:07+0200\n"
-"PO-Revision-Date: 2020-08-06 19:10+0200\n"
+"POT-Creation-Date: 2020-08-09 09:51+0200\n"
+"PO-Revision-Date: 2020-08-09 11:12+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -38,11 +38,11 @@ msgstr ""
 msgid "game.faction_score.victory_points %d"
 msgstr "%d points de victoire"
 
-#: game/game.gd:61
+#: game/game.gd:63
 msgid "game.notification.goal.title"
 msgstr "Objectifs"
 
-#: game/game.gd:61
+#: game/game.gd:63
 msgid "game.notification.goal.content"
 msgstr "Capturer et tenir les systèmes stratégiques"
 
@@ -59,11 +59,11 @@ msgid "game.score.back_main_menu"
 msgstr "Retourner au menu principal"
 
 #: global/error.gd:9 global/error.gd:22 global/error.gd:23
-#: global/loading_screen.gd:89
+#: global/loading_screen.gd:94
 msgid "error.network_error"
 msgstr "Erreur réseau"
 
-#: global/error.gd:16 global/error.gd:18 global/loading_screen.gd:89
+#: global/error.gd:16 global/error.gd:18 global/loading_screen.gd:94
 msgid "error.connexion_impossible"
 msgstr "Connexion impossible"
 
@@ -75,7 +75,7 @@ msgstr "Le serveur de jeu n'est pas disponible."
 msgid "error.unkown_domain_name"
 msgstr "Le nom de domaine du serveur est inconnu."
 
-#: global/error.gd:20 global/loading_screen.gd:89
+#: global/error.gd:20 global/loading_screen.gd:94
 msgid "error.http_not_connected"
 msgstr "Client HTTP non connecté"
 
@@ -83,104 +83,105 @@ msgstr "Client HTTP non connecté"
 msgid "error.network_error_content"
 msgstr "Une erreur réseau est survenue"
 
-#: global/loading_screen.gd:78 global/loading_screen.gd:151
+#: global/loading_screen.gd:83 global/loading_screen.gd:171
 msgid "global.loading.ok"
 msgstr "OK"
 
-#: global/loading_screen.gd:81
+#: global/loading_screen.gd:86
 msgid "global.loading.waiting"
 msgstr "Connexion"
 
-#: global/loading_screen.gd:84
+#: global/loading_screen.gd:89
 msgid "global.loading.error"
 msgstr "Erreur"
 
-#: global/loading_screen.gd:210
+#: global/loading_screen.gd:230
 #, python-format
 msgid "global.loading.ressource.error %s %d"
 msgstr "Erreur pendant le chargement de %s : %d"
 
-#: global/loading_screen.gd:210 global/loading_screen.gd:229
+#: global/loading_screen.gd:230 global/loading_screen.gd:249
 msgid "global.loading.ressource."
 msgstr ""
 
-#: global/loading_screen.gd:222 global/loading_screen.gd:225
+#: global/loading_screen.gd:242 global/loading_screen.gd:245
 #, python-format
 msgid "global.loading.progressbar_ressource %d %d"
 msgstr "%d / %d"
 
-#: global/loading_screen.gd:229
+#: global/loading_screen.gd:249
 msgid "global.loading.none_loading"
 msgstr "Fini"
 
-#: global/loading_screen.gd:232
+#: global/loading_screen.gd:252
 #, python-format
 msgid "global.loading.progressbar_global %d %d"
 msgstr "%d / %d"
 
-#: global/loading_screen.tscn:83
+#: global/loading_screen.tscn:85
 msgid "global.loading.loading"
 msgstr "Chargement"
 
-#: global/loading_screen.tscn:108 global/loading_screen.tscn:135
+#: global/loading_screen.tscn:110 global/loading_screen.tscn:137
 msgid "0 / 0"
 msgstr ""
 
-#: global/loading_screen.tscn:171
+#: global/loading_screen.tscn:173
 msgid "global.loading.network"
 msgstr "Reseau"
 
-#: global/loading_screen.tscn:183
+#: global/loading_screen.tscn:191
 msgid "global.loading.auth_status"
 msgstr "Authentification"
 
-#: global/loading_screen.tscn:191 global/loading_screen.tscn:211
-#: global/loading_screen.tscn:231 global/loading_screen.tscn:251
+#: global/loading_screen.tscn:198 global/loading_screen.tscn:217
+#: global/loading_screen.tscn:236 global/loading_screen.tscn:255
+#: global/loading_screen.tscn:274
 msgid "global.loading.wating"
 msgstr "Connexion"
 
-#: global/loading_screen.tscn:203
+#: global/loading_screen.tscn:210
 msgid "global.loading.faction_status"
 msgstr "Receptions des factions"
 
-#: global/loading_screen.tscn:223
+#: global/loading_screen.tscn:229
 msgid "global.loading.constants_status"
 msgstr "Receptions des constantes"
 
-#: global/loading_screen.tscn:243
+#: global/loading_screen.tscn:248 global/loading_screen.tscn:267
 msgid "global.loading.ships_status"
 msgstr "Receptions des vaisseaux"
 
-#: global/loading_screen.tscn:273
+#: global/loading_screen.tscn:296
 msgid "global.loading.quit"
 msgstr "Quitter le jeu"
 
-#: global/network.gd:91
+#: global/network.gd:92
 msgid "network.unable_connect"
 msgstr "Le programme n'arrive pas à se connecter"
 
-#: global/network.gd:98
+#: global/network.gd:99
 msgid "network.close_clean_ws"
 msgstr "Fermé, clean :"
 
-#: global/network.gd:105
+#: global/network.gd:106
 msgid "Connected with protocol: "
 msgstr ""
 
-#: global/network.gd:114
+#: global/network.gd:115
 msgid "received data from server: "
 msgstr ""
 
-#: global/store.gd:36
+#: global/store.gd:38
 #, python-format
 msgid "store.game_of %s"
 msgstr "Partie de %s"
 
-#: global/store.gd:36
+#: global/store.gd:38
 msgid "store.new_game"
 msgstr "Nouvelle partie"
 
-#: global/utils.gd:141
+#: global/utils.gd:138
 msgid "action.key.mouse_key_"
 msgstr ""
 
@@ -224,42 +225,63 @@ msgstr ""
 msgid "hud.system.add_fleet"
 msgstr "Ajouter une flotte"
 
-#: hud/system/buildings/building_panel.gd:26
-#: hud/system/buildings/building_panel.gd:30
-#: hud/system/buildings/contruction/construction_building_item.gd:39
-msgid "hud.details.buidlng."
-msgstr ""
-
-#: hud/system/buildings/building_panel.gd:26
-#: hud/system/buildings/contruction/construction_building_item.gd:39
+#: hud/system/buildings/building_panel.gd:25
+#: hud/system/buildings/contruction/construction_building_item.gd:54
 msgid "hud.details.buidlng.contruction"
 msgstr "Construire un batiment"
 
-#: hud/system/buildings/building_panel.tscn:40
+#: hud/system/buildings/building_panel.gd:29
+#: hud/system/buildings/contruction/construction_building_item.gd:54
+msgid "hud.details.buidlng."
+msgstr ""
+
+#: hud/system/buildings/building_panel.tscn:48
 msgid "hud.system_details.building.hangar"
 msgstr "Hangar"
 
-#: hud/system/buildings/hangar.tscn:22
+#: hud/system/buildings/hangar.tscn:23
 msgid "hud.details.building.hangar.menu_title"
 msgstr "Hangar"
 
-#: hud/system/buildings/hangar.tscn:55
+#: hud/system/buildings/hangar.tscn:56
 msgid "hud.details.building.hangar.production_line"
 msgstr "Fille de production :"
 
-#: hud/system/buildings/hangar.tscn:86
+#: hud/system/buildings/hangar.tscn:87
 msgid "hud.details.building.hangar.order_ship"
 msgstr "Commande de vaisseaux"
 
-#: hud/system/buildings/hangar.tscn:110
+#: hud/system/buildings/hangar.tscn:111
 msgid "hud.details.building.hangar.hangar_ship"
 msgstr "Vaisseaux dans le hangar"
 
-#: hud/system/buildings/contruction/construction_building_item.tscn:37
+#: hud/system/buildings/contruction/construction_building_item.gd:55
+#: hud/system/buildings/contruction/construction_building_item.tscn:97
+#, python-format
+msgid "hud.details.buidlng.cost %d"
+msgstr "%d"
+
+#: hud/system/buildings/contruction/construction_building_item.gd:56
+#: hud/system/buildings/contruction/construction_building_item.tscn:131
+#, python-format
+msgid "hud.details.buidlng.time %d"
+msgstr "%d"
+
+#: hud/system/buildings/contruction/construction_building_item.gd:64
+#: hud/system/buildings/hangar/ship_type_build.gd:118
+msgid "notification.error.not_enought_cred.title"
+msgstr "Commande impossible"
+
+#: hud/system/buildings/contruction/construction_building_item.gd:64
+#: hud/system/buildings/hangar/ship_type_build.gd:118
+msgid "notification.error.not_enought_cred.content"
+msgstr "Pas assez de credits"
+
+#: hud/system/buildings/contruction/construction_building_item.tscn:45
 msgid "no_translate.building_name"
 msgstr ""
 
-#: hud/system/buildings/contruction/construction_building_item.tscn:76
+#: hud/system/buildings/contruction/construction_building_item.tscn:142
 msgid "hud.details.buidlng.construction.construction_item.build"
 msgstr "Construire"
 
@@ -327,14 +349,6 @@ msgstr "%d"
 #, python-format
 msgid "hud.details.building.hangar.accuracy %d"
 msgstr "%d %%"
-
-#: hud/system/buildings/hangar/ship_type_build.gd:117
-msgid "notification.error.not_enought_cred.title"
-msgstr "Commande impossible"
-
-#: hud/system/buildings/hangar/ship_type_build.gd:117
-msgid "notification.error.not_enought_cred.content"
-msgstr "Pas assez de credits"
 
 #: hud/system/buildings/hangar/ship_type_build.tscn:149
 #, python-format
@@ -632,10 +646,18 @@ msgid "global.loading.ressource.hud"
 msgstr "HUD"
 
 #: locales/strings.txt:55
-msgid "hud.details.buidlng.hangar"
-msgstr "Hangar"
+msgid "hud.details.buidlng.mine"
+msgstr "Mine"
 
-#: matchmaking/game/game_loading.gd:63
+#: locales/strings.txt:56
+msgid "hud.details.buidlng.portal"
+msgstr "Portail"
+
+#: locales/strings.txt:57
+msgid "hud.details.buidlng.shipyard"
+msgstr "Chantier spatial"
+
+#: matchmaking/game/game_loading.gd:65
 #, python-format
 msgid "menu.loading.number_player %d"
 msgstr "%d joueurs"
@@ -842,10 +864,6 @@ msgstr ""
 #: menu/options/option_lang.tscn:20
 msgid "menu.option.lang.language"
 msgstr "Langues"
-
-#, fuzzy, python-format
-#~ msgid "hud.details.building.hangar.time %f"
-#~ msgstr "prix : %d"
 
 #~ msgid "hud.system.fleet"
 #~ msgstr "Flottes"

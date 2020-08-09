@@ -13,7 +13,6 @@ onready var menu_header = $MenuHeader
 func _ready():
 	Store.connect("fleet_update_nb_ships",self,"_on_fleet_update_nb_ships")
 	Store.connect("hangar_updated", self, "_on_hangar_updated")
-	Network.connect("ShipQueueFinished",self,"_on_ship_queue_finished")
 	for category in Store._state.ship_models:
 		var node = _SHIP_GROUP_ELEMENT.instance()
 		node.ship_category = category
@@ -25,18 +24,25 @@ func _ready():
 	update_element_fleet()
 
 
-func _on_hangar_updated(system):
-	if system.id == Store._state.selected_system.id:
-		set_ship_group_hangar(system.hangar)
+func _on_hangar_updated(system, ship_groups):
+	if Store._state.selected_system != null and system.id == Store._state.selected_system.id:
+		set_ship_group_hangar(ship_groups)
 
 
 func _on_ship_assigned(quantity_fleet, quantity_hangar, category):
-	var total_number_of_ships_in_hangar = 0
+	var has_added_quantity = false
 	for i in ship_group_hangar:
 		if i.category == category.category:
 			i.quantity = quantity_hangar
-		total_number_of_ships_in_hangar += i.quantity
-	Store.update_hangar_system_id(fleet.system, ship_group_hangar)
+			has_added_quantity = true
+	if not has_added_quantity:
+		ship_group_hangar.push_back({
+			"system" : fleet.system,
+			"fleet" : null,
+			"category" : category.category,
+			"quantity" : quantity_hangar,
+		})
+	Store.update_system_hangar(fleet.system, ship_group_hangar)
 
 
 func _on_minimize_request():
@@ -50,11 +56,14 @@ func update_hangar():
 	if Store._state.selected_system.has("hangar") and Store._state.selected_system.hangar != null:
 		set_ship_group_hangar(Store._state.selected_system.hangar)
 	else:
+		set_ship_group_hangar([])
 		Network.req(self, "_on_ship_group_received"
 			, "/api/games/" +
 				Store._state.game.id+  "/systems/" +
 				fleet.system + "/ship-groups/"
 			, HTTPClient.METHOD_GET
+			, []
+			, ""
 			, [fleet.system]
 		)
 
@@ -76,8 +85,7 @@ func _on_ship_group_received(err, response_code, headers, body, system_id):
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_OK :
 		var result = JSON.parse(body.get_string_from_utf8()).result
-		set_ship_group_hangar(result)
-		Store.update_hangarsystem_id(system_id, result)
+		Store.update_system_hangar(system_id, result)
 
 
 func set_fleet(new_fleet):
@@ -89,6 +97,8 @@ func set_fleet(new_fleet):
 
 func set_ship_group_hangar(array):
 	ship_group_hangar = array
+	for node in ship_group_element_container.get_children():
+		node.quantity_hangar = 0
 	for i in ship_group_hangar:
 		ship_group_element_container.get_node(i.category).quantity_hangar = i.quantity
 

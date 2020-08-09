@@ -28,8 +28,6 @@ onready var spot = $Star/Spot
 onready var fleet_pins = $FleetPins
 onready var range_draw_node = $Range
 onready var building_pins = $BuildingPins
-onready var ship_pins = $ShipPins
-onready var ship_pin_element = $ShipPins/SystemShipPin
 
 
 func _ready():
@@ -84,15 +82,22 @@ func refresh_fleet_pins():
 			add_fleet_pin(p)
 
 
-func show_ship_pin(number = 0):
-	ship_pins.visible = true
-	ship_pin_element.number = number as int
-	ship_pin_element.set_process(true)
+func update_ship_pin():
+	if system == null:
+		return
+	elif not system.has("hangar") or system.hangar == null:
+		_update_ship_pin_number(0)
+		return
+	var total_number_of_ships_in_hangar = 0
+	for i in system.hangar:
+		total_number_of_ships_in_hangar += i.quantity
+	_update_ship_pin_number(total_number_of_ships_in_hangar) 
 
 
-func hide_ship_pin():
-	ship_pins.visible = false
-	ship_pin_element.set_process(false)
+func _update_ship_pin_number(number):
+	for node in building_pins.get_children():
+		if node.building.kind == "shipyard":
+			node.blinking = not(number == 0)
 
 
 func add_fleet_pin(player):
@@ -121,9 +126,10 @@ func refresh_building_pins():
 		return
 	for building in system.buildings:
 		var node = SYSTEM_BUILDING_PIN_SCENE.instance()
-		node.building_type = building
-		node.faction_color = Store._get_faction_color(Store.get_game_player(system.player).faction)
+		node.building = building
+		node.faction_color = Store._get_faction_color(Store.get_faction(Store.get_game_player(system.player).faction))
 		building_pins.add_child(node)
+	update_ship_pin()
 
 
 func _process_modulate_alpha(delta):
@@ -172,7 +178,6 @@ func _scale_star_system(factor):
 	star.set_scale(Vector2(scale_ratio * factor, scale_ratio * factor))
 	fleet_pins.rect_position = _BASE_POSITION_PIN_FLEET * factor * scale_ratio
 	building_pins.rect_position = _BASE_POSITION_PIN_BUILDING * factor * scale_ratio
-	ship_pins.rect_position = _BASE_POSITION_PIN_SHIP * factor * scale_ratio
 
 
 func _set_target_scale(factor):

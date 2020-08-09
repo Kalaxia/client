@@ -164,16 +164,7 @@ func _on_ship_queue_finished(ship_data):
 func _on_hangar_updated(system, ship_group_hangar):
 	if map.has_node(system.id):
 		var node = map.get_node(system.id)
-		if ship_group_hangar == null:
-			node.hide_ship_pin()
-			return
-		var total_number_of_ships_in_hangar = 0
-		for i in ship_group_hangar:
-			total_number_of_ships_in_hangar += i.quantity
-		if total_number_of_ships_in_hangar == 0:
-			node.hide_ship_pin()
-		else:
-			node.show_ship_pin(total_number_of_ships_in_hangar)
+		node.update_ship_pin()
 
 
 func _on_building_constructed(building):
@@ -281,8 +272,8 @@ func _on_system_conquerred(data):
 	if Store._state.game.players[data.system.player].faction == Store._state.player.faction:
 		Store.request_hangar_and_building(data.system)
 	else:
-		Store.update_buildings(data.system, null)
-		Store.update_hangar(data.system, null)
+		Store.update_buildings(data.system, [])
+		Store.update_hangar(data.system, [])
 
 
 func _on_victory(data):

@@ -72,7 +72,7 @@ _global_script_classes=[ {
 "base": "PanelContainer",
 "class": "SelectablePanelContainer",
 "language": "GDScript",
-"path": "res://gui/slectable_panel_container.gd"
+"path": "res://gui/selectable_panel_container.gd"
 }, {
 "base": "CustomShapeButton",
 "class": "TransparentCircleButton",

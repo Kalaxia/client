@@ -17,7 +17,7 @@ onready var label_time = $PanelContainer/HBoxContainer/LabelTime
 func _ready():
 	button.connect("pressed", self, "_on_build_button")
 	Store.connect("wallet_updated", self, "_on_wallet_updated")
-	_lock_request_build.connect("changed_sate", self, "_on_lock_changed_state")
+	_lock_request_build.connect("changed_state", self, "_on_lock_changed_state")
 	_update_build_button_state()
 	_updates_elements()
 

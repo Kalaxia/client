@@ -79,7 +79,7 @@ class Lock:
 	
 	signal locked()
 	signal unlocked()
-	signal changed_sate(lock_sate)
+	signal changed_state(lock_state)
 	
 	enum LOCK_STATE {
 		BUSY = 0,
@@ -107,17 +107,17 @@ class Lock:
 			return LOCK_STATE.BUSY
 		_is_locked = true
 		emit_signal("locked")
-		emit_signal("changed_sate", true)
+		emit_signal("changed_state", true)
 		return LOCK_STATE.OK
 	
 	
 	func unlock():
-		var previous_sate = _is_locked
+		var previous_state = _is_locked
 		_is_locked = false
-		if previous_sate:
+		if previous_state:
 			emit_signal("unlocked")
-			emit_signal("changed_sate", false)
-		return previous_sate
+			emit_signal("changed_state", false)
+		return previous_state
 	
 	
 	func can_lock():

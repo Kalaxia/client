@@ -33,11 +33,11 @@ func update_building_panels():
 	while not _building_panel_list.empty():
 		_building_panel_list.pop_back().queue_free()
 	if Store._state.selected_system.player == Store._state.player.id:
-		var building_aera = BUILDING_AREA.instance()
-		building_aera.building = Store._state.selected_system.buildings[0] if  Store._state.selected_system.has("buildings") and Store._state.selected_system.buildings != null and Store._state.selected_system.buildings.size() >= 1 else null
-		building_container.add_child(building_aera)
-		building_aera.connect("pressed", self, "_on_panel_pressed" , [building_aera])
-		_building_panel_list.push_back(building_aera)
+		var building_area = BUILDING_AREA.instance()
+		building_area.building = Store._state.selected_system.buildings[0] if  Store._state.selected_system.has("buildings") and Store._state.selected_system.buildings != null and Store._state.selected_system.buildings.size() >= 1 else null
+		building_container.add_child(building_area)
+		building_area.connect("pressed", self, "_on_panel_pressed" , [building_area])
+		_building_panel_list.push_back(building_area)
 
 
 func system_update(system):
@@ -56,6 +56,9 @@ func update_visibility():
 	if not visible_state:
 		_deselect_other_building()
 
+
+func _on_system_update(system):
+	system_update(system)
 
 func _on_panel_pressed(node):
 	_deselect_other_building(node)

@@ -11,7 +11,7 @@ signal fleet_erased(fleet)
 signal system_update(system)
 signal fleet_update_nb_ships(fleet)
 signal fleet_unselected()
-signal hangar_updated(system, number_of_ships)
+signal hangar_updated(system, ship_groups)
 signal building_updated(system)
 
 const _STATE_EMPTY = {
@@ -216,22 +216,22 @@ func update_scores(scores):
 	_state.scores = scores
 
 
-func update_buildings_system_id(system_id, buildings):
+func update_system_buildings(system_id, buildings):
 	_state.game.systems[system_id].buildings = buildings
 	emit_signal("building_updated", _state.game.systems[system_id])
 
 
-func update_hangar_system_id(system_id, ship_groups):
+func update_system_hangar(system_id, ship_groups):
 	_state.game.systems[system_id].hangar = ship_groups
 	emit_signal("hangar_updated", _state.game.systems[system_id], ship_groups)
 
 
 func update_hangar(system, ship_groups):
-	update_hangar_system_id(system.id, ship_groups)
+	update_system_hangar(system.id, ship_groups)
 
 
 func update_buildings(system, buildings):
-	update_buildings_system_id(system.id, buildings)
+	update_system_buildings(system.id, buildings)
 
 
 func add_building_to_system(system, building):
@@ -252,11 +252,11 @@ func add_ship_group_to_hangar(ship_group):
 				break
 		if not has_added_ships:
 			hangar_ship_groups.push_back(ship_group)
-	update_hangar_system_id(ship_group.system, hangar_ship_groups)
+	update_system_hangar(ship_group.system, hangar_ship_groups)
 
 
 func add_building_to_system_by_id(system_id, building):
-	var total_buildings = _state.game.systems[system_id].buildings if _state.game.systems[system_id].has("buildings") else null
+	var total_buildings = _state.game.systems[system_id].buildings if _state.game.systems[system_id].has("buildings") else []
 	if total_buildings == null:
 		total_buildings = [building]
 	else:
@@ -305,7 +305,7 @@ func _on_ship_group_received(err, response_code, headers, body, system_id):
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_OK :
 		var result = JSON.parse(body.get_string_from_utf8()).result
-		update_hangar_system_id(system_id, result)
+		update_system_hangar(system_id, result)
 
 
 func _on_receive_building(err, response_code, headers, body, system_id):
@@ -313,7 +313,7 @@ func _on_receive_building(err, response_code, headers, body, system_id):
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_OK :
 		var result = JSON.parse(body.get_string_from_utf8()).result
-		update_buildings_system_id(system_id, result)
+		update_system_buildings(system_id, result)
 
 
 func update_player_me():

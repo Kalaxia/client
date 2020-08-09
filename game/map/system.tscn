@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://game/map/system.gd" type="Script" id=1]
 [ext_resource path="res://gui/transparent_circle_button.gd" type="Script" id=2]
 [ext_resource path="res://game/map/system_range_draw.gd" type="Script" id=3]
-[ext_resource path="res://game/map/system_ship_pin.tscn" type="PackedScene" id=4]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -41,25 +40,6 @@ mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="ShipPins" type="HBoxContainer" parent="."]
-visible = false
-margin_left = -7.5
-margin_top = -50.0
-margin_right = 7.5
-margin_bottom = -35.0
-grow_horizontal = 2
-grow_vertical = 2
-rect_pivot_offset = Vector2( 7.5, 15 )
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SystemShipPin" parent="ShipPins" instance=ExtResource( 4 )]
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
 [node name="Star" type="Control" parent="."]
 anchor_left = 0.5

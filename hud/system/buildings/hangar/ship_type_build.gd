@@ -4,8 +4,6 @@ signal ship_construction_started(ship_queue)
 
 var ship_category = Store._state.ship_models[0] setget set_ship_category
 var _lock_build_ships = Utils.Lock.new() setget private_set, private_get
-var _quantity_orderred = 0 setget private_set, private_get
-var _category_orderred = "" setget private_set, private_get
 
 onready var spinbox = $PanelContainer/HBoxContainer/SpinBox
 onready var line_edit_spin_box = spinbox.get_line_edit()
@@ -19,7 +17,7 @@ onready var request_max_button = $PanelContainer/HBoxContainer/RequestMax
 
 
 func _ready():
-	_lock_build_ships.connect("changed_sate", self, "_on_lock_changed_sate")
+	_lock_build_ships.connect("changed_state", self, "_on_lock_changed_state")
 	button_order.connect("pressed", self, "_on_pressed_build")
 	spinbox.connect("value_changed", self, "_on_spinbox_changed")
 	Store.connect("wallet_updated", self, "_on_wallet_update")
@@ -61,7 +59,7 @@ func get_max_buildable_ships():
 	return floor(Store._state.player.wallet / ship_category.cost) as int
 
 
-func _on_lock_changed_sate(state):
+func _on_lock_changed_state(state):
 	if button_order == null or request_max_button == null:
 		return
 	button_order.disabled = state
@@ -117,24 +115,21 @@ func build_ship(quantity):
 		_lock_build_ships.unlock()
 		Store.notify(tr("notification.error.not_enought_cred.title"), tr("notification.error.not_enought_cred.content"))
 		return
-	_quantity_orderred = quantity
-	_category_orderred = ship_category
 	Network.req(self, "_on_ship_build_requested",
 		"/api/games/"+ Store._state.game.id + "/systems/" + Store._state.selected_system.id + "/ship-queues/",
 		HTTPClient.METHOD_POST,
 		[ "Content-Type: application/json" ],
-		JSON.print({"category" : ship_category.category, "quantity" : quantity})
+		JSON.print({"category" : ship_category.category, "quantity" : quantity}),
+		[quantity, ship_category]
 	)
 
 
-func _on_ship_build_requested(err, response_code, headers, body):
+func _on_ship_build_requested(err, response_code, headers, body, quantity, category):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_CREATED or response_code == HTTPClient.RESPONSE_OK:
 		var result = JSON.parse(body.get_string_from_utf8()).result
-		Store.update_wallet(- _category_orderred.cost * _quantity_orderred)
-		_quantity_orderred = 0
-		_category_orderred = null
+		Store.update_wallet( - category.cost * quantity)
 		emit_signal("ship_construction_started", result)
 	_lock_build_ships.unlock()
 

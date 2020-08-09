@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://gui/slectable_panel_container.gd" type="Script" id=1]
+[ext_resource path="res://gui/selectable_panel_container.gd" type="Script" id=1]
 [ext_resource path="res://themes/panel_container/styleboxflat_panel_selected.tres" type="StyleBox" id=2]
 [ext_resource path="res://themes/panel_container/styleboxflat_panel_base.tres" type="StyleBox" id=3]
 [ext_resource path="res://hud/system/buildings/hangar/ship_type_hangar.gd" type="Script" id=4]
