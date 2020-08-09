@@ -1,0 +1,2 @@
+extends SelectablePanelContainer
+class_name RoundedSelectablePanelRight

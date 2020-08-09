@@ -1,0 +1,4 @@
+extends SelectablePanelContainer
+class_name RoundedSelectablePanelLeft
+
+
