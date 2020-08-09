@@ -1,8 +1,5 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://themes/panel_container/styleboxflat_panel_base.tres" type="StyleBox" id=1]
-[ext_resource path="res://themes/panel_container/styleboxflat_panel_selected.tres" type="StyleBox" id=2]
-[ext_resource path="res://themes/panel_container/styleboxflat_panel_hover.tres" type="StyleBox" id=3]
 [ext_resource path="res://hud/system/buildings/building_panel.gd" type="Script" id=4]
 
 [sub_resource type="StreamTexture" id=1]
@@ -26,9 +23,6 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_style = ExtResource( 1 )
-hover_style = ExtResource( 3 )
-slected_style = ExtResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 7.0

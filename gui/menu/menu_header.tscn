@@ -11,14 +11,14 @@ data = {
 "width": 16
 }
 
-[sub_resource type="ImageTexture" id=4]
+[sub_resource type="ImageTexture" id=2]
 flags = 4
 flags = 4
 image = SubResource( 6 )
 size = Vector2( 16, 16 )
 
-[sub_resource type="StyleBoxTexture" id=5]
-texture = SubResource( 4 )
+[sub_resource type="StyleBoxTexture" id=3]
+texture = SubResource( 2 )
 region_rect = Rect2( 0, 0, 16, 16 )
 margin_left = 2.0
 margin_right = 2.0
@@ -29,7 +29,7 @@ margin_bottom = 2.0
 flags = 4
 load_path = "res://.import/minimise.svg-f291a447e9a63cc54c193ab85c971a52.stex"
 
-[sub_resource type="StreamTexture" id=2]
+[sub_resource type="StreamTexture" id=5]
 flags = 4
 load_path = "res://.import/x.svg-47a3a67eca4bee58f25f23dd32e35e3d.stex"
 
@@ -37,7 +37,7 @@ load_path = "res://.import/x.svg-47a3a67eca4bee58f25f23dd32e35e3d.stex"
 margin_right = 1920.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 31 )
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 3 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -122,7 +122,7 @@ margin_right = 0.0992432
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = SubResource( 2 )
+texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 __meta__ = {
