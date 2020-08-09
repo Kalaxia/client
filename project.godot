@@ -69,6 +69,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://matchmaking/player/player_info_faction_column.gd"
 }, {
+"base": "SelectablePanelContainer",
+"class": "RoundedSelectablePanelLeft",
+"language": "GDScript",
+"path": "res://hud/rounded_selectable_panel_left.gd"
+}, {
+"base": "SelectablePanelContainer",
+"class": "RoundedSelectablePanelRight",
+"language": "GDScript",
+"path": "res://hud/rounded_selectable_panel_right.gd"
+}, {
 "base": "PanelContainer",
 "class": "SelectablePanelContainer",
 "language": "GDScript",
@@ -92,6 +102,8 @@ _global_script_class_icons={
 "MenuHeader": "res://resources/editor/menu_header.svg",
 "OptionKeyBinding": "",
 "PlayerInfoFactionColumn": "",
+"RoundedSelectablePanelLeft": "",
+"RoundedSelectablePanelRight": "",
 "SelectablePanelContainer": "res://resources/editor/selectable_container.svg",
 "TransparentCircleButton": "res://resources/editor/custom_circle_button.svg"
 }

@@ -1,10 +1,40 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://hud/hud_menu.gd" type="Script" id=1]
+[ext_resource path="res://gui/selectable_panel_container.gd" type="Script" id=3]
+[ext_resource path="res://hud/rounded_selectable_panel_left.gd" type="Script" id=4]
+[ext_resource path="res://hud/rounded_selectable_panel_right.gd" type="Script" id=5]
 
-[sub_resource type="StreamTexture" id=1]
+[sub_resource type="Image" id=9]
+data = {
+"data": PoolByteArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ),
+"format": "LumAlpha8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id=4]
+flags = 4
+flags = 4
+image = SubResource( 9 )
+size = Vector2( 16, 16 )
+
+[sub_resource type="StyleBoxTexture" id=5]
+texture = SubResource( 4 )
+region_rect = Rect2( 0, 0, 16, 16 )
+margin_left = 2.0
+margin_right = 2.0
+margin_top = 2.0
+margin_bottom = 2.0
+
+[sub_resource type="StreamTexture" id=7]
 flags = 4
 load_path = "res://.import/banner.png-74e88a02fde8130f5f843aba121c4815.stex"
+
+[sub_resource type="StreamTexture" id=8]
+flags = 4
+load_path = "res://.import/G_P_Logout_64px.png-96df486bc5e14ad2595297b93d598753.stex"
 
 [node name="HudMenu" type="VBoxContainer"]
 anchor_left = 0.2
@@ -22,42 +52,96 @@ margin_bottom = 54.0
 mouse_filter = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
-margin_right = 457.0
+[node name="ButtonContainerLeft" type="HBoxContainer" parent="HBoxContainer"]
+margin_right = 520.0
 margin_bottom = 54.0
 mouse_filter = 2
 size_flags_horizontal = 3
+custom_constants/separation = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control" type="Control" parent="HBoxContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/ButtonContainerLeft"]
+margin_right = 259.0
 margin_bottom = 54.0
-mouse_filter = 2
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 5 )
+script = ExtResource( 4 )
+
+[node name="SelectablePanelContainer" type="PanelContainer" parent="HBoxContainer/ButtonContainerLeft"]
+margin_left = 260.0
+margin_right = 520.0
+margin_bottom = 54.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 5 )
+script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
-margin_left = 461.0
-margin_right = 689.0
+margin_left = 524.0
+margin_right = 628.0
 margin_bottom = 54.0
 mouse_filter = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.5
-texture = SubResource( 1 )
+size_flags_stretch_ratio = 0.2
+texture = SubResource( 7 )
 expand = true
 stretch_mode = 6
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer"]
-margin_left = 693.0
+[node name="ButtonContainerRight" type="HBoxContainer" parent="HBoxContainer"]
+margin_left = 632.0
 margin_right = 1152.0
 margin_bottom = 54.0
 mouse_filter = 2
 size_flags_horizontal = 3
+custom_constants/separation = 1
 
-[node name="Button" type="Button" parent="HBoxContainer/HBoxContainer2"]
-margin_left = 119.0
-margin_top = 17.0
-margin_right = 340.0
-margin_bottom = 37.0
-size_flags_horizontal = 6
-size_flags_vertical = 4
-text = "hud.hud_menu.back_main_menu"
+[node name="SelectablePanelContainer" type="PanelContainer" parent="HBoxContainer/ButtonContainerRight"]
+margin_right = 259.0
+margin_bottom = 54.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 5 )
+script = ExtResource( 3 )
+
+[node name="SelectablePanelContainerMenu" type="PanelContainer" parent="HBoxContainer/ButtonContainerRight"]
+margin_left = 260.0
+margin_right = 520.0
+margin_bottom = 54.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 5 )
+script = ExtResource( 5 )
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/ButtonContainerRight/SelectablePanelContainerMenu"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 258.0
+margin_bottom = 52.0
+mouse_filter = 2
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ButtonContainerRight/SelectablePanelContainerMenu/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 251.0
+margin_bottom = 45.0
+mouse_filter = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/ButtonContainerRight/SelectablePanelContainerMenu/MarginContainer/HBoxContainer"]
+margin_right = 246.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+texture = SubResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="PopupMenu" type="PopupMenu" parent="HBoxContainer/ButtonContainerRight/SelectablePanelContainerMenu"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 258.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 0, 10 )
+items = [ "hud.hud_menu.back_main_menu", null, 0, false, false, 0, 0, null, "", false ]

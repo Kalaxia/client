@@ -1,7 +1,9 @@
+tool
 class_name SelectablePanelContainer, "res://resources/editor/selectable_container.svg"
 extends PanelContainer
 
 signal pressed()
+signal state_changed(bool_is_pressed)
 
 export(StyleBox) var base_style setget set_base_style
 export(StyleBox) var hover_style setget set_hover_style
@@ -28,6 +30,9 @@ func _draw():
 			focus_style.draw(get_canvas_item(), get_rect())
 
 
+func update():
+	.update()
+
 func _on_mouse_entered():
 	_hover = true
 	update_style()
@@ -47,6 +52,7 @@ func _gui_input(event):
 func _pressed():
 	is_selected = not is_selected
 	update_style()
+	emit_signal("state_changed", is_selected)
 
 
 
@@ -84,5 +90,7 @@ func update_style():
 
 
 func set_is_selected(selected):
-	is_selected = selected;
-	update_style()
+	if is_selected != selected:
+		is_selected = selected
+		update_style()
+		emit_signal("state_changed", is_selected)

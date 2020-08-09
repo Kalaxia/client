@@ -28,7 +28,7 @@ mouse_filter = 2
 
 [node name="HudMenu" parent="." instance=ExtResource( 5 )]
 anchor_top = 0.02
-anchor_bottom = 0.1
+anchor_bottom = 0.07
 
 [node name="ScoresContainer" type="VBoxContainer" parent="."]
 anchor_left = 0.4
