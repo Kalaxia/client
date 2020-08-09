@@ -28,6 +28,8 @@ func _process(delta):
 
 func init_systems(systems):
 	for s in systems:
+		if s.player != null and Store._state.game.players[s.player].faction == Store._state.player.faction:
+			Store.request_hangar_and_building(s)
 		s.fleets = {}
 		Store._state.game.systems[s.id] = s
 

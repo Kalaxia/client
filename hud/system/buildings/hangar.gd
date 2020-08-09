@@ -18,7 +18,10 @@ onready var menu_header = $MenuHeader
 
 
 func _ready():
-	Network.connect("ShipQueueFinished",self,"_on_ship_queue_finished")
+	Store.connect("hangar_updated", self, "_on_hangar_updated")
+	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
+	menu_header.connect("close_request", self, "_on_close_menu_pressed")
+	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
 	for category in Store._state.ship_models:
 		var node = _SHIP_HANGARD.instance()
 		node.category = category
@@ -27,34 +30,28 @@ func _ready():
 		hangar_element.add_child(node)
 		node.connect("pressed", self, "select_group", [category])
 	select_group(Store._state.ship_models[0])
-	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
-	Network.req(self, "_on_ship_group_recieved"
-		, "/api/games/" +
-			Store._state.game.id+  "/systems/" +
-			Store._state.selected_system.id + "/ship-groups/"
-		, HTTPClient.METHOD_GET
-	)
+	var ship_gp_hangar = Store._state.selected_system.hangar if Store._state.selected_system.has("hangar") else null
+	if ship_gp_hangar != null:
+		set_ship_group_array(ship_gp_hangar)
+	else:
+		set_ship_group_array([])
+		Store.request_hangar(Store._state.selected_system)
 	Network.req(self, "_on_queue_ships_received"
 		, "/api/games/" +
 			Store._state.game.id+  "/systems/" +
 			Store._state.selected_system.id + "/ship-queues/"
 		, HTTPClient.METHOD_GET
 	)
-	menu_header.connect("close_request", self, "_on_close_menu_pressed")
 
 
 func _on_close_menu_pressed():
 	queue_free()
 	emit_signal("closed")
-	
 
 
-func _on_ship_group_recieved(err, response_code, headers, body):
-	if err:
-		ErrorHandler.network_response_error(err)
-	if response_code == HTTPClient.RESPONSE_OK:
-		var result = JSON.parse(body.get_string_from_utf8()).result
-		set_ship_group_array(result)
+func _on_hangar_updated(system, ship_groups):
+	if system.id == Store._state.selected_system.id:
+		set_ship_group_array(ship_groups)
 
 
 func set_ship_group_array(new_array):
@@ -76,12 +73,6 @@ func _on_ship_queue_finished(ship_data):
 		return
 	remove_ship_queue_id(ship_data.id)
 	hangar_element.get_node(ship_data.category).quantity += ship_data.quantity
-	for ship_group in ship_group_array:
-		if ship_group.category == ship_data.category:
-			ship_group.quantity += ship_data.quantity
-			return
-	# if we did not found any group ships of that cathegory
-	ship_group_array.push_back(ship_data)
 
 
 func _on_ship_construction_started(ship_queue):
@@ -135,8 +126,8 @@ func update_ship_queue():
 		node.queue_free()
 	# we need to wait for objects to be deleted before inserting new
 	# otherwise name get duplicated as queue_free() does not free the node imediatly
-	while production_list_vbox_elements.get_child_count() > 0 :
-		yield(production_list_vbox_elements.get_child(0),"tree_exited")
+	while production_list_vbox_elements.get_child_count() > 0:
+		yield(production_list_vbox_elements.get_child(0), "tree_exited")
 	_lock_ship_prod_update.unlock()
 	for ship_queue in ship_queue_array:
 		var ship_prod_node = _SHIP_PRODUCTION_LINE.instance()

@@ -1,11 +1,11 @@
 extends Control
 
+signal ship_assigned(ship_in_fleet, ship_in_hangar)
+
 var ship_category = Store._state.ship_models[0] setget set_ship_category 
 var quantity_fleet = 0 setget set_quantity_fleet
 var quantity_hangar = 0 setget set_quantity_hangar
-var _quantity_assigned = 0
-var _fleet_ship_assigned = null
-var _lock_assign_ship = Utils.Lock.new()
+var _lock_assign_ship = Utils.Lock.new() setget private_set, private_get
 
 onready var spinbox = $PanelContainer/HBoxContainer/SpinBox
 onready var line_edit_spin_box = spinbox.get_line_edit()
@@ -17,6 +17,7 @@ onready var label_ship_total = $PanelContainer/HBoxContainer/ShipAvaliable/Label
 onready var hit_point_label = $PanelContainer/HBoxContainer/HitPoint
 onready var damage_label = $PanelContainer/HBoxContainer/Damage
 onready var accuracy_label = $PanelContainer/HBoxContainer/Accuracy
+onready var max_assign_button = $PanelContainer/HBoxContainer/MaxAssign
 
 
 func _ready():
@@ -26,6 +27,7 @@ func _ready():
 	spinbox.value = quantity_fleet
 	line_edit_spin_box.connect("text_changed", self, "_on_line_edit_text_changed")
 	line_edit_spin_box.connect("text_entered", self, "_on_text_entered")
+	max_assign_button.connect("pressed", self, "_on_max_assign_pressed")
 
 
 func _on_line_edit_text_changed(text = null):
@@ -50,20 +52,28 @@ func update_elements():
 func update_quantities():
 	label_ship_fleet.text = tr("hud.details.fleet.number_of_ship_fleet %d %d") % [quantity_fleet, quantity_hangar + quantity_fleet]
 	label_ship_total.text = tr("hud.details.fleet.number_of_ship_total %d") % (quantity_hangar)
-	var previous_spinbox_value = spinbox.value 
+	var previous_spinbox_value = spinbox.value
 	spinbox.max_value = quantity_hangar + quantity_fleet
 	spinbox.value = min(previous_spinbox_value, spinbox.max_value)
+	if max_assign_button != null:
+		max_assign_button.text = tr("hud.details.fleet.max_assign %d") % (quantity_hangar + quantity_fleet)
 
 
 func _on_text_entered(text = null):
 	_on_set_button()
 
 
+func _on_max_assign_pressed():
+	_request_assignation(quantity_hangar + quantity_fleet)
+
+
 func _on_set_button():
+	_request_assignation(spinbox.value)
+
+
+func _request_assignation(quantity):
 	if not _lock_assign_ship.try_lock():
 		return
-	_quantity_assigned = spinbox.value
-	_fleet_ship_assigned = Store._state.selected_fleet
 	Network.req(self, "_on_ship_assigned",
 			"/api/games/" + Store._state.game.id +
 			"/systems/" + Store._state.selected_system.id +
@@ -71,20 +81,20 @@ func _on_set_button():
 			"/ship-groups/",
 			HTTPClient.METHOD_POST,
 			[ "Content-Type: application/json" ],
-			JSON.print({"category" : ship_category.category, "quantity" : spinbox.value})
+			JSON.print({"category" : ship_category.category, "quantity" : quantity}),
+			[quantity, Store._state.selected_fleet]
 	)
 
 
-func _on_ship_assigned(err, response_code, headers, body):
+func _on_ship_assigned(err, response_code, headers, body, quantity, fleet):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
-		quantity_hangar -= (_quantity_assigned - quantity_fleet)
-		quantity_fleet = _quantity_assigned
+		quantity_hangar -= (quantity - quantity_fleet)
+		quantity_fleet = quantity
 		update_quantities()
-		Store.update_fleet_nb_ships(_fleet_ship_assigned, ship_category.category, _quantity_assigned)
-	_quantity_assigned = 0
-	_fleet_ship_assigned = null
+		Store.update_fleet_nb_ships(fleet, ship_category.category, quantity)
+		emit_signal("ship_assigned", quantity_fleet, quantity_hangar)
 	_lock_assign_ship.unlock()
 
 
@@ -95,10 +105,18 @@ func set_ship_category(new_category):
 
 func set_quantity_fleet(quantity):
 	quantity_fleet = max(quantity, 0)
-	spinbox.value = quantity_fleet
 	update_quantities()
+	spinbox.value = quantity_fleet
 
 
 func set_quantity_hangar(quantity):
 	quantity_hangar = max(quantity, 0)
 	update_quantities()
+
+
+func private_set(variant):
+	pass
+
+
+func private_get():
+	return null

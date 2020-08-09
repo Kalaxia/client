@@ -11,6 +11,8 @@ signal fleet_erased(fleet)
 signal system_update(system)
 signal fleet_update_nb_ships(fleet)
 signal fleet_unselected()
+signal hangar_updated(system, ship_groups)
+signal building_updated(system)
 
 const _STATE_EMPTY = {
 	"factions": {},
@@ -22,6 +24,7 @@ const _STATE_EMPTY = {
 	"scores": {},
 	"victorious_faction": null,
 	"ship_models" : [],
+	"building_list" : [],
 }
 
 var _state = _STATE_EMPTY.duplicate(true)
@@ -60,6 +63,11 @@ func set_factions(factions):
 
 func set_ships_model(models):
 	_state.ship_models = models
+
+
+func set_building_list(building_list):
+	_state.building_list = building_list
+
 
 func get_faction(id):
 	return _state.factions[id]
@@ -168,6 +176,7 @@ func unload_data():
 	var player = _state.player
 	var factions = _state.factions
 	var ship_models = _state.ship_models
+	var building_list = _state.building_list
 	if player != null:
 		player.game = null
 		player.lobby = null
@@ -175,6 +184,7 @@ func unload_data():
 	_state.player = player
 	_state.factions = factions
 	_state.ship_models = ship_models
+	_state.building_list = building_list
 
 
 func is_in_range(fleet,system):
@@ -184,7 +194,7 @@ func is_in_range(fleet,system):
 		return false
 	var coord_system_fleet = Store._state.game.systems[fleet.system].coordinates
 	var vector_diff = Vector2(coord_system_fleet.x, coord_system_fleet.y) - Vector2(system.coordinates.x, system.coordinates.y)
-	return vector_diff.length() < Utils.FLEET_RANGE and vector_diff != Vector2.ZERO
+	return vector_diff.length() < Utils.fleet_range and vector_diff != Vector2.ZERO
 
 
 func _get_faction_color(faction, is_victory_system = false, is_current_player = false) :
@@ -204,3 +214,116 @@ func get_player_color(player,is_victory_system = false) :
 
 func update_scores(scores):
 	_state.scores = scores
+
+
+func update_system_buildings(system_id, buildings):
+	_state.game.systems[system_id].buildings = buildings
+	emit_signal("building_updated", _state.game.systems[system_id])
+
+
+func update_system_hangar(system_id, ship_groups):
+	_state.game.systems[system_id].hangar = ship_groups
+	emit_signal("hangar_updated", _state.game.systems[system_id], ship_groups)
+
+
+func update_hangar(system, ship_groups):
+	update_system_hangar(system.id, ship_groups)
+
+
+func update_buildings(system, buildings):
+	update_system_buildings(system.id, buildings)
+
+
+func add_building_to_system(system, building):
+	add_building_to_system_by_id(system.id, building)
+
+
+func add_ship_group_to_hangar(ship_group):
+	var hangar_ship_groups = []
+	if _state.game.systems[ship_group.system].has("hangar") and _state.game.systems[ship_group.system].hangar == null:
+		hangar_ship_groups.push_back(ship_group)
+	else:
+		var has_added_ships = false
+		hangar_ship_groups = _state.game.systems[ship_group.system].hangar if _state.game.systems[ship_group.system].has("hangar") else []
+		for i in hangar_ship_groups:
+			if i.category ==  ship_group.category:
+				i.quantity += ship_group.quantity
+				has_added_ships = true
+				break
+		if not has_added_ships:
+			hangar_ship_groups.push_back(ship_group)
+	update_system_hangar(ship_group.system, hangar_ship_groups)
+
+
+func add_building_to_system_by_id(system_id, building):
+	var total_buildings = _state.game.systems[system_id].buildings if _state.game.systems[system_id].has("buildings") else []
+	if total_buildings == null:
+		total_buildings = [building]
+	else:
+		var has_building = false
+		for i in range(total_buildings.size()):
+			if total_buildings[i].id == building.id:
+				total_buildings[i] = building
+				has_building = true
+				break
+		if not has_building:
+			total_buildings.push_back(building)
+	update_buildings(_state.game.systems[system_id], total_buildings)
+
+
+func request_hangar_and_building(system):
+	request_hangar(system)
+	request_buildings(system)
+
+
+func request_hangar(system):
+	Network.req(self, "_on_ship_group_received",
+		"/api/games/" +
+			_state.game.id + "/systems/" +
+			system.id + "/ship-groups/",
+		HTTPClient.METHOD_GET,
+		[],
+		"",
+		[system.id]
+	)
+
+
+func request_buildings(system):
+	Network.req(self, "_on_receive_building",
+		"/api/games/" +
+			Store._state.game.id + "/systems/" +
+			system.id + "/buildings/",
+		HTTPClient.METHOD_GET,
+		[],
+		"",
+		[system.id]
+	)
+
+
+func _on_ship_group_received(err, response_code, headers, body, system_id):
+	if err:
+		ErrorHandler.network_response_error(err)
+	if response_code == HTTPClient.RESPONSE_OK :
+		var result = JSON.parse(body.get_string_from_utf8()).result
+		update_system_hangar(system_id, result)
+
+
+func _on_receive_building(err, response_code, headers, body, system_id):
+	if err:
+		ErrorHandler.network_response_error(err)
+	if response_code == HTTPClient.RESPONSE_OK :
+		var result = JSON.parse(body.get_string_from_utf8()).result
+		update_system_buildings(system_id, result)
+
+
+func update_player_me():
+	Network.req(self, "_on_me_loaded", "/api/players/me/")
+
+
+func _on_me_loaded(err, response_code, headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+	if response_code == HTTPClient.RESPONSE_OK :
+		var result = JSON.parse(body.get_string_from_utf8()).result
+		_state.player = result
+		emit_signal("wallet_updated", _state.player.wallet)

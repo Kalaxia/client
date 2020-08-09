@@ -58,6 +58,14 @@ const TEXTURE_SHIP_CATEGORIES = {
 	"cruiser" : preload("res://resources/assets/2d/picto/ships/cruiser.svg"),
 }
 
+
+const TEXTURE_BUILDING = {
+	"" : preload("res://resources/assets/2d/picto/building/area.png"),
+	"shipyard" : preload("res://resources/assets/2d/picto/building/shipyard_64px.png"),
+	"mine" : preload("res://resources/assets/2d/picto/building/mine.svg"),
+	"portal" : preload("res://resources/assets/2d/picto/building/portal.svg")
+}
+
 ############## varaibles ##############
 
 var fleet_range
@@ -68,6 +76,10 @@ var victory_point_per_minute
 
 class Lock:
 	extends Reference
+	
+	signal locked()
+	signal unlocked()
+	signal changed_state(lock_state)
 	
 	enum LOCK_STATE {
 		BUSY = 0,
@@ -94,11 +106,18 @@ class Lock:
 		if _is_locked:
 			return LOCK_STATE.BUSY
 		_is_locked = true
+		emit_signal("locked")
+		emit_signal("changed_state", true)
 		return LOCK_STATE.OK
 	
 	
 	func unlock():
+		var previous_state = _is_locked
 		_is_locked = false
+		if previous_state:
+			emit_signal("unlocked")
+			emit_signal("changed_state", false)
+		return previous_state
 	
 	
 	func can_lock():

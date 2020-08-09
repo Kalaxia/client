@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://audio/audio_stacking.gd"
 }, {
+"base": "SelectablePanelContainer",
+"class": "BuildingPanel",
+"language": "GDScript",
+"path": "res://hud/system/buildings/building_panel.gd"
+}, {
 "base": "CustomShapeButton",
 "class": "CircularButton",
 "language": "GDScript",
@@ -23,6 +28,11 @@ _global_script_classes=[ {
 "class": "CircularContainer",
 "language": "GDScript",
 "path": "res://gui/container_circular.gd"
+}, {
+"base": "MarginContainer",
+"class": "ConstructionBuildingItem",
+"language": "GDScript",
+"path": "res://hud/system/buildings/contruction/construction_building_item.gd"
 }, {
 "base": "Sprite",
 "class": "CrownSprite",
@@ -62,7 +72,7 @@ _global_script_classes=[ {
 "base": "PanelContainer",
 "class": "SelectablePanelContainer",
 "language": "GDScript",
-"path": "res://gui/slectable_panel_container.gd"
+"path": "res://gui/selectable_panel_container.gd"
 }, {
 "base": "CustomShapeButton",
 "class": "TransparentCircleButton",
@@ -71,8 +81,10 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
+"BuildingPanel": "",
 "CircularButton": "res://resources/editor/custom_circular_button.svg",
 "CircularContainer": "res://resources/editor/circular_container.svg",
+"ConstructionBuildingItem": "",
 "CrownSprite": "res://resources/assets/2d/map/kalankar/picto_flotte_couronne-01.png",
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
 "FleetItem": "res://resources/editor/fleet_item.svg",
@@ -178,6 +190,12 @@ ui_hud_scores={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777218,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_render/layer_1="Default"
+2d_render/layer_2="System"
+2d_render/layer_3="MapBackground"
 
 [locale]
 

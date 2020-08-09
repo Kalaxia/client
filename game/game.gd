@@ -22,7 +22,7 @@ var _motion_camera = {
 	Vector2.LEFT : false,
 	Vector2.RIGHT : false,
 	Vector2.UP : false,
-	Vector2.DOWN : false
+	Vector2.DOWN : false,
 }
 
 onready var camera2D = $Camera2D
@@ -34,9 +34,12 @@ onready var background = $ParallaxBackground/Background
 
 
 func _ready():
+	Store.update_player_me()
 	Store.connect("system_selected", self, "_on_system_selected")
 	Store.connect("fleet_created", self, "_on_fleet_created")
 	Store.connect("fleet_sailed", self, "_on_fleet_sailed")
+	Store.connect("hangar_updated", self, "_on_hangar_updated")
+	Store.connect("building_updated", self, "_on_building_updated")
 	Network.connect("CombatEnded", self, "_on_combat_ended")
 	Network.connect("PlayerIncome", self, "_on_player_income")
 	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
@@ -45,6 +48,8 @@ func _ready():
 	Network.connect("SystemConquerred", self, "_on_system_conquerred")
 	Network.connect("Victory", self, "_on_victory")
 	Network.connect("FactionPointsUpdated", self, "_on_faction_points_update")
+	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
+	Network.connect("BuildingConstructed", self, "_on_building_constructed")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	limits = draw_systems()
 	camera2D.limit_left = (limits[0] - LIMITS_MARGIN - OS.get_window_size().x / 2.0) as int
@@ -98,7 +103,7 @@ func _input(event):
 			_is_map_being_dragged = false
 	elif event is InputEventMouseMotion:
 		if _is_map_being_dragged:
-			_move_camera(-event.get_relative() * $Camera2D.zoom)
+			_move_camera( - event.get_relative() * $Camera2D.zoom)
 			_camera_speed = event.speed
 
 
@@ -148,8 +153,29 @@ func center_on_selected_system():
 func update_fleet_system(fleet):
 	Store.update_fleet_system(fleet)
 	map.get_node(fleet.system).refresh_fleet_pins()
-	if fleet_container.has(fleet.id):
+	if fleet_container.has_node(fleet.id):
 		fleet_container.get_node(fleet.id).queue_free()
+
+
+func _on_ship_queue_finished(ship_data):
+	Store.add_ship_group_to_hangar(ship_data)
+
+
+func _on_hangar_updated(system, ship_group_hangar):
+	if map.has_node(system.id):
+		var node = map.get_node(system.id)
+		node.update_ship_pin()
+
+
+func _on_building_constructed(building):
+	Store.add_building_to_system_by_id(building.system, building)
+
+
+func _on_building_updated(system):
+	if map.has_node(system.id):
+		var node = map.get_node(system.id)
+		node.refresh_building_pins()
+
 
 
 func _setup_particle():
@@ -243,6 +269,11 @@ func _on_system_conquerred(data):
 	update_fleet_system(data.fleet)
 	Store.update_system(data.system)
 	map.get_node(data.system.id).refresh()
+	if Store._state.game.players[data.system.player].faction == Store._state.player.faction:
+		Store.request_hangar_and_building(data.system)
+	else:
+		Store.update_buildings(data.system, [])
+		Store.update_hangar(data.system, [])
 
 
 func _on_victory(data):

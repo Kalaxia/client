@@ -124,8 +124,8 @@ func _set_is_in_game(is_in_game_new):
 
 
 func _unhandled_input(event):
-	if event.is_action_pressed("ui_hud_scores"):
-		if _is_in_game :
+	if _is_in_game :
+		if event.is_action_pressed("ui_hud_scores"):
 			$ParallaxBackground/HUD/ScoresContainer.visible = true
-	elif event.is_action_released("ui_hud_scores"):
-		$ParallaxBackground/HUD/ScoresContainer.visible = false
+		elif event.is_action_released("ui_hud_scores"):
+			$ParallaxBackground/HUD/ScoresContainer.visible = false

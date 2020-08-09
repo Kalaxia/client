@@ -6,7 +6,7 @@
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
-load_path = "res://.import/Shipyard_64px.png-543b197559b122ff581ec9e53c4141c8.stex"
+load_path = "res://.import/shipyard_64px.png-9659b91d7bdcf9c341e17aaa0f9fc354.stex"
 
 [node name="Hangar" type="VBoxContainer"]
 anchor_right = 1.0
@@ -18,15 +18,17 @@ __meta__ = {
 }
 
 [node name="MenuHeader" parent="." instance=ExtResource( 2 )]
+margin_right = 2474.0
 margin_bottom = 31.0
 text = "hud.details.building.hangar.menu_title"
+closable = true
 minimisable = false
 texture = SubResource( 1 )
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 show_behind_parent = true
 margin_top = 29.0
-margin_right = 1920.0
+margin_right = 2474.0
 margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -34,53 +36,53 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 1913.0
+margin_right = 2467.0
 margin_bottom = 1044.0
 
 [node name="ShipProductionList" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
-margin_right = 1906.0
+margin_right = 2460.0
 margin_bottom = 914.0
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ShipProductionList"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 1899.0
+margin_right = 2453.0
 margin_bottom = 907.0
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/ShipProductionList/VBoxContainer"]
-margin_right = 1892.0
+margin_right = 2446.0
 margin_bottom = 14.0
 text = "hud.details.building.hangar.production_line"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/ShipProductionList/VBoxContainer"]
 margin_top = 18.0
-margin_right = 1892.0
+margin_right = 2446.0
 margin_bottom = 900.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ShipProductionList/VBoxContainer/ScrollContainer"]
-margin_right = 1892.0
+margin_right = 2446.0
 margin_bottom = 882.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ShipOrder" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
 margin_top = 918.0
-margin_right = 1906.0
+margin_right = 2460.0
 margin_bottom = 992.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ShipOrder"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 1899.0
+margin_right = 2453.0
 margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/ShipOrder/VBoxContainer"]
-margin_right = 1892.0
+margin_right = 2446.0
 margin_bottom = 14.0
 text = "hud.details.building.hangar.order_ship"
 
@@ -88,40 +90,40 @@ text = "hud.details.building.hangar.order_ship"
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 18.0
-margin_right = 1892.0
+margin_right = 2446.0
 margin_bottom = 60.0
 
 [node name="ShipHangar" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
 margin_top = 996.0
-margin_right = 1906.0
+margin_right = 2460.0
 margin_bottom = 1037.0
 size_flags_stretch_ratio = 0.5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ShipHangar"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 1899.0
+margin_right = 2453.0
 margin_bottom = 34.0
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/ShipHangar/VBoxContainer"]
-margin_right = 1892.0
+margin_right = 2446.0
 margin_bottom = 14.0
 text = "hud.details.building.hangar.hangar_ship"
 
 [node name="Control" type="Control" parent="PanelContainer/VBoxContainer/ShipHangar/VBoxContainer"]
 margin_top = 18.0
-margin_right = 1892.0
+margin_right = 2446.0
 margin_bottom = 23.0
 rect_min_size = Vector2( 0, 5 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/ShipHangar/VBoxContainer"]
 margin_top = 27.0
-margin_right = 1892.0
+margin_right = 2446.0
 margin_bottom = 27.0
 size_flags_vertical = 3
 scroll_vertical_enabled = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ShipHangar/VBoxContainer/ScrollContainer"]
-margin_right = 1892.0
+margin_right = 2446.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

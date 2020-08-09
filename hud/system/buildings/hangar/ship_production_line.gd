@@ -3,7 +3,7 @@ extends Control
 var ship_queue setget set_ship_queue
 
 onready var cancel_button = $PanelContainer/hBoxContainer/Button
-onready var texture_rect_category = $PanelContainer/hBoxContainer/Button/TextureRect
+onready var texture_rect_category = $PanelContainer/hBoxContainer/TextureCategory
 onready var ship_number_label = $PanelContainer/hBoxContainer/ShipNumber
 onready var ship_category_label = $PanelContainer/hBoxContainer/ShipModel
 onready var time_remaining_label = $PanelContainer/hBoxContainer/TimeRemaining
@@ -37,7 +37,7 @@ func update_time():
 	if time_remaining_label != null and progress_bar_time != null:
 		var time_remaining = ship_queue.finished_at - OS.get_system_time_msecs()
 		time_remaining_label.text = tr("hud.details.building.hangar.time_remaining %d") % floor(max(time_remaining, 0) / 1000.0 )
-		var total_time =  (ship_queue.finished_at - ship_queue.created_at ) as float
+		var total_time =  (ship_queue.finished_at - ship_queue.started_at ) as float
 		progress_bar_time.value = (1.0 - time_remaining as float/ total_time) if total_time != 0 else 1
 
 
@@ -47,7 +47,7 @@ func set_ship_queue(ship_queue_new):
 
 
 func _on_button_cancel():
-#	todo requ
+	# todo requ
 	pass
 
 

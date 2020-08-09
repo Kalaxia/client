@@ -71,7 +71,7 @@ margin_bottom = 1064.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 1
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/hBoxContainer"]
+[node name="TextureCategory" type="TextureRect" parent="PanelContainer/hBoxContainer"]
 margin_left = 305.0
 margin_top = 516.0
 margin_right = 337.0

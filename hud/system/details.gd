@@ -7,6 +7,7 @@ onready var menu_system = $MenuSystem
 onready var button_building = $System/CircularContainer/Bluilding
 onready var button_fleet = $System/CircularContainer/Fleet
 
+
 func _ready():
 	Store.connect("system_selected", self, "_on_system_selected")
 	Store.connect("system_update", self, "_on_system_update")
