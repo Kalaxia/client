@@ -29,6 +29,10 @@ func _on_victory(data):
 func _on_game_started(game):
 	texture_rect.texture = Utils.BANNERS[Store._state.player.faction as int]
 	set_visible(true)
+	var button_array = button_container_left.get_children() + button_container_right.get_children()
+	for node_list in button_array:
+		if node_list is SelectablePanelContainer:
+			node_list.update_style()
 
 
 func _on_button_pressed(node):

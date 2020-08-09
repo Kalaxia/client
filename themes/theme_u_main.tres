@@ -1,11 +1,19 @@
-[gd_resource type="Theme" load_steps=24 format=2]
+[gd_resource type="Theme" load_steps=32 format=2]
 
 [ext_resource path="res://themes/font/font_muli_text_normal.tres" type="DynamicFont" id=1]
 [ext_resource path="res://themes/panel_container/styleboxflat_panel_focus.tres" type="StyleBox" id=2]
 [ext_resource path="res://themes/panel_container/styleboxflat_panel_base.tres" type="StyleBox" id=3]
 [ext_resource path="res://themes/panel_container/styleboxflat_panel_selected.tres" type="StyleBox" id=4]
 [ext_resource path="res://themes/panel_container/styleboxflat_panel_hover.tres" type="StyleBox" id=5]
+[ext_resource path="res://themes/round_selectable_panel/base_sytle_right.tres" type="StyleBox" id=6]
+[ext_resource path="res://themes/round_selectable_panel/focus_sytle_right.tres" type="StyleBox" id=7]
 [ext_resource path="res://themes/menu_header/styleboxflat_panel.tres" type="StyleBox" id=8]
+[ext_resource path="res://themes/round_selectable_panel/hover_sytle_right.tres" type="StyleBox" id=9]
+[ext_resource path="res://themes/round_selectable_panel/selected_sytle_right.tres" type="StyleBox" id=10]
+[ext_resource path="res://themes/round_selectable_panel/focus_sytle_left.tres" type="StyleBox" id=11]
+[ext_resource path="res://themes/round_selectable_panel/base_sytle_left.tres" type="StyleBox" id=12]
+[ext_resource path="res://themes/round_selectable_panel/hover_sytle_left.tres" type="StyleBox" id=13]
+[ext_resource path="res://themes/round_selectable_panel/selected_sytle_left.tres" type="StyleBox" id=14]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.207843, 0.215686, 0.227451, 1 )
@@ -329,6 +337,14 @@ PopupMenu/styles/labeled_separator_right = null
 PopupMenu/styles/panel = SubResource( 10 )
 PopupMenu/styles/panel_disabled = null
 PopupMenu/styles/separator = null
+RoundedSelectablePanelLeft/styles/base_style = ExtResource( 12 )
+RoundedSelectablePanelLeft/styles/focus_style = ExtResource( 11 )
+RoundedSelectablePanelLeft/styles/hover_style = ExtResource( 13 )
+RoundedSelectablePanelLeft/styles/selected_style = ExtResource( 14 )
+RoundedSelectablePanelRight/styles/base_style = ExtResource( 6 )
+RoundedSelectablePanelRight/styles/focus_style = ExtResource( 7 )
+RoundedSelectablePanelRight/styles/hover_style = ExtResource( 9 )
+RoundedSelectablePanelRight/styles/selected_style = ExtResource( 10 )
 SelectablePanelContainer/styles/base_style = ExtResource( 3 )
 SelectablePanelContainer/styles/focus_style = ExtResource( 2 )
 SelectablePanelContainer/styles/hover_style = ExtResource( 5 )

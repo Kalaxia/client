@@ -30,6 +30,9 @@ func _draw():
 			focus_style.draw(get_canvas_item(), get_rect())
 
 
+func update():
+	.update()
+
 func _on_mouse_entered():
 	_hover = true
 	update_style()
