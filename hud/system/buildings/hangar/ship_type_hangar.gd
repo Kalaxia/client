@@ -6,16 +6,21 @@ var category setget set_category
 var quantity = 0 setget set_quantity
 var is_selected = false setget set_is_selected
 
+onready var selectable_panel_container = $SelectablePanelContainer
+onready var texture_ship = $SelectablePanelContainer/VBoxContainer/TextureRect
+onready var label = $SelectablePanelContainer/VBoxContainer/MarginContainer/Label
+
 
 func _ready():
-	$SelectablePanelContainer.connect("pressed", self, "_on_pressed")
+	selectable_panel_container.connect("pressed", self, "_on_pressed")
 	update_quantity()
 	update_texture()
+	selectable_panel_container.is_selected = is_selected
 
 
 func update_texture():
-	if category != null:
-		$SelectablePanelContainer/VBoxContainer/TextureRect.texture = Utils.TEXTURE_SHIP_CATEGORIES[category.category]
+	if category != null and texture_ship != null:
+		texture_ship.texture = Utils.TEXTURE_SHIP_CATEGORIES[category.category]
 
 
 func _on_pressed():
@@ -24,11 +29,13 @@ func _on_pressed():
 
 func set_is_selected(selected):
 	is_selected = selected
-	$SelectablePanelContainer.is_selected = is_selected
+	if selectable_panel_container != null:
+		selectable_panel_container.is_selected = is_selected
 
 
 func update_quantity():
-	$SelectablePanelContainer/VBoxContainer/MarginContainer/Label.text = tr("hud.details.building.hangar.number_of_ship %d") % quantity
+	if label != null:
+		label.text = tr("hud.details.building.hangar.number_of_ship %d") % quantity
 
 
 func set_category(new_category):

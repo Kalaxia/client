@@ -21,6 +21,7 @@ __meta__ = {
 margin_right = 2474.0
 margin_bottom = 31.0
 text = "hud.details.building.hangar.menu_title"
+closable = true
 minimisable = false
 texture = SubResource( 1 )
 

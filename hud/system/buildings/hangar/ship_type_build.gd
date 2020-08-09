@@ -14,6 +14,8 @@ onready var damage_label = $PanelContainer/HBoxContainer/Damage
 onready var accuracy_label = $PanelContainer/HBoxContainer/Accuracy
 onready var price_label = $PanelContainer/HBoxContainer/Price
 onready var request_max_button = $PanelContainer/HBoxContainer/RequestMax
+onready var label_model = $PanelContainer/HBoxContainer/Label
+onready var texture_model = $PanelContainer/HBoxContainer/TextureRect
 
 
 func _ready():
@@ -53,6 +55,7 @@ func _update_max_values():
 		return
 	spinbox.max_value = get_max_buildable_ships()
 	request_max_button.text = tr("hud.system.building.hangar.build_max %d") % get_max_buildable_ships()
+	_check_button_eabled_status()
 
 
 func get_max_buildable_ships():
@@ -62,13 +65,17 @@ func get_max_buildable_ships():
 func _on_lock_changed_state(state):
 	if button_order == null or request_max_button == null:
 		return
-	button_order.disabled = state
-	request_max_button.disabled = state
+	_check_button_eabled_status()
+
+
+func _check_button_eabled_status():
+	button_order.disabled = _lock_build_ships.get_is_locked() or Store._state.player.wallet < spinbox.value * ship_category.cost
+	request_max_button.disabled = _lock_build_ships.get_is_locked() or get_max_buildable_ships() as int <= 0
 
 
 func update_order_button_state():
 	if button_order != null:
-		button_order.disabled = Store._state.player.wallet < spinbox.value * ship_category.cost
+		_check_button_eabled_status()
 
 
 func update_price_and_time():
@@ -80,15 +87,18 @@ func update_price_and_time():
 
 
 func update_elements():
-	if ship_category != null:
-		$PanelContainer/HBoxContainer/TextureRect.texture = Utils.TEXTURE_SHIP_CATEGORIES[ship_category.category]
-		$PanelContainer/HBoxContainer/Label.text = tr("hud.details.building.hangar.ship_model %s") % tr("ship." + ship_category.category)
-		if hit_point_label != null:
-			hit_point_label.text = tr("hud.details.building.hangar.hit_point %d") % ship_category.hit_points
-		if damage_label != null:
-			damage_label.text = tr("hud.details.building.hangar.damage %d") % ship_category.damage
-		if accuracy_label != null:
-			accuracy_label.text = tr("hud.details.building.hangar.accuracy %d") % ship_category.precision
+	if ship_category == null:
+		return
+	if texture_model != null:
+		texture_model.texture = Utils.TEXTURE_SHIP_CATEGORIES[ship_category.category]
+	if label_model != null:
+		label_model.text = tr("hud.details.building.hangar.ship_model %s") % tr("ship." + ship_category.category)
+	if hit_point_label != null:
+		hit_point_label.text = tr("hud.details.building.hangar.hit_point %d") % ship_category.hit_points
+	if damage_label != null:
+		damage_label.text = tr("hud.details.building.hangar.damage %d") % ship_category.damage
+	if accuracy_label != null:
+		accuracy_label.text = tr("hud.details.building.hangar.accuracy %d") % ship_category.precision
 
 
 func set_ship_category(new_category):

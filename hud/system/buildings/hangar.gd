@@ -18,6 +18,7 @@ onready var menu_header = $MenuHeader
 
 
 func _ready():
+	Store.connect("hangar_updated", self, "_on_hangar_updated")
 	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
 	menu_header.connect("close_request", self, "_on_close_menu_pressed")
 	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
@@ -33,13 +34,8 @@ func _ready():
 	if ship_gp_hangar != null:
 		set_ship_group_array(ship_gp_hangar)
 	else:
-		Network.req(self, "_on_ship_group_recieved"
-			, "/api/games/" +
-				Store._state.game.id+  "/systems/" +
-				Store._state.selected_system.id + "/ship-groups/"
-			, HTTPClient.METHOD_GET
-			, Store._state.selected_system.id
-		)
+		set_ship_group_array([])
+		Store.request_hangar(Store._state.selected_system)
 	Network.req(self, "_on_queue_ships_received"
 		, "/api/games/" +
 			Store._state.game.id+  "/systems/" +
@@ -51,16 +47,11 @@ func _ready():
 func _on_close_menu_pressed():
 	queue_free()
 	emit_signal("closed")
-	
 
 
-func _on_ship_group_recieved(err, response_code, headers, body, system_id):
-	if err:
-		ErrorHandler.network_response_error(err)
-	if response_code == HTTPClient.RESPONSE_OK:
-		var result = JSON.parse(body.get_string_from_utf8()).result
-		set_ship_group_array(result)
-		Store.update_system_hangar(system_id, result)
+func _on_hangar_updated(system, ship_groups):
+	if system.id == Store._state.selected_system.id:
+		set_ship_group_array(ship_groups)
 
 
 func set_ship_group_array(new_array):

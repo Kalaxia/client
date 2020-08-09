@@ -9,7 +9,7 @@ onready var progress_bar = $VBoxContainer/ProgressBar
 
 
 func _ready():
-	._ready()
+	# apparently there is no need to call ._ready()
 	_update_elements()
 
 

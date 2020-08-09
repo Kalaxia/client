@@ -19,6 +19,7 @@ onready var damage_label = $PanelContainer/HBoxContainer/Damage
 onready var accuracy_label = $PanelContainer/HBoxContainer/Accuracy
 onready var max_assign_button = $PanelContainer/HBoxContainer/MaxAssign
 
+
 func _ready():
 	button_set.connect("pressed", self, "_on_set_button")
 	update_elements()

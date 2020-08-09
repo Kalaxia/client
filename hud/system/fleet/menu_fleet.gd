@@ -57,15 +57,7 @@ func update_hangar():
 		set_ship_group_hangar(Store._state.selected_system.hangar)
 	else:
 		set_ship_group_hangar([])
-		Network.req(self, "_on_ship_group_received"
-			, "/api/games/" +
-				Store._state.game.id+  "/systems/" +
-				fleet.system + "/ship-groups/"
-			, HTTPClient.METHOD_GET
-			, []
-			, ""
-			, [fleet.system]
-		)
+		Store.request_hangar(Store._state.game.systems[fleet.system])
 
 
 func update_element_fleet():
@@ -78,14 +70,6 @@ func update_element_fleet():
 	for node in ship_group_element_container.get_children():
 		if not node_updated.has(node.name):
 			node.quantity_fleet = 0
-
-
-func _on_ship_group_received(err, response_code, headers, body, system_id):
-	if err:
-		ErrorHandler.network_response_error(err)
-	if response_code == HTTPClient.RESPONSE_OK :
-		var result = JSON.parse(body.get_string_from_utf8()).result
-		Store.update_system_hangar(system_id, result)
 
 
 func set_fleet(new_fleet):
