@@ -7,9 +7,10 @@ onready var texture = $TextureRect
 
 
 func _ready():
-	progress_bar.max_value = Utils.victory_point_max
 	progress_bar.connect("value_changed",self,"_on_progress_bar_changed")
 	Network.connect("FactionPointsUpdated", self, "_on_score_updated")
+	progress_bar.max_value = Utils.victory_point_max
+	_on_progress_bar_changed(0)
 	_update_faction()
 	_update_scores(Store._state.scores)
 
