@@ -24,6 +24,7 @@ signal Victory(data)
 signal FactionPointsUpdated(scores)
 signal ShipQueueFinished(ship_group)
 signal BuildingConstructed(building)
+signal LobbyOptionsUpdated(lobby)
 
 const MAX_CO_RETRIES = 5
 const TIME_BEFORE_CLOSE = 2.0

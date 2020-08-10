@@ -4,11 +4,12 @@ signal scene_requested(scene)
 
 const PLAYER_INFO_SCENE = preload("res://matchmaking/player/player_info.tscn")
 
-onready var leave_button = $GUI/Body/Footer/LeaveButton
-onready var player_info = $GUI/Body/Section/Players
-onready var launch_button = $GUI/Body/Footer/LaunchButton
-onready var section_col = $GUI/Body/SectionColumn
-onready var header_name = $GUI/Body/Header/Name
+onready var leave_button = $GUI/Body/BodyFaction/Footer/LeaveButton
+onready var player_info = $GUI/Body/BodyFaction/Section/Players
+onready var launch_button = $GUI/Body/BodyFaction/Footer/LaunchButton
+onready var section_col = $GUI/Body/BodyFaction/SectionColumn
+onready var header_name = $GUI/Body/BodyFaction/Header/Name
+onready var game_setings_container = $GUI/Body/GameSetings
 
 
 func _ready():
@@ -40,6 +41,8 @@ func load_lobby(err, response_code, headers, body):
 	if lobby.owner.id == Store._state.player.id:
 		launch_button.visible = true
 		launch_button.connect("pressed", self, "launch_game")
+	game_setings_container.enabled = lobby.owner.id == Store._state.player.id
+	game_setings_container.update_game_setings_button(lobby)
 
 
 func add_players_info(players):
@@ -128,6 +131,7 @@ func _on_lobby_owner_update(pid):
 		launch_button.visible = true
 		launch_button.connect("pressed", self, "launch_game")
 		check_ready_state()
+	game_setings_container.enabled = (pid == Store._state.player.id)
 
 
 func _on_launch_response(err, response_code, headers, body):
