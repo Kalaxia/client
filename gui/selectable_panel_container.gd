@@ -24,10 +24,7 @@ func _ready():
 
 func _draw():
 	if has_focus():
-		var theme_style = get_stylebox("focus_style", "SelectablePanelContainer")
-		var style = focus_style if focus_style!= null else theme_style
-		if style != null:
-			focus_style.draw(get_canvas_item(), get_rect())
+		_draw_focus()
 
 
 func update():
@@ -54,6 +51,12 @@ func _pressed():
 	update_style()
 	emit_signal("state_changed", is_selected)
 
+
+func _draw_focus():
+	var theme_style = get_stylebox("focus_style", "SelectablePanelContainer")
+	var style = focus_style if focus_style!= null else theme_style
+	if style != null:
+		focus_style.draw(get_canvas_item(), get_rect())
 
 
 func set_base_style(style):

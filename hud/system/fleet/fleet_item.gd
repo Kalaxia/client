@@ -34,7 +34,6 @@ func _on_pressed():
 
 
 func _on_fleet_selected(fleet_param):
-	print(fleet_param)
 	if fleet_param.id != fleet.id:
 		self.is_selected = false
 

@@ -59,7 +59,6 @@ func _draw():
 		style_active = hover_style if hover_style != null else theme_style
 	else:
 		var theme_style = get_stylebox("base_style", "CircularButton")
-		print(JSON.print(theme_style))
 		style_active = base_style if base_style != null else theme_style
 	if style_active == null or not style_active is StyleBoxFlat:
 		colors_bg = Color(0.5,0.5,0.5) if (_hover or selected) else  Color(0.7,0.7,0.7)
