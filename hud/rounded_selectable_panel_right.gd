@@ -3,12 +3,11 @@ extends SelectablePanelContainer
 class_name RoundedSelectablePanelRight
 
 
-func _draw():
-	if has_focus():
-		var theme_style = get_stylebox("focus_style", "RoundedSelectablePanelRight")
-		var style = focus_style if focus_style!= null else theme_style
-		if style != null:
-			focus_style.draw(get_canvas_item(), get_rect())
+func _draw_focus():
+	var theme_style = get_stylebox("focus_style", "RoundedSelectablePanelRight")
+	var style = focus_style if focus_style!= null else theme_style
+	if style != null:
+		focus_style.draw(get_canvas_item(), get_rect())
 
 
 func update_style():

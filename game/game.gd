@@ -269,8 +269,10 @@ func _on_system_conquerred(data):
 	update_fleet_system(data.fleet)
 	Store.update_system(data.system)
 	map.get_node(data.system.id).refresh()
+	if data.system.player == Store._state.player.id:
+		Store.request_hangar(data.system)
 	if Store._state.game.players[data.system.player].faction == Store._state.player.faction:
-		Store.request_hangar_and_building(data.system)
+		Store.request_buildings(data.system)
 	else:
 		Store.update_buildings(data.system, [])
 		Store.update_hangar(data.system, [])

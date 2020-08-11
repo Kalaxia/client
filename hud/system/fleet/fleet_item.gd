@@ -34,18 +34,16 @@ func _on_pressed():
 
 
 func _on_fleet_selected(fleet_param):
-	print(fleet_param)
-	if fleet_param.id != fleet.id:
-		self.is_selected = false
+	set_is_selected(fleet_param.id == fleet.id)
 
 
 func _on_fleet_sailed(fleet_param, arrival_time):
 	if fleet_param.id != fleet.id: 
-		self.is_selected = false
+		set_is_selected(false)
 
 
 func _on_fleet_unselected():
-	self.is_selected = false
+	set_is_selected(false)
 
 
 func _on_fleet_update_nb_ships(fleet_param):

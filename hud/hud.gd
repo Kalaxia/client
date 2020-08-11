@@ -6,11 +6,9 @@ func _ready():
 	Network.connect("GameStarted", self, "_on_game_started")
 
 
-func _on_victory():
+func _on_victory(data):
 	pass
 
 
 func _on_game_started(data):
-	print(Store._state.player.faction)
 	theme = Utils.THEME_FACTION[Store._state.player.faction as int]
-	update()

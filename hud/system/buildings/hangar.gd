@@ -75,7 +75,6 @@ func _on_ship_queue_finished(ship_data):
 
 
 func _on_ship_construction_started(ship_queue):
-	print(ship_queue)
 	if ship_queue != null:
 		add_ship_queue(ship_queue)
 
