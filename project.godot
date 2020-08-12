@@ -55,6 +55,16 @@ _global_script_classes=[ {
 "path": "res://game/map/sprites/fleet_sprite.gd"
 }, {
 "base": "PanelContainer",
+"class": "MenuBody",
+"language": "GDScript",
+"path": "res://gui/menu/menu_body.gd"
+}, {
+"base": "VBoxContainer",
+"class": "MenuContainer",
+"language": "GDScript",
+"path": "res://gui/menu/menu_container.gd"
+}, {
+"base": "PanelContainer",
 "class": "MenuHeader",
 "language": "GDScript",
 "path": "res://gui/menu/menu_header.gd"
@@ -99,6 +109,8 @@ _global_script_class_icons={
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
 "FleetItem": "res://resources/editor/fleet_item.svg",
 "FleetSprite": "res://resources/assets/2d/map/picto_flotte_2.png",
+"MenuBody": "res://resources/editor/menu_body.svg",
+"MenuContainer": "res://resources/editor/menu_container.svg",
 "MenuHeader": "res://resources/editor/menu_header.svg",
 "OptionKeyBinding": "",
 "PlayerInfoFactionColumn": "",
