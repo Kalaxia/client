@@ -2,8 +2,7 @@ extends Node
 
 signal locale_reloaded()
 
-const ENV = "development"
-const PATH_CONFIG_NETWORK = "res://config/" + ENV + ".cfg"
+const PATH_CONFIG_NETWORK = "res://config/network_config.tres"
 const PATH_CONFIG_USER = "res://config/config.cfg"
 
 # set of key bindings that can be modified in the menu 
@@ -38,17 +37,12 @@ var api = {
 	'scheme': null,
 	'ws_scheme': null
 }
-var config_network = ConfigFile.new()
+var config_network = preload(PATH_CONFIG_NETWORK)
 var config_user = ConfigFile.new()
 
 
 func _ready():
-	config_network = ConfigFile.new()
-	var err = config_network.load(PATH_CONFIG_NETWORK)
-	if err == OK:
-		api = _get_api_config(config_network)
-	else:
-		print( tr("error while parsing configuration file %s : %s ") % [ PATH_CONFIG_NETWORK, str(err)] )
+	api = _get_api_config(config_network)
 	var err_config_user = config_user.load(PATH_CONFIG_USER)
 	if err_config_user == OK:
 		_load_config_user(config_user)
@@ -109,13 +103,12 @@ func reload_locale():
 	if previous_locale != TranslationServer.get_locale():
 		emit_signal("locale_reloaded")
 
-
 static func _get_api_config(config):
 	var api = {}
-	api.dns = config.get_value('network', 'api_dns', '127.0.0.1')
-	api.port = config.get_value('network', 'api_port', 8080)
-	api.scheme = config.get_value('network', 'api_scheme', 'http')
-	api.ws_scheme = config.get_value('network', 'ws_scheme', 'ws')
+	api.dns = config.api_dns
+	api.port = config.api_port
+	api.scheme = config.api_scheme
+	api.ws_scheme = config.ws_scheme
 	return api
 
 

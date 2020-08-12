@@ -13,7 +13,6 @@ enum STATE_NETWORK_ELEMENT {
 const GREEN = Color(50.0 / 255.0, 191.0 / 255.0, 87.0 / 255.0)
 const RED = Color(191.0 / 255.0, 62.0 / 255.0, 50.0 / 255.0)
 const ORANGE = Color(214.0 / 255.0, 150.0 / 255.0, 0.0)
-const TIME_MAX = 1000.0 / 60.0
 
 var load_queue = {} setget set_load_queue
 var queue_finished = false
@@ -211,27 +210,23 @@ func _process(delta):
 			verify_is_finished()
 			set_process(false)
 			return
-	var t = OS.get_ticks_msec()
-	while OS.get_ticks_msec() < t + TIME_MAX: # use "TIME_MAX" to control for how long we block this thread
-		# poll your loader
-		var err = loader.poll()
-		if err == ERR_FILE_EOF: # Finished loading.
-			var resource = loader.get_resource()
-			load_queue[current_load_element].scene = resource
-			emit_signal("ressource_loaded", current_load_element, resource)
-			loader = null
-			current_load_element = null
-			update_progress()
-			break
-		elif err == OK:
-			pass
-		else: # error during loading
-			quit_button.visible = true
-			label_loading_error.text += (tr("global.loading.ressource.error %s %d") % [tr("global.loading.ressource." + current_load_element) ,err]) + "\n"
-			set_process(false)
-			loader = null
-			current_load_element = null
-			break
+	# poll your loader
+	var err = loader.poll()
+	if err == ERR_FILE_EOF: # Finished loading.
+		var resource = loader.get_resource()
+		load_queue[current_load_element].scene = resource
+		emit_signal("ressource_loaded", current_load_element, resource)
+		loader = null
+		current_load_element = null
+		update_progress()
+	elif err == OK:
+		pass
+	else: # error during loading
+		quit_button.visible = true
+		label_loading_error.text += (tr("global.loading.ressource.error %s %d") % [tr("global.loading.ressource." + current_load_element) ,err]) + "\n"
+		set_process(false)
+		loader = null
+		current_load_element = null
 	update_progress()
 
 
