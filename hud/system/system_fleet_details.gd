@@ -3,11 +3,11 @@ extends Control
 const FLEET_COST = 10
 
 var fleet_item_scene = preload("res://hud/system/fleet/fleet_item.tscn")
+var menu_layer : MenuLayer
 var _create_fleet_lock = Utils.Lock.new()
 var _lock_add_fleet_item = Utils.Lock.new()
 
 onready var fleet_creation_button = $ScrollContainer/HBoxContainer/FleetCreationButton
-onready var menu_fleet = $HBoxContainer/HBoxContainer/MenuFleet
 onready var fleet_container = $ScrollContainer/HBoxContainer/Fleets
 
 
@@ -24,7 +24,6 @@ func _ready():
 	fleet_creation_button.connect("pressed", self, "create_fleet")
 	fleet_creation_button.set_visible(false)
 	refresh_data(Store._state.selected_system)
-	menu_fleet.visible = false
 
 
 func _on_system_selected(system, old_system):
@@ -32,14 +31,12 @@ func _on_system_selected(system, old_system):
 
 
 func _on_fleet_selected(fleet):
-	menu_fleet.visible = false
+	menu_layer.get_menu("menu_fleet").fleet = fleet
 
 
 func _on_button_menu_fleet(fleet):
-	var visible_new = not menu_fleet.visible or fleet.id != menu_fleet.fleet.id
-	menu_fleet.visible = visible_new
-	if visible_new:
-		menu_fleet.fleet = fleet
+	if menu_layer.toogle_menu("menu_fleet"):
+		menu_layer.get_menu("menu_fleet").fleet = fleet
 
 
 func refresh_data(system):
@@ -134,6 +131,7 @@ func _on_system_update(system):
 
 
 func _on_fleet_sailed(fleet, arrival_time):
+	menu_layer.close_menu("menu_fleet")
 	if fleet.system == Store._state.selected_system.id:
 		refresh_data(Store._state.selected_system)
 

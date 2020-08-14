@@ -1,4 +1,4 @@
-extends Control
+extends MenuContainer
 
 const _SHIP_GROUP_ELEMENT = preload("res://hud/system/fleet/ship_group_fleet_menu.tscn")
 
@@ -6,8 +6,7 @@ var fleet = null setget set_fleet
 var ship_group_hangar = [] setget set_ship_group_hangar
 var system_id = null 
 
-onready var ship_group_element_container = $PanelContainer/ScrollContainer/ShipList
-onready var menu_header = $MenuHeader
+onready var ship_group_element_container = $MenuBody/Body/ScrollContainer/ShipList
 
 
 func _ready():
@@ -19,8 +18,6 @@ func _ready():
 		node.name = category.category
 		ship_group_element_container.add_child(node)
 		node.connect("ship_assigned", self, "_on_ship_assigned", [category])
-	menu_header.connect("minimize_request", self, "_on_minimize_request")
-	menu_header.connect("close_request", self, "_on_minimize_request")
 	update_hangar()
 	update_element_fleet()
 
@@ -46,10 +43,6 @@ func _on_ship_assigned(quantity_fleet, quantity_hangar, category):
 	Store.update_system_hangar(fleet.system, ship_group_hangar)
 
 
-func _on_minimize_request():
-	visible = false
-
-
 func update_hangar():
 	if fleet == null or system_id == fleet.system:
 		return
@@ -63,6 +56,8 @@ func update_hangar():
 
 func update_element_fleet():
 	var node_updated = []
+	if ship_group_element_container == null:
+		return
 	if fleet != null and fleet.ship_groups != null and ship_group_element_container != null:
 		for i in fleet.ship_groups:
 			var node_ship_group = ship_group_element_container.get_node(i.category)
@@ -81,6 +76,8 @@ func set_fleet(new_fleet):
 
 
 func set_ship_group_hangar(array):
+	if ship_group_element_container == null:
+		return
 	ship_group_hangar = array
 	for node in ship_group_element_container.get_children():
 		node.quantity_hangar = 0

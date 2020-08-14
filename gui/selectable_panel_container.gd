@@ -30,6 +30,7 @@ func _draw():
 func update():
 	.update()
 
+
 func _on_mouse_entered():
 	_hover = true
 	update_style()
@@ -56,7 +57,7 @@ func _draw_focus():
 	var theme_style = get_stylebox("focus_style", "SelectablePanelContainer")
 	var style = focus_style if focus_style!= null else theme_style
 	if style != null:
-		focus_style.draw(get_canvas_item(), get_rect())
+		style.draw(get_canvas_item(), get_rect())
 
 
 func set_base_style(style):

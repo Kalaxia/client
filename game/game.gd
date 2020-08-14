@@ -31,7 +31,7 @@ onready var particles_nodes = [$ParallaxBackground/ParallaxLayer1/Particles2D, $
 onready var map = $ParallaxBackground/ParallaxLayer0/Map
 onready var fleet_container = $ParallaxBackground/ParallaxLayer0/Map/FleetContainer
 onready var background = $ParallaxBackground/Background
-
+onready var hud = $ParallaxBackground/HUD
 
 func _ready():
 	Store.update_player_me()
@@ -50,6 +50,7 @@ func _ready():
 	Network.connect("FactionPointsUpdated", self, "_on_faction_points_update")
 	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
 	Network.connect("BuildingConstructed", self, "_on_building_constructed")
+	hud.connect("request_main_menu", self, "_on_request_main_menu")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	limits = draw_systems()
 	camera2D.limit_left = (limits[0] - LIMITS_MARGIN - OS.get_window_size().x / 2.0) as int
@@ -134,6 +135,10 @@ func _manage_input(event):
 			_is_map_being_dragged = true
 		if event.is_action_released("ui_drag_map"):
 			_is_map_being_dragged = false
+		if event.is_action_pressed("ui_hud_scores"):
+			$ParallaxBackground/HUD/ScoresContainer.visible = true
+		elif event.is_action_released("ui_hud_scores"):
+			$ParallaxBackground/HUD/ScoresContainer.visible = false
 
 
 func draw_systems():
@@ -312,3 +317,7 @@ func _set_camera_position(position_camera_set):
 	new_position.x = max(min(new_position.x,camera2D.limit_right - OS.get_window_size().x / 2.0 * camera2D.zoom.x), camera2D.limit_left + OS.get_window_size().x / 2.0 * camera2D.zoom.x)
 	new_position.y = max(min(new_position.y,camera2D.limit_bottom - OS.get_window_size().y / 2.0 * camera2D.zoom.y), camera2D.limit_top + OS.get_window_size().y / 2.0 * camera2D.zoom.y)
 	camera2D.position = new_position
+
+
+func _on_request_main_menu():
+	emit_signal("scene_requested", "menu")

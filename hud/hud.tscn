@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://themes/theme_u_main.tres" type="Theme" id=1]
 [ext_resource path="res://hud/hud.gd" type="Script" id=2]
+[ext_resource path="res://hud/menu_layer.gd" type="Script" id=3]
 [ext_resource path="res://hud/hud_menu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://hud/system/details.tscn" type="PackedScene" id=7]
 
@@ -36,6 +37,16 @@ anchor_top = 0.4
 anchor_right = 0.6
 anchor_bottom = 0.6
 mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuLayer" type="Control" parent="."]
+anchor_top = 0.12
+anchor_right = 1.0
+anchor_bottom = 0.78
+mouse_filter = 2
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

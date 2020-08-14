@@ -2,13 +2,10 @@ tool
 class_name MenuContainer, "res://resources/editor/menu_container.svg"
 extends VBoxContainer
 
-const MENU_HEADER = preload("res://gui/menu/menu_header.tscn")
+signal close_requested()
+signal minimize_toogled(visible_state)
 
-var header_text = "" #setget set_text
-var header_closable = true #setget set_header_closable
-var header_minimisable = true #setget set_header_minimisable
-var header_texture = null #setget set_header_texture
-var header_custom_style = null #setget set_header_custom_style
+const MENU_HEADER = preload("res://gui/menu/menu_header.tscn")
 
 var menu_header
 var menu_body
@@ -30,6 +27,7 @@ func _ready():
 		elif node is MenuBody:
 			has_menu_body = true
 			menu_body = node
+	menu_header.connect("close_request", self, "_close_request")
 	if Engine.editor_hint:
 		if not has_menu_header:
 			menu_header = MENU_HEADER.instance()
@@ -42,6 +40,10 @@ func _ready():
 		menu_header.set_owner(get_tree().edited_scene_root)
 		menu_body.set_owner(get_tree().edited_scene_root)
 		queue_sort()
+
+
+func _close_request():
+	emit_signal("close_requested")
 
 
 func _notification(what):
@@ -85,45 +87,11 @@ func _get_configuration_warning():
 	return _warning_string
 
 
-func _get_property_list():
-	var properties = []
-	properties.append({
-			name = "Header",
-			type = TYPE_NIL,
-			hint_string = "header_",
-			usage = PROPERTY_USAGE_GROUP | PROPERTY_USAGE_SCRIPT_VARIABLE
-	})
-	properties.append({
-			name = "header_text",
-			type = TYPE_STRING ,
-			hint = PROPERTY_HINT_MULTILINE_TEXT,
-			hint_string = "",
-			usage = PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_EDITOR | PROPERTY_USAGE_INTERNATIONALIZED
-	})
-	properties.append({
-			name = "header_closable",
-			type = TYPE_BOOL,
-			hint_string = "",
-			usage = PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_EDITOR
-	})
-	properties.append({
-			name = "header_minimisable",
-			type = TYPE_BOOL,
-			hint_string = "",
-			usage = PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_EDITOR
-	})
-	properties.append({
-			name = "header_texture",
-			type = TYPE_OBJECT,
-			hint = PROPERTY_HINT_RESOURCE_TYPE,
-			hint_string = "Texture",
-			usage = PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_EDITOR
-	})
-	properties.append({
-			name = "header_custom_style",
-			type = TYPE_OBJECT,
-			hint = PROPERTY_HINT_RESOURCE_TYPE,
-			hint_string = "StyleBox",
-			usage = PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_EDITOR
-	})
-	return properties
+func close_request():
+	emit_signal("close_requested")
+
+
+func minimize_toogle():
+	if menu_body != null:
+		menu_body.minimize_toogle
+		emit_signal("minimize_toogled", menu_body.visible)

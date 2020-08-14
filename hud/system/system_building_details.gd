@@ -3,15 +3,15 @@ extends Control
 const BUILDING_AREA = preload("res://hud/system/buildings/building_panel.tscn")
 
 const MENU = {
-	"" : preload("res://hud/system/buildings/contruction/construction_menu.tscn"),
-	"shipyard" :  preload("res://hud/system/buildings/hangar.tscn"),
+	"" : "menu_construction",
+	"shipyard" :  "menu_shipyard",
 	"mine" : null,
 	"portal" : null,
 }
 
+var menu_layer : MenuLayer
 var _building_panel_list = []
 
-onready var menu_selected_building = $MenuSelectedBuilding
 onready var building_container = $ScrollContainer/HBoxContainer
 
 
@@ -65,17 +65,17 @@ func _on_panel_pressed(node):
 	if node.is_selected and (node.building == null or node.building.status == "operational"):
 		var menu = MENU[node.building.kind if node.building != null else ""]
 		if menu != null:
-			var node_menu = menu.instance()
+			menu_layer.request_menu(menu)
+			var node_menu = menu_layer.get_menu(menu)
 			if node.building == null:
 				node_menu.connect("building_contructing", self, "_on_building_contructing", [node])
 			node_menu.connect("closed", self, "_on_menu_closed")
-			menu_selected_building.add_child(node_menu)
 
 
 func _deselect_other_building(node = null):
 	# if node is null deselect all buildings
-	for node in menu_selected_building.get_children() :
-		node.queue_free()
+	for menu in MENU:
+		menu_layer.close_menu(menu)
 	for buiding_panel in _building_panel_list:
 		if node == null or buiding_panel.name != node.name:
 			buiding_panel.is_selected = false

@@ -10,9 +10,8 @@ onready var popup_menu = $HBoxContainer/ButtonContainerRight/SelectablePanelCont
 
 
 func _ready():
-	Network.connect("Victory", self, "_on_victory")
+#	Network.connect("Victory", self, "_on_victory")
 	Network.connect("GameStarted", self, "_on_game_started")
-	set_visible(false)
 	var button_array = button_container_left.get_children() + button_container_right.get_children()
 	for node in button_array:
 		if node is SelectablePanelContainer:
@@ -21,13 +20,13 @@ func _ready():
 	popup_menu.connect("id_pressed", self, "_on_id_pressed")
 
 
-func _on_victory(data):
-	set_visible(false)
+#func _on_victory(data):
+#	set_visible(false)
 
 
 func _on_game_started(game):
 	texture_rect.texture = Utils.BANNERS[Store._state.player.faction as int]
-	set_visible(true)
+#	set_visible(true)
 	var button_array = button_container_left.get_children() + button_container_right.get_children()
 	for node_list in button_array:
 		if node_list is SelectablePanelContainer:
@@ -46,8 +45,9 @@ func deselect_other_node(node = null):
 
 
 func _back_to_mainmenu():
+	Store.request_leave_game()
 	emit_signal("back_main_menu")
-	set_visible(false)
+#	set_visible(false)
 
 
 func _toogle_menu(is_pressed):

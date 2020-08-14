@@ -4,10 +4,8 @@ extends PanelContainer
 
 var _warning_string = ""
 
-
 func _ready():
 	if Engine.editor_hint:
-		print(get_child_count())
 		if get_child_count() == 0:
 			var node = VBoxContainer.new()
 			node.name = "Body"
@@ -44,3 +42,6 @@ func _get_configuration_warning():
 	# editor only : override see node._get_configuration_warning()
 	return _warning_string
 
+
+func minimize_toogle():
+	visible = not visible

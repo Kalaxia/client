@@ -115,6 +115,8 @@ func send_update():
 
 
 func _on_request_completed(err, response_code, headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
 	_is_locked_username_change.unlock()
 	if response_code != HTTPClient.RESPONSE_NO_CONTENT:
 		Store.notify(

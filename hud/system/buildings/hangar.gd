@@ -1,4 +1,4 @@
-extends Control
+extends MenuContainer
 
 signal closed()
 
@@ -11,16 +11,14 @@ var ship_queue_array = [] setget set_ship_queue_array, get_ship_queue_array
 
 var _lock_ship_prod_update = Utils.Lock.new()
 
-onready var production_list_vbox_elements = $PanelContainer/VBoxContainer/ShipProductionList/VBoxContainer/ScrollContainer/VBoxContainer
-onready var ship_order_element = $PanelContainer/VBoxContainer/ShipOrder/VBoxContainer/ShipTypeBuild
-onready var hangar_element = $PanelContainer/VBoxContainer/ShipHangar/VBoxContainer/ScrollContainer/HBoxContainer
-onready var menu_header = $MenuHeader
+onready var production_list_vbox_elements = $MenuBody/Body/ShipProductionList/VBoxContainer/ScrollContainer/VBoxContainer
+onready var ship_order_element = $MenuBody/Body/ShipOrder/VBoxContainer/ShipTypeBuild
+onready var hangar_element = $MenuBody/Body/ShipHangar/VBoxContainer/ScrollContainer/HBoxContainer
 
 
 func _ready():
 	Store.connect("hangar_updated", self, "_on_hangar_updated")
 	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
-	menu_header.connect("close_request", self, "_on_close_menu_pressed")
 	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
 	for category in Store._state.ship_models:
 		var node = _SHIP_HANGARD.instance()
@@ -42,11 +40,6 @@ func _ready():
 			Store._state.selected_system.id + "/ship-queues/"
 		, HTTPClient.METHOD_GET
 	)
-
-
-func _on_close_menu_pressed():
-	queue_free()
-	emit_signal("closed")
 
 
 func _on_hangar_updated(system, ship_groups):

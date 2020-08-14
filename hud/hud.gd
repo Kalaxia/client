@@ -1,14 +1,15 @@
 extends Control
 
+signal request_main_menu()
+
+onready var menu_layer = $MenuLayer
+
 
 func _ready():
-	Network.connect("Victory", self, "_on_victory")
-	Network.connect("GameStarted", self, "_on_game_started")
-
-
-func _on_victory(data):
-	pass
-
-
-func _on_game_started(data):
+	$HudMenu.connect("back_main_menu", self, "_on_back_main_menu")
+	$SystemDetails.menu_layer = menu_layer
 	theme = Utils.THEME_FACTION[Store._state.player.faction as int]
+
+
+func _on_back_main_menu():
+	emit_signal("request_main_menu")
