@@ -14,7 +14,6 @@ onready var player_node = $System/CircularContainer/ContainerSystem/PlayerName
 func _ready():
 	Store.connect("system_selected", self, "_on_system_selected")
 	Store.connect("system_update", self, "_on_system_update")
-#	Network.connect("Victory", self, "_on_victory")
 	var fleet_details = fleet_details_scene.instance()
 	menu_system.add_child(fleet_details)
 	button_building.connect("pressed",self,"_on_building_pressed")
@@ -22,7 +21,6 @@ func _ready():
 
 
 func _on_system_selected(system, old_system):
-#	set_visible(true)
 	refresh_data(system)
 
 
@@ -41,11 +39,6 @@ func set_menu_layer(new_node):
 	menu_layer = new_node
 	for node in menu_system.get_children():
 		node.menu_layer = menu_layer
-
-
-func _on_victory(data):
-#	set_visible(false)
-	pass
 
 
 func _on_system_update(system):

@@ -22,6 +22,7 @@ func request_menu(menu_requested):
 		var menu = menus[menu_requested]
 		add_child(menu)
 		menu.connect("close_requested", self, "close_menu", [menu_requested])
+		menu.show_menu()
 		menu.set_anchors_and_margins_preset(Control.PRESET_VCENTER_WIDE)
 
 

@@ -222,6 +222,7 @@ func update_system_buildings(system_id, buildings):
 
 
 func update_system_hangar(system_id, ship_groups):
+	print(ship_groups)
 	_state.game.systems[system_id].hangar = ship_groups
 	emit_signal("hangar_updated", _state.game.systems[system_id], ship_groups)
 

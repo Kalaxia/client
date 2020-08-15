@@ -27,7 +27,8 @@ func _ready():
 		elif node is MenuBody:
 			has_menu_body = true
 			menu_body = node
-	menu_header.connect("close_request", self, "_close_request")
+	menu_header.connect("close_request", self, "close_request")
+	menu_header.connect("minimize_request", self, "minimize_toogle")
 	if Engine.editor_hint:
 		if not has_menu_header:
 			menu_header = MENU_HEADER.instance()
@@ -42,8 +43,8 @@ func _ready():
 		queue_sort()
 
 
-func _close_request():
-	emit_signal("close_requested")
+func _enter_tree():
+	show_menu()
 
 
 func _notification(what):
@@ -93,5 +94,10 @@ func close_request():
 
 func minimize_toogle():
 	if menu_body != null:
-		menu_body.minimize_toogle
+		menu_body.minimize_toogle()
 		emit_signal("minimize_toogled", menu_body.visible)
+
+
+func show_menu():
+	if menu_body != null and not menu_body.visible:
+		minimize_toogle()

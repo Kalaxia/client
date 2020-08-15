@@ -20,6 +20,10 @@ func _ready():
 		node.connect("ship_assigned", self, "_on_ship_assigned", [category])
 	update_hangar()
 	update_element_fleet()
+	# it is possible that we would call _refresh_hangar_elements multiple time
+	# it is however necessary to call it as it is possible that the elments are not updated before
+	# (as ship_group_element_container is null before ready) but that ship_group_hangar are already in memory
+	_refresh_hangar_elements()
 
 
 func _on_hangar_updated(system, ship_groups):
@@ -76,9 +80,13 @@ func set_fleet(new_fleet):
 
 
 func set_ship_group_hangar(array):
+	ship_group_hangar = array
+	_refresh_hangar_elements()
+
+
+func _refresh_hangar_elements():
 	if ship_group_element_container == null:
 		return
-	ship_group_hangar = array
 	for node in ship_group_element_container.get_children():
 		node.quantity_hangar = 0
 	for i in ship_group_hangar:

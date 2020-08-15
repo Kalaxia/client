@@ -131,7 +131,7 @@ func _on_lobby_owner_update(pid):
 		launch_button.visible = true
 		launch_button.connect("pressed", self, "launch_game")
 		check_ready_state()
-	game_setings_container.enabled = (pid == Store._state.player.id)
+	game_settings_container.enabled = (pid == Store._state.player.id)
 
 
 func _on_launch_response(err, response_code, headers, body):

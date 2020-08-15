@@ -136,9 +136,9 @@ func _manage_input(event):
 		if event.is_action_released("ui_drag_map"):
 			_is_map_being_dragged = false
 		if event.is_action_pressed("ui_hud_scores"):
-			$ParallaxBackground/HUD/ScoresContainer.visible = true
+			$ParallaxBackground/HUD.show_scores()
 		elif event.is_action_released("ui_hud_scores"):
-			$ParallaxBackground/HUD/ScoresContainer.visible = false
+			$ParallaxBackground/HUD.hide_scores()
 
 
 func draw_systems():
@@ -231,7 +231,7 @@ func _on_combat_ended(data):
 
 
 func _on_system_selected(system, old_system):
-	if old_system != null:
+	if old_system != null and map.has_node(old_system.id):
 		map.get_node(old_system.id).unselect()
 	map.get_node(system.id).select()
 
