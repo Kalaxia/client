@@ -34,9 +34,11 @@ onready var timer_res = $TimerRessource
 onready var label_constant_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerConstantes/LabelConstante
 onready var label_ship_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerShips/LabelShips
 onready var label_building_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerBuiilding/LabelBuilding
+onready var version_label = $Foreground/MarginContainer/VBoxContainer/VersionLabel
 
 
 func _ready():
+	version_label.text = tr("global.loading.version %s") % Config.VERSION.version
 	quit_button.visible = false
 	if Network.token == null:
 		Network.connect_to_host()

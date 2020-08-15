@@ -30,6 +30,7 @@ const LOCALE_SECTION_NAME = "Language"
 const LOCALE_CONFIG_NAME = "local"
 
 const DEFAULT_LOCALE = "fr"
+const VERSION = preload("res://version.tres")
 
 var api = {
 	'dns': null,
@@ -42,6 +43,7 @@ var config_user = ConfigFile.new()
 
 
 func _ready():
+	print("Version : %s" % VERSION.version)
 	api = _get_api_config(config_network)
 	var err_config_user = config_user.load(PATH_CONFIG_USER)
 	if err_config_user == OK:
