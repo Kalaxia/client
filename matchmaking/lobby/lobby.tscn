@@ -33,20 +33,20 @@ mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.02
 
-[node name="GameSetings" type="VBoxContainer" parent="GUI/Body"]
+[node name="GameSettings" type="VBoxContainer" parent="GUI/Body"]
 margin_left = 34.0
 margin_right = 321.0
 margin_bottom = 1080.0
 alignment = 1
 script = ExtResource( 5 )
 
-[node name="PanelContainer" type="PanelContainer" parent="GUI/Body/GameSetings"]
+[node name="PanelContainer" type="PanelContainer" parent="GUI/Body/GameSettings"]
 margin_top = 428.0
 margin_right = 287.0
 margin_bottom = 651.0
 rect_min_size = Vector2( 150, 0 )
 
-[node name="MarginContainer" type="MarginContainer" parent="GUI/Body/GameSetings/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="GUI/Body/GameSettings/PanelContainer"]
 margin_left = 3.0
 margin_top = 2.0
 margin_right = 284.0
@@ -56,20 +56,20 @@ custom_constants/margin_top = 5
 custom_constants/margin_left = 5
 custom_constants/margin_bottom = 5
 
-[node name="GameSettings" type="VBoxContainer" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer"]
+[node name="GameSettings" type="VBoxContainer" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer"]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 276.0
 margin_bottom = 214.0
 custom_constants/separation = 30
 
-[node name="Label" type="Label" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings"]
+[node name="Label" type="Label" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings"]
 margin_right = 271.0
 margin_bottom = 19.0
 text = "lobby.game_settings"
 align = 1
 
-[node name="HSeparator" type="HSeparator" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings"]
+[node name="HSeparator" type="HSeparator" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings"]
 margin_top = 49.0
 margin_right = 271.0
 margin_bottom = 53.0
@@ -77,18 +77,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Size" type="VBoxContainer" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings"]
+[node name="Size" type="VBoxContainer" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings"]
 margin_top = 83.0
 margin_right = 271.0
 margin_bottom = 131.0
 
-[node name="Label" type="Label" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings/Size"]
+[node name="Label" type="Label" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings/Size"]
 margin_right = 271.0
 margin_bottom = 19.0
 text = "lobby.game_settings.size"
 align = 1
 
-[node name="OptionButton" type="OptionButton" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings/Size"]
+[node name="OptionButton" type="OptionButton" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings/Size"]
 margin_top = 23.0
 margin_right = 271.0
 margin_bottom = 48.0
@@ -98,18 +98,18 @@ align = 1
 items = [ "lobby.game_settings.size.very_small", null, false, 0, null, "lobby.game_settings.size.small", null, false, 1, null, "lobby.game_settings.size.medium", null, false, 2, null, "lobby.game_settings.size.large", null, false, 3, null, "lobby.game_settings.size.very_large", null, false, 4, null ]
 selected = 0
 
-[node name="Speed" type="VBoxContainer" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings"]
+[node name="Speed" type="VBoxContainer" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings"]
 margin_top = 161.0
 margin_right = 271.0
 margin_bottom = 209.0
 
-[node name="Label" type="Label" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings/Speed"]
+[node name="Label" type="Label" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings/Speed"]
 margin_right = 271.0
 margin_bottom = 19.0
 text = "lobby.game_settings.speed"
 align = 1
 
-[node name="OptionButton" type="OptionButton" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings/Speed"]
+[node name="OptionButton" type="OptionButton" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings/Speed"]
 margin_top = 23.0
 margin_right = 271.0
 margin_bottom = 48.0
