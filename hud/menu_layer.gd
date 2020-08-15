@@ -16,6 +16,12 @@ func _ready():
 	pass
 
 
+func _exit_tree():
+	for node in menus:
+		if node != null:
+			node.queue_free()
+
+
 func request_menu(menu_requested):
 	close_menu()
 	if menus.has(menu_requested):
