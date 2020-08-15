@@ -13,15 +13,15 @@ func _ready():
 	Network.connect("LobbyOptionsUpdated", self, "_on_game_config_changed")
 	option_size.connect("item_selected", self, "_on_size_selected")
 	option_speed.connect("item_selected", self, "_on_speed_selected")
-	_unpdate_enable_state()
+	_update_enable_state()
 
 
 func set_enabled(new_state):
 	enabled = new_state
-	_unpdate_enable_state()
+	_update_enable_state()
 
 
-func _unpdate_enable_state():
+func _update_enable_state():
 	option_size.disabled = not enabled
 	option_speed.disabled = not enabled
 
@@ -49,10 +49,10 @@ func _on_data_patched(err, response_code, headers, body):
 
 
 func _on_game_config_changed(lobby_option):
-	update_game_setings_button(lobby_option)
+	update_game_settings_button(lobby_option)
 
 
-func update_game_setings_button(lobby_option):
+func update_game_settings_button(lobby_option):
 	if option_size != null and lobby_option.has("map_size"):
 		option_size.disconnect("item_selected", self, "_on_size_selected")
 		option_size.selected = SIZE.find(lobby_option.map_size)

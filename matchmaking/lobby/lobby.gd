@@ -9,7 +9,7 @@ onready var player_info = $GUI/Body/BodyFaction/Section/Players
 onready var launch_button = $GUI/Body/BodyFaction/Footer/LaunchButton
 onready var section_col = $GUI/Body/BodyFaction/SectionColumn
 onready var header_name = $GUI/Body/BodyFaction/Header/Name
-onready var game_setings_container = $GUI/Body/GameSetings
+onready var game_settings_container = $GUI/Body/GameSettings
 
 
 func _ready():
@@ -41,8 +41,8 @@ func load_lobby(err, response_code, headers, body):
 	if lobby.owner.id == Store._state.player.id:
 		launch_button.visible = true
 		launch_button.connect("pressed", self, "launch_game")
-	game_setings_container.enabled = lobby.owner.id == Store._state.player.id
-	game_setings_container.update_game_setings_button(lobby)
+	game_settings_container.enabled = lobby.owner.id == Store._state.player.id
+	game_settings_container.update_game_settings_button(lobby)
 
 
 func add_players_info(players):

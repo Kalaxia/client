@@ -4,7 +4,7 @@
 [ext_resource path="res://matchmaking/lobby/faction_column.tscn" type="PackedScene" id=2]
 [ext_resource path="res://matchmaking/lobby/section_columns.gd" type="Script" id=3]
 [ext_resource path="res://themes/theme_u_main.tres" type="Theme" id=4]
-[ext_resource path="res://matchmaking/lobby/game_setings.gd" type="Script" id=5]
+[ext_resource path="res://matchmaking/lobby/game_settings.gd" type="Script" id=5]
 
 [node name="Lobby" type="Control"]
 anchor_right = 1.0
@@ -56,20 +56,20 @@ custom_constants/margin_top = 5
 custom_constants/margin_left = 5
 custom_constants/margin_bottom = 5
 
-[node name="GameSetings" type="VBoxContainer" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer"]
+[node name="GameSettings" type="VBoxContainer" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer"]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 276.0
 margin_bottom = 214.0
 custom_constants/separation = 30
 
-[node name="Label" type="Label" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSetings"]
+[node name="Label" type="Label" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings"]
 margin_right = 271.0
 margin_bottom = 19.0
 text = "lobby.game_settings"
 align = 1
 
-[node name="HSeparator" type="HSeparator" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSetings"]
+[node name="HSeparator" type="HSeparator" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings"]
 margin_top = 49.0
 margin_right = 271.0
 margin_bottom = 53.0
@@ -77,18 +77,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Size" type="VBoxContainer" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSetings"]
+[node name="Size" type="VBoxContainer" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings"]
 margin_top = 83.0
 margin_right = 271.0
 margin_bottom = 131.0
 
-[node name="Label" type="Label" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSetings/Size"]
+[node name="Label" type="Label" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings/Size"]
 margin_right = 271.0
 margin_bottom = 19.0
 text = "lobby.game_settings.size"
 align = 1
 
-[node name="OptionButton" type="OptionButton" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSetings/Size"]
+[node name="OptionButton" type="OptionButton" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings/Size"]
 margin_top = 23.0
 margin_right = 271.0
 margin_bottom = 48.0
@@ -98,18 +98,18 @@ align = 1
 items = [ "lobby.game_settings.size.very_small", null, false, 0, null, "lobby.game_settings.size.small", null, false, 1, null, "lobby.game_settings.size.medium", null, false, 2, null, "lobby.game_settings.size.large", null, false, 3, null, "lobby.game_settings.size.very_large", null, false, 4, null ]
 selected = 0
 
-[node name="Speed" type="VBoxContainer" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSetings"]
+[node name="Speed" type="VBoxContainer" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings"]
 margin_top = 161.0
 margin_right = 271.0
 margin_bottom = 209.0
 
-[node name="Label" type="Label" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSetings/Speed"]
+[node name="Label" type="Label" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings/Speed"]
 margin_right = 271.0
 margin_bottom = 19.0
 text = "lobby.game_settings.speed"
 align = 1
 
-[node name="OptionButton" type="OptionButton" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSetings/Speed"]
+[node name="OptionButton" type="OptionButton" parent="GUI/Body/GameSetings/PanelContainer/MarginContainer/GameSettings/Speed"]
 margin_top = 23.0
 margin_right = 271.0
 margin_bottom = 48.0
