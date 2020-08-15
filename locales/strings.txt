@@ -55,3 +55,11 @@ _("global.loading.ressource.hud")_
 _("hud.details.buidlng.mine")_
 _("hud.details.buidlng.portal")_
 _("hud.details.buidlng.shipyard")_
+_("lobby.game_settings.size.very_small")_
+_("lobby.game_settings.size.small")_
+_("lobby.game_settings.size.medium")_
+_("lobby.game_settings.size.large")_
+_("lobby.game_settings.size.very_large")_
+_("lobby.game_settings.speed.slow")_
+_("lobby.game_settings.speed.medium")_
+_("lobby.game_settings.speed.fast")_

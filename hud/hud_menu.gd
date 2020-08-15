@@ -3,7 +3,6 @@ extends VBoxContainer
 signal back_main_menu() 
 
 onready var texture_rect = $HBoxContainer/TextureRect
-onready var button_main_menu = $HBoxContainer/HBoxContainer2/Button
 onready var button_container_left = $HBoxContainer/ButtonContainerLeft
 onready var button_container_right = $HBoxContainer/ButtonContainerRight
 onready var menu_button = $HBoxContainer/ButtonContainerRight/SelectablePanelContainerMenu
