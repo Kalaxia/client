@@ -55,9 +55,24 @@ _global_script_classes=[ {
 "path": "res://game/map/sprites/fleet_sprite.gd"
 }, {
 "base": "PanelContainer",
+"class": "MenuBody",
+"language": "GDScript",
+"path": "res://gui/menu/menu_body.gd"
+}, {
+"base": "VBoxContainer",
+"class": "MenuContainer",
+"language": "GDScript",
+"path": "res://gui/menu/menu_container.gd"
+}, {
+"base": "PanelContainer",
 "class": "MenuHeader",
 "language": "GDScript",
 "path": "res://gui/menu/menu_header.gd"
+}, {
+"base": "Control",
+"class": "MenuLayer",
+"language": "GDScript",
+"path": "res://hud/menu_layer.gd"
 }, {
 "base": "Control",
 "class": "OptionKeyBinding",
@@ -99,7 +114,10 @@ _global_script_class_icons={
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
 "FleetItem": "res://resources/editor/fleet_item.svg",
 "FleetSprite": "res://resources/assets/2d/map/picto_flotte_2.png",
+"MenuBody": "res://resources/editor/menu_body.svg",
+"MenuContainer": "res://resources/editor/menu_container.svg",
 "MenuHeader": "res://resources/editor/menu_header.svg",
+"MenuLayer": "",
 "OptionKeyBinding": "",
 "PlayerInfoFactionColumn": "",
 "RoundedSelectablePanelLeft": "",
@@ -200,6 +218,17 @@ ui_map_center_system={
 ui_hud_scores={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777218,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_minimize={
+"deadzone": 0.5,
+"events": [  ]
+}
+ui_forbbiden_key_rebind={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"unicode":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777222,"unicode":0,"echo":false,"script":null)
  ]
 }
 

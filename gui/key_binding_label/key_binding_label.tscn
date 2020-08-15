@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://gui/key_binding_label/key_binding_label.gd" type="Script" id=1]
+
+[node name="KeyBindingLabel" type="MarginContainer"]
+margin_right = 123.0
+margin_bottom = 22.0
+mouse_filter = 2
+custom_constants/margin_top = -3
+custom_constants/margin_bottom = -3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_top = -3.0
+margin_right = 123.0
+margin_bottom = 25.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 116.0
+margin_bottom = 21.0
+text = "not_translate.key"

@@ -222,6 +222,7 @@ func update_system_buildings(system_id, buildings):
 
 
 func update_system_hangar(system_id, ship_groups):
+	print(ship_groups)
 	_state.game.systems[system_id].hangar = ship_groups
 	emit_signal("hangar_updated", _state.game.systems[system_id], ship_groups)
 
@@ -327,3 +328,12 @@ func _on_me_loaded(err, response_code, headers, body):
 		var result = JSON.parse(body.get_string_from_utf8()).result
 		_state.player = result
 		emit_signal("wallet_updated", _state.player.wallet)
+
+
+func request_leave_game():
+	Network.req(self, "_on_player_left_game", "/api/games/" + Store._state.game.id + "/players/", HTTPClient.METHOD_DELETE)
+
+
+func _on_player_left_game(err, response_code, headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)

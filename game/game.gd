@@ -31,7 +31,7 @@ onready var particles_nodes = [$ParallaxBackground/ParallaxLayer1/Particles2D, $
 onready var map = $ParallaxBackground/ParallaxLayer0/Map
 onready var fleet_container = $ParallaxBackground/ParallaxLayer0/Map/FleetContainer
 onready var background = $ParallaxBackground/Background
-
+onready var hud = $ParallaxBackground/HUD
 
 func _ready():
 	Store.update_player_me()
@@ -50,6 +50,7 @@ func _ready():
 	Network.connect("FactionPointsUpdated", self, "_on_faction_points_update")
 	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
 	Network.connect("BuildingConstructed", self, "_on_building_constructed")
+	hud.connect("request_main_menu", self, "_on_request_main_menu")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	limits = draw_systems()
 	camera2D.limit_left = (limits[0] - LIMITS_MARGIN - OS.get_window_size().x / 2.0) as int
@@ -92,15 +93,8 @@ func _process(delta):
 
 func _input(event):
 	# mouse event has priority on the GUI
-	if event is InputEventKey || event is InputEventMouseButton:
-		if event.is_action_pressed("ui_zoom_in_map"):
-			_zoom_camera(1.0 / _ZOOM_FACTOR)
-		if event.is_action_pressed("ui_zoom_out_map"):
-			_zoom_camera(_ZOOM_FACTOR)
-		if event.is_action_pressed("ui_drag_map"):
-			_is_map_being_dragged = true
-		if event.is_action_released("ui_drag_map"):
-			_is_map_being_dragged = false
+	if event is InputEventMouseButton:
+		_manage_input(event)
 	elif event is InputEventMouseMotion:
 		if _is_map_being_dragged:
 			_move_camera( - event.get_relative() * $Camera2D.zoom)
@@ -109,7 +103,12 @@ func _input(event):
 
 func _unhandled_input(event):
 	# key events has not priority over gui
-	if event is InputEventKey || event is InputEventMouseButton:
+	if event is InputEventKey:
+		_manage_input(event)
+
+
+func _manage_input(event):
+	if event is InputEventKey or event is InputEventMouseButton:
 		if event.is_action_pressed("ui_move_map_left"):
 			_motion_camera[Vector2.LEFT] = true
 		elif event.is_action_released("ui_move_map_left"):
@@ -128,6 +127,18 @@ func _unhandled_input(event):
 			_motion_camera[Vector2.DOWN] = false
 		if event.is_action_pressed("ui_map_center_system"):
 			center_on_selected_system()
+		if event.is_action_pressed("ui_zoom_in_map"):
+			_zoom_camera(1.0 / _ZOOM_FACTOR)
+		if event.is_action_pressed("ui_zoom_out_map"):
+			_zoom_camera(_ZOOM_FACTOR)
+		if event.is_action_pressed("ui_drag_map"):
+			_is_map_being_dragged = true
+		if event.is_action_released("ui_drag_map"):
+			_is_map_being_dragged = false
+		if event.is_action_pressed("ui_hud_scores"):
+			$ParallaxBackground/HUD.show_scores()
+		elif event.is_action_released("ui_hud_scores"):
+			$ParallaxBackground/HUD.hide_scores()
 
 
 func draw_systems():
@@ -220,7 +231,7 @@ func _on_combat_ended(data):
 
 
 func _on_system_selected(system, old_system):
-	if old_system != null:
+	if old_system != null and map.has_node(old_system.id):
 		map.get_node(old_system.id).unselect()
 	map.get_node(system.id).select()
 
@@ -284,6 +295,7 @@ func _on_victory(data):
 	emit_signal("scene_requested", "scores")
 
 
+
 func _zoom_camera(factor):
 	var max_screen_size = Vector2(camera2D.limit_right - camera2D.limit_left, camera2D.limit_bottom - camera2D.limit_top)
 	var max_zoom_factor_fit = floor(min(log(max_screen_size.x / OS.window_size.x), log(max_screen_size.y / OS.window_size.y)) / log(_ZOOM_FACTOR))
@@ -305,3 +317,7 @@ func _set_camera_position(position_camera_set):
 	new_position.x = max(min(new_position.x,camera2D.limit_right - OS.get_window_size().x / 2.0 * camera2D.zoom.x), camera2D.limit_left + OS.get_window_size().x / 2.0 * camera2D.zoom.x)
 	new_position.y = max(min(new_position.y,camera2D.limit_bottom - OS.get_window_size().y / 2.0 * camera2D.zoom.y), camera2D.limit_top + OS.get_window_size().y / 2.0 * camera2D.zoom.y)
 	camera2D.position = new_position
+
+
+func _on_request_main_menu():
+	emit_signal("scene_requested", "menu")

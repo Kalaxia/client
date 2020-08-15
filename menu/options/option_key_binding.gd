@@ -79,10 +79,10 @@ func _input(event):
 	if index_pressed  == -1:
 		return
 	var previous_event = InputMap.get_action_list(action)[index_pressed]
-	if (event is InputEventKey or (event is InputEventMouseButton and event.get_button_index() != BUTTON_LEFT)) and event.is_pressed():
-		InputMap.action_erase_event(action, previous_event)
-		InputMap.action_add_event(action, event)
-		Config.set_key_binding(action)
+	if (event is InputEventKey or event is InputEventMouseButton) and event.is_pressed() and not event.is_action("ui_forbbiden_key_rebind"):
+		InputMap.action_erase_event(action,previous_event)
+		InputMap.action_add_event(action,event)
+		Config.save_key_binding(action)
 		for node in container.get_children():
 			if node is Button:
 				node.pressed = false

@@ -5,8 +5,8 @@ const SPEED = ["slow", "medium", "fast"]
 
 export(bool) var enabled = false setget set_enabled
 
-onready var option_size = $PanelContainer/MarginContainer/GameSetings/Size/OptionButton
-onready var option_speed = $PanelContainer/MarginContainer/GameSetings/Speed/OptionButton
+onready var option_size = $PanelContainer/MarginContainer/GameSettings/Size/OptionButton
+onready var option_speed = $PanelContainer/MarginContainer/GameSettings/Speed/OptionButton
 
 
 func _ready():

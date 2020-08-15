@@ -8,11 +8,11 @@
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
-load_path = "res://.import/building.png-575a86400ef01fa266a76efe431146c8.stex"
+load_path = "res://.import/fleet.png-7b3afe225b29b788c820a5d01173695d.stex"
 
 [sub_resource type="StreamTexture" id=2]
 flags = 4
-load_path = "res://.import/fleet.png-7b3afe225b29b788c820a5d01173695d.stex"
+load_path = "res://.import/building.png-575a86400ef01fa266a76efe431146c8.stex"
 
 [sub_resource type="StreamTexture" id=3]
 flags = 4
@@ -27,7 +27,7 @@ __meta__ = {
 }
 
 [node name="Wallet" parent="." instance=ExtResource( 3 )]
-margin_top = 1016.0
+margin_top = 1048.0
 margin_right = 160.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 160, 0 )
@@ -70,25 +70,40 @@ __meta__ = {
 }
 angle_start_offset = -10.0
 angle_end_offset = 10.0
+radius_ratio = 1.0
 anchor_position = 8
-
-[node name="Bluilding" type="Control" parent="System/CircularContainer"]
-margin_right = 240.0
-margin_bottom = 240.0
-script = ExtResource( 5 )
-angle_start = 170.0
-angle_end = 225.0
-radius_in = 0.25
-texture = SubResource( 1 )
-texture_size = Vector2( 32, 32 )
+aspect_ratio_force = true
+clip_center_node = false
 
 [node name="Fleet" type="Control" parent="System/CircularContainer"]
 margin_right = 240.0
 margin_bottom = 240.0
 script = ExtResource( 5 )
+angle_start = 170.0
+angle_end = 225.0
+radius_out = 1.0
+radius_in = 0.25
+does_border_scale = false
+base_style = null
+hover_style = null
+selected_style = null
+focus_style = null
+texture = SubResource( 1 )
+texture_size = Vector2( 32, 32 )
+
+[node name="Bluilding" type="Control" parent="System/CircularContainer"]
+margin_right = 240.0
+margin_bottom = 240.0
+script = ExtResource( 5 )
 angle_start = 225.0
 angle_end = 280.0
+radius_out = 1.0
 radius_in = 0.25
+does_border_scale = false
+base_style = null
+hover_style = null
+selected_style = null
+focus_style = null
 texture = SubResource( 2 )
 texture_size = Vector2( 32, 32 )
 

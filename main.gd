@@ -37,10 +37,6 @@ var scenes = {
 		"path" : "res://hud/scores/scores.tscn",
 		"scene" : null,
 	},
-	"hud" :{
-		"path" : "res://hud/hud.tscn",
-		"scene" : null,
-	}
 }
 
 var _is_in_game = false setget _set_is_in_game
@@ -51,9 +47,6 @@ func _ready():
 	if scenes["menu"].scene == null or Network.token == null:
 		change_scene_loading(scenes)
 		yield($Level.get_child(0), "finished")
-	$ParallaxBackground.add_child(scenes.hud.scene.instance())
-	$ParallaxBackground/HUD/HudMenu.connect("back_main_menu", self, "_on_back_to_main_menu")
-	$ParallaxBackground/HUD/ScoresContainer.visible = false
 	change_level(scenes.menu.scene)
 
 
@@ -82,16 +75,6 @@ func change_level(level_scene):
 	$Level.add_child(level)
 
 
-func _on_back_to_main_menu():
-	Network.req(self, "_on_player_left_game", "/api/games/" + Store._state.game.id + "/players/", HTTPClient.METHOD_DELETE)
-
-
-func _on_player_left_game(err, response_code, headers, body):
-	if err:
-		ErrorHandler.network_response_error(err)
-	$ParallaxBackground/HUD/SystemDetails.visible = false
-	change_level(scenes.menu.scene)
-
 
 func _on_scene_request(scene):
 	print(scene)
@@ -115,17 +98,3 @@ func _set_is_in_game(is_in_game_new):
 	if is_in_game_new == _is_in_game:
 		return
 	_is_in_game = is_in_game_new
-	if not is_in_game_new:
-		$ParallaxBackground/HUD/ScoresContainer.visible = false
-		for i in $ParallaxBackground/HUD/ScoresContainer.get_children():
-			i.queue_free()
-	else:
-		$ParallaxBackground/HUD/ScoresContainer.add_child(scenes.scores_hud.scene.instance())
-
-
-func _unhandled_input(event):
-	if _is_in_game :
-		if event.is_action_pressed("ui_hud_scores"):
-			$ParallaxBackground/HUD/ScoresContainer.visible = true
-		elif event.is_action_released("ui_hud_scores"):
-			$ParallaxBackground/HUD/ScoresContainer.visible = false

@@ -1,4 +1,4 @@
-extends Control
+extends MenuContainer
 
 const _SHIP_GROUP_ELEMENT = preload("res://hud/system/fleet/ship_group_fleet_menu.tscn")
 
@@ -6,8 +6,7 @@ var fleet = null setget set_fleet
 var ship_group_hangar = [] setget set_ship_group_hangar
 var system_id = null 
 
-onready var ship_group_element_container = $PanelContainer/ScrollContainer/ShipList
-onready var menu_header = $MenuHeader
+onready var ship_group_element_container = $MenuBody/Body/ScrollContainer/ShipList
 
 
 func _ready():
@@ -19,9 +18,12 @@ func _ready():
 		node.name = category.category
 		ship_group_element_container.add_child(node)
 		node.connect("ship_assigned", self, "_on_ship_assigned", [category])
-	menu_header.connect("minimize_request", self, "_on_minimize_request")
 	update_hangar()
 	update_element_fleet()
+	# it is possible that we would call _refresh_hangar_elements multiple time
+	# it is however necessary to call it as it is possible that the elments are not updated before
+	# (as ship_group_element_container is null before ready) but that ship_group_hangar are already in memory
+	_refresh_hangar_elements()
 
 
 func _on_hangar_updated(system, ship_groups):
@@ -45,10 +47,6 @@ func _on_ship_assigned(quantity_fleet, quantity_hangar, category):
 	Store.update_system_hangar(fleet.system, ship_group_hangar)
 
 
-func _on_minimize_request():
-	visible = false
-
-
 func update_hangar():
 	if fleet == null or system_id == fleet.system:
 		return
@@ -62,6 +60,8 @@ func update_hangar():
 
 func update_element_fleet():
 	var node_updated = []
+	if ship_group_element_container == null:
+		return
 	if fleet != null and fleet.ship_groups != null and ship_group_element_container != null:
 		for i in fleet.ship_groups:
 			var node_ship_group = ship_group_element_container.get_node(i.category)
@@ -81,6 +81,12 @@ func set_fleet(new_fleet):
 
 func set_ship_group_hangar(array):
 	ship_group_hangar = array
+	_refresh_hangar_elements()
+
+
+func _refresh_hangar_elements():
+	if ship_group_element_container == null:
+		return
 	for node in ship_group_element_container.get_children():
 		node.quantity_hangar = 0
 	for i in ship_group_hangar:
