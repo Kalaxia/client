@@ -1,15 +1,12 @@
 extends Object
+class_name Utils
 
 ############## CONSTANTS ##############
 
 const AUDIO_VOLUME_DB_MIN = -100.0 # in dB
 const SCALE_SYSTEMS_COORDS = 20
 
-############## varaibles ##############
-
-var fleet_range
-var victory_point_max
-var victory_point_per_minute
+const RUNTIME_CONSTANTS = "res://runtime/constants.tres"
 
 ############## LOCK ##############
 
@@ -51,25 +48,6 @@ class Lock:
 	func can_lock():
 		return CAN_LOCK_STATE.CANNOT_LOCK if _is_locked else CAN_LOCK_STATE.CAN_LOCK
 
-############## METHODS ##############
-
-func get_label_of_event(event):
-	if event is InputEventKey:
-		return event.as_text()
-	if event is InputEventMouseButton:
-		return tr("action.key.mouse_key_" + (event.button_index as String))
-	return ""
-
-
-func set_constants(constants):
-	fleet_range = constants.fleet_range
-	victory_point_max = constants.victory_points
-	victory_point_per_minute = constants.victory_points_per_minute
-
-
-func has_constants():
-	return fleet_range != null and victory_point_max != null and victory_point_per_minute != null
-
 ############## STATICS METHODS ##############
 
 static func set_window_resizable(is_resizable):
@@ -85,3 +63,10 @@ static func lighten_color(color):
 	color.g = min(color.g + 40.0 / 255.0, 1.0)
 	color.b = min(color.b + 40.0 / 255.0, 1.0)
 	return color
+
+static func get_label_of_event(event):
+	if event is InputEventKey:
+		return event.as_text()
+	if event is InputEventMouseButton:
+		return TranslationServer.translate("action.key.mouse_key_" + (event.button_index as String))
+	return ""

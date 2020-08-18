@@ -44,7 +44,7 @@ var scenes = {
 }
 
 var _is_in_game = false setget _set_is_in_game
-
+var runtime_constants = null
 
 func _ready():
 	Config.connect("locale_reloaded", self, "_on_locale_reloaded")
@@ -78,6 +78,8 @@ func _on_load_finished():
 func change_level(level_scene):
 	for l in $Level.get_children(): l.queue_free()
 	var level = level_scene.instance()
+	if "main" in level:
+		level.main = self
 	level.connect("scene_requested", self, "_on_scene_request")
 	$Level.add_child(level)
 

@@ -23,6 +23,8 @@ var has_emited_finished = false
 var _number_of_element_to_load = 0
 var _current_loading_component_load = 0
 
+var main : Node = null
+
 onready var global_progressbar = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/GlobalProgress
 onready var ressource_progressbar = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/ProgressBar
 onready var loading_componenet_label = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/LoadingComponenet
@@ -35,6 +37,7 @@ onready var timer_res = $TimerRessource
 onready var label_constant_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/LabelConstante
 onready var label_ship_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/LabelShips
 
+#onready var Utils = load("res://global/utils.gd")
 
 func _ready():
 	quit_button.visible = false
@@ -47,7 +50,7 @@ func _ready():
 		Network.req(self, "_on_factions_loaded", "/api/factions/")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_faction_status)
-	if not Utils.has_constants():
+	if not load(Utils.RUNTIME_CONSTANTS):
 		Network.req(self, "_on_constants_loaded", "/api/constants/")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
@@ -104,7 +107,7 @@ func _on_timeout_auth():
 	if Store._state.ship_models.size() == 0:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
 		quit_button.visible = true
-	if not Utils.has_constants():
+	if not ResourceLoader.has_cached(Utils.RUNTIME_CONSTANTS):
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
 		quit_button.visible = true
 
@@ -112,6 +115,9 @@ func _on_timeout_auth():
 func _on_factions_loaded(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
+		return
+
 	var factions = JSON.parse(body.get_string_from_utf8()).result
 	if factions != null:
 		Store.set_factions(factions)
@@ -124,9 +130,15 @@ func _on_factions_loaded(err, response_code, headers, body):
 func _on_constants_loaded(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
+		return
+
 	var constants = JSON.parse(body.get_string_from_utf8()).result
 	if constants != null:
-		Utils.set_constants(constants)
+		main.runtime_constants = RuntimeConstants.new()
+		main.runtime_constants.load_dict(constants)
+		main.runtime_constants.take_over_path(Utils.RUNTIME_CONSTANTS)
+		print(ResourceLoader.has_cached(Utils.RUNTIME_CONSTANTS))
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
@@ -136,6 +148,9 @@ func _on_constants_loaded(err, response_code, headers, body):
 func _on_ship_models_loaded(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
+		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
+		return
+
 	var ship_model = JSON.parse(body.get_string_from_utf8()).result
 	if ship_model != null:
 		Store.set_ships_model(ship_model)
@@ -168,7 +183,7 @@ func set_load_queue(load_queue_param):
 
 
 func verify_is_finished():
-	if Store._state.factions.size() > 0 and queue_finished and Network.token != null and Store._state.ship_models.size() > 0 and Utils.has_constants() and not has_emited_finished:
+	if Store._state.factions.size() > 0 and queue_finished and Network.token != null and Store._state.ship_models.size() > 0 and ResourceLoader.has_cached(Utils.RUNTIME_CONSTANTS) and not has_emited_finished:
 		has_emited_finished = true
 		emit_signal("finished")
 

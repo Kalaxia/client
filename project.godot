@@ -34,50 +34,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://gui/custom_shape_button.gd"
 }, {
-"base": "Node",
-"class": "DataConnexion",
-"language": "GDScript",
-"path": "res://global/connected_ui.gd"
-}, {
 "base": "Resource",
 "class": "DictResource",
 "language": "GDScript",
 "path": "res://resources/dict_resource.gd"
-}, {
-"base": "Node",
-"class": "FSM",
-"language": "GDScript",
-"path": "res://fsm/fsm.gd"
-}, {
-"base": "Object",
-"class": "FSMEvent",
-"language": "GDScript",
-"path": "res://fsm/fsm_event.gd"
-}, {
-"base": "Object",
-"class": "FSMState",
-"language": "GDScript",
-"path": "res://fsm/fsm_state.gd"
 }, {
 "base": "Control",
 "class": "FleetItem",
 "language": "GDScript",
 "path": "res://hud/system/fleet/fleet_item.gd"
 }, {
+"base": "Sprite",
+"class": "FleetSprite",
+"language": "GDScript",
+"path": "res://game/map/sprites/fleet_sprite.gd"
+}, {
 "base": "Resource",
 "class": "GameData",
 "language": "GDScript",
 "path": "res://resources/game_data.gd"
 }, {
-"base": "FSMEvent",
-"class": "GameEvent",
+"base": "Resource",
+"class": "HttpResource",
 "language": "GDScript",
-"path": "res://game/event/game_event.gd"
-}, {
-"base": "FSMState",
-"class": "GameInit",
-"language": "GDScript",
-"path": "res://game/init_state.gd"
+"path": "res://resources/http_resource.gd"
 }, {
 "base": "Resource",
 "class": "KalaxiaAssets",
@@ -93,10 +73,6 @@ _global_script_classes=[ {
 "class": "KalaxiaPicto",
 "language": "GDScript",
 "path": "res://resources/assets/2d/picto.gd"
-"base": "Sprite",
-"class": "FleetSprite",
-"language": "GDScript",
-"path": "res://game/map/sprites/fleet_sprite.gd"
 }, {
 "base": "PanelContainer",
 "class": "MenuHeader",
@@ -118,10 +94,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://matchmaking/player/player_info_faction_column.gd"
 }, {
-"base": "Object",
-"class": "QuadTree",
+"base": "DictResource",
+"class": "RuntimeConstants",
 "language": "GDScript",
-"path": "res://quad_tree.gd"
+"path": "res://resources/runtime_constants.gd"
 }, {
 "base": "PanelContainer",
 "class": "SelectablePanelContainer",
@@ -143,58 +119,41 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/system_data.gd"
 }, {
-"base": "FSMState",
-"class": "SystemManagement",
-"language": "GDScript",
-"path": "res://game/system_management.gd"
-}, {
-"base": "FSMEvent",
-"class": "SystemSelect",
-"language": "GDScript",
-"path": "res://game/event/system_select.gd"
-}, {
-"base": "Object",
-"class": "Time",
-"language": "GDScript",
-"path": "res://time.gd"
-}, {
 "base": "CustomShapeButton",
 "class": "TransparentCircleButton",
 "language": "GDScript",
 "path": "res://gui/transparent_circle_button.gd"
+}, {
+"base": "Object",
+"class": "Utils",
+"language": "GDScript",
+"path": "res://global/utils.gd"
 } ]
 _global_script_class_icons={
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
 "CircularButton": "res://resources/editor/custom_circular_button.svg",
 "CircularContainer": "res://resources/editor/circular_container.svg",
-"CrownSprite": "res://resources/assets/2d/map/kalankar/picto_flotte_couronne-01.png",
+"CrownSprite": "res://resources/assets/2d/map/kalankar/crown_bottom.png",
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
-"DataConnexion": "",
 "DictResource": "",
-"FSM": "",
-"FSMEvent": "",
-"FSMState": "",
 "FleetItem": "res://resources/editor/fleet_item.svg",
+"FleetSprite": "res://resources/assets/2d/map/picto_flotte_2.png",
 "GameData": "",
-"GameEvent": "",
-"GameInit": "",
+"HttpResource": "",
 "KalaxiaAssets": "res://resources/assets/2d/white_logo.png",
 "KalaxiaFaction": "res://resources/assets/2d/white_logo.png",
 "KalaxiaPicto": "",
-"FleetSprite": "res://resources/assets/2d/map/picto_flotte_2.png",
 "MenuHeader": "res://resources/editor/menu_header.svg",
 "OptionKeyBinding": "",
 "PlayerData": "",
 "PlayerInfoFactionColumn": "",
-"QuadTree": "",
+"RuntimeConstants": "",
 "SelectablePanelContainer": "res://resources/editor/selectable_container.svg",
 "ShipGroup": "",
 "ShipModel": "",
 "SystemData": "",
-"SystemManagement": "",
-"SystemSelect": "",
-"Time": "",
-"TransparentCircleButton": "res://resources/editor/custom_circle_button.svg"
+"TransparentCircleButton": "res://resources/editor/custom_circle_button.svg",
+"Utils": ""
 }
 
 [application]
@@ -210,7 +169,6 @@ Config="*res://config/config.gd"
 Network="*res://global/network.gd"
 Store="*res://global/store.gd"
 ErrorHandler="*res://global/error.gd"
-Utils="*res://global/utils.gd"
 
 [debug]
 
@@ -291,6 +249,23 @@ ui_hud_scores={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777218,"unicode":0,"echo":false,"script":null)
  ]
 }
+ui_minimize={
+"deadzone": 0.5,
+"events": [  ]
+}
+ui_forbbiden_key_rebind={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"unicode":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777222,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_render/layer_1="Default"
+2d_render/layer_2="System"
+2d_render/layer_3="MapBackground"
 
 [locale]
 
