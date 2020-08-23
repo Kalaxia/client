@@ -26,12 +26,14 @@ func set_is_enabled(new_value):
 	is_enabled = new_value
 	_update_enabled()
 
+
 func _update_enabled():
 	if container == null:
 		return
 	for node in container.get_children():
 		if node is Button:
 			node.disabled = not is_enabled
+
 
 func set_action(new_value):
 	action = new_value
@@ -82,10 +84,11 @@ func _input(event):
 	if (event is InputEventKey or event is InputEventMouseButton) and event.is_pressed() and not event.is_action("ui_forbbiden_key_rebind"):
 		InputMap.action_erase_event(action,previous_event)
 		InputMap.action_add_event(action,event)
-		Config.save_key_binding(action)
+		Config.set_key_binding(action)
 		for node in container.get_children():
 			if node is Button:
 				node.pressed = false
 		index_pressed = -1
+		get_tree().set_input_as_handled()
 		emit_signal("unmark_button_key_binding")
 		_refresh_data()
