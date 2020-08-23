@@ -17,7 +17,7 @@ func _ready():
 
 
 func _exit_tree():
-	for node in menus:
+	for node in menus.values():
 		if node != null:
 			node.queue_free()
 
