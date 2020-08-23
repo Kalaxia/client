@@ -131,8 +131,8 @@ func _on_system_update(system):
 
 
 func _on_fleet_sailed(fleet, arrival_time):
-	menu_layer.close_menu("menu_fleet")
 	if fleet.system == Store._state.selected_system.id:
+		menu_layer.close_menu("menu_fleet")
 		refresh_data(Store._state.selected_system)
 
 
