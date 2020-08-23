@@ -23,7 +23,7 @@ file-config-used = config\network_config.tres
 
 git = git 
 describe = describe
-git-decribe-flag = --tags
+git-decribe-flag = --tags --long
 
 echo = echo
 
@@ -43,6 +43,11 @@ version-file = version.tres
 
 .PHONY: all
 all: debug
+
+
+.PHONY: setup
+setup: $(version-file)
+	$(copy) $(copy-flag) "$(file-config-dev)" "$(file-config-used)"
 
 .PHONY: production
 production: $(source-files) $(version-file) .FORCE
