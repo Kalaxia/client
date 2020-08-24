@@ -20,17 +20,11 @@ onready var audio_container = $TabContainer/Audio/AudioScrollContainer/AudioCont
 
 func _ready():
 	_update_language_tabs()
-	var actions = InputMap.get_actions()
-	actions.sort()
-	for i in actions:
-		var node_key = KEY_BINDING_OPTION.instance()
-		node_key.name = i
-		node_key.action = i
-		node_key.connect("mark_button_key_binding", self, "_on_mark_button_key_binding")
-		node_key.connect("unmark_button_key_binding", self, "_on_unmark_button_key_binding")
-		if Config.ENABLE_KEY_BINDING_CHANGE.has(i) :
-			node_key.is_enabled = true
-		key_binding_container.add_child(node_key)
+	for node in key_binding_container.get_children():
+			if node is OptionKeyBinding:
+				node.connect("mark_button_key_binding", self, "_on_mark_button_key_binding")
+				node.connect("unmark_button_key_binding", self, "_on_unmark_button_key_binding")
+				node.is_enabled = Config.ENABLE_KEY_BINDING_CHANGE.has(node.action)
 	main_menu_button.connect("pressed", self, "_on_back_to_main_menu")
 	for index_bus in range(AudioServer.bus_count):
 		var name_bus = AudioServer.get_bus_name(index_bus)

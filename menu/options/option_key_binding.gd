@@ -1,5 +1,6 @@
+tool
 class_name OptionKeyBinding
-extends Control
+extends PanelContainer
 
 signal mark_button_key_binding(action,index)
 signal unmark_button_key_binding()
@@ -20,6 +21,8 @@ onready var label = $Container/Label
 func _ready():
 	label.text = tr("action." + action)
 	_refresh_data()
+	if action != null and action != "":
+		name = action
 
 
 func set_is_enabled(new_value):
@@ -63,7 +66,7 @@ func _refresh_data():
 		button.index_key_binding = i # todo find a better way
 		button.disabled = not is_enabled
 		button.connect("toggled", self, "_on_button_toggled",[i])
-		var text_button = Utils.get_label_of_event(keys[i])
+		var text_button = Utils.get_label_of_event(keys[i]) if not Engine.editor_hint else keys[i].to_string()
 		if text_button != "":
 			button.text = text_button
 			container.add_child(button)
