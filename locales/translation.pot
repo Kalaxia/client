@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-29 19:13+0200\n"
+"POT-Creation-Date: 2020-08-25 17:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,12 +21,12 @@ msgstr ""
 msgid "Unknown requested scene : "
 msgstr ""
 
-#: config/config.gd:50 config/config.gd:55
+#: config/config.gd:51 config/config.gd:56
 #, python-format
 msgid "error while parsing configuration file %s : %s "
 msgstr ""
 
-#: config/config.gd:77
+#: config/config.gd:78
 #, python-format
 msgid "Error while saving configuration file %s : %s "
 msgstr ""
@@ -36,21 +36,12 @@ msgstr ""
 msgid "game.faction_score.victory_points %d"
 msgstr ""
 
-#: game/game.gd:65
+#: game/game.gd:64
 msgid "game.notification.goal.title"
 msgstr ""
 
-#: game/game.gd:65
+#: game/game.gd:64
 msgid "game.notification.goal.content"
-msgstr ""
-
-#: game/game.gd:330
-msgid "game.receive_credits_notif.title"
-msgstr ""
-
-#: game/game.gd:330
-#, python-format
-msgid "game.receive_credits_notif.content %s %d"
 msgstr ""
 
 #: game/scores.gd:12 game/scores.tscn:20
@@ -163,19 +154,19 @@ msgstr ""
 msgid "global.loading.quit"
 msgstr ""
 
-#: global/network.gd:94
+#: global/network.gd:93
 msgid "network.unable_connect"
 msgstr ""
 
-#: global/network.gd:101
+#: global/network.gd:100
 msgid "network.close_clean_ws"
 msgstr ""
 
-#: global/network.gd:108
+#: global/network.gd:107
 msgid "Connected with protocol: "
 msgstr ""
 
-#: global/network.gd:117
+#: global/network.gd:116
 msgid "received data from server: "
 msgstr ""
 
@@ -216,26 +207,6 @@ msgstr ""
 msgid "hud.wallet.0"
 msgstr ""
 
-#: hud/hud_menu/finance/finance_menu.tscn:49
-msgid "hud.menu.finance.title"
-msgstr ""
-
-#: hud/hud_menu/finance/finance_menu.tscn:106
-msgid "hud.menu.finance.transfer.credit_to_send"
-msgstr ""
-
-#: hud/hud_menu/finance/finance_menu.tscn:112
-msgid "hud.menu.finance.transfer.select_player"
-msgstr ""
-
-#: hud/hud_menu/finance/finance_menu.tscn:129
-msgid "hud.menu.finance.transfer.send"
-msgstr ""
-
-#: hud/hud_menu/finance/tab_container.gd:6
-msgid "hud.menu.finance.transfer"
-msgstr ""
-
 #: hud/scores/score_faction.tscn:61
 msgid "0 / 250"
 msgstr ""
@@ -244,7 +215,7 @@ msgstr ""
 msgid "hud.scores"
 msgstr ""
 
-#: hud/system/details.tscn:111
+#: hud/system/details.tscn:126
 msgid "no_translate.player_name"
 msgstr ""
 
@@ -270,15 +241,15 @@ msgstr ""
 msgid "hud.details.building.hangar.menu_title"
 msgstr ""
 
-#: hud/system/buildings/hangar.tscn:83
+#: hud/system/buildings/hangar.tscn:80
 msgid "hud.details.building.hangar.production_line"
 msgstr ""
 
-#: hud/system/buildings/hangar.tscn:114
+#: hud/system/buildings/hangar.tscn:111
 msgid "hud.details.building.hangar.order_ship"
 msgstr ""
 
-#: hud/system/buildings/hangar.tscn:138
+#: hud/system/buildings/hangar.tscn:135
 msgid "hud.details.building.hangar.hangar_ship"
 msgstr ""
 
@@ -295,12 +266,12 @@ msgid "hud.details.buidlng.time %d"
 msgstr ""
 
 #: hud/system/buildings/contruction/construction_building_item.gd:64
-#: hud/system/buildings/hangar/ship_type_build.gd:118
+#: hud/system/buildings/hangar/ship_type_build.gd:126
 msgid "notification.error.not_enought_cred.title"
 msgstr ""
 
 #: hud/system/buildings/contruction/construction_building_item.gd:64
-#: hud/system/buildings/hangar/ship_type_build.gd:118
+#: hud/system/buildings/hangar/ship_type_build.gd:126
 msgid "notification.error.not_enought_cred.content"
 msgstr ""
 
@@ -324,15 +295,15 @@ msgstr ""
 
 #: hud/system/buildings/hangar/ship_production_line.gd:30
 #: hud/system/buildings/hangar/ship_production_line.tscn:65
-#: hud/system/buildings/hangar/ship_type_build.gd:87
-#: hud/system/buildings/hangar/ship_type_build.tscn:65
+#: hud/system/buildings/hangar/ship_type_build.gd:95
+#: hud/system/buildings/hangar/ship_type_build.tscn:64
 #, python-format
 msgid "hud.details.building.hangar.ship_model %s"
 msgstr ""
 
 #: hud/system/buildings/hangar/ship_production_line.gd:30
-#: hud/system/buildings/hangar/ship_type_build.gd:87
-#: hud/system/fleet/ship_group_fleet_menu.gd:33
+#: hud/system/buildings/hangar/ship_type_build.gd:95
+#: hud/system/fleet/ship_group_fleet_menu.gd:41
 msgid "ship."
 msgstr ""
 
@@ -342,47 +313,47 @@ msgstr ""
 msgid "hud.details.building.hangar.time_remaining %d"
 msgstr ""
 
-#: hud/system/buildings/hangar/ship_type_build.gd:49
-#: hud/system/buildings/hangar/ship_type_build.tscn:250
+#: hud/system/buildings/hangar/ship_type_build.gd:57
+#: hud/system/buildings/hangar/ship_type_build.tscn:248
 #, python-format
 msgid "hud.system.building.hangar.build_max %d"
 msgstr ""
 
-#: hud/system/buildings/hangar/ship_type_build.gd:75
-#: hud/system/buildings/hangar/ship_type_build.tscn:116
+#: hud/system/buildings/hangar/ship_type_build.gd:83
+#: hud/system/buildings/hangar/ship_type_build.tscn:114
 #, python-format
 msgid "hud.details.building.hangar.price %d"
 msgstr ""
 
-#: hud/system/buildings/hangar/ship_type_build.gd:77
+#: hud/system/buildings/hangar/ship_type_build.gd:85
 #, python-format
 msgid "hud.details.building.hangar.time %.1f"
 msgstr ""
 
-#: hud/system/buildings/hangar/ship_type_build.gd:89
-#: hud/system/buildings/hangar/ship_type_build.tscn:174
+#: hud/system/buildings/hangar/ship_type_build.gd:97
+#: hud/system/buildings/hangar/ship_type_build.tscn:172
 #, python-format
 msgid "hud.details.building.hangar.hit_point %d"
 msgstr ""
 
-#: hud/system/buildings/hangar/ship_type_build.gd:91
-#: hud/system/buildings/hangar/ship_type_build.tscn:197
+#: hud/system/buildings/hangar/ship_type_build.gd:99
+#: hud/system/buildings/hangar/ship_type_build.tscn:195
 #, python-format
 msgid "hud.details.building.hangar.damage %d"
 msgstr ""
 
-#: hud/system/buildings/hangar/ship_type_build.gd:93
-#: hud/system/buildings/hangar/ship_type_build.tscn:220
+#: hud/system/buildings/hangar/ship_type_build.gd:101
+#: hud/system/buildings/hangar/ship_type_build.tscn:218
 #, python-format
 msgid "hud.details.building.hangar.accuracy %d"
 msgstr ""
 
-#: hud/system/buildings/hangar/ship_type_build.tscn:151
+#: hud/system/buildings/hangar/ship_type_build.tscn:149
 #, python-format
 msgid "hud.details.building.hangar.time %f.1"
 msgstr ""
 
-#: hud/system/buildings/hangar/ship_type_build.tscn:235
+#: hud/system/buildings/hangar/ship_type_build.tscn:233
 msgid "hud.system.building.hangar.build"
 msgstr ""
 
@@ -400,56 +371,56 @@ msgstr ""
 msgid "hud.details.fleet.fleet_composition_assignation"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:33
-#: hud/system/fleet/ship_group_fleet_menu.tscn:67
+#: hud/system/fleet/ship_group_fleet_menu.gd:41
+#: hud/system/fleet/ship_group_fleet_menu.tscn:66
 #, python-format
 msgid "hud.details.fleet.ship_model %s"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:37
-#: hud/system/fleet/ship_group_fleet_menu.tscn:120
+#: hud/system/fleet/ship_group_fleet_menu.gd:45
+#: hud/system/fleet/ship_group_fleet_menu.tscn:119
 #, python-format
 msgid "hud.details.fleet.hit_point %d"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:39
-#: hud/system/fleet/ship_group_fleet_menu.tscn:152
+#: hud/system/fleet/ship_group_fleet_menu.gd:47
+#: hud/system/fleet/ship_group_fleet_menu.tscn:151
 #, python-format
 msgid "hud.details.fleet.damage %d"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:41
-#: hud/system/fleet/ship_group_fleet_menu.tscn:184
+#: hud/system/fleet/ship_group_fleet_menu.gd:49
+#: hud/system/fleet/ship_group_fleet_menu.tscn:183
 #, python-format
 msgid "hud.details.fleet.accuracy %d"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:45
+#: hud/system/fleet/ship_group_fleet_menu.gd:53
 #, python-format
 msgid "hud.details.fleet.number_of_ship_fleet %d %d"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:46
-#: hud/system/fleet/ship_group_fleet_menu.tscn:341
+#: hud/system/fleet/ship_group_fleet_menu.gd:54
+#: hud/system/fleet/ship_group_fleet_menu.tscn:339
 #, python-format
 msgid "hud.details.fleet.number_of_ship_total %d"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:51
-#: hud/system/fleet/ship_group_fleet_menu.tscn:250
+#: hud/system/fleet/ship_group_fleet_menu.gd:59
+#: hud/system/fleet/ship_group_fleet_menu.tscn:248
 #, python-format
 msgid "hud.details.fleet.max_assign %d"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:205
+#: hud/system/fleet/ship_group_fleet_menu.tscn:204
 msgid "hud.details.fleet.ship_to_assign"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:232
+#: hud/system/fleet/ship_group_fleet_menu.tscn:230
 msgid "hud.details.system.fleet.menu.group_ship.set"
 msgstr ""
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:294
+#: hud/system/fleet/ship_group_fleet_menu.tscn:292
 #, python-format
 msgid "hud.details.fleet.number_of_ship_fleet %d"
 msgstr ""
@@ -551,175 +522,175 @@ msgid "action.ui_move_map_down"
 msgstr ""
 
 #: locales/strings.txt:25
-msgid "action.key.mouse_key_1"
+msgid "action.ui_forbbiden_key_rebind"
 msgstr ""
 
 #: locales/strings.txt:26
-msgid "action.key.mouse_key_2"
+msgid "action.ui_minimize"
 msgstr ""
 
 #: locales/strings.txt:27
-msgid "action.key.mouse_key_3"
+msgid "action.key.mouse_key_1"
 msgstr ""
 
 #: locales/strings.txt:28
-msgid "action.key.mouse_key_4"
+msgid "action.key.mouse_key_2"
 msgstr ""
 
 #: locales/strings.txt:29
-msgid "action.key.mouse_key_5"
+msgid "action.key.mouse_key_3"
 msgstr ""
 
 #: locales/strings.txt:30
-msgid "action.key.mouse_key_6"
+msgid "action.key.mouse_key_4"
 msgstr ""
 
 #: locales/strings.txt:31
-msgid "action.key.mouse_key_7"
+msgid "action.key.mouse_key_5"
 msgstr ""
 
 #: locales/strings.txt:32
-msgid "action.key.mouse_key_8"
+msgid "action.key.mouse_key_6"
 msgstr ""
 
 #: locales/strings.txt:33
-msgid "action.key.mouse_key_9"
+msgid "action.key.mouse_key_7"
 msgstr ""
 
 #: locales/strings.txt:34
-msgid "action.key.mouse_key_128"
+msgid "action.key.mouse_key_8"
 msgstr ""
 
 #: locales/strings.txt:35
-msgid "action.key.mouse_key_256"
+msgid "action.key.mouse_key_9"
 msgstr ""
 
 #: locales/strings.txt:36
-msgid "Adranite"
+msgid "action.key.mouse_key_128"
 msgstr ""
 
 #: locales/strings.txt:37
-msgid "Kalankar"
+msgid "action.key.mouse_key_256"
 msgstr ""
 
 #: locales/strings.txt:38
-msgid "Valkar"
+msgid "Adranite"
 msgstr ""
 
 #: locales/strings.txt:39
-msgid "action.ui_map_center_system"
+msgid "Kalankar"
 msgstr ""
 
 #: locales/strings.txt:40
-msgid "action.ui_hud_scores"
+msgid "Valkar"
 msgstr ""
 
 #: locales/strings.txt:41
-msgid "ship.fighter"
+msgid "action.ui_map_center_system"
 msgstr ""
 
 #: locales/strings.txt:42
-msgid "ship.corvette"
+msgid "action.ui_hud_scores"
 msgstr ""
 
 #: locales/strings.txt:43
-msgid "ship.frigate"
+msgid "ship.fighter"
 msgstr ""
 
 #: locales/strings.txt:44
-msgid "ship.cruiser"
+msgid "ship.corvette"
 msgstr ""
 
 #: locales/strings.txt:45
-msgid "global.loading.ressource.loading"
+msgid "ship.frigate"
 msgstr ""
 
 #: locales/strings.txt:46
-msgid "global.loading.ressource.menu"
+msgid "ship.cruiser"
 msgstr ""
 
 #: locales/strings.txt:47
-msgid "global.loading.ressource.lobby"
+msgid "global.loading.ressource.loading"
 msgstr ""
 
 #: locales/strings.txt:48
-msgid "global.loading.ressource.game_loading"
+msgid "global.loading.ressource.menu"
 msgstr ""
 
 #: locales/strings.txt:49
-msgid "global.loading.ressource.game"
+msgid "global.loading.ressource.lobby"
 msgstr ""
 
 #: locales/strings.txt:50
-msgid "global.loading.ressource.scores"
+msgid "global.loading.ressource.game_loading"
 msgstr ""
 
 #: locales/strings.txt:51
-msgid "global.loading.ressource.option_menu"
+msgid "global.loading.ressource.game"
 msgstr ""
 
 #: locales/strings.txt:52
-msgid "global.loading.ressource.credits_menu"
+msgid "global.loading.ressource.scores"
 msgstr ""
 
 #: locales/strings.txt:53
-msgid "global.loading.ressource.scores_hud"
+msgid "global.loading.ressource.option_menu"
 msgstr ""
 
 #: locales/strings.txt:54
-msgid "global.loading.ressource.hud"
+msgid "global.loading.ressource.credits_menu"
 msgstr ""
 
 #: locales/strings.txt:55
-msgid "hud.details.buidlng.mine"
+msgid "global.loading.ressource.scores_hud"
 msgstr ""
 
 #: locales/strings.txt:56
-msgid "hud.details.buidlng.portal"
+msgid "global.loading.ressource.hud"
 msgstr ""
 
 #: locales/strings.txt:57
-msgid "hud.details.buidlng.shipyard"
+msgid "hud.details.buidlng.mine"
 msgstr ""
 
-#: locales/strings.txt:58 matchmaking/lobby/lobby.tscn:96
-msgid "lobby.game_settings.size.very_small"
+#: locales/strings.txt:58
+msgid "hud.details.buidlng.portal"
 msgstr ""
 
 #: locales/strings.txt:59
-msgid "lobby.game_settings.size.small"
+msgid "hud.details.buidlng.shipyard"
 msgstr ""
 
-#: locales/strings.txt:60
-msgid "lobby.game_settings.size.medium"
+#: locales/strings.txt:60 matchmaking/lobby/lobby.tscn:96
+msgid "lobby.game_settings.size.very_small"
 msgstr ""
 
 #: locales/strings.txt:61
-msgid "lobby.game_settings.size.large"
+msgid "lobby.game_settings.size.small"
 msgstr ""
 
 #: locales/strings.txt:62
-msgid "lobby.game_settings.size.very_large"
+msgid "lobby.game_settings.size.medium"
 msgstr ""
 
-#: locales/strings.txt:63 matchmaking/lobby/lobby.tscn:117
-msgid "lobby.game_settings.speed.slow"
+#: locales/strings.txt:63
+msgid "lobby.game_settings.size.large"
 msgstr ""
 
 #: locales/strings.txt:64
-msgid "lobby.game_settings.speed.medium"
+msgid "lobby.game_settings.size.very_large"
 msgstr ""
 
-#: locales/strings.txt:65
-msgid "lobby.game_settings.speed.fast"
+#: locales/strings.txt:65 matchmaking/lobby/lobby.tscn:117
+msgid "lobby.game_settings.speed.slow"
 msgstr ""
 
 #: locales/strings.txt:66
-msgid "hud.menu.finance.transfet.select_player"
+msgid "lobby.game_settings.speed.medium"
 msgstr ""
 
 #: locales/strings.txt:67
-msgid "hud.hud_menu.back_main_menu"
+msgid "lobby.game_settings.speed.fast"
 msgstr ""
 
 #: matchmaking/game/game_loading.gd:67
@@ -793,31 +764,39 @@ msgstr ""
 msgid "menu.player_info.ready"
 msgstr ""
 
-#: menu/menu_credits.gd:11 menu/menu_credits.tscn:104
+#: menu/credits_scroll_container.gd:10 menu/menu_credits.tscn:171
+msgid "menu.credits.main"
+msgstr ""
+
+#: menu/menu_credits.gd:11 menu/menu_credits.tscn:113
 msgid "menu.credits.website"
 msgstr ""
 
-#: menu/menu_credits.gd:12 menu/menu_credits.tscn:121
+#: menu/menu_credits.gd:12 menu/menu_credits.tscn:130
 msgid "menu.credits.discord"
 msgstr ""
 
-#: menu/menu_credits.tscn:80
+#: menu/menu_credits.tscn:89
 msgid "menu.credits.dev_comunity_label"
 msgstr ""
 
-#: menu/menu_credits.tscn:102
+#: menu/menu_credits.tscn:111
 msgid "https://kalaxia.org"
 msgstr ""
 
-#: menu/menu_credits.tscn:119
+#: menu/menu_credits.tscn:128
 msgid "https://discord.com/invite/mDTms5c"
 msgstr ""
 
-#: menu/menu_credits.tscn:140
+#: menu/menu_credits.tscn:192
+msgid "menu.credits.third_party_licenses"
+msgstr ""
+
+#: menu/menu_credits.tscn:199
 msgid "menu.credits.legal_notice_godot"
 msgstr ""
 
-#: menu/menu_credits.tscn:155
+#: menu/menu_credits.tscn:216
 msgid "menu.credits.back_main_menu"
 msgstr ""
 
@@ -837,7 +816,23 @@ msgstr ""
 msgid "menu.option.tab.lang"
 msgstr ""
 
-#: menu/menu_option.tscn:161
+#: menu/menu_option.tscn:84
+msgid "menu.option.shortcut.fleet_and_ships"
+msgstr ""
+
+#: menu/menu_option.tscn:118
+msgid "menu.option.shortcut.map"
+msgstr ""
+
+#: menu/menu_option.tscn:200
+msgid "menu.option.shortcut.hud"
+msgstr ""
+
+#: menu/menu_option.tscn:226
+msgid "menu.option.shortcut.general"
+msgstr ""
+
+#: menu/menu_option.tscn:451
 msgid "menu.option.back_main_menu"
 msgstr ""
 
@@ -907,7 +902,7 @@ msgstr ""
 msgid "no_translate.Option_Label"
 msgstr ""
 
-#: menu/options/option_key_binding.gd:21 menu/options/option_key_binding.gd:39
+#: menu/options/option_key_binding.gd:22 menu/options/option_key_binding.gd:44
 msgid "action."
 msgstr ""
 

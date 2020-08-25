@@ -1,0 +1,12 @@
+[gd_resource type="DynamicFont" load_steps=2 format=2]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://resources/fonts/Muli/Muli-VariableFont_wght.ttf"
+
+[resource]
+size = 30
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.156863 )
+use_filter = true
+extra_spacing_bottom = -1
+font_data = SubResource( 1 )
