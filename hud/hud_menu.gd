@@ -2,12 +2,14 @@ extends VBoxContainer
 
 signal back_main_menu() 
 
+var menu_layer : MenuLayer setget set_menu_layer
+
 onready var texture_rect = $HBoxContainer/TextureRect
 onready var button_container_left = $HBoxContainer/ButtonContainerLeft
 onready var button_container_right = $HBoxContainer/ButtonContainerRight
 onready var menu_button = $HBoxContainer/ButtonContainerRight/SelectablePanelContainerMenu
 onready var popup_menu = $HBoxContainer/ButtonContainerRight/SelectablePanelContainerMenu/PopupMenu
-
+onready var finance_button = $HBoxContainer/ButtonContainerRight/SelectablePanelContainerFinance
 
 func _ready():
 	var button_array = button_container_left.get_children() + button_container_right.get_children()
@@ -17,6 +19,14 @@ func _ready():
 	menu_button.connect("state_changed", self, "_toogle_menu")
 	popup_menu.connect("id_pressed", self, "_on_id_pressed")
 	texture_rect.texture = Utils.BANNERS[Store._state.player.faction as int]
+	finance_button.connect("pressed", self, "_on_finance_menu_pressed")
+
+
+func set_menu_layer(node):
+	if menu_layer != null and menu_layer.is_connected("menu_closed", self, "_on_menu_layer_menu_closed"):
+		menu_layer.disconnect("menu_closed", self, "_on_menu_layer_menu_closed")
+	menu_layer = node
+	menu_layer.connect("menu_closed", self, "_on_menu_layer_menu_closed")
 
 
 func update_theme(game = null):
@@ -53,3 +63,16 @@ func _on_id_pressed(id):
 	match id:
 		0:
 			_back_to_main_menu()
+
+
+func _on_finance_menu_pressed():
+	print("")
+	if finance_button.is_selected:
+		menu_layer.request_menu("menu_finance")
+	else:
+		menu_layer.close_menu("menu_finance")
+
+
+func _on_menu_layer_menu_closed(menu_name):
+	if menu_name == "menu_finance":
+		finance_button.is_selected = false
