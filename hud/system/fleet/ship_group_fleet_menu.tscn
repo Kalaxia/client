@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://hud/system/fleet/ship_group_fleet_menu.gd" type="Script" id=1]
+[ext_resource path="res://gui/spin_box_imediate_update.gd" type="Script" id=2]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -210,6 +211,7 @@ margin_right = 1030.0
 margin_bottom = 544.0
 size_flags_vertical = 4
 rounded = true
+script = ExtResource( 2 )
 
 [node name="Control4" type="Control" parent="PanelContainer/HBoxContainer"]
 margin_left = 1034.0
