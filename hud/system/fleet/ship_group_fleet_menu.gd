@@ -8,7 +8,6 @@ var quantity_hangar = 0 setget set_quantity_hangar
 var _lock_assign_ship = Utils.Lock.new() setget private_set, private_get
 
 onready var spinbox = $PanelContainer/HBoxContainer/SpinBox
-onready var line_edit_spin_box = spinbox.get_line_edit()
 onready var button_set = $PanelContainer/HBoxContainer/Button
 onready var ship_category_label = $PanelContainer/HBoxContainer/ShipModel
 onready var texture_rect_cathegory = $PanelContainer/HBoxContainer/TextureModel
@@ -25,15 +24,8 @@ func _ready():
 	update_elements()
 	update_quantities()
 	spinbox.value = quantity_fleet
-	line_edit_spin_box.connect("text_changed", self, "_on_line_edit_text_changed")
-	line_edit_spin_box.connect("text_entered", self, "_on_text_entered")
+	spinbox.connect("text_entered", self, "_on_text_entered")
 	max_assign_button.connect("pressed", self, "_on_max_assign_pressed")
-
-
-func _on_line_edit_text_changed(text = null):
-	var caret_position = line_edit_spin_box.caret_position
-	spinbox.apply()
-	line_edit_spin_box.caret_position = caret_position
 
 
 func update_elements():

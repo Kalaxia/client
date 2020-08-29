@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://hud/system/buildings/hangar/ship_type_build.gd" type="Script" id=1]
 [ext_resource path="res://resources/assets/2d/picto/ships/stat/Health.svg" type="Texture" id=2]
+[ext_resource path="res://gui/spin_box_imediate_update.gd" type="Script" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -98,6 +99,7 @@ min_value = 1.0
 max_value = 100000.0
 value = 1.0
 allow_greater = true
+script = ExtResource( 3 )
 
 [node name="Control3" type="Control" parent="PanelContainer/HBoxContainer"]
 margin_left = 448.0

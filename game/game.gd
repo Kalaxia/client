@@ -50,6 +50,7 @@ func _ready():
 	Network.connect("FactionPointsUpdated", self, "_on_faction_points_update")
 	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
 	Network.connect("BuildingConstructed", self, "_on_building_constructed")
+	Network.connect("PlayerMoneyTransfer", self, "_on_money_transfer")
 	hud.connect("request_main_menu", self, "_on_request_main_menu")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	limits = draw_systems()
@@ -321,3 +322,9 @@ func _set_camera_position(position_camera_set):
 
 func _on_request_main_menu():
 	emit_signal("scene_requested", "menu")
+
+
+func _on_money_transfer(data):
+	Store.update_wallet(data.amount)
+	var username = Store.get_game_player(data.player_id).username
+	Store.notify(tr("game.receive_credits_notif.title"), tr("game.receive_credits_notif.content %s %d") % [username, data.amount])

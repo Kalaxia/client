@@ -70,10 +70,7 @@ __meta__ = {
 }
 angle_start_offset = -10.0
 angle_end_offset = 10.0
-radius_ratio = 1.0
 anchor_position = 8
-aspect_ratio_force = true
-clip_center_node = false
 
 [node name="Fleet" type="Control" parent="System/CircularContainer"]
 margin_right = 240.0
@@ -81,13 +78,7 @@ margin_bottom = 240.0
 script = ExtResource( 5 )
 angle_start = 170.0
 angle_end = 225.0
-radius_out = 1.0
 radius_in = 0.25
-does_border_scale = false
-base_style = null
-hover_style = null
-selected_style = null
-focus_style = null
 texture = SubResource( 1 )
 texture_size = Vector2( 32, 32 )
 
@@ -97,13 +88,7 @@ margin_bottom = 240.0
 script = ExtResource( 5 )
 angle_start = 225.0
 angle_end = 280.0
-radius_out = 1.0
 radius_in = 0.25
-does_border_scale = false
-base_style = null
-hover_style = null
-selected_style = null
-focus_style = null
 texture = SubResource( 2 )
 texture_size = Vector2( 32, 32 )
 

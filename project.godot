@@ -99,6 +99,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://gui/selectable_panel_container.gd"
 }, {
+"base": "SpinBox",
+"class": "SpinBoxImediateUpdate",
+"language": "GDScript",
+"path": "res://gui/spin_box_imediate_update.gd"
+}, {
 "base": "CustomShapeButton",
 "class": "TransparentCircleButton",
 "language": "GDScript",
@@ -123,6 +128,7 @@ _global_script_class_icons={
 "RoundedSelectablePanelLeft": "",
 "RoundedSelectablePanelRight": "",
 "SelectablePanelContainer": "res://resources/editor/selectable_container.svg",
+"SpinBoxImediateUpdate": "res://resources/editor/spin_box_imediate_update.svg",
 "TransparentCircleButton": "res://resources/editor/custom_circle_button.svg"
 }
 

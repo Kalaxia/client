@@ -6,7 +6,6 @@ var ship_category = Store._state.ship_models[0] setget set_ship_category
 var _lock_build_ships = Utils.Lock.new() setget private_set, private_get
 
 onready var spinbox = $PanelContainer/HBoxContainer/SpinBox
-onready var line_edit_spin_box = spinbox.get_line_edit()
 onready var button_order = $PanelContainer/HBoxContainer/Button
 onready var time_label = $PanelContainer/HBoxContainer/Time
 onready var hit_point_label = $PanelContainer/HBoxContainer/HitPoint
@@ -23,18 +22,11 @@ func _ready():
 	button_order.connect("pressed", self, "_on_pressed_build")
 	spinbox.connect("value_changed", self, "_on_spinbox_changed")
 	Store.connect("wallet_updated", self, "_on_wallet_update")
-	line_edit_spin_box.connect("text_changed", self, "_on_line_edit_text_changed")
-	line_edit_spin_box.connect("text_entered", self, "_on_text_entered")
+	spinbox.connect("text_entered", self, "_on_text_entered")
 	request_max_button.connect("pressed", self, "_on_request_max")
 	update_elements()
 	update_price_and_time()
 	_update_max_values()
-
-
-func _on_line_edit_text_changed(text = null):
-	var caret_position = line_edit_spin_box.caret_position
-	spinbox.apply()
-	line_edit_spin_box.caret_position = caret_position
 
 
 func _on_text_entered(text = null):

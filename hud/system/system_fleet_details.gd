@@ -3,7 +3,7 @@ extends Control
 const FLEET_COST = 10
 
 var fleet_item_scene = preload("res://hud/system/fleet/fleet_item.tscn")
-var menu_layer : MenuLayer
+var menu_layer : MenuLayer setget set_menu_layer
 var _create_fleet_lock = Utils.Lock.new()
 var _lock_add_fleet_item = Utils.Lock.new()
 
@@ -26,17 +26,20 @@ func _ready():
 	refresh_data(Store._state.selected_system)
 
 
-func _on_system_selected(system, old_system):
-	refresh_data(system)
+func _unhandled_input(event):
+	if not event is InputEventKey or not is_visible():
+		return
+	if event.is_action_pressed("ui_add_fleet"):
+		create_fleet()
+	elif event.is_action_pressed("ui_select_fleet"):
+		# get diff between first key and actual key to get the fleet list index
+		var index = event.scancode - KEY_1
+		if Store._state.selected_system.fleets.size() > index:
+			Store.select_fleet(Store._state.selected_system.fleets.values()[index])
 
 
-func _on_fleet_selected(fleet):
-	menu_layer.get_menu("menu_fleet").fleet = fleet
-
-
-func _on_button_menu_fleet(fleet):
-	if menu_layer.toogle_menu("menu_fleet"):
-		menu_layer.get_menu("menu_fleet").fleet = fleet
+func set_menu_layer(node):
+	menu_layer = node
 
 
 func refresh_data(system):
@@ -93,6 +96,19 @@ func add_fleet_item(fleet):
 	return fleet_node
 
 
+func _on_system_selected(system, old_system):
+	refresh_data(system)
+
+
+func _on_fleet_selected(fleet):
+	menu_layer.get_menu("menu_fleet").fleet = fleet
+
+
+func _on_button_menu_fleet(fleet):
+	if menu_layer.toogle_menu("menu_fleet"):
+		menu_layer.get_menu("menu_fleet").fleet = fleet
+
+
 func _on_fleet_created(fleet):
 	if Store._state.selected_system == null || fleet.system != Store._state.selected_system.id:
 		return
@@ -138,15 +154,3 @@ func _on_fleet_sailed(fleet, arrival_time):
 
 func _on_victory(data):
 	set_visible(false)
-
-
-func _unhandled_input(event):
-	if not event is InputEventKey or not is_visible():
-		return
-	if event.is_action_pressed("ui_add_fleet"):
-		create_fleet()
-	elif event.is_action_pressed("ui_select_fleet"):
-		# get diff between first key and actual key to get the fleet list index
-		var index = event.scancode - KEY_1
-		if Store._state.selected_system.fleets.size() > index:
-			Store.select_fleet(Store._state.selected_system.fleets.values()[index])

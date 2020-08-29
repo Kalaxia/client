@@ -23,11 +23,11 @@ func _ready():
 		if node is MenuHeader:
 			menu_header = node
 			has_menu_header = true
+			menu_header.connect("close_request", self, "close_request")
+			menu_header.connect("minimize_request", self, "minimize_toogle")
 		elif node is MenuBody:
 			has_menu_body = true
 			menu_body = node
-	menu_header.connect("close_request", self, "close_request")
-	menu_header.connect("minimize_request", self, "minimize_toogle")
 	if Engine.editor_hint:
 		if not has_menu_header:
 			menu_header = MENU_HEADER.instance()

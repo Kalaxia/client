@@ -9,7 +9,7 @@ const MENU = {
 	"portal" : null,
 }
 
-var menu_layer : MenuLayer
+var menu_layer : MenuLayer setget set_menu_layer
 var _building_panel_list = []
 
 onready var building_container = $ScrollContainer/HBoxContainer
@@ -24,10 +24,12 @@ func _ready():
 	update_visibility()
 
 
-func _on_system_selected(system, old_system):
-	update_building_panels()
-	update_visibility()
-	
+func set_menu_layer(node):
+	if menu_layer != null and menu_layer.is_connected("menu_closed", self, "_on_menu_layer_menu_closed"):
+		menu_layer.disconnect("menu_closed", self, "_on_menu_layer_menu_closed")
+	menu_layer = node
+	menu_layer.connect("menu_closed", self, "_on_menu_layer_menu_closed")
+
 
 func update_building_panels():
 	while not _building_panel_list.empty():
@@ -46,10 +48,6 @@ func system_update(system):
 		update_building_panels()
 
 
-func _on_building_updated(system):
-	system_update(system)
-
-
 func update_visibility():
 	var visible_state = Store._state.selected_system != null and Store._state.selected_system.player == Store._state.player.id
 	building_container.visible = visible_state
@@ -57,8 +55,18 @@ func update_visibility():
 		_deselect_other_building()
 
 
+func _on_building_updated(system):
+	system_update(system)
+
+
+func _on_system_selected(system, old_system):
+	update_building_panels()
+	update_visibility()
+
+
 func _on_system_update(system):
 	system_update(system)
+
 
 func _on_panel_pressed(node):
 	_deselect_other_building(node)
@@ -69,7 +77,6 @@ func _on_panel_pressed(node):
 			var node_menu = menu_layer.get_menu(menu)
 			if node.building == null:
 				node_menu.connect("building_contructing", self, "_on_building_contructing", [node])
-			node_menu.connect("closed", self, "_on_menu_closed")
 
 
 func _deselect_other_building(node = null):
@@ -81,8 +88,9 @@ func _deselect_other_building(node = null):
 			buiding_panel.is_selected = false
 
 
-func _on_menu_closed():
-	_deselect_other_building()
+func _on_menu_layer_menu_closed(menu_name):
+	if menu_name == "menu_shipyard":
+		_deselect_other_building()
 
 
 func _on_building_contructing(node, building):

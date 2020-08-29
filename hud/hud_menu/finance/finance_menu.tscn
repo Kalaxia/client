@@ -1,0 +1,129 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://gui/menu/menu_header.tscn" type="PackedScene" id=1]
+[ext_resource path="res://gui/menu/menu_body.gd" type="Script" id=2]
+[ext_resource path="res://gui/menu/menu_container.gd" type="Script" id=3]
+[ext_resource path="res://hud/hud_menu/finance/tab_container.gd" type="Script" id=4]
+[ext_resource path="res://hud/hud_menu/finance/credits_transfert_tab.gd" type="Script" id=5]
+[ext_resource path="res://gui/spin_box_imediate_update.gd" type="Script" id=6]
+
+[sub_resource type="Image" id=1]
+data = {
+"data": PoolByteArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ),
+"format": "LumAlpha8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id=2]
+flags = 4
+flags = 4
+image = SubResource( 1 )
+size = Vector2( 16, 16 )
+
+[sub_resource type="StyleBoxTexture" id=3]
+texture = SubResource( 2 )
+region_rect = Rect2( 0, 0, 16, 16 )
+margin_left = 2.0
+margin_right = 2.0
+margin_top = 2.0
+margin_bottom = 2.0
+
+[sub_resource type="StreamTexture" id=4]
+flags = 4
+load_path = "res://.import/money_64px.png-14695073b2b7bd4dbc437a5f1f5458b7.stex"
+
+[node name="FinanceMenu" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuHeader" parent="." instance=ExtResource( 1 )]
+margin_bottom = 31.0
+custom_styles/panel = SubResource( 3 )
+text = "hud.menu.finance.title"
+closable = true
+minimisable = true
+texture = SubResource( 4 )
+custom_style = null
+
+[node name="MenuBody" type="PanelContainer" parent="."]
+show_behind_parent = true
+margin_top = 31.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_vertical = 3
+script = ExtResource( 2 )
+
+[node name="Body" type="VBoxContainer" parent="MenuBody"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1913.0
+margin_bottom = 1042.0
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="MenuBody/Body"]
+margin_right = 1906.0
+margin_bottom = 1035.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 4 )
+
+[node name="CreditsTransferTab" type="VBoxContainer" parent="MenuBody/Body/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 5 )
+
+[node name="Control" type="Control" parent="MenuBody/Body/TabContainer/CreditsTransferTab"]
+margin_right = 1898.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuBody/Body/TabContainer/CreditsTransferTab"]
+margin_top = 24.0
+margin_right = 1898.0
+margin_bottom = 48.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="MenuBody/Body/TabContainer/CreditsTransferTab/HBoxContainer"]
+margin_left = 476.0
+margin_top = 5.0
+margin_right = 741.0
+margin_bottom = 19.0
+text = "hud.menu.finance.transfer.credit_to_send"
+
+[node name="OptionButton" type="OptionButton" parent="MenuBody/Body/TabContainer/CreditsTransferTab/HBoxContainer"]
+margin_left = 751.0
+margin_right = 1036.0
+margin_bottom = 24.0
+text = "hud.menu.finance.transfet.select_player"
+items = [ "hud.menu.finance.transfet.select_player", null, true, 0, null ]
+selected = 0
+
+[node name="SpinBox" type="SpinBox" parent="MenuBody/Body/TabContainer/CreditsTransferTab/HBoxContainer"]
+margin_left = 1046.0
+margin_right = 1196.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 150, 0 )
+max_value = 200.0
+allow_greater = true
+script = ExtResource( 6 )
+
+[node name="Button" type="Button" parent="MenuBody/Body/TabContainer/CreditsTransferTab/HBoxContainer"]
+margin_left = 1206.0
+margin_right = 1421.0
+margin_bottom = 24.0
+text = "hud.menu.finance.transfer.send"
