@@ -74,7 +74,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://hud/menu_layer.gd"
 }, {
-"base": "Control",
+"base": "PanelContainer",
 "class": "OptionKeyBinding",
 "language": "GDScript",
 "path": "res://menu/options/option_key_binding.gd"
@@ -228,7 +228,8 @@ ui_hud_scores={
 }
 ui_minimize={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777225,"unicode":0,"echo":false,"script":null)
+ ]
 }
 ui_forbbiden_key_rebind={
 "deadzone": 0.5,

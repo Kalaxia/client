@@ -18,6 +18,7 @@ const ENABLE_KEY_BINDING_CHANGE = [
 	"ui_add_fleet",
 	"ui_map_center_system",
 	"ui_hud_scores",
+	"ui_minimize",
 ]
 const KEY_BINDING_SECTION_NAME = "Key binding"
 const SOUND_SECTION_NAME = "Audio"
