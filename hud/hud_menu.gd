@@ -66,7 +66,6 @@ func _on_id_pressed(id):
 
 
 func _on_finance_menu_pressed():
-	print("")
 	if finance_button.is_selected:
 		menu_layer.request_menu("menu_finance")
 	else:
