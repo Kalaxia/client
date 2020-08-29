@@ -28,13 +28,9 @@ func _ready():
 		hangar_element.add_child(node)
 		node.connect("pressed", self, "select_group", [category])
 	select_group(Store._state.ship_models[0])
-	var ship_gp_hangar = Store._state.selected_system.hangar if Store._state.selected_system.has("hangar") else null
-	if ship_gp_hangar != null:
-		set_ship_group_array(ship_gp_hangar)
-	else:
-		set_ship_group_array([])
-		Store.request_hangar(Store._state.selected_system)
+	refresh_hangar()
 	refresh_queue_ships()
+
 
 func refresh_queue_ships():
 	# this may require a bit of time to fetch the data
@@ -46,6 +42,15 @@ func refresh_queue_ships():
 			Store._state.selected_system.id + "/ship-queues/"
 		, HTTPClient.METHOD_GET
 	)
+
+
+func refresh_hangar():
+	var ship_gp_hangar = Store._state.selected_system.hangar if Store._state.selected_system.has("hangar") else null
+	if ship_gp_hangar != null:
+		set_ship_group_array(ship_gp_hangar)
+	else:
+		set_ship_group_array([])
+		Store.request_hangar(Store._state.selected_system)
 
 
 func _remove_all_queued_elements():
@@ -63,8 +68,10 @@ func _on_system_selected(system, old_system):
 		close_request()
 	if system.player == Store._state.player.id and (old_system == null or old_system.id != system.id) :
 		refresh_queue_ships()
+		refresh_hangar()
 	elif old_system == null or old_system.id != system.id:
 		_remove_all_queued_elements()
+		refresh_hangar()
 
 
 func _on_hangar_updated(system, ship_groups):
@@ -74,6 +81,8 @@ func _on_hangar_updated(system, ship_groups):
 
 func set_ship_group_array(new_array):
 	ship_group_array = new_array
+	for i in hangar_element.get_children():
+		i.quantity = 0
 	for ship_group in ship_group_array:
 		hangar_element.get_node(ship_group.category).quantity = ship_group.quantity
 
