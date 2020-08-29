@@ -9,3 +9,4 @@ compile/*/config/config.cfg
 compile/*/kalaxia.pck.tmp
 compile/*/config.cfg
 config.cfg
+cache.tres

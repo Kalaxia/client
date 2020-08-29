@@ -15,8 +15,6 @@ onready var user_name_input = $Container/UsernameInput
 onready var timer_update_username = $Container/UsernameInput/UpdateNameTimer
 onready var background = $Background
 
-onready var assets = load("res://resources/assets.tres")
-
 func _ready():
 	ready_input.pressed = player.ready
 	init_faction_choices()

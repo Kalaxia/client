@@ -17,7 +17,7 @@ func get_color(lighten = false) -> Color:
 		return self.display_color
 
 
-func load_dict(dict : Dictionary) -> void:
+func load_dict(dict) -> void:
 	var icon = Image.new()
 	icon.load("res://resources/faction/{name}/banner.png".format(dict))
 	var icon_tex := ImageTexture.new()
@@ -27,12 +27,8 @@ func load_dict(dict : Dictionary) -> void:
 	self.banner_icon = icon_tex
 
 	self.banner = load("res://resources/faction/{name}/banner.png".format(dict))
-	
-	var color = []
-	for i in range(0, 4):
-		color.push_back((dict.faction_color >> (24 - i*8)) & 0xff)
-	self.display_color = Color8(color[0], color[1], color[2], color[3])
+	self.display_color = dict.display_color
 
 	self.display_name = dict.name
-	self.picto = load("res://resources/2d/picto.gd").of_faction(dict.name)
-	self.theme = load("res://themes/theme_faction/{faction}/theme_main.tres".format(dict))
+	self.picto = KalaxiaPicto.of_faction(dict.name)
+	self.theme = load("res://themes/theme_faction/{name}/theme_main.tres".format(dict))

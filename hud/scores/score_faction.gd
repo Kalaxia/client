@@ -7,7 +7,7 @@ export(int) var faction = 0 setget set_faction
 onready var progress_bar = $ProgressBar
 onready var texture = $TextureRect
 
-const assets = load("res://resources/assets.tres")
+const assets = preload("res://resources/assets.tres")
 
 func _ready():
 	progress_bar.connect("value_changed",self,"_on_progress_bar_changed")

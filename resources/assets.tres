@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=15 format=2]
+[gd_resource type="Resource" load_steps=9 format=2]
 
 [ext_resource path="res://resources/assets/2d/faction/neutral.tres" type="Resource" id=1]
 [ext_resource path="res://resources/assets/2d/picto/building/building.gd" type="Script" id=2]
@@ -13,35 +13,10 @@ load_path = "res://.import/area.png-126ffb5246382c62b6c20ddfdaf31cfa.stex"
 
 [sub_resource type="Resource" id=2]
 script = ExtResource( 2 )
-building_name = ""
+kind = ""
+contruction_time = 0.0
+cost = 0.0
 texture = SubResource( 1 )
-
-[sub_resource type="StreamTexture" id=3]
-flags = 4
-load_path = "res://.import/mine.svg-850008d64cea3d0e84fe623684c9aabd.stex"
-
-[sub_resource type="Resource" id=4]
-script = ExtResource( 2 )
-building_name = "mine"
-texture = SubResource( 3 )
-
-[sub_resource type="StreamTexture" id=5]
-flags = 4
-load_path = "res://.import/portal.svg-5ebcf9ed49a5eec5f5cf1ea813da1f21.stex"
-
-[sub_resource type="Resource" id=6]
-script = ExtResource( 2 )
-building_name = "portal"
-texture = SubResource( 5 )
-
-[sub_resource type="StreamTexture" id=7]
-flags = 4
-load_path = "res://.import/shipyard_64px.png-9659b91d7bdcf9c341e17aaa0f9fc354.stex"
-
-[sub_resource type="Resource" id=8]
-script = ExtResource( 2 )
-building_name = "shipyard"
-texture = SubResource( 7 )
 
 [resource]
 script = ExtResource( 8 )
@@ -50,8 +25,5 @@ ship_models = {
 
 }
 buildings = {
-"": SubResource( 2 ),
-"mine": SubResource( 4 ),
-"portal": SubResource( 6 ),
-"shipyard": SubResource( 8 )
+"": SubResource( 2 )
 }

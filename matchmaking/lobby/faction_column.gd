@@ -52,7 +52,7 @@ func _is_of_current_faction(player):
 
 func set_faction(new_faction):
 	new_faction = new_faction as int
-	if new_faction < 1 or new_faction >= assets.factions.size():
+	if new_faction < 1 or new_faction >= ASSETS.factions.size():
 		return
 	faction = new_faction
 	_update_faction_banner()

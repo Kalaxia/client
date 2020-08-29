@@ -12,6 +12,10 @@ export(int) var precision
 # export var texture : Texture
 
 
+func _init(dict = null).(dict):
+	pass
+
+
 func _get_dict_property_list() -> Array:
 	return [
 		"category",
