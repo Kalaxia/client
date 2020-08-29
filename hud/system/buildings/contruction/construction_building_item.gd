@@ -3,6 +3,8 @@ extends MarginContainer
 
 signal building_contructing(building)
 
+const ASSETS = preload("res://resources/assets.tres")
+
 export(String) var building_type = null setget set_building_type
 
 var _lock_request_build = Utils.Lock.new() setget private_set, private_get
@@ -50,7 +52,7 @@ func _on_lock_changed_state(state_is_locked):
 func _updates_elements():
 	if texture_rect == null:
 		return
-	texture_rect.texture = Utils.TEXTURE_BUILDING[building_type.kind]
+	texture_rect.texture = ASSETS.buildings[building_type.kind].texture
 	label.text = tr("hud.details.buidlng." + building_type.kind) if building_type != null else tr("hud.details.buidlng.contruction")
 	label_cost.text = tr("hud.details.buidlng.cost %d") % building_type.cost
 	label_time.text = tr("hud.details.buidlng.time %d") % building_type.construction_time

@@ -49,8 +49,10 @@ func _ready():
 		Network.req(self, "_on_factions_loaded", "/api/factions/")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_faction_status)
-	if not Utils.has_constants():
-		Network.req(self, "_on_constants_loaded", "/api/constants/")
+	if not Store.cached_resource.constants.has_all_data():
+		Store.cached_resource.constants.connect("loaded", self, "_on_constants_loaded")
+		Store.cached_resource.constants.connect("error_loading", self, "_on_constants_loading_error")
+		Store.cached_resource.constants.load_remote()
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
 	if Store._state.ship_models.size() == 0:
@@ -111,7 +113,7 @@ func _on_timeout_auth():
 	if Store._state.ship_models.size() == 0:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
 		quit_button.visible = true
-	if not Utils.has_constants():
+	if not Store.cached_resource.constants.has_all_data():
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
 		quit_button.visible = true
 	if Store._state.building_list.size() == 0:
@@ -131,15 +133,13 @@ func _on_factions_loaded(err, response_code, headers, body):
 	verify_is_finished()
 
 
-func _on_constants_loaded(err, response_code, headers, body):
-	if err:
-		ErrorHandler.network_response_error(err)
-	var constants = JSON.parse(body.get_string_from_utf8()).result
-	if constants != null:
-		Utils.set_constants(constants)
-		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
-	else:
-		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
+func _on_constants_loaded():
+	set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
+	verify_is_finished()
+
+
+func _on_constants_loading_error(err, response_code, body):
+	set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
 	verify_is_finished()
 
 
@@ -189,7 +189,13 @@ func set_load_queue(load_queue_param):
 
 
 func verify_is_finished():
-	if Store._state.factions.size() > 0 and queue_finished and Network.token != null and Store._state.ship_models.size() > 0 and Utils.has_constants() and Store._state.building_list.size() > 0 and not has_emited_finished:
+	if Store._state.factions.size() > 0 \
+			and queue_finished \
+			and Network.token != null \
+			and Store._state.ship_models.size() > 0 \
+			and Store.cached_resource.constants.has_all_data() \
+			and Store._state.building_list.size() > 0 \
+			and not has_emited_finished:
 		has_emited_finished = true
 		emit_signal("finished")
 

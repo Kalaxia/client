@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=2]
+[gd_resource type="Resource" load_steps=9 format=2]
 
 [ext_resource path="res://resources/assets/2d/faction/faction.gd" type="Script" id=1]
 [ext_resource path="res://resources/assets/2d/map/picto_syteme.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://resources/assets/2d/picto/fleet.png" type="Texture" id=4]
 [ext_resource path="res://resources/assets/2d/map/picto_flotte_2.png" type="Texture" id=5]
 [ext_resource path="res://resources/assets/2d/picto.gd" type="Script" id=6]
+[ext_resource path="res://themes/theme_u_main.tres" type="Theme" id=7]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 6 )
@@ -19,3 +20,4 @@ script = ExtResource( 1 )
 display_color = Color( 0.745098, 0.745098, 0.745098, 1 )
 display_name = ""
 picto = SubResource( 1 )
+theme = ExtResource( 7 )

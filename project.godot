@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://hud/system/buildings/building_panel.gd"
 }, {
+"base": "Resource",
+"class": "CachedResource",
+"language": "GDScript",
+"path": "res://resources/definitions/remote_ressources/cached_resource.gd"
+}, {
 "base": "CustomShapeButton",
 "class": "CircularButton",
 "language": "GDScript",
@@ -28,6 +33,11 @@ _global_script_classes=[ {
 "class": "CircularContainer",
 "language": "GDScript",
 "path": "res://gui/container_circular.gd"
+}, {
+"base": "RemoteDictResource",
+"class": "ConstanteRemoteResource",
+"language": "GDScript",
+"path": "res://resources/definitions/remote_ressources/constante_remote_ressource.gd"
 }, {
 "base": "MarginContainer",
 "class": "ConstructionBuildingItem",
@@ -47,7 +57,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "DictResource",
 "language": "GDScript",
-"path": "res://resources/dict_resource.gd"
+"path": "res://resources/definitions/dict_resource.gd"
 }, {
 "base": "SelectablePanelContainer",
 "class": "FleetItem",
@@ -62,12 +72,17 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "GameData",
 "language": "GDScript",
-"path": "res://resources/game_data.gd"
+"path": "res://resources/definitions/store/game_data.gd"
 }, {
 "base": "Resource",
 "class": "KalaxiaAssets",
 "language": "GDScript",
 "path": "res://resources/assets/assets.gd"
+}, {
+"base": "Resource",
+"class": "KalaxiaBuilding",
+"language": "GDScript",
+"path": "res://resources/assets/2d/picto/building/building.gd"
 }, {
 "base": "Resource",
 "class": "KalaxiaFaction",
@@ -112,12 +127,17 @@ _global_script_classes=[ {
 "base": "DictResource",
 "class": "PlayerData",
 "language": "GDScript",
-"path": "res://resources/player_data.gd"
+"path": "res://resources/definitions/store/player_data.gd"
 }, {
 "base": "PanelContainer",
 "class": "PlayerInfoFactionColumn",
 "language": "GDScript",
 "path": "res://matchmaking/player/player_info_faction_column.gd"
+}, {
+"base": "DictResource",
+"class": "RemoteDictResource",
+"language": "GDScript",
+"path": "res://resources/definitions/remote_ressources/remote_dict_resource.gd"
 }, {
 "base": "SelectablePanelContainer",
 "class": "RoundedSelectablePanelLeft",
@@ -137,12 +157,12 @@ _global_script_classes=[ {
 "base": "DictResource",
 "class": "ShipGroup",
 "language": "GDScript",
-"path": "res://resources/ship_group.gd"
+"path": "res://resources/definitions/ship_group.gd"
 }, {
 "base": "DictResource",
 "class": "ShipModel",
 "language": "GDScript",
-"path": "res://resources/ship_model.gd"
+"path": "res://resources/definitions/store/ship_model.gd"
 }, {
 "base": "SpinBox",
 "class": "SpinBoxImediateUpdate",
@@ -152,12 +172,17 @@ _global_script_classes=[ {
 "base": "DictResource",
 "class": "SystemData",
 "language": "GDScript",
-"path": "res://resources/system_data.gd"
+"path": "res://resources/definitions/store/system_data.gd"
 }, {
 "base": "CustomShapeButton",
 "class": "TransparentCircleButton",
 "language": "GDScript",
 "path": "res://gui/transparent_circle_button.gd"
+}, {
+"base": "Object",
+"class": "Utils",
+"language": "GDScript",
+"path": "res://global/utils.gd"
 }, {
 "base": "Resource",
 "class": "Version",
@@ -167,8 +192,10 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
 "BuildingPanel": "",
+"CachedResource": "",
 "CircularButton": "res://resources/editor/custom_circular_button.svg",
 "CircularContainer": "res://resources/editor/circular_container.svg",
+"ConstanteRemoteResource": "",
 "ConstructionBuildingItem": "",
 "CrownSprite": "res://resources/assets/2d/map/kalankar/crown_bottom.png",
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
@@ -177,6 +204,7 @@ _global_script_class_icons={
 "FleetSprite": "res://resources/assets/2d/map/picto_flotte_2.png",
 "GameData": "",
 "KalaxiaAssets": "res://resources/assets/2d/white_logo.png",
+"KalaxiaBuilding": "",
 "KalaxiaFaction": "res://resources/assets/2d/white_logo.png",
 "KalaxiaPicto": "",
 "MenuBody": "res://resources/editor/menu_body.svg",
@@ -187,6 +215,7 @@ _global_script_class_icons={
 "OptionKeyBinding": "",
 "PlayerData": "",
 "PlayerInfoFactionColumn": "",
+"RemoteDictResource": "",
 "RoundedSelectablePanelLeft": "",
 "RoundedSelectablePanelRight": "",
 "SelectablePanelContainer": "res://resources/editor/selectable_container.svg",
@@ -195,6 +224,7 @@ _global_script_class_icons={
 "SpinBoxImediateUpdate": "res://resources/editor/spin_box_imediate_update.svg",
 "SystemData": "",
 "TransparentCircleButton": "res://resources/editor/custom_circle_button.svg",
+"Utils": "",
 "Version": ""
 }
 

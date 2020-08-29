@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://resources/assets/2d/faction/faction.gd" type="Script" id=1]
 [ext_resource path="res://resources/assets/2d/faction/kalankar/banner.png" type="Texture" id=2]
 [ext_resource path="res://resources/assets/2d/map/kalankar/kalankar_picto.tres" type="Resource" id=3]
+[ext_resource path="res://themes/theme_faction/kalankar/theme_main.tres" type="Theme" id=4]
 
 [resource]
 script = ExtResource( 1 )
@@ -10,3 +11,4 @@ banner = ExtResource( 2 )
 display_color = Color( 0.952941, 0.682353, 0.298039, 1 )
 display_name = "Kalankar"
 picto = ExtResource( 3 )
+theme = ExtResource( 4 )

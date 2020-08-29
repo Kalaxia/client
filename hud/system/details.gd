@@ -1,6 +1,6 @@
 extends Control
 
-const assets = preload("res://resources/assets.tres")
+const ASSETS = preload("res://resources/assets.tres")
 
 var fleet_details_scene = preload("res://hud/system/system_fleet_details.tscn")
 var building_details_scene = preload("res://hud/system/system_building_details.tscn")
@@ -27,11 +27,11 @@ func _on_system_selected(system, old_system):
 
 
 func refresh_data(system):
-	var faction = assets.factions.neutral
+	var faction = ASSETS.factions[0]
 	player_node.text = ""
 	if system.player != null:
-		var player = Store.get_game_player(system.player).faction
-		faction = assets[player.faction]
+		var player = Store.get_game_player(system.player)
+		faction = ASSETS.factions[player.faction]
 		player_node.text = player.username
 	$System/CircularContainer/ContainerSystem/TextureRect.texture = faction.picto.system_by_kind(system.kind)
 	$System/CircularContainer/ContainerSystem/TextureRect.modulate = faction.get_color(system.kind == "VictorySystem")

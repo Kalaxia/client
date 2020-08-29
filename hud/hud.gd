@@ -2,6 +2,8 @@ extends Control
 
 signal request_main_menu()
 
+const ASSETS = preload("res://resources/assets.tres")
+
 onready var menu_layer = $MenuLayer
 onready var scores_container = $ScoresContainer
 onready var hud_menu = $HudMenu

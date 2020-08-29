@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-const assets = preload("res://resources/assets.tres")
+const ASSETS = preload("res://resources/assets.tres")
 const PLAYER_INFO_FACTION_COLUMN = preload("res://matchmaking/player/player_info_faction_column.tscn")
 
 export(int) var faction = 0 setget set_faction
@@ -61,13 +61,11 @@ func _update_faction_banner():
 	if scroll_container == null:
 		return
 	var style = scroll_container.get("custom_styles/bg")
-	var duplicated_style = style.duplicate()
 	if faction != 0:
 		header_banner.visible = true
-		header_banner.texture = assets.factions[faction].banner
-		var color = assets.factions[faction].get_color()
-		duplicated_style.border_color =  Color(color[0] / 255.0, color[1] / 255.0, color[2] / 255.0)
+		header_banner.texture = ASSETS.factions[faction].banner
+		style.border_color = ASSETS.factions[faction].get_color()
 	else:
-		duplicated_style.border_color = Color(0.12,0.12,0.12)
+		style.border_color = Color(0.12,0.12,0.12)
 		header_banner.visible = false
-	scroll_container.set("custom_styles/bg",duplicated_style)
+	scroll_container.set("custom_styles/bg", style)

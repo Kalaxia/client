@@ -6,4 +6,4 @@ export(Array) var factions
 export(Dictionary) var ship
 export(Resource) var misc
 export(Dictionary) var gui
- 
+export(Dictionary) var buildings

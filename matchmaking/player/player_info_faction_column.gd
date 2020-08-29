@@ -1,8 +1,9 @@
 class_name PlayerInfoFactionColumn
 extends PanelContainer
 
-var player setget set_player
+const ASSETS = preload("res://resources/assets.tres")
 
+var player setget set_player
 
 onready var label = $Label
 
@@ -37,10 +38,9 @@ func update_display():
 
 func _update_faction_color():
 	var style = get("custom_styles/panel")
-	var duplicated_style = style.duplicate() if style != null else StyleBoxFlat.new()
+	var style_used = style if style != null else StyleBoxFlat.new()
 	if player.faction != null and player.faction as int != 0:
-		var color = Store._state.factions[player.faction as float].color
-		duplicated_style.border_color =  Color(color[0] / 255.0, color[1] / 255.0, color[2] / 255.0, 0.5)
+		style_used.border_color = ASSETS.factions[player.faction].get_color()
 	else:
-		duplicated_style.border_color = Color(0.12, 0.12, 0.12, 0.5)
-	set("custom_styles/panel",duplicated_style)
+		style_used.border_color = Color(0.12, 0.12, 0.12, 0.5)
+	set("custom_styles/panel", style_used)
