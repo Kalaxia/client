@@ -2,7 +2,7 @@ extends Control
 
 signal ship_assigned(ship_in_fleet, ship_in_hangar)
 
-var ship_category = Store._state.ship_models[0] setget set_ship_category 
+onready var ship_category = assets.ship_models[0] setget set_ship_category 
 var quantity_fleet = 0 setget set_quantity_fleet
 var quantity_hangar = 0 setget set_quantity_hangar
 var _lock_assign_ship = Utils.Lock.new() setget private_set, private_get

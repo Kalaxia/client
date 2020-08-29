@@ -45,7 +45,10 @@ __meta__ = {
 margin_bottom = 31.0
 custom_styles/panel = SubResource( 3 )
 text = "hud.details.fleet.fleet_composition_assignation"
+closable = true
+minimisable = true
 texture = SubResource( 4 )
+custom_style = null
 
 [node name="MenuBody" type="PanelContainer" parent="."]
 show_behind_parent = true

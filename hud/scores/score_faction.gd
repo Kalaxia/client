@@ -7,6 +7,7 @@ export(int) var faction = 0 setget set_faction
 onready var progress_bar = $ProgressBar
 onready var texture = $TextureRect
 
+const assets = load("res://resources/assets.tres")
 
 func _ready():
 	progress_bar.connect("value_changed",self,"_on_progress_bar_changed")
@@ -43,6 +44,6 @@ func _update_faction():
 		return
 	texture.texture = ASSETS.factions[faction].banner
 	var forground = progress_bar.get("custom_styles/fg").duplicate()
-	var faction_object = Store.get_faction(faction as float)
-	forground.set_bg_color(Color(faction_object.color[0] / 255.0, faction_object.color[1] / 255.0, faction_object.color[2] / 255.0))
+	var faction_object = assets.factions[faction as int]
+	forground.set_bg_color(faction_object.display_color)
 	progress_bar.set("custom_styles/fg", forground)

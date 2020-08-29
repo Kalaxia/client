@@ -9,7 +9,7 @@ export var wallet : int
 func load_dict(dict : Dictionary) -> void:
 	.load_dict(dict)
 	
-	var assets = load("res://resources/assets.tres")
+	var assets = preload("res://resources/assets.tres")
 	self.faction = assets.factions[dict.faction]
 	self.wallet = 0
 

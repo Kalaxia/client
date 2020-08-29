@@ -9,14 +9,14 @@ var _time = 0.0
 
 onready var progress_bar = $CenterContainer/VBoxContainer/ProgressBar
 onready var nb_players_label = $CenterContainer/VBoxContainer/NbPlayers
-
+const assets = preload("res://resources/assets.tres")
 
 func _ready():
 	Network.connect("GameStarted", self, "_on_game_started")
 	Network.connect("SystemsCreated", self, "_on_systems_created")
 	Network.req(self, "_on_players_loaded", "/api/games/" + Store._state.game.id + "/players/")
 	var forground = progress_bar.get("custom_styles/fg")
-	var faction = Store.get_faction(float(Store._state.player.faction))
+	var faction = assets.factions[Store._state.player.faction]
 	# if this does not work you may have a type problem for the keys of the Store._state.faction 
 	forground.set_bg_color(Color(faction.color[0] / 255.0 / COLOR_ATTENUATION,faction.color[1] / 255.0 / COLOR_ATTENUATION, faction.color[2] / 255.0 / COLOR_ATTENUATION))
 

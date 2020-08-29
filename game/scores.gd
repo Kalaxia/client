@@ -15,7 +15,7 @@ func _ready():
 	
 	for score in scores:
 		var fid = float(score.faction)
-		var faction = Store.get_faction(fid)
+		var faction = Store.get_faction_score(fid)
 		
 		var faction_score = FACTION_SCORE_SCENE.instance()
 		faction_score.faction = faction

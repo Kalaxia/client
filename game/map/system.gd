@@ -10,6 +10,7 @@ const _SCALE_FACTOR_ON_HIGHLIGHT = 1.5
 const _SCALE_CHANGE_FACTOR = 5.0
 const SYSTEM_FLEET_PIN_SCENE = preload("res://game/map/system_fleet_pin.tscn")
 const SYSTEM_BUILDING_PIN_SCENE = preload("res://game/map/system_building_pin.tscn")
+const ASSETS = preload("res://resources/assets.tres")
 
 export(float) var scale_ratio = 1.0 setget set_scale_ratio
 
@@ -22,14 +23,13 @@ var _target_scale = scale_ratio
 var _current_scale = scale_ratio
 
 onready var light_glow_bg = $Star/Light2DGlowBG
+onready var constants = Utils.load_constants()
 onready var star = $Star
 onready var crown = $Star/Crown
 onready var spot = $Star/Spot
 onready var fleet_pins = $FleetPins
 onready var range_draw_node = $Range
 onready var building_pins = $BuildingPins
-
-const ASSETS = preload("res://resources/assets.tres")
 
 
 func _ready():
@@ -173,7 +173,7 @@ func _set_system_texture():
 	var faction = ASSETS.factions[0.0]
 	if system.player:
 		faction = ASSETS.factions[Store.get_game_player(system.player).faction]
-	spot.texture = faction.system_by_kind(system.kind)
+	spot.texture = faction.picto.system_by_kind(system.kind)
 
 
 func _scale_star_system(factor):

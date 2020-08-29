@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "ApiConfig",
+"language": "GDScript",
+"path": "res://config/ApiConfig.gd"
+}, {
 "base": "Node",
 "class": "AudioStacking",
 "language": "GDScript",
@@ -59,6 +64,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/definitions/dict_resource.gd"
 }, {
+"base": "Node",
+"class": "ErrorHandler",
+"language": "GDScript",
+"path": "res://global/error.gd"
+}, {
 "base": "SelectablePanelContainer",
 "class": "FleetItem",
 "language": "GDScript",
@@ -84,7 +94,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/assets/2d/picto/building/building.gd"
 }, {
-"base": "Resource",
+"base": "DictResource",
 "class": "KalaxiaFaction",
 "language": "GDScript",
 "path": "res://resources/assets/2d/faction/faction.gd"
@@ -190,6 +200,7 @@ _global_script_classes=[ {
 "path": "res://global/resources/version.gd"
 } ]
 _global_script_class_icons={
+"ApiConfig": "",
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
 "BuildingPanel": "",
 "CachedResource": "",
@@ -200,6 +211,7 @@ _global_script_class_icons={
 "CrownSprite": "res://resources/assets/2d/map/kalankar/crown_bottom.png",
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
 "DictResource": "",
+"ErrorHandler": "",
 "FleetItem": "res://resources/editor/fleet_item.svg",
 "FleetSprite": "res://resources/assets/2d/map/picto_flotte_2.png",
 "GameData": "",
@@ -240,8 +252,6 @@ config/windows_native_icon="res://resources/assets/2d/logo.ico"
 Config="*res://config/config.gd"
 Network="*res://global/network.gd"
 Store="*res://global/store.gd"
-ErrorHandler="*res://global/error.gd"
-Utils="*res://global/utils.gd"
 
 [debug]
 
@@ -324,8 +334,7 @@ ui_hud_scores={
 }
 ui_minimize={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777225,"unicode":0,"echo":false,"script":null)
- ]
+"events": [  ]
 }
 ui_forbbiden_key_rebind={
 "deadzone": 0.5,

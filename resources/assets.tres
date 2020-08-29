@@ -1,28 +1,18 @@
-[gd_resource type="Resource" load_steps=25 format=2]
+[gd_resource type="Resource" load_steps=15 format=2]
 
 [ext_resource path="res://resources/assets/2d/faction/neutral.tres" type="Resource" id=1]
-[ext_resource path="res://resources/assets/2d/picto/ships/ship_64px.png" type="Texture" id=2]
-[ext_resource path="res://resources/assets/2d/picto/ships/frigate.svg" type="Texture" id=3]
-[ext_resource path="res://resources/assets/2d/picto/ships/fighter.svg" type="Texture" id=4]
-[ext_resource path="res://resources/assets/2d/picto/ships/corvette.svg" type="Texture" id=5]
-[ext_resource path="res://resources/assets/2d/picto/ships/cruiser.svg" type="Texture" id=6]
-[ext_resource path="res://resources/assets/2d/picto/building/building.gd" type="Script" id=7]
+[ext_resource path="res://resources/assets/2d/picto/building/building.gd" type="Script" id=2]
 [ext_resource path="res://resources/assets/assets.gd" type="Script" id=8]
 [ext_resource path="res://resources/assets/2d/faction/valkar/valkar.tres" type="Resource" id=9]
-[ext_resource path="res://resources/assets/2d/picto/general/hourglass_3.svg" type="Texture" id=12]
 [ext_resource path="res://resources/assets/2d/faction/adranite/adranite.tres" type="Resource" id=14]
-[ext_resource path="res://resources/assets/2d/picto/general/minimise.svg" type="Texture" id=15]
 [ext_resource path="res://resources/assets/2d/faction/kalankar/kalankar.tres" type="Resource" id=16]
-[ext_resource path="res://resources/assets/2d/picto/general/hourglass.svg" type="Texture" id=17]
-[ext_resource path="res://resources/assets/2d/picto/general/hourglass_2.svg" type="Texture" id=18]
-[ext_resource path="res://resources/assets/2d/picto/general/x.svg" type="Texture" id=19]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
 load_path = "res://.import/area.png-126ffb5246382c62b6c20ddfdaf31cfa.stex"
 
 [sub_resource type="Resource" id=2]
-script = ExtResource( 7 )
+script = ExtResource( 2 )
 building_name = ""
 texture = SubResource( 1 )
 
@@ -31,7 +21,7 @@ flags = 4
 load_path = "res://.import/mine.svg-850008d64cea3d0e84fe623684c9aabd.stex"
 
 [sub_resource type="Resource" id=4]
-script = ExtResource( 7 )
+script = ExtResource( 2 )
 building_name = "mine"
 texture = SubResource( 3 )
 
@@ -40,7 +30,7 @@ flags = 4
 load_path = "res://.import/portal.svg-5ebcf9ed49a5eec5f5cf1ea813da1f21.stex"
 
 [sub_resource type="Resource" id=6]
-script = ExtResource( 7 )
+script = ExtResource( 2 )
 building_name = "portal"
 texture = SubResource( 5 )
 
@@ -49,24 +39,15 @@ flags = 4
 load_path = "res://.import/shipyard_64px.png-9659b91d7bdcf9c341e17aaa0f9fc354.stex"
 
 [sub_resource type="Resource" id=8]
-script = ExtResource( 7 )
+script = ExtResource( 2 )
 building_name = "shipyard"
 texture = SubResource( 7 )
 
 [resource]
 script = ExtResource( 8 )
-factions = [ ExtResource( 1 ), ExtResource( 16 ), ExtResource( 9 ), ExtResource( 14 ) ]
-ship = {
-"corvette": ExtResource( 5 ),
-"cruiser": ExtResource( 6 ),
-"fighter": ExtResource( 4 ),
-"frigate": ExtResource( 3 ),
-"generic": ExtResource( 2 )
-}
-gui = {
-"hourglass": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 12 ) ],
-"minimise": ExtResource( 15 ),
-"x": ExtResource( 19 )
+factions = [ ExtResource( 1 ), ExtResource( 14 ), ExtResource( 16 ), ExtResource( 9 ) ]
+ship_models = {
+
 }
 buildings = {
 "": SubResource( 2 ),

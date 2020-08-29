@@ -14,6 +14,9 @@ const GREEN = Color(50.0 / 255.0, 191.0 / 255.0, 87.0 / 255.0)
 const RED = Color(191.0 / 255.0, 62.0 / 255.0, 50.0 / 255.0)
 const ORANGE = Color(214.0 / 255.0, 150.0 / 255.0, 0.0)
 
+onready var assets : KalaxiaAssets = load("res://resources/assets.tres")
+var loaded_factions = 0
+var loaded_ship_models = 0
 var load_queue = {} setget set_load_queue
 var queue_finished = false
 var loader = null
@@ -45,7 +48,7 @@ func _ready():
 		Network.connect("authenticated", self, "_on_authentication")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_network_status)
-	if Store._state.factions.size() == 0:
+	if loaded_factions == 0:
 		Network.req(self, "_on_factions_loaded", "/api/factions/")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_faction_status)
@@ -55,7 +58,7 @@ func _ready():
 		Store.cached_resource.constants.load_remote()
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
-	if Store._state.ship_models.size() == 0:
+	if loaded_ship_models == 0:
 		Network.req(self, "_on_ship_models_loaded", "/api/ship-models/")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_ship_status)
@@ -107,10 +110,10 @@ func _on_timeout_auth():
 	if Network.token == null: 
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_network_status)
 		quit_button.visible = true
-	if Store._state.factions.size() == 0:
+	if loaded_factions == 0:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
 		quit_button.visible = true
-	if Store._state.ship_models.size() == 0:
+	if loaded_ship_models == 0:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
 		quit_button.visible = true
 	if not Store.cached_resource.constants.has_all_data():
@@ -125,8 +128,11 @@ func _on_factions_loaded(err, response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 	var factions = JSON.parse(body.get_string_from_utf8()).result
+
 	if factions != null:
-		Store.set_factions(factions)
+		for faction in factions:
+			assets.factions[faction.id].load_dict(faction)
+
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_faction_status)
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
@@ -148,7 +154,11 @@ func _on_ship_models_loaded(err, response_code, headers, body):
 		ErrorHandler.network_response_error(err)
 	var ship_model = JSON.parse(body.get_string_from_utf8()).result
 	if ship_model != null:
-		Store.set_ships_model(ship_model)
+		assets.ship_models = []
+		for dict in ship_model:
+			var model = ShipModel.new()
+			model.load_dict(dict)
+			assets.ship_models.push_back(model)
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_ship_status)
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)

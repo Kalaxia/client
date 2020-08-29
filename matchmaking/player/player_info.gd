@@ -15,6 +15,7 @@ onready var user_name_input = $Container/UsernameInput
 onready var timer_update_username = $Container/UsernameInput/UpdateNameTimer
 onready var background = $Background
 
+onready var assets = load("res://resources/assets.tres")
 
 func _ready():
 	ready_input.pressed = player.ready
@@ -53,10 +54,7 @@ func init_faction_choices():
 	faction_choice.add_item(tr("menu.player_info.faction_drop_down_0"), 0)
 	faction_choice.set_item_disabled(0, true)
 	for faction in Store._state.factions.values():
-		var image = assets.factions[faction.id].banner
-		var texture = ImageTexture.new()
-		texture.create_from_image(image, ImageTexture.FLAG_MIPMAPS | ImageTexture.FLAG_FILTER | ImageTexture.FLAG_ANISOTROPIC_FILTER)
-		texture.set_size_override(Vector2(50, 50))
+		var texture = assets.factions[faction.id as int].banner_icon
 		# not keys for faction
 		faction_choice.add_icon_item(texture, tr(faction.name), faction.id) 
 	if player.id == Store._state.player.id:

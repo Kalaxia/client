@@ -15,6 +15,7 @@ signal hangar_updated(system, ship_groups)
 signal building_updated(system)
 signal fleet_owner_updated(fleet)
 
+const ASSETS = load("res://resources/assets.tres")
 const _STATE_EMPTY = {
 	"factions": {},
 	"game": {},
@@ -30,6 +31,7 @@ const _STATE_EMPTY = {
 
 var _state = _STATE_EMPTY.duplicate(true)
 var cached_resource = CachedResource.new()
+
 
 func _ready():
 	pass
@@ -67,20 +69,24 @@ func notify(title, content):
 
 
 func set_factions(factions):
+	#todo remove
 	_state.factions = {}
 	for faction in factions:
 		_state.factions[faction.id] = faction
 
 
 func set_ships_model(models):
+	#todo remove
 	_state.ship_models = models
 
 
 func set_building_list(building_list):
+	#todo remove
 	_state.building_list = building_list
 
 
 func get_faction(id):
+	#todo remove
 	return _state.factions[id]
 
 
@@ -199,6 +205,7 @@ func unload_data():
 
 
 func is_in_range(fleet,system):
+	var constants = Utils.load_constants()
 	# check that the system is adjacent and not equal
 	# adjacent include diagonally
 	if fleet == null or system == null:
@@ -220,7 +227,7 @@ func _get_faction_color(faction, is_victory_system = false, is_current_player = 
 func get_player_color(player,is_victory_system = false) :
 	if player == null :
 		return Color(194.0 / 255.0, 254.0 / 255.0 , 255.0 / 255.0) if is_victory_system else Color(1.0, 1.0, 1.0)
-	return _get_faction_color(Store.get_faction(player.faction), is_victory_system, player.id == _state.player.id)
+	return _get_faction_color(ASSETS.factions[player.faction], is_victory_system, player.id == _state.player.id)
 
 
 func update_scores(scores):
