@@ -17,8 +17,9 @@ func _ready():
 
 
 func _exit_tree():
-	for node in menus:
-		if node != null:
+	for node in menus.values():
+		if node != null and is_instance_valid(node):
+			# we have to free the menus otherwise we may leak memory
 			node.queue_free()
 
 

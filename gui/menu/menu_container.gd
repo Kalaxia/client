@@ -13,7 +13,6 @@ var _warning_string = "" # for the editor warning system, has no effect outside 
 
 
 func _init():
-	._init()
 	set("custom_constants/separation", 0)
 
 

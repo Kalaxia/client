@@ -1,7 +1,5 @@
 extends MenuContainer
 
-signal closed()
-
 const _SHIP_PRODUCTION_LINE = preload("res://hud/system/buildings/hangar/ship_production_line.tscn")
 const _SHIP_TYPE_BUILD = preload("res://hud/system/buildings/hangar/ship_type_build.tscn")
 const _SHIP_HANGARD = preload("res://hud/system/buildings/hangar/ship_type_hangar.tscn")
@@ -18,6 +16,8 @@ onready var hangar_element = $MenuBody/Body/ShipHangar/VBoxContainer/ScrollConta
 
 func _ready():
 	Store.connect("hangar_updated", self, "_on_hangar_updated")
+	Store.connect("system_selected", self, "_on_system_selected")
+	Store.connect("system_update", self, "_on_system_update")
 	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
 	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
 	for category in Store._state.ship_models:
@@ -28,18 +28,50 @@ func _ready():
 		hangar_element.add_child(node)
 		node.connect("pressed", self, "select_group", [category])
 	select_group(Store._state.ship_models[0])
-	var ship_gp_hangar = Store._state.selected_system.hangar if Store._state.selected_system.has("hangar") else null
-	if ship_gp_hangar != null:
-		set_ship_group_array(ship_gp_hangar)
-	else:
-		set_ship_group_array([])
-		Store.request_hangar(Store._state.selected_system)
+	refresh_hangar()
+	refresh_queue_ships()
+
+
+func refresh_queue_ships():
+	# this may require a bit of time to fetch the data
+	# it may be better to store the data inside the system
+	_remove_all_queued_elements()
 	Network.req(self, "_on_queue_ships_received"
 		, "/api/games/" +
 			Store._state.game.id+  "/systems/" +
 			Store._state.selected_system.id + "/ship-queues/"
 		, HTTPClient.METHOD_GET
 	)
+
+
+func refresh_hangar():
+	var ship_gp_hangar = Store._state.selected_system.hangar if Store._state.selected_system.has("hangar") else null
+	if ship_gp_hangar != null:
+		set_ship_group_array(ship_gp_hangar)
+	else:
+		set_ship_group_array([])
+		Store.request_hangar(Store._state.selected_system)
+
+
+func _remove_all_queued_elements():
+	for node in production_list_vbox_elements.get_children():
+		node.queue_free()
+
+
+func _on_system_update(system):
+	if system.id == Store._state.selected_system.id and system.player != Store._state.player.id:
+		close_request()
+
+
+func _on_system_selected(system, old_system):
+	if not system.has("buildings") or system.buildings.size() == 0 or system.buildings[0].kind != "shipyard":
+		close_request()
+	if system.player == Store._state.player.id and (old_system == null or old_system.id != system.id) :
+		refresh_queue_ships()
+		refresh_hangar()
+	elif old_system == null or old_system.id != system.id:
+		_remove_all_queued_elements()
+		refresh_hangar()
 
 
 func _on_hangar_updated(system, ship_groups):
@@ -49,6 +81,8 @@ func _on_hangar_updated(system, ship_groups):
 
 func set_ship_group_array(new_array):
 	ship_group_array = new_array
+	for i in hangar_element.get_children():
+		i.quantity = 0
 	for ship_group in ship_group_array:
 		hangar_element.get_node(ship_group.category).quantity = ship_group.quantity
 
@@ -62,8 +96,6 @@ func _on_queue_ships_received(err, response_code, headers, body):
 
 
 func _on_ship_queue_finished(ship_data):
-	if ship_data.system != Store._state.selected_system.id:
-		return
 	remove_ship_queue_id(ship_data.id)
 
 

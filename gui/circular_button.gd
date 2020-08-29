@@ -34,7 +34,6 @@ func _ready():
 		focus_style.connect("changed", self, "_on_changed")
 	if texture != null and not texture.is_connected("changed",self,"_on_changed"):
 		texture.connect("changed",self,"_on_changed")
-	._ready()
 
 
 func _draw():

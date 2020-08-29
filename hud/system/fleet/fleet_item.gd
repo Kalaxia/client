@@ -10,7 +10,6 @@ var fleet = null setget set_fleet
 onready var key_binding_compo = $Container/Ships/ButtonMenu/KeyBindingLabelsContainer
 
 func _ready():
-	._ready()
 	connect("focus_entered", self, "_on_focus_entered")
 	connect("focus_exited", self, "_on_focus_exited")
 	$Container/Player.set_text(Store.get_game_player(fleet.player).username)
