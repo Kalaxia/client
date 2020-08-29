@@ -27,11 +27,11 @@ func refresh_data(system):
 	var player_node = $System/CircularContainer/ContainerSystem/PlayerName
 	
 	var assets = load("res://resources/assets.tres")
-	var faction = assets.factions.neutral
+	var faction = assets.factions[0]
 	player_node.text = ""
 	if system.player != null:
-		var player = Store.get_game_player(system.player).faction
-		faction = assets[player.faction]
+		var player = Store.get_game_player(system.player)
+		faction = assets.factions[player.faction]
 		player_node.text = player.username
 
 	$System/CircularContainer/ContainerSystem/TextureRect.texture = faction.picto.system_by_kind(system.kind)

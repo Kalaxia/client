@@ -20,6 +20,8 @@ var _current_scale = scale_ratio
 
 onready var light_glow_bg = $Star/Light2DGlowBG
 const assets = preload("res://resources/assets.tres")
+onready var constants = Utils.load_constants()
+
 onready var star = $Star
 onready var crown = $Star/Crown
 onready var spot = $Star/Spot
@@ -35,7 +37,7 @@ func _ready():
 	Store.connect("fleet_selected", self, "_on_fleet_selected")
 	Store.connect("fleet_unselected", self, "_on_fleet_unselected")
 	var scale_factor = (1.0 / scale.x) if scale.x != 0 else 0.0
-	var scale_range = Utils.fleet_range * Utils.SCALE_SYSTEMS_COORDS * scale_factor
+	var scale_range = constants.fleet_range * Utils.SCALE_SYSTEMS_COORDS * scale_factor
 	range_draw_node.scale = Vector2(scale_range,scale_range)
 	_set_crown_state()
 	_set_system_texture()
@@ -133,8 +135,8 @@ func _set_glow_effet():
 func _set_system_texture():
 	var faction = assets.factions[0]
 	if system.player:
-		system = assets.factions[Store.get_game_player(system.player).faction]
-	spot.texture = faction.system_by_kind(system.kind)
+		faction = assets.factions[Store.get_game_player(system.player).faction]
+	spot.texture = faction.picto.system_by_kind(system.kind)
 
 func _scale_star_system(factor):
 	star.set_scale(Vector2(scale_ratio * factor, scale_ratio * factor))

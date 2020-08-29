@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "ApiConfig",
+"language": "GDScript",
+"path": "res://config/ApiConfig.gd"
+}, {
 "base": "Node",
 "class": "AudioStacking",
 "language": "GDScript",
@@ -39,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/dict_resource.gd"
 }, {
+"base": "Node",
+"class": "ErrorHandler",
+"language": "GDScript",
+"path": "res://global/error.gd"
+}, {
 "base": "Control",
 "class": "FleetItem",
 "language": "GDScript",
@@ -55,16 +65,11 @@ _global_script_classes=[ {
 "path": "res://resources/game_data.gd"
 }, {
 "base": "Resource",
-"class": "HttpResource",
-"language": "GDScript",
-"path": "res://resources/http_resource.gd"
-}, {
-"base": "Resource",
 "class": "KalaxiaAssets",
 "language": "GDScript",
 "path": "res://resources/assets/assets.gd"
 }, {
-"base": "Resource",
+"base": "DictResource",
 "class": "KalaxiaFaction",
 "language": "GDScript",
 "path": "res://resources/assets/2d/faction/faction.gd"
@@ -130,16 +135,17 @@ _global_script_classes=[ {
 "path": "res://global/utils.gd"
 } ]
 _global_script_class_icons={
+"ApiConfig": "",
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
 "CircularButton": "res://resources/editor/custom_circular_button.svg",
 "CircularContainer": "res://resources/editor/circular_container.svg",
 "CrownSprite": "res://resources/assets/2d/map/kalankar/crown_bottom.png",
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
 "DictResource": "",
+"ErrorHandler": "",
 "FleetItem": "res://resources/editor/fleet_item.svg",
 "FleetSprite": "res://resources/assets/2d/map/picto_flotte_2.png",
 "GameData": "",
-"HttpResource": "",
 "KalaxiaAssets": "res://resources/assets/2d/white_logo.png",
 "KalaxiaFaction": "res://resources/assets/2d/white_logo.png",
 "KalaxiaPicto": "",
@@ -168,7 +174,6 @@ config/windows_native_icon="res://resources/assets/2d/logo.ico"
 Config="*res://config/config.gd"
 Network="*res://global/network.gd"
 Store="*res://global/store.gd"
-ErrorHandler="*res://global/error.gd"
 
 [debug]
 

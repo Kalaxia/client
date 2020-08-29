@@ -148,8 +148,9 @@ func center_on_selected_system():
 func update_fleet_system(fleet):
 	Store.update_fleet_system(fleet)
 	map.get_node(fleet.system).refresh_fleet_pins()
-	if fleet_container.has(fleet.id):
-		fleet_container.get_node(fleet.id).queue_free()
+	var fleet_node = fleet_container.get_node(fleet.id)
+	if fleet_node:
+		fleet_node.queue_free()
 
 
 func _setup_particle():

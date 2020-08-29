@@ -70,3 +70,6 @@ static func get_label_of_event(event):
 	if event is InputEventMouseButton:
 		return TranslationServer.translate("action.key.mouse_key_" + (event.button_index as String))
 	return ""
+
+static func load_constants() -> RuntimeConstants:
+	return load(RUNTIME_CONSTANTS) as RuntimeConstants

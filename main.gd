@@ -44,7 +44,6 @@ var scenes = {
 }
 
 var _is_in_game = false setget _set_is_in_game
-var runtime_constants = null
 
 func _ready():
 	Config.connect("locale_reloaded", self, "_on_locale_reloaded")

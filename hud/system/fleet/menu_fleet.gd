@@ -8,12 +8,12 @@ var system_id = null
 
 onready var ship_group_element_container = $PanelContainer/ScrollContainer/ShipList
 onready var menu_header = $MenuHeader
-
+onready var assets = load("res://resources/assets.tres")
 
 func _ready():
 	Store.connect("fleet_update_nb_ships",self,"_on_fleet_update_nb_ships")
 	Network.connect("ShipQueueFinished",self,"_on_ship_queue_finished")
-	for category in Store._state.ship_models:
+	for category in assets.ship_models:
 		var node = _SHIP_GROUP_ELEMENT.instance()
 		node.ship_category = category
 		node.name = category.category

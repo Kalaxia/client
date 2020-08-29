@@ -21,11 +21,10 @@ const _STATE_EMPTY = {
 	"selected_fleet": null,
 	"scores": {},
 	"victorious_faction": null,
-	"ship_models" : [],
 }
 
 var _state = _STATE_EMPTY.duplicate(true)
-
+const assets = preload("res://resources/assets.tres")
 
 func _ready():
 	pass
@@ -50,19 +49,6 @@ func notify(title, content):
 		"title": title,
 		"content": content
 	})
-
-
-func set_factions(factions):
-	_state.factions = {}
-	for faction in factions:
-		_state.factions[faction.id] = faction
-
-
-func set_ships_model(models):
-	_state.ship_models = models
-
-func get_faction(id):
-	return _state.factions[id]
 
 
 func set_game_players(players):
@@ -178,13 +164,14 @@ func unload_data():
 
 
 func is_in_range(fleet,system):
+	var constants = Utils.load_constants()
 	# check that the system is adjacent and not equal
 	# adjacent include diagonally
 	if fleet == null or system == null:
 		return false
 	var coord_system_fleet = Store._state.game.systems[fleet.system].coordinates
 	var vector_diff = Vector2(coord_system_fleet.x, coord_system_fleet.y) - Vector2(system.coordinates.x, system.coordinates.y)
-	return vector_diff.length() < Utils.FLEET_RANGE and vector_diff != Vector2.ZERO
+	return vector_diff.length() < constants.fleet_range and vector_diff != Vector2.ZERO
 
 
 func _get_faction_color(faction, is_victory_system = false, is_current_player = false) :
@@ -199,7 +186,7 @@ func _get_faction_color(faction, is_victory_system = false, is_current_player = 
 func get_player_color(player,is_victory_system = false) :
 	if player == null :
 		return Color(194.0 / 255.0, 254.0 / 255.0 , 255.0 / 255.0) if is_victory_system else Color(1.0, 1.0, 1.0)
-	return _get_faction_color(Store.get_faction(player.faction), is_victory_system, player.id == _state.player.id)
+	return _get_faction_color(assets.factions[player.faction], is_victory_system, player.id == _state.player.id)
 
 
 func update_scores(scores):

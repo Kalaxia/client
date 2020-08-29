@@ -2,7 +2,7 @@ extends Control
 
 signal ship_construction_started(ship_queue)
 
-var ship_category = Store._state.ship_models[0] setget set_ship_category
+var ship_category = assets.ship_models[0] setget set_ship_category
 var _lock_build_ships = Utils.Lock.new()
 var _quantity_orderred = 0
 var _category_orderred = ""

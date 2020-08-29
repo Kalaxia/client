@@ -15,6 +15,9 @@ const RED = Color(191.0 / 255.0, 62.0 / 255.0, 50.0 / 255.0)
 const ORANGE = Color(214.0 / 255.0, 150.0 / 255.0, 0.0)
 const TIME_MAX = 1000.0 / 60.0
 
+onready var assets : KalaxiaAssets = load("res://resources/assets.tres")
+var loaded_factions = 0
+var loaded_ship_models = 0
 var load_queue = {} setget set_load_queue
 var queue_finished = false
 var loader = null
@@ -37,8 +40,6 @@ onready var timer_res = $TimerRessource
 onready var label_constant_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/LabelConstante
 onready var label_ship_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/LabelShips
 
-#onready var Utils = load("res://global/utils.gd")
-
 func _ready():
 	quit_button.visible = false
 	if Network.token == null:
@@ -46,15 +47,15 @@ func _ready():
 		Network.connect("authenticated", self, "_on_authentication")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_network_status)
-	if Store._state.factions.size() == 0:
+	if loaded_factions == 0:
 		Network.req(self, "_on_factions_loaded", "/api/factions/")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_faction_status)
-	if not load(Utils.RUNTIME_CONSTANTS):
+	if not ResourceLoader.has_cached(Utils.RUNTIME_CONSTANTS):
 		Network.req(self, "_on_constants_loaded", "/api/constants/")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
-	if Store._state.ship_models.size() == 0:
+	if loaded_ship_models == 0:
 		Network.req(self, "_on_ship_models_loaded", "/api/ship-models/")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_ship_status)
@@ -101,10 +102,10 @@ func _on_timeout_auth():
 	if Network.token == null: 
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_network_status)
 		quit_button.visible = true
-	if Store._state.factions.size() == 0:
+	if loaded_factions == 0:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
 		quit_button.visible = true
-	if Store._state.ship_models.size() == 0:
+	if loaded_ship_models == 0:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
 		quit_button.visible = true
 	if not ResourceLoader.has_cached(Utils.RUNTIME_CONSTANTS):
@@ -119,8 +120,11 @@ func _on_factions_loaded(err, response_code, headers, body):
 		return
 
 	var factions = JSON.parse(body.get_string_from_utf8()).result
+
 	if factions != null:
-		Store.set_factions(factions)
+		for faction in factions:
+			assets.factions[faction.id].load_dict(faction)
+
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_faction_status)
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
@@ -135,10 +139,8 @@ func _on_constants_loaded(err, response_code, headers, body):
 
 	var constants = JSON.parse(body.get_string_from_utf8()).result
 	if constants != null:
-		main.runtime_constants = RuntimeConstants.new()
-		main.runtime_constants.load_dict(constants)
-		main.runtime_constants.take_over_path(Utils.RUNTIME_CONSTANTS)
-		print(ResourceLoader.has_cached(Utils.RUNTIME_CONSTANTS))
+		assets.constants = RuntimeConstants.new()
+		assets.constants.load_dict(constants)
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
@@ -153,7 +155,11 @@ func _on_ship_models_loaded(err, response_code, headers, body):
 
 	var ship_model = JSON.parse(body.get_string_from_utf8()).result
 	if ship_model != null:
-		Store.set_ships_model(ship_model)
+		assets.ship_models = []
+		for dict in ship_model:
+			var model = ShipModel.new()
+			model.load_dict(dict)
+			assets.ship_models.push_back(model)
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_ship_status)
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
@@ -183,7 +189,7 @@ func set_load_queue(load_queue_param):
 
 
 func verify_is_finished():
-	if Store._state.factions.size() > 0 and queue_finished and Network.token != null and Store._state.ship_models.size() > 0 and ResourceLoader.has_cached(Utils.RUNTIME_CONSTANTS) and not has_emited_finished:
+	if loaded_factions > 0 and queue_finished and Network.token != null and loaded_ship_models > 0 and ResourceLoader.has_cached(Utils.RUNTIME_CONSTANTS) and not has_emited_finished:
 		has_emited_finished = true
 		emit_signal("finished")
 

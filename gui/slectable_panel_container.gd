@@ -19,7 +19,7 @@ func _ready():
 
 
 func _draw():
-	._draw()
+	#._draw()
 	if has_focus():
 		var theme_style = theme.get("SelectablePanelContainer/styles/focus_style") if theme != null else null
 		var style = focus_style if focus_style!= null else theme_style

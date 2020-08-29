@@ -1,6 +1,6 @@
 extends Control
 
-var ship_category = Store._state.ship_models[0] setget set_ship_category 
+onready var ship_category = assets.ship_models[0] setget set_ship_category 
 var quantity_fleet = 0 setget set_quantity_fleet
 var quantity_hangar = 0 setget set_quantity_hangar
 var _quantity_assigned = 0

@@ -16,17 +16,18 @@ onready var ship_order_element = $PanelContainer/VBoxContainer/ShipOrder/VBoxCon
 onready var hangar_element = $PanelContainer/VBoxContainer/ShipHangar/VBoxContainer/ScrollContainer/HBoxContainer
 onready var menu_header = $MenuHeader
 
+onready var assets : KalaxiaAssets = load("res://resources/assets.tres")
 
 func _ready():
 	Network.connect("ShipQueueFinished",self,"_on_ship_queue_finished")
-	for category in Store._state.ship_models:
+	for category in assets.ship_models:
 		var node = _SHIP_HANGARD.instance()
 		node.category = category
 		node.quantity = 0
 		node.name = category.category
 		hangar_element.add_child(node)
 		node.connect("pressed", self, "select_group", [category])
-	select_group(Store._state.ship_models[0])
+	select_group(assets.ship_models[0])
 	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
 	Network.req(self, "_on_ship_group_recieved"
 		, "/api/games/" +

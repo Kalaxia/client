@@ -2,7 +2,7 @@ extends Node
 
 signal locale_reloaded()
 
-const ENV = "production"
+const ENV = "development"
 const PATH_CONFIG_NETWORK = "res://config/" + ENV + ".cfg"
 const PATH_CONFIG_USER = "res://config/config.cfg"
 
