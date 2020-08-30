@@ -1,6 +1,6 @@
 extends Control
 
-const FLEET_COST = 10
+const FLEET_COST = 0
 
 var fleet_item_scene = preload("res://hud/system/fleet/fleet_item.tscn")
 var menu_layer : MenuLayer setget set_menu_layer
@@ -20,6 +20,7 @@ func _ready():
 	Store.connect("fleet_selected", self, "_on_fleet_selected")
 	Store.connect("system_update", self, "_on_system_update")
 	Store.connect("fleet_sailed", self, "_on_fleet_sailed")
+	Store.connect("fleet_owner_updated", self, "_on_fleet_owner_updated")
 	Network.connect("Victory", self, "_on_victory")
 	fleet_creation_button.connect("pressed", self, "create_fleet")
 	fleet_creation_button.set_visible(false)
@@ -37,6 +38,10 @@ func _unhandled_input(event):
 		if Store._state.selected_system.fleets.size() > index:
 			Store.select_fleet(Store._state.selected_system.fleets.values()[index])
 
+
+func _on_fleet_owner_updated(fleet):
+	if fleet_container.has_node(fleet.id):
+		fleet_container.get_node(fleet.id).update_owner()
 
 func set_menu_layer(node):
 	menu_layer = node

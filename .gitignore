@@ -5,3 +5,5 @@ locales/en.po.back
 locales/fr.po.back
 config/config.cfg
 version.tres
+compile/*/config/config.cfg
+compile/*/kalaxia.pck.tmp

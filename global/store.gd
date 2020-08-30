@@ -13,6 +13,7 @@ signal fleet_update_nb_ships(fleet)
 signal fleet_unselected()
 signal hangar_updated(system, ship_groups)
 signal building_updated(system)
+signal fleet_owner_updated(fleet)
 
 const _STATE_EMPTY = {
 	"factions": {},
@@ -42,6 +43,16 @@ func get_lobby_player(pid):
 	for p in _state.lobby.players:
 		if p.id == pid:
 			return p
+
+
+func get_system(system_id):
+	return _state.game.systems[system_id]
+
+
+func update_fleet_owner(fleet, player_id):
+	var updated_fleet = _state.game.systems[fleet.system].fleets[fleet.id]
+	updated_fleet.player = player_id
+	emit_signal("fleet_owner_updated", updated_fleet)
 
 
 func reset_player_lobby_data():
