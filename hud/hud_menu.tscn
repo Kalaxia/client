@@ -1,11 +1,12 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://hud/hud_menu.gd" type="Script" id=1]
+[ext_resource path="res://.import/banner.png-74e88a02fde8130f5f843aba121c4815.res" type="Texture" id=2]
 [ext_resource path="res://gui/selectable_panel_container.gd" type="Script" id=3]
 [ext_resource path="res://hud/rounded_selectable_panel_left.gd" type="Script" id=4]
 [ext_resource path="res://hud/rounded_selectable_panel_right.gd" type="Script" id=5]
 
-[sub_resource type="Image" id=8]
+[sub_resource type="Image" id=1]
 data = {
 "data": PoolByteArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ),
 "format": "LumAlpha8",
@@ -17,7 +18,7 @@ data = {
 [sub_resource type="ImageTexture" id=2]
 flags = 4
 flags = 4
-image = SubResource( 8 )
+image = SubResource( 1 )
 size = Vector2( 16, 16 )
 
 [sub_resource type="StyleBoxTexture" id=3]
@@ -30,13 +31,9 @@ margin_bottom = 2.0
 
 [sub_resource type="StreamTexture" id=4]
 flags = 4
-load_path = "res://.import/banner.png-74e88a02fde8130f5f843aba121c4815.stex"
-
-[sub_resource type="StreamTexture" id=5]
-flags = 4
 load_path = "res://.import/money_64px.png-14695073b2b7bd4dbc437a5f1f5458b7.stex"
 
-[sub_resource type="StreamTexture" id=7]
+[sub_resource type="StreamTexture" id=5]
 flags = 4
 load_path = "res://.import/G_P_Logout_64px.png-96df486bc5e14ad2595297b93d598753.stex"
 
@@ -92,7 +89,7 @@ margin_bottom = 54.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
-texture = SubResource( 4 )
+texture = ExtResource( 2 )
 expand = true
 stretch_mode = 6
 
@@ -134,7 +131,7 @@ alignment = 1
 margin_right = 235.0
 margin_bottom = 30.0
 size_flags_horizontal = 3
-texture = SubResource( 5 )
+texture = SubResource( 4 )
 expand = true
 stretch_mode = 6
 
@@ -145,6 +142,10 @@ margin_bottom = 54.0
 size_flags_horizontal = 3
 custom_styles/panel = SubResource( 3 )
 script = ExtResource( 5 )
+base_style = null
+hover_style = null
+selected_style = null
+focus_style = null
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/ButtonContainerRight/SelectablePanelContainerMenu"]
 margin_left = 2.0
@@ -169,7 +170,7 @@ alignment = 1
 margin_right = 236.0
 margin_bottom = 30.0
 size_flags_horizontal = 3
-texture = SubResource( 7 )
+texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
