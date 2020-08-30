@@ -71,14 +71,6 @@ func set_audio_volume(bus_name: String,linear_volume : float) -> void:
 
 
 func save_config_file():
-#	var dir = Directory.new()
-#	if not dir.dir_exists(CONFIG_DIR):
-#		var path = ProjectSettings.globalize_path("res://")
-#		dir.open(path)
-#		var error = dir.make_dir("config")
-#		if error != OK:
-#			print("Error while making directory : %s " % str(error))
-#			return error
 	var err = config_user.save(PATH_CONFIG_USER)
 	if err != OK :
 		print( tr("Error while saving configuration file %s : %s ") % [PATH_CONFIG_USER , str(err)] )

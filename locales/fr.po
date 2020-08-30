@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2020-08-30 17:23+0200\n"
-"PO-Revision-Date: 2020-08-30 17:25+0200\n"
+"PO-Revision-Date: 2020-08-30 17:39+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -48,12 +48,12 @@ msgstr "Capturer et tenir les systèmes stratégiques"
 
 #: game/game.gd:176
 msgid "game.receive_fleet.title"
-msgstr "Transfer de flotte"
+msgstr "Transfert de flotte"
 
 #: game/game.gd:176
 #, python-format
 msgid "game.receive_fleet.content %s"
-msgstr "%s vous a envoyé une flote"
+msgstr "%s vous a envoyé une flotte"
 
 #: game/game.gd:337
 msgid "game.receive_credits_notif.title"

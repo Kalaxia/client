@@ -62,13 +62,13 @@ func _update_button_give_visibility():
 func _on_give_pressed():
 	if not _lock_donate.try_lock():
 		return
-	Network.req(self, "_on_fleet_givent",
+	Network.req(self, "_on_fleet_given",
 		"/api/games/" + Store._state.game.id + "/systems/" + fleet.system + "/fleets/" + fleet.id + "/donate/",
 		HTTPClient.METHOD_PATCH, [], "", [fleet]
 	)
 
 
-func _on_fleet_givent(err, response_code, headers, body, fleet_p):
+func _on_fleet_given(err, response_code, headers, body, fleet_p):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_NO_CONTENT:

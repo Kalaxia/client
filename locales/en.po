@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2020-08-30 17:23+0200\n"
-"PO-Revision-Date: 2020-08-30 17:24+0200\n"
+"PO-Revision-Date: 2020-08-30 17:40+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -48,12 +48,12 @@ msgstr "Conquer and keep strategic systems"
 
 #: game/game.gd:176
 msgid "game.receive_fleet.title"
-msgstr "Fleet transfer"
+msgstr "Fleet given"
 
 #: game/game.gd:176
 #, python-format
 msgid "game.receive_fleet.content %s"
-msgstr "%s sent you a fleet"
+msgstr "%s gave you a fleet"
 
 #: game/game.gd:337
 msgid "game.receive_credits_notif.title"
