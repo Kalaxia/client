@@ -21,3 +21,4 @@ display_color = Color( 0.745098, 0.745098, 0.745098, 1 )
 display_name = ""
 picto = SubResource( 1 )
 theme = ExtResource( 7 )
+id = 0.0

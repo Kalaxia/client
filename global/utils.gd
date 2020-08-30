@@ -98,3 +98,17 @@ static func translate_system_kind(server_kind : String) -> String:
 			return "system_circle"
 		var x:
 			return x
+
+
+static func capitalise_first_letter(string: String) -> String:
+	var first_letter = string.left(1)
+	var right = string.substr(1)
+	return first_letter.to_upper() + right
+
+
+static func trim(string: String) -> String:
+	# todo improve
+	string = string.replace("  ", " ")
+	string = string.trim_prefix(" ")
+	string = string.trim_suffix(" ")
+	return string

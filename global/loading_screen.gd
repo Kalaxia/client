@@ -104,16 +104,16 @@ func _on_timeout_auth():
 	if Network.token == null: 
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_network_status)
 		quit_button.visible = true
-	if loaded_factions == 0:
+	if not cached_data.dict_loaded[CachedResource.Resource_elements.FACTIONS]:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
 		quit_button.visible = true
-	if loaded_ship_models == 0:
+	if not cached_data.dict_loaded[CachedResource.Resource_elements.SHIP_MODELS]:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
 		quit_button.visible = true
-	if not Store.cached_resource.constants.has_all_data():
+	if not cached_data.dict_loaded[CachedResource.Resource_elements.CONSTANTS]:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
 		quit_button.visible = true
-	if Store._state.building_list.size() == 0:
+	if not cached_data.dict_loaded[CachedResource.Resource_elements.BUILDING]:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_building_status)
 		quit_button.visible = true
 

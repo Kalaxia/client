@@ -198,7 +198,7 @@ func is_in_range(fleet,system):
 
 
 func _get_faction_color(faction, is_victory_system = false, is_current_player = false) :
-	var color = Color(faction.color[0] / 255.0, faction.color[1] / 255.0, faction.color[2] / 255.0)
+	var color = faction.get_color()
 	if is_current_player:
 		color = Utils.lighten_color(color)
 	if is_victory_system:

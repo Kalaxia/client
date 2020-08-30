@@ -2,7 +2,7 @@ extends PanelContainer
 
 signal player_updated(player)
 
-const assets = preload("res://resources/assets.tres")
+const ASSETS = preload("res://resources/assets.tres")
 
 var player = null
 var new_username = ""
@@ -51,10 +51,10 @@ func _on_timer_timeout():
 func init_faction_choices():
 	faction_choice.add_item(tr("menu.player_info.faction_drop_down_0"), 0)
 	faction_choice.set_item_disabled(0, true)
-	for faction in Store._state.factions.values():
-		var texture = assets.factions[faction.id as int].banner_icon
+	for faction in ASSETS.factions:
+		var texture = faction.banner_icon
 		# not keys for faction
-		faction_choice.add_icon_item(texture, tr(faction.name), faction.id) 
+		faction_choice.add_icon_item(texture, tr(faction.display_name), faction.id) 
 	if player.id == Store._state.player.id:
 		faction_choice.disabled = false
 		faction_choice.flat = false

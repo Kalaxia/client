@@ -22,12 +22,12 @@ export(String) var version = null
 var _lock_load_building = Utils.Lock.new() setget private_set, private_get
 var _lock_ships = Utils.Lock.new() setget private_set, private_get
 var _lock_faction = Utils.Lock.new() setget private_set, private_get
-var _dict_loaded = {
+var dict_loaded = {
 	Resource_elements.BUILDING : true, 
 	Resource_elements.SHIP_MODELS : true, 
 	Resource_elements.FACTIONS : true,
 	Resource_elements.CONSTANTS : true,
-} setget private_set, private_get
+} setget private_set
 
 
 func refresh(version_p):
@@ -64,8 +64,8 @@ func has_building():
 
 func has_finished_loading():
 	var has_finished_loading = true
-	for key in _dict_loaded.keys():
-		has_finished_loading = has_finished_loading and _dict_loaded[key]
+	for key in dict_loaded.keys():
+		has_finished_loading = has_finished_loading and dict_loaded[key]
 	return has_finished_loading
 
 
@@ -85,7 +85,7 @@ func _on_building_loaded(err, response_code, header, body):
 		building_list = []
 		for building in result:
 			building_list.push_back(BuildingModelRemote.new(building))
-		_dict_loaded[Resource_elements.BUILDING] = true
+		dict_loaded[Resource_elements.BUILDING] = true
 		_verify_finished_loading()
 		emit_signal("loaded", Resource_elements.BUILDING)
 	elif not err:
@@ -109,7 +109,7 @@ func _on_ship_models_loaded(err, response_code, header, body):
 		ship_models = []
 		for ship_model in result:
 			ship_models.push_back(ShipModel.new(ship_model))
-		_dict_loaded[Resource_elements.SHIP_MODELS] = true
+		dict_loaded[Resource_elements.SHIP_MODELS] = true
 		_verify_finished_loading()
 		emit_signal("loaded", Resource_elements.SHIP_MODELS)
 	elif not err:
@@ -133,7 +133,7 @@ func _on_factions_loaded(err, response_code, header, body):
 		factions = {}
 		for faction in result:
 			factions[faction.id] = (FactionRemote.new(faction))
-		_dict_loaded[Resource_elements.FACTIONS] = true
+		dict_loaded[Resource_elements.FACTIONS] = true
 		_verify_finished_loading()
 		emit_signal("loaded", Resource_elements.FACTIONS)
 	elif not err:
@@ -142,7 +142,7 @@ func _on_factions_loaded(err, response_code, header, body):
 
 
 func _on_constants_loaded():
-	_dict_loaded[Resource_elements.CONSTANTS] = true
+	dict_loaded[Resource_elements.CONSTANTS] = true
 	_verify_finished_loading()
 	emit_signal("loaded", Resource_elements.CONSTANTS)
 	_disconnect_constants_loading()
@@ -160,8 +160,8 @@ func _disconnect_constants_loading():
 
 func _fetch_data_and_save():
 	# todo version controle
-	for key in _dict_loaded.keys():
-		_dict_loaded[key] = false
+	for key in dict_loaded.keys():
+		dict_loaded[key] = false
 	load_constant()
 	load_building()
 	load_factions()
