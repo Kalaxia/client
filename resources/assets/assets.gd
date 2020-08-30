@@ -14,4 +14,4 @@ func load_data_from_cached(ressource: CachedResource):
 	constants = ressource.constants
 	ship_models = ressource.ship_models
 	for index in ressource.factions.keys():
-		factions[index].load_dict(ressource.factions[index])
+		factions[index].update_info_form_dict(ressource.factions[index])

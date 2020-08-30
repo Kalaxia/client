@@ -14,7 +14,7 @@ func _init(dict = null).(dict):
 
 func load_dict(dict):
 	.load_dict(dict)
-	texture = load("res://resources/assets/2d/picto/building/" + kind + ".svg")
+	texture = load("res://resources/assets/2d/picto/building/" + (kind if kind != "" else "area") + ".svg")
 
 
 func _get_dict_property_list():

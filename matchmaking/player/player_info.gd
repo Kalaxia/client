@@ -52,9 +52,10 @@ func init_faction_choices():
 	faction_choice.add_item(tr("menu.player_info.faction_drop_down_0"), 0)
 	faction_choice.set_item_disabled(0, true)
 	for faction in ASSETS.factions:
-		var texture = faction.banner_icon
-		# not keys for faction
-		faction_choice.add_icon_item(texture, tr(faction.display_name), faction.id) 
+		if faction.id as int != 0:
+			var texture = faction.banner_icon
+			# not keys for faction
+			faction_choice.add_icon_item(texture, tr(faction.display_name), faction.id) 
 	if player.id == Store._state.player.id:
 		faction_choice.disabled = false
 		faction_choice.flat = false

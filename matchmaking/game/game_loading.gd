@@ -3,13 +3,14 @@ extends Control
 signal scene_requested(scene)
 
 const TIME_LOADING = 5.0
-const COLOR_DARKENING = 0.2
+const COLOR_DARKENING = 0.7
+const ASSETS = preload("res://resources/assets.tres")
 
 var _time = 0.0
 
 onready var progress_bar = $CenterContainer/VBoxContainer/ProgressBar
 onready var nb_players_label = $CenterContainer/VBoxContainer/NbPlayers
-const ASSETS = preload("res://resources/assets.tres")
+
 
 func _ready():
 	Network.connect("GameStarted", self, "_on_game_started")
