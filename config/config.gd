@@ -3,7 +3,9 @@ extends Node
 signal locale_reloaded()
 
 const PATH_CONFIG_NETWORK = "res://config/network_config.tres"
-const PATH_CONFIG_USER = "res://config/config.cfg"
+const CONFIG_DIR = "res://"
+const PATH_CONFIG_USER = CONFIG_DIR + "config.cfg"
+
 
 # set of key bindings that can be modified in the menu 
 const ENABLE_KEY_BINDING_CHANGE = [
@@ -104,6 +106,7 @@ func reload_locale():
 	_load_locale(config_user)
 	if previous_locale != TranslationServer.get_locale():
 		emit_signal("locale_reloaded")
+
 
 static func _get_api_config(config):
 	var api = {}

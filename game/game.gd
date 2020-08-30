@@ -51,6 +51,7 @@ func _ready():
 	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
 	Network.connect("BuildingConstructed", self, "_on_building_constructed")
 	Network.connect("PlayerMoneyTransfer", self, "_on_money_transfer")
+	Network.connect("FleetTransfer", self, "_on_fleet_transfer")
 	hud.connect("request_main_menu", self, "_on_request_main_menu")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	limits = draw_systems()
@@ -167,6 +168,12 @@ func update_fleet_system(fleet):
 	map.get_node(fleet.system).refresh_fleet_pins()
 	if fleet_container.has_node(fleet.id):
 		fleet_container.get_node(fleet.id).queue_free()
+
+
+func _on_fleet_transfer(data):
+	Store.update_fleet_owner(data.fleet, data.receiver_id)
+	if data.receiver_id == Store._state.player.id:
+		Store.notify(tr("game.receive_fleet.title"), tr("game.receive_fleet.content %s") % Store.get_game_player(data.donator_id).username)
 
 
 func _on_ship_queue_finished(ship_data):

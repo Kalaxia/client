@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-29 20:00+0200\n"
-"PO-Revision-Date: 2020-08-29 20:01+0200\n"
+"POT-Creation-Date: 2020-08-30 17:23+0200\n"
+"PO-Revision-Date: 2020-08-30 17:39+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -23,12 +23,12 @@ msgstr ""
 msgid "Unknown requested scene : "
 msgstr ""
 
-#: config/config.gd:52
+#: config/config.gd:54
 #, python-format
 msgid "error while parsing configuration file %s : %s "
 msgstr ""
 
-#: config/config.gd:74
+#: config/config.gd:84
 #, python-format
 msgid "Error while saving configuration file %s : %s "
 msgstr ""
@@ -38,19 +38,28 @@ msgstr ""
 msgid "game.faction_score.victory_points %d"
 msgstr "%d points de victoire"
 
-#: game/game.gd:65
+#: game/game.gd:66
 msgid "game.notification.goal.title"
 msgstr "Objectifs"
 
-#: game/game.gd:65
+#: game/game.gd:66
 msgid "game.notification.goal.content"
 msgstr "Capturer et tenir les systèmes stratégiques"
 
-#: game/game.gd:330
+#: game/game.gd:176
+msgid "game.receive_fleet.title"
+msgstr "Transfert de flotte"
+
+#: game/game.gd:176
+#, python-format
+msgid "game.receive_fleet.content %s"
+msgstr "%s vous a envoyé une flotte"
+
+#: game/game.gd:337
 msgid "game.receive_credits_notif.title"
 msgstr "Transfert de credits"
 
-#: game/game.gd:330
+#: game/game.gd:337
 #, python-format
 msgid "game.receive_credits_notif.content %s %d"
 msgstr "%s vous a envoyé %d credits"
@@ -170,28 +179,28 @@ msgstr "Receptions des vaisseaux"
 msgid "global.loading.quit"
 msgstr "Quitter le jeu"
 
-#: global/network.gd:94
+#: global/network.gd:95
 msgid "network.unable_connect"
 msgstr "Le programme n'arrive pas à se connecter"
 
-#: global/network.gd:101
+#: global/network.gd:102
 msgid "network.close_clean_ws"
 msgstr "Fermé, clean :"
 
-#: global/network.gd:108
+#: global/network.gd:109
 msgid "Connected with protocol: "
 msgstr ""
 
-#: global/network.gd:117
+#: global/network.gd:118
 msgid "received data from server: "
 msgstr ""
 
-#: global/store.gd:38
+#: global/store.gd:39
 #, python-format
 msgid "store.game_of %s"
 msgstr "Partie de %s"
 
-#: global/store.gd:38
+#: global/store.gd:39
 msgid "store.new_game"
 msgstr "Nouvelle partie"
 
@@ -402,6 +411,10 @@ msgstr "%d"
 #: hud/system/fleet/fleet_item.tscn:76
 msgid "hud.fleet_item.open_menu"
 msgstr "Composition"
+
+#: hud/system/fleet/fleet_item.tscn:85
+msgid "hud.fleet_item.give"
+msgstr "Donner"
 
 #: hud/system/fleet/menu_fleet.tscn:47
 msgid "hud.details.fleet.fleet_composition_assignation"
