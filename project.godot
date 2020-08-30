@@ -20,11 +20,6 @@ _global_script_classes=[ {
 "path": "res://audio/audio_stacking.gd"
 }, {
 "base": "DictResource",
-"class": "Building",
-"language": "GDScript",
-"path": "res://resources/definitions/building.gd"
-}, {
-"base": "DictResource",
 "class": "BuildingModelRemote",
 "language": "GDScript",
 "path": "res://resources/definitions/remote_resources/building_model.gd"
@@ -104,7 +99,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/assets/assets.gd"
 }, {
-"base": "DictResource",
+"base": "BuildingModelRemote",
 "class": "KalaxiaBuilding",
 "language": "GDScript",
 "path": "res://resources/assets/2d/picto/building/building.gd"
@@ -118,6 +113,11 @@ _global_script_classes=[ {
 "class": "KalaxiaPicto",
 "language": "GDScript",
 "path": "res://resources/assets/2d/picto.gd"
+}, {
+"base": "ShipModel",
+"class": "KalaxiaShipModel",
+"language": "GDScript",
+"path": "res://resources/assets/2d/picto/ships/ship_model.gd"
 }, {
 "base": "PanelContainer",
 "class": "MenuBody",
@@ -187,7 +187,7 @@ _global_script_classes=[ {
 "base": "DictResource",
 "class": "ShipModel",
 "language": "GDScript",
-"path": "res://resources/definitions/ship_model.gd"
+"path": "res://resources/definitions/remote_resources/ship_model.gd"
 }, {
 "base": "SpinBox",
 "class": "SpinBoxImediateUpdate",
@@ -217,7 +217,6 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "ApiConfig": "",
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
-"Building": "",
 "BuildingModelRemote": "",
 "BuildingPanel": "",
 "CachedResource": "",
@@ -237,6 +236,7 @@ _global_script_class_icons={
 "KalaxiaBuilding": "",
 "KalaxiaFaction": "res://resources/assets/2d/white_logo.png",
 "KalaxiaPicto": "",
+"KalaxiaShipModel": "",
 "MenuBody": "res://resources/editor/menu_body.svg",
 "MenuContainer": "res://resources/editor/menu_container.svg",
 "MenuHeader": "res://resources/editor/menu_header.svg",

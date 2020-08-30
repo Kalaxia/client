@@ -13,7 +13,7 @@ onready var assets = load("res://resources/assets.tres")
 func _ready():
 	Store.connect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
 	Store.connect("hangar_updated", self, "_on_hangar_updated")
-	for category in assets.ship_models:
+	for category in assets.ship_models.values():
 		var node = _SHIP_GROUP_ELEMENT.instance()
 		node.ship_category = category
 		node.name = category.category

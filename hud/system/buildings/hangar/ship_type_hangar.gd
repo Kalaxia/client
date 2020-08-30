@@ -22,7 +22,7 @@ func _ready():
 
 func update_texture():
 	if category != null and texture_ship != null:
-		texture_ship.texture = assets.ship[category.category]
+		texture_ship.texture = assets.ship_models[category.category].texture
 
 
 func _on_pressed():

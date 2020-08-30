@@ -21,14 +21,14 @@ func _ready():
 	Store.connect("system_update", self, "_on_system_update")
 	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
 	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
-	for category in assets.ship_models:
+	for category in assets.ship_models.values():
 		var node = _SHIP_HANGARD.instance()
 		node.category = category
 		node.quantity = 0
 		node.name = category.category
 		hangar_element.add_child(node)
 		node.connect("pressed", self, "select_group", [category])
-	select_group(assets.ship_models[0])
+	select_group(assets.ship_models.values()[0])
 	refresh_hangar()
 	refresh_queue_ships()
 

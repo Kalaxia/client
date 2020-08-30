@@ -10,7 +10,7 @@ func load_dict(dict) -> void:
 	if dict == null:
 		return
 	for key in self._get_dict_property_list():
-		if dict is Dictionary and dict.has(key):
+		if not dict is Dictionary or dict.has(key):
 			self.set_indexed(key, dict[key])
 
 

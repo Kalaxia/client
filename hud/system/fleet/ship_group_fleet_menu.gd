@@ -2,7 +2,9 @@ extends Control
 
 signal ship_assigned(ship_in_fleet, ship_in_hangar)
 
-onready var ship_category = assets.ship_models[0] setget set_ship_category 
+const ASSETS : KalaxiaAssets = preload("res://resources/assets.tres")
+
+var ship_category = ASSETS.ship_models.values()[0] setget set_ship_category 
 var quantity_fleet = 0 setget set_quantity_fleet
 var quantity_hangar = 0 setget set_quantity_hangar
 var _lock_assign_ship = Utils.Lock.new() setget private_set, private_get
@@ -18,7 +20,6 @@ onready var damage_label = $PanelContainer/HBoxContainer/Damage
 onready var accuracy_label = $PanelContainer/HBoxContainer/Accuracy
 onready var max_assign_button = $PanelContainer/HBoxContainer/MaxAssign
 
-const assets : KalaxiaAssets = preload("res://resources/assets.tres")
 
 func _ready():
 	button_set.connect("pressed", self, "_on_set_button")
@@ -33,7 +34,7 @@ func update_elements():
 	if ship_category_label != null:
 		ship_category_label.text = tr("hud.details.fleet.ship_model %s") % tr("ship." + ship_category.category)
 	if texture_rect_cathegory != null:
-		texture_rect_cathegory.texture = assets.ship[ship_category.category]
+		texture_rect_cathegory.texture = ship_category.texture
 	if hit_point_label != null:
 		hit_point_label.text = tr("hud.details.fleet.hit_point %d") % ship_category.hit_points
 	if damage_label != null:

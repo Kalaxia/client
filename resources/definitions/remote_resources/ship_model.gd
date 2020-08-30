@@ -2,7 +2,7 @@ extends DictResource
 class_name ShipModel
 
 export(String) var category
-export(int) var contruction_type
+export(int) var construction_time
 export(int) var cost
 export(int) var damage
 export(int) var hit_points
@@ -19,7 +19,7 @@ func _init(dict = null).(dict):
 func _get_dict_property_list() -> Array:
 	return [
 		"category",
-		"construction_type",
+		"construction_time",
 		"cost",
 		"damage",
 		"hit_points",

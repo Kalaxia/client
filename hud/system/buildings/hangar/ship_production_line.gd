@@ -24,7 +24,7 @@ func update_elements():
 	if ship_queue == null:
 		return
 	if texture_rect_category != null:
-		texture_rect_category.texture = assets.ship[ship_queue.category]
+		texture_rect_category.texture = assets.ship_models[ship_queue.category]
 	if ship_number_label != null:
 		ship_number_label.text = tr("hud.details.building.hangar.number_of_ships %d") % ship_queue.quantity
 	if ship_category_label != null:

@@ -14,13 +14,13 @@ load_path = "res://.import/area.png-126ffb5246382c62b6c20ddfdaf31cfa.stex"
 [sub_resource type="Resource" id=2]
 script = ExtResource( 2 )
 kind = ""
-contruction_time = 0.0
+construction_time = 0.0
 cost = 0.0
 texture = SubResource( 1 )
 
 [resource]
 script = ExtResource( 8 )
-factions = [ ExtResource( 1 ), ExtResource( 14 ), ExtResource( 16 ), ExtResource( 9 ) ]
+factions = [ ExtResource( 1 ), ExtResource( 16 ), ExtResource( 9 ), ExtResource( 14 ) ]
 ship_models = {
 
 }

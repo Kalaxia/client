@@ -2,7 +2,7 @@ extends DictResource
 class_name BuildingModelRemote
 
 export(String) var kind
-export(float) var contruction_time
+export(float) var construction_time
 export(float) var cost
 
 
@@ -11,4 +11,4 @@ func _init(dict = null).(dict):
 
 
 func _get_dict_property_list() -> Array:
-	return ["kind", "contruction_time", "cost"]
+	return ["kind", "construction_time", "cost"]

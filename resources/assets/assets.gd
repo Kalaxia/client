@@ -12,6 +12,7 @@ func load_data_from_cached(ressource: CachedResource):
 	for building in ressource.building_list:
 		buildings[building.kind] = KalaxiaBuilding.new(building)
 	constants = ressource.constants
-	ship_models = ressource.ship_models
+	for ship in ressource.ship_models:
+		ship_models[ship.category] = KalaxiaShipModel.new(ship)
 	for index in ressource.factions.keys():
 		factions[index].update_info_form_dict(ressource.factions[index])

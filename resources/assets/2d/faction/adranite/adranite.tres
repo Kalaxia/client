@@ -14,20 +14,20 @@ data = {
 "width": 360
 }
 
-[sub_resource type="ImageTexture" id=3]
+[sub_resource type="ImageTexture" id=2]
 image = SubResource( 4 )
 size = Vector2( 36, 50 )
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=3]
 flags = 7
-atlas = SubResource( 3 )
+atlas = SubResource( 2 )
 region = Rect2( 0, 0, 36, 50 )
 margin = Rect2( 7, 0, 14, 0 )
 
 [resource]
 script = ExtResource( 1 )
 banner = ExtResource( 2 )
-banner_icon = SubResource( 1 )
+banner_icon = SubResource( 3 )
 display_color = Color( 0.686275, 0.137255, 0.137255, 1 )
 display_name = "Adranite"
 picto = ExtResource( 3 )
