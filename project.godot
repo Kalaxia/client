@@ -262,6 +262,11 @@ ui_forbbiden_key_rebind={
 translations=PoolStringArray( "res://locales/fr.po", "res://locales/en.po" )
 locale_filter=[ 1, [ "en", "fr" ] ]
 
+[logging]
+
+file_logging/enable_file_logging=true
+file_logging/max_log_files=4
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
