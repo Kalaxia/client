@@ -54,7 +54,7 @@ func _ready():
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_network_status)
 	if cached_data.refresh(null):
 		cached_data.connect("loaded", self, "_on_resource_loaded")
-		cached_data.connect("error_loading", self, "_on_resource_loading_error")
+		cached_data.connect("error", self, "_on_resource_loading_error")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_faction_status)
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
