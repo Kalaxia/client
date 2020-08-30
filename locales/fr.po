@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-29 19:53+0200\n"
-"PO-Revision-Date: 2020-08-29 19:58+0200\n"
+"POT-Creation-Date: 2020-08-29 20:00+0200\n"
+"PO-Revision-Date: 2020-08-29 20:01+0200\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -23,12 +23,12 @@ msgstr ""
 msgid "Unknown requested scene : "
 msgstr ""
 
-#: config/config.gd:51 config/config.gd:56
+#: config/config.gd:52
 #, python-format
 msgid "error while parsing configuration file %s : %s "
 msgstr ""
 
-#: config/config.gd:78
+#: config/config.gd:74
 #, python-format
 msgid "Error while saving configuration file %s : %s "
 msgstr ""
@@ -68,11 +68,11 @@ msgid "game.score.back_main_menu"
 msgstr "Retourner au menu principal"
 
 #: global/error.gd:9 global/error.gd:22 global/error.gd:23
-#: global/loading_screen.gd:94
+#: global/loading_screen.gd:95
 msgid "error.network_error"
 msgstr "Erreur réseau"
 
-#: global/error.gd:16 global/error.gd:18 global/loading_screen.gd:94
+#: global/error.gd:16 global/error.gd:18 global/loading_screen.gd:95
 msgid "error.connexion_impossible"
 msgstr "Connexion impossible"
 
@@ -84,7 +84,7 @@ msgstr "Le serveur de jeu n'est pas disponible."
 msgid "error.unkown_domain_name"
 msgstr "Le nom de domaine du serveur est inconnu."
 
-#: global/error.gd:20 global/loading_screen.gd:94
+#: global/error.gd:20 global/loading_screen.gd:95
 msgid "error.http_not_connected"
 msgstr "Client HTTP non connecté"
 
@@ -92,37 +92,42 @@ msgstr "Client HTTP non connecté"
 msgid "error.network_error_content"
 msgstr "Une erreur réseau est survenue"
 
-#: global/loading_screen.gd:83 global/loading_screen.gd:171
+#: global/loading_screen.gd:41 global/loading_screen.tscn:290
+#, python-format
+msgid "global.loading.version %s"
+msgstr "Version : %s"
+
+#: global/loading_screen.gd:84 global/loading_screen.gd:172
 msgid "global.loading.ok"
 msgstr "OK"
 
-#: global/loading_screen.gd:86
+#: global/loading_screen.gd:87
 msgid "global.loading.waiting"
 msgstr "Connexion"
 
-#: global/loading_screen.gd:89
+#: global/loading_screen.gd:90
 msgid "global.loading.error"
 msgstr "Erreur"
 
-#: global/loading_screen.gd:230
+#: global/loading_screen.gd:228
 #, python-format
 msgid "global.loading.ressource.error %s %d"
 msgstr "Erreur pendant le chargement de %s : %d"
 
-#: global/loading_screen.gd:230 global/loading_screen.gd:249
+#: global/loading_screen.gd:228 global/loading_screen.gd:246
 msgid "global.loading.ressource."
 msgstr ""
 
-#: global/loading_screen.gd:242 global/loading_screen.gd:245
+#: global/loading_screen.gd:239 global/loading_screen.gd:242
 #, python-format
 msgid "global.loading.progressbar_ressource %d %d"
 msgstr "%d / %d"
 
-#: global/loading_screen.gd:249
+#: global/loading_screen.gd:246
 msgid "global.loading.none_loading"
 msgstr "Fini"
 
-#: global/loading_screen.gd:252
+#: global/loading_screen.gd:249
 #, python-format
 msgid "global.loading.progressbar_global %d %d"
 msgstr "%d / %d"
@@ -161,7 +166,7 @@ msgstr "Receptions des constantes"
 msgid "global.loading.ships_status"
 msgstr "Receptions des vaisseaux"
 
-#: global/loading_screen.tscn:296
+#: global/loading_screen.tscn:309
 msgid "global.loading.quit"
 msgstr "Quitter le jeu"
 

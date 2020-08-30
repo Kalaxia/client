@@ -14,6 +14,10 @@ Clone the project locally :
 git clone git@github.com:Kalaxia/client.git kalaxia-client
 ```
 
+You will need to setup the version resource. You can run `make setup`.
+Alternatively you can copy `version_model.txt` rename it to `version.tres`.
+Then add at the end of the file `version="#"` where `#` can be anything.
+
 Open the project with Godot.
 
 Make sure that the environment in ``./config/config.gd`` is ``development``.
