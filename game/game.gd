@@ -47,6 +47,7 @@ func _ready():
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
 	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed")
 	event_capturer.connect("gui_input", self, "_on_gui_input")
+	Store.connect("fleet_owner_updated", self, "_on_fleet_owner_updated")
 	Network.connect("CombatEnded", self, "_on_combat_ended")
 	Network.connect("PlayerIncome", self, "_on_player_income")
 	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
@@ -163,6 +164,11 @@ func center_on_selected_system():
 		var coordinates_selected = _game_data.selected_state.selected_system.coordinates
 		_set_camera_position(Vector2(Utils.SCALE_SYSTEMS_COORDS, Utils.SCALE_SYSTEMS_COORDS) * coordinates_selected)
 		_camera_speed = Vector2.ZERO
+
+
+func _on_fleet_owner_updated(fleet):
+	if map.has_node(fleet.system):
+		map.get_node(fleet.system).refresh_fleet_pins()
 
 
 func _setup_particle():

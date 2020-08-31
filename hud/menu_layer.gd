@@ -54,7 +54,7 @@ func close_menu(menu_closed = ""):
 		return true
 	elif menus.has(menu_closed):
 		for node in get_children():
-			if node.get_path() == menus[menu_closed].get_path():
+			if node == menus[menu_closed]:
 				_remove_menu(node)
 				emit_signal("menu_closed", menu_closed)
 				return true

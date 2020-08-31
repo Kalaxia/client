@@ -9,6 +9,7 @@ onready var option_button = $HBoxContainer/OptionButton
 onready var send_button = $HBoxContainer/Button
 onready var spinbox = $HBoxContainer/SpinBox
 
+
 func _ready():
 	option_button.connect("item_selected", self, "_on_item_selected")
 	send_button.connect("pressed", self, "_on_button_send_pressed")
