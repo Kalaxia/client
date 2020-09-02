@@ -10,7 +10,7 @@ export(Texture) var crown_top
 export(Texture) var crown_bottom
 
 
-static func of_faction(faction : String) -> KalaxiaPicto:
+static func of_faction(faction : String):
 	var ret = load("res://resources/assets/2d/picto.gd").new()
 	ret.fleet_pin = load("res://resources/assets/2d/map/%s/fleet_pin.png" % faction)
 	ret.fleet_pin_noframe = load("res://resources/assets/2d/map/%s/fleet_pin_noframe.png" % faction)

@@ -1,6 +1,7 @@
 extends Resource
 class_name DictResource
 
+
 func _init(dictionary = null):
 	if dictionary != null:
 		load_dict(dictionary)
