@@ -3,7 +3,7 @@ extends SelectablePanelContainer
 
 const ASSETS = preload("res://resources/assets.tres")
 
-var building = null setget set_building
+var building : Building = null setget set_building
 
 onready var texture_rect = $VBoxContainer/TextureRect
 onready var label = $VBoxContainer/Label
@@ -11,7 +11,6 @@ onready var progress_bar = $VBoxContainer/ProgressBar
 
 
 func _ready():
-	# apparently there is no need to call 
 	_update_elements()
 
 
@@ -27,8 +26,8 @@ func _update_elements():
 		label.text = tr("hud.details.buidlng.contruction")
 		progress_bar.visible = false
 	else:
-		texture_rect.texture = ASSETS.buildings[building.kind].texture
-		label.text = tr("hud.details.buidlng." + building.kind)
+		texture_rect.texture = building.kind.texture
+		label.text = tr("hud.details.buidlng." + building.kind.kind)
 		_update_process_bar()
 
 

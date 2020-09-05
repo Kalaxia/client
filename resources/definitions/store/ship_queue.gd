@@ -1,9 +1,9 @@
 class_name ShipQueue
-extends DictResource
+extends ShipGroup
 
-export(int) var quantity = 0 setget set_quantity
-export(Resource) var model
-
+export(int) var finished_at
+export(int) var started_at
+export(int) var created_at
 
 func _init(dict = null).(dict):
 	pass
@@ -16,10 +16,5 @@ func load_dict(dict) -> void:
 
 
 func _get_dict_property_list():
-	return ._get_dict_property_list() + []
+	return ._get_dict_property_list() + ["finished_at", "started_at", "created_at"]
 
-
-func set_quantity(new_quantity):
-	if new_quantity < 0:
-		return
-	quantity = new_quantity

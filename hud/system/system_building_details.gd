@@ -11,15 +11,16 @@ const MENU = {
 
 var menu_layer : MenuLayer setget set_menu_layer
 var _building_panel_list = []
+var _game_data : GameData = load(GameData.PATH_NAME)
 
 onready var building_container = $ScrollContainer/HBoxContainer
 
 
 func _ready():
 	_building_panel_list = []
-	Store.connect("system_selected", self, "_on_system_selected")
-	Store.connect("system_update", self, "_on_system_update")
-	Store.connect("building_updated", self, "_on_building_updated")
+	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
+	_game_data.selected_state.connect("system_updated", self, "_on_system_updated")
+	_game_data.selected_state.connect("building_updated", self, "_on_building_updated")
 	update_building_panels()
 	update_visibility()
 
@@ -34,38 +35,38 @@ func set_menu_layer(node):
 func update_building_panels():
 	while not _building_panel_list.empty():
 		_building_panel_list.pop_back().queue_free()
-	if Store._state.selected_system.player == Store._state.player.id:
+	if _game_data.does_belong_to_current_player(_game_data.selected_state.selected_system):
 		var building_area = BUILDING_AREA.instance()
-		building_area.building = Store._state.selected_system.buildings[0] if  Store._state.selected_system.has("buildings") and Store._state.selected_system.buildings != null and Store._state.selected_system.buildings.size() >= 1 else null
+		building_area.building = _game_data.selected_state.selected_system.buildings[0] if _game_data.selected_state.selected_system.buildings.size() >= 1 else null
 		building_container.add_child(building_area)
 		building_area.connect("pressed", self, "_on_panel_pressed" , [building_area])
 		_building_panel_list.push_back(building_area)
 
 
-func system_update(system):
-	if system.id == Store._state.selected_system.id:
-		update_visibility()
-		update_building_panels()
+func system_updated():
+	update_visibility()
+	update_building_panels()
 
 
 func update_visibility():
-	var visible_state = Store._state.selected_system != null and Store._state.selected_system.player == Store._state.player.id
+	var visible_state = _game_data.selected_state.selected_system != null \
+			and _game_data.does_belong_to_current_player(_game_data.selected_state.selected_system)
 	building_container.visible = visible_state
 	if not visible_state:
 		_deselect_other_building()
 
 
-func _on_building_updated(system):
-	system_update(system)
+func _on_building_updated():
+	system_updated()
 
 
-func _on_system_selected(_system, _old_system):
+func _on_system_selected(_old_system):
 	update_building_panels()
 	update_visibility()
 
 
-func _on_system_update(system):
-	system_update(system)
+func _on_system_updated():
+	system_updated()
 
 
 func _on_panel_pressed(node):

@@ -14,7 +14,8 @@ const ASSETS = preload("res://resources/assets.tres")
 
 export(float) var scale_ratio = 1.0 setget set_scale_ratio
 
-var system = null
+var game_data : GameData = load(GameData.PATH_NAME)
+var system : System = null setget set_system
 var is_hover = false
 var is_in_range_sailing_fleet = false
 var _time = 0.0
@@ -32,13 +33,14 @@ onready var building_pins = $BuildingPins
 
 
 func _ready():
+	_connect_system() # is this necessary
 	range_draw_node.visible = false
 	set_position(Vector2(system.coordinates.x , system.coordinates.y) * Utils.SCALE_SYSTEMS_COORDS)
 	star.connect("mouse_input", self, "_on_mouse_input")
 	star.connect("mouse_entered", self, "_on_mouse_entered")
 	star.connect("mouse_exited", self, "_on_mouse_exited")
-	Store.connect("fleet_selected", self, "_on_fleet_selected")
-	Store.connect("fleet_unselected", self, "_on_fleet_unselected")
+	game_data.selected_state.connect("fleet_selected", self, "_on_fleet_selected")
+	game_data.selected_state.connect("fleet_unselected", self, "_on_fleet_unselected")
 	var scale_factor = (1.0 / scale.x) if scale.x != 0 else 0.0
 	var scale_range = ASSETS.constants.fleet_range * Utils.SCALE_SYSTEMS_COORDS * scale_factor
 	range_draw_node.scale = Vector2(scale_range,scale_range)
@@ -46,8 +48,8 @@ func _ready():
 	_set_system_texture()
 	_set_glow_effet()
 	_modulate_color(1.0)
-	if system.player == Store._state.player.id:
-		Store.select_system(system)
+	if game_data.does_belong_to_current_player(system):
+		game_data.selected_state.select_system(system)
 		refresh_scale()
 	else :
 		_set_target_scale(1.0)
@@ -58,6 +60,12 @@ func _process(delta):
 	_time += delta
 	_process_modulate_alpha(delta)
 	_process_modulate_scale(delta)
+
+
+func set_system(new_system):
+	_disconnect_system()
+	system = new_system
+	_connect_system()
 
 
 func unselect():
@@ -74,11 +82,11 @@ func refresh_fleet_pins():
 	for pin in fleet_pins.get_children():
 		pin.queue_free()
 	for fleet in system.fleets.values():
-		var p = Store.get_game_player(fleet.player)
-		if not is_current_player_included and p.id == Store._state.player.id:
+		var p = game_data.get_player(fleet.player)
+		if not is_current_player_included and game_data.is_current_player(p):
 			is_current_player_included = true
 			add_fleet_pin(p)
-		elif not is_another_player_included and p.id != Store._state.player.id:
+		elif not is_another_player_included and not game_data.is_current_player(p):
 			is_another_player_included = true
 			add_fleet_pin(p)
 
@@ -104,19 +112,20 @@ func _update_ship_pin_number(number):
 func add_fleet_pin(player):
 	var fleet_pin = SYSTEM_FLEET_PIN_SCENE.instance()
 	fleet_pin.faction = player.faction
-	fleet_pin.is_current_player = (player.id == Store._state.player.id)
-	fleet_pin.color = Store.get_player_color(player)
+	fleet_pin.is_current_player = game_data.is_current_player(player)
+	fleet_pin.color = game_data.get_player_color(player)
 	fleet_pins.add_child(fleet_pin)
 
 
 func refresh():
-	system = Store._state.game.systems[system.id]
 	_set_system_texture()
 	_set_glow_effet()
-	_modulate_color(1.0) # we need to refresh the color even if the alpha does not change as in _process we refresh only if alpha has to be modified
+	# we need to refresh the color even if the alpha does not change 
+	# as in _process we refresh only if alpha has to be modified
+	_modulate_color(1.0) 
 	refresh_fleet_pins()
 	refresh_building_pins()
-	crown.visible = (system.player == Store._state.player.id)
+	crown.visible = game_data.does_belong_to_current_player(system)
 	refresh_scale()
 
 
@@ -128,7 +137,7 @@ func refresh_building_pins():
 	for building in system.buildings:
 		var node = SYSTEM_BUILDING_PIN_SCENE.instance()
 		node.building = building
-		node.faction_color = Store._get_faction_color(Store.get_faction(Store.get_game_player(system.player).faction))
+		node.faction_color = game_data.get_player(system.player).faction.get_color()
 		building_pins.add_child(node)
 	update_ship_pin()
 
@@ -154,10 +163,10 @@ func _process_modulate_scale(delta):
 
 
 func _set_crown_state():
-	var is_current_player = (system.player == Store._state.player.id)
+	var is_current_player = game_data.does_belong_to_current_player(system)
 	crown.visible = is_current_player
 	if is_current_player:
-		crown.texture = ASSETS.factions[Store.get_game_player(system.player).faction].picto.crown_top
+		crown.texture = game_data.get_player(system.player).faction.picto.crown_top
 
 
 func _set_glow_effet():
@@ -171,7 +180,7 @@ func _set_glow_effet():
 func _set_system_texture():
 	var faction = ASSETS.factions[0.0]
 	if system.player:
-		faction = ASSETS.factions[Store.get_game_player(system.player).faction]
+		faction = game_data.get_player(system.player).faction
 	spot.texture = faction.picto.system_by_kind(system.kind)
 
 
@@ -185,11 +194,11 @@ func _set_target_scale(factor):
 	_target_scale = factor
 
 
-func _on_fleet_selected(fleet):
-	range_draw_node.visible = (fleet.system == system.id)
+func _on_fleet_selected(_old_fleet):
+	range_draw_node.visible = game_data.selected_state.is_selected_system(system)
 
 
-func _on_fleet_unselected():
+func _on_fleet_unselected(_old_fleet):
 	range_draw_node.visible = false
 
 
@@ -202,32 +211,38 @@ func _modulate_color(alpha):
 func _on_mouse_input(event):
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.get_button_index() == BUTTON_LEFT:
-			Store.select_system(system)
-		elif event.get_button_index() == BUTTON_RIGHT and Store._state.selected_fleet != null and Store.is_in_range(Store._state.selected_fleet,system):
+			game_data.selected_state.select_system(system)
+		elif event.get_button_index() == BUTTON_RIGHT \
+				and game_data.selected_state.selected_fleet != null \
+				and game_data.is_in_range(game_data.selected_state.selected_fleet, system):
 			# you can't set the same destination as the origin
-			Network.req(self, "_on_fleet_send"
-				, "/api/games/" + Store._state.game.id + "/systems/" + Store._state.selected_fleet.system + "/fleets/" + Store._state.selected_fleet.id + "/travel/"
-				, HTTPClient.METHOD_POST
-				, [ "Content-Type: application/json" ]
-				, JSON.print({ "destination_system_id" : system.id })
+			Network.req(self, "_on_fleet_send",
+				"/api/games/" + game_data.id 
+				+ "/systems/" + game_data.selected_state.selected_fleet.system 
+				+ "/fleets/" + game_data.selected_state.selected_fleet.id 
+				+ "/travel/",
+				HTTPClient.METHOD_POST,
+				[ "Content-Type: application/json" ],
+				JSON.print({ "destination_system_id" : system.id }),
+				[game_data.selected_state.selected_fleet, system]
 			)
 
 
-func _on_fleet_send(err, response_code, _headers, body):
+func _on_fleet_send(err, response_code, _headers, body, fleet : Fleet, system_p : System):
 	if err:
 		ErrorHandler.network_response_error(err)
 		return
 	if response_code == HTTPClient.RESPONSE_OK:
 		var data = JSON.parse(body.get_string_from_utf8()).result
-		Store._state.selected_fleet.destination_system = system.id
-		Store.fleet_sail(Store._state.selected_fleet, data.destination_arrival_date)
-		Store.unselect_fleet()
+		game_data.selected_state.selected_fleet.destination_system = system_p.id
+		game_data.fleet_sail(fleet, data.destination_arrival_date)
+		game_data.selected_state.unselect_fleet()
 
 
 func _on_mouse_entered():
 	is_hover = true
 	refresh_scale()
-	is_in_range_sailing_fleet = Store.is_in_range(Store._state.selected_fleet, system)
+	is_in_range_sailing_fleet = game_data.is_in_range(game_data.selected_state.selected_fleet, system)
 
 
 func _on_mouse_exited():
@@ -237,8 +252,8 @@ func _on_mouse_exited():
 
 
 func refresh_scale():
-	var scale_refreshed = _SCALE_FACTOR_ON_HIGHLIGHT if system.player == Store._state.player.id else 1.0
-	if system == Store._state.selected_system or is_hover:
+	var scale_refreshed = _SCALE_FACTOR_ON_HIGHLIGHT if game_data.does_belong_to_current_player(system) else 1.0
+	if  game_data.selected_state.is_selected_system(system) or is_hover:
 		scale_refreshed *= _SCALE_FACTOR_ON_HIGHLIGHT
 	_set_target_scale(scale_refreshed)
 
@@ -250,4 +265,36 @@ func set_scale_ratio(new_factor : float):
 
 func get_color_of_system():
 	var is_victory_system = system.kind == "VictorySystem"
-	return Store.get_player_color(null, is_victory_system) if system.player == null else Store.get_player_color(Store.get_game_player(system.player),is_victory_system)
+	return game_data.get_player_color(null, is_victory_system) \
+			if system.player == null \
+			else game_data.get_player_color(game_data.get_player(system.player), is_victory_system)
+
+
+func _connect_system(system_p = system):
+	if system_p != null and not system_p.is_connected("fleet_created", self, "_on_fleet_created"):
+		system_p.connect("fleet_created", self, "_on_fleet_created")
+	if system_p != null and not system_p.is_connected("hangar_updated", self, "_on_hangar_updated"):
+		system_p.connect("hangar_updated", self, "_on_hangar_updated")
+	if system_p != null and not system_p.is_connected("building_updated", self, "_on_building_updated"):
+		system_p.connect("building_updated", self, "_on_building_updated")
+
+
+func _disconnect_system(system_p = system):
+	if system_p != null and system_p.is_connected("fleet_created", self, "_on_fleet_created"):
+		system_p.disconnect("fleet_created", self, "_on_fleet_created")
+	if system_p != null and system_p.is_connected("hangar_updated", self, "_on_hangar_updated"):
+		system_p.disconnect("hangar_updated", self, "_on_hangar_updated")
+	if system_p != null and system_p.is_connected("building_updated", self, "_on_building_updated"):
+		system_p.disconnect("building_updated", self, "_on_building_updated")
+
+
+func _on_fleet_created(_fleet : Fleet):
+	refresh_fleet_pins()
+
+
+func _on_hangar_updated(_ship_group_hangar):
+	update_ship_pin()
+
+
+func _on_building_updated():
+	refresh_building_pins()

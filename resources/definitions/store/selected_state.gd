@@ -15,6 +15,7 @@ signal fleet_erased(fleet)
 signal building_updated()
 signal hangar_updated(hangar)
 signal system_owner_updated()
+signal system_updated()
 
 export(Resource) var selected_system = null setget select_system
 export(Resource) var selected_fleet = null setget select_fleet
@@ -60,6 +61,10 @@ func select_fleet(fleet : Fleet):
 
 func unselect_fleet():
 	select_fleet(null)
+
+
+func is_selected_system(system : System):
+	return system.id == selected_system.id
 
 
 func _disconnect_fleet(fleet : Fleet):
@@ -109,6 +114,8 @@ func _disconnect_system(system : System):
 		system.disconnect("hangar_updated", self, "_on_hangar_updated")
 	if system.is_connected("system_owner_updated", self, "_on_system_owner_updated"):
 		system.disconnect("system_owner_updated", self, "_on_system_owner_updated")
+	if system.is_connected("updated", self, "_on_system_updated"):
+		system.disconnect("updated", self, "_on_system_updated")
 
 
 func _connect_system(system : System):
@@ -124,6 +131,12 @@ func _connect_system(system : System):
 		system.connect("hangar_updated", self, "_on_hangar_updated")
 	if not system.is_connected("system_owner_updated", self, "_on_system_owner_updated"):
 		system.connect("system_owner_updated", self, "_on_system_owner_updated")
+	if not system.is_connected("updated", self, "_on_system_updated"):
+		system.connect("updated", self, "_on_system_updated")
+
+
+func _on_system_updated():
+	emit_signal("system_updated")
 
 
 func _on_system_owner_updated():

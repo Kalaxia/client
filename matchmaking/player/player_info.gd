@@ -26,8 +26,8 @@ func _ready():
 		username_input.connect("text_changed", self, "_on_text_changed")
 		username_input.connect("text_entered", self, "_on_text_entered")
 		ready_input.connect("pressed", self, "toggle_ready")
-		timer_update_username.connect("timeout",self,"_on_timer_timeout")
-		if player.username != "" || (player.faction != null && player.faction != 0.0 ):
+		timer_update_username.connect("timeout", self, "_on_timer_timeout")
+		if player.username != "" or (player.faction != null and player.faction != 0.0):
 			send_update()
 	username_input.set_text(get_username())
 

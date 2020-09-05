@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://game/scores.gd" type="Script" id=1]
+[ext_resource path="res://themes/theme_u_main.tres" type="Theme" id=2]
 
 [node name="Scores" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -54,9 +56,9 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="BackToMenu" type="Button" parent="Footer"]
-margin_left = 860.0
-margin_top = 143.0
-margin_right = 1060.0
-margin_bottom = 163.0
+margin_left = 855.0
+margin_top = 140.0
+margin_right = 1065.0
+margin_bottom = 165.0
 size_flags_vertical = 4
 text = "game.score.back_main_menu"
