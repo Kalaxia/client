@@ -68,7 +68,7 @@ func _on_give_pressed():
 	)
 
 
-func _on_fleet_given(err, response_code, headers, body, fleet_p):
+func _on_fleet_given(err, response_code, _headers, _body, fleet_p):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
@@ -106,7 +106,7 @@ func _on_fleet_selected(fleet_param):
 	set_is_selected(fleet_param.id == fleet.id)
 
 
-func _on_fleet_sailed(fleet_param, arrival_time):
+func _on_fleet_sailed(fleet_param, _arrival_time):
 	if fleet_param.id != fleet.id: 
 		set_is_selected(false)
 
@@ -145,7 +145,7 @@ func set_key_binding_number(position_of_event):
 	$KeyBindingLabelsContainer.visibility = true
 
 
-func private_set(variant):
+func private_set(_variant):
 	pass
 
 

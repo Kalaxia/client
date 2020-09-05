@@ -11,8 +11,9 @@ onready var label = $Label
 func _ready():
 	update_display()
 
-func update_player(player):
-	set_player(player)
+
+func update_player(new_player):
+	set_player(new_player)
 
 
 func set_player(new_player):

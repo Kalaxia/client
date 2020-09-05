@@ -31,7 +31,7 @@ func set_menu_layer(node):
 	menu_layer.connect("menu_closed", self, "_on_menu_layer_menu_closed")
 
 
-func update_theme(game = null):
+func update_theme():
 	var button_array = button_container_left.get_children() + button_container_right.get_children()
 	for node_list in button_array:
 		if node_list is SelectablePanelContainer:

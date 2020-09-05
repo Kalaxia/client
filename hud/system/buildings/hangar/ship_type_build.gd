@@ -31,16 +31,16 @@ func _ready():
 	_update_max_values()
 
 
-func _on_text_entered(text = null):
+func _on_text_entered(_text = null):
 	_on_pressed_build()
 
 
-func _on_wallet_update(ammount):
+func _on_wallet_update(_ammount):
 	update_order_button_state()
 	_update_max_values()
 
 
-func _on_spinbox_changed(value):
+func _on_spinbox_changed(_value):
 	update_price_and_time()
 
 
@@ -56,7 +56,7 @@ func get_max_buildable_ships():
 	return floor(Store._state.player.wallet / ship_category.cost) as int
 
 
-func _on_lock_changed_state(state):
+func _on_lock_changed_state(_state):
 	if button_order == null or request_max_button == null:
 		return
 	_check_button_eabled_status()
@@ -128,7 +128,7 @@ func build_ship(quantity):
 	)
 
 
-func _on_ship_build_requested(err, response_code, headers, body, quantity, category):
+func _on_ship_build_requested(err, response_code, _headers, body, quantity, category):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_CREATED or response_code == HTTPClient.RESPONSE_OK:
@@ -138,7 +138,7 @@ func _on_ship_build_requested(err, response_code, headers, body, quantity, categ
 	_lock_build_ships.unlock()
 
 
-func private_set(variant):
+func private_set(_variant):
 	pass
 
 

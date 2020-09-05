@@ -1,11 +1,18 @@
-extends DictResource
 class_name Player
+extends DictResource
+
+signal wallet_updated()
 
 const ASSETS = preload("res://resources/assets.tres")
 
-export var username : String
-export var faction : Resource
-export var wallet : int
+export(String) var username
+export(String) var id
+export(Resource) var faction
+export(String) var lobby
+export(String) var game
+export(bool) var ready
+export(bool) var is_connected
+export(int) var wallet = 0 setget set_wallet
 
 
 func _init(dict = null).(dict):
@@ -17,12 +24,25 @@ func load_dict(dict : Dictionary) -> void:
 		return
 	.load_dict(dict)
 	if not dict is Dictionary or dict.has("faction"):
-		self.faction = ASSETS.factions[dict.faction]
-	if not dict is Dictionary or dict.has("wallet"):
-		wallet = dict.wallet
-	else:
-		self.wallet = 0
+		set_faction(dict.faction)
 
 
 func _get_dict_property_list() -> Array:
-	return ["username"]
+	return ["username", "lobby", "game", "ready" , "is_connected", "id"]
+
+
+func set_wallet(new_amount):
+	wallet = new_amount
+	emit_signal("changed")
+	emit_signal("wallet_updated")
+
+
+func update_wallet(amount):
+	self.wallet += amount
+
+
+func set_faction(faction_id):
+	faction = ASSETS.factions[faction_id as float] \
+			if faction_id != null and ASSETS.factions.has(faction_id as float) \
+			else  ASSETS.factions[0.0]
+	emit_signal("changed")

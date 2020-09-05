@@ -43,7 +43,7 @@ func _pacth_game_seting(field, value):
 	)
 
 
-func _on_data_patched(err, response_code, headers, body):
+func _on_data_patched(err, _response_code, _headers, _body):
 	if err:
 		ErrorHandler.network_response_error(err)
 

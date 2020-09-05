@@ -27,7 +27,6 @@ func _ready():
 				node.is_enabled = Config.ENABLE_KEY_BINDING_CHANGE.has(node.action)
 	main_menu_button.connect("pressed", self, "_on_back_to_main_menu")
 	for index_bus in range(AudioServer.bus_count):
-		var name_bus = AudioServer.get_bus_name(index_bus)
 		var node = AUDIO_VOLUME.instance()
 		node.bus_id = index_bus
 		audio_container.add_child(node)

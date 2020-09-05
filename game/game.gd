@@ -33,6 +33,7 @@ onready var fleet_container = $ParallaxBackground/ParallaxLayer0/Map/FleetContai
 onready var background = $ParallaxBackground/Background
 onready var hud = $ParallaxBackground/HUD
 
+
 func _ready():
 	Store.update_player_me()
 	Store.connect("system_selected", self, "_on_system_selected")

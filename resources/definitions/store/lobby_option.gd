@@ -1,5 +1,5 @@
-extends DictResource
 class_name LobbyOption
+extends DictResource
 
 const SIZE = ["very_small", "small", "medium", "large", "very_large"]
 const SPEED = ["slow", "medium", "fast"]

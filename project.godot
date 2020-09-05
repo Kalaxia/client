@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://audio/audio_stacking.gd"
 }, {
 "base": "DictResource",
+"class": "Building",
+"language": "GDScript",
+"path": "res://resources/definitions/store/building.gd"
+}, {
+"base": "DictResource",
 "class": "BuildingModelRemote",
 "language": "GDScript",
 "path": "res://resources/definitions/remote_resources/building_model.gd"
@@ -194,10 +199,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://hud/rounded_selectable_panel_right.gd"
 }, {
+"base": "DictResource",
+"class": "Scores",
+"language": "GDScript",
+"path": "res://resources/definitions/store/scores.gd"
+}, {
 "base": "PanelContainer",
 "class": "SelectablePanelContainer",
 "language": "GDScript",
 "path": "res://gui/selectable_panel_container.gd"
+}, {
+"base": "Resource",
+"class": "SelectedState",
+"language": "GDScript",
+"path": "res://resources/definitions/store/selected_state.gd"
 }, {
 "base": "DictResource",
 "class": "ShipGroup",
@@ -242,6 +257,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "ApiConfig": "",
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
+"Building": "",
 "BuildingModelRemote": "",
 "BuildingPanel": "",
 "CachedResource": "",
@@ -277,7 +293,9 @@ _global_script_class_icons={
 "RemoteDictResource": "",
 "RoundedSelectablePanelLeft": "",
 "RoundedSelectablePanelRight": "",
+"Scores": "",
 "SelectablePanelContainer": "res://resources/editor/selectable_container.svg",
+"SelectedState": "",
 "ShipGroup": "",
 "ShipModel": "",
 "ShipQueue": "",
@@ -304,6 +322,7 @@ Store="*res://global/store.gd"
 [debug]
 
 settings/stdout/verbose_stdout=true
+gdscript/warnings/return_value_discarded=false
 
 [display]
 

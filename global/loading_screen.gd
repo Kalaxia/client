@@ -2,6 +2,7 @@ extends Control
 
 signal ressource_loaded(ressource_name, ressource)
 signal finished()
+# warning-ignore:unused_signal
 signal scene_requested(scene) # not used used finished instead
 
 enum STATE_NETWORK_ELEMENT {
@@ -169,7 +170,7 @@ func verify_is_finished():
 		emit_signal("finished")
 
 
-func _process(delta):
+func _process(_delta):
 	if loader == null or current_load_element == null:
 		current_load_element = null
 		var keys = load_queue.keys()

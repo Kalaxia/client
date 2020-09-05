@@ -15,7 +15,7 @@ func _ready():
 	_update_elements()
 
 
-func _process(delta):
+func _process(_delta):
 	_update_process_bar()
 
 

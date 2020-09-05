@@ -113,7 +113,8 @@ func send_update():
 	)
 
 
-func _on_request_completed(err, response_code, headers, body):
+func _on_request_completed(err, response_code, _headers, body):
+	# todo manager errors
 	if err:
 		ErrorHandler.network_response_error(err)
 	_is_locked_username_change.unlock()

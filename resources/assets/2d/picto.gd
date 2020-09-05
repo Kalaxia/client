@@ -26,4 +26,4 @@ func system_by_kind(kind : String) -> Texture:
 	match kind:
 		"VictorySystem": return self.system_disk
 		"BaseSystem": return self.system_circle
-		var x: return null
+		var _x: return null

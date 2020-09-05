@@ -101,7 +101,7 @@ func add_fleet_item(fleet):
 	return fleet_node
 
 
-func _on_system_selected(system, old_system):
+func _on_system_selected(system, _old_system):
 	refresh_data(system)
 
 
@@ -121,16 +121,16 @@ func _on_fleet_created(fleet):
 	fleet_node.set_key_binding_number(Store._state.selected_system.fleets.size()-1)
 
 
-func _on_wallet_update(amount):
+func _on_wallet_update(_amount):
 	if Store._state.selected_system == null || Store._state.selected_system.player != Store._state.player.id:
 		return
 	fleet_creation_button.disabled = Store._state.player.wallet < FLEET_COST
 
 
-func _on_request_completed(err, response_code, headers, body):
+func _on_request_completed(err, response_code, _headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
-	if response_code == 201:
+	if response_code == HTTPClient.RESPONSE_CREATED:
 		Store.update_wallet(-FLEET_COST)
 		Store.add_fleet(JSON.parse(body.get_string_from_utf8()).result)
 	_create_fleet_lock.unlock()
@@ -151,11 +151,11 @@ func _on_system_update(system):
 		refresh_data(Store._state.selected_system)
 
 
-func _on_fleet_sailed(fleet, arrival_time):
+func _on_fleet_sailed(fleet, _arrival_time):
 	if fleet.system == Store._state.selected_system.id:
 		menu_layer.close_menu("menu_fleet")
 		refresh_data(Store._state.selected_system)
 
 
-func _on_victory(data):
+func _on_victory(_data):
 	set_visible(false)

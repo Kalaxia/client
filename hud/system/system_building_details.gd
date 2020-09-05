@@ -59,7 +59,7 @@ func _on_building_updated(system):
 	system_update(system)
 
 
-func _on_system_selected(system, old_system):
+func _on_system_selected(_system, _old_system):
 	update_building_panels()
 	update_visibility()
 
