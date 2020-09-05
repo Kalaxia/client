@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Resource",
-"class": "ApiConfig",
-"language": "GDScript",
-"path": "res://config/ApiConfig.gd"
-}, {
 "base": "Node",
 "class": "AudioStacking",
 "language": "GDScript",
@@ -167,7 +162,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "NetworkResource",
 "language": "GDScript",
-"path": "res://global/resources/network_config.gd"
+"path": "res://config/network_config.gd"
 }, {
 "base": "PanelContainer",
 "class": "OptionKeyBinding",
@@ -255,7 +250,6 @@ _global_script_classes=[ {
 "path": "res://global/resources/version.gd"
 } ]
 _global_script_class_icons={
-"ApiConfig": "",
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
 "Building": "",
 "BuildingModelRemote": "",
