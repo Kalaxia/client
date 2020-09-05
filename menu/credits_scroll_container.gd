@@ -9,7 +9,7 @@ onready var rich_text_label = $VBoxContainer/RichTextLabel
 func _ready():
 	rich_text_label.bbcode_text = tr("menu.credits.main")
 	_set_position_credits_bottom()
-	for i in range(2):
+	for _i in range(2):
 		yield(get_tree(), "idle_frame")
 	# for some reason I need to wait 2 frames before we get the correct rect_size.y
 	# but we need to set the credits position on the bottom

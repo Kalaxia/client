@@ -26,7 +26,7 @@ func _ready():
 	_set_crown_state()
 
 
-func _process(delta):
+func _process(_delta):
 	$FleetPath/Follower.unit_offset = _get_flight_ratio()
 
 

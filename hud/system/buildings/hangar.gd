@@ -88,7 +88,7 @@ func set_ship_group_array(new_array):
 		hangar_element.get_node(ship_group.category).quantity = ship_group.quantity
 
 
-func _on_queue_ships_received(err, response_code, headers, body):
+func _on_queue_ships_received(err, response_code, _headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_OK:

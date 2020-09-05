@@ -25,7 +25,8 @@ func _ready():
 	update_lobby_name()
 
 
-func load_lobby(err, response_code, headers, body):
+func load_lobby(err, response_code, _headers, body):
+	# todo mange error
 	if err:
 		ErrorHandler.network_response_error(err)
 		return
@@ -134,10 +135,13 @@ func _on_lobby_owner_update(pid):
 	game_settings_container.enabled = (pid == Store._state.player.id)
 
 
-func _on_launch_response(err, response_code, headers, body):
-	pass
+func _on_launch_response(err, _response_code, _headers, _body):
+	if err:
+		ErrorHandler.network_response_error(err)
 
 
-func _on_lobby_left(err, response_code, headers, body):
+func _on_lobby_left(err, _response_code, _headers, _body):
+	if err:
+		ErrorHandler.network_response_error(err)
 	Store.reset_player_lobby_data()
 	emit_signal("scene_requested", "menu")

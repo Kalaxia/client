@@ -22,7 +22,7 @@ func _ready():
 	button_fleet.connect("pressed",self,"_on_fleet_pressed")
 
 
-func _on_system_selected(system, old_system):
+func _on_system_selected(system, _old_system):
 	refresh_data(system)
 
 

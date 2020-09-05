@@ -2,6 +2,7 @@ extends Control
 
 signal ressource_loaded(ressource_name, ressource)
 signal finished()
+# warning-ignore:unused_signal
 signal scene_requested(scene) # not used used finished instead
 
 enum STATE_NETWORK_ELEMENT {
@@ -131,7 +132,7 @@ func _on_resource_loaded(res_name):
 	verify_is_finished()
 
 
-func _on_resource_loading_error(res_name, err, response_code, body):
+func _on_resource_loading_error(res_name, _err, _response_code, _body):
 	match res_name:
 		CachedResource.Resource_elements.BUILDING:
 			set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_building_status)
@@ -175,7 +176,7 @@ func verify_is_finished():
 		emit_signal("finished")
 
 
-func _process(delta):
+func _process(_delta):
 	if loader == null or current_load_element == null:
 		current_load_element = null
 		var keys = load_queue.keys()

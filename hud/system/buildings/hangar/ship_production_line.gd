@@ -16,7 +16,7 @@ func _ready():
 	update_elements()
 
 
-func _process(delta):
+func _process(_delta):
 	update_time()
 
 
@@ -52,7 +52,7 @@ func _on_button_cancel():
 	pass
 
 
-func _on_cancel_construction(err, response_code, headers, body):
+func _on_cancel_construction(err, response_code, _headers, _body):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_NO_CONTENT:

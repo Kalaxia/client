@@ -53,7 +53,7 @@ func update_quantities():
 		max_assign_button.text = tr("hud.details.fleet.max_assign %d") % (quantity_hangar + quantity_fleet)
 
 
-func _on_text_entered(text = null):
+func _on_text_entered(_text = null):
 	_on_set_button()
 
 
@@ -80,7 +80,7 @@ func _request_assignation(quantity):
 	)
 
 
-func _on_ship_assigned(err, response_code, headers, body, quantity, fleet):
+func _on_ship_assigned(err, response_code, _headers, _body, quantity, fleet):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
@@ -108,7 +108,7 @@ func set_quantity_hangar(quantity):
 	update_quantities()
 
 
-func private_set(variant):
+func private_set(_variant):
 	pass
 
 

@@ -38,12 +38,12 @@ func init_systems(systems):
 		Store._state.game.systems[s.id] = s
 
 
-func _on_systems_created(data):
+func _on_systems_created(_data):
 	Store._state.game.systems = {}
 	Network.req(self, "_on_systems_loaded", "/api/games/" + Store._state.game.id + "/systems/?page=1&limit=100")
 
 
-func _on_systems_loaded(err, response_code, headers, body):
+func _on_systems_loaded(err, _response_code, headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 	var pagination = Network.extract_pagination_data(headers["content-range"])
@@ -57,12 +57,12 @@ func _on_systems_loaded(err, response_code, headers, body):
 	init_systems(JSON.parse(body.get_string_from_utf8()).result)
 
 
-func _on_game_started(data):
+func _on_game_started(_data):
 	Store._state.player.wallet = 0
 	emit_signal("scene_requested", "game")
 
 
-func _on_players_loaded(err, response_code, headers, body):
+func _on_players_loaded(err, _response_code, _headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 	Store.set_game_players(JSON.parse(body.get_string_from_utf8()).result)

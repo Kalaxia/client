@@ -109,12 +109,12 @@ func reload_locale():
 
 
 static func _get_api_config(config):
-	var api = {}
-	api.dns = config.api_dns
-	api.port = config.api_port
-	api.scheme = config.api_scheme
-	api.ws_scheme = config.ws_scheme
-	return api
+	var api_r = {}
+	api_r.dns = config.api_dns
+	api_r.port = config.api_port
+	api_r.scheme = config.api_scheme
+	api_r.ws_scheme = config.ws_scheme
+	return api_r
 
 
 static func _load_config_user(config):

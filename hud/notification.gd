@@ -1,13 +1,13 @@
 extends PanelContainer
 
 var notif = null
-var timer = null
+
+onready var timer = $Timer
 
 
 func _ready():
 	get_node("Container/Title").set_text(notif.title)
 	get_node("Container/Content").set_text(notif.content)
-	var timer = $Timer
 	timer.set_one_shot(true)
 	timer.connect("timeout", self, "_on_timer_timeout") 
 	timer.start(5)
@@ -20,5 +20,5 @@ func _on_timer_timeout():
 	
 
 
-func _on_animation_finished(animation_name):
+func _on_animation_finished(_animation_name):
 	queue_free()

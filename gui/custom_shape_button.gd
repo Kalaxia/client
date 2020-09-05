@@ -32,6 +32,7 @@ func set_selected(new_selected):
 	update()
 
 
+# warning-ignore:unused_argument
 func _is_inside(position : Vector2) -> bool:
 	# this dertermine the area where the button is
 	return false

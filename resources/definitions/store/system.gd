@@ -1,11 +1,21 @@
-extends DictResource
 class_name System
+extends DictResource
+
+signal fleet_added(fleet)
+signal fleet_erased(fleet)
+signal building_updated()
+signal hangar_updated(hangar)
+signal system_owner_updated()
+
+const MAX_NUMBER_OF_BUILDING = 1
 
 export(String) var player # ressource ?
 export(String) var kind
 export(Vector2) var coords
 export(bool) var unreachable
 export(Dictionary) var fleets
+export(Array, Resource) var buildings = [] setget set_buildings
+export(Array, Resource) var hangar = [] setget set_hangar
 
 
 func _init(dict = null).(dict):
@@ -20,5 +30,80 @@ func load_dict(dict):
 		for fleet in dict.fleets:
 			fleets[fleet.id] = Fleet.new(fleets)
 
+
 func _get_dict_property_list() -> Array:
 	return ["player", "kind", "coords", "unreachable"]
+
+
+func add_fleet_dict(fleet_dict : Dictionary):
+	add_fleet(Fleet.new(fleet_dict))
+
+
+func add_fleet(fleet : Fleet):
+	fleets[fleet.id] = fleet
+	emit_signal("fleet_added", fleet)
+	emit_signal("changed")
+
+
+func erase_fleet(fleet : Fleet):
+	var has_ereased = fleets.erase(fleet.id)
+	if has_ereased:
+		emit_signal("fleet_fleet_erased", fleet)
+		fleet.on_fleet_erased()
+		emit_signal("changed")
+	return has_ereased
+
+
+func erase_all_fleet_system():
+	var fleets_previous = fleets
+	fleets.clear()
+	for fleet in fleets_previous.values():
+		emit_signal("fleet_erased", fleet)
+	emit_signal("changed")
+
+
+func set_buildings(buildings_p):
+	buildings = buildings_p
+	emit_signal("building_updated")
+	emit_signal("changed")
+
+
+func set_hangar(ship_groups):
+	hangar = ship_groups
+	emit_signal("hangar_updated", hangar)
+	emit_signal("changed")
+
+
+func add_ship_group_to_hangar(ship_group : ShipGroup):
+	var has_added_ships = false
+	var hangar_ship_groups = hangar
+	for i in hangar_ship_groups:
+		if i.category ==  ship_group.category:
+			i.quantity += ship_group.quantity
+			has_added_ships = true
+			break
+	if not has_added_ships:
+		hangar_ship_groups.push_back(ship_group)
+	set_hangar(hangar_ship_groups)
+
+
+func add_building_to_system_by_id(building):
+	var total_buildings = buildings
+	var has_building = false
+	for i in range(total_buildings.size()):
+		if total_buildings[i].id == building.id:
+			total_buildings[i] = building
+			has_building = true
+			break
+	if not has_building and buildings.size() < MAX_NUMBER_OF_BUILDING:
+		total_buildings.push_back(building)
+	set_buildings(total_buildings)
+
+
+func update_system_owner(player_p): 
+	# review name operation
+	for fid in fleets.keys():
+		if fleets[fid].destination_system != null:
+			erase_fleet(fleets[fid])
+	player = player_p.id
+	emit_signal("system_owner_updated")

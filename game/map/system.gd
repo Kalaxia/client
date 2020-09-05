@@ -213,7 +213,7 @@ func _on_mouse_input(event):
 			)
 
 
-func _on_fleet_send(err, response_code, headers, body):
+func _on_fleet_send(err, response_code, _headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 		return

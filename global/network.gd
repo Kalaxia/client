@@ -1,32 +1,33 @@
 extends Node
 
-signal authenticated()
-signal CombatEnded(data)
-signal LobbyCreated(lobby)
-signal LobbyUpdated(lobby)
-signal LobbyOwnerUpdated(data)
-signal LobbyNameUpdated(data)
-signal LobbyRemoved(lobby)
-signal LobbyLaunched(launchData)
-signal GameStarted(data)
-signal PlayerConnected(player)
-signal PlayerDisconnected(player)
-signal PlayerUpdate(player)
-signal PlayerJoined(player)
-signal PlayerLeft(player)
-signal PlayerIncome(data)
-signal FleetCreated(fleet)
-signal FleetSailed(fleet) 
-signal FleetArrived(fleet) 
-signal SystemConquerred(data)
-signal SystemsCreated(data)
-signal Victory(data)
-signal FactionPointsUpdated(scores)
-signal ShipQueueFinished(ship_group)
-signal BuildingConstructed(building)
-signal LobbyOptionsUpdated(lobby)
-signal PlayerMoneyTransfer(data)
-signal FleetTransfer(data)
+
+signal authenticated() # warning-ignore:unused_signal
+signal CombatEnded(data) # warning-ignore:unused_signal
+signal LobbyCreated(lobby) # warning-ignore:unused_signal
+signal LobbyUpdated(lobby) # warning-ignore:unused_signal
+signal LobbyOwnerUpdated(data) # warning-ignore:unused_signal
+signal LobbyNameUpdated(data) # warning-ignore:unused_signal
+signal LobbyRemoved(lobby) # warning-ignore:unused_signal
+signal LobbyLaunched(launchData) # warning-ignore:unused_signal
+signal GameStarted(data) # warning-ignore:unused_signal
+signal PlayerConnected(player) # warning-ignore:unused_signal
+signal PlayerDisconnected(player) # warning-ignore:unused_signal
+signal PlayerUpdate(player) # warning-ignore:unused_signal
+signal PlayerJoined(player) # warning-ignore:unused_signal
+signal PlayerLeft(player) # warning-ignore:unused_signal
+signal PlayerIncome(data) # warning-ignore:unused_signal
+signal FleetCreated(fleet) # warning-ignore:unused_signal
+signal FleetSailed(fleet) # warning-ignore:unused_signal
+signal FleetArrived(fleet) # warning-ignore:unused_signal
+signal SystemConquerred(data) # warning-ignore:unused_signal
+signal SystemsCreated(data) # warning-ignore:unused_signal
+signal Victory(data) # warning-ignore:unused_signal
+signal FactionPointsUpdated(scores) # warning-ignore:unused_signal
+signal ShipQueueFinished(ship_group) # warning-ignore:unused_signal
+signal BuildingConstructed(building) # warning-ignore:unused_signal
+signal LobbyOptionsUpdated(lobby) # warning-ignore:unused_signal
+signal PlayerMoneyTransfer(data) # warning-ignore:unused_signal
+signal FleetTransfer(data) # warning-ignore:unused_signal
 
 const MAX_CO_RETRIES = 5
 const TIME_BEFORE_CLOSE = 2.0
@@ -68,21 +69,25 @@ func auth():
 	Network.req(self, "confirm_auth", "/login", HTTPClient.METHOD_POST)
 
 
-func confirm_auth(err, response_code, headers, body):
+func confirm_auth(err, response_code, _headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 		return
-	self.token = JSON.parse(body.get_string_from_utf8()).result.token
-	connect_ws()
-	Network.req(self, "set_current_player", "/api/players/me/")
-	emit_signal("authenticated")
+	if response_code == HTTPClient.RESPONSE_OK:
+		self.token = JSON.parse(body.get_string_from_utf8()).result.token
+		connect_ws()
+		Network.req(self, "set_current_player", "/api/players/me/")
+		emit_signal("authenticated")
+	else:
+		printerr(JSON.parse(body.get_string_from_utf8()).result)
 
 
-func set_current_player(err, response_code, headers, body):
+func set_current_player(err, response_code, _headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 		return
-	Store._state.player = JSON.parse(body.get_string_from_utf8()).result
+	if response_code == HTTPClient.RESPONSE_OK:
+		Store.player = Player.new(JSON.parse(body.get_string_from_utf8()).result)
 
 
 func connect_ws():

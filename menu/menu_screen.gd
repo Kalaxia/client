@@ -57,7 +57,7 @@ func add_lobby_card(lobby):
 	lobbies_container.add_child(lobby_card)
 
 
-func join_lobby(lobby, must_update = false):
+func join_lobby(lobby):
 	Store._state.lobby = lobby
 	Network.req(self, "_handle_join_lobby", "/api/lobbies/" + lobby.id + "/players/", HTTPClient.METHOD_POST)
 
@@ -87,21 +87,29 @@ func _on_player_disconnected(player):
 		lobbies_container.get_node(player.lobby).decrement_nb_players()
 
 
-# Handlers for HTTP requests.
-# Normaly we should handle bad response codes like 404 error or other kind of
-# error before doin something with the data
-func _handle_get_lobbies(err, response_code, headers, body):
-	add_lobby_cards(JSON.parse(body.get_string_from_utf8()).result)
+func _handle_get_lobbies(err, response_code, _headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+	if response_code == HTTPClient.RESPONSE_OK:
+		add_lobby_cards(JSON.parse(body.get_string_from_utf8()).result)
 
 
-func _handle_create_lobby(err, response_code, headers, body):
-	Store._state.lobby = JSON.parse(body.get_string_from_utf8()).result
-	emit_signal("scene_requested", "lobby")
+func _handle_create_lobby(err, response_code, _headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+	if response_code == HTTPClient.RESPONSE_CREATED:
+		Store._state.lobby = JSON.parse(body.get_string_from_utf8()).result
+		emit_signal("scene_requested", "lobby")
+	# todo handel error
 
 
-func _handle_join_lobby(err, response_code, headers, body):
-	Store._state.lobby.players.push_back(Store._state.player.id)
-	emit_signal("scene_requested", "lobby")
+func _handle_join_lobby(err, response_code, _headers, _body):
+	if err:
+		ErrorHandler.network_response_error(err)
+	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
+		Store._state.lobby.players.push_back(Store._state.player.id)
+		emit_signal("scene_requested", "lobby")
+	# todo handel error
 
 
 func _on_menu_option_pressed():

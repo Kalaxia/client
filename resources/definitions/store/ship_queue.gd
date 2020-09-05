@@ -1,6 +1,5 @@
-extends DictResource
 class_name ShipQueue
-
+extends DictResource
 
 export(int) var quantity = 0 setget set_quantity
 export(Resource) var model
@@ -17,7 +16,7 @@ func load_dict(dict) -> void:
 
 
 func _get_dict_property_list():
-	return []
+	return ._get_dict_property_list() + []
 
 
 func set_quantity(new_quantity):

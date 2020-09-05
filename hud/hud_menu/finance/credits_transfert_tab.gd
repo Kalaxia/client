@@ -26,11 +26,11 @@ func _on_item_selected(id):
 	_verifiy_state_button_send()
 
 
-func _on_spinbox_value_changed(value):
+func _on_spinbox_value_changed(_value):
 	_verifiy_state_button_send()
 
 
-func _on_lock_state_changed(state):
+func _on_lock_state_changed(_state):
 	_verifiy_state_button_send()
 
 
@@ -54,7 +54,7 @@ func _on_button_send_pressed():
 	)
 
 
-func _on_credits_send(err, response_code, headers, body, amount, player_id):
+func _on_credits_send(err, response_code, _headers, _body, amount, player_id):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
@@ -66,7 +66,7 @@ func _on_wallet_updated(amount):
 	spinbox.max_value = amount
 
 
-func private_set(value):
+func private_set(_value):
 	pass
 
 

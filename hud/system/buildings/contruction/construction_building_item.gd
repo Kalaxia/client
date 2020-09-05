@@ -29,7 +29,7 @@ func set_building_type(new_type):
 	_updates_elements()
 
 
-func private_set(variant):
+func private_set(_variant):
 	pass
 
 
@@ -37,7 +37,7 @@ func private_get():
 	return null
 
 
-func _on_wallet_updated(amount):
+func _on_wallet_updated(_amount):
 	_update_build_button_state()
 
 
@@ -45,7 +45,7 @@ func _update_build_button_state():
 	button.disabled = Store._state.player.wallet < building_type.cost or _lock_request_build.get_is_locked()
 
 
-func _on_lock_changed_state(state_is_locked):
+func _on_lock_changed_state(_state_is_locked):
 	_update_build_button_state()
 
 
@@ -75,7 +75,7 @@ func _on_build_button():
 	)
 
 
-func _on_building_construction_started(err, response_code, headers, body):
+func _on_building_construction_started(err, response_code, _headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_CREATED:

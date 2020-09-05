@@ -32,7 +32,7 @@ func _on_hangar_updated(system, ship_groups):
 		set_ship_group_hangar(ship_groups)
 
 
-func _on_ship_assigned(quantity_fleet, quantity_hangar, category):
+func _on_ship_assigned(_quantity_fleet, quantity_hangar, category):
 	var has_added_quantity = false
 	for i in ship_group_hangar:
 		if i.category == category.category:

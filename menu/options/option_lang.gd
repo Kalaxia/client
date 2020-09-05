@@ -1,7 +1,5 @@
 extends VBoxContainer
 
-signal locale_updated()
-
 var _locales = []
 
 onready var option_array = $OptionArray
