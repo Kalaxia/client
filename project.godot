@@ -195,9 +195,9 @@ _global_script_classes=[ {
 "path": "res://hud/rounded_selectable_panel_right.gd"
 }, {
 "base": "DictResource",
-"class": "Scores",
+"class": "ScoreFaction",
 "language": "GDScript",
-"path": "res://resources/definitions/store/scores.gd"
+"path": "res://resources/definitions/store/score_faction.gd"
 }, {
 "base": "PanelContainer",
 "class": "SelectablePanelContainer",
@@ -219,7 +219,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/definitions/remote_resources/ship_model.gd"
 }, {
-"base": "DictResource",
+"base": "ShipGroup",
 "class": "ShipQueue",
 "language": "GDScript",
 "path": "res://resources/definitions/store/ship_queue.gd"
@@ -287,7 +287,7 @@ _global_script_class_icons={
 "RemoteDictResource": "",
 "RoundedSelectablePanelLeft": "",
 "RoundedSelectablePanelRight": "",
-"Scores": "",
+"ScoreFaction": "",
 "SelectablePanelContainer": "res://resources/editor/selectable_container.svg",
 "SelectedState": "",
 "ShipGroup": "",

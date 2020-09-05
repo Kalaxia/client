@@ -3,7 +3,7 @@ extends VBoxContainer
 const ASSETS = preload("res://resources/assets.tres")
 const PLAYER_INFO_FACTION_COLUMN = preload("res://matchmaking/player/player_info_faction_column.tscn")
 
-export(int) var faction = 0 setget set_faction
+export(int) var faction = 0 setget set_faction # ressource ?
 
 enum UPDATE_PLAYER_STATE {
 	PLAYER_UPDATED,
@@ -47,7 +47,7 @@ func update_player(player):
 
 
 func _is_of_current_faction(player):
-	return ( player.faction == null and faction == 0 ) or ( player.faction != null and player.faction as int == faction )
+	return ( player.faction == null and faction == 0 ) or ( player.faction != null and player.faction.id as int == faction )
 
 
 func set_faction(new_faction):

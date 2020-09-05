@@ -6,6 +6,7 @@ signal fleet_erased(fleet)
 signal building_updated()
 signal hangar_updated(hangar)
 signal system_owner_updated()
+signal updated()
 
 const MAX_NUMBER_OF_BUILDING = 1
 
@@ -16,6 +17,7 @@ export(bool) var unreachable
 export(Dictionary) var fleets
 export(Array, Resource) var buildings = [] setget set_buildings
 export(Array, Resource) var hangar = [] setget set_hangar
+export(String) var game = null
 
 
 func _init(dict = null).(dict):
@@ -32,7 +34,7 @@ func load_dict(dict):
 
 
 func _get_dict_property_list() -> Array:
-	return ["player", "kind", "coords", "unreachable"]
+	return ["player", "kind", "coords", "unreachable", "game"]
 
 
 func add_fleet_dict(fleet_dict : Dictionary):
@@ -48,13 +50,24 @@ func add_fleet(fleet : Fleet):
 func erase_fleet(fleet : Fleet):
 	var has_ereased = fleets.erase(fleet.id)
 	if has_ereased:
-		emit_signal("fleet_fleet_erased", fleet)
 		fleet.on_fleet_erased()
+		emit_signal("fleet_fleet_erased", fleet)
 		emit_signal("changed")
 	return has_ereased
 
 
-func erase_all_fleet_system():
+func erase_fleet_id(fleet_id : String):
+	var has_fleet = fleets.has(fleet_id)
+	if has_fleet:
+		var fleet = fleets[fleet_id]
+		fleets.erase(fleet_id)
+		fleet.on_fleet_erased()
+		emit_signal("fleet_fleet_erased", fleet)
+		emit_signal("changed")
+	return has_fleet
+
+
+func erase_all_fleet():
 	var fleets_previous = fleets
 	fleets.clear()
 	for fleet in fleets_previous.values():
@@ -87,7 +100,7 @@ func add_ship_group_to_hangar(ship_group : ShipGroup):
 	set_hangar(hangar_ship_groups)
 
 
-func add_building_to_system_by_id(building):
+func add_building_to_system(building : Building):
 	var total_buildings = buildings
 	var has_building = false
 	for i in range(total_buildings.size()):
@@ -107,3 +120,13 @@ func update_system_owner(player_p):
 			erase_fleet(fleets[fid])
 	player = player_p.id
 	emit_signal("system_owner_updated")
+
+
+func get_fleet(fleet_id : String):
+	return fleets[fleet_id] if fleets.has(fleet_id) else null
+
+
+func update(dict : Dictionary):
+	load_dict(dict)
+	emit_signal("updated")
+	emit_signal("changed")

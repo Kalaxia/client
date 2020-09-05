@@ -1,9 +1,11 @@
 extends HBoxContainer
 
+var game_data = load(GameData.PATH_NAME)
+
 
 func _ready():
-	Store.connect("wallet_updated", self, "_on_wallet_update")
+	game_data.player.connect("wallet_updated", self, "_on_wallet_update")
 
 
 func _on_wallet_update(amount):
-	$Amount.set_text(str(amount))
+	$Amount.text = amount as String

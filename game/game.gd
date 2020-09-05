@@ -24,10 +24,15 @@ var _motion_camera = {
 	Vector2.UP : false,
 	Vector2.DOWN : false,
 }
+var _game_data : GameData = Store.game_data
 
 onready var camera2D = $Camera2D
 onready var _target_zoom = camera2D.zoom
-onready var particles_nodes = [$ParallaxBackground/ParallaxLayer1/Particles2D, $ParallaxBackground/ParallaxLayer2/Particles2D, $ParallaxBackground/ParallaxLayer3/Particles2D]
+onready var particles_nodes = [
+	$ParallaxBackground/ParallaxLayer1/Particles2D,
+	$ParallaxBackground/ParallaxLayer2/Particles2D,
+	$ParallaxBackground/ParallaxLayer3/Particles2D
+]
 onready var map = $ParallaxBackground/ParallaxLayer0/Map
 onready var fleet_container = $ParallaxBackground/ParallaxLayer0/Map/FleetContainer
 onready var background = $ParallaxBackground/Background
@@ -35,12 +40,9 @@ onready var hud = $ParallaxBackground/HUD
 
 
 func _ready():
-	Store.update_player_me()
-	Store.connect("system_selected", self, "_on_system_selected")
-	Store.connect("fleet_created", self, "_on_fleet_created")
-	Store.connect("fleet_sailed", self, "_on_fleet_sailed")
-	Store.connect("hangar_updated", self, "_on_hangar_updated")
-	Store.connect("building_updated", self, "_on_building_updated")
+	_game_data.update_player_me()
+	_game_data.selected_state.connect("system_selected", self, "_on_system_selected") # keep
+	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed") # keep
 	Network.connect("CombatEnded", self, "_on_combat_ended")
 	Network.connect("PlayerIncome", self, "_on_player_income")
 	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
@@ -146,10 +148,10 @@ func _manage_input(event):
 
 func draw_systems():
 	var limits_systems = [ -1920, -1920, 1920, 1920 ]
-	for i in Store._state.game.systems.keys():
+	for i in _game_data.game.systems.keys():
 		var system = SYSTEM_SCENE.instance()
-		system.set_name(Store._state.game.systems[i].id)
-		system.system = Store._state.game.systems[i]
+		system.set_name(_game_data.systems[i].id)
+		system.system = _game_data.systems[i]
 		map.add_child(system)
 		limits_systems[0] = min(Utils.SCALE_SYSTEMS_COORDS * Store._state.game.systems[i].coordinates.x, limits_systems[0])
 		limits_systems[1] = min(Utils.SCALE_SYSTEMS_COORDS * Store._state.game.systems[i].coordinates.y, limits_systems[1])
@@ -159,43 +161,10 @@ func draw_systems():
 
 
 func center_on_selected_system():
-	if Store._state.selected_system != null:
-		_set_camera_position(Vector2(Store._state.selected_system.coordinates.x * Utils.SCALE_SYSTEMS_COORDS, Store._state.selected_system.coordinates.y * Utils.SCALE_SYSTEMS_COORDS))
+	if _game_data.selected_state.selected_system != null:
+		var coordinates_selected = _game_data.selected_state.selected_system.coordinates
+		_set_camera_position(Vector2(Utils.SCALE_SYSTEMS_COORDS, Utils.SCALE_SYSTEMS_COORDS) * coordinates_selected)
 		_camera_speed = Vector2.ZERO
-
-
-func update_fleet_system(fleet):
-	Store.update_fleet_system(fleet)
-	map.get_node(fleet.system).refresh_fleet_pins()
-	if fleet_container.has_node(fleet.id):
-		fleet_container.get_node(fleet.id).queue_free()
-
-
-func _on_fleet_transfer(data):
-	Store.update_fleet_owner(data.fleet, data.receiver_id)
-	if data.receiver_id == Store._state.player.id:
-		Store.notify(tr("game.receive_fleet.title"), tr("game.receive_fleet.content %s") % Store.get_game_player(data.donator_id).username)
-
-
-func _on_ship_queue_finished(ship_data):
-	Store.add_ship_group_to_hangar(ship_data)
-
-
-func _on_hangar_updated(system, ship_group_hangar):
-	if map.has_node(system.id):
-		var node = map.get_node(system.id)
-		node.update_ship_pin()
-
-
-func _on_building_constructed(building):
-	Store.add_building_to_system_by_id(building.system, building)
-
-
-func _on_building_updated(system):
-	if map.has_node(system.id):
-		var node = map.get_node(system.id)
-		node.refresh_building_pins()
-
 
 
 func _setup_particle():
@@ -216,10 +185,6 @@ func _setup_particle():
 		particles_node.visibility_rect = rect_visibility
 
 
-func _on_faction_points_update(scores):
-	Store.update_scores(scores)
-
-
 func _on_resize_window():
 	_set_background_ratio()
 
@@ -228,88 +193,33 @@ func _set_background_ratio():
 	background.set_scale(OS.get_window_size() / Vector2(1920.0, 1080.0))
 
 
-func _on_combat_ended(data):
-	for fleet in data.fleets.values():
-		if fleet.destination_system != null:
-			fleet_container.get_node(fleet.id).queue_free()
-		elif fleet.ship_groups == null or fleet.ship_groups == []:
-			Store.erase_fleet(fleet)
-		else:
-			Store.update_fleet_ship_groups(fleet, fleet.ship_groups)
-	map.get_node(data.system.id).refresh_fleet_pins()
-
-
-func _on_system_selected(system, old_system):
+func _on_system_selected(old_system):
 	if old_system != null and map.has_node(old_system.id):
 		map.get_node(old_system.id).unselect()
-	map.get_node(system.id).select()
-
-
-func _on_player_income(data):
-	Store.update_wallet(data.income)
-
-
-# This method is called when the websocket notifies an another player's fleet creation
-# It calls the same store method when the current player creates a new fleet
-func _on_remote_fleet_created(fleet):
-	Store.add_fleet(fleet)
-
-
-# This method is called in both cases, to update the map's view
-func _on_fleet_created(fleet):
-	map.get_node(fleet.system).refresh_fleet_pins()
-
-
-func _on_fleet_arrival(fleet):
-	update_fleet_system(fleet)
+	map.get_node(_game_data.selected_state.selected_system.id).select()
 
 
 func _on_fleet_sailed(fleet, arrival_time):
-	Store._state.game.systems[fleet.system].fleets.erase(fleet.id)
 	var sailing_fleet = MOVING_FLEET_SCENE.instance()
 	sailing_fleet.set_name(fleet.id)
 	var origin_system = map.get_node(fleet.system)
 	origin_system.refresh()
 	sailing_fleet.fleet = fleet
-	sailing_fleet.arrival_time = arrival_time
-	sailing_fleet.color = Store.get_player_color(Store.get_game_player(fleet.player))
+	sailing_fleet.arrival_time = arrival_time # todo is this necessary
+	sailing_fleet.color = _game_data.get_player_color(_game_data.get_player(fleet.player)) # todo is this necessary
 	sailing_fleet.origin_position = origin_system.get_position()
 	sailing_fleet.destination_position = map.get_node(fleet.destination_system).get_position()
 	fleet_container.add_child(sailing_fleet)
 
 
-# This method is called when the websocket notifies an another player's fleet sailing
-# It notifies the store which call _on_fleet_sailed back
-func _on_remote_fleet_sailed(fleet):
-	Store.fleet_sail(fleet, fleet.destination_arrival_date)
-
-
-func _on_system_conquerred(data):
-	Store.erase_all_fleet_system(data.system)
-	update_fleet_system(data.fleet)
-	Store.update_system(data.system)
-	map.get_node(data.system.id).refresh()
-	if data.system.player == Store._state.player.id:
-		Store.request_hangar(data.system)
-	if Store._state.game.players[data.system.player].faction == Store._state.player.faction:
-		Store.request_buildings(data.system)
-	else:
-		Store.update_buildings(data.system, [])
-		Store.update_hangar(data.system, [])
-
-
-func _on_victory(data):
-	Store._state.victorious_faction = data.victorious_faction
-	Store._state.scores = data.scores
-	emit_signal("scene_requested", "scores")
-
-
-
 func _zoom_camera(factor):
 	var max_screen_size = Vector2(camera2D.limit_right - camera2D.limit_left, camera2D.limit_bottom - camera2D.limit_top)
-	var max_zoom_factor_fit = floor(min(log(max_screen_size.x / OS.window_size.x), log(max_screen_size.y / OS.window_size.y)) / log(_ZOOM_FACTOR))
-	_target_zoom.x = clamp(camera2D.zoom.x * factor, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR), pow(_ZOOM_FACTOR, min(_MAX_ZOOM_FACTOR, max_zoom_factor_fit)))
-	_target_zoom.y = clamp(camera2D.zoom.y * factor, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR), pow(_ZOOM_FACTOR, min(_MAX_ZOOM_FACTOR, max_zoom_factor_fit)))
+	var max_zoom_factor_fit = floor(min(log(max_screen_size.x / OS.window_size.x), \
+			log(max_screen_size.y / OS.window_size.y)) / log(_ZOOM_FACTOR))
+	_target_zoom.x = clamp(camera2D.zoom.x * factor, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR), \
+			pow(_ZOOM_FACTOR, min(_MAX_ZOOM_FACTOR, max_zoom_factor_fit)))
+	_target_zoom.y = clamp(camera2D.zoom.y * factor, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR), \
+			pow(_ZOOM_FACTOR, min(_MAX_ZOOM_FACTOR, max_zoom_factor_fit)))
 
 
 func _move_camera(vector):
@@ -323,8 +233,10 @@ func _set_camera_position(position_camera_set):
 	# this is however inuititiev when draggind the camera
 	# call this function instand of camera2D.position.
 	var new_position = position_camera_set
-	new_position.x = max(min(new_position.x,camera2D.limit_right - OS.get_window_size().x / 2.0 * camera2D.zoom.x), camera2D.limit_left + OS.get_window_size().x / 2.0 * camera2D.zoom.x)
-	new_position.y = max(min(new_position.y,camera2D.limit_bottom - OS.get_window_size().y / 2.0 * camera2D.zoom.y), camera2D.limit_top + OS.get_window_size().y / 2.0 * camera2D.zoom.y)
+	new_position.x = max(min(new_position.x, camera2D.limit_right - OS.get_window_size().x / 2.0 * camera2D.zoom.x), \
+			camera2D.limit_left + OS.get_window_size().x / 2.0 * camera2D.zoom.x)
+	new_position.y = max(min(new_position.y, camera2D.limit_bottom - OS.get_window_size().y / 2.0 * camera2D.zoom.y), \
+			camera2D.limit_top + OS.get_window_size().y / 2.0 * camera2D.zoom.y)
 	camera2D.position = new_position
 
 
@@ -332,7 +244,97 @@ func _on_request_main_menu():
 	emit_signal("scene_requested", "menu")
 
 
-func _on_money_transfer(data):
-	Store.update_wallet(data.amount)
-	var username = Store.get_game_player(data.player_id).username
-	Store.notify(tr("game.receive_credits_notif.title"), tr("game.receive_credits_notif.content %s %d") % [username, data.amount])
+########## Network ##########
+
+
+func _on_money_transfer(data : Dictionary):
+	_game_data.player.update_wallet(data.amount)
+	var username = _game_data.get_player(data.player_id).username
+	Store.notify(
+		tr("game.receive_credits_notif.title"), 
+		tr("game.receive_credits_notif.content %s %d") % [username, data.amount]
+	)
+
+
+func _on_combat_ended(data : Dictionary):
+	for fleet in data.fleets.values():
+		if fleet.destination_system != null:
+			fleet_container.get_node(fleet.id).queue_free()
+		elif fleet.ship_groups == null or fleet.ship_groups == []:
+			_game_data.systems[fleet.system].erase_fleet_id(fleet.id)
+		else:
+			_game_data.get_fleet(fleet).set_ship_group_dict(fleet.ship_groups)
+	map.get_node(data.system.id).refresh_fleet_pins()
+
+
+func _on_player_income(data : Dictionary):
+	_game_data.player.update_wallet(data.income)
+
+
+# This method is called when the websocket notifies an another player's fleet creation
+# It calls the same store method when the current player creates a new fleet
+func _on_remote_fleet_created(fleet : Dictionary): # todo contaier
+	_game_data.systems[fleet.system].add_fleet_dict(fleet)
+
+
+# This method is called when the websocket notifies an another player's fleet sailing
+# It notifies the store which call _on_fleet_sailed back
+func _on_remote_fleet_sailed(fleet : Dictionary):
+	var fleet_in_game_data : Fleet = _game_data.systems[fleet.system].fleet[fleet.id]
+	fleet_in_game_data.update_fleet(fleet)
+	_game_data.fleet_sail(fleet_in_game_data, fleet_in_game_data.destination_arrival_date)
+
+
+func _on_fleet_arrival(fleet : Dictionary):
+	_update_fleet_system(fleet)
+
+
+func _on_system_conquerred(data : Dictionary):
+	# todo
+	var system : System = _game_data.get_system(data.system.id)
+	system.erase_all_fleet()
+	system.update(data.system)
+	_update_fleet_system(data.fleet)
+	map.get_node(data.system.id).refresh()
+	if data.system.player == _game_data.player.id:
+		_game_data.request_hangar(system)
+	if _game_data.players[system.player].faction == _game_data.player.faction:
+		_game_data.request_buildings(system)
+	else:
+		system.update_buildings([])
+		system.update_hangar([])
+
+
+func _update_fleet_system(fleet : Dictionary):
+	_game_data.update_fleet_arrival(fleet)
+	map.get_node(fleet.system).refresh_fleet_pins()
+	if fleet_container.has_node(fleet.id):
+		fleet_container.get_node(fleet.id).queue_free() # todo container ?
+
+
+func _on_victory(data : Dictionary):
+	# todo review
+	Store.victorious_faction = data.victorious_faction
+	_game_data.update_scores(data.scores)
+	emit_signal("scene_requested", "scores")
+
+
+func _on_faction_points_update(scores : Dictionary):
+	_game_data.update_scores(scores)
+
+
+func _on_ship_queue_finished(ship_data : Dictionary): # todo
+	_game_data.get_system(ship_data.system).add_ship_group_to_hangar(ShipGroup.new(ship_data))
+
+
+func _on_building_constructed(building : Dictionary): # todo
+	_game_data.get_system(building.system).add_building_to_system(Building.new(building))
+
+
+func _on_fleet_transfer(data : Dictionary):
+	_game_data.systems[data.fleet.system].fleet[data.fleet.id].player = data.receiver_id
+	if data.receiver_id == _game_data.player.id:
+		Store.notify(
+			tr("game.receive_fleet.title"),
+			tr("game.receive_fleet.content %s") % Store.get_player(data.donator_id).username
+		)

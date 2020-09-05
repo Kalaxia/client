@@ -2,8 +2,10 @@ class_name GameData
 extends Resource
 
 signal fleet_sailed(fleet, arrival_time)
+signal score_updated()
+signal fleet_arrived(fleet) # todo move in system
 
-const PATH_NAME = "game_data"
+const PATH_NAME = "res://game_data.tres"
 const ASSETS = preload("res://resources/assets.tres")
 
 export(String) var id
@@ -11,11 +13,11 @@ export(Dictionary) var systems = {}
 export(Dictionary) var players = {}
 export(Resource) var player = null # CurentPlayer
 export(Resource) var selected_state = SelectedState.new()
-export(Resource) var scores = Scores.new()
+export(Dictionary) var scores = {}
 export(Dictionary) var sailing_fleets = {}
 
 
-func _init(p_id : String, player_p : Player = null, lobby : Lobby = null) -> void:
+func _init(p_id : String, player_p : Player, lobby : Lobby = null) -> void:
 	resource_path = PATH_NAME
 	self.id = p_id
 	self.player = player_p
@@ -26,20 +28,38 @@ func _init(p_id : String, player_p : Player = null, lobby : Lobby = null) -> voi
 func insert_system(p_system : Dictionary) -> void:
 	var new_system = System.new(p_system)
 	self.systems[p_system.id] = new_system
+	if does_belong_to_current_player(new_system):
+		request_hangar(new_system)
+	if new_system.player != null and players[new_system.player].faction.id == player.faction.id:
+		request_buildings(new_system)
+	emit_signal("changed")
+
+
+func set_players(player_array : Array):
+	for p in player_array:
+		if p.id != player.id:
+			insert_player(p)
+		else:
+			players[player.id] = player
 	emit_signal("changed")
 
 
 func insert_player(p_player : Dictionary) -> void:
-	self.players[p_player] = Player.new(p_player)
-	emit_signal("changed")
+	players[p_player.id] = Player.new(p_player)
 
 
 func get_system(system_id : String):
-	return systems[system_id] if players.has(system_id) else null
+	return systems[system_id] if systems.has(system_id) else null
 
 
 func get_player(payer_id : String):
 	return players[payer_id] if players.has(payer_id) else null
+
+
+func get_fleet(fleet : Dictionary):
+	return sailing_fleets[fleet.id] \
+			if sailing_fleets.has(fleet.id) \
+			else get_system(fleet.system).get_fleet(fleet.id)
 
 
 func load_player_lobby(lobby : Lobby):
@@ -77,12 +97,22 @@ func get_player_color(player_p : Player, is_victory_system = false) -> Color:
 	return player_p.faction.get_color(is_victory_system, player_p.id == player.id)
 
 
-func fleet_sail(fleet, arrival_time):
+func fleet_sail(fleet : Fleet, arrival_time):
 	# todo determine where to move ( fleet ? )
 	sailing_fleets[fleet.id] = fleet
 	systems[fleet.system].fleets.erase(fleet.id)
 	# todo signal
 	emit_signal("fleet_sailed", fleet, arrival_time)
+
+
+func update_fleet_arrival(fleet_dict : Dictionary):
+	var fleet : Fleet = get_fleet(fleet_dict)
+	fleet.update_fleet(fleet_dict)
+	if sailing_fleets.has(fleet.id):
+		sailing_fleets.erase(fleet.id)
+	get_system(fleet.system).fleets[fleet.id] = fleet
+	emit_signal("fleet_arrived", fleet)
+
 
 func request_hangar_and_building(system : System):
 	# move to system
@@ -162,6 +192,22 @@ func request_leave_game():
 func _on_player_left_game(err, _response_code, _headers, _body):
 	if err:
 		ErrorHandler.network_response_error(err)
+
+
+func is_current_player(player_p : Player):
+	return player_p.id == player.id
+
+
+func does_belong_to_current_player(resource):
+	return resource.player == player.id
+
+
+func update_scores(scores_new : Dictionary) -> void:
+	scores.clear()
+	for key in scores_new.keys():
+		scores[key] = ScoreFaction.new(scores_new[key])
+	emit_signal("changed")
+	emit_signal("score_updated")
 
 
 static func get_game_data():

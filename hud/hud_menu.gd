@@ -4,6 +4,7 @@ const assets = preload("res://resources/assets.tres")
 
 signal back_main_menu() 
 
+var game_data = load(GameData.PATH_NAME)
 var menu_layer : MenuLayer setget set_menu_layer
 
 onready var texture_rect = $HBoxContainer/TextureRect
@@ -20,7 +21,7 @@ func _ready():
 			node.connect("pressed", self, "_on_button_pressed", [node])
 	menu_button.connect("state_changed", self, "_toogle_menu")
 	popup_menu.connect("id_pressed", self, "_on_id_pressed")
-	texture_rect.texture = assets.factions[Store._state.player.faction].banner
+	texture_rect.texture = game_data.player.faction.banner
 	finance_button.connect("pressed", self, "_on_finance_menu_pressed")
 
 
@@ -50,7 +51,7 @@ func deselect_other_node(node = null):
 
 
 func _back_to_main_menu():
-	Store.request_leave_game()
+	game_data.request_leave_game()
 	emit_signal("back_main_menu")
 
 

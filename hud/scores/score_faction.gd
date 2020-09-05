@@ -4,6 +4,8 @@ const ASSETS = preload("res://resources/assets.tres")
 
 export(int) var faction = 0 setget set_faction
 
+var game_data = load(GameData.PATH_NAME)
+
 onready var progress_bar = $ProgressBar
 onready var texture = $TextureRect
 
@@ -11,10 +13,11 @@ onready var texture = $TextureRect
 func _ready():
 	progress_bar.connect("value_changed",self,"_on_progress_bar_changed")
 	Network.connect("FactionPointsUpdated", self, "_on_score_updated")
+	# todo chnage to game_data connection
 	progress_bar.max_value = ASSETS.constants.victory_points
 	_on_progress_bar_changed(0)
 	_update_faction()
-	_update_scores(Store._state.scores)
+	_update_scores(game_data.scores)
 
 
 func set_faction(f):
@@ -30,7 +33,7 @@ func _on_score_updated(scores):
 
 func _update_scores(scores):
 	for score in scores.values():
-		if score.faction == faction:
+		if score.faction.id as int == faction:
 			progress_bar.value = score.victory_points
 
 

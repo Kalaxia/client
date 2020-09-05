@@ -28,7 +28,7 @@ rect_min_size = Vector2( 0, 40 )
 align = 1
 valign = 1
 
-[node name="NbSystems" type="Label" parent="."]
+[node name="VictoryPoints" type="Label" parent="."]
 margin_top = 144.0
 margin_right = 1920.0
 margin_bottom = 158.0

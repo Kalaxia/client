@@ -4,30 +4,36 @@ extends SelectablePanelContainer
 signal pressed_open_ship_menu(fleet)
 signal fleet_donated()
 
-var fleet = null setget set_fleet
+var fleet : Fleet = null setget set_fleet
 var _lock_donate = Utils.Lock.new() setget private_set, private_get
+var _game_data : GameData = load(GameData.PATH_NAME)
 
 onready var key_binding_compo = $Container/Ships/ButtonMenu/KeyBindingLabelsContainer
 onready var button_give = $Container/Ships/ButtonGive
 onready var button_menu = $Container/Ships/ButtonMenu
 
+
 func _ready():
 	update_owner()
-	Store.connect("fleet_selected",self,"_on_fleet_selected")
-	Store.connect("fleet_sailed",self,"_on_fleet_sailed")
-	Store.connect("fleet_update_nb_ships",self,"_on_fleet_update_nb_ships")
-	Store.connect("fleet_unselected",self,"_on_fleet_unselected")
+	if fleet != null and not fleet.is_connect("fleet_owner_updated", self, "_on_fleet_owner_updated"):
+		fleet.connect("fleet_owner_updated", self, "_on_fleet_owner_updated")
+	if fleet != null and not fleet.is_connect("fleet_update", self, "_on_fleet_update"):
+		fleet.connect("fleet_update", self, "_on_fleet_update")
+	_game_data.selected_state.connect("fleet_selected", self, "_on_fleet_selected")
+	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed")
+	_game_data.selected_state.connect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
+	_game_data.selected_state.connect("fleet_unselected", self, "_on_fleet_unselected") # todo
 	button_menu.connect("pressed", self, "open_menu_ship_pressed")
 	button_give.connect("pressed", self, "_on_give_pressed")
 
 
 func update_owner():
-	$Container/Player.text = Store.get_game_player(fleet.player).username
-	$Container/Ships.visible = fleet.player == Store._state.player.id
+	$Container/Player.text = _game_data.get_player(fleet.player).username
+	$Container/Ships.visible = _game_data.does_belong_to_current_player(fleet)
 	_update_button_give_visibility()
 	_update_composition_button_visibility()
 	update_quantity()
-	if fleet.player == Store._state.player.id:
+	if _game_data.does_belong_to_current_player(fleet):
 		if not is_connected("pressed", self, "_on_pressed"):
 			connect("pressed", self, "_on_pressed")
 		if not is_connected("focus_entered", self, "_on_focus_entered"):
@@ -43,27 +49,32 @@ func update_owner():
 			disconnect("focus_exited", self, "_on_focus_exited")
 
 
+func set_key_binding_number(position_of_event):
+	$KeyBindingLabelsContainer.pos_of_events = PoolIntArray([position_of_event])
+	$KeyBindingLabelsContainer.visibility = true
+
+
 func _update_composition_button_visibility():
 	if button_menu == null:
 		return
-	button_menu.visible = fleet.player == Store._state.player.id \
-			and Store.get_system(fleet.system).player == Store._state.player.id
+	button_menu.visible = _game_data.does_belong_to_current_player(fleet) \
+			and _game_data.does_belong_to_current_player(_game_data.get_system(fleet.system))
 
 
 func _update_button_give_visibility():
 	if button_give == null:
 		return
-	button_give.visible = fleet.player == Store._state.player.id \
-			and Store.get_system(fleet.system).player != Store._state.player.id \
-			and Store.get_system(fleet.system).player != null \
-			and Store.get_game_player(Store.get_system(fleet.system).player).faction == Store._state.player.faction
+	button_give.visible = _game_data.does_belong_to_current_player(fleet) \
+			and not _game_data.does_belong_to_current_player(_game_data.get_system(fleet.system).player) \
+			and _game_data.get_system(fleet.system).player != null \
+			and _game_data.get_player(_game_data.get_system(fleet.system).player).faction == _game_data.player.faction
 
 
 func _on_give_pressed():
 	if not _lock_donate.try_lock():
 		return
 	Network.req(self, "_on_fleet_given",
-		"/api/games/" + Store._state.game.id + "/systems/" + fleet.system + "/fleets/" + fleet.id + "/donate/",
+		"/api/games/" + _game_data.id + "/systems/" + fleet.system + "/fleets/" + fleet.id + "/donate/",
 		HTTPClient.METHOD_PATCH, [], "", [fleet]
 	)
 
@@ -72,7 +83,7 @@ func _on_fleet_given(err, response_code, _headers, _body, fleet_p):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
-		Store.update_fleet_owner(fleet_p, Store.get_system(fleet_p.system).player)
+		fleet.update_fleet_owner(_game_data.get_player(_game_data.get_system(fleet_p.system).player))
 		emit_signal("fleet_donated")
 	_lock_donate.unlock()
 
@@ -91,19 +102,19 @@ func _on_focus_exited():
 
 
 func open_menu_ship_pressed():
-	if Store._state.selected_fleet == null or Store._state.selected_fleet.id != fleet.id:
-		Store.select_fleet(fleet)
+	if _game_data.selected_state.selected_fleet == null or _game_data.selected_state.selected_fleet.id != fleet.id:
+		_game_data.selected_state.select_fleet(fleet)
 	emit_signal("pressed_open_ship_menu", fleet)
 
 
 func _on_pressed():
 	if fleet.destination_system == null and is_selected:
-		Store.select_fleet(fleet)
+		_game_data.selected_state.select_fleet(fleet)
 		#this will call _on_fleet_selected as the store emit a signal
 
 
-func _on_fleet_selected(fleet_param):
-	set_is_selected(fleet_param.id == fleet.id)
+func _on_fleet_selected(_old_fleet):
+	set_is_selected(_game_data.selected_state.selected_fleet.id == fleet.id)
 
 
 func _on_fleet_sailed(fleet_param, _arrival_time):
@@ -111,14 +122,14 @@ func _on_fleet_sailed(fleet_param, _arrival_time):
 		set_is_selected(false)
 
 
-func _on_fleet_unselected():
+func _on_fleet_unselected(_old_fleet):
 	set_is_selected(false)
 
 
-func _on_fleet_update_nb_ships(fleet_param):
-	if fleet_param.id == fleet.id or fleet.ship_groups == null:
-		var quantity = 0
-		for i in fleet_param.ship_groups:
+func _on_fleet_update_nb_ships():
+	if _game_data.selected_state.selected_fleet.id == fleet.id:
+		var quantity = 0 # todo methode get_number of ships
+		for i in _game_data.selected_state.selected_fleet.ship_groups:
 			quantity += i.quantity
 		$Container/Ships/NbShips.text = str(quantity)
 
@@ -127,7 +138,7 @@ func update_quantity():
 	if fleet == null or fleet.ship_groups == null:
 		return
 	var text_quantity = ""
-	if fleet.player == Store._state.player.id:
+	if _game_data.does_belong_to_current_player(fleet):
 		var quantity = 0
 		for i in fleet.ship_groups:
 			quantity +=  i.quantity
@@ -136,13 +147,26 @@ func update_quantity():
 
 
 func set_fleet(new_fleet):
+	if fleet != null and fleet.is_connect("fleet_owner_updated", self, "_on_fleet_owner_updated"):
+		fleet.disconnect("fleet_owner_updated", self, "_on_fleet_owner_updated")
+	if fleet != null and fleet.is_connect("fleet_update", self, "_on_fleet_update"):
+		fleet.disconnect("fleet_update", self, "_on_fleet_update")
 	fleet = new_fleet
+	if fleet != null and not fleet.is_connect("fleet_owner_updated", self, "_on_fleet_owner_updated"):
+		fleet.connect("fleet_owner_updated", self, "_on_fleet_owner_updated")
+	if fleet != null and not fleet.is_connect("fleet_update", self, "_on_fleet_update"):
+		fleet.connect("fleet_update", self, "_on_fleet_update")
 	update_owner()
 
 
-func set_key_binding_number(position_of_event):
-	$KeyBindingLabelsContainer.pos_of_events = PoolIntArray([position_of_event])
-	$KeyBindingLabelsContainer.visibility = true
+func _on_fleet_owner_updated():
+	update_owner()
+
+
+func _on_fleet_update():
+	_update_button_give_visibility()
+	_update_composition_button_visibility()
+	update_quantity()
 
 
 func private_set(_variant):

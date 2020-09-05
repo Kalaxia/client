@@ -6,7 +6,7 @@ export(int) var victory_points = null
 export(int) var victory_points_per_minute = null
 
 
-func _init(url = "/api/constants/",dict = null).(url, dict):
+func _init(url = "/api/constants/", dict = null).(url, dict):
 	pass
 
 
