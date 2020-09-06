@@ -13,9 +13,8 @@ func update_assets(cached_data : CachedResource):
 	assets.load_data_from_cached(cached_data)
 
 
-func reset_player_lobby_data():
-	# ??? 
-	lobby.player.ready = false
+func reset_player_ready_state(): # todo
+	player.ready = false
 
 
 func notify(title, content):

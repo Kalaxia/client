@@ -2,7 +2,7 @@ extends Control
 
 signal join(lobby, must_update)
 
-var lobby = null
+var lobby : Lobby = null
 var nb_players = 0
 
 
@@ -14,11 +14,11 @@ func _ready():
 
 
 func set_lobby_name():
-	$Body/Name.set_text(Store.get_lobby_name(lobby))
+	$Body/Name.text = lobby.get_name()
 
 
 func set_nb_players():
-	$Body/Section/Players.set_text( tr("menu.lobby_card.player_count %d %d") % [nb_players,12] )
+	$Body/Section/Players.text = tr("menu.lobby_card.player_count %d %d") % [nb_players, 12]
 
 
 func increment_nb_players():
