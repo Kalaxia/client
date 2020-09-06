@@ -153,10 +153,10 @@ func draw_systems():
 		system.set_name(_game_data.systems[i].id)
 		system.system = _game_data.systems[i]
 		map.add_child(system)
-		limits_systems[0] = min(Utils.SCALE_SYSTEMS_COORDS * Store._state.game.systems[i].coordinates.x, limits_systems[0])
-		limits_systems[1] = min(Utils.SCALE_SYSTEMS_COORDS * Store._state.game.systems[i].coordinates.y, limits_systems[1])
-		limits_systems[2] = max(Utils.SCALE_SYSTEMS_COORDS * Store._state.game.systems[i].coordinates.x, limits_systems[2])
-		limits_systems[3] = max(Utils.SCALE_SYSTEMS_COORDS * Store._state.game.systems[i].coordinates.y, limits_systems[3])
+		limits_systems[0] = min(Utils.SCALE_SYSTEMS_COORDS * _game_data.systems[i].coordinates.x, limits_systems[0])
+		limits_systems[1] = min(Utils.SCALE_SYSTEMS_COORDS * _game_data.systems[i].coordinates.y, limits_systems[1])
+		limits_systems[2] = max(Utils.SCALE_SYSTEMS_COORDS * _game_data.systems[i].coordinates.x, limits_systems[2])
+		limits_systems[3] = max(Utils.SCALE_SYSTEMS_COORDS * _game_data.systems[i].coordinates.y, limits_systems[3])
 	return limits_systems
 
 

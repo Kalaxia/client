@@ -4,7 +4,7 @@ signal player_updated(player)
 
 const ASSETS = preload("res://resources/assets.tres")
 
-var player = null
+var player : Player = null
 var new_username = ""
 var _is_locked_username_change = Utils.Lock.new()
 
@@ -19,7 +19,7 @@ func _ready():
 	ready_input.pressed = player.ready
 	init_faction_choices()
 	user_name_input.placeholder_text = tr("menu.player_info.input_text_placeholder")
-	if player.id == Store._state.player.id:
+	if player.id == Store.player.id:
 		new_username = player.username
 		background.color = Color(0,0,0)
 		username_input.editable = true
@@ -27,7 +27,7 @@ func _ready():
 		username_input.connect("text_entered", self, "_on_text_entered")
 		ready_input.connect("pressed", self, "toggle_ready")
 		timer_update_username.connect("timeout", self, "_on_timer_timeout")
-		if player.username != "" or (player.faction != null and player.faction != 0.0):
+		if player.username != "" or (player.faction != null and player.faction.id != 0.0):
 			send_update()
 	username_input.set_text(get_username())
 
@@ -56,15 +56,15 @@ func init_faction_choices():
 			var texture = faction.banner_icon
 			# not keys for faction
 			faction_choice.add_icon_item(texture, tr(faction.display_name), faction.id) 
-	if player.id == Store._state.player.id:
+	if player.id == Store.player.id:
 		faction_choice.disabled = false
 		faction_choice.flat = false
 		faction_choice.connect("item_selected", self, "update_faction")
-	faction_choice.selected = player.faction if player.faction != null else 0
+	faction_choice.selected = player.faction.id if player.faction != null else 0
 
 
 func get_username():
-	if player.id == Store._state.player.id:
+	if player.id == Store.player.id:
 		return new_username
 	else:
 		return tr("general.unkown_username") if (player.username == "") else player.username
@@ -85,17 +85,17 @@ func update_username(username):
 		timer_update_username.start() 
 		# if we can not lock we start the timer and try later
 		return
-	Store._state.player.username = username
+	Store.player.username = username
 	send_update()
 
 
 func update_faction(index):
-	Store._state.player.faction = faction_choice.get_item_id(index)
+	Store.player.set_faction(faction_choice.get_item_id(index))
 	send_update()
 
 
 func toggle_ready():
-	Store._state.player.ready = not player.ready
+	Store.player.ready = not player.ready
 	send_update()
 
 
@@ -106,9 +106,9 @@ func send_update():
 		, HTTPClient.METHOD_PATCH
 		, [ "Content-Type: application/json" ]
 		, JSON.print({
-			"username": Store._state.player.username,
-			"faction_id": Store._state.player.faction,
-			"is_ready": Store._state.player.ready
+			"username": Store.player.username,
+			"faction_id": Store.player.faction.id,
+			"is_ready": Store.player.ready
 		})
 	)
 
@@ -124,16 +124,16 @@ func _on_request_completed(err, response_code, _headers, body):
 			tr("matchmaking.error.username_already_taken.content")
 		)
 		return
-	emit_signal("player_updated", Store._state.player)
+	emit_signal("player_updated", Store.player)
 
 
 func _check_ready_state():
-	if player.id != Store._state.player.id:
+	if player.id != Store.player.id:
 		return
 	# we want to do thar only if this is the current player
-	var is_info_missing = Store._state.player.faction == null or Store._state.player.username == ""
+	var is_info_missing = Store.player.faction == null or Store.player.username == ""
 	var input = ready_input
 	input.disabled = is_info_missing
 	if is_info_missing:
-		Store._state.player.ready = false
+		Store.player.ready = false
 		input.pressed = false

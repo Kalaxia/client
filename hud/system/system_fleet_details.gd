@@ -130,8 +130,9 @@ func _on_request_completed(err, response_code, _headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_CREATED:
-		Store.update_wallet(-FLEET_COST)
-		Store.add_fleet(JSON.parse(body.get_string_from_utf8()).result)
+		_game_data.player.update_wallet(-FLEET_COST)
+		var result = JSON.parse(body.get_string_from_utf8()).result
+		_game_data.get_system(result.system).add_fleet_dict(result)
 	_create_fleet_lock.unlock()
 
 

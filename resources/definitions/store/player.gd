@@ -2,6 +2,7 @@ class_name Player
 extends DictResource
 
 signal wallet_updated()
+signal updated()
 
 const ASSETS = preload("res://resources/assets.tres")
 
@@ -40,6 +41,10 @@ func set_wallet(new_amount):
 func update_wallet(amount):
 	self.wallet += amount
 
+
+func update(dict : Dictionary):
+	load_dict(dict)
+	emit_signal("updated")
 
 func set_faction(faction_id):
 	faction = ASSETS.factions[faction_id as float] \
