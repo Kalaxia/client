@@ -15,7 +15,7 @@ func _update_points():
 func _update_faction():
 	if score.faction == null:
 		return
-	$Name.set_text(tr(score.faction.name))
+	$Name.set_text(tr(score.faction.display_name))
 	$Banner.set_texture(score.faction.banner)
 
 

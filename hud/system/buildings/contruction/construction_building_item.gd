@@ -5,7 +5,7 @@ signal building_contructing(building)
 
 const ASSETS = preload("res://resources/assets.tres")
 
-export(String) var building_type = null setget set_building_type # ressource
+export(Resource) var building_type = null setget set_building_type # ressource
 
 var game_data : GameData = load(GameData.PATH_NAME)
 var _lock_request_build = Utils.Lock.new() setget private_set, private_get
@@ -53,7 +53,7 @@ func _on_lock_changed_state(_state_is_locked):
 func _updates_elements():
 	if texture_rect == null:
 		return
-	texture_rect.texture = building_type.kind.texture
+	texture_rect.texture = building_type.texture
 	label.text = tr("hud.details.buidlng." + building_type.kind) if building_type != null else tr("hud.details.buidlng.contruction")
 	label_cost.text = tr("hud.details.buidlng.cost %d") % building_type.cost
 	label_time.text = tr("hud.details.buidlng.time %d") % building_type.construction_time
@@ -81,7 +81,7 @@ func _on_building_construction_started(err, response_code, _headers, body, syste
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_CREATED:
-		var building = JSON.parse(body.get_string_from_utf8()).result
+		var building = Building.new(JSON.parse(body.get_string_from_utf8()).result)
 		system.add_building_to_system(building)
 		game_data.player.update_wallet(- building_type.cost)
 		emit_signal("building_contructing", building)

@@ -1,7 +1,7 @@
 class_name Player
 extends DictResource
 
-signal wallet_updated()
+signal wallet_updated(wallet)
 signal updated()
 
 const ASSETS = preload("res://resources/assets.tres")
@@ -29,13 +29,13 @@ func load_dict(dict : Dictionary) -> void:
 
 
 func _get_dict_property_list() -> Array:
-	return ["username", "lobby", "game", "ready" , "is_connected", "id"]
+	return ["username", "lobby", "game", "ready", "is_connected", "id", "wallet"]
 
 
 func set_wallet(new_amount):
 	wallet = new_amount
 	emit_signal("changed")
-	emit_signal("wallet_updated")
+	emit_signal("wallet_updated", wallet)
 
 
 func update_wallet(amount):

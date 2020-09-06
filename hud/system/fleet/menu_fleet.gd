@@ -38,7 +38,7 @@ func _on_ship_assigned(_quantity_fleet, quantity_hangar, category):
 	# todo methiode
 	var has_added_quantity = false
 	for i in ship_group_hangar:
-		if i.category == category.category:
+		if i.category.category == category.category:
 			i.quantity = quantity_hangar
 			has_added_quantity = true
 	if not has_added_quantity:
@@ -68,7 +68,7 @@ func update_element_fleet():
 		return
 	if fleet != null and fleet.ship_groups != null and ship_group_element_container != null:
 		for i in fleet.ship_groups:
-			var node_ship_group = ship_group_element_container.get_node(i.category)
+			var node_ship_group = ship_group_element_container.get_node(i.category.category)
 			node_ship_group.quantity_fleet = i.quantity
 			node_updated.push_back(node_ship_group.name)
 	for node in ship_group_element_container.get_children():
@@ -98,11 +98,11 @@ func _refresh_hangar_elements():
 	for node in ship_group_element_container.get_children():
 		node.quantity_hangar = 0
 	for i in ship_group_hangar:
-		ship_group_element_container.get_node(i.category).quantity_hangar = i.quantity
+		ship_group_element_container.get_node(i.category.category).quantity_hangar = i.quantity
 
 
 func _on_fleet_update_nb_ships():
-	pass
+	update_element_fleet()
 	# what ??
 #	if fleet != null and fleet_param.id == fleet.id:
 #		set_fleet(fleet_param)

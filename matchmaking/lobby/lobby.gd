@@ -119,8 +119,9 @@ func _on_player_disconnected(player_id : String):
 	check_ready_state()
 
 
-func _on_lobby_launched(game_id : String):
+func _on_lobby_launched(game_id):
 	Store.reset_player_ready_state()
+	Store.game_data = null
 	Store.game_data = GameData.new(game_id, Store.player, Store.lobby) # todo review
 	emit_signal("scene_requested", "game_loading")
 

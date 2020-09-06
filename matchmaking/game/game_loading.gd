@@ -6,7 +6,9 @@ const TIME_LOADING = 5.0
 const COLOR_DARKENING = 0.7
 const ASSETS = preload("res://resources/assets.tres")
 
-var game_data : GameData = load(GameData.PATH_NAME)
+# load(GameData.PATH_NAME) des not load properly every time
+# todo
+var game_data : GameData = Store.game_data 
 var _time = 0.0
 
 onready var progress_bar = $CenterContainer/VBoxContainer/ProgressBar

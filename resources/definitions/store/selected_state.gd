@@ -9,6 +9,7 @@ signal fleet_unselected(old_fleet)
 signal fleet_owner_updated()
 signal fleet_update_nb_ships()
 signal fleet_updated()
+# arrived is not connected because a moving fleet should not be selected
 # system
 signal fleet_added(fleet)
 signal fleet_erased(fleet)
@@ -16,6 +17,7 @@ signal building_updated()
 signal hangar_updated(hangar)
 signal system_owner_updated()
 signal system_updated()
+signal system_fleet_arrived(fleet)
 
 export(Resource) var selected_system = null setget select_system
 export(Resource) var selected_fleet = null setget select_fleet
@@ -116,6 +118,9 @@ func _disconnect_system(system : System):
 		system.disconnect("system_owner_updated", self, "_on_system_owner_updated")
 	if system.is_connected("updated", self, "_on_system_updated"):
 		system.disconnect("updated", self, "_on_system_updated")
+	if system.is_connected("fleet_arrived", self, "_on_fleet_arrived"):
+		system.disconnect("fleet_arrived", self, "_on_fleet_arrived")
+	
 
 
 func _connect_system(system : System):
@@ -133,6 +138,12 @@ func _connect_system(system : System):
 		system.connect("system_owner_updated", self, "_on_system_owner_updated")
 	if not system.is_connected("updated", self, "_on_system_updated"):
 		system.connect("updated", self, "_on_system_updated")
+	if not system.is_connected("fleet_arrived", self, "_on_fleet_arrived"):
+		system.connect("fleet_arrived", self, "_on_fleet_arrived")
+
+
+func fleet_arrived(fleet):
+	emit_signal("system_fleet_arrived", fleet)
 
 
 func _on_system_updated():

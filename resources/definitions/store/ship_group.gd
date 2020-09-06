@@ -19,7 +19,7 @@ func load_dict(dict : Dictionary) -> void:
 		return
 	.load_dict(dict)
 	if not dict is Dictionary or dict.has("category"):
-		self.category = ASSETS.ship[dict.category]
+		self.category = ASSETS.ship_models[dict.category]
 
 
 func _get_dict_property_list():

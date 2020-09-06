@@ -1,6 +1,6 @@
 extends Control
 
-var ship_queue setget set_ship_queue
+var ship_queue : ShipQueue setget set_ship_queue
 
 onready var cancel_button = $PanelContainer/hBoxContainer/Button
 onready var texture_rect_category = $PanelContainer/hBoxContainer/TextureCategory

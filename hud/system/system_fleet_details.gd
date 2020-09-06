@@ -16,7 +16,7 @@ func _ready():
 	# todo
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
 	_game_data.player.connect("wallet_updated", self, "_on_wallet_update")
-	_game_data.selected_state.connect("fleet_created", self, "_on_fleet_created")
+	_game_data.selected_state.connect("fleet_added", self, "_on_fleet_created")
 #	Store.connect("fleet_update", self, "_on_fleet_update") # todo signal / move inside node 
 	_game_data.selected_state.connect("fleet_erased", self, "_on_fleet_erased")
 	_game_data.selected_state.connect("fleet_selected", self, "_on_fleet_selected")
@@ -106,7 +106,8 @@ func _on_system_selected(_old_system):
 	refresh_data()
 
 
-func _on_fleet_selected():
+func _on_fleet_selected(_old_fleet):
+	# todo
 	menu_layer.get_menu("menu_fleet").fleet = _game_data.selected_state.selected_fleet
 
 

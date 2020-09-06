@@ -7,4 +7,3 @@
 scale = Vector2( 0.08, 0.08 )
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
-faction = 1
