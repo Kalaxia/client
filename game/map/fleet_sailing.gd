@@ -54,7 +54,7 @@ func _set_icone_texture():
 
 
 func _set_crown_state():
-	var is_current_player = (fleet.player == Store._state.player.id)
+	var is_current_player = (fleet.player == Store.player.id)
 	sprite_crown.visible = is_current_player
 	if is_current_player:
 		sprite_crown.faction = game_data.get_player(fleet.player).faction

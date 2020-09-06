@@ -94,7 +94,7 @@ func refresh_fleet_pins():
 func update_ship_pin():
 	if system == null:
 		return
-	elif not system.has("hangar") or system.hangar == null:
+	elif system.hangar == null:
 		_update_ship_pin_number(0)
 		return
 	var total_number_of_ships_in_hangar = 0
@@ -105,8 +105,8 @@ func update_ship_pin():
 
 func _update_ship_pin_number(number):
 	for node in building_pins.get_children():
-		if node.building.kind == "shipyard":
-			node.blinking = not(number == 0)
+		if node.building.kind.kind == "shipyard":
+			node.blinking = not number == 0
 
 
 func add_fleet_pin(player):
@@ -132,7 +132,7 @@ func refresh():
 func refresh_building_pins():
 	for node in building_pins.get_children():
 		node.queue_free()
-	if not system.has("buildings") or system.buildings == null:
+	if system.buildings == null:
 		return
 	for building in system.buildings:
 		var node = SYSTEM_BUILDING_PIN_SCENE.instance()

@@ -9,6 +9,7 @@ ifeq ($(OS),Windows_NT)
     copy-flag = /Y
     rm = del
     rm-flag =
+    default-target = compile/windows/kalaxia.exe
 else
     console = sh
     godot-sufix = _x11.64
@@ -16,6 +17,7 @@ else
     copy-flag = -f
     rm = rm
     rm-flag = -f
+    default-target = compile/linux/kalaxia.x86_64
 endif
 
 file-config-dev = config\development.tres
@@ -45,7 +47,7 @@ cached-data = cache.tres
 version-file = version.tres
 
 .PHONY: all
-all: debug
+all: $(default-target)
 
 
 .PHONY: setup

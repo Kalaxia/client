@@ -60,7 +60,7 @@ func refresh_data():
 	while fleet_container.get_child_count() > 0 :
 		yield(fleet_container.get_child(0), "tree_exited")
 	fleet_creation_button.set_visible(true)
-	var system_refreshed = _game_data.selected_state.selected_sytem # refresh the data in the case where the data changed after the yield
+	var system_refreshed = _game_data.selected_state.selected_system # refresh the data in the case where the data changed after the yield
 	if system_refreshed == null:
 		_lock_add_fleet_item.unlock()
 		return
@@ -141,7 +141,7 @@ func _on_fleet_erased(_fleet):
 
 
 #func _on_fleet_update(fleet): # todo
-#	if fleet.system == Store._state.selected_system.id:
+#	if fleet.system == Store.selected_system.id:
 #		refresh_data()
 
 

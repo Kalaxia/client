@@ -46,8 +46,9 @@ func update(dict : Dictionary):
 	load_dict(dict)
 	emit_signal("updated")
 
+
 func set_faction(faction_id):
-	faction = ASSETS.factions[faction_id as float] \
-			if faction_id != null and ASSETS.factions.has(faction_id as float) \
-			else  ASSETS.factions[0.0]
+	faction = ASSETS.factions[faction_id] \
+			if faction_id != null and ASSETS.factions.size() > faction_id \
+			else ASSETS.factions[0]
 	emit_signal("changed")
