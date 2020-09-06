@@ -148,7 +148,7 @@ func _manage_input(event):
 
 func draw_systems():
 	var limits_systems = [ -1920, -1920, 1920, 1920 ]
-	for i in _game_data.game.systems.keys():
+	for i in _game_data.systems.keys():
 		var system = SYSTEM_SCENE.instance()
 		system.set_name(_game_data.systems[i].id)
 		system.system = _game_data.systems[i]

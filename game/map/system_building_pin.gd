@@ -56,7 +56,7 @@ func _updates_elements():
 
 func _update_texture():
 	# todo assets in building ? 
-	texture = ASSETS.buildings[building.kind if building != null else ""].texture
+	texture = building.kind.texture if building != null else ASSETS.buildings[""].texture
 
 
 func _updates_color(alpha = _alpha):

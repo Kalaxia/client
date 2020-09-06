@@ -17,9 +17,9 @@ export(Dictionary) var scores = {}
 export(Dictionary) var sailing_fleets = {}
 
 
-func _init(p_id : String, player_p : Player, lobby : Lobby = null) -> void:
-	resource_path = PATH_NAME
-	self.id = p_id
+func _init(game_id : String, player_p : Player, lobby : Lobby = null) -> void:
+	take_over_path(PATH_NAME)
+	self.id = game_id
 	self.player = player_p
 	if lobby != null:
 		load_player_lobby(lobby)
@@ -45,7 +45,10 @@ func set_players(player_array : Array):
 
 
 func insert_player(p_player : Dictionary) -> void:
-	players[p_player.id] = Player.new(p_player)
+	if players.has(p_player.id):
+		players[p_player.id].update(p_player)
+	else:
+		players[p_player.id] = Player.new(p_player)
 
 
 func get_system(system_id : String):

@@ -15,6 +15,7 @@ onready var user_name_input = $Container/UsernameInput
 onready var timer_update_username = $Container/UsernameInput/UpdateNameTimer
 onready var background = $Background
 
+
 func _ready():
 	ready_input.pressed = player.ready
 	init_faction_choices()
@@ -75,7 +76,7 @@ func update_data(data):
 	var caret_position = user_name_input.caret_position
 	user_name_input.set_text(get_username())
 	user_name_input.caret_position = caret_position
-	faction_choice.selected = faction_choice.get_item_index(player.faction) if player.faction != null else 0
+	faction_choice.selected = faction_choice.get_item_index(player.faction.id) if player.faction != null else 0
 	ready_input.pressed = player.ready
 
 
@@ -90,12 +91,12 @@ func update_username(username):
 
 
 func update_faction(index):
-	Store.player.set_faction(faction_choice.get_item_id(index))
+	Store.player.set_faction(index)
 	send_update()
 
 
 func toggle_ready():
-	Store.player.ready = not player.ready
+	player.ready = not player.ready
 	send_update()
 
 
@@ -119,6 +120,7 @@ func _on_request_completed(err, response_code, _headers, body):
 		ErrorHandler.network_response_error(err)
 	_is_locked_username_change.unlock()
 	if response_code != HTTPClient.RESPONSE_NO_CONTENT:
+		var result = JSON.parse(body.get_string_from_utf8()).result
 		Store.notify(
 			tr("matchmaking.error.username_already_taken.title"),
 			tr("matchmaking.error.username_already_taken.content")

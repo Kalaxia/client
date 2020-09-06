@@ -1,6 +1,6 @@
 extends Control
 
-signal join(lobby, must_update)
+signal join(lobby)
 
 var lobby : Lobby = null
 var nb_players = 0
@@ -9,7 +9,7 @@ var nb_players = 0
 func _ready():
 	$Body/Join.connect("pressed", self, "join_lobby")
 	set_lobby_name()
-	nb_players = lobby.nb_players if lobby.has("nb_players") else lobby.players.size()
+	nb_players = lobby.players.size()
 	set_nb_players()
 
 
@@ -32,12 +32,9 @@ func decrement_nb_players():
 
 
 func join_lobby():
-	emit_signal("join", lobby, true)
+	emit_signal("join", lobby)
 
 
 func update_name(name):
-	lobby.owner = {
-		"id": lobby.owner if typeof(lobby.owner) == TYPE_STRING else lobby.owner.id,
-		"username": name
-	}
+	lobby.owner.username = name
 	set_lobby_name()

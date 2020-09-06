@@ -20,7 +20,7 @@ func _ready():
 	Network.connect("LobbyLaunched", self, "_on_lobby_launched")
 	Network.connect("LobbyOwnerUpdated", self, "_on_lobby_owner_update")
 	Network.req(self, "load_lobby"
-		, "/api/lobbies/" + Store._state.lobby.id
+		, "/api/lobbies/" + Store.lobby.id
 	)
 	update_lobby_name()
 
@@ -30,12 +30,13 @@ func load_lobby(err, response_code, _headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 		return
-	var lobby := Lobby.new(JSON.parse(body.get_string_from_utf8()).result)
-	Store.lobby = lobby
+	var result = JSON.parse(body.get_string_from_utf8()).result
+	Store.lobby.update(result, Store.player)
+	var lobby = Store.lobby
 	var node = PLAYER_INFO_SCENE.instance()
 	node.player = Store.player
 	player_info.add_child(node)
-	node.connect("player_updated", self, "_on_player_update")
+	node.connect("player_updated", self, "_update_player")
 	update_lobby_name()
 	add_players_info(lobby.players)
 	if lobby.owner.id == Store.player.id:
@@ -46,11 +47,11 @@ func load_lobby(err, response_code, _headers, body):
 
 
 func add_players_info(players):
-	for player in players:
+	for player in players.values():
 		add_player_info(player)
 
 
-func add_player_info(player):
+func add_player_info(player : Player):
 	section_col.add_player(player)
 
 
@@ -76,11 +77,11 @@ func is_ready_state():
 	if Store.lobby.owner.id != Store.player.id or Store.lobby.players.size() < 2:
 		return false
 	var lobby_factions = []
-	for player in Store.lobby.players:
+	for player in Store.lobby.players.values():
 		if player.ready == false:
 			return false
-		if player.faction != null and not lobby_factions.has(int(player.faction)): # it has to be cast as an int to work
-			lobby_factions.push_back(int(player.faction))
+		if player.faction != null and not lobby_factions.has(player.faction.id as int): # it has to be cast as an int to work
+			lobby_factions.push_back(player.faction.id as int)
 	return lobby_factions.size() >= 2
 
 
@@ -90,30 +91,31 @@ func update_lobby_name():
 
 func _on_player_joined(player_dict : Dictionary):
 	var player = Player.new(player_dict)
-	Store.lobby.players.push_back(player)
+	Store.lobby.players[player.id] = player
 	add_player_info(player)
 	check_ready_state()
 
 
-func _on_player_id_update(player_id : String):
-	var player = Store.lobby.get_player(player_id)
-	_on_player_update(player)
+func _on_player_update(player_dict : Dictionary):
+	var player = Store.lobby.players[player_dict.id]
+	player.update(player_dict)
+	_update_player(player)
 
 
-func _on_player_update(player : Dictionary):
-	Store.lobby.players[player.id].update(player)
+func _update_player(player: Player):
 	section_col.update_player(player)
 	if player.id == Store.player.id:
 		player_info.get_node("PlayerInfo").update_data(player)
 	if player.id == Store.lobby.owner.id:
-		Store._state.lobby.owner.update_player(player)
+		#Store.lobby.owner.update(player_dict)
+		# normally the owner is the same ref as inside the lobby
 		update_lobby_name()
 	check_ready_state()
 
 
 func _on_player_disconnected(player_id : String):
 	section_col.remove_player(Store.lobby.get_player(player_id))
-	Store.remove_player_lobby(player_id)
+	Store.lobby.remove_player_lobby(player_id)
 	check_ready_state()
 
 

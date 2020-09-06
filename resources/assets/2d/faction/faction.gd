@@ -8,7 +8,7 @@ export(Color) var display_color
 export(String) var display_name
 export(Resource) var picto
 export(Theme) var theme
-export(float) var id
+export(int) var id
 
 
 func get_color(is_victory_system = false, is_current_player = false) -> Color:

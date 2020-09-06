@@ -12,12 +12,13 @@ const MAX_NUMBER_OF_BUILDING = 1
 
 export(String) var player # ressource ?
 export(String) var kind
-export(Vector2) var coords
+export(Vector2) var coordinates
 export(bool) var unreachable
 export(Dictionary) var fleets
 export(Array, Resource) var buildings = [] setget set_buildings
 export(Array, Resource) var hangar = [] setget set_hangar
 export(String) var game = null
+export(String) var id
 
 
 func _init(dict = null).(dict):
@@ -31,10 +32,12 @@ func load_dict(dict):
 	if not dict is Dictionary or dict.has("fleet"):
 		for fleet in dict.fleets:
 			fleets[fleet.id] = Fleet.new(fleets)
+	if not dict is Dictionary or dict.has("coordinates"):
+		coordinates = Vector2(dict.coordinates.x, dict.coordinates.y)
 
 
 func _get_dict_property_list() -> Array:
-	return ["player", "kind", "coords", "unreachable", "game"]
+	return ["player", "kind", "unreachable", "game", "id"]
 
 
 func add_fleet_dict(fleet_dict : Dictionary):
