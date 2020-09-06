@@ -22,11 +22,13 @@ func set_nb_players():
 
 
 func increment_nb_players():
+	# todo modifiy
 	nb_players = nb_players + 1
 	set_nb_players()
 
 
 func decrement_nb_players():
+	# todo modifiy
 	nb_players = nb_players - 1
 	set_nb_players()
 

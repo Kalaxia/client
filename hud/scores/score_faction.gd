@@ -4,7 +4,7 @@ const ASSETS = preload("res://resources/assets.tres")
 
 export(int) var faction = 0 setget set_faction
 
-var game_data = load(GameData.PATH_NAME)
+var game_data : GameData = load(GameData.PATH_NAME)
 
 onready var progress_bar = $ProgressBar
 onready var texture = $TextureRect
@@ -12,9 +12,10 @@ onready var texture = $TextureRect
 
 func _ready():
 	progress_bar.connect("value_changed",self,"_on_progress_bar_changed")
-	Network.connect("FactionPointsUpdated", self, "_on_score_updated")
-	# todo chnage to game_data connection
+	game_data.connect("score_updated", self, "_on_score_updated")
 	progress_bar.max_value = ASSETS.constants.victory_points
+	# we have to update one to shows the correct numbers of max points
+	# value_changed is not triggered if we set the same value as before
 	_on_progress_bar_changed(0)
 	_update_faction()
 	_update_scores(game_data.scores)
@@ -27,14 +28,17 @@ func set_faction(f):
 	_update_faction()
 
 
-func _on_score_updated(scores):
-	_update_scores(scores)
+func _on_score_updated():
+	_update_scores(game_data.scores)
 
 
-func _update_scores(scores):
-	for score in scores.values():
-		if score.faction.id as int == faction:
-			progress_bar.value = score.victory_points
+func _update_scores(scores): # scores : dict with int as key and ScoreFaction as values
+	if scores.has(faction):
+		_update_score_display(scores[faction])
+
+
+func _update_score_display(score_faction):
+	progress_bar.value = score_faction.victory_points
 
 
 func _on_progress_bar_changed(new_value):
@@ -44,8 +48,8 @@ func _on_progress_bar_changed(new_value):
 func _update_faction():
 	if texture == null:
 		return
-	texture.texture = ASSETS.factions[faction].banner
+	var faction_object = ASSETS.factions[faction]
+	texture.texture = faction_object.banner
 	var forground = progress_bar.get("custom_styles/fg").duplicate()
-	var faction_object = ASSETS.factions[faction as int]
 	forground.set_bg_color(faction_object.display_color)
 	progress_bar.set("custom_styles/fg", forground)

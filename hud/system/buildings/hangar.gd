@@ -90,7 +90,7 @@ func set_ship_group_array(new_array):
 	for i in hangar_element.get_children():
 		i.quantity = 0
 	for ship_group in ship_group_array:
-		hangar_element.get_node(ship_group.category).quantity = ship_group.quantity
+		hangar_element.get_node(ship_group.category.category).quantity = ship_group.quantity
 
 
 func _on_queue_ships_received(err, response_code, _headers, body):
@@ -98,16 +98,19 @@ func _on_queue_ships_received(err, response_code, _headers, body):
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_OK:
 		var result = JSON.parse(body.get_string_from_utf8()).result
-		set_ship_queue_array(result)
+		var array_ship_queue_result = []
+		for i in result:
+			array_ship_queue_result.push_back(ShipQueue.new(i))
+		set_ship_queue_array(array_ship_queue_result)
 
 
 func _on_ship_queue_finished(ship_data):
 	remove_ship_queue_id(ship_data.id)
 
 
-func _on_ship_construction_started(ship_queue):
+func _on_ship_construction_started(ship_queue : Dictionary):
 	if ship_queue != null:
-		add_ship_queue(ship_queue)
+		add_ship_queue(ShipQueue.new(ship_queue))
 
 
 func select_group(category):
@@ -143,8 +146,8 @@ func _sort_queue_ship():
 
 func _sort_queue_ship_node():
 	for i in range(ship_queue_array.size()):
-		if production_list_vbox_elements.has_node(ship_queue_array[i].hash() as String):
-			production_list_vbox_elements.get_node(ship_queue_array[i].hash() as String).raise()
+		if production_list_vbox_elements.has_node(ship_queue_array[i].id):
+			production_list_vbox_elements.get_node(ship_queue_array[i].id).raise()
 
 
 func update_ship_queue():
@@ -160,7 +163,7 @@ func update_ship_queue():
 	_lock_ship_prod_update.unlock()
 	for ship_queue in ship_queue_array:
 		var ship_prod_node = _SHIP_PRODUCTION_LINE.instance()
-		ship_prod_node.name = ship_queue.hash() as String
+		ship_prod_node.name = ship_queue.id
 		ship_prod_node.ship_queue = ship_queue
 		production_list_vbox_elements.add_child(ship_prod_node)
 
@@ -170,9 +173,9 @@ func remove_ship_queue_pos(pos):
 		return
 	var element = ship_queue_array[pos]
 	ship_queue_array.remove(pos)
-	var does_node_exist = production_list_vbox_elements.has_node(element.hash() as String)
+	var does_node_exist = production_list_vbox_elements.has_node(element.id)
 	if does_node_exist:
-		production_list_vbox_elements.get_node(element.hash() as String).queue_free()
+		production_list_vbox_elements.get_node(element.id).queue_free()
 	return does_node_exist
 
 
@@ -182,10 +185,10 @@ func remove_ship_queue_id(ship_queue_id):
 			return remove_ship_queue_pos(i)
 
 
-func add_ship_queue(ship_queue):
+func add_ship_queue(ship_queue : ShipQueue):
 	ship_queue_array.push_back(ship_queue)
 	var ship_prod_node = _SHIP_PRODUCTION_LINE.instance()
-	ship_prod_node.name = ship_queue.hash() as String
+	ship_prod_node.name = ship_queue.id
 	ship_prod_node.ship_queue = ship_queue
 	production_list_vbox_elements.add_child(ship_prod_node)
 	_sort_queue_ship()

@@ -271,8 +271,8 @@ func get_color_of_system():
 
 
 func _connect_system(system_p = system):
-	if system_p != null and not system_p.is_connected("fleet_created", self, "_on_fleet_created"):
-		system_p.connect("fleet_created", self, "_on_fleet_created")
+	if system_p != null and not system_p.is_connected("fleet_added", self, "_on_fleet_created"):
+		system_p.connect("fleet_added", self, "_on_fleet_created")
 	if system_p != null and not system_p.is_connected("hangar_updated", self, "_on_hangar_updated"):
 		system_p.connect("hangar_updated", self, "_on_hangar_updated")
 	if system_p != null and not system_p.is_connected("building_updated", self, "_on_building_updated"):
@@ -280,8 +280,8 @@ func _connect_system(system_p = system):
 
 
 func _disconnect_system(system_p = system):
-	if system_p != null and system_p.is_connected("fleet_created", self, "_on_fleet_created"):
-		system_p.disconnect("fleet_created", self, "_on_fleet_created")
+	if system_p != null and system_p.is_connected("fleet_added", self, "_on_fleet_created"):
+		system_p.disconnect("fleet_added", self, "_on_fleet_created")
 	if system_p != null and system_p.is_connected("hangar_updated", self, "_on_hangar_updated"):
 		system_p.disconnect("hangar_updated", self, "_on_hangar_updated")
 	if system_p != null and system_p.is_connected("building_updated", self, "_on_building_updated"):

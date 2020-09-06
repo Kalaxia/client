@@ -1,9 +1,9 @@
 class_name GameData
 extends Resource
 
-signal fleet_sailed(fleet, arrival_time)
+signal fleet_sailed(fleet, arrival_time) # todo move copy in system and fleet
 signal score_updated()
-signal fleet_arrived(fleet) # todo move in system
+signal fleet_arrived(fleet) # todo move copy in system and fleet
 
 const PATH_NAME = "res://game_data.tres"
 const ASSETS = preload("res://resources/assets.tres")
@@ -20,14 +20,15 @@ export(Dictionary) var sailing_fleets = {}
 func _init(game_id : String, player_p : Player, lobby : Lobby = null) -> void:
 	take_over_path(PATH_NAME)
 	self.id = game_id
-	self.player = player_p
+	player = player_p
 	if lobby != null:
 		load_player_lobby(lobby)
+	players[player_p.id] = player_p
 
 
 func insert_system(p_system : Dictionary) -> void:
 	var new_system = System.new(p_system)
-	self.systems[p_system.id] = new_system
+	systems[p_system.id] = new_system
 	if does_belong_to_current_player(new_system):
 		request_hangar(new_system)
 	if new_system.player != null and players[new_system.player].faction.id == player.faction.id:
@@ -41,6 +42,7 @@ func set_players(player_array : Array):
 			insert_player(p)
 		else:
 			players[player.id] = player
+			player.update(p) # todo review
 	emit_signal("changed")
 
 
@@ -113,7 +115,7 @@ func update_fleet_arrival(fleet_dict : Dictionary):
 	fleet.update_fleet(fleet_dict)
 	if sailing_fleets.has(fleet.id):
 		sailing_fleets.erase(fleet.id)
-	get_system(fleet.system).fleets[fleet.id] = fleet
+	get_system(fleet.system).fleet_arrive(fleet)
 	emit_signal("fleet_arrived", fleet)
 
 
@@ -185,7 +187,10 @@ func _on_me_loaded(err, response_code, _headers, body):
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_OK :
 		var result = JSON.parse(body.get_string_from_utf8()).result
-		player = Player.new(result) if player == null else player.load_dict(result)
+		if player == null:
+			player = Player.new(result)
+		else:
+			player.update(result)
 
 
 func request_leave_game():
@@ -202,13 +207,27 @@ func is_current_player(player_p : Player):
 
 
 func does_belong_to_current_player(resource):
+	if resource == null:
+		return false
 	return resource.player == player.id
 
 
-func update_scores(scores_new : Dictionary) -> void:
+func update_scores(scores_new) -> void:
 	scores.clear()
-	for key in scores_new.keys():
-		scores[key] = ScoreFaction.new(scores_new[key])
+	if scores_new is Dictionary:
+		for key in scores_new.keys():
+			if scores.has(key as int):
+				scores[key as int].load_dict(scores_new[key])
+			else:
+				scores[key as int] = ScoreFaction.new(scores_new[key])
+	elif scores_new is Array:
+		for score in scores_new:
+			if scores.has(score.faction as int):
+				scores[score.faction as int].load_dict(score)
+			else:
+				scores[score.faction] = ScoreFaction.new(score)
+	else:
+		printerr("update score with invalide data type")
 	emit_signal("changed")
 	emit_signal("score_updated")
 

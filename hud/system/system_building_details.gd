@@ -72,7 +72,7 @@ func _on_system_updated():
 func _on_panel_pressed(node):
 	_deselect_other_building(node)
 	if node.is_selected and (node.building == null or node.building.status == "operational"):
-		var menu = MENU[node.building.kind if node.building != null else ""]
+		var menu = MENU[node.building.kind.kind if node.building != null else ""]
 		if menu != null:
 			menu_layer.request_menu(menu)
 			var node_menu = menu_layer.get_menu(menu)
@@ -94,5 +94,6 @@ func _on_menu_layer_menu_closed(menu_name):
 		_deselect_other_building()
 
 
-func _on_building_contructing(node, building):
-	node.building = building
+func _on_building_contructing(building, node):
+	if node != null and is_instance_valid(node):
+		node.building = building

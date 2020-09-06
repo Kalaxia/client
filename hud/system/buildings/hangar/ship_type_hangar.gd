@@ -20,7 +20,7 @@ func _ready():
 
 func update_texture():
 	if category != null and texture_ship != null:
-		texture_ship.texture = category.category.texture
+		texture_ship.texture = category.texture
 
 
 func _on_pressed():

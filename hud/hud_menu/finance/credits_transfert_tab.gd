@@ -16,7 +16,7 @@ func _ready():
 	spinbox.connect("value_changed", self, "_on_spinbox_value_changed")
 	game_data.player.connect("wallet_updated", self, "_on_wallet_updated")
 	for player in game_data.players.values():
-		if player.faction.id == game_data.player.faction.id and game_data.is_current_player(player):
+		if player.faction.id == game_data.player.faction.id and not game_data.is_current_player(player):
 			option_button.add_item(player.username)
 			list_player_option.push_back(player.id)
 	_verifiy_state_button_send()
@@ -47,7 +47,7 @@ func _on_button_send_pressed():
 		_lock_send_credits.unlock()
 		return
 	Network.req(self, "_on_credits_send",
-		"/api/games/" + game_data.id + "/factions/"+ int(game_data.faction.id) as String 
+		"/api/games/" + game_data.id + "/factions/"+ game_data.player.faction.id as String 
 		+ "/players/" + selected_player + "/money/",
 		HTTPClient.METHOD_PATCH,
 		[ "Content-Type: application/json" ],

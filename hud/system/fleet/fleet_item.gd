@@ -15,10 +15,7 @@ onready var button_menu = $Container/Ships/ButtonMenu
 
 func _ready():
 	update_owner()
-	if fleet != null and not fleet.is_connect("fleet_owner_updated", self, "_on_fleet_owner_updated"):
-		fleet.connect("fleet_owner_updated", self, "_on_fleet_owner_updated")
-	if fleet != null and not fleet.is_connect("fleet_update", self, "_on_fleet_update"):
-		fleet.connect("fleet_update", self, "_on_fleet_update")
+	_connect_fleet()
 	_game_data.selected_state.connect("fleet_selected", self, "_on_fleet_selected")
 	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed")
 	_game_data.selected_state.connect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
@@ -65,7 +62,7 @@ func _update_button_give_visibility():
 	if button_give == null:
 		return
 	button_give.visible = _game_data.does_belong_to_current_player(fleet) \
-			and not _game_data.does_belong_to_current_player(_game_data.get_system(fleet.system).player) \
+			and not _game_data.does_belong_to_current_player(_game_data.get_system(fleet.system)) \
 			and _game_data.get_system(fleet.system).player != null \
 			and _game_data.get_player(_game_data.get_system(fleet.system).player).faction == _game_data.player.faction
 
@@ -147,16 +144,24 @@ func update_quantity():
 
 
 func set_fleet(new_fleet):
-	if fleet != null and fleet.is_connect("fleet_owner_updated", self, "_on_fleet_owner_updated"):
-		fleet.disconnect("fleet_owner_updated", self, "_on_fleet_owner_updated")
-	if fleet != null and fleet.is_connect("fleet_update", self, "_on_fleet_update"):
-		fleet.disconnect("fleet_update", self, "_on_fleet_update")
+	_disconnect_fleet()
 	fleet = new_fleet
-	if fleet != null and not fleet.is_connect("fleet_owner_updated", self, "_on_fleet_owner_updated"):
-		fleet.connect("fleet_owner_updated", self, "_on_fleet_owner_updated")
-	if fleet != null and not fleet.is_connect("fleet_update", self, "_on_fleet_update"):
-		fleet.connect("fleet_update", self, "_on_fleet_update")
+	_connect_fleet()
 	update_owner()
+
+
+func _connect_fleet(fleet_p : Fleet = fleet):
+	if fleet_p != null and not fleet.is_connected("fleet_owner_updated", self, "_on_fleet_owner_updated"):
+		fleet_p.connect("fleet_owner_updated", self, "_on_fleet_owner_updated")
+	if fleet_p != null and not fleet.is_connected("updated", self, "_on_fleet_update"):
+		fleet_p.connect("updated", self, "_on_fleet_update")
+
+
+func _disconnect_fleet(fleet_p : Fleet = fleet):
+	if fleet_p != null and fleet_p.is_connected("fleet_owner_updated", self, "_on_fleet_owner_updated"):
+		fleet_p.disconnect("fleet_owner_updated", self, "_on_fleet_owner_updated")
+	if fleet_p != null and fleet_p.is_connected("updated", self, "_on_fleet_update"):
+		fleet_p.disconnect("updated", self, "_on_fleet_update")
 
 
 func _on_fleet_owner_updated():

@@ -80,11 +80,13 @@ func _on_lobby_launched(lobby : Dictionary):
 
 
 func _on_player_joined(player : Dictionary):
+	# todo modifiy lobby content
 	lobbies_container.get_node(player.lobby).increment_nb_players()
 
 
 func _on_player_disconnected(player : Dictionary):
 	if player.lobby != null:
+		# todo modifiy lobby content
 		lobbies_container.get_node(player.lobby).decrement_nb_players()
 
 

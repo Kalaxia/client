@@ -5,13 +5,14 @@ signal fleet_owner_updated()
 signal fleet_update_nb_ships()
 signal fleet_erased()
 signal updated()
+signal arrived()
 
 export(Array) var ship_groups = [] setget set_ship_groups
 export(String) var player setget set_player
 export(String) var id = null
 export(String) var system = null
 export(String) var destination_system = null
-export(int) var destination_arrival_time
+export(int) var destination_arrival_date
 
 
 func _init(dict = null).(dict):
@@ -25,7 +26,7 @@ func load_dict(dict):
 	set_ship_group_dict(dict.ship_groups)
 
 func _get_dict_property_list():
-	return ["id", "system", "destination_system", "player", "destination_arrival_time"]
+	return ["id", "system", "destination_system", "player", "destination_arrival_date"]
 
 
 func update_fleet_owner(new_player):
@@ -80,3 +81,8 @@ func on_fleet_erased():
 func update_fleet(dict : Dictionary):
 	load_dict(dict)
 	emit_signal("updated")
+
+
+func arrived():
+	# only system should call this in fleet_arrive
+	emit_signal("arrived")

@@ -89,7 +89,7 @@ func _on_ship_assigned(err, response_code, _headers, _body, quantity, fleet : Fl
 		quantity_hangar -= (quantity - quantity_fleet)
 		quantity_fleet = quantity
 		update_quantities()
-		fleet.update_fleet_nb_ships(ship_category.category, quantity)
+		fleet.update_fleet_nb_ships(ship_category, quantity)
 		emit_signal("ship_assigned", quantity_fleet, quantity_hangar)
 	_lock_assign_ship.unlock()
 

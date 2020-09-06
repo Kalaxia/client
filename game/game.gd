@@ -280,7 +280,7 @@ func _on_remote_fleet_created(fleet : Dictionary): # todo contaier
 # This method is called when the websocket notifies an another player's fleet sailing
 # It notifies the store which call _on_fleet_sailed back
 func _on_remote_fleet_sailed(fleet : Dictionary):
-	var fleet_in_game_data : Fleet = _game_data.systems[fleet.system].fleet[fleet.id]
+	var fleet_in_game_data : Fleet = _game_data.systems[fleet.system].fleets[fleet.id]
 	fleet_in_game_data.update_fleet(fleet)
 	_game_data.fleet_sail(fleet_in_game_data, fleet_in_game_data.destination_arrival_date)
 
@@ -301,8 +301,8 @@ func _on_system_conquerred(data : Dictionary):
 	if _game_data.players[system.player].faction == _game_data.player.faction:
 		_game_data.request_buildings(system)
 	else:
-		system.update_buildings([])
-		system.update_hangar([])
+		system.set_buildings([])
+		system.set_hangar([])
 
 
 func _update_fleet_system(fleet : Dictionary):
@@ -332,9 +332,9 @@ func _on_building_constructed(building : Dictionary): # todo
 
 
 func _on_fleet_transfer(data : Dictionary):
-	_game_data.systems[data.fleet.system].fleet[data.fleet.id].player = data.receiver_id
+	_game_data.systems[data.fleet.system].fleets[data.fleet.id].player = data.receiver_id
 	if data.receiver_id == _game_data.player.id:
 		Store.notify(
 			tr("game.receive_fleet.title"),
-			tr("game.receive_fleet.content %s") % Store.get_player(data.donator_id).username
+			tr("game.receive_fleet.content %s") % _game_data.get_player(data.donator_id).username
 		)

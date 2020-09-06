@@ -11,10 +11,11 @@ onready var conainer_contruction = $MenuBody/Body
 
 func _ready():
 	for building in ASSETS.buildings.keys(): # todo change that to ressource
-		var node = CONSTRUCTION_ITEM.instance()
-		node.building_type = building
-		node.connect("building_contructing", self, "_on_building_contructing")
-		conainer_contruction.add_child(node)
+		if building != "":
+			var node = CONSTRUCTION_ITEM.instance()
+			node.building_type = ASSETS.buildings[building]
+			node.connect("building_contructing", self, "_on_building_contructing")
+			conainer_contruction.add_child(node)
 
 
 func _on_building_contructing(building):

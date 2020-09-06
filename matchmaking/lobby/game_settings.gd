@@ -25,20 +25,20 @@ func _update_enable_state():
 
 func _on_speed_selected(id):
 	Store.lobby.option.game_speed = LobbyOption.SPEED[id]
-	_pacth_game_seting("game_speed", LobbyOption.SPEED[id])
+	_pacth_game_seting(Store.lobby.option)
 
 
 func _on_size_selected(id):
 	Store.lobby.option.map_size = LobbyOption.SIZE[id]
-	_pacth_game_seting("map_size", LobbyOption.SIZE[id])
+	_pacth_game_seting(Store.lobby.option)
 
 
-func _pacth_game_seting(field, value):
+func _pacth_game_seting(option = Store.lobby.option):
 	Network.req(self, "_on_data_patched",
 		"/api/lobbies/" + Store.lobby.id + "/",
 		HTTPClient.METHOD_PATCH,
 		[ "Content-Type: application/json" ],
-		JSON.print({field : value})
+		JSON.print({"game_speed" : option.game_speed, "map_size" : option.map_size})
 	)
 
 

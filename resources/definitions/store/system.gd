@@ -7,6 +7,7 @@ signal building_updated()
 signal hangar_updated(hangar)
 signal system_owner_updated()
 signal updated()
+signal fleet_arrived(fleet)
 
 const MAX_NUMBER_OF_BUILDING = 1
 
@@ -133,3 +134,10 @@ func update(dict : Dictionary):
 	load_dict(dict)
 	emit_signal("updated")
 	emit_signal("changed")
+
+
+func fleet_arrive(fleet : Fleet): 
+	# game data call this and oly game data should call this
+	fleets[fleet.id] = fleet
+	fleet.arrived()
+	emit_signal("fleet_arrived", fleet)
