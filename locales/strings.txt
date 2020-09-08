@@ -1,4 +1,6 @@
 _("audio.bus.Master")
+_("audio.bus.UI")
+_("audio.bus.Ambient")
 _("action.ui_accept")
 _("action.ui_select")
 _("action.ui_cancel")

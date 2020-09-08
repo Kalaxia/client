@@ -64,6 +64,7 @@ func _toogle_menu(is_pressed):
 
 
 func _on_id_pressed(id):
+	Audio.play_click()
 	match id:
 		0:
 			_back_to_main_menu()

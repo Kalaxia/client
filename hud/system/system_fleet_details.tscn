@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://hud/system/system_fleet_details.gd" type="Script" id=1]
+[ext_resource path="res://gui/utils/button_click_sound_utils.gd" type="Script" id=2]
 [ext_resource path="res://gui/key_binding_label/key_binding_labels_container.tscn" type="PackedScene" id=3]
 
 [node name="SystemFleetDetails" type="VBoxContainer"]
@@ -76,6 +77,7 @@ margin_bottom = 105.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_vertical = 4
 text = "hud.system.add_fleet"
+script = ExtResource( 2 )
 
 [node name="KeyBindingLabelsContainer" parent="ScrollContainer/HBoxContainer/FleetCreationButton" instance=ExtResource( 3 )]
 action = "ui_add_fleet"

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://matchmaking/lobby/lobby.gd" type="Script" id=1]
 [ext_resource path="res://matchmaking/lobby/faction_column.tscn" type="PackedScene" id=2]
 [ext_resource path="res://matchmaking/lobby/section_columns.gd" type="Script" id=3]
 [ext_resource path="res://themes/theme_u_main.tres" type="Theme" id=4]
 [ext_resource path="res://matchmaking/lobby/game_settings.gd" type="Script" id=5]
+[ext_resource path="res://gui/utils/button_click_sound_utils.gd" type="Script" id=6]
 
 [node name="Lobby" type="Control"]
 anchor_right = 1.0
@@ -223,6 +224,7 @@ margin_bottom = 191.0
 size_flags_vertical = 4
 disabled = true
 text = "menu.lobby.launch"
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -234,6 +236,7 @@ margin_right = 821.0
 margin_bottom = 93.0
 size_flags_vertical = 4
 text = "menu.lobby.quit"
+script = ExtResource( 6 )
 
 [node name="Control" type="Control" parent="GUI/Body"]
 margin_left = 1888.0

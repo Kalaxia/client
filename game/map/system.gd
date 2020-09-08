@@ -212,15 +212,17 @@ func _on_mouse_input(event):
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.get_button_index() == BUTTON_LEFT:
 			_game_data.selected_state.select_system(system)
+			# no need to add sound because it is alreay played in the element
+			_game_data.selected_state.select_system(system)
 		elif event.get_button_index() == BUTTON_RIGHT \
 				and _game_data.selected_state.selected_fleet != null \
 				and _game_data.is_in_range(_game_data.selected_state.selected_fleet, system):
 			# you can't set the same destination as the origin
 			Network.req(self, "_on_fleet_send",
 				"/api/games/" + _game_data.id 
-				+ "/systems/" + _game_data.selected_state.selected_fleet.system 
-				+ "/fleets/" + _game_data.selected_state.selected_fleet.id 
-				+ "/travel/",
+						+ "/systems/" + _game_data.selected_state.selected_fleet.system 
+						+ "/fleets/" + _game_data.selected_state.selected_fleet.id 
+						+ "/travel/",
 				HTTPClient.METHOD_POST,
 				[ "Content-Type: application/json" ],
 				JSON.print({ "destination_system_id" : system.id }),

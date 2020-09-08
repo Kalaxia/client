@@ -38,6 +38,9 @@ onready var fleet_container = $ParallaxBackground/ParallaxLayer0/Map/FleetContai
 onready var background = $ParallaxBackground/Background
 onready var hud = $ParallaxBackground/HUD
 onready var event_capturer = $ParallaxBackground/ParallaxLayer0/EventCapturer
+onready var sound_building = $AudioParent/AudioStackingBuildingFinished
+onready var sound_ship_queue = $AudioParent/AudioStackingShipQueueFinished
+
 
 func _ready():
 	_game_data.update_player_me()
@@ -316,10 +319,12 @@ func _on_faction_points_update(scores : Dictionary):
 
 
 func _on_ship_queue_finished(ship_data : Dictionary): # todo
+	sound_ship_queue.play_sound() # todo move in system ?
 	_game_data.get_system(ship_data.system).add_ship_group_to_hangar(ShipGroup.new(ship_data))
 
 
 func _on_building_constructed(building : Dictionary): # todo
+	sound_building.play_sound() # todo move in system ?
 	_game_data.get_system(building.system).add_building_to_system(Building.new(building))
 
 

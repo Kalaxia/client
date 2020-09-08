@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/amb_plateau.ogg-69c6a6e43c944b0ee78438b93e3dad67.oggstr"
+
+[deps]
+
+source_file="res://resources/assets/audio/ambiant/amb_plateau.ogg"
+dest_files=[ "res://.import/amb_plateau.ogg-69c6a6e43c944b0ee78438b93e3dad67.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

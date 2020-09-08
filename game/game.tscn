@@ -1,10 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://game/game.gd" type="Script" id=1]
 [ext_resource path="res://resources/assets/2d/background_general.png" type="Texture" id=2]
 [ext_resource path="res://game/map/particle_map_material.tres" type="Material" id=3]
 [ext_resource path="res://hud/hud.tscn" type="PackedScene" id=4]
-[ext_resource path="res://game/event_capturer.gd" type="Script" id=5]
+[ext_resource path="res://audio/audio_stacking.gd" type="Script" id=5]
+[ext_resource path="res://resources/assets/audio/ui/contruction/building_finished.tres" type="Resource" id=6]
+[ext_resource path="res://resources/assets/audio/ui/contruction/ship_finished.tres" type="Resource" id=7]
+[ext_resource path="res://.import/amb_plateau.ogg-69c6a6e43c944b0ee78438b93e3dad67.oggstr" type="AudioStream" id=8]
+[ext_resource path="res://game/event_capturer.gd" type="Script" id=9]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -75,7 +79,7 @@ texture = SubResource( 1 )
 
 [node name="EventCapturer" type="Control" parent="ParallaxBackground/ParallaxLayer0"]
 mouse_filter = 1
-script = ExtResource( 5 )
+script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -85,3 +89,22 @@ __meta__ = {
 [node name="FleetContainer" type="Node2D" parent="ParallaxBackground/ParallaxLayer0/Map"]
 
 [node name="HUD" parent="ParallaxBackground" instance=ExtResource( 4 )]
+
+[node name="AudioParent" type="Node" parent="."]
+
+[node name="AudioStackingBuildingFinished" type="Node" parent="AudioParent"]
+script = ExtResource( 5 )
+max_audio_playback = 4
+sound_resource = ExtResource( 6 )
+default_bus = "UI"
+
+[node name="AudioStackingShipQueueFinished" type="Node" parent="AudioParent"]
+script = ExtResource( 5 )
+sound_resource = ExtResource( 7 )
+default_bus = "UI"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioParent"]
+stream = ExtResource( 8 )
+volume_db = -25.0
+autoplay = true
+bus = "Ambiant"
