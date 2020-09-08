@@ -69,10 +69,6 @@ margin_bottom = 54.0
 size_flags_horizontal = 3
 custom_styles/panel = SubResource( 3 )
 script = ExtResource( 4 )
-base_style = null
-hover_style = null
-selected_style = null
-focus_style = null
 
 [node name="SelectablePanelContainer" type="PanelContainer" parent="HBoxContainer/ButtonContainerLeft"]
 margin_left = 260.0

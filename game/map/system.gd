@@ -211,6 +211,7 @@ func _modulate_color(alpha):
 func _on_mouse_input(event):
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.get_button_index() == BUTTON_LEFT:
+			# no need to add sound because it is alreay played in the element
 			game_data.selected_state.select_system(system)
 		elif event.get_button_index() == BUTTON_RIGHT \
 				and game_data.selected_state.selected_fleet != null \

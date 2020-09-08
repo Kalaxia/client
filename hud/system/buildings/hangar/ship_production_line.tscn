@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://hud/system/buildings/hangar/ship_production_line.gd" type="Script" id=1]
+[ext_resource path="res://gui/utils/button_click_sound_utils.gd" type="Script" id=2]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -158,6 +159,7 @@ size_flags_vertical = 4
 custom_constants/hseparation = -1
 disabled = true
 expand_icon = true
+script = ExtResource( 2 )
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/hBoxContainer/Button"]
 anchor_left = 0.2

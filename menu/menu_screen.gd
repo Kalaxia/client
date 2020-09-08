@@ -17,9 +17,9 @@ func _ready():
 		Network.connect("authenticated", self, "init")
 	else:
 		init()
-	$GUI/Body/MainSection/Menu/LobbyCreationButton.connect("button_down", self, "create_lobby")
-	$GUI/Body/MainSection/Menu/OptionButton.connect("button_down", self, "_on_menu_option_pressed")
-	$GUI/Body/MainSection/Menu/CreditsButton.connect("button_down", self, "_on_menu_credits_pressed")
+	$GUI/Body/MainSection/Menu/LobbyCreationButton.connect("pressed", self, "create_lobby")
+	$GUI/Body/MainSection/Menu/OptionButton.connect("pressed", self, "_on_menu_option_pressed")
+	$GUI/Body/MainSection/Menu/CreditsButton.connect("pressed", self, "_on_menu_credits_pressed")
 	$GUI/Body/MainSection/Menu/Quit.connect("pressed", self, "_quit_game")
 
 

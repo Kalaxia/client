@@ -32,4 +32,4 @@ margin_top = 526.0
 margin_right = 434.0
 margin_bottom = 540.0
 rect_min_size = Vector2( 400, 0 )
-text = "no_translate.label_key_binding"
+text = "action."

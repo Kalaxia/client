@@ -14,6 +14,8 @@ func _ready():
 
 
 func _refersh_data():
+	if bus_name_label == null or volume_slider == null:
+		return
 	bus_name_label.text = tr("audio.bus." + AudioServer.get_bus_name(bus_id))
 	var value_volume = db2linear(AudioServer.get_bus_volume_db(bus_id))
 	volume_slider.value = value_volume
@@ -39,8 +41,7 @@ func set_bus_id(new_id : int):
 	if name == "" || name == null:
 		return
 	bus_id = new_id
-	bus_name_label.text =  tr("audio.bus." + name )
-	volume_slider.value = db2linear(AudioServer.get_bus_volume_db(bus_id))
+	_refersh_data()
 
 
 func set_disabled(is_disabled : bool):

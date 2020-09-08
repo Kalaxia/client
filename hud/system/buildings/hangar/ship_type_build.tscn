@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://hud/system/buildings/hangar/ship_type_build.gd" type="Script" id=1]
 [ext_resource path="res://resources/assets/2d/picto/ships/stat/Health.svg" type="Texture" id=2]
 [ext_resource path="res://gui/spin_box_imediate_update.gd" type="Script" id=3]
+[ext_resource path="res://gui/utils/button_click_sound_utils.gd" type="Script" id=4]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -233,6 +234,7 @@ margin_right = 2137.0
 margin_bottom = 545.0
 size_flags_vertical = 4
 text = "hud.system.building.hangar.build"
+script = ExtResource( 4 )
 
 [node name="Control10" type="Control" parent="PanelContainer/HBoxContainer"]
 margin_left = 2141.0
@@ -248,3 +250,4 @@ margin_right = 2436.0
 margin_bottom = 545.0
 size_flags_vertical = 4
 text = "hud.system.building.hangar.build_max %d"
+script = ExtResource( 4 )

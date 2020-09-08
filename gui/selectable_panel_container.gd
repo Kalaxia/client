@@ -48,6 +48,7 @@ func _gui_input(event):
 
 
 func _pressed():
+	Audio.play_click()
 	is_selected = not is_selected
 	update_style()
 	emit_signal("state_changed", is_selected)

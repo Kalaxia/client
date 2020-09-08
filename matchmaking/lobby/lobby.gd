@@ -150,5 +150,5 @@ func _on_launch_response(err, _response_code, _headers, _body):
 func _on_lobby_left(err, _response_code, _headers, _body):
 	if err:
 		ErrorHandler.network_response_error(err)
-	Store.reset_player_ready_state()
+	Store.player.ready = false
 	emit_signal("scene_requested", "menu")

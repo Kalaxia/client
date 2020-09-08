@@ -39,6 +39,7 @@ func _is_inside(position : Vector2) -> bool:
 
 
 func _pressed():
+	Audio.play_click()
 	selected = not selected
 
 

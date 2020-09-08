@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://menu/menu_option.gd" type="Script" id=1]
 [ext_resource path="res://menu/options/graphical_option.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://themes/theme_u_main.tres" type="Theme" id=4]
 [ext_resource path="res://menu/options/option_key_binding.tscn" type="PackedScene" id=5]
 [ext_resource path="res://resources/fonts/Muli/Muli-VariableFont_wght.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://gui/utils/button_click_sound_utils.gd" type="Script" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 20
@@ -91,6 +92,7 @@ margin_top = 45.0
 margin_right = 1831.0
 margin_bottom = 89.0
 action = "ui_select_fleet"
+is_enabled = false
 
 [node name="ui_add_fleet" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -99,6 +101,7 @@ margin_top = 93.0
 margin_right = 1831.0
 margin_bottom = 137.0
 action = "ui_add_fleet"
+is_enabled = false
 
 [node name="HBoxContainer3" type="MarginContainer" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer"]
 margin_top = 141.0
@@ -125,6 +128,7 @@ margin_top = 186.0
 margin_right = 1831.0
 margin_bottom = 230.0
 action = "ui_zoom_in_map"
+is_enabled = false
 
 [node name="ui_zoom_out_map" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -133,6 +137,7 @@ margin_top = 234.0
 margin_right = 1831.0
 margin_bottom = 278.0
 action = "ui_zoom_out_map"
+is_enabled = false
 
 [node name="ui_drag_map" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -141,6 +146,7 @@ margin_top = 282.0
 margin_right = 1831.0
 margin_bottom = 326.0
 action = "ui_drag_map"
+is_enabled = false
 
 [node name="ui_move_map_left" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -149,6 +155,7 @@ margin_top = 330.0
 margin_right = 1831.0
 margin_bottom = 374.0
 action = "ui_move_map_left"
+is_enabled = false
 
 [node name="ui_move_map_right" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -157,6 +164,7 @@ margin_top = 378.0
 margin_right = 1831.0
 margin_bottom = 422.0
 action = "ui_move_map_right"
+is_enabled = false
 
 [node name="ui_move_map_up" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -165,6 +173,7 @@ margin_top = 426.0
 margin_right = 1831.0
 margin_bottom = 470.0
 action = "ui_move_map_up"
+is_enabled = false
 
 [node name="ui_move_map_down" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -173,6 +182,7 @@ margin_top = 474.0
 margin_right = 1831.0
 margin_bottom = 518.0
 action = "ui_move_map_down"
+is_enabled = false
 
 [node name="ui_map_center_system" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -181,6 +191,7 @@ margin_top = 522.0
 margin_right = 1831.0
 margin_bottom = 566.0
 action = "ui_map_center_system"
+is_enabled = false
 
 [node name="HBoxContainer4" type="MarginContainer" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer"]
 margin_top = 570.0
@@ -207,6 +218,7 @@ margin_top = 615.0
 margin_right = 1831.0
 margin_bottom = 659.0
 action = "ui_hud_scores"
+is_enabled = false
 
 [node name="HBoxContainer" type="MarginContainer" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer"]
 margin_top = 663.0
@@ -233,6 +245,7 @@ margin_top = 708.0
 margin_right = 1831.0
 margin_bottom = 752.0
 action = "ui_accept"
+is_enabled = false
 
 [node name="ui_select" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -241,6 +254,7 @@ margin_top = 756.0
 margin_right = 1831.0
 margin_bottom = 800.0
 action = "ui_select"
+is_enabled = false
 
 [node name="ui_cancel" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -249,6 +263,7 @@ margin_top = 804.0
 margin_right = 1831.0
 margin_bottom = 848.0
 action = "ui_cancel"
+is_enabled = false
 
 [node name="ui_focus_next" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -257,6 +272,7 @@ margin_top = 852.0
 margin_right = 1831.0
 margin_bottom = 896.0
 action = "ui_focus_next"
+is_enabled = false
 
 [node name="ui_focus_prev" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -265,6 +281,7 @@ margin_top = 900.0
 margin_right = 1831.0
 margin_bottom = 944.0
 action = "ui_focus_prev"
+is_enabled = false
 
 [node name="ui_left" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -273,6 +290,7 @@ margin_top = 948.0
 margin_right = 1831.0
 margin_bottom = 992.0
 action = "ui_left"
+is_enabled = false
 
 [node name="ui_right" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -281,6 +299,7 @@ margin_top = 996.0
 margin_right = 1831.0
 margin_bottom = 1040.0
 action = "ui_right"
+is_enabled = false
 
 [node name="ui_up" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -289,6 +308,7 @@ margin_top = 1044.0
 margin_right = 1831.0
 margin_bottom = 1088.0
 action = "ui_up"
+is_enabled = false
 
 [node name="ui_down" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -297,6 +317,7 @@ margin_top = 1092.0
 margin_right = 1831.0
 margin_bottom = 1136.0
 action = "ui_down"
+is_enabled = false
 
 [node name="ui_page_up" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -305,6 +326,7 @@ margin_top = 1140.0
 margin_right = 1831.0
 margin_bottom = 1184.0
 action = "ui_page_up"
+is_enabled = false
 
 [node name="ui_page_down" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -313,6 +335,7 @@ margin_top = 1188.0
 margin_right = 1831.0
 margin_bottom = 1232.0
 action = "ui_page_down"
+is_enabled = false
 
 [node name="ui_home" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -321,6 +344,7 @@ margin_top = 1236.0
 margin_right = 1831.0
 margin_bottom = 1280.0
 action = "ui_home"
+is_enabled = false
 
 [node name="ui_end" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -329,6 +353,7 @@ margin_top = 1284.0
 margin_right = 1831.0
 margin_bottom = 1328.0
 action = "ui_end"
+is_enabled = false
 
 [node name="ui_minimize" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -337,6 +362,7 @@ margin_top = 1332.0
 margin_right = 1831.0
 margin_bottom = 1376.0
 action = "ui_minimize"
+is_enabled = false
 
 [node name="ui_forbbiden_key_rebind" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -345,6 +371,7 @@ margin_top = 1380.0
 margin_right = 1831.0
 margin_bottom = 1424.0
 action = "ui_forbbiden_key_rebind"
+is_enabled = false
 
 [node name="Audio" type="HBoxContainer" parent="TabContainer"]
 visible = false
@@ -449,6 +476,7 @@ margin_right = 1843.0
 margin_bottom = 62.0
 size_flags_vertical = 3
 text = "menu.option.back_main_menu"
+script = ExtResource( 7 )
 
 [node name="Control" type="Control" parent="."]
 margin_top = 1066.0

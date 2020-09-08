@@ -9,10 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "AudioResource",
+"language": "GDScript",
+"path": "res://audio/audio_resource.gd"
+}, {
+"base": "Node",
+"class": "AudioSceneSingleton",
+"language": "GDScript",
+"path": "res://audio/audio.gd"
+}, {
 "base": "Node",
 "class": "AudioStacking",
 "language": "GDScript",
 "path": "res://audio/audio_stacking.gd"
+}, {
+"base": "AudioStacking",
+"class": "AudioStackingSingleSound",
+"language": "GDScript",
+"path": "res://audio/audio_stacking_single_resource.gd"
 }, {
 "base": "DictResource",
 "class": "Building",
@@ -255,7 +270,10 @@ _global_script_classes=[ {
 "path": "res://global/resources/version.gd"
 } ]
 _global_script_class_icons={
+"AudioResource": "",
+"AudioSceneSingleton": "",
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
+"AudioStackingSingleSound": "res://resources/editor/audio_stacking.svg",
 "Building": "",
 "BuildingModelRemote": "",
 "BuildingPanel": "",
@@ -318,6 +336,7 @@ config/windows_native_icon="res://resources/assets/2d/logo.ico"
 Config="*res://config/config.gd"
 Network="*res://global/network.gd"
 Store="*res://global/store.gd"
+Audio="*res://audio/audio.gd"
 
 [debug]
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://menu/menu_screen.gd" type="Script" id=1]
 [ext_resource path="res://matchmaking/player/players_counter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://themes/theme_u_main.tres" type="Theme" id=3]
+[ext_resource path="res://gui/utils/button_click_sound_utils.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://resources/fonts/Muli/static/Muli-Bold.ttf"
@@ -114,6 +115,7 @@ margin_right = 433.0
 margin_bottom = 840.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 40
 
 [node name="LobbyCreationButton" type="Button" parent="GUI/Body/MainSection/Menu"]
 margin_right = 409.0
@@ -122,63 +124,49 @@ rect_min_size = Vector2( 0, 40 )
 size_flags_vertical = 0
 theme = ExtResource( 3 )
 text = "menu.main.create_lobby"
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="seperator1" type="Control" parent="GUI/Body/MainSection/Menu"]
-margin_top = 44.0
-margin_right = 409.0
-margin_bottom = 80.0
-size_flags_vertical = 3
-
 [node name="OptionButton" type="Button" parent="GUI/Body/MainSection/Menu"]
-margin_top = 84.0
+margin_top = 80.0
 margin_right = 409.0
-margin_bottom = 124.0
+margin_bottom = 120.0
 rect_min_size = Vector2( 0, 40 )
 theme = ExtResource( 3 )
 text = "menu.main.options"
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="seperator2" type="Control" parent="GUI/Body/MainSection/Menu"]
-margin_top = 128.0
-margin_right = 409.0
-margin_bottom = 164.0
-size_flags_vertical = 3
-
 [node name="CreditsButton" type="Button" parent="GUI/Body/MainSection/Menu"]
-margin_top = 168.0
+margin_top = 160.0
 margin_right = 409.0
-margin_bottom = 208.0
+margin_bottom = 200.0
 rect_min_size = Vector2( 0, 40 )
 theme = ExtResource( 3 )
 text = "menu.main.credits"
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="seperator3" type="Control" parent="GUI/Body/MainSection/Menu"]
-margin_top = 212.0
-margin_right = 409.0
-margin_bottom = 248.0
-size_flags_vertical = 3
-
 [node name="Quit" type="Button" parent="GUI/Body/MainSection/Menu"]
-margin_top = 252.0
+margin_top = 240.0
 margin_right = 409.0
-margin_bottom = 292.0
+margin_bottom = 280.0
 rect_min_size = Vector2( 0, 40 )
 theme = ExtResource( 3 )
 text = "menu.main.quit"
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="footer" type="Control" parent="GUI/Body/MainSection/Menu"]
-margin_top = 296.0
+margin_top = 320.0
 margin_right = 409.0
 margin_bottom = 840.0
 size_flags_vertical = 3

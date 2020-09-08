@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://audio/audio_stacking.gd" type="Script" id=1]
+[ext_resource path="res://resources/assets/audio/ui/click/ui_click.tres" type="Resource" id=2]
+[ext_resource path="res://audio/audio_scene_singleton.gd" type="Script" id=3]
+
+[node name="AudioSceneSingleton" type="Node"]
+script = ExtResource( 3 )
+
+[node name="AudioStackingClick" type="Node" parent="."]
+script = ExtResource( 1 )
+sound_resource = ExtResource( 2 )
+override_sound = true
+default_bus = "UI"
+default_volume = -8.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://menu/menu_credits.gd" type="Script" id=1]
 [ext_resource path="res://menu/dynamic_font.tres" type="DynamicFont" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://menu/credits_scroll_container.gd" type="Script" id=5]
 [ext_resource path="res://themes/font/credits_normal.tres" type="DynamicFont" id=6]
 [ext_resource path="res://themes/font/credits_bold.tres" type="DynamicFont" id=7]
+[ext_resource path="res://gui/utils/button_click_sound_utils.gd" type="Script" id=8]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -214,6 +215,7 @@ rect_min_size = Vector2( 600, 30 )
 size_flags_horizontal = 4
 size_flags_stretch_ratio = 0.5
 text = "menu.credits.back_main_menu"
+script = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
