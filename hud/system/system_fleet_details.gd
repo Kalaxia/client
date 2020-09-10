@@ -21,6 +21,7 @@ func _ready():
 	_game_data.selected_state.connect("fleet_erased", self, "_on_fleet_erased")
 	_game_data.selected_state.connect("fleet_selected", self, "_on_fleet_selected")
 	_game_data.selected_state.connect("system_updated", self, "_on_system_updated")
+	_game_data.selected_state.connect("system_fleet_arrived", self, "_on_system_fleet_arrived")
 	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed")
 #	Store.connect("fleet_owner_updated", self, "_on_fleet_owner_updated") # todo signal / move inside node 
 	Network.connect("Victory", self, "_on_victory")
@@ -101,6 +102,9 @@ func add_fleet_item(fleet):
 		_game_data.selected_state.select_fleet(fleet)
 	return fleet_node
 
+
+func _on_system_fleet_arrived(fleet : Fleet):
+	add_fleet_item(fleet)
 
 func _on_system_selected(_old_system):
 	refresh_data()
