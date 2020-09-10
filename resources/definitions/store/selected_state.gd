@@ -142,7 +142,7 @@ func _connect_system(system : System):
 		system.connect("fleet_arrived", self, "_on_fleet_arrived")
 
 
-func fleet_arrived(fleet):
+func _on_fleet_arrived(fleet):
 	emit_signal("system_fleet_arrived", fleet)
 
 
