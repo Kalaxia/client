@@ -5,24 +5,25 @@ signal fleet_sailed(fleet, arrival_time) # todo move copy in system and fleet
 signal score_updated()
 signal fleet_arrived(fleet) # todo move copy in system and fleet
 
-const PATH_NAME = "res://game_data.tres"
+#const PATH_NAME = "res://game_data.tres"
+#const UNLOAD_PATH_NAME = "res://game_data_unloade.tres"
 const ASSETS = preload("res://resources/assets.tres")
 
 export(String) var id
-export(Dictionary) var systems = {}
-export(Dictionary) var players = {}
-export(Resource) var player = null # CurentPlayer
-export(Resource) var selected_state = SelectedState.new()
-export(Dictionary) var scores = {}
-export(Dictionary) var sailing_fleets = {}
+export(Dictionary) var systems
+export(Dictionary) var players
+export(Resource) var player # CurentPlayer
+export(Resource) var selected_state
+export(Dictionary) var scores
+export(Dictionary) var sailing_fleets
 
 
 func _init(game_id : String, player_p : Player, lobby : Lobby = null) -> void:
-	take_over_path(PATH_NAME)
 	self.id = game_id
 	player = player_p
 	if lobby != null:
 		load_player_lobby(lobby)
+	selected_state = SelectedState.new()
 	players[player_p.id] = player_p
 
 
@@ -80,9 +81,9 @@ func unload_data():
 	sailing_fleets.clear()
 	selected_state.unselect_fleet()
 	selected_state.unselect_system()
-	# scores ?
-	player.game = null
-	player.lobby = null
+#	# scores ?
+	player = null
+	scores.clear()
 	emit_signal("changed")
 
 
@@ -230,7 +231,3 @@ func update_scores(scores_new) -> void:
 		printerr("update score with invalide data type")
 	emit_signal("changed")
 	emit_signal("score_updated")
-
-
-static func get_game_data():
-	return load(PATH_NAME)

@@ -11,7 +11,7 @@ const MENU = {
 
 var menu_layer : MenuLayer setget set_menu_layer
 var _building_panel_list = []
-var _game_data : GameData = load(GameData.PATH_NAME)
+var _game_data : GameData = Store.game_data
 
 onready var building_container = $ScrollContainer/HBoxContainer
 

@@ -4,7 +4,7 @@ const _SHIP_PRODUCTION_LINE = preload("res://hud/system/buildings/hangar/ship_pr
 const _SHIP_TYPE_BUILD = preload("res://hud/system/buildings/hangar/ship_type_build.tscn")
 const _SHIP_HANGARD = preload("res://hud/system/buildings/hangar/ship_type_hangar.tscn")
 
-var game_data : GameData = load(GameData.PATH_NAME)
+var game_data : GameData = Store.game_data
 var ship_group_array = [] setget set_ship_group_array
 var ship_queue_array = [] setget set_ship_queue_array, get_ship_queue_array
 

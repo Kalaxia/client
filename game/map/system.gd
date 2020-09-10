@@ -14,7 +14,7 @@ const ASSETS = preload("res://resources/assets.tres")
 
 export(float) var scale_ratio = 1.0 setget set_scale_ratio
 
-var game_data : GameData = load(GameData.PATH_NAME)
+var game_data : GameData = Store.game_data
 var system : System = null setget set_system
 var is_hover = false
 var is_in_range_sailing_fleet = false

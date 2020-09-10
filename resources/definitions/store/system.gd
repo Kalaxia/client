@@ -16,8 +16,8 @@ export(String) var kind
 export(Vector2) var coordinates
 export(bool) var unreachable
 export(Dictionary) var fleets
-export(Array, Resource) var buildings = [] setget set_buildings
-export(Array, Resource) var hangar = [] setget set_hangar
+export(Array, Resource) var buildings setget set_buildings
+export(Array, Resource) var hangar setget set_hangar
 export(String) var game = null
 export(String) var id
 

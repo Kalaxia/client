@@ -8,7 +8,7 @@ var ship_category : ShipModel = ASSETS.ship_models.values()[0] setget set_ship_c
 var quantity_fleet = 0 setget set_quantity_fleet
 var quantity_hangar = 0 setget set_quantity_hangar
 var _lock_assign_ship = Utils.Lock.new() setget private_set, private_get
-var _game_data : GameData = load(GameData.PATH_NAME)
+var _game_data : GameData = Store.game_data
 
 
 onready var spinbox = $PanelContainer/HBoxContainer/SpinBox

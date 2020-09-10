@@ -4,7 +4,7 @@ const ASSETS = preload("res://resources/assets.tres")
 
 export(int) var faction = 0 setget set_faction
 
-var game_data : GameData = load(GameData.PATH_NAME)
+var game_data : GameData = Store.game_data
 
 onready var progress_bar = $ProgressBar
 onready var texture = $TextureRect

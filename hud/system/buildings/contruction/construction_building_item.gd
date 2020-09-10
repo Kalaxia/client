@@ -7,7 +7,7 @@ const ASSETS = preload("res://resources/assets.tres")
 
 export(Resource) var building_type = null setget set_building_type # ressource
 
-var game_data : GameData = load(GameData.PATH_NAME)
+var game_data : GameData = Store.game_data
 var _lock_request_build = Utils.Lock.new() setget private_set, private_get
 
 onready var texture_rect = $PanelContainer/HBoxContainer/TextureRect

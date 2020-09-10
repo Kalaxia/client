@@ -64,6 +64,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://gui/custom_shape_button.gd"
 }, {
+"base": "Reference",
+"class": "Debug",
+"language": "GDScript",
+"path": "res://global/debug.gd"
+}, {
 "base": "Resource",
 "class": "DictResource",
 "language": "GDScript",
@@ -261,6 +266,7 @@ _global_script_class_icons={
 "ConstructionBuildingItem": "",
 "CrownSprite": "res://resources/assets/2d/map/kalankar/crown_bottom.png",
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
+"Debug": "",
 "DictResource": "",
 "ErrorHandler": "",
 "FactionRemote": "",

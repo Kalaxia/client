@@ -4,7 +4,7 @@ signal request_main_menu()
 
 const ASSETS = preload("res://resources/assets.tres")
 
-var game_data = load(GameData.PATH_NAME)
+var game_data = Store.game_data
 
 onready var menu_layer = $MenuLayer
 onready var scores_container = $ScoresContainer

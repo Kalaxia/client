@@ -7,7 +7,7 @@ var destination_position = Vector2.ZERO
 var color = null
 var fleet : Fleet = null setget set_fleet
 var arrival_time
-var _game_data : GameData = load(GameData.PATH_NAME)
+var _game_data : GameData = Store.game_data
 
 onready var sprite_container = $FleetPath/Follower/SpritesContainer
 onready var sprite_crown = $FleetPath/Follower/SpritesContainer/CrownSprite

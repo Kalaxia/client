@@ -21,11 +21,10 @@ func _ready():
 	pass
 
 
-func _exit_tree():
-	for node in menus.values():
-		if node != null and is_instance_valid(node):
-			# we have to free the menus otherwise we may leak memory
-			node.queue_free()
+func _notification(what):
+	if what == NOTIFICATION_PREDELETE:
+		# destructor
+		_delete_menues()
 
 
 func request_menu(menu_requested):
@@ -97,3 +96,10 @@ func _remove_menu(node):
 	remove_child(node) 
 	# this does not queue_free the node.
 	# make sure that ref to these element are stored somewhere
+
+
+func _delete_menues():
+	for node in menus.values():
+		if node != null and is_instance_valid(node):
+			# we have to free the menus otherwise we may leak memory
+			node.queue_free()
