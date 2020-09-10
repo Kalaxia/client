@@ -42,12 +42,12 @@ func _on_ship_assigned(_quantity_fleet, quantity_hangar, category):
 			i.quantity = quantity_hangar
 			has_added_quantity = true
 	if not has_added_quantity:
-		ship_group_hangar.push_back({
+		ship_group_hangar.push_back(ShipGroup.new({
 			"system" : fleet.system,
 			"fleet" : null,
 			"category" : category.category,
 			"quantity" : quantity_hangar,
-		})
+		}))
 	_game_data.selected_state.selected_system.set_hangar(ship_group_hangar)
 
 
