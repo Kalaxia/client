@@ -5,8 +5,8 @@ signal player_removed(player_id)
 
 export(String) var id = null
 export(Resource) var owner = null # Player
-export(Dictionary) var players = {}
-export(Resource) var option = LobbyOption.new()
+export(Dictionary) var players
+export(Resource) var option #= LobbyOption.new()
 
 
 func _init(dict = null, player : Player = null).(dict):

@@ -6,7 +6,7 @@ var fleet : Fleet = null setget set_fleet
 var ship_group_hangar = [] setget set_ship_group_hangar
 var system_id = null 
 
-var _game_data : GameData = load(GameData.PATH_NAME)
+var _game_data : GameData = Store.game_data
 
 onready var ship_group_element_container = $MenuBody/Body/ScrollContainer/ShipList
 onready var assets = load("res://resources/assets.tres")

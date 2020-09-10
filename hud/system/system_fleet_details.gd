@@ -6,7 +6,7 @@ var fleet_item_scene = preload("res://hud/system/fleet/fleet_item.tscn")
 var menu_layer : MenuLayer setget set_menu_layer
 var _create_fleet_lock = Utils.Lock.new()
 var _lock_add_fleet_item = Utils.Lock.new()
-var _game_data : GameData = load(GameData.PATH_NAME)
+var _game_data : GameData = Store.game_data
 
 onready var fleet_creation_button = $ScrollContainer/HBoxContainer/FleetCreationButton
 onready var fleet_container = $ScrollContainer/HBoxContainer/Fleets

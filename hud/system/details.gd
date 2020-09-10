@@ -6,7 +6,7 @@ var fleet_details_scene = preload("res://hud/system/system_fleet_details.tscn")
 var building_details_scene = preload("res://hud/system/system_building_details.tscn")
 
 var menu_layer : MenuLayer setget set_menu_layer # injected from HUD
-var _game_data : GameData = load(GameData.PATH_NAME)
+var _game_data : GameData = Store.game_data
 
 onready var menu_system = $MenuSystem
 onready var button_building = $System/CircularContainer/Bluilding

@@ -13,21 +13,26 @@ signal loaded(ressource_name)
 
 const CACHED_DATA_PATH = "res://cache.tres"
 
-export(Dictionary) var factions = {}
-export(Array, Resource) var ship_models = []
-export(Array, Resource) var building_list = []
-export(Resource) var constants = ConstanteRemoteResource.new()
+export(Dictionary) var factions
+export(Array, Resource) var ship_models
+export(Array, Resource) var building_list
+export(Resource) var constants
 export(String) var version = null
 
 var _lock_load_building = Utils.Lock.new() setget private_set, private_get
 var _lock_ships = Utils.Lock.new() setget private_set, private_get
 var _lock_faction = Utils.Lock.new() setget private_set, private_get
-var dict_loaded = {
+var dict_loaded = { # todo can cause bugs
 	Resource_elements.BUILDING : true, 
 	Resource_elements.SHIP_MODELS : true, 
 	Resource_elements.FACTIONS : true,
 	Resource_elements.CONSTANTS : true,
 } setget private_set
+
+
+func _init():
+	constants = ConstanteRemoteResource.new()
+	# todo dict_loaded reset ?
 
 
 func refresh(version_p):

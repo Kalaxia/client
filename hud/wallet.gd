@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-var game_data = load(GameData.PATH_NAME)
+var game_data = Store.game_data
 
 
 func _ready():

@@ -6,7 +6,7 @@ signal fleet_donated()
 
 var fleet : Fleet = null setget set_fleet
 var _lock_donate = Utils.Lock.new() setget private_set, private_get
-var _game_data : GameData = load(GameData.PATH_NAME)
+var _game_data : GameData = Store.game_data
 
 onready var key_binding_compo = $Container/Ships/ButtonMenu/KeyBindingLabelsContainer
 onready var button_give = $Container/Ships/ButtonGive

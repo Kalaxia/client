@@ -4,7 +4,7 @@ signal ship_construction_started(ship_queue)
 
 const ASSETS = preload("res://resources/assets.tres")
 
-var game_data : GameData = load(GameData.PATH_NAME)
+var game_data : GameData = Store.game_data
 var ship_category = ASSETS.ship_models.values()[0] setget set_ship_category
 var _lock_build_ships = Utils.Lock.new() setget private_set, private_get
 

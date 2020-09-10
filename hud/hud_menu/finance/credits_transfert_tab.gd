@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-var game_data : GameData = load(GameData.PATH_NAME)
+var game_data : GameData = Store.game_data
 var list_player_option = []
 var selected_player = null
 var _lock_send_credits = Utils.Lock.new() setget private_set, private_get

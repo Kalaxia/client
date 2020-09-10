@@ -50,7 +50,6 @@ func add_lobby_cards(lobbies):
 
 func add_lobby_card(lobby_dict : Dictionary):
 	var lobby = Lobby.new(lobby_dict)
-	#lobby.players = {}
 	var lobby_card = lobby_card_scene.instance()
 	lobby_card.lobby = lobby
 	lobby_card.set_name(lobby.id)
@@ -80,14 +79,12 @@ func _on_lobby_launched(lobby : Dictionary):
 
 
 func _on_player_joined(player : Dictionary):
-	# todo modifiy lobby content
-	lobbies_container.get_node(player.lobby).increment_nb_players()
+	lobbies_container.get_node(player.lobby).add_player(Player.new(player))
 
 
 func _on_player_disconnected(player : Dictionary):
 	if player.lobby != null:
-		# todo modifiy lobby content
-		lobbies_container.get_node(player.lobby).decrement_nb_players()
+		lobbies_container.get_node(player.lobby).remove_player(player.id)
 
 
 func _handle_get_lobbies(err, response_code, _headers, body):

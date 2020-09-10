@@ -7,7 +7,7 @@ signal fleet_erased()
 signal updated()
 signal arrived()
 
-export(Array) var ship_groups = [] setget set_ship_groups
+export(Array) var ship_groups setget set_ship_groups
 export(String) var player setget set_player
 export(String) var id = null
 export(String) var system = null

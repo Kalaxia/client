@@ -2,7 +2,7 @@ extends Control
 
 signal scene_requested(scene)
 
-var game_data = load(GameData.PATH_NAME)
+var game_data = Store.game_data
 
 const FACTION_SCORE_SCENE = preload("res://game/faction_score.tscn")
 

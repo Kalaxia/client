@@ -4,7 +4,7 @@ const assets = preload("res://resources/assets.tres")
 
 signal back_main_menu() 
 
-var game_data = load(GameData.PATH_NAME)
+var game_data = Store.game_data
 var menu_layer : MenuLayer setget set_menu_layer
 
 onready var texture_rect = $HBoxContainer/TextureRect

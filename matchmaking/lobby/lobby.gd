@@ -120,9 +120,15 @@ func _on_player_disconnected(player_id : String):
 
 
 func _on_lobby_launched(game_id):
-	Store.reset_player_ready_state()
-	Store.game_data = null
+#	var data_old = Store.game_data
+#	ResourceSaver.save("res://test_old.tres", data_old)
+	Store.player.ready = false
+	if Store.game_data != null:
+		#Store.game_data.unload_data()
+		Store.game_data = null
 	Store.game_data = GameData.new(game_id, Store.player, Store.lobby) # todo review
+#	var data = Store.game_data
+#	ResourceSaver.save("res://test.tres", data)
 	emit_signal("scene_requested", "game_loading")
 
 
