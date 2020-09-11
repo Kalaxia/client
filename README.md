@@ -20,8 +20,6 @@ Then add at the end of the file `version="#"` where `#` can be anything.
 
 Open the project with Godot.
 
-Make sure that the environment in ``./config/config.gd`` is ``development``.
-
 You will need a local server to run the game. Follow the instructions in [the server repository](https://github.com/Kalaxia/v2-api) to start it.
 
 Documentation
