@@ -35,10 +35,9 @@ func update_fleet_owner(new_player):
 
 
 func set_player(new_player_id):
-	if player != new_player_id:
-		player = new_player_id
-		emit_signal("changed")
-		emit_signal("owner_updated")
+	player = new_player_id
+	emit_signal("changed")
+	emit_signal("owner_updated")
 
 
 func update_fleet_nb_ships(ship_category : ShipModel, nb_ships : int):

@@ -42,6 +42,7 @@ func _set_size_sprite():
 
 
 func _get_flight_time_ms():
+	# it is possible that fleet.destination_arrival_date is set to null before this objet is freed (because of queue_free) can call _process
 	return (fleet.destination_arrival_date - _time_departure) if fleet.destination_arrival_date != null else 0
 
 
