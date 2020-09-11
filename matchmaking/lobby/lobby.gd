@@ -80,8 +80,8 @@ func is_ready_state():
 	for player in Store.lobby.players.values():
 		if player.ready == false:
 			return false
-		if player.faction != null and not lobby_factions.has(player.faction.id as int): # it has to be cast as an int to work
-			lobby_factions.push_back(player.faction.id as int)
+		if player.faction != null and not lobby_factions.has(player.faction.id):
+			lobby_factions.push_back(player.faction.id)
 	return lobby_factions.size() >= 2
 
 
@@ -120,15 +120,8 @@ func _on_player_disconnected(player_id : String):
 
 
 func _on_lobby_launched(game_id):
-#	var data_old = Store.game_data
-#	ResourceSaver.save("res://test_old.tres", data_old)
 	Store.player.ready = false
-	if Store.game_data != null:
-		#Store.game_data.unload_data()
-		Store.game_data = null
-	Store.game_data = GameData.new(game_id, Store.player, Store.lobby) # todo review
-#	var data = Store.game_data
-#	ResourceSaver.save("res://test.tres", data)
+	Store.game_data = GameData.new(game_id, Store.player, Store.lobby)
 	emit_signal("scene_requested", "game_loading")
 
 
@@ -150,5 +143,5 @@ func _on_launch_response(err, _response_code, _headers, _body):
 func _on_lobby_left(err, _response_code, _headers, _body):
 	if err:
 		ErrorHandler.network_response_error(err)
-	Store.reset_player_ready_state()
+	Store.player.ready = false
 	emit_signal("scene_requested", "menu")

@@ -18,7 +18,10 @@ func load_dict(dict):
 		return
 	.load_dict(dict)
 	if not dict is Dictionary or dict.has("faction"):
-		set_faction(dict.faction)
+		if dict.faction is KalaxiaFaction:
+			self.faction = dict.faction
+		else:
+			set_faction(dict.faction)
 
 
 func _get_dict_property_list():

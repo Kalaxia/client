@@ -6,7 +6,7 @@ signal player_removed(player_id)
 export(String) var id = null
 export(Resource) var owner = null # Player
 export(Dictionary) var players
-export(Resource) var option #= LobbyOption.new()
+export(Resource) var option = null #= LobbyOption.new()
 
 
 func _init(dict = null, player : Player = null).(dict):
@@ -31,7 +31,10 @@ func load_dict(dict):
 		else:
 			owner = Player.new(dict.owner)
 		players[owner.id] = owner # relink owner to the array of player
-	option = LobbyOption.new(dict)
+	if option == null:
+		option = LobbyOption.new(dict)
+	else:
+		option.load_dict(dict)
 
 
 func _get_dict_property_list() -> Array:

@@ -3,10 +3,8 @@ extends Resource
 
 signal fleet_sailed(fleet, arrival_time) # todo move copy in system and fleet
 signal score_updated()
-signal fleet_arrived(fleet) # todo move copy in system and fleet
+signal fleet_arrived(fleet)
 
-#const PATH_NAME = "res://game_data.tres"
-#const UNLOAD_PATH_NAME = "res://game_data_unloade.tres"
 const ASSETS = preload("res://resources/assets.tres")
 
 export(String) var id
@@ -43,7 +41,8 @@ func set_players(player_array : Array):
 			insert_player(p)
 		else:
 			players[player.id] = player
-			player.update(p) # todo review
+			player.update(p)
+			# no need to inster it as it should already in players (see contructor)
 	emit_signal("changed")
 
 
@@ -104,10 +103,8 @@ func get_player_color(player_p : Player, is_victory_system = false) -> Color:
 
 
 func fleet_sail(fleet : Fleet, arrival_time):
-	# todo determine where to move ( fleet ? )
 	sailing_fleets[fleet.id] = fleet
 	systems[fleet.system].fleets.erase(fleet.id)
-	# todo signal
 	emit_signal("fleet_sailed", fleet, arrival_time)
 
 

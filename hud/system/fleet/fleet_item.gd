@@ -19,7 +19,7 @@ func _ready():
 	_game_data.selected_state.connect("fleet_selected", self, "_on_fleet_selected")
 	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed")
 	_game_data.selected_state.connect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
-	_game_data.selected_state.connect("fleet_unselected", self, "_on_fleet_unselected") # todo
+	_game_data.selected_state.connect("fleet_unselected", self, "_on_fleet_unselected")
 	button_menu.connect("pressed", self, "open_menu_ship_pressed")
 	button_give.connect("pressed", self, "_on_give_pressed")
 

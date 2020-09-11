@@ -34,10 +34,10 @@ func update_fleet_owner(new_player):
 
 
 func set_player(new_player_id):
-	# todo review
-	player = new_player_id
-	emit_signal("changed")
-	emit_signal("fleet_owner_updated")
+	if player != new_player_id:
+		player = new_player_id
+		emit_signal("changed")
+		emit_signal("fleet_owner_updated")
 
 
 func update_fleet_nb_ships(ship_category : ShipModel, nb_ships : int):
@@ -61,9 +61,10 @@ func update_fleet_nb_ships(ship_category : ShipModel, nb_ships : int):
 
 
 func set_ship_groups(new_ship_groups):
-	ship_groups = new_ship_groups
-	emit_signal("fleet_update_nb_ships")
-	emit_signal("changed")
+	if ship_groups != new_ship_groups:
+		ship_groups = new_ship_groups
+		emit_signal("fleet_update_nb_ships")
+		emit_signal("changed")
 
 
 func set_ship_group_dict(array):

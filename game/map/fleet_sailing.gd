@@ -4,9 +4,7 @@ const _SCALE_CURRENT_PLAYER_FACTOR = 1.0
 
 var origin_position = Vector2.ZERO
 var destination_position = Vector2.ZERO
-var color = null
 var fleet : Fleet = null setget set_fleet
-var arrival_time
 var _game_data : GameData = Store.game_data
 
 onready var sprite_container = $FleetPath/Follower/SpritesContainer
@@ -20,6 +18,7 @@ func _ready():
 	curve.add_point(origin_position)
 	curve.add_point(destination_position)
 	$FleetPath.curve = curve
+	var color = _game_data.get_player_color(_game_data.get_player(fleet.player))
 	sprite_container.set_modulate(color)
 	_set_size_sprite()
 	_set_icone_texture()
@@ -42,7 +41,7 @@ func _set_size_sprite():
 
 
 func _get_flight_time_ms():
-	return (arrival_time - _time_departure)
+	return (fleet.destination_arrival_date - _time_departure)
 
 
 func _get_flight_ratio():

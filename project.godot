@@ -104,11 +104,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/definitions/store/game_data.gd"
 }, {
-"base": "DictResource",
-"class": "Hangar",
-"language": "GDScript",
-"path": "res://resources/definitions/store/hangar.gd"
-}, {
 "base": "Resource",
 "class": "KalaxiaAssets",
 "language": "GDScript",
@@ -274,7 +269,6 @@ _global_script_class_icons={
 "FleetItem": "res://resources/editor/fleet_item.svg",
 "FleetSprite": "res://resources/assets/2d/map/picto_flotte_2.png",
 "GameData": "",
-"Hangar": "",
 "KalaxiaAssets": "res://resources/assets/2d/white_logo.png",
 "KalaxiaBuilding": "",
 "KalaxiaFaction": "res://resources/assets/2d/white_logo.png",

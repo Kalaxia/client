@@ -19,7 +19,10 @@ func load_dict(dict : Dictionary) -> void:
 		return
 	.load_dict(dict)
 	if not dict is Dictionary or dict.has("category"):
-		self.category = ASSETS.ship_models[dict.category]
+		if dict.category is KalaxiaShipModel:
+			self.category = dict.category
+		else:
+			self.category = ASSETS.ship_models[dict.category]
 
 
 func _get_dict_property_list():
@@ -27,10 +30,13 @@ func _get_dict_property_list():
 
 
 func set_category(p_category : ShipModel) -> void:
-	category = p_category
+	if category != p_category:
+		category = p_category
+		emit_signal("changed")
 
 
 func set_quantity(new_quantity):
-	if new_quantity < 0:
+	if new_quantity < 0 or new_quantity == quantity:
 		return
 	quantity = new_quantity
+	emit_signal("changed")

@@ -35,7 +35,7 @@ func _on_hangar_updated(ship_groups):
 
 
 func _on_ship_assigned(_quantity_fleet, quantity_hangar, category):
-	# todo methiode
+	# todo methode
 	var has_added_quantity = false
 	for i in ship_group_hangar:
 		if i.category.category == category.category:
@@ -103,6 +103,3 @@ func _refresh_hangar_elements():
 
 func _on_fleet_update_nb_ships():
 	update_element_fleet()
-	# what ??
-#	if fleet != null and fleet_param.id == fleet.id:
-#		set_fleet(fleet_param)

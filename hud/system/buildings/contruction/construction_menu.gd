@@ -1,4 +1,3 @@
-tool
 extends MenuContainer
 
 signal building_contructing(building)
@@ -10,7 +9,7 @@ onready var conainer_contruction = $MenuBody/Body
 
 
 func _ready():
-	for building in ASSETS.buildings.keys(): # todo change that to ressource
+	for building in ASSETS.buildings.keys():
 		if building != "":
 			var node = CONSTRUCTION_ITEM.instance()
 			node.building_type = ASSETS.buildings[building]

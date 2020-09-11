@@ -13,17 +13,14 @@ onready var fleet_container = $ScrollContainer/HBoxContainer/Fleets
 
 
 func _ready():
-	# todo
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
 	_game_data.player.connect("wallet_updated", self, "_on_wallet_update")
 	_game_data.selected_state.connect("fleet_added", self, "_on_fleet_created")
-#	Store.connect("fleet_update", self, "_on_fleet_update") # todo signal / move inside node 
 	_game_data.selected_state.connect("fleet_erased", self, "_on_fleet_erased")
 	_game_data.selected_state.connect("fleet_selected", self, "_on_fleet_selected")
 	_game_data.selected_state.connect("system_updated", self, "_on_system_updated")
 	_game_data.selected_state.connect("system_fleet_arrived", self, "_on_system_fleet_arrived")
 	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed")
-#	Store.connect("fleet_owner_updated", self, "_on_fleet_owner_updated") # todo signal / move inside node 
 	Network.connect("Victory", self, "_on_victory")
 	fleet_creation_button.connect("pressed", self, "create_fleet")
 	fleet_creation_button.set_visible(false)
@@ -41,10 +38,6 @@ func _unhandled_input(event):
 		if _game_data.selected_state.selected_sytem.fleets.size() > index:
 			_game_data.selected_state.select_fleet(_game_data.selected_state.selected_sytem.fleets.values()[index])
 
-
-#func _on_fleet_owner_updated(fleet):
-#	if fleet_container.has_node(fleet.id):
-#		fleet_container.get_node(fleet.id).update_owner() # todo to inside container
 
 func set_menu_layer(node):
 	menu_layer = node
@@ -106,6 +99,7 @@ func add_fleet_item(fleet):
 func _on_system_fleet_arrived(fleet : Fleet):
 	add_fleet_item(fleet)
 
+
 func _on_system_selected(_old_system):
 	refresh_data()
 
@@ -143,11 +137,6 @@ func _on_request_completed(err, response_code, _headers, body):
 
 func _on_fleet_erased(_fleet):
 	refresh_data()
-
-
-#func _on_fleet_update(fleet): # todo
-#	if fleet.system == Store.selected_system.id:
-#		refresh_data()
 
 
 func _on_system_updated():

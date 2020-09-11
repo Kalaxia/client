@@ -80,15 +80,17 @@ func erase_all_fleet():
 
 
 func set_buildings(buildings_p):
-	buildings = buildings_p
-	emit_signal("building_updated")
-	emit_signal("changed")
+	if buildings != buildings_p:
+		buildings = buildings_p
+		emit_signal("building_updated")
+		emit_signal("changed")
 
 
 func set_hangar(ship_groups):
-	hangar = ship_groups
-	emit_signal("hangar_updated", hangar)
-	emit_signal("changed")
+	if hangar != ship_groups:
+		hangar = ship_groups
+		emit_signal("hangar_updated", hangar)
+		emit_signal("changed")
 
 
 func add_ship_group_to_hangar(ship_group : ShipGroup):

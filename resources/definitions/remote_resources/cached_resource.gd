@@ -22,7 +22,7 @@ export(String) var version = null
 var _lock_load_building = Utils.Lock.new() setget private_set, private_get
 var _lock_ships = Utils.Lock.new() setget private_set, private_get
 var _lock_faction = Utils.Lock.new() setget private_set, private_get
-var dict_loaded = { # todo can cause bugs
+var dict_loaded = {
 	Resource_elements.BUILDING : true, 
 	Resource_elements.SHIP_MODELS : true, 
 	Resource_elements.FACTIONS : true,

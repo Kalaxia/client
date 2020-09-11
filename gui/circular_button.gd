@@ -24,16 +24,16 @@ export(Vector2) var texture_size setget set_texture_size
 
 func _ready():
 	# we ned to do this verifiaction because of the this is a tool and the editor can call _ready multiple time
-	if base_style != null and not base_style.is_connected("changed",self,"_on_changed"):
-		base_style.connect("changed",self,"_on_changed")
-	if selected_style != null and not selected_style.is_connected("changed",self,"_on_changed"):
-		selected_style.connect("changed",self,"_on_changed")
-	if hover_style != null and not hover_style.is_connected("changed",self,"_on_changed"):
-		hover_style.connect("changed",self,"_on_changed")
+	if base_style != null and not base_style.is_connected("changed", self, "_on_changed"):
+		base_style.connect("changed", self, "_on_changed")
+	if selected_style != null and not selected_style.is_connected("changed", self, "_on_changed"):
+		selected_style.connect("changed", self, "_on_changed")
+	if hover_style != null and not hover_style.is_connected("changed", self, "_on_changed"):
+		hover_style.connect("changed", self, "_on_changed")
 	if focus_style != null and not focus_style.is_connected("changed", self, "_on_changed"):
 		focus_style.connect("changed", self, "_on_changed")
-	if texture != null and not texture.is_connected("changed",self,"_on_changed"):
-		texture.connect("changed",self,"_on_changed")
+	if texture != null and not texture.is_connected("changed", self, "_on_changed"):
+		texture.connect("changed", self, "_on_changed")
 
 
 func _draw():
@@ -173,46 +173,46 @@ func set_angle_start(new_angle):
 
 func set_base_style(style):
 	if base_style != null:
-		base_style.disconnect("changed",self,"_on_changed")
+		base_style.disconnect("changed", self, "_on_changed")
 	base_style = style
 	if base_style != null:
-		base_style.connect("changed",self,"_on_changed")
+		base_style.connect("changed", self, "_on_changed")
 	update()
 
 
 func set_hover_style(style):
 	if hover_style != null:
-		hover_style.disconnect("changed",self,"_on_changed")
+		hover_style.disconnect("changed", self, "_on_changed")
 	hover_style = style
 	if hover_style != null:
-		hover_style.connect("changed",self,"_on_changed")
+		hover_style.connect("changed", self, "_on_changed")
 	update()
 
 
 func set_texture(new_texture):
 	if texture != null:
-		texture.disconnect("changed",self,"_on_changed")
+		texture.disconnect("changed", self, "_on_changed")
 	texture = new_texture
 	if texture != null:
-		texture.connect("changed",self,"_on_changed")
+		texture.connect("changed", self, "_on_changed")
 	update()
 
 
 func set_selected_style(style):
 	if selected_style != null:
-		selected_style.disconnect("changed",self,"_on_changed")
+		selected_style.disconnect("changed", self, "_on_changed")
 	selected_style = style
 	if selected_style != null:
-		selected_style.connect("changed",self,"_on_changed")
+		selected_style.connect("changed", self, "_on_changed")
 	update()
 
 
 func set_focus_style(style):
 	if focus_style != null:
-		focus_style.disconnect("changed",self,"_on_changed")
+		focus_style.disconnect("changed", self, "_on_changed")
 	focus_style = style
 	if focus_style != null:
-		focus_style.connect("changed",self,"_on_changed")
+		focus_style.connect("changed", self, "_on_changed")
 	update()
 
 

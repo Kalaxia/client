@@ -6,7 +6,7 @@ var assets : KalaxiaAssets = preload("res://resources/assets.tres")
 var game_data : GameData = null
 var lobby : Lobby = null
 var player : Player = null
-var victorious_faction : float = 0.0 # todo review
+var victorious_faction : int = 0 # todo review
 
 
 func update_assets(cached_data : CachedResource):

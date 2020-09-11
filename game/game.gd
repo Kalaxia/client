@@ -196,17 +196,16 @@ func _set_background_ratio():
 func _on_system_selected(old_system):
 	if old_system != null and map.has_node(old_system.id):
 		map.get_node(old_system.id).unselect()
-	map.get_node(_game_data.selected_state.selected_system.id).select()
+	if map.has_node(_game_data.selected_state.selected_system.id):
+		map.get_node(_game_data.selected_state.selected_system.id).select()
 
 
-func _on_fleet_sailed(fleet, arrival_time):
+func _on_fleet_sailed(fleet, _arrival_time):
 	var sailing_fleet = MOVING_FLEET_SCENE.instance()
 	sailing_fleet.set_name(fleet.id)
 	var origin_system = map.get_node(fleet.system)
 	origin_system.refresh()
 	sailing_fleet.fleet = fleet
-	sailing_fleet.arrival_time = arrival_time # todo is this necessary
-	sailing_fleet.color = _game_data.get_player_color(_game_data.get_player(fleet.player)) # todo is this necessary
 	sailing_fleet.origin_position = origin_system.get_position()
 	sailing_fleet.destination_position = map.get_node(fleet.destination_system).get_position()
 	fleet_container.add_child(sailing_fleet)
@@ -273,7 +272,7 @@ func _on_player_income(data : Dictionary):
 
 # This method is called when the websocket notifies an another player's fleet creation
 # It calls the same store method when the current player creates a new fleet
-func _on_remote_fleet_created(fleet : Dictionary): # todo contaier
+func _on_remote_fleet_created(fleet : Dictionary):
 	_game_data.systems[fleet.system].add_fleet_dict(fleet)
 
 
@@ -286,16 +285,15 @@ func _on_remote_fleet_sailed(fleet : Dictionary):
 
 
 func _on_fleet_arrival(fleet : Dictionary):
-	_update_fleet_system(fleet)
+	_update_fleet_system_arrival(fleet)
 
 
 func _on_system_conquerred(data : Dictionary):
-	# todo
-	var system : System = _game_data.get_system(data.system.id)
+	var system = _game_data.get_system(data.system.id)
 	system.erase_all_fleet()
 	system.update(data.system)
-	_update_fleet_system(data.fleet)
-	map.get_node(data.system.id).refresh()
+	_update_fleet_system_arrival(data.fleet)
+	map.get_node(data.system.id).refresh() # todo container
 	if data.system.player == _game_data.player.id:
 		_game_data.request_hangar(system)
 	if _game_data.players[system.player].faction == _game_data.player.faction:
@@ -305,7 +303,7 @@ func _on_system_conquerred(data : Dictionary):
 		system.set_hangar([])
 
 
-func _update_fleet_system(fleet : Dictionary):
+func _update_fleet_system_arrival(fleet : Dictionary):
 	_game_data.update_fleet_arrival(fleet)
 	map.get_node(fleet.system).refresh_fleet_pins()
 	if fleet_container.has_node(fleet.id):
@@ -313,7 +311,6 @@ func _update_fleet_system(fleet : Dictionary):
 
 
 func _on_victory(data : Dictionary):
-	# todo review
 	Store.victorious_faction = data.victorious_faction
 	_game_data.update_scores(data.scores)
 	emit_signal("scene_requested", "scores")

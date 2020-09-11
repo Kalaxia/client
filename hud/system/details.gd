@@ -19,8 +19,8 @@ func _ready():
 	_game_data.selected_state.connect("system_updated", self, "_on_system_updated")
 	var fleet_details = fleet_details_scene.instance()
 	menu_system.add_child(fleet_details)
-	button_building.connect("pressed",self,"_on_building_pressed")
-	button_fleet.connect("pressed",self,"_on_fleet_pressed")
+	button_building.connect("pressed", self, "_on_building_pressed")
+	button_fleet.connect("pressed", self, "_on_fleet_pressed")
 
 
 func _on_system_selected(_old_system):

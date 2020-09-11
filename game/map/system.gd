@@ -33,7 +33,7 @@ onready var building_pins = $BuildingPins
 
 
 func _ready():
-	_connect_system() # is this necessary
+	_connect_system() # todo is this necessary
 	range_draw_node.visible = false
 	set_position(Vector2(system.coordinates.x , system.coordinates.y) * Utils.SCALE_SYSTEMS_COORDS)
 	star.connect("mouse_input", self, "_on_mouse_input")

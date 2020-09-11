@@ -61,7 +61,7 @@ func _ready():
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_ship_status)
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_building_status)
-	Store.connect("notification_added",self,"_on_notification_added")
+	Store.connect("notification_added", self, "_on_notification_added")
 	timer_auth.connect("timeout", self, "_on_timeout_auth")
 	timer_res.connect("timeout", self, "_on_timeout_res")
 	# if we wait too much and there is no queue of element to load we want to quit

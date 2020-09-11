@@ -32,7 +32,7 @@ git-decribe-flag = --tags --long
 echo = echo
 
 pybabel = pybabel
-pybabel-flags = extract -F babelrc -k text -k LineEdit/placeholder_text -k tr -k hint_tooltip -k TranslationServer.translate -o
+pybabel-flags = extract -F babelrc -k text -k LineEdit/placeholder_text -k tr -k hint_tooltip -k translate -o
 msgmerge = msgmerge
 msgmerge-flags = --update --backup=simple --suffix=.back
 

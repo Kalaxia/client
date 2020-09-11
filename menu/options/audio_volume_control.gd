@@ -21,7 +21,6 @@ func _refersh_data():
 
 
 func set_volume_lable(value_volume):
-	# todo change to a key
 	volume_label.text = tr("menu.option.audio.volume_label %d %f") % [floor(value_volume * 100), linear2db(value_volume)]  
 
 

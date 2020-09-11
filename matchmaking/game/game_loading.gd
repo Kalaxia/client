@@ -2,7 +2,7 @@ extends Control
 
 signal scene_requested(scene)
 
-const TIME_LOADING = 5.0
+const TIME_LOADING = 4.0
 const COLOR_DARKENING = 0.7
 const ASSETS = preload("res://resources/assets.tres")
 

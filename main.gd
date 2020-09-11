@@ -43,17 +43,11 @@ var _is_in_game = false setget _set_is_in_game
 
 
 func _ready():
-	var test = LobbyOption.new()
-	test.connect("changed", self, "test_f")
-	test.load_dict({"speed" : "test", "size" : "test2"})
 	Config.connect("locale_reloaded", self, "_on_locale_reloaded")
 	if scenes["menu"].scene == null or Network.token == null:
 		change_scene_loading(scenes)
 		yield($Level.get_child(0), "finished")
 	change_level(scenes.menu.scene)
-
-func test_f():
-	print("changed")
 
 
 func change_scene_loading(load_queue_param):
