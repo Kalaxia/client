@@ -39,7 +39,3 @@ func set_victory_points(new_int):
 	victory_points = new_int
 	emit_signal("score_updated")
 	emit_signal("changed")
-
-
-static func get_max_points():
-	return ASSETS.constants.victory_points

@@ -52,7 +52,8 @@ func _on_systems_loaded(err, _response_code, headers, body):
 	init_systems(JSON.parse(body.get_string_from_utf8()).result)
 
 
-func _on_game_started(_data):
+func _on_game_started(data):
+	Store.game_data.victory_points_to_win = data.victory_points
 	emit_signal("scene_requested", "game")
 
 
