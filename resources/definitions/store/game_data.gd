@@ -225,6 +225,6 @@ func update_scores(scores_new) -> void:
 			else:
 				scores[score.faction] = ScoreFaction.new(score)
 	else:
-		printerr("update score with invalide data type")
+		push_error("update score with invalide data type")
 	emit_signal("changed")
 	emit_signal("score_updated")
