@@ -1,6 +1,7 @@
 extends Node2D
 
 const _SCALE_CURRENT_PLAYER_FACTOR = 1.0
+const BASE_SCALE = 0.75
 
 var origin_position = Vector2.ZERO
 var destination_position = Vector2.ZERO
@@ -37,7 +38,7 @@ func set_fleet(new_fleet):
 func _set_size_sprite():
 	if fleet != null and sprite_container != null:
 		var scale_sprite = _SCALE_CURRENT_PLAYER_FACTOR if _game_data.does_belong_to_current_player(fleet) else 1.0
-		sprite_container.scale = Vector2(0.5 * scale_sprite, 0.5 * scale_sprite)
+		sprite_container.scale = Vector2(BASE_SCALE * scale_sprite, BASE_SCALE * scale_sprite)
 
 
 func _get_flight_time_ms():
