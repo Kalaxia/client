@@ -19,6 +19,10 @@ signal system_owner_updated()
 signal system_updated()
 signal system_fleet_arrived(fleet)
 signal system_fleet_owner_updated(fleet)
+signal ship_queue_finished(ship_group)
+signal ship_queue_added(ship_queue)
+signal ship_queue_removed(ship_queue)
+
 
 export(Resource) var selected_system = null setget select_system
 export(Resource) var selected_fleet = null setget select_fleet
@@ -123,6 +127,12 @@ func _disconnect_system(system : System):
 		system.disconnect("fleet_arrived", self, "_on_fleet_arrived")
 	if system.is_connected("fleet_owner_updated", self, "_on_system_fleet_owner_updated"):
 		system.disconnect("fleet_owner_updated", self, "_on_system_fleet_owner_updated")
+	if system.is_connected("ship_queue_finished", self, "_on_ship_queue_finished"):
+		system.disconnect("ship_queue_finished", self, "_on_ship_queue_finished")
+	if system.is_connected("ship_queue_added", self, "_on_ship_queue_added"):
+		system.disconnect("ship_queue_added", self, "_on_ship_queue_added")
+	if system.is_connected("ship_queue_removed", self, "_on_ship_queue_removed"):
+		system.disconnect("ship_queue_removed", self, "_on_ship_queue_removed")
 
 
 func _connect_system(system : System):
@@ -144,10 +154,28 @@ func _connect_system(system : System):
 		system.connect("fleet_arrived", self, "_on_fleet_arrived")
 	if not system.is_connected("fleet_owner_updated", self, "_on_system_fleet_owner_updated"):
 		system.connect("fleet_owner_updated", self, "_on_system_fleet_owner_updated")
+	if not system.is_connected("ship_queue_finished", self, "_on_ship_queue_finished"):
+		system.connect("ship_queue_finished", self, "_on_ship_queue_finished")
+	if not system.is_connected("ship_queue_added", self, "_on_ship_queue_added"):
+		system.connect("ship_queue_added", self, "_on_ship_queue_added")
+	if not system.is_connected("ship_queue_removed", self, "_on_ship_queue_removed"):
+		system.connect("ship_queue_removed", self, "_on_ship_queue_removed")
 
 
 func _on_system_fleet_owner_updated(fleet):
 	emit_signal("system_fleet_owner_updated", fleet)
+
+
+func _on_ship_queue_removed(ship_queue):
+	emit_signal("ship_queue_removed", ship_queue)
+
+
+func _on_ship_queue_added(ship_queue):
+	emit_signal("ship_queue_added", ship_queue)
+
+
+func _on_ship_queue_finished(ship_group):
+	emit_signal("ship_queue_finished", ship_group)
 
 
 func _on_fleet_arrived(fleet):

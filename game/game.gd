@@ -294,11 +294,13 @@ func _on_system_conquerred(data : Dictionary):
 	map.get_node(data.system.id).refresh() # todo container
 	if data.system.player == _game_data.player.id:
 		_game_data.request_hangar(system)
+		_game_data.request_ship_queues(system)
 	if _game_data.players[system.player].faction == _game_data.player.faction:
 		_game_data.request_buildings(system)
 	else:
 		system.set_buildings([])
 		system.set_hangar([])
+		system.ship_queues = []
 
 
 func _update_fleet_system_arrival(fleet : Dictionary):
@@ -319,8 +321,7 @@ func _on_faction_points_update(scores : Dictionary):
 
 
 func _on_ship_queue_finished(ship_data : Dictionary): # todo
-	var ship_group = ShipGroup.new(ship_data)
-	_game_data.get_system(ship_data.system).add_ship_group_to_hangar(ship_group)
+	_game_data.get_system(ship_data.system).queue_finished(ShipGroup.new(ship_data))
 	Audio.ship_queue_finished_audio(ship_group)
 
 

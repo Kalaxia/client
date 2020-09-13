@@ -135,6 +135,7 @@ func _on_ship_build_requested(err, response_code, _headers, body, quantity, cate
 	if response_code == HTTPClient.RESPONSE_CREATED or response_code == HTTPClient.RESPONSE_OK:
 		var result = JSON.parse(body.get_string_from_utf8()).result
 		_game_data.player.update_wallet( - category.cost * quantity)
+		system.add_ship_queue(ShipQueue.new(result))
 		emit_signal("ship_construction_started", result)
 		# todo add shipqueue in game_data
 	_lock_build_ships.unlock()

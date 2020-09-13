@@ -3,50 +3,40 @@ extends MenuContainer
 const _SHIP_PRODUCTION_LINE = preload("res://hud/system/buildings/hangar/ship_production_line.tscn")
 const _SHIP_TYPE_BUILD = preload("res://hud/system/buildings/hangar/ship_type_build.tscn")
 const _SHIP_HANGARD = preload("res://hud/system/buildings/hangar/ship_type_hangar.tscn")
+const ASSETS : KalaxiaAssets = preload("res://resources/assets.tres")
 
 var _game_data : GameData = Store.game_data
-var ship_group_array = [] setget set_ship_group_array
-var ship_queue_array = [] setget set_ship_queue_array, get_ship_queue_array
-
+var ship_group_array = [] setget set_ship_group_array # todo remove ship_group_array
+var ship_queue_array = [] setget set_ship_queue_array, get_ship_queue_array # todo remove ship_queue_array
 var _lock_ship_prod_update = Utils.Lock.new()
 
 onready var production_list_vbox_elements = $MenuBody/Body/ShipProductionList/VBoxContainer/ScrollContainer/VBoxContainer
 onready var ship_order_element = $MenuBody/Body/ShipOrder/VBoxContainer/ShipTypeBuild
 onready var hangar_element = $MenuBody/Body/ShipHangar/VBoxContainer/ScrollContainer/HBoxContainer
 
-onready var assets : KalaxiaAssets = load("res://resources/assets.tres")
 
 func _ready():
 	_game_data.selected_state.connect("hangar_updated", self, "_on_hangar_updated")
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
 	_game_data.selected_state.connect("system_updated", self, "_on_system_updated")
-	# todo
-	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
-	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
-	for category in assets.ship_models.values():
+	_game_data.selected_state.connect("ship_queue_finished", self, "_on_ship_queue_finished")
+	_game_data.selected_state.connect("ship_queue_removed", self, "_on_ship_queue_removed")
+	_game_data.selected_state.connect("ship_queue_added", self, "_on_ship_construction_started")
+	_init_node_ship_hangar()
+	select_group(ASSETS.ship_models.values()[0])
+	refresh_hangar()
+	if _game_data.selected_state.selected_system != null:
+		set_ship_queue_array(_game_data.selected_state.selected_system.ship_queues)
+
+
+func _init_node_ship_hangar():
+	for category in ASSETS.ship_models.values():
 		var node = _SHIP_HANGARD.instance()
 		node.category = category
 		node.quantity = 0
 		node.name = category.category
 		hangar_element.add_child(node)
 		node.connect("pressed", self, "select_group", [category])
-	select_group(assets.ship_models.values()[0])
-	refresh_hangar()
-	refresh_queue_ships()
-
-
-func refresh_queue_ships():
-	# todo move
-	#
-	# this may require a bit of time to fetch the data
-	# it may be better to store the data inside the system
-	_remove_all_queued_elements()
-	Network.req(self, "_on_queue_ships_received"
-		, "/api/games/" +
-			_game_data.id+  "/systems/" +
-			_game_data.selected_state.selected_system.id + "/ship-queues/"
-		, HTTPClient.METHOD_GET
-	)
 
 
 func refresh_hangar():
@@ -72,8 +62,9 @@ func _on_system_selected(old_system):
 	var system = _game_data.selected_state.selected_system
 	if system.buildings.size() == 0 or system.buildings[0].kind.kind != "shipyard":
 		close_request()
-	if _game_data.does_belong_to_current_player(system) and (old_system == null or old_system.id != system.id):
-		refresh_queue_ships()
+	if _game_data.does_belong_to_current_player(system) \
+			and (old_system == null or old_system.id != system.id):
+		set_ship_queue_array(system.ship_queues)
 		refresh_hangar()
 	elif old_system == null or old_system.id != system.id:
 		_remove_all_queued_elements()
@@ -93,24 +84,17 @@ func set_ship_group_array(new_array):
 		hangar_element.get_node(ship_group.category.category).quantity = ship_group.quantity
 
 
-func _on_queue_ships_received(err, response_code, _headers, body):
-	if err:
-		ErrorHandler.network_response_error(err)
-	if response_code == HTTPClient.RESPONSE_OK:
-		var result = JSON.parse(body.get_string_from_utf8()).result
-		var array_ship_queue_result = []
-		for i in result:
-			array_ship_queue_result.push_back(ShipQueue.new(i))
-		set_ship_queue_array(array_ship_queue_result)
-
-
 func _on_ship_queue_finished(ship_data):
 	remove_ship_queue_id(ship_data.id)
 
 
-func _on_ship_construction_started(ship_queue : Dictionary):
+func _on_ship_queue_removed(ship_queue):
+	remove_ship_queue_id(ship_queue.id)
+
+
+func _on_ship_construction_started(ship_queue : ShipQueue):
 	if ship_queue != null:
-		add_ship_queue(ShipQueue.new(ship_queue))
+		add_ship_queue(ship_queue)
 
 
 func select_group(category):

@@ -10,6 +10,9 @@ signal updated()
 signal fleet_arrived(fleet)
 signal building_contructed(building) # todo selected system state
 signal fleet_owner_updated(fleet)
+signal ship_queue_finished(ship_group)
+signal ship_queue_added(ship_queue)
+signal ship_queue_removed(ship_queue) # emited when a ship_queue is removed but not finished
 
 const MAX_NUMBER_OF_BUILDING = 1
 
@@ -22,6 +25,7 @@ export(Array, Resource) var buildings setget set_buildings
 export(Array, Resource) var hangar setget set_hangar
 export(String) var game = null
 export(String) var id
+export(Array, Resource) var ship_queues setget set_ship_queues
 
 
 func _init(dict = null).(dict):
@@ -41,6 +45,10 @@ func load_dict(dict):
 				add_fleet_dict(fleet)
 	if not dict is Dictionary or dict.has("coordinates"):
 		coordinates = Vector2(dict.coordinates.x, dict.coordinates.y)
+	if not dict is Dictionary or dict.has("ship_queues"):
+		ship_queues.clear()
+		for queue in dict.ship_queues:
+			ship_queues.push_back(ShipQueue.new(queue) if not queue is ShipQueue else queue)
 
 
 func _get_dict_property_list() -> Array:
@@ -146,6 +154,35 @@ func building_contructed(building):
 	emit_signal("building_contructed", building)
 
 
+func _on_fleet_owner_updated(fleet):
+	if fleet.system == id:
+		emit_signal("fleet_owner_updated", fleet)
+
+
+func queue_finished(ship_group : ShipGroup):
+	for i in range(ship_queues.size()):
+		if ship_queues[i].id == ship_group.id:
+			ship_queues.remove(i)
+			break
+	add_ship_group_to_hangar(ship_group)
+	emit_signal("ship_queue_finished", ship_group)
+
+
+func add_ship_queue(ship_queue : ShipQueue):
+	ship_queues.push_back(ship_queue)
+	emit_signal("ship_queue_added", ship_queue)
+
+
+func set_ship_queues(new_ship_queues):
+	if ship_queues != new_ship_queues:
+		for queue in ship_queues:
+			emit_signal("ship_queue_removed", queue)
+		ship_queues = new_ship_queues
+		emit_signal("changed")
+		for queue in ship_queues:
+			emit_signal("ship_queue_added", queue)
+
+
 func _add_fleet_to_storage(fleet):
 	fleets[fleet.id] = fleet
 	fleet.connect("owner_updated", self, "_on_fleet_owner_updated", [fleet])
@@ -159,8 +196,3 @@ func _remove_fleet_from_storage(fleet):
 		emit_signal("fleet_fleet_erased", fleet)
 		emit_signal("changed")
 	return has_ereased
-
-
-func _on_fleet_owner_updated(fleet):
-	if fleet.system == id:
-		emit_signal("fleet_owner_updated", fleet)
