@@ -13,7 +13,7 @@
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
-load_path = "res://.import/picto_syteme.png-64483ceb7a666f41f079c453a2972643.stex"
+load_path = "res://.import/victory.svg-1cf9d5447f7a6d6e554d9626c55de119.stex"
 
 [node name="HUD" type="Control" groups=[
 "theme_faction_container",
@@ -63,9 +63,7 @@ margin_bottom = 31.0
 custom_styles/panel = ExtResource( 6 )
 text = "hud.scores"
 closable = false
-minimisable = true
 texture = SubResource( 1 )
-custom_style = null
 
 [node name="MenuBody" type="PanelContainer" parent="ScoresContainer/MenuContainer"]
 show_behind_parent = true
