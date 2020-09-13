@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://game/game.gd" type="Script" id=1]
 [ext_resource path="res://resources/assets/2d/background_general.png" type="Texture" id=2]
 [ext_resource path="res://game/map/particle_map_material.tres" type="Material" id=3]
 [ext_resource path="res://hud/hud.tscn" type="PackedScene" id=4]
+[ext_resource path="res://game/event_capturer.gd" type="Script" id=5]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -71,6 +72,13 @@ process_material = ExtResource( 3 )
 texture = SubResource( 1 )
 
 [node name="ParallaxLayer0" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="EventCapturer" type="Control" parent="ParallaxBackground/ParallaxLayer0"]
+mouse_filter = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Map" type="Node2D" parent="ParallaxBackground/ParallaxLayer0"]
 

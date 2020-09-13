@@ -37,12 +37,13 @@ onready var map = $ParallaxBackground/ParallaxLayer0/Map
 onready var fleet_container = $ParallaxBackground/ParallaxLayer0/Map/FleetContainer
 onready var background = $ParallaxBackground/Background
 onready var hud = $ParallaxBackground/HUD
-
+onready var event_capturer = $ParallaxBackground/ParallaxLayer0/EventCapturer
 
 func _ready():
 	_game_data.update_player_me()
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
 	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed")
+	event_capturer.connect("gui_input", self, "_on_gui_input")
 	Network.connect("CombatEnded", self, "_on_combat_ended")
 	Network.connect("PlayerIncome", self, "_on_player_income")
 	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
@@ -98,8 +99,17 @@ func _process(delta):
 
 func _input(event):
 	# mouse event has priority on the GUI
-	if event is InputEventMouseButton:
-		_manage_input(event)
+	if event is InputEventKey or event is InputEventMouseButton:
+		if event.is_action_released("ui_move_map_left"):
+			_motion_camera[Vector2.LEFT] = false
+		if event.is_action_released("ui_move_map_right"):
+			_motion_camera[Vector2.RIGHT] = false
+		if event.is_action_released("ui_move_map_up"):
+			_motion_camera[Vector2.UP] = false
+		if event.is_action_released("ui_move_map_down"):
+			_motion_camera[Vector2.DOWN] = false
+		if event.is_action_released("ui_drag_map"):
+			_is_map_being_dragged = false
 	elif event is InputEventMouseMotion:
 		if _is_map_being_dragged:
 			_move_camera( - event.get_relative() * $Camera2D.zoom)
@@ -108,38 +118,27 @@ func _input(event):
 
 func _unhandled_input(event):
 	# key events has not priority over gui
-	if event is InputEventKey:
-		_manage_input(event)
-
-
-func _manage_input(event):
 	if event is InputEventKey or event is InputEventMouseButton:
 		if event.is_action_pressed("ui_move_map_left"):
 			_motion_camera[Vector2.LEFT] = true
-		elif event.is_action_released("ui_move_map_left"):
-			_motion_camera[Vector2.LEFT] = false
 		if event.is_action_pressed("ui_move_map_right"):
 			_motion_camera[Vector2.RIGHT] = true
-		elif event.is_action_released("ui_move_map_right"):
-			_motion_camera[Vector2.RIGHT] = false
 		if event.is_action_pressed("ui_move_map_up"):
 			_motion_camera[Vector2.UP] = true
-		elif event.is_action_released("ui_move_map_up"):
-			_motion_camera[Vector2.UP] = false
 		if event.is_action_pressed("ui_move_map_down"):
 			_motion_camera[Vector2.DOWN] = true
-		elif event.is_action_released("ui_move_map_down"):
-			_motion_camera[Vector2.DOWN] = false
-		if event.is_action_pressed("ui_map_center_system"):
+		if event.is_action("ui_map_center_system"):
 			center_on_selected_system()
+
+
+func _on_gui_input(event): # this is commong form a connection to event_capturer
+	if event is InputEventKey or event is InputEventMouseButton:
 		if event.is_action_pressed("ui_zoom_in_map"):
 			_zoom_camera(1.0 / _ZOOM_FACTOR)
 		if event.is_action_pressed("ui_zoom_out_map"):
 			_zoom_camera(_ZOOM_FACTOR)
 		if event.is_action_pressed("ui_drag_map"):
 			_is_map_being_dragged = true
-		if event.is_action_released("ui_drag_map"):
-			_is_map_being_dragged = false
 
 
 func draw_systems():
