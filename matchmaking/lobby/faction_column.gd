@@ -15,6 +15,7 @@ enum UPDATE_PLAYER_STATE {
 onready var container = $ScrollContainer/VBoxContainer
 onready var scroll_container = $ScrollContainer
 onready var header_banner = $Header/banner
+onready var label_faction = $Header/Label
 
 
 func _ready():
@@ -70,7 +71,9 @@ func _update_faction_banner():
 		header_banner.visible = true
 		header_banner.texture = ASSETS.factions[faction].banner
 		style.border_color = ASSETS.factions[faction].get_color()
+		label_faction.text = ASSETS.factions[faction].display_name
 	else:
 		style.border_color = Color(0.12,0.12,0.12)
 		header_banner.visible = false
+		label_faction.text = ""
 	scroll_container.set("custom_styles/bg", style)
