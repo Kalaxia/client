@@ -8,7 +8,7 @@ var system_id = null
 
 var _game_data : GameData = Store.game_data
 
-onready var ship_group_element_container = $MenuBody/Body/ScrollContainer/ShipList
+onready var ship_group_element_container = $MenuBody/Body/LeftColomn/ScrollBoxContainer/ScrollContainer/ShipList
 onready var assets = load("res://resources/assets.tres")
 
 
@@ -16,6 +16,7 @@ func _ready():
 	if fleet != null and not fleet.is_connected("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships"):
 		fleet.connect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
 	_game_data.selected_state.connect("hangar_updated", self, "_on_hangar_updated") # is it necessary ?
+	# NOTE : ship_groupe
 	for category in assets.ship_models.values():
 		var node = _SHIP_GROUP_ELEMENT.instance()
 		node.ship_category = category
@@ -36,6 +37,7 @@ func _on_hangar_updated(ship_groups):
 
 func _on_ship_assigned(_quantity_fleet, quantity_hangar, category):
 	# todo methode
+	# NOTE : ship_groupe
 	var has_added_quantity = false
 	for i in ship_group_hangar:
 		if i.category.category == category.category:
@@ -52,6 +54,7 @@ func _on_ship_assigned(_quantity_fleet, quantity_hangar, category):
 
 
 func update_hangar():
+	# NOTE : ship_groupe
 	if fleet == null or system_id == fleet.system:
 		return
 	system_id = fleet.system
@@ -63,6 +66,7 @@ func update_hangar():
 
 
 func update_element_fleet():
+	# NOTE : ship_groupe
 	var node_updated = []
 	if ship_group_element_container == null:
 		return
@@ -93,6 +97,7 @@ func set_ship_group_hangar(array):
 
 
 func _refresh_hangar_elements():
+	# NOTE : ship_groupe
 	if ship_group_element_container == null:
 		return
 	for node in ship_group_element_container.get_children():
