@@ -1,6 +1,8 @@
 extends VBoxContainer
 
-const FORCE_DISABLED_RESIZABLE_ON_EXIT = true
+const FORCE_DISABLED_RESIZABLE_ON_EXIT = false
+
+export(bool) var enabled = true setget set_enabled
 
 var is_resizable = false
 
@@ -14,13 +16,19 @@ func _ready():
 	_check_option_state()
 
 
+func set_enabled(new_bool):
+	enabled = new_bool
+	_check_option_state()
+
+
 func _check_option_state():
 	$fullscreen.is_checked = OS.window_fullscreen
+	$fullscreen.disabled = not enabled
 	$Maximize.is_checked = OS.window_maximized
 	$Redimentioner.is_checked = OS.window_resizable
-	$Maximize.disabled = OS.window_fullscreen
-	$Redimentioner.disabled =  OS.window_maximized || OS.window_fullscreen
-	$screen.disabled = OS.get_screen_count() <= 1
+	$Maximize.disabled = OS.window_fullscreen or not enabled
+	$Redimentioner.disabled =  (OS.window_maximized or OS.window_fullscreen) or not enabled
+	$screen.disabled = OS.get_screen_count() <= 1 or not enabled
 	$screen.max_value = OS.get_screen_count()-1
 	$screen.value = OS.current_screen
 

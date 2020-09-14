@@ -263,6 +263,11 @@ _global_script_classes=[ {
 "class": "Version",
 "language": "GDScript",
 "path": "res://global/resources/version.gd"
+}, {
+"base": "PanelContainer",
+"class": "VolumeOption",
+"language": "GDScript",
+"path": "res://menu/options/audio_volume_control.gd"
 } ]
 _global_script_class_icons={
 "AudioResource": "",
@@ -315,7 +320,8 @@ _global_script_class_icons={
 "System": "",
 "TransparentCircleButton": "res://resources/editor/custom_circle_button.svg",
 "Utils": "",
-"Version": ""
+"Version": "",
+"VolumeOption": ""
 }
 
 [application]
