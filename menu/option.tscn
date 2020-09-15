@@ -24,7 +24,6 @@ script = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-language_enabled = false
 
 [node name="Header" type="Control" parent="."]
 margin_right = 1920.0
@@ -349,7 +348,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 24.0
 margin_right = -4.0
 margin_bottom = -4.0
 
@@ -360,8 +359,8 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.05
 
 [node name="AudioScrollContainer" type="ScrollContainer" parent="TabContainer/Audio"]
-margin_right = 1841.0
-margin_bottom = 906.0
+margin_right = 1912.0
+margin_bottom = 1013.0
 rect_min_size = Vector2( 800, 400 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -370,8 +369,8 @@ __meta__ = {
 }
 
 [node name="AudioContainer" type="VBoxContainer" parent="TabContainer/Audio/AudioScrollContainer"]
-margin_right = 1841.0
-margin_bottom = 906.0
+margin_right = 1912.0
+margin_bottom = 1013.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -388,13 +387,13 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 24.0
 margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="GraphicsScrollContainer2" type="ScrollContainer" parent="TabContainer/Graphics"]
-margin_right = 1841.0
-margin_bottom = 906.0
+margin_right = 1912.0
+margin_bottom = 1013.0
 rect_min_size = Vector2( 800, 400 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -405,26 +404,26 @@ __meta__ = {
 [node name="GraphicsOption" parent="TabContainer/Graphics/GraphicsScrollContainer2" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 1841.0
-margin_bottom = 906.0
+margin_right = 1912.0
+margin_bottom = 1013.0
 
 [node name="language" type="VBoxContainer" parent="TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 24.0
 margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/language"]
-margin_right = 1841.0
-margin_bottom = 906.0
+margin_right = 1912.0
+margin_bottom = 1021.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="OptionLang" parent="TabContainer/language/ScrollContainer" instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 1841.0
+margin_right = 1912.0
 margin_bottom = 55.0

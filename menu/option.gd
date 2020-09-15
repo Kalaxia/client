@@ -1,7 +1,5 @@
 extends Control
 
-signal scene_requested(scene)
-
 const KEY_BINDING_OPTION = preload("res://menu/options/option_key_binding.tscn")
 const AUDIO_VOLUME = preload("res://menu/options/audio_volume_control.tscn")
 
@@ -38,7 +36,6 @@ func _ready():
 		audio_container.add_child(node)
 	_update_language_enabled()
 	_update_graphical_option_enabled()
-	_updated_shortcut_enabled()
 
 
 func set_shortcut_enabled(new_bool):
@@ -99,9 +96,3 @@ func _on_mark_button_key_binding(action, index):
 
 func _on_unmark_button_key_binding():
 	pass
-
-
-func _on_back_to_main_menu():
-	Config.save_config_file()
-	Config.reload_locale()
-	emit_signal("scene_requested", "menu")

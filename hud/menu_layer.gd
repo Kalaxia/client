@@ -8,12 +8,14 @@ const MENU_FLEET = preload("res://hud/system/fleet/menu_fleet.tscn")
 const MENU_HANGAR = preload("res://hud/system/buildings/hangar.tscn")
 const MENU_CONSTRUCTION = preload("res://hud/system/buildings/contruction/construction_menu.tscn")
 const MENU_FINANCE = preload("res://hud/hud_menu/finance/finance_menu.tscn")
+const MENU_OPTIONS = preload("res://hud/hud_menu/options/menu_option_hud.tscn")
 
 var menus = {
 	"menu_fleet" : MENU_FLEET.instance(),
 	"menu_shipyard" : MENU_HANGAR.instance(),
 	"menu_construction" : MENU_CONSTRUCTION.instance(),
 	"menu_finance" : MENU_FINANCE.instance(),
+	"menu_options" : MENU_OPTIONS.instance(),
 }
 
 
