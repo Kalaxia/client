@@ -97,14 +97,16 @@ script = ExtResource( 5 )
 max_audio_playback = 4
 sound_resource = ExtResource( 6 )
 default_bus = "UI"
+default_volume = -10.0
 
 [node name="AudioStackingShipQueueFinished" type="Node" parent="AudioParent"]
 script = ExtResource( 5 )
 sound_resource = ExtResource( 7 )
 default_bus = "UI"
+default_volume = -18.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioParent"]
 stream = ExtResource( 8 )
-volume_db = -25.0
+volume_db = -23.0
 autoplay = true
 bus = "Ambiant"

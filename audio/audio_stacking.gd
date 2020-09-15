@@ -10,17 +10,17 @@ export(Resource) var sound_resource setget set_sound_resource # AudioResource
 # if this is true is a new sound is tried to be played but we have already max_audio_playback sonds playing then the oldest sond is stoped and a new one is played in its stead
 export(bool) var override_sound = false 
 export(String) var default_bus = "Master"
-export(float) var default_volume = 0
-export(float) var default_pitch_scale = 1
+export(float, -100.0, 0.0) var default_volume = 0.0
+export(float, 0.0, 4.0) var default_pitch_scale = 1.0
 
+var playing_in_editor = false setget set_playing_in_editor # only use in editor, has no effect ingame
 var _audio_streams = [] setget private_set
 
-
 func _ready():
-	if not Engine.editor_hint:
-		_add_audio_stream()
-	else:
+	if Engine.editor_hint:
 		update_configuration_warning()
+	else:
+		_add_audio_stream()
 
 
 func _notification(what):
@@ -31,12 +31,21 @@ func _notification(what):
 
 
 func _get_configuration_warning():
+	if not Engine.editor_hint:
+		return ""
 	for node in get_children():
-		if node is AudioStreamPlayer:
+		if node is AudioStreamPlayer and not _audio_streams.has(node):
 			return "The node should not have AudioStreamPlayer attached, " \
 					+ "the player wont be considered by the manager."
 	return ""
 
+
+func _get_property_list():
+	return [{
+		"name" : "playing_in_editor",
+		"type" : TYPE_BOOL,
+		"usage" : PROPERTY_USAGE_EDITOR,
+	}]
 
 func private_set(_new_varaible):
 	pass # cannot set from outside
@@ -107,3 +116,27 @@ static func _node_play_sound(node : AudioStreamPlayer, audio_resource, volume_dB
 	node.pitch_scale = pitch_scale
 	node.bus = bus
 	node.play()
+
+
+# editor only code
+func set_playing_in_editor(new_bool):
+	if Engine.editor_hint:
+		playing_in_editor = new_bool
+		if playing_in_editor:
+			var node
+			if _audio_streams.size() > 0:
+				node = _audio_streams[0]
+			else:
+				node = _add_audio_stream()
+			_node_play_sound(node, sound_resource, default_volume, default_pitch_scale, default_bus)
+			node.connect("finished", self, "_on_sound_finished_editor", [], CONNECT_ONESHOT)
+		else:
+			while _audio_streams.size() > 0:
+				var node = _audio_streams.pop_back()
+				node.playing = false
+				node.queue_free()
+		property_list_changed_notify()
+
+
+func _on_sound_finished_editor():
+	self.playing_in_editor = false
