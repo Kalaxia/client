@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=32 format=2]
+[gd_resource type="Theme" load_steps=34 format=2]
 
 [ext_resource path="res://themes/font/font_muli_text_normal.tres" type="DynamicFont" id=1]
 [ext_resource path="res://themes/theme_faction/adranite/check_button/styleboxflat_pressed.tres" type="StyleBox" id=2]
@@ -31,6 +31,8 @@
 [ext_resource path="res://themes/theme_faction/adranite/round_selectable_panel/selected_sytle_left.tres" type="StyleBox" id=29]
 [ext_resource path="res://themes/theme_faction/adranite/round_selectable_panel/hover_sytle_right.tres" type="StyleBox" id=30]
 [ext_resource path="res://themes/theme_faction/adranite/round_selectable_panel/base_sytle_right.tres" type="StyleBox" id=31]
+[ext_resource path="res://themes/theme_faction/adranite/lines/styleboxline_v.tres" type="StyleBox" id=32]
+[ext_resource path="res://themes/theme_faction/adranite/lines/styleboxline_h.tres" type="StyleBox" id=33]
 
 [resource]
 default_font = ExtResource( 1 )
@@ -67,6 +69,8 @@ CircularButton/styles/base_style = ExtResource( 21 )
 CircularButton/styles/focus_style = ExtResource( 20 )
 CircularButton/styles/hover_style = ExtResource( 19 )
 CircularButton/styles/selected_style = ExtResource( 22 )
+HSeparator/constants/separation = 4
+HSeparator/styles/separator = ExtResource( 33 )
 Label/colors/font_color = Color( 1, 1, 1, 1 )
 Label/colors/font_color_shadow = Color( 0, 0, 0, 0.384314 )
 Label/colors/font_outline_modulate = Color( 0, 0, 0, 0.156863 )
@@ -150,3 +154,5 @@ VScrollBar/styles/grabber_highlight = ExtResource( 16 )
 VScrollBar/styles/grabber_pressed = ExtResource( 15 )
 VScrollBar/styles/scroll = ExtResource( 14 )
 VScrollBar/styles/scroll_focus = null
+VSeparator/constants/separation = 4
+VSeparator/styles/separator = ExtResource( 32 )
