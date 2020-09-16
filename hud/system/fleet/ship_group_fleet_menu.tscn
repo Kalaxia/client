@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://hud/system/fleet/ship_group_fleet_menu.gd" type="Script" id=1]
 [ext_resource path="res://gui/spin_box_imediate_update.gd" type="Script" id=2]
-[ext_resource path="res://gui/utils/button_click_sound_utils.gd" type="Script" id=3]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -22,89 +21,98 @@ load_path = "res://.import/Precision.svg-49c8a2035941f98d4e05ebd44b03227a.stex"
 
 [sub_resource type="StreamTexture" id=5]
 flags = 4
-load_path = "res://.import/fleet.png-7b3afe225b29b788c820a5d01173695d.stex"
+load_path = "res://.import/money_64px.png-14695073b2b7bd4dbc437a5f1f5458b7.stex"
 
 [sub_resource type="StreamTexture" id=6]
 flags = 4
+load_path = "res://.import/warning.svg-48fcaec83b398c06c7f00c833a315856.stex"
+
+[sub_resource type="StreamTexture" id=7]
+flags = 4
+load_path = "res://.import/money_64px.png-14695073b2b7bd4dbc437a5f1f5458b7.stex"
+
+[sub_resource type="StreamTexture" id=8]
+flags = 4
+load_path = "res://.import/fleet.png-7b3afe225b29b788c820a5d01173695d.stex"
+
+[sub_resource type="StreamTexture" id=9]
+flags = 4
 load_path = "res://.import/shipyard_64px.png-9659b91d7bdcf9c341e17aaa0f9fc354.stex"
 
-[node name="ShipGroupFleetMenu" type="MarginContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="ShipGroupFleetMenu" type="PanelContainer"]
 mouse_filter = 1
-custom_constants/margin_right = 3
-custom_constants/margin_top = 1
-custom_constants/margin_left = 1
-custom_constants/margin_bottom = 1
+size_flags_horizontal = 3
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 2247.0
-margin_bottom = 1079.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 2239.0
-margin_bottom = 1071.0
+margin_right = 617.0
+margin_bottom = 310.0
+custom_constants/margin_right = 3
+custom_constants/margin_top = 3
+custom_constants/margin_left = 3
+custom_constants/margin_bottom = 3
 
-[node name="Control" type="Control" parent="PanelContainer/HBoxContainer"]
-visible = false
-margin_right = 3.0
-margin_bottom = 1064.0
-rect_min_size = Vector2( 3, 0 )
-mouse_filter = 1
+[node name="Main" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 607.0
+margin_bottom = 300.0
+custom_constants/separation = 10
 
-[node name="ShipModel" type="Label" parent="PanelContainer/HBoxContainer"]
-margin_top = 525.0
-margin_right = 205.0
-margin_bottom = 539.0
-rect_min_size = Vector2( 150, 0 )
-text = "hud.details.fleet.ship_model %s"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="ShipModel" type="VBoxContainer" parent="MarginContainer/Main"]
+margin_right = 604.0
+margin_bottom = 53.0
+custom_constants/separation = 7
+alignment = 1
 
-[node name="Control2" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 209.0
-margin_right = 219.0
-margin_bottom = 1064.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureModel" type="TextureRect" parent="PanelContainer/HBoxContainer"]
-margin_left = 223.0
-margin_top = 516.0
-margin_right = 255.0
-margin_bottom = 548.0
+[node name="TextureModel" type="TextureRect" parent="MarginContainer/Main/ShipModel"]
+margin_right = 604.0
+margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 4
 texture = SubResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="Control3" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 259.0
-margin_right = 269.0
-margin_bottom = 1064.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 1
+[node name="ShipModel" type="Label" parent="MarginContainer/Main/ShipModel"]
+margin_top = 39.0
+margin_right = 604.0
+margin_bottom = 53.0
+rect_min_size = Vector2( 150, 0 )
+text = "hud.details.fleet.ship_model %s"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer"]
-margin_left = 273.0
-margin_right = 293.0
-margin_bottom = 1064.0
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/Main"]
+margin_top = 63.0
+margin_right = 604.0
+margin_bottom = 67.0
+
+[node name="Stat" type="HBoxContainer" parent="MarginContainer/Main"]
+margin_top = 77.0
+margin_right = 604.0
+margin_bottom = 121.0
+alignment = 1
+
+[node name="StatsL" type="VBoxContainer" parent="MarginContainer/Main/Stat"]
+margin_left = 84.0
+margin_right = 296.0
+margin_bottom = 44.0
+
+[node name="StatHP" type="HBoxContainer" parent="MarginContainer/Main/Stat/StatsL"]
+margin_right = 212.0
+margin_bottom = 20.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Main/Stat/StatsL/StatHP"]
+margin_right = 20.0
+margin_bottom = 20.0
 rect_min_size = Vector2( 20, 20 )
 texture = SubResource( 2 )
 expand = true
@@ -113,30 +121,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HitPoint" type="Label" parent="PanelContainer/HBoxContainer"]
-margin_left = 297.0
-margin_top = 525.0
-margin_right = 485.0
-margin_bottom = 539.0
+[node name="HitPoint" type="Label" parent="MarginContainer/Main/Stat/StatsL/StatHP"]
+margin_left = 24.0
+margin_top = 3.0
+margin_right = 212.0
+margin_bottom = 17.0
 text = "hud.details.fleet.hit_point %d"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control6" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 489.0
-margin_right = 499.0
-margin_bottom = 1064.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 1
+[node name="StatDamage" type="HBoxContainer" parent="MarginContainer/Main/Stat/StatsL"]
+margin_top = 24.0
+margin_right = 212.0
+margin_bottom = 44.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer"]
-margin_left = 503.0
-margin_right = 523.0
-margin_bottom = 1064.0
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/Main/Stat/StatsL/StatDamage"]
+margin_right = 20.0
+margin_bottom = 20.0
 rect_min_size = Vector2( 20, 20 )
 texture = SubResource( 3 )
 expand = true
@@ -145,30 +150,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Damage" type="Label" parent="PanelContainer/HBoxContainer"]
-margin_left = 527.0
-margin_top = 525.0
-margin_right = 709.0
-margin_bottom = 539.0
+[node name="Damage" type="Label" parent="MarginContainer/Main/Stat/StatsL/StatDamage"]
+margin_left = 24.0
+margin_top = 3.0
+margin_right = 206.0
+margin_bottom = 17.0
 text = "hud.details.fleet.damage %d"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control8" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 713.0
-margin_right = 723.0
-margin_bottom = 1064.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 1
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/Main/Stat"]
+margin_left = 300.0
+margin_right = 304.0
+margin_bottom = 44.0
+
+[node name="StatR" type="VBoxContainer" parent="MarginContainer/Main/Stat"]
+margin_left = 308.0
+margin_right = 519.0
+margin_bottom = 44.0
+
+[node name="StatAccuracy" type="HBoxContainer" parent="MarginContainer/Main/Stat/StatR"]
+margin_right = 211.0
+margin_bottom = 20.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect3" type="TextureRect" parent="PanelContainer/HBoxContainer"]
-margin_left = 727.0
-margin_right = 747.0
-margin_bottom = 1064.0
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/Main/Stat/StatR/StatAccuracy"]
+margin_right = 20.0
+margin_bottom = 20.0
 rect_min_size = Vector2( 20, 20 )
 texture = SubResource( 4 )
 expand = true
@@ -177,154 +188,191 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Accuracy" type="Label" parent="PanelContainer/HBoxContainer"]
-margin_left = 751.0
-margin_top = 525.0
-margin_right = 938.0
-margin_bottom = 539.0
+[node name="Accuracy" type="Label" parent="MarginContainer/Main/Stat/StatR/StatAccuracy"]
+margin_left = 24.0
+margin_top = 3.0
+margin_right = 211.0
+margin_bottom = 17.0
 text = "hud.details.fleet.accuracy %d"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control9" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 942.0
-margin_right = 952.0
-margin_bottom = 1064.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 1
+[node name="StatPrice" type="HBoxContainer" parent="MarginContainer/Main/Stat/StatR"]
+margin_top = 24.0
+margin_right = 211.0
+margin_bottom = 44.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="PanelContainer/HBoxContainer"]
-visible = false
-margin_left = 963.0
-margin_top = 525.0
-margin_right = 1163.0
-margin_bottom = 539.0
-text = "hud.details.fleet.ship_to_assign"
-
-[node name="SpinBox" type="SpinBox" parent="PanelContainer/HBoxContainer"]
-margin_left = 956.0
-margin_top = 520.0
-margin_right = 1030.0
-margin_bottom = 544.0
-size_flags_vertical = 4
-rounded = true
-script = ExtResource( 2 )
-
-[node name="Control4" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 1034.0
-margin_right = 1044.0
-margin_bottom = 1064.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="Button" parent="PanelContainer/HBoxContainer"]
-margin_left = 1048.0
-margin_top = 522.0
-margin_right = 1353.0
-margin_bottom = 542.0
-size_flags_vertical = 4
-text = "hud.details.system.fleet.menu.group_ship.set"
-script = ExtResource( 3 )
-
-[node name="Control5" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 1357.0
-margin_right = 1367.0
-margin_bottom = 1064.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MaxAssign" type="Button" parent="PanelContainer/HBoxContainer"]
-margin_left = 1371.0
-margin_top = 522.0
-margin_right = 1588.0
-margin_bottom = 542.0
-size_flags_vertical = 4
-text = "hud.details.fleet.max_assign %d"
-script = ExtResource( 3 )
-
-[node name="Control10" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 1592.0
-margin_right = 1602.0
-margin_bottom = 1064.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ShipFleet" type="HBoxContainer" parent="PanelContainer/HBoxContainer"]
-margin_left = 1606.0
-margin_right = 1910.0
-margin_bottom = 1064.0
-
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/ShipFleet"]
-margin_top = 516.0
-margin_right = 32.0
-margin_bottom = 548.0
-rect_min_size = Vector2( 32, 32 )
-size_flags_vertical = 4
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Main/Stat/StatR/StatPrice"]
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
 texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Control" type="Control" parent="PanelContainer/HBoxContainer/ShipFleet"]
+[node name="Price" type="Label" parent="MarginContainer/Main/Stat/StatR/StatPrice"]
+margin_left = 24.0
+margin_top = 3.0
+margin_right = 188.0
+margin_bottom = 17.0
+text = "hud.details.fleet.price %d"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/Main"]
+margin_top = 131.0
+margin_right = 604.0
+margin_bottom = 135.0
+
+[node name="Assign" type="HBoxContainer" parent="MarginContainer/Main"]
+margin_top = 145.0
+margin_right = 604.0
+margin_bottom = 169.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MarginContainer/Main/Assign"]
 visible = false
-margin_left = 36.0
-margin_right = 46.0
-margin_bottom = 1064.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/ShipFleet"]
-margin_left = 36.0
-margin_top = 525.0
-margin_right = 304.0
-margin_bottom = 539.0
-rect_min_size = Vector2( 30, 0 )
-text = "hud.details.fleet.number_of_ship_fleet %d"
-
-[node name="Control7" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 1914.0
-margin_right = 1924.0
-margin_bottom = 1064.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ShipAvaliable" type="HBoxContainer" parent="PanelContainer/HBoxContainer"]
-margin_left = 1928.0
 margin_right = 2232.0
-margin_bottom = 1064.0
+margin_bottom = 14.0
+text = "hud.details.fleet.ship_to_assign"
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/Main/Assign"]
+margin_right = 74.0
+margin_bottom = 24.0
+size_flags_vertical = 4
+rounded = true
+allow_greater = true
+script = ExtResource( 2 )
+
+[node name="ButtonSet" type="Button" parent="MarginContainer/Main/Assign"]
+margin_left = 78.0
+margin_top = 2.0
+margin_right = 383.0
+margin_bottom = 22.0
+size_flags_vertical = 4
+text = "hud.details.system.fleet.menu.group_ship.set"
+
+[node name="MaxAssign" type="Button" parent="MarginContainer/Main/Assign"]
+margin_left = 387.0
+margin_top = 2.0
+margin_right = 604.0
+margin_bottom = 22.0
+size_flags_vertical = 4
+text = "hud.details.fleet.max_assign %d"
+
+[node name="ShipCost" type="HBoxContainer" parent="MarginContainer/Main"]
+margin_top = 179.0
+margin_right = 604.0
+margin_bottom = 199.0
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/ShipAvaliable"]
-margin_top = 516.0
-margin_right = 32.0
-margin_bottom = 548.0
-rect_min_size = Vector2( 32, 32 )
-size_flags_vertical = 4
+[node name="TextureRectWarning" type="TextureRect" parent="MarginContainer/Main/ShipCost"]
+margin_left = 81.0
+margin_right = 101.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
 texture = SubResource( 6 )
 expand = true
 stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Control" type="Control" parent="PanelContainer/HBoxContainer/ShipAvaliable"]
+[node name="PriceText" type="Label" parent="MarginContainer/Main/ShipCost"]
+margin_left = 105.0
+margin_top = 3.0
+margin_right = 331.0
+margin_bottom = 17.0
+text = "hud.details.fleet.request_price_text"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Main/ShipCost"]
+margin_left = 335.0
+margin_right = 355.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+texture = SubResource( 7 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="MarginContainer/Main/ShipCost"]
+margin_left = 359.0
+margin_top = 3.0
+margin_right = 523.0
+margin_bottom = 17.0
+text = "hud.details.fleet.price %d"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/Main"]
+margin_top = 209.0
+margin_right = 604.0
+margin_bottom = 213.0
+
+[node name="ShipFleet" type="HBoxContainer" parent="MarginContainer/Main"]
+margin_top = 223.0
+margin_right = 604.0
+margin_bottom = 255.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Main/ShipFleet"]
+margin_left = 150.0
+margin_right = 182.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 4
+texture = SubResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="MarginContainer/Main/ShipFleet"]
+margin_left = 186.0
+margin_top = 9.0
+margin_right = 454.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 30, 0 )
+text = "hud.details.fleet.number_of_ship_fleet %d"
+
+[node name="ShipAvaliable" type="HBoxContainer" parent="MarginContainer/Main"]
+margin_top = 265.0
+margin_right = 604.0
+margin_bottom = 297.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Main/ShipAvaliable"]
+margin_left = 150.0
+margin_right = 182.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 4
+texture = SubResource( 9 )
+expand = true
+stretch_mode = 6
+
+[node name="Control" type="Control" parent="MarginContainer/Main/ShipAvaliable"]
 visible = false
 margin_left = 36.0
 margin_right = 46.0
@@ -335,10 +383,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/ShipAvaliable"]
-margin_left = 36.0
-margin_top = 525.0
-margin_right = 304.0
-margin_bottom = 539.0
+[node name="Label" type="Label" parent="MarginContainer/Main/ShipAvaliable"]
+margin_left = 186.0
+margin_top = 9.0
+margin_right = 454.0
+margin_bottom = 23.0
 rect_min_size = Vector2( 30, 0 )
 text = "hud.details.fleet.number_of_ship_total %d"

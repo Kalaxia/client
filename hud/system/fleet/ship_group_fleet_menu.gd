@@ -10,17 +10,19 @@ var quantity_hangar = 0 setget set_quantity_hangar
 var _lock_assign_ship = Utils.Lock.new() setget private_set, private_get
 var _game_data : GameData = Store.game_data
 
-
-onready var spinbox = $PanelContainer/HBoxContainer/SpinBox
-onready var button_set = $PanelContainer/HBoxContainer/Button
-onready var ship_category_label = $PanelContainer/HBoxContainer/ShipModel
-onready var texture_rect_cathegory = $PanelContainer/HBoxContainer/TextureModel
-onready var label_ship_fleet = $PanelContainer/HBoxContainer/ShipFleet/Label
-onready var label_ship_total = $PanelContainer/HBoxContainer/ShipAvaliable/Label
-onready var hit_point_label = $PanelContainer/HBoxContainer/HitPoint
-onready var damage_label = $PanelContainer/HBoxContainer/Damage
-onready var accuracy_label = $PanelContainer/HBoxContainer/Accuracy
-onready var max_assign_button = $PanelContainer/HBoxContainer/MaxAssign
+onready var spinbox = $MarginContainer/Main/Assign/SpinBox
+onready var button_set = $MarginContainer/Main/Assign/ButtonSet
+onready var ship_category_label = $MarginContainer/Main/ShipModel/ShipModel
+onready var texture_rect_cathegory = $MarginContainer/Main/ShipModel/TextureModel
+onready var label_ship_fleet = $MarginContainer/Main/ShipFleet/Label
+onready var label_ship_total = $MarginContainer/Main/ShipAvaliable/Label
+onready var hit_point_label = $MarginContainer/Main/Stat/StatsL/StatHP/HitPoint
+onready var damage_label = $MarginContainer/Main/Stat/StatsL/StatDamage/Damage
+onready var accuracy_label = $MarginContainer/Main/Stat/StatR/StatAccuracy/Accuracy
+onready var max_assign_button = $MarginContainer/Main/Assign/MaxAssign
+onready var stat_price = $MarginContainer/Main/Stat/StatR/StatPrice/Price
+onready var request_price = $MarginContainer/Main/ShipCost/Price
+onready var ship_cost_container = $MarginContainer/Main/ShipCost
 
 
 func _ready():
@@ -29,6 +31,7 @@ func _ready():
 	update_quantities()
 	spinbox.value = quantity_fleet
 	spinbox.connect("text_entered", self, "_on_text_entered")
+	spinbox.connect("value_changed", self, "_on_value_changed_spinbox")
 	max_assign_button.connect("pressed", self, "_on_max_assign_pressed")
 
 
@@ -43,6 +46,8 @@ func update_elements():
 		damage_label.text = tr("hud.details.fleet.damage %d") % ship_category.damage
 	if accuracy_label != null:
 		accuracy_label.text = tr("hud.details.fleet.accuracy %d") % ship_category.precision
+	if stat_price != null:
+		stat_price.text = tr("hud.details.fleet.price %d") % ship_category.cost
 
 
 func update_quantities():
@@ -53,6 +58,22 @@ func update_quantities():
 	spinbox.value = min(previous_spinbox_value, spinbox.max_value)
 	if max_assign_button != null:
 		max_assign_button.text = tr("hud.details.fleet.max_assign %d") % (quantity_hangar + quantity_fleet)
+	_update_price()
+
+
+func _on_value_changed_spinbox(_value):
+	_update_price()
+
+
+func _update_price():
+	if spinbox == null or ship_cost_container == null or request_price == null:
+		return
+	var value = spinbox.value
+	var need_building_ships = value > quantity_hangar + quantity_fleet
+	ship_cost_container.visible = need_building_ships
+	if need_building_ships:
+		var cost = (value - (quantity_hangar + quantity_fleet)) * ship_category.cost
+		request_price.text = tr("hud.details.fleet.price %d") % cost
 
 
 func _on_text_entered(_text = null):
