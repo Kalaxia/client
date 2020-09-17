@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://config/network_config.gd" type="Script" id=1]
+[ext_resource path="res://config/environement_config.gd" type="Script" id=1]
 
 [resource]
 script = ExtResource( 1 )
@@ -8,3 +8,5 @@ api_dns = "api.kalaxia.com"
 api_port = 443
 api_scheme = "https"
 ws_scheme = "wss"
+debug_activated = false
+debug_auto_fill_lobby = false

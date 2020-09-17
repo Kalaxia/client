@@ -14,5 +14,6 @@ anchor_left = 0.4
 anchor_top = 0.2
 anchor_right = 0.6
 anchor_bottom = 0.3
+margin_bottom = 92.0
 
 [node name="Level" type="CanvasLayer" parent="."]

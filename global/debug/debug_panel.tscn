@@ -1,0 +1,127 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://themes/theme_faction/valkar/theme_main.tres" type="Theme" id=1]
+[ext_resource path="res://themes/theme_faction/valkar/menu_header/styleboxflat_panel.tres" type="StyleBox" id=2]
+[ext_resource path="res://gui/menu/menu_header.tscn" type="PackedScene" id=3]
+[ext_resource path="res://gui/menu/menu_body.gd" type="Script" id=4]
+[ext_resource path="res://global/debug/debug_panel.gd" type="Script" id=5]
+[ext_resource path="res://global/debug/debug_panel_menu.gd" type="Script" id=6]
+[ext_resource path="res://gui/menu/menu_container.gd" type="Script" id=7]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/debug.svg-f649fa6c4a5ec0c915695f3ba885defc.stex"
+
+[sub_resource type="Animation" id=2]
+resource_name = "move_debug_button"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( -45, -45 ), Vector2( 20, 20 ) ]
+}
+
+[node name="DebugPanel" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="Layer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="ButtonContainer" type="VBoxContainer" parent="Layer"]
+margin_left = -45.0
+margin_top = -45.0
+margin_right = -5.0
+margin_bottom = -5.0
+rect_min_size = Vector2( 40, 40 )
+mouse_filter = 2
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Layer/ButtonContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+expand_icon = true
+
+[node name="TextureRect" type="TextureRect" parent="Layer/ButtonContainer/Button"]
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
+texture = SubResource( 1 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Layer/ButtonContainer"]
+anims/move_debug_button = SubResource( 2 )
+
+[node name="MenuContainer" type="VBoxContainer" parent="Layer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -109.0
+margin_top = -22.5
+margin_right = 109.0
+margin_bottom = 22.5
+theme = ExtResource( 1 )
+custom_constants/separation = 0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuHeader" parent="Layer/MenuContainer" instance=ExtResource( 3 )]
+margin_right = 218.0
+margin_bottom = 31.0
+custom_styles/panel = ExtResource( 2 )
+text = "debug.title"
+minimisable = false
+
+[node name="MenuBody" type="PanelContainer" parent="Layer/MenuContainer"]
+show_behind_parent = true
+margin_top = 31.0
+margin_right = 218.0
+margin_bottom = 80.0
+size_flags_vertical = 3
+script = ExtResource( 4 )
+
+[node name="Body" type="VBoxContainer" parent="Layer/MenuContainer/MenuBody"]
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 215.0
+margin_bottom = 47.0
+size_flags_vertical = 3
+script = ExtResource( 6 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Layer/MenuContainer/MenuBody/Body"]
+margin_right = 212.0
+margin_bottom = 45.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Layer/MenuContainer/MenuBody/Body/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 202.0
+margin_bottom = 35.0
+
+[node name="Button" type="Button" parent="Layer/MenuContainer/MenuBody/Body/MarginContainer/VBoxContainer"]
+margin_right = 192.0
+margin_bottom = 25.0
+text = "debug.dump_game_data"

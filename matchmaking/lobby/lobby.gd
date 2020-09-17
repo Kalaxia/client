@@ -44,6 +44,8 @@ func load_lobby(err, response_code, _headers, body):
 		launch_button.connect("pressed", self, "launch_game")
 	game_settings_container.enabled = lobby.owner.id == Store.player.id
 	game_settings_container.update_game_settings_button(lobby)
+	if Config.config_environement.debug_activated:
+		Debug.on_lobby_ready(self)
 
 
 func add_players_info(players):
