@@ -4,31 +4,11 @@
 [ext_resource path="res://gui/menu/menu_header.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/menu/menu_body.gd" type="Script" id=3]
 [ext_resource path="res://hud/system/fleet/ship_group_card.tscn" type="PackedScene" id=4]
+[ext_resource path="res://hud/system/fleet/ship_group_fleet_menu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://themes/theme_faction/adranite/theme_main.tres" type="Theme" id=6]
+[ext_resource path="res://themes/theme_faction/adranite/menu_header/styleboxflat_panel.tres" type="StyleBox" id=7]
 
-[sub_resource type="Image" id=6]
-data = {
-"data": PoolByteArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ),
-"format": "LumAlpha8",
-"height": 16,
-"mipmaps": false,
-"width": 16
-}
-
-[sub_resource type="ImageTexture" id=2]
-flags = 4
-flags = 4
-image = SubResource( 6 )
-size = Vector2( 16, 16 )
-
-[sub_resource type="StyleBoxTexture" id=3]
-texture = SubResource( 2 )
-region_rect = Rect2( 0, 0, 16, 16 )
-margin_left = 2.0
-margin_right = 2.0
-margin_top = 2.0
-margin_bottom = 2.0
-
-[sub_resource type="StreamTexture" id=5]
+[sub_resource type="StreamTexture" id=1]
 flags = 4
 load_path = "res://.import/picto_flotte_2.png-7690f89049c3d62083c913b47bdc6ade.stex"
 
@@ -36,6 +16,7 @@ load_path = "res://.import/picto_flotte_2.png-7690f89049c3d62083c913b47bdc6ade.s
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_vertical = 3
+theme = ExtResource( 6 )
 custom_constants/separation = 0
 script = ExtResource( 1 )
 __meta__ = {
@@ -43,93 +24,123 @@ __meta__ = {
 }
 
 [node name="MenuHeader" parent="." instance=ExtResource( 2 )]
+margin_right = 2488.0
 margin_bottom = 31.0
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = ExtResource( 7 )
 text = "hud.details.fleet.fleet_composition_assignation"
-closable = true
-minimisable = true
-texture = SubResource( 5 )
-custom_style = null
+texture = SubResource( 1 )
 
 [node name="MenuBody" type="PanelContainer" parent="."]
 show_behind_parent = true
 margin_top = 31.0
-margin_right = 1920.0
+margin_right = 2488.0
 margin_bottom = 1080.0
 size_flags_vertical = 3
 script = ExtResource( 3 )
 
 [node name="Body" type="HBoxContainer" parent="MenuBody"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 1913.0
-margin_bottom = 1042.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 2485.0
+margin_bottom = 1047.0
 size_flags_vertical = 3
 
 [node name="LeftColomn" type="VBoxContainer" parent="MenuBody/Body"]
-margin_right = 1784.0
-margin_bottom = 1035.0
+margin_right = 1811.0
+margin_bottom = 1045.0
 size_flags_vertical = 3
 
 [node name="ScrollBoxContainer" type="VBoxContainer" parent="MenuBody/Body/LeftColomn"]
-margin_right = 1784.0
-margin_bottom = 705.0
+margin_right = 1811.0
+margin_bottom = 711.0
 size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MenuBody/Body/LeftColomn/ScrollBoxContainer"]
-margin_right = 1784.0
-margin_bottom = 705.0
+margin_right = 1811.0
+margin_bottom = 711.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="ShipList" type="VBoxContainer" parent="MenuBody/Body/LeftColomn/ScrollBoxContainer/ScrollContainer"]
-margin_right = 1784.0
-margin_bottom = 705.0
+margin_right = 1811.0
+margin_bottom = 711.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Formation" type="VBoxContainer" parent="MenuBody/Body/LeftColomn"]
-margin_top = 709.0
-margin_right = 1784.0
-margin_bottom = 1035.0
+margin_top = 715.0
+margin_right = 1811.0
+margin_bottom = 1045.0
 
 [node name="GridContainer" type="GridContainer" parent="MenuBody/Body/LeftColomn/Formation"]
-margin_right = 1784.0
-margin_bottom = 326.0
+margin_right = 1811.0
+margin_bottom = 330.0
 columns = 3
 
 [node name="Control" type="Control" parent="MenuBody/Body/LeftColomn/Formation/GridContainer"]
-margin_right = 592.0
-margin_bottom = 161.0
+margin_right = 601.0
+margin_bottom = 163.0
 
 [node name="ShipGroupCard" parent="MenuBody/Body/LeftColomn/Formation/GridContainer" instance=ExtResource( 4 )]
-margin_left = 596.0
-margin_right = 1188.0
-margin_bottom = 161.0
+margin_left = 605.0
+margin_right = 1206.0
+margin_bottom = 163.0
 
 [node name="Control2" type="Control" parent="MenuBody/Body/LeftColomn/Formation/GridContainer"]
-margin_left = 1192.0
-margin_right = 1784.0
-margin_bottom = 161.0
+margin_left = 1210.0
+margin_right = 1811.0
+margin_bottom = 163.0
 
 [node name="ShipGroupCard2" parent="MenuBody/Body/LeftColomn/Formation/GridContainer" instance=ExtResource( 4 )]
-margin_top = 165.0
-margin_right = 592.0
-margin_bottom = 326.0
+margin_top = 167.0
+margin_right = 601.0
+margin_bottom = 330.0
 
 [node name="ShipGroupCard3" parent="MenuBody/Body/LeftColomn/Formation/GridContainer" instance=ExtResource( 4 )]
-margin_left = 596.0
-margin_top = 165.0
-margin_right = 1188.0
-margin_bottom = 326.0
+margin_left = 605.0
+margin_top = 167.0
+margin_right = 1206.0
+margin_bottom = 330.0
 
 [node name="ShipGroupCard4" parent="MenuBody/Body/LeftColomn/Formation/GridContainer" instance=ExtResource( 4 )]
-margin_left = 1192.0
-margin_top = 165.0
-margin_right = 1784.0
-margin_bottom = 326.0
+margin_left = 1210.0
+margin_top = 167.0
+margin_right = 1811.0
+margin_bottom = 330.0
 
 [node name="Details" type="VBoxContainer" parent="MenuBody/Body"]
-margin_left = 1788.0
-margin_right = 1788.0
-margin_bottom = 1035.0
+margin_left = 1815.0
+margin_right = 2472.0
+margin_bottom = 1045.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MenuBody/Body/Details"]
+margin_right = 657.0
+margin_bottom = 1045.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuBody/Body/Details/ScrollContainer"]
+margin_right = 657.0
+margin_bottom = 656.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="MenuBody/Body/Details/ScrollContainer/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 647.0
+margin_bottom = 646.0
+custom_constants/vseparation = 10
+custom_constants/hseparation = 10
+
+[node name="ShipGroupFleetMenu" parent="MenuBody/Body/Details/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource( 5 )]
+margin_right = 637.0
+margin_bottom = 313.0
+
+[node name="ShipGroupFleetMenu2" parent="MenuBody/Body/Details/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource( 5 )]
+margin_top = 323.0
+margin_right = 637.0
+margin_bottom = 636.0

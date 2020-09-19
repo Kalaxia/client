@@ -165,6 +165,7 @@ func queue_finished(ship_group : ShipGroup):
 			ship_queues.remove(i)
 			break
 	add_ship_group_to_hangar(ship_group)
+	ship_group.on_finished()
 	emit_signal("ship_queue_finished", ship_group)
 
 
