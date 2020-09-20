@@ -11,7 +11,7 @@ var _game_data : GameData = Store.game_data
 onready var menu_system = $MenuSystem
 onready var button_building = $System/CircularContainer/Bluilding
 onready var button_fleet = $System/CircularContainer/Fleet
-onready var player_node = $System/CircularContainer/ContainerSystem/PlayerName
+onready var player_node = $System/PlayerName
 
 
 func _ready():
