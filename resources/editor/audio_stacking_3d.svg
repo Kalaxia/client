@@ -16,9 +16,25 @@
    id="svg4140"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="audio_stacking.svg">
+   sodipodi:docname="audio_stacking_3d.svg">
   <defs
      id="defs4142">
+    <linearGradient
+       id="audio-1"
+       inkscape:collect="always">
+      <stop
+         id="stop4176"
+         offset="0"
+         style="stop-color:#ff8484;stop-opacity:1" />
+      <stop
+         style="stop-color:#e1dc7a;stop-opacity:1"
+         offset="0.5"
+         id="stop4178" />
+      <stop
+         id="stop4180"
+         offset="1"
+         style="stop-color:#84ffb1;stop-opacity:1" />
+    </linearGradient>
     <marker
        inkscape:stockid="Arrow1Lend"
        orient="auto"
@@ -76,22 +92,6 @@
        gradientUnits="userSpaceOnUse"
        spreadMethod="pad"
        gradientTransform="matrix(1.3264781,0,0,1.3264781,14.089385,942.74124)" />
-    <linearGradient
-       id="audio-1"
-       inkscape:collect="always">
-      <stop
-         id="stop4176"
-         offset="0"
-         style="stop-color:#ff8484;stop-opacity:1" />
-      <stop
-         style="stop-color:#e1dc7a;stop-opacity:1"
-         offset="0.5"
-         id="stop4178" />
-      <stop
-         id="stop4180"
-         offset="1"
-         style="stop-color:#84ffb1;stop-opacity:1" />
-    </linearGradient>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -112,7 +112,7 @@
      inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     showguides="false" />
+     showguides="true" />
   <metadata
      id="metadata4145">
     <rdf:RDF>
@@ -137,13 +137,13 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccccccccc" />
     <path
-       style="fill:url(#linearGradient4188-6);fill-opacity:1.0;fill-rule:nonzero;stroke:#000000;stroke-width:0.66323906;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:url(#linearGradient4188-6);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.66323906;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 76.554659,972.97213 32.1663,979.44237 c -1.200205,7.67779 -5.547888,37.04053 -6.143794,42.02523 -5.027916,2e-4 -9.103799,4.0761 -9.103992,9.104 1.94e-4,5.0279 4.076076,9.1038 9.103992,9.1039 5.027915,-10e-5 9.103797,-4.076 9.103991,-9.1039 -0.03977,-2.1325 -0.390428,-3.1043 -1.230619,-4.5494 4.977366,-29.65537 3.846395,-25.0367 6.158803,-38.69879 7.145838,-1.31812 19.049456,-2.88779 27.229729,-4.42921 -2.993199,7.87858 -5.912465,23.8958 -7.011827,29.4694 -5.027916,2e-4 -9.103798,4.0761 -9.103992,9.104 1.94e-4,5.0279 4.076076,9.1038 9.103992,9.104 5.027917,-2e-4 9.103799,-4.0761 9.103993,-9.104 -0.0044,-1.6025 -0.431513,-3.1753 -1.238392,-4.5598 1.799464,-8.3039 5.599832,-31.47193 8.416475,-43.93567 z"
        id="path4150-9"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccccccccc" />
     <path
-       style="fill:#d8d8d8;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.76366711;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#fc9c9c;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.76366711;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 59.139447,999.91759 0,45.82001 38.183357,-22.91 z"
        id="path4214"
        inkscape:connector-curvature="0"

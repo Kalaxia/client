@@ -1,14 +1,15 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://game/game.gd" type="Script" id=1]
 [ext_resource path="res://resources/assets/2d/background_general.png" type="Texture" id=2]
 [ext_resource path="res://game/map/particle_map_material.tres" type="Material" id=3]
 [ext_resource path="res://hud/hud.tscn" type="PackedScene" id=4]
-[ext_resource path="res://audio/audio_stacking.gd" type="Script" id=5]
+[ext_resource path="res://game/event_capturer.gd" type="Script" id=5]
 [ext_resource path="res://resources/assets/audio/ui/contruction/building_finished.tres" type="Resource" id=6]
 [ext_resource path="res://resources/assets/audio/ui/contruction/ship_finished.tres" type="Resource" id=7]
 [ext_resource path="res://.import/amb_plateau.ogg-69c6a6e43c944b0ee78438b93e3dad67.oggstr" type="AudioStream" id=8]
-[ext_resource path="res://game/event_capturer.gd" type="Script" id=9]
+[ext_resource path="res://game/audio_manager.gd" type="Script" id=9]
+[ext_resource path="res://audio/audio_stacking_2d.gd" type="Script" id=10]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -79,34 +80,40 @@ texture = SubResource( 1 )
 
 [node name="EventCapturer" type="Control" parent="ParallaxBackground/ParallaxLayer0"]
 mouse_filter = 1
-script = ExtResource( 9 )
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AudioParent" type="Node" parent="ParallaxBackground/ParallaxLayer0"]
+script = ExtResource( 9 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ParallaxBackground/ParallaxLayer0/AudioParent"]
+stream = ExtResource( 8 )
+volume_db = -23.0
+autoplay = true
+bus = "Ambiant"
+
+[node name="AudioStackingBuildingFinished" type="Node" parent="ParallaxBackground/ParallaxLayer0/AudioParent"]
+script = ExtResource( 10 )
+max_audio_playback = 4
+sound_resource = ExtResource( 6 )
+override_sound = false
+default_bus = "UI"
+default_volume = -10.0
+default_pitch_scale = 1.0
+
+[node name="AudioStackingShipQueueFinished" type="Node" parent="ParallaxBackground/ParallaxLayer0/AudioParent"]
+script = ExtResource( 10 )
+max_audio_playback = 2
+sound_resource = ExtResource( 7 )
+override_sound = false
+default_bus = "UI"
+default_volume = -18.0
+default_pitch_scale = 1.0
 
 [node name="Map" type="Node2D" parent="ParallaxBackground/ParallaxLayer0"]
 
 [node name="FleetContainer" type="Node2D" parent="ParallaxBackground/ParallaxLayer0/Map"]
 
 [node name="HUD" parent="ParallaxBackground" instance=ExtResource( 4 )]
-
-[node name="AudioParent" type="Node" parent="."]
-
-[node name="AudioStackingBuildingFinished" type="Node" parent="AudioParent"]
-script = ExtResource( 5 )
-max_audio_playback = 4
-sound_resource = ExtResource( 6 )
-default_bus = "UI"
-default_volume = -10.0
-
-[node name="AudioStackingShipQueueFinished" type="Node" parent="AudioParent"]
-script = ExtResource( 5 )
-sound_resource = ExtResource( 7 )
-default_bus = "UI"
-default_volume = -18.0
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioParent"]
-stream = ExtResource( 8 )
-volume_db = -23.0
-autoplay = true
-bus = "Ambiant"

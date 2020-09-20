@@ -8,6 +8,7 @@ signal hangar_updated(hangar)
 signal system_owner_updated()
 signal updated()
 signal fleet_arrived(fleet)
+signal building_contructed(building) # todo selected system state
 
 const MAX_NUMBER_OF_BUILDING = 1
 
@@ -141,3 +142,8 @@ func fleet_arrive(fleet : Fleet):
 	fleets[fleet.id] = fleet
 	fleet.arrived()
 	emit_signal("fleet_arrived", fleet)
+
+
+func building_contructed(building):
+	add_building_to_system(building)
+	emit_signal("building_contructed", building)

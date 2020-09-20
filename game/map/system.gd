@@ -279,6 +279,9 @@ func _connect_system(system_p = system):
 		system_p.connect("hangar_updated", self, "_on_hangar_updated")
 	if system_p != null and not system_p.is_connected("building_updated", self, "_on_building_updated"):
 		system_p.connect("building_updated", self, "_on_building_updated")
+	if system_p != null and not system_p.is_connected("building_contructed", self, "_on_building_contructed"):
+		system_p.connect("building_contructed", self, "_on_building_contructed")
+	
 
 
 func _disconnect_system(system_p = system):
@@ -288,6 +291,12 @@ func _disconnect_system(system_p = system):
 		system_p.disconnect("hangar_updated", self, "_on_hangar_updated")
 	if system_p != null and system_p.is_connected("building_updated", self, "_on_building_updated"):
 		system_p.disconnect("building_updated", self, "_on_building_updated")
+	if system_p != null and system_p.is_connected("building_contructed", self, "_on_building_contructed"):
+		system_p.disconnect("building_contructed", self, "_on_building_contructed")
+
+
+func _on_building_contructed(building):
+	Audio.building_constructed_audio(building)
 
 
 func _on_fleet_created(_fleet : Fleet):

@@ -25,6 +25,16 @@ _global_script_classes=[ {
 "path": "res://audio/audio_stacking.gd"
 }, {
 "base": "AudioStacking",
+"class": "AudioStacking2D",
+"language": "GDScript",
+"path": "res://audio/audio_stacking_2d.gd"
+}, {
+"base": "AudioStacking2D",
+"class": "AudioStacking3D",
+"language": "GDScript",
+"path": "res://audio/audio_stacking_3d.gd"
+}, {
+"base": "AudioStacking",
 "class": "AudioStackingSingleSound",
 "language": "GDScript",
 "path": "res://audio/audio_stacking_single_resource.gd"
@@ -273,6 +283,8 @@ _global_script_class_icons={
 "AudioResource": "",
 "AudioSceneSingleton": "",
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
+"AudioStacking2D": "res://resources/editor/audio_stacking_2d.svg",
+"AudioStacking3D": "res://resources/editor/audio_stacking_3d.svg",
 "AudioStackingSingleSound": "res://resources/editor/audio_stacking.svg",
 "Building": "",
 "BuildingModelRemote": "",

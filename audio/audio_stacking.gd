@@ -12,9 +12,11 @@ export(bool) var override_sound = false
 export(String) var default_bus = "Master"
 export(float, -100.0, 0.0) var default_volume = 0.0
 export(float, 0.0, 4.0) var default_pitch_scale = 1.0
+# todo mix target
 
 var playing_in_editor = false setget set_playing_in_editor # only use in editor, has no effect ingame
 var _audio_streams = [] setget private_set
+
 
 func _ready():
 	if Engine.editor_hint:
@@ -31,10 +33,11 @@ func _notification(what):
 
 
 func _get_configuration_warning():
+	
 	if not Engine.editor_hint:
 		return ""
 	for node in get_children():
-		if node is AudioStreamPlayer and not _audio_streams.has(node):
+		if _is_node_compatible_stream_player(node) and not _audio_streams.has(node):
 			return "The node should not have AudioStreamPlayer attached, " \
 					+ "the player wont be considered by the manager."
 	return ""
@@ -53,7 +56,7 @@ func private_set(_new_varaible):
 
 func play_sound(volume_dB = default_volume, pitch_scale = default_pitch_scale, bus = default_bus):
 	for node in _audio_streams:
-		if node is AudioStreamPlayer and not node.playing:
+		if _is_node_compatible_stream_player(node) and not node.playing:
 			_node_play_sound(node, sound_resource, volume_dB, pitch_scale, bus)
 			return true
 	if _audio_streams.size() < max_audio_playback:
@@ -67,7 +70,7 @@ func play_sound(volume_dB = default_volume, pitch_scale = default_pitch_scale, b
 
 func stop_sound():
 	for node in _audio_streams:
-		if node is AudioStreamPlayer:
+		if _is_node_compatible_stream_player(node):
 			node.stop()
 
 
@@ -110,12 +113,16 @@ func _add_audio_stream():
 	return audio_stream_player
 
 
-static func _node_play_sound(node : AudioStreamPlayer, audio_resource, volume_dB = 0, pitch_scale = 1, bus = "Master"):
+static func _node_play_sound(node, audio_resource, volume_dB = 0, pitch_scale = 1, bus = "Master"):
 	node.stream = audio_resource.get_random_sound()
 	node.volume_db = volume_dB
 	node.pitch_scale = pitch_scale
 	node.bus = bus
 	node.play()
+
+
+static func _is_node_compatible_stream_player(node):
+	return node is AudioStreamPlayer
 
 
 # editor only code

@@ -319,15 +319,14 @@ func _on_faction_points_update(scores : Dictionary):
 
 
 func _on_ship_queue_finished(ship_data : Dictionary): # todo
-	sound_ship_queue.play_sound() # todo move in system ?
-	_game_data.get_system(ship_data.system).add_ship_group_to_hangar(ShipGroup.new(ship_data))
+	var ship_group = ShipGroup.new(ship_data)
+	_game_data.get_system(ship_data.system).add_ship_group_to_hangar(ship_group)
+	Audio.ship_queue_finished_audio(ship_group)
 
 
-func _on_building_constructed(building : Dictionary): # todo
-	var system : System= _game_data.get_system(building.system)
-	if _game_data.does_belong_to_current_player(system):
-		sound_building.play_sound() # todo move in system ?
-	system.add_building_to_system(Building.new(building))
+func _on_building_constructed(building : Dictionary):
+	var system = _game_data.get_system(building.system)
+	system.building_contructed(Building.new(building))
 
 
 func _on_fleet_transfer(data : Dictionary):

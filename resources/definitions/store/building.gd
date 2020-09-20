@@ -8,6 +8,7 @@ export(int) var built_at
 export(int) var created_at
 export(String) var id
 export(String) var status
+export(String) var system
 
 
 func _init(dict = null).(dict):
@@ -22,4 +23,4 @@ func load_dict(dict):
 
 
 func _get_dict_property_list():
-	return ["built_at", "created_at", "id", "status"]
+	return ["built_at", "created_at", "id", "status", "system"]
