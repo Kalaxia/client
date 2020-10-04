@@ -63,10 +63,10 @@ func has_building():
 
 
 func has_finished_loading():
-	var has_finished_loading = true
 	for key in dict_loaded.keys():
-		has_finished_loading = has_finished_loading and dict_loaded[key]
-	return has_finished_loading
+		if not dict_loaded[key]:
+			return false
+	return true
 
 
 func load_building():

@@ -2,7 +2,7 @@ tool
 extends BuildingModelRemote
 class_name KalaxiaBuilding
 
-const NAME_OF_RESSOURCE = {
+const RESOURCE_NAME  = {
 	"" : "area.png",
 	"mine" : "mine.svg",
 	"portal" : "portal.svg",
@@ -18,7 +18,7 @@ func _init(dict = null).(dict):
 
 func load_dict(dict):
 	.load_dict(dict)
-	texture = load("res://resources/assets/2d/picto/building/" + NAME_OF_RESSOURCE[kind])
+	texture = load("res://resources/assets/2d/picto/building/" + RESOURCE_NAME[kind])
 
 
 func _get_dict_property_list():

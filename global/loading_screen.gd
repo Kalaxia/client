@@ -119,28 +119,22 @@ func _on_timeout_auth():
 
 
 func _on_resource_loaded(res_name):
-	match res_name:
-		CachedResource.Resource_elements.BUILDING:
-			set_state_label(STATE_NETWORK_ELEMENT.OK, label_building_status)
-		CachedResource.Resource_elements.SHIP_MODELS:
-			set_state_label(STATE_NETWORK_ELEMENT.OK, label_ship_status)
-		CachedResource.Resource_elements.FACTIONS:
-			set_state_label(STATE_NETWORK_ELEMENT.OK, label_faction_status)
-		CachedResource.Resource_elements.CONSTANTS:
-			set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
+	set_state_label(STATE_NETWORK_ELEMENT.OK, {
+		CachedResource.Resource_elements.BUILDING: label_building_status,
+		CachedResource.Resource_elements.SHIP_MODELS: label_ship_status,
+		CachedResource.Resource_elements.FACTIONS: label_faction_status,
+		CachedResource.Resource_elements.CONSTANTS: label_constant_status,
+	}[res_name])
 	verify_is_finished()
 
 
 func _on_resource_loading_error(res_name, err, response_code, body):
-	match res_name:
-		CachedResource.Resource_elements.BUILDING:
-			set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_building_status)
-		CachedResource.Resource_elements.SHIP_MODELS:
-			set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
-		CachedResource.Resource_elements.FACTIONS:
-			set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
-		CachedResource.Resource_elements.CONSTANTS:
-			set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
+	set_state_label(STATE_NETWORK_ELEMENT.ERROR, {
+		CachedResource.Resource_elements.BUILDING: label_building_status,
+		CachedResource.Resource_elements.SHIP_MODELS: label_ship_status,
+		CachedResource.Resource_elements.FACTIONS: label_faction_status,
+		CachedResource.Resource_elements.CONSTANTS: label_constant_status,
+	}[res_name])
 	verify_is_finished()
 
 

@@ -12,10 +12,7 @@ export(float) var id
 
 
 func get_color(lighten = false) -> Color:
-	if lighten:
-		return Utils.lighten_color(self.display_color)
-	else:
-		return self.display_color
+	return Utils.lighten_color(self.display_color) if lighten else self.display_color
 
 
 func update_info_form_dict(dict):
