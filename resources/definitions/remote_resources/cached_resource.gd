@@ -52,7 +52,7 @@ func load_constant():
 
 func has_all_data():
 	return constants.has_all_data() and has_ships_model() \
-	and has_factions() and has_building()
+			and has_factions() and has_building()
 
 
 func has_ships_model():

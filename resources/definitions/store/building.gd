@@ -18,10 +18,7 @@ func load_dict(dict):
 	if dict == null:
 		return
 	.load_dict(dict)
-	if dict.kind is KalaxiaBuilding:
-		kind = dict.kind
-	else:
-		kind = ASSETS.buildings[dict.kind]
+	kind = dict.kind if dict.kind is KalaxiaBuilding else ASSETS.buildings[dict.kind]
 
 
 func _get_dict_property_list():

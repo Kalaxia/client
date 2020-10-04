@@ -7,7 +7,7 @@ const ASSETS = preload("res://resources/assets.tres")
 
 export(Resource) var building_type = null setget set_building_type # ressource
 
-var game_data : GameData = Store.game_data
+var _game_data : GameData = Store.game_data
 var _lock_request_build = Utils.Lock.new() setget private_set, private_get
 
 onready var texture_rect = $PanelContainer/HBoxContainer/TextureRect
@@ -19,7 +19,7 @@ onready var label_time = $PanelContainer/HBoxContainer/LabelTime
 
 func _ready():
 	button.connect("pressed", self, "_on_build_button")
-	game_data.player.connect("wallet_updated", self, "_on_wallet_updated")
+	_game_data.player.connect("wallet_updated", self, "_on_wallet_updated")
 	_lock_request_build.connect("changed_state", self, "_on_lock_changed_state")
 	_update_build_button_state()
 	_updates_elements()
@@ -43,7 +43,7 @@ func _on_wallet_updated(_amount):
 
 
 func _update_build_button_state():
-	button.disabled = game_data.player.wallet < building_type.cost or _lock_request_build.get_is_locked()
+	button.disabled = _game_data.player.wallet < building_type.cost or _lock_request_build.get_is_locked()
 
 
 func _on_lock_changed_state(_state_is_locked):
@@ -62,18 +62,18 @@ func _updates_elements():
 func _on_build_button():
 	if not _lock_request_build.try_lock():
 		return
-	if game_data.player.wallet < building_type.cost:
+	if _game_data.player.wallet < building_type.cost:
 		_lock_request_build.unlock()
 		Store.notify(tr("notification.error.not_enought_cred.title"), tr("notification.error.not_enought_cred.content"))
 		return
 	Network.req(self, "_on_building_construction_started",
-			"/api/games/" + game_data.id +
-			"/systems/" + game_data.selected_state.selected_system.id +
+			"/api/games/" + _game_data.id +
+			"/systems/" + _game_data.selected_state.selected_system.id +
 			"/buildings/",
 			HTTPClient.METHOD_POST,
 			[ "Content-Type: application/json" ],
 			JSON.print({"kind" : building_type.kind}),
-			[game_data.selected_state.selected_system]
+			[_game_data.selected_state.selected_system]
 	)
 
 
@@ -83,6 +83,6 @@ func _on_building_construction_started(err, response_code, _headers, body, syste
 	if response_code == HTTPClient.RESPONSE_CREATED:
 		var building = Building.new(JSON.parse(body.get_string_from_utf8()).result)
 		system.add_building_to_system(building)
-		game_data.player.update_wallet(- building_type.cost)
+		_game_data.player.update_wallet(- building_type.cost)
 		emit_signal("building_contructing", building)
 	_lock_request_build.unlock()

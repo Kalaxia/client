@@ -19,10 +19,7 @@ func load_dict(dict : Dictionary) -> void:
 		return
 	.load_dict(dict)
 	if not dict is Dictionary or dict.has("category"):
-		if dict.category is KalaxiaShipModel:
-			self.category = dict.category
-		else:
-			self.category = ASSETS.ship_models[dict.category]
+		self.category = dict.category if dict.category is KalaxiaShipModel else ASSETS.ship_models[dict.category]
 
 
 func _get_dict_property_list():

@@ -21,15 +21,9 @@ func load_dict(dict):
 	if (not dict is Dictionary or dict.has("players")) and dict.players != null:
 		players.clear()
 		for player in dict.players:
-			if player is String:
-				players[player.id] = Player.new({"id" : player})
-			else:
-				players[player.id] = Player.new(player)
+			players[player.id] = Player.new({"id" : player} if player is String else player)
 	if not dict is Dictionary or dict.has("owner"):
-		if dict.owner is String:
-			owner = Player.new({"id" : dict.owner})
-		else:
-			owner = Player.new(dict.owner)
+		owner = Player.new({"id" : dict.owner} if dict.owner is String else dict.owner)
 		players[owner.id] = owner # relink owner to the array of player
 	if option == null:
 		option = LobbyOption.new(dict)
@@ -68,10 +62,10 @@ func get_player(pid) -> Player:
 
 
 func remove_player_lobby(player_id : String) -> bool:
-	var has_ereased = players.erase(player_id)
-	if has_ereased:
+	var is_erased = players.erase(player_id)
+	if is_erased:
 		emit_signal("player_removed", player_id)
-	return has_ereased
+	return is_erased
 
 
 static func get_lobby_name(lobby) -> String:

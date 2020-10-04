@@ -22,18 +22,14 @@ func _ready():
 
 
 func add_player(player):
-	var has_player = false
 	for node in container.get_children():
 		if node is PlayerInfoFactionColumn and node.player.id == player.id:
-			has_player = true
-			break
-	if not has_player:
-		var node = PLAYER_INFO_FACTION_COLUMN.instance()
-		node.player = player
-		container.add_child(node)
-		return UPDATE_PLAYER_STATE.PLAYER_ADDED
-	else:
-		return UPDATE_PLAYER_STATE.PLAYER_IGNORED
+			return UPDATE_PLAYER_STATE.PLAYER_IGNORED
+	# in the case where the player is not there
+	var node = PLAYER_INFO_FACTION_COLUMN.instance()
+	node.player = player
+	container.add_child(node)
+	return UPDATE_PLAYER_STATE.PLAYER_ADDED
 
 
 func remove_player(player): 

@@ -36,7 +36,7 @@ func _on_text_entered(_text = null):
 	_on_pressed_build()
 
 
-func _on_wallet_update(_ammount):
+func _on_wallet_update(_amount):
 	update_order_button_state()
 	_update_max_values()
 
