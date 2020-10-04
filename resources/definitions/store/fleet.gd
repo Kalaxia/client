@@ -61,10 +61,9 @@ func update_fleet_nb_ships(ship_category : ShipModel, nb_ships : int):
 
 
 func set_ship_groups(new_ship_groups):
-	if ship_groups != new_ship_groups:
-		ship_groups = new_ship_groups
-		emit_signal("fleet_update_nb_ships")
-		emit_signal("changed")
+	ship_groups = new_ship_groups
+	emit_signal("fleet_update_nb_ships")
+	emit_signal("changed")
 
 
 func set_ship_group_dict(array):

@@ -1,7 +1,7 @@
 class_name GameData
 extends Resource
 
-signal fleet_sailed(fleet, arrival_time) # todo move copy in system and fleet
+signal fleet_sailed(fleet) # todo move copy in system and fleet
 signal score_updated()
 signal fleet_arrived(fleet)
 
@@ -102,10 +102,10 @@ func get_player_color(player_p : Player, is_victory_system = false) -> Color:
 	return player_p.faction.get_color(is_victory_system, player_p.id == player.id)
 
 
-func fleet_sail(fleet : Fleet, arrival_time):
+func fleet_sail(fleet : Fleet):
 	sailing_fleets[fleet.id] = fleet
 	systems[fleet.system].fleets.erase(fleet.id)
-	emit_signal("fleet_sailed", fleet, arrival_time)
+	emit_signal("fleet_sailed", fleet)
 
 
 func update_fleet_arrival(fleet_dict : Dictionary):

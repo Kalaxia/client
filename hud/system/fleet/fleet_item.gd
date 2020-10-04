@@ -114,7 +114,7 @@ func _on_fleet_selected(_old_fleet):
 	set_is_selected(_game_data.selected_state.selected_fleet.id == fleet.id)
 
 
-func _on_fleet_sailed(fleet_param, _arrival_time):
+func _on_fleet_sailed(fleet_param):
 	if fleet_param.id != fleet.id: 
 		set_is_selected(false)
 

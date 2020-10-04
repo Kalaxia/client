@@ -2,15 +2,15 @@ extends Control
 
 signal scene_requested(scene)
 
-var game_data = Store.game_data
+var _game_data = Store.game_data
 
 const FACTION_SCORE_SCENE = preload("res://game/faction_score.tscn")
 
 
 func _ready():
 	get_node("Footer/BackToMenu").connect("pressed", self, "_back_to_menu")
-	var scores = game_data.scores
-	if game_data.player.faction.id == Store.victorious_faction:
+	var scores = _game_data.scores
+	if _game_data.player.faction.id == Store.victorious_faction:
 		$Label.set_text(tr("game.score.victory"))
 	else:
 		$Label.set_text(tr("game.score.defeat"))
@@ -24,5 +24,5 @@ func _ready():
 
 
 func _back_to_menu():
-	game_data.unload_data()
+	_game_data.unload_data()
 	emit_signal("scene_requested", "menu")

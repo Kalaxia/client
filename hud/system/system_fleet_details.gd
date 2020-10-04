@@ -143,7 +143,7 @@ func _on_system_updated():
 	refresh_data()
 
 
-func _on_fleet_sailed(fleet, _arrival_time):
+func _on_fleet_sailed(fleet):
 	if fleet.system == _game_data.selected_state.selected_system.id:
 		menu_layer.close_menu("menu_fleet")
 		refresh_data()

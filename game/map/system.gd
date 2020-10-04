@@ -228,14 +228,14 @@ func _on_mouse_input(event):
 			)
 
 
-func _on_fleet_send(err, response_code, _headers, body, fleet : Fleet, system_p : System):
+func _on_fleet_send(err, response_code, _headers, body, fleet : Fleet, _system_p : System):
 	if err:
 		ErrorHandler.network_response_error(err)
 		return
 	if response_code == HTTPClient.RESPONSE_OK:
 		var data = JSON.parse(body.get_string_from_utf8()).result
-		_game_data.selected_state.selected_fleet.destination_system = system_p.id
-		_game_data.fleet_sail(fleet, data.destination_arrival_date)
+		fleet.update_fleet(data)
+		_game_data.fleet_sail(fleet)
 		_game_data.selected_state.unselect_fleet()
 
 

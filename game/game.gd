@@ -41,8 +41,8 @@ onready var hud = $ParallaxBackground/HUD
 
 func _ready():
 	_game_data.update_player_me()
-	_game_data.selected_state.connect("system_selected", self, "_on_system_selected") # keep
-	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed") # keep
+	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
+	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed")
 	Network.connect("CombatEnded", self, "_on_combat_ended")
 	Network.connect("PlayerIncome", self, "_on_player_income")
 	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
@@ -200,7 +200,7 @@ func _on_system_selected(old_system):
 		map.get_node(_game_data.selected_state.selected_system.id).select()
 
 
-func _on_fleet_sailed(fleet, _arrival_time):
+func _on_fleet_sailed(fleet):
 	var sailing_fleet = MOVING_FLEET_SCENE.instance()
 	sailing_fleet.set_name(fleet.id)
 	var origin_system = map.get_node(fleet.system)
@@ -281,7 +281,7 @@ func _on_remote_fleet_created(fleet : Dictionary):
 func _on_remote_fleet_sailed(fleet : Dictionary):
 	var fleet_in_game_data : Fleet = _game_data.systems[fleet.system].fleets[fleet.id]
 	fleet_in_game_data.update_fleet(fleet)
-	_game_data.fleet_sail(fleet_in_game_data, fleet_in_game_data.destination_arrival_date)
+	_game_data.fleet_sail(fleet_in_game_data)
 
 
 func _on_fleet_arrival(fleet : Dictionary):

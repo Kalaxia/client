@@ -4,7 +4,7 @@ const _SHIP_PRODUCTION_LINE = preload("res://hud/system/buildings/hangar/ship_pr
 const _SHIP_TYPE_BUILD = preload("res://hud/system/buildings/hangar/ship_type_build.tscn")
 const _SHIP_HANGARD = preload("res://hud/system/buildings/hangar/ship_type_hangar.tscn")
 
-var game_data : GameData = Store.game_data
+var _game_data : GameData = Store.game_data
 var ship_group_array = [] setget set_ship_group_array
 var ship_queue_array = [] setget set_ship_queue_array, get_ship_queue_array
 
@@ -17,9 +17,9 @@ onready var hangar_element = $MenuBody/Body/ShipHangar/VBoxContainer/ScrollConta
 onready var assets : KalaxiaAssets = load("res://resources/assets.tres")
 
 func _ready():
-	game_data.selected_state.connect("hangar_updated", self, "_on_hangar_updated")
-	game_data.selected_state.connect("system_selected", self, "_on_system_selected")
-	game_data.selected_state.connect("system_updated", self, "_on_system_updated")
+	_game_data.selected_state.connect("hangar_updated", self, "_on_hangar_updated")
+	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
+	_game_data.selected_state.connect("system_updated", self, "_on_system_updated")
 	# todo
 	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
 	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
@@ -43,19 +43,19 @@ func refresh_queue_ships():
 	_remove_all_queued_elements()
 	Network.req(self, "_on_queue_ships_received"
 		, "/api/games/" +
-			game_data.id+  "/systems/" +
-			game_data.selected_state.selected_system.id + "/ship-queues/"
+			_game_data.id+  "/systems/" +
+			_game_data.selected_state.selected_system.id + "/ship-queues/"
 		, HTTPClient.METHOD_GET
 	)
 
 
 func refresh_hangar():
-	var ship_gp_hangar = game_data.selected_state.selected_system.hangar
+	var ship_gp_hangar = _game_data.selected_state.selected_system.hangar
 	if ship_gp_hangar != null: # todo
 		set_ship_group_array(ship_gp_hangar)
 	else:
 		set_ship_group_array([])
-		game_data.request_hangar(game_data.selected_state.selected_system)
+		_game_data.request_hangar(_game_data.selected_state.selected_system)
 
 
 func _remove_all_queued_elements():
@@ -64,15 +64,15 @@ func _remove_all_queued_elements():
 
 
 func _on_system_updated():
-	if game_data.does_belong_to_current_player(game_data.selected_state.selected_system):
+	if _game_data.does_belong_to_current_player(_game_data.selected_state.selected_system):
 		close_request()
 
 
 func _on_system_selected(old_system):
-	var system = game_data.selected_state.selected_system
+	var system = _game_data.selected_state.selected_system
 	if system.buildings.size() == 0 or system.buildings[0].kind.kind != "shipyard":
 		close_request()
-	if game_data.does_belong_to_current_player(system) and (old_system == null or old_system.id != system.id) :
+	if _game_data.does_belong_to_current_player(system) and (old_system == null or old_system.id != system.id):
 		refresh_queue_ships()
 		refresh_hangar()
 	elif old_system == null or old_system.id != system.id:
@@ -81,7 +81,7 @@ func _on_system_selected(old_system):
 
 
 func _on_hangar_updated(ship_groups):
-	if game_data.does_belong_to_current_player(game_data.selected_state.selected_system):
+	if _game_data.does_belong_to_current_player(_game_data.selected_state.selected_system):
 		set_ship_group_array(ship_groups)
 
 

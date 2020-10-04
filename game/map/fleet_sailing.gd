@@ -41,7 +41,7 @@ func _set_size_sprite():
 
 
 func _get_flight_time_ms():
-	return (fleet.destination_arrival_date - _time_departure)
+	return (fleet.destination_arrival_date - _time_departure) if fleet.destination_arrival_date != null else 0
 
 
 func _get_flight_ratio():

@@ -94,7 +94,9 @@ func _deselect_other_building(node = null):
 
 func _on_menu_layer_menu_closed(menu_name):
 	if menu_name == "menu_shipyard":
-		var node_menu = menu_layer.get_menu("menu_shipyard")
+		_deselect_other_building()
+	elif menu_name == "menu_construction":
+		var node_menu = menu_layer.get_menu("menu_construction")
 		if node_menu.is_connected("building_contructing", self, "_on_building_contructing"):
 			node_menu.disconnect("building_contructing", self, "_on_building_contructing")
 		_deselect_other_building()
