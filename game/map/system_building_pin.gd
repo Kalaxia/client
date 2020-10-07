@@ -6,7 +6,7 @@ const _ALPHA_APLITUDE = 0.4
 const _BLICKING_FREQUENCY = 0.25
 const ASSETS = preload("res://resources/assets.tres")
 
-export(String) var building = null setget set_building
+export(Resource) var building = null setget set_building
 export(Color, RGB) var faction_color = Color(1.0, 1.0, 1.0) setget set_faction_color
 export(bool) var blinking = false setget set_blinking
 
@@ -55,7 +55,7 @@ func _updates_elements():
 
 
 func _update_texture():
-	texture = ASSETS.buildings[building.kind if building != null else ""].texture
+	texture = building.kind.texture if building != null else ASSETS.buildings[""].texture
 
 
 func _updates_color(alpha = _alpha):

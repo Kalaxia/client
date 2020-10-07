@@ -31,7 +31,7 @@ func is_loading():
 	return _lock_load_ressource.get_is_locked()
 
 
-func _on_loaded(err, response_code, headers, body, target_object, method_to_trigger, arguments):
+func _on_loaded(err, response_code, _headers, body, target_object, method_to_trigger, arguments):
 	if err:
 		ErrorHandler.network_response_error(err)
 		emit_signal("error_loading", err, response_code, body)
@@ -53,7 +53,7 @@ func _get_prop_list_expected() -> Array:
 	return _get_dict_property_list()
 
 
-func private_set(variant):
+func private_set(_variant):
 	pass
 
 

@@ -2,7 +2,7 @@ extends Control
 
 const _SCALE_CURRENT_PLAYER_FACTOR = 1.0
 
-var faction = null
+var faction : KalaxiaFaction = null
 var is_current_player = false
 var color = null
 

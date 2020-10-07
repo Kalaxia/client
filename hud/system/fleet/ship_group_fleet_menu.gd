@@ -4,10 +4,12 @@ signal ship_assigned(ship_in_fleet, ship_in_hangar)
 
 const ASSETS : KalaxiaAssets = preload("res://resources/assets.tres")
 
-var ship_category = ASSETS.ship_models.values()[0] setget set_ship_category 
+var ship_category : ShipModel = ASSETS.ship_models.values()[0] setget set_ship_category 
 var quantity_fleet = 0 setget set_quantity_fleet
 var quantity_hangar = 0 setget set_quantity_hangar
 var _lock_assign_ship = Utils.Lock.new() setget private_set, private_get
+var _game_data : GameData = Store.game_data
+
 
 onready var spinbox = $PanelContainer/HBoxContainer/SpinBox
 onready var button_set = $PanelContainer/HBoxContainer/Button
@@ -53,7 +55,7 @@ func update_quantities():
 		max_assign_button.text = tr("hud.details.fleet.max_assign %d") % (quantity_hangar + quantity_fleet)
 
 
-func _on_text_entered(text = null):
+func _on_text_entered(_text = null):
 	_on_set_button()
 
 
@@ -69,25 +71,25 @@ func _request_assignation(quantity):
 	if not _lock_assign_ship.try_lock():
 		return
 	Network.req(self, "_on_ship_assigned",
-			"/api/games/" + Store._state.game.id +
-			"/systems/" + Store._state.selected_system.id +
-			"/fleets/" + Store._state.selected_fleet.id +
+			"/api/games/" + _game_data.id +
+			"/systems/" + _game_data.selected_state.selected_system.id +
+			"/fleets/" + _game_data.selected_state.selected_fleet.id +
 			"/ship-groups/",
 			HTTPClient.METHOD_POST,
 			[ "Content-Type: application/json" ],
 			JSON.print({"category" : ship_category.category, "quantity" : quantity}),
-			[quantity, Store._state.selected_fleet]
+			[quantity, _game_data.selected_state.selected_fleet]
 	)
 
 
-func _on_ship_assigned(err, response_code, headers, body, quantity, fleet):
+func _on_ship_assigned(err, response_code, _headers, _body, quantity, fleet : Fleet):
 	if err:
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
 		quantity_hangar -= (quantity - quantity_fleet)
 		quantity_fleet = quantity
 		update_quantities()
-		Store.update_fleet_nb_ships(fleet, ship_category.category, quantity)
+		fleet.update_fleet_nb_ships(ship_category, quantity)
 		emit_signal("ship_assigned", quantity_fleet, quantity_hangar)
 	_lock_assign_ship.unlock()
 
@@ -108,7 +110,7 @@ func set_quantity_hangar(quantity):
 	update_quantities()
 
 
-func private_set(variant):
+func private_set(_variant):
 	pass
 
 

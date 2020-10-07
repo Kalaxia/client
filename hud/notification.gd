@@ -1,24 +1,27 @@
 extends PanelContainer
 
+const TIME_DISPALYED = 5.0 # in seconds
+
 var notif = null
-var timer = null
+
+onready var timer = $Timer
+onready var animation_player = $AnimationPlayer
+
 
 
 func _ready():
 	get_node("Container/Title").set_text(notif.title)
 	get_node("Container/Content").set_text(notif.content)
-	var timer = $Timer
 	timer.set_one_shot(true)
 	timer.connect("timeout", self, "_on_timer_timeout") 
-	timer.start(5)
-	$AnimationPlayer.current_animation = "fade_in"
+	timer.start(TIME_DISPALYED)
+	animation_player.current_animation = "fade_in"
 
 
 func _on_timer_timeout():
-	$AnimationPlayer.play_backwards()
-	$AnimationPlayer.connect("animation_finished",self,"_on_animation_finished")
-	
+	animation_player.play_backwards()
+	animation_player.connect("animation_finished", self, "_on_animation_finished")
 
 
-func _on_animation_finished(animation_name):
+func _on_animation_finished(_animation_name):
 	queue_free()

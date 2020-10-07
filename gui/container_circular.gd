@@ -244,4 +244,5 @@ func _warn(string):
 
 func _get_configuration_warning():
 	# editor only : override see node._get_configuration_warning()
+	# todo review
 	return _warning_string

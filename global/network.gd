@@ -1,5 +1,6 @@
 extends Node
 
+# warning-ignore-all:unused_signal
 signal authenticated()
 signal CombatEnded(data)
 signal LobbyCreated(lobby)
@@ -16,8 +17,8 @@ signal PlayerJoined(player)
 signal PlayerLeft(player)
 signal PlayerIncome(data)
 signal FleetCreated(fleet)
-signal FleetSailed(fleet) 
-signal FleetArrived(fleet) 
+signal FleetSailed(fleet)
+signal FleetArrived(fleet)
 signal SystemConquerred(data)
 signal SystemsCreated(data)
 signal Victory(data)
@@ -68,21 +69,25 @@ func auth():
 	Network.req(self, "confirm_auth", "/login", HTTPClient.METHOD_POST)
 
 
-func confirm_auth(err, response_code, headers, body):
+func confirm_auth(err, response_code, _headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 		return
-	self.token = JSON.parse(body.get_string_from_utf8()).result.token
-	connect_ws()
-	Network.req(self, "set_current_player", "/api/players/me/")
-	emit_signal("authenticated")
+	if response_code == HTTPClient.RESPONSE_OK:
+		self.token = JSON.parse(body.get_string_from_utf8()).result.token
+		connect_ws()
+		Network.req(self, "set_current_player", "/api/players/me/")
+		emit_signal("authenticated")
+	else:
+		printerr(JSON.parse(body.get_string_from_utf8()).result)
 
 
-func set_current_player(err, response_code, headers, body):
+func set_current_player(err, response_code, _headers, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 		return
-	Store._state.player = JSON.parse(body.get_string_from_utf8()).result
+	if response_code == HTTPClient.RESPONSE_OK:
+		Store.player = Player.new(JSON.parse(body.get_string_from_utf8()).result)
 
 
 func connect_ws():

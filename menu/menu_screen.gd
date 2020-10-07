@@ -31,7 +31,7 @@ func _quit_game():
 	get_tree().quit()
 
 
-func _queue_free_lobby(lobby):
+func _queue_free_lobby(lobby : Dictionary):
 	lobbies_container.get_node(lobby.id).queue_free()
 
 
@@ -48,8 +48,8 @@ func add_lobby_cards(lobbies):
 		add_lobby_card(lobby)
 
 
-func add_lobby_card(lobby):
-	lobby.players = []
+func add_lobby_card(lobby_dict : Dictionary):
+	var lobby = Lobby.new(lobby_dict)
 	var lobby_card = lobby_card_scene.instance()
 	lobby_card.lobby = lobby
 	lobby_card.set_name(lobby.id)
@@ -57,51 +57,59 @@ func add_lobby_card(lobby):
 	lobbies_container.add_child(lobby_card)
 
 
-func join_lobby(lobby, must_update = false):
-	Store._state.lobby = lobby
+func join_lobby(lobby : Lobby):
+	Store.lobby = lobby
 	Network.req(self, "_handle_join_lobby", "/api/lobbies/" + lobby.id + "/players/", HTTPClient.METHOD_POST)
 
 
-func _on_lobby_created(lobby):
+func _on_lobby_created(lobby : Dictionary):
 	add_lobby_card(lobby)
 
 
-func _on_lobby_name_updated(data):
+func _on_lobby_name_updated(data : Dictionary):
 	lobbies_container.get_node(data.id).update_name(data.name)
 
 
-func _on_lobby_removed(lobby):
+func _on_lobby_removed(lobby : Dictionary):
 	_queue_free_lobby(lobby)
 
 
-func _on_lobby_launched(lobby):
+func _on_lobby_launched(lobby : Dictionary):
 	_queue_free_lobby(lobby)
 
 
-func _on_player_joined(player):
-	lobbies_container.get_node(player.lobby).increment_nb_players()
+func _on_player_joined(player : Dictionary):
+	lobbies_container.get_node(player.lobby).add_player(Player.new(player))
 
 
-func _on_player_disconnected(player):
+func _on_player_disconnected(player : Dictionary):
 	if player.lobby != null:
-		lobbies_container.get_node(player.lobby).decrement_nb_players()
+		lobbies_container.get_node(player.lobby).remove_player(player.id)
 
 
-# Handlers for HTTP requests.
-# Normaly we should handle bad response codes like 404 error or other kind of
-# error before doin something with the data
-func _handle_get_lobbies(err, response_code, headers, body):
-	add_lobby_cards(JSON.parse(body.get_string_from_utf8()).result)
+func _handle_get_lobbies(err, response_code, _headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+	if response_code == HTTPClient.RESPONSE_OK:
+		add_lobby_cards(JSON.parse(body.get_string_from_utf8()).result)
 
 
-func _handle_create_lobby(err, response_code, headers, body):
-	Store._state.lobby = JSON.parse(body.get_string_from_utf8()).result
-	emit_signal("scene_requested", "lobby")
+func _handle_create_lobby(err, response_code, _headers, body):
+	if err:
+		ErrorHandler.network_response_error(err)
+	if response_code == HTTPClient.RESPONSE_CREATED:
+		Store.lobby = Lobby.new(JSON.parse(body.get_string_from_utf8()).result)
+		emit_signal("scene_requested", "lobby")
+	# todo handel error
 
 
-func _handle_join_lobby(err, response_code, headers, body):
-	Store._state.lobby.players.push_back(Store._state.player.id)
-	emit_signal("scene_requested", "lobby")
+func _handle_join_lobby(err, response_code, _headers, _body):
+	if err:
+		ErrorHandler.network_response_error(err)
+	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
+		Store.lobby.players[Store.player.id] = Store.player
+		emit_signal("scene_requested", "lobby")
+	# todo handel error
 
 
 func _on_menu_option_pressed():

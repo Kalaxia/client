@@ -6,6 +6,7 @@ const ASSETS = preload("res://resources/assets.tres")
 
 func _ready():
 	for faction in ASSETS.factions:
-		var node = SCORE_FACTION.instance()
-		node.faction = int(faction.id)
-		$Container/Scores.add_child(node)
+		if faction.id != 0:
+			var node = SCORE_FACTION.instance()
+			node.faction = faction.id
+			$Container/Scores.add_child(node)

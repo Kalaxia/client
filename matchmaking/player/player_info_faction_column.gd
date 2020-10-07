@@ -3,7 +3,7 @@ extends PanelContainer
 
 const ASSETS = preload("res://resources/assets.tres")
 
-var player setget set_player
+var player : Player setget set_player
 
 onready var label = $Label
 
@@ -11,8 +11,9 @@ onready var label = $Label
 func _ready():
 	update_display()
 
-func update_player(player):
-	set_player(player)
+
+func update_player(new_player):
+	set_player(new_player)
 
 
 func set_player(new_player):
@@ -39,8 +40,8 @@ func update_display():
 func _update_faction_color():
 	var style = get("custom_styles/panel")
 	var style_used = style if style != null else StyleBoxFlat.new()
-	if player.faction != null and player.faction as int != 0:
-		style_used.border_color = ASSETS.factions[player.faction].get_color()
+	if player.faction != null and player.faction.id as int != 0:
+		style_used.border_color = player.faction.get_color()
 	else:
 		style_used.border_color = Color(0.12, 0.12, 0.12, 0.5)
 	set("custom_styles/panel", style_used)

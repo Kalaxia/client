@@ -9,15 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Resource",
-"class": "ApiConfig",
-"language": "GDScript",
-"path": "res://config/ApiConfig.gd"
-}, {
 "base": "Node",
 "class": "AudioStacking",
 "language": "GDScript",
 "path": "res://audio/audio_stacking.gd"
+}, {
+"base": "DictResource",
+"class": "Building",
+"language": "GDScript",
+"path": "res://resources/definitions/store/building.gd"
 }, {
 "base": "DictResource",
 "class": "BuildingModelRemote",
@@ -64,6 +64,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://gui/custom_shape_button.gd"
 }, {
+"base": "Reference",
+"class": "Debug",
+"language": "GDScript",
+"path": "res://global/debug.gd"
+}, {
 "base": "Resource",
 "class": "DictResource",
 "language": "GDScript",
@@ -78,6 +83,11 @@ _global_script_classes=[ {
 "class": "FactionRemote",
 "language": "GDScript",
 "path": "res://resources/definitions/remote_resources/faction.gd"
+}, {
+"base": "DictResource",
+"class": "Fleet",
+"language": "GDScript",
+"path": "res://resources/definitions/store/fleet.gd"
 }, {
 "base": "SelectablePanelContainer",
 "class": "FleetItem",
@@ -119,6 +129,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/assets/2d/picto/ships/ship_model.gd"
 }, {
+"base": "DictResource",
+"class": "Lobby",
+"language": "GDScript",
+"path": "res://resources/definitions/store/lobby.gd"
+}, {
+"base": "DictResource",
+"class": "LobbyOption",
+"language": "GDScript",
+"path": "res://resources/definitions/store/lobby_option.gd"
+}, {
 "base": "PanelContainer",
 "class": "MenuBody",
 "language": "GDScript",
@@ -142,7 +162,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "NetworkResource",
 "language": "GDScript",
-"path": "res://global/resources/network_config.gd"
+"path": "res://config/network_config.gd"
 }, {
 "base": "PanelContainer",
 "class": "OptionKeyBinding",
@@ -150,9 +170,9 @@ _global_script_classes=[ {
 "path": "res://menu/options/option_key_binding.gd"
 }, {
 "base": "DictResource",
-"class": "PlayerData",
+"class": "Player",
 "language": "GDScript",
-"path": "res://resources/definitions/store/player_data.gd"
+"path": "res://resources/definitions/store/player.gd"
 }, {
 "base": "PanelContainer",
 "class": "PlayerInfoFactionColumn",
@@ -174,10 +194,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://hud/rounded_selectable_panel_right.gd"
 }, {
+"base": "DictResource",
+"class": "ScoreFaction",
+"language": "GDScript",
+"path": "res://resources/definitions/store/score_faction.gd"
+}, {
 "base": "PanelContainer",
 "class": "SelectablePanelContainer",
 "language": "GDScript",
 "path": "res://gui/selectable_panel_container.gd"
+}, {
+"base": "Resource",
+"class": "SelectedState",
+"language": "GDScript",
+"path": "res://resources/definitions/store/selected_state.gd"
 }, {
 "base": "DictResource",
 "class": "ShipGroup",
@@ -189,15 +219,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/definitions/remote_resources/ship_model.gd"
 }, {
+"base": "ShipGroup",
+"class": "ShipQueue",
+"language": "GDScript",
+"path": "res://resources/definitions/store/ship_queue.gd"
+}, {
 "base": "SpinBox",
 "class": "SpinBoxImediateUpdate",
 "language": "GDScript",
 "path": "res://gui/spin_box_imediate_update.gd"
 }, {
 "base": "DictResource",
-"class": "SystemData",
+"class": "System",
 "language": "GDScript",
-"path": "res://resources/definitions/store/system_data.gd"
+"path": "res://resources/definitions/store/system.gd"
 }, {
 "base": "CustomShapeButton",
 "class": "TransparentCircleButton",
@@ -215,8 +250,8 @@ _global_script_classes=[ {
 "path": "res://global/resources/version.gd"
 } ]
 _global_script_class_icons={
-"ApiConfig": "",
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
+"Building": "",
 "BuildingModelRemote": "",
 "BuildingPanel": "",
 "CachedResource": "",
@@ -226,9 +261,11 @@ _global_script_class_icons={
 "ConstructionBuildingItem": "",
 "CrownSprite": "res://resources/assets/2d/map/kalankar/crown_bottom.png",
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
+"Debug": "",
 "DictResource": "",
 "ErrorHandler": "",
 "FactionRemote": "",
+"Fleet": "",
 "FleetItem": "res://resources/editor/fleet_item.svg",
 "FleetSprite": "res://resources/assets/2d/map/picto_flotte_2.png",
 "GameData": "",
@@ -237,22 +274,27 @@ _global_script_class_icons={
 "KalaxiaFaction": "res://resources/assets/2d/white_logo.png",
 "KalaxiaPicto": "",
 "KalaxiaShipModel": "",
+"Lobby": "",
+"LobbyOption": "",
 "MenuBody": "res://resources/editor/menu_body.svg",
 "MenuContainer": "res://resources/editor/menu_container.svg",
 "MenuHeader": "res://resources/editor/menu_header.svg",
 "MenuLayer": "",
 "NetworkResource": "",
 "OptionKeyBinding": "",
-"PlayerData": "",
+"Player": "",
 "PlayerInfoFactionColumn": "",
 "RemoteDictResource": "",
 "RoundedSelectablePanelLeft": "",
 "RoundedSelectablePanelRight": "",
+"ScoreFaction": "",
 "SelectablePanelContainer": "res://resources/editor/selectable_container.svg",
+"SelectedState": "",
 "ShipGroup": "",
 "ShipModel": "",
+"ShipQueue": "",
 "SpinBoxImediateUpdate": "res://resources/editor/spin_box_imediate_update.svg",
-"SystemData": "",
+"System": "",
 "TransparentCircleButton": "res://resources/editor/custom_circle_button.svg",
 "Utils": "",
 "Version": ""
@@ -274,6 +316,7 @@ Store="*res://global/store.gd"
 [debug]
 
 settings/stdout/verbose_stdout=true
+gdscript/warnings/return_value_discarded=false
 
 [display]
 

@@ -2,6 +2,7 @@ extends Control
 
 signal ressource_loaded(ressource_name, ressource)
 signal finished()
+# warning-ignore:unused_signal
 signal scene_requested(scene) # not used used finished instead
 
 enum STATE_NETWORK_ELEMENT {
@@ -60,7 +61,7 @@ func _ready():
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_ship_status)
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_building_status)
-	Store.connect("notification_added",self,"_on_notification_added")
+	Store.connect("notification_added", self, "_on_notification_added")
 	timer_auth.connect("timeout", self, "_on_timeout_auth")
 	timer_res.connect("timeout", self, "_on_timeout_res")
 	# if we wait too much and there is no queue of element to load we want to quit
@@ -169,7 +170,7 @@ func verify_is_finished():
 		emit_signal("finished")
 
 
-func _process(delta):
+func _process(_delta):
 	if loader == null or current_load_element == null:
 		current_load_element = null
 		var keys = load_queue.keys()

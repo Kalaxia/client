@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://game/map/fleet_sailing.gd" type="Script" id=1]
 [ext_resource path="res://game/map/sprites/fleet_sprite.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game/map/sprites/crown_sprite.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resources/assets/2d/map/kalankar/crown_bottom.png" type="Texture" id=4]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -26,3 +27,4 @@ scale = Vector2( 0.5, 0.5 )
 
 [node name="CrownSprite" parent="FleetPath/Follower/SpritesContainer" instance=ExtResource( 3 )]
 position = Vector2( 0, 9 )
+texture = ExtResource( 4 )

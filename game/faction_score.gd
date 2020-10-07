@@ -1,9 +1,7 @@
 extends VBoxContainer
 
-var faction = null setget set_faction
-var victory_points = 0 setget set_victory_points
+var score : ScoreFaction = null setget set_score
 
-const assets = preload("res://resources/assets.tres")
 
 func _ready():
 	_update_faction()
@@ -11,22 +9,17 @@ func _ready():
 
 
 func _update_points():
-	$NbSystems.set_text(tr("game.faction_score.victory_points %d") % victory_points)
+	$VictoryPoints.set_text(tr("game.faction_score.victory_points %d") % score.victory_points)
 
 
 func _update_faction():
-	if faction == null:
+	if score.faction == null:
 		return
-	$Name.set_text(tr(faction.name))
-	$NbSystems.set_text(tr("game.faction_score.victory_points") % victory_points)
-	$Banner.set_texture(assets.factions[faction].banner)
+	$Name.set_text(tr(score.faction.display_name))
+	$Banner.set_texture(score.faction.banner)
 
 
-func set_faction(new_faction):
-	faction = new_faction
-	_update_faction()
-
-
-func set_victory_points(points):
-	victory_points = points
+func set_score(new_score):
+	score = new_score
 	_update_points()
+	_update_faction()

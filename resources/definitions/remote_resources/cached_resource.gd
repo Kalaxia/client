@@ -13,10 +13,10 @@ signal loaded(ressource_name)
 
 const CACHED_DATA_PATH = "res://cache.tres"
 
-export(Dictionary) var factions = {}
-export(Array, Resource) var ship_models = []
-export(Array, Resource) var building_list = []
-export(Resource) var constants = ConstanteRemoteResource.new()
+export(Dictionary) var factions
+export(Array, Resource) var ship_models
+export(Array, Resource) var building_list
+export(Resource) var constants
 export(String) var version = null
 
 var _lock_load_building = Utils.Lock.new() setget private_set, private_get
@@ -28,6 +28,11 @@ var dict_loaded = {
 	Resource_elements.FACTIONS : true,
 	Resource_elements.CONSTANTS : true,
 } setget private_set
+
+
+func _init():
+	constants = ConstanteRemoteResource.new()
+	# todo dict_loaded reset ?
 
 
 func refresh(version_p):
@@ -47,7 +52,7 @@ func load_constant():
 
 func has_all_data():
 	return constants.has_all_data() and has_ships_model() \
-	and has_factions() and has_building()
+			and has_factions() and has_building()
 
 
 func has_ships_model():
@@ -76,7 +81,7 @@ func load_building():
 	return true
 
 
-func _on_building_loaded(err, response_code, header, body):
+func _on_building_loaded(err, response_code, _header, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 		emit_signal("error", Resource_elements.BUILDING, err, response_code, body)
@@ -100,7 +105,7 @@ func load_ship_models():
 	return true
 
 
-func _on_ship_models_loaded(err, response_code, header, body):
+func _on_ship_models_loaded(err, response_code, _header, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 		emit_signal("error", Resource_elements.SHIP_MODELS, err, response_code, body)
@@ -124,7 +129,7 @@ func load_factions():
 	return true
 
 
-func _on_factions_loaded(err, response_code, header, body):
+func _on_factions_loaded(err, response_code, _header, body):
 	if err:
 		ErrorHandler.network_response_error(err)
 		emit_signal("error", Resource_elements.FACTIONS, err, response_code, body)
@@ -170,10 +175,12 @@ func _fetch_data_and_save():
 
 func _verify_finished_loading():
 	if has_finished_loading():
-		ResourceSaver.save(CACHED_DATA_PATH, self, ResourceSaver.FLAG_CHANGE_PATH)
+		var err = ResourceSaver.save(CACHED_DATA_PATH, self, ResourceSaver.FLAG_CHANGE_PATH)
+		if err != OK:
+			printerr("Could not save cached data at path %s : %d" % [CACHED_DATA_PATH, err])
 
 
-func private_set(variant):
+func private_set(_variant):
 	pass
 
 

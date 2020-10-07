@@ -7,11 +7,17 @@ ifeq ($(OS),Windows_NT)
     godot-sufix = _win64.exe
     copy = copy
     copy-flag = /Y
+    rm = del
+    rm-flag =
+    default-target = compile/windows/kalaxia.exe
 else
     console = sh
     godot-sufix = _x11.64
     copy = cp
     copy-flag = -f
+    rm = rm
+    rm-flag = -f
+    default-target = compile/linux/kalaxia.x86_64
 endif
 
 file-config-dev = config\development.tres
@@ -26,7 +32,7 @@ git-decribe-flag = --tags --long
 echo = echo
 
 pybabel = pybabel
-pybabel-flags = extract -F babelrc -k text -k LineEdit/placeholder_text -k tr -k hint_tooltip -k TranslationServer.translate -o
+pybabel-flags = extract -F babelrc -k text -k LineEdit/placeholder_text -k tr -k hint_tooltip -k translate -o
 msgmerge = msgmerge
 msgmerge-flags = --update --backup=simple --suffix=.back
 
@@ -36,11 +42,12 @@ godot-flag = --export
 source-sufix = gd tscn tres
 source-files = $(foreach sufix, $(source-sufix), $(wildcard *.$(sufix) */*.$(sufix) */*/*.$(sufix) */*/*/*.$(sufix) */*/*/*/*.$(sufix) */*/*/*/*/*.$(sufix)))
 translation-string-files = $(wildcard locales/*.txt)
+cached-data = cache.tres
 
 version-file = version.tres
 
 .PHONY: all
-all: debug
+all: $(default-target)
 
 
 .PHONY: setup
@@ -62,6 +69,11 @@ debug: compile/windows/kalaxia.exe compile/linux/kalaxia.x86_64
 
 .PHONY: update-translation
 update-translation: locales/fr.po locales/en.po
+
+
+.PHONY: clean-cache
+clean-cache:
+	$(rm) $(rm-flag) $(cached-data)
 
 
 %.po: locales/translation.pot

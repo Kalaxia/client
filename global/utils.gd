@@ -27,7 +27,7 @@ class Lock:
 	var _is_locked = false setget _private_setter, get_is_locked
 	
 	
-	func _private_setter(variable):
+	func _private_setter(_variable):
 		# cannot be set from outisde
 		pass
 	
@@ -75,8 +75,6 @@ static func get_label_of_event(event):
 
 
 static func set_window_resizable(is_resizable):
-	var size = OS.window_size
-	var position = OS.window_position
 	if OS.window_resizable == is_resizable:
 		return
 	OS.set_window_resizable(is_resizable)

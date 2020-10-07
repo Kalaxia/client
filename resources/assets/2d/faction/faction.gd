@@ -8,11 +8,16 @@ export(Color) var display_color
 export(String) var display_name
 export(Resource) var picto
 export(Theme) var theme
-export(float) var id
+export(int) var id
 
 
-func get_color(lighten = false) -> Color:
-	return Utils.lighten_color(self.display_color) if lighten else self.display_color
+func get_color(is_victory_system = false, is_current_player = false) -> Color:
+	var color = self.display_color
+	if is_victory_system:
+		color = Utils.lighten_color(color)
+	if is_current_player:
+		color = Utils.lighten_color(color)
+	return color
 
 
 func update_info_form_dict(dict):

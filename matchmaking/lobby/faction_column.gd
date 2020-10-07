@@ -3,7 +3,7 @@ extends VBoxContainer
 const ASSETS = preload("res://resources/assets.tres")
 const PLAYER_INFO_FACTION_COLUMN = preload("res://matchmaking/player/player_info_faction_column.tscn")
 
-export(int) var faction = 0 setget set_faction
+export(int) var faction = 0 setget set_faction # ressource ?
 
 enum UPDATE_PLAYER_STATE {
 	PLAYER_UPDATED,
@@ -22,13 +22,17 @@ func _ready():
 
 
 func add_player(player):
+	for node in container.get_children():
+		if node is PlayerInfoFactionColumn and node.player.id == player.id:
+			return UPDATE_PLAYER_STATE.PLAYER_IGNORED
+	# in the case where the player is not there
 	var node = PLAYER_INFO_FACTION_COLUMN.instance()
 	node.player = player
 	container.add_child(node)
 	return UPDATE_PLAYER_STATE.PLAYER_ADDED
 
 
-func remove_player(player):
+func remove_player(player): 
 	for node in container.get_children():
 		if node is PlayerInfoFactionColumn and node.player.id == player.id:
 			node.queue_free()
@@ -47,7 +51,7 @@ func update_player(player):
 
 
 func _is_of_current_faction(player):
-	return ( player.faction == null and faction == 0 ) or ( player.faction != null and player.faction as int == faction )
+	return ( player.faction == null and faction == 0 ) or ( player.faction != null and player.faction.id as int == faction )
 
 
 func set_faction(new_faction):
