@@ -10,6 +10,7 @@ const _SCALE_FACTOR_ON_HIGHLIGHT = 1.5
 const _SCALE_CHANGE_FACTOR = 5.0
 const SYSTEM_FLEET_PIN_SCENE = preload("res://game/map/system_fleet_pin.tscn")
 const SYSTEM_BUILDING_PIN_SCENE = preload("res://game/map/system_building_pin.tscn")
+const ASSETS = preload("res://resources/assets.tres")
 
 export(float) var scale_ratio = 1.0 setget set_scale_ratio
 
@@ -39,7 +40,7 @@ func _ready():
 	Store.connect("fleet_selected", self, "_on_fleet_selected")
 	Store.connect("fleet_unselected", self, "_on_fleet_unselected")
 	var scale_factor = (1.0 / scale.x) if scale.x != 0 else 0.0
-	var scale_range = Utils.fleet_range * Utils.SCALE_SYSTEMS_COORDS * scale_factor
+	var scale_range = ASSETS.constants.fleet_range * Utils.SCALE_SYSTEMS_COORDS * scale_factor
 	range_draw_node.scale = Vector2(scale_range,scale_range)
 	_set_crown_state()
 	_set_system_texture()
@@ -156,7 +157,7 @@ func _set_crown_state():
 	var is_current_player = (system.player == Store._state.player.id)
 	crown.visible = is_current_player
 	if is_current_player:
-		crown.texture = Utils.TEXTURE_CROWN_SYSTEM[Store.get_game_player(system.player).faction as int]
+		crown.texture = ASSETS.factions[Store.get_game_player(system.player).faction].picto.crown_top
 
 
 func _set_glow_effet():
@@ -168,10 +169,10 @@ func _set_glow_effet():
 
 
 func _set_system_texture():
-	if system.player == null:
-		spot.texture = Utils.TEXTURE_SYSTEM[system.kind][0]
-	else:
-		spot.texture = Utils.TEXTURE_SYSTEM[system.kind][Store.get_game_player(system.player).faction as int]
+	var faction = ASSETS.factions[0.0]
+	if system.player:
+		faction = ASSETS.factions[Store.get_game_player(system.player).faction]
+	spot.texture = faction.picto.system_by_kind(system.kind)
 
 
 func _scale_star_system(factor):

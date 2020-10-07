@@ -2,7 +2,9 @@ extends Control
 
 signal ship_construction_started(ship_queue)
 
-var ship_category = Store._state.ship_models[0] setget set_ship_category
+const ASSETS = preload("res://resources/assets.tres")
+
+var ship_category = ASSETS.ship_models.values()[0] setget set_ship_category
 var _lock_build_ships = Utils.Lock.new() setget private_set, private_get
 
 onready var spinbox = $PanelContainer/HBoxContainer/SpinBox
@@ -82,7 +84,7 @@ func update_elements():
 	if ship_category == null:
 		return
 	if texture_model != null:
-		texture_model.texture = Utils.TEXTURE_SHIP_CATEGORIES[ship_category.category]
+		texture_model.texture = ASSETS.ship_models[ship_category.category]
 	if label_model != null:
 		label_model.text = tr("hud.details.building.hangar.ship_model %s") % tr("ship." + ship_category.category)
 	if hit_point_label != null:

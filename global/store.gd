@@ -16,7 +16,7 @@ signal building_updated(system)
 signal fleet_owner_updated(fleet)
 
 const _STATE_EMPTY = {
-	"factions": {},
+	#"factions": {},
 	"game": {},
 	"lobby": null,
 	"player": null,
@@ -24,19 +24,25 @@ const _STATE_EMPTY = {
 	"selected_fleet": null,
 	"scores": {},
 	"victorious_faction": null,
-	"ship_models" : [],
-	"building_list" : [],
+	#"ship_models" : [],
+	#"building_list" : [],
 }
 
 var _state = _STATE_EMPTY.duplicate(true)
-
+var assets : KalaxiaAssets = preload("res://resources/assets.tres") 
 
 func _ready():
 	pass
 
 
-func get_lobby_name(lobby):
-	return tr('store.game_of %s') % lobby.owner.username if typeof(lobby.owner) == TYPE_DICTIONARY and lobby.owner.username != '' else tr('store.new_game')
+func update_assets(cached_data : CachedResource):
+	assets.load_data_from_cached(cached_data)
+
+
+static func get_lobby_name(lobby):
+	return TranslationServer.translate('store.game_of %s') % lobby.owner.username \
+			if typeof(lobby.owner) == TYPE_DICTIONARY and lobby.owner.username != '' \
+			else TranslationServer.translate('store.new_game')
 
 
 func get_lobby_player(pid):
@@ -66,22 +72,9 @@ func notify(title, content):
 	})
 
 
-func set_factions(factions):
-	_state.factions = {}
-	for faction in factions:
-		_state.factions[faction.id] = faction
-
-
-func set_ships_model(models):
-	_state.ship_models = models
-
-
-func set_building_list(building_list):
-	_state.building_list = building_list
-
-
 func get_faction(id):
-	return _state.factions[id]
+	#todo remove
+	return assets.factions[id]
 
 
 func set_game_players(players):
@@ -185,17 +178,11 @@ func unselect_fleet():
 
 func unload_data():
 	var player = _state.player
-	var factions = _state.factions
-	var ship_models = _state.ship_models
-	var building_list = _state.building_list
 	if player != null:
 		player.game = null
 		player.lobby = null
 	_state = _STATE_EMPTY.duplicate(true)
 	_state.player = player
-	_state.factions = factions
-	_state.ship_models = ship_models
-	_state.building_list = building_list
 
 
 func is_in_range(fleet,system):
@@ -205,11 +192,11 @@ func is_in_range(fleet,system):
 		return false
 	var coord_system_fleet = Store._state.game.systems[fleet.system].coordinates
 	var vector_diff = Vector2(coord_system_fleet.x, coord_system_fleet.y) - Vector2(system.coordinates.x, system.coordinates.y)
-	return vector_diff.length() < Utils.fleet_range and vector_diff != Vector2.ZERO
+	return vector_diff.length() < assets.constants.fleet_range and vector_diff != Vector2.ZERO
 
 
 func _get_faction_color(faction, is_victory_system = false, is_current_player = false) :
-	var color = Color(faction.color[0] / 255.0, faction.color[1] / 255.0, faction.color[2] / 255.0)
+	var color = faction.get_color()
 	if is_current_player:
 		color = Utils.lighten_color(color)
 	if is_victory_system:
@@ -220,7 +207,7 @@ func _get_faction_color(faction, is_victory_system = false, is_current_player = 
 func get_player_color(player,is_victory_system = false) :
 	if player == null :
 		return Color(194.0 / 255.0, 254.0 / 255.0 , 255.0 / 255.0) if is_victory_system else Color(1.0, 1.0, 1.0)
-	return _get_faction_color(Store.get_faction(player.faction), is_victory_system, player.id == _state.player.id)
+	return _get_faction_color(assets.factions[player.faction], is_victory_system, player.id == _state.player.id)
 
 
 func update_scores(scores):

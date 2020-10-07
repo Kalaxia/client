@@ -1,15 +1,16 @@
 extends VBoxContainer
 
+const ASSETS = preload("res://resources/assets.tres")
+const PLAYER_INFO_FACTION_COLUMN = preload("res://matchmaking/player/player_info_faction_column.tscn")
+
+export(int) var faction = 0 setget set_faction
+
 enum UPDATE_PLAYER_STATE {
 	PLAYER_UPDATED,
 	PLAYER_ADDED,
 	PLAYER_REMOVED,
 	PLAYER_IGNORED,
 }
-
-const PLAYER_INFO_FACTION_COLUMN = preload("res://matchmaking/player/player_info_faction_column.tscn")
-
-export(int) var faction = 0 setget set_faction
 
 onready var container = $ScrollContainer/VBoxContainer
 onready var scroll_container = $ScrollContainer
@@ -50,9 +51,10 @@ func _is_of_current_faction(player):
 
 
 func set_faction(new_faction):
-	if not Store._state.factions.has(new_faction as float) or  new_faction as int == 0:
+	new_faction = new_faction as int
+	if new_faction < 1 or new_faction >= ASSETS.factions.size():
 		return
-	faction = new_faction as int
+	faction = new_faction
 	_update_faction_banner()
 
 
@@ -60,13 +62,11 @@ func _update_faction_banner():
 	if scroll_container == null:
 		return
 	var style = scroll_container.get("custom_styles/bg")
-	var duplicated_style = style.duplicate()
 	if faction != 0:
 		header_banner.visible = true
-		header_banner.texture = Utils.BANNERS[faction as int]
-		var color = Store._state.factions[faction as float].color
-		duplicated_style.border_color =  Color(color[0] / 255.0, color[1] / 255.0, color[2] / 255.0)
+		header_banner.texture = ASSETS.factions[faction].banner
+		style.border_color = ASSETS.factions[faction].get_color()
 	else:
-		duplicated_style.border_color = Color(0.12,0.12,0.12)
+		style.border_color = Color(0.12,0.12,0.12)
 		header_banner.visible = false
-	scroll_container.set("custom_styles/bg",duplicated_style)
+	scroll_container.set("custom_styles/bg", style)

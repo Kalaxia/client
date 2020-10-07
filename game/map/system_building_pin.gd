@@ -4,6 +4,7 @@ const _ALPHA_SPEED_GAIN = 2.0
 const _SNAP_ALPHA_DISTANCE = 0.05
 const _ALPHA_APLITUDE = 0.4
 const _BLICKING_FREQUENCY = 0.25
+const ASSETS = preload("res://resources/assets.tres")
 
 export(String) var building = null setget set_building
 export(Color, RGB) var faction_color = Color(1.0, 1.0, 1.0) setget set_faction_color
@@ -54,7 +55,7 @@ func _updates_elements():
 
 
 func _update_texture():
-	texture = Utils.TEXTURE_BUILDING[building.kind if building != null else ""]
+	texture = ASSETS.buildings[building.kind if building != null else ""].texture
 
 
 func _updates_color(alpha = _alpha):

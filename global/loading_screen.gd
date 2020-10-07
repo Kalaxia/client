@@ -14,6 +14,9 @@ const GREEN = Color(50.0 / 255.0, 191.0 / 255.0, 87.0 / 255.0)
 const RED = Color(191.0 / 255.0, 62.0 / 255.0, 50.0 / 255.0)
 const ORANGE = Color(214.0 / 255.0, 150.0 / 255.0, 0.0)
 
+onready var assets : KalaxiaAssets = load("res://resources/assets.tres")
+var loaded_factions = 0
+var loaded_ship_models = 0
 var load_queue = {} setget set_load_queue
 var queue_finished = false
 var loader = null
@@ -21,6 +24,7 @@ var current_load_element = null
 var has_emited_finished = false
 var _number_of_element_to_load = 0
 var _current_loading_component_load = 0
+var cached_data : CachedResource
 
 onready var global_progressbar = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/GlobalProgress
 onready var ressource_progressbar = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/ProgressBar
@@ -39,27 +43,22 @@ onready var version_label = $Foreground/MarginContainer/VBoxContainer/VersionLab
 
 func _ready():
 	version_label.text = tr("global.loading.version %s") % Config.VERSION.version
+	cached_data = load(CachedResource.CACHED_DATA_PATH)
+	if not cached_data:
+		cached_data = CachedResource.new()
 	quit_button.visible = false
 	if Network.token == null:
 		Network.connect_to_host()
 		Network.connect("authenticated", self, "_on_authentication")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_network_status)
-	if Store._state.factions.size() == 0:
-		Network.req(self, "_on_factions_loaded", "/api/factions/")
+	if cached_data.refresh(null):
+		cached_data.connect("loaded", self, "_on_resource_loaded")
+		cached_data.connect("error", self, "_on_resource_loading_error")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_faction_status)
-	if not Utils.has_constants():
-		Network.req(self, "_on_constants_loaded", "/api/constants/")
-	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
-	if Store._state.ship_models.size() == 0:
-		Network.req(self, "_on_ship_models_loaded", "/api/ship-models/")
-	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_ship_status)
-	if Store._state.building_list.size() == 0:
-		Network.req(self, "_on_building_loaded", "/api/buildings/")
-	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_building_status)
 	Store.connect("notification_added",self,"_on_notification_added")
 	timer_auth.connect("timeout", self, "_on_timeout_auth")
@@ -105,65 +104,37 @@ func _on_timeout_auth():
 	if Network.token == null: 
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_network_status)
 		quit_button.visible = true
-	if Store._state.factions.size() == 0:
+	if not cached_data.dict_loaded[CachedResource.Resource_elements.FACTIONS]:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
 		quit_button.visible = true
-	if Store._state.ship_models.size() == 0:
+	if not cached_data.dict_loaded[CachedResource.Resource_elements.SHIP_MODELS]:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
 		quit_button.visible = true
-	if not Utils.has_constants():
+	if not cached_data.dict_loaded[CachedResource.Resource_elements.CONSTANTS]:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
 		quit_button.visible = true
-	if Store._state.building_list.size() == 0:
+	if not cached_data.dict_loaded[CachedResource.Resource_elements.BUILDING]:
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_building_status)
 		quit_button.visible = true
 
 
-func _on_factions_loaded(err, response_code, headers, body):
-	if err:
-		ErrorHandler.network_response_error(err)
-	var factions = JSON.parse(body.get_string_from_utf8()).result
-	if factions != null:
-		Store.set_factions(factions)
-		set_state_label(STATE_NETWORK_ELEMENT.OK, label_faction_status)
-	else:
-		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
+func _on_resource_loaded(res_name):
+	set_state_label(STATE_NETWORK_ELEMENT.OK, {
+		CachedResource.Resource_elements.BUILDING: label_building_status,
+		CachedResource.Resource_elements.SHIP_MODELS: label_ship_status,
+		CachedResource.Resource_elements.FACTIONS: label_faction_status,
+		CachedResource.Resource_elements.CONSTANTS: label_constant_status,
+	}[res_name])
 	verify_is_finished()
 
 
-func _on_constants_loaded(err, response_code, headers, body):
-	if err:
-		ErrorHandler.network_response_error(err)
-	var constants = JSON.parse(body.get_string_from_utf8()).result
-	if constants != null:
-		Utils.set_constants(constants)
-		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
-	else:
-		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
-	verify_is_finished()
-
-
-func _on_ship_models_loaded(err, response_code, headers, body):
-	if err:
-		ErrorHandler.network_response_error(err)
-	var ship_model = JSON.parse(body.get_string_from_utf8()).result
-	if ship_model != null:
-		Store.set_ships_model(ship_model)
-		set_state_label(STATE_NETWORK_ELEMENT.OK, label_ship_status)
-	else:
-		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
-	verify_is_finished()
-
-
-func _on_building_loaded(err, response_code, headers, body):
-	if err:
-		ErrorHandler.network_response_error(err)
-	var building_list = JSON.parse(body.get_string_from_utf8()).result
-	if building_list != null:
-		Store.set_building_list(building_list)
-		set_state_label(STATE_NETWORK_ELEMENT.OK, label_building_status)
-	else:
-		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_building_status)
+func _on_resource_loading_error(res_name, err, response_code, body):
+	set_state_label(STATE_NETWORK_ELEMENT.ERROR, {
+		CachedResource.Resource_elements.BUILDING: label_building_status,
+		CachedResource.Resource_elements.SHIP_MODELS: label_ship_status,
+		CachedResource.Resource_elements.FACTIONS: label_faction_status,
+		CachedResource.Resource_elements.CONSTANTS: label_constant_status,
+	}[res_name])
 	verify_is_finished()
 
 
@@ -189,7 +160,11 @@ func set_load_queue(load_queue_param):
 
 
 func verify_is_finished():
-	if Store._state.factions.size() > 0 and queue_finished and Network.token != null and Store._state.ship_models.size() > 0 and Utils.has_constants() and Store._state.building_list.size() > 0 and not has_emited_finished:
+	if queue_finished \
+			and Network.token != null \
+			and cached_data.has_finished_loading() \
+			and not has_emited_finished:
+		Store.update_assets(cached_data)	
 		has_emited_finished = true
 		emit_signal("finished")
 

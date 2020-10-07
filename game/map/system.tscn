@@ -10,7 +10,7 @@ load_path = "res://.import/picto_syteme.png-64483ceb7a666f41f079c453a2972643.ste
 
 [sub_resource type="StreamTexture" id=2]
 flags = 4
-load_path = "res://.import/couronne.png-08143636af1578706da4d82d2f6130eb.stex"
+load_path = "res://.import/crown_top.png-9a695ae7baae47aa3950a2279fbca96e.stex"
 
 [sub_resource type="StreamTexture" id=3]
 flags = 4

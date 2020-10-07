@@ -9,15 +9,30 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "ApiConfig",
+"language": "GDScript",
+"path": "res://config/ApiConfig.gd"
+}, {
 "base": "Node",
 "class": "AudioStacking",
 "language": "GDScript",
 "path": "res://audio/audio_stacking.gd"
 }, {
+"base": "DictResource",
+"class": "BuildingModelRemote",
+"language": "GDScript",
+"path": "res://resources/definitions/remote_resources/building_model.gd"
+}, {
 "base": "SelectablePanelContainer",
 "class": "BuildingPanel",
 "language": "GDScript",
 "path": "res://hud/system/buildings/building_panel.gd"
+}, {
+"base": "DictResource",
+"class": "CachedResource",
+"language": "GDScript",
+"path": "res://resources/definitions/remote_resources/cached_resource.gd"
 }, {
 "base": "CustomShapeButton",
 "class": "CircularButton",
@@ -28,6 +43,11 @@ _global_script_classes=[ {
 "class": "CircularContainer",
 "language": "GDScript",
 "path": "res://gui/container_circular.gd"
+}, {
+"base": "RemoteDictResource",
+"class": "ConstanteRemoteResource",
+"language": "GDScript",
+"path": "res://resources/definitions/remote_resources/constante_remote_ressource.gd"
 }, {
 "base": "MarginContainer",
 "class": "ConstructionBuildingItem",
@@ -44,6 +64,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://gui/custom_shape_button.gd"
 }, {
+"base": "Resource",
+"class": "DictResource",
+"language": "GDScript",
+"path": "res://resources/definitions/dict_resource.gd"
+}, {
+"base": "Node",
+"class": "ErrorHandler",
+"language": "GDScript",
+"path": "res://global/error.gd"
+}, {
+"base": "DictResource",
+"class": "FactionRemote",
+"language": "GDScript",
+"path": "res://resources/definitions/remote_resources/faction.gd"
+}, {
 "base": "SelectablePanelContainer",
 "class": "FleetItem",
 "language": "GDScript",
@@ -53,6 +88,36 @@ _global_script_classes=[ {
 "class": "FleetSprite",
 "language": "GDScript",
 "path": "res://game/map/sprites/fleet_sprite.gd"
+}, {
+"base": "Resource",
+"class": "GameData",
+"language": "GDScript",
+"path": "res://resources/definitions/store/game_data.gd"
+}, {
+"base": "Resource",
+"class": "KalaxiaAssets",
+"language": "GDScript",
+"path": "res://resources/assets/assets.gd"
+}, {
+"base": "BuildingModelRemote",
+"class": "KalaxiaBuilding",
+"language": "GDScript",
+"path": "res://resources/assets/2d/picto/building/building.gd"
+}, {
+"base": "DictResource",
+"class": "KalaxiaFaction",
+"language": "GDScript",
+"path": "res://resources/assets/2d/faction/faction.gd"
+}, {
+"base": "Resource",
+"class": "KalaxiaPicto",
+"language": "GDScript",
+"path": "res://resources/assets/2d/picto.gd"
+}, {
+"base": "ShipModel",
+"class": "KalaxiaShipModel",
+"language": "GDScript",
+"path": "res://resources/assets/2d/picto/ships/ship_model.gd"
 }, {
 "base": "PanelContainer",
 "class": "MenuBody",
@@ -84,10 +149,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://menu/options/option_key_binding.gd"
 }, {
+"base": "DictResource",
+"class": "PlayerData",
+"language": "GDScript",
+"path": "res://resources/definitions/store/player_data.gd"
+}, {
 "base": "PanelContainer",
 "class": "PlayerInfoFactionColumn",
 "language": "GDScript",
 "path": "res://matchmaking/player/player_info_faction_column.gd"
+}, {
+"base": "DictResource",
+"class": "RemoteDictResource",
+"language": "GDScript",
+"path": "res://resources/definitions/remote_resources/remote_dict_resource.gd"
 }, {
 "base": "SelectablePanelContainer",
 "class": "RoundedSelectablePanelLeft",
@@ -104,15 +179,35 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://gui/selectable_panel_container.gd"
 }, {
+"base": "DictResource",
+"class": "ShipGroup",
+"language": "GDScript",
+"path": "res://resources/definitions/store/ship_group.gd"
+}, {
+"base": "DictResource",
+"class": "ShipModel",
+"language": "GDScript",
+"path": "res://resources/definitions/remote_resources/ship_model.gd"
+}, {
 "base": "SpinBox",
 "class": "SpinBoxImediateUpdate",
 "language": "GDScript",
 "path": "res://gui/spin_box_imediate_update.gd"
 }, {
+"base": "DictResource",
+"class": "SystemData",
+"language": "GDScript",
+"path": "res://resources/definitions/store/system_data.gd"
+}, {
 "base": "CustomShapeButton",
 "class": "TransparentCircleButton",
 "language": "GDScript",
 "path": "res://gui/transparent_circle_button.gd"
+}, {
+"base": "Object",
+"class": "Utils",
+"language": "GDScript",
+"path": "res://global/utils.gd"
 }, {
 "base": "Resource",
 "class": "Version",
@@ -120,27 +215,46 @@ _global_script_classes=[ {
 "path": "res://global/resources/version.gd"
 } ]
 _global_script_class_icons={
+"ApiConfig": "",
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
+"BuildingModelRemote": "",
 "BuildingPanel": "",
+"CachedResource": "",
 "CircularButton": "res://resources/editor/custom_circular_button.svg",
 "CircularContainer": "res://resources/editor/circular_container.svg",
+"ConstanteRemoteResource": "",
 "ConstructionBuildingItem": "",
-"CrownSprite": "res://resources/assets/2d/map/kalankar/picto_flotte_couronne-01.png",
+"CrownSprite": "res://resources/assets/2d/map/kalankar/crown_bottom.png",
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
+"DictResource": "",
+"ErrorHandler": "",
+"FactionRemote": "",
 "FleetItem": "res://resources/editor/fleet_item.svg",
 "FleetSprite": "res://resources/assets/2d/map/picto_flotte_2.png",
+"GameData": "",
+"KalaxiaAssets": "res://resources/assets/2d/white_logo.png",
+"KalaxiaBuilding": "",
+"KalaxiaFaction": "res://resources/assets/2d/white_logo.png",
+"KalaxiaPicto": "",
+"KalaxiaShipModel": "",
 "MenuBody": "res://resources/editor/menu_body.svg",
 "MenuContainer": "res://resources/editor/menu_container.svg",
 "MenuHeader": "res://resources/editor/menu_header.svg",
 "MenuLayer": "",
 "NetworkResource": "",
 "OptionKeyBinding": "",
+"PlayerData": "",
 "PlayerInfoFactionColumn": "",
+"RemoteDictResource": "",
 "RoundedSelectablePanelLeft": "",
 "RoundedSelectablePanelRight": "",
 "SelectablePanelContainer": "res://resources/editor/selectable_container.svg",
+"ShipGroup": "",
+"ShipModel": "",
 "SpinBoxImediateUpdate": "res://resources/editor/spin_box_imediate_update.svg",
+"SystemData": "",
 "TransparentCircleButton": "res://resources/editor/custom_circle_button.svg",
+"Utils": "",
 "Version": ""
 }
 
@@ -156,8 +270,6 @@ config/windows_native_icon="res://resources/assets/2d/logo.ico"
 Config="*res://config/config.gd"
 Network="*res://global/network.gd"
 Store="*res://global/store.gd"
-ErrorHandler="*res://global/error.gd"
-Utils="*res://global/utils.gd"
 
 [debug]
 
@@ -240,8 +352,7 @@ ui_hud_scores={
 }
 ui_minimize={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777225,"unicode":0,"echo":false,"script":null)
- ]
+"events": [  ]
 }
 ui_forbbiden_key_rebind={
 "deadzone": 0.5,

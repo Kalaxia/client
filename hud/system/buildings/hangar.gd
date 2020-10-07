@@ -13,6 +13,7 @@ onready var production_list_vbox_elements = $MenuBody/Body/ShipProductionList/VB
 onready var ship_order_element = $MenuBody/Body/ShipOrder/VBoxContainer/ShipTypeBuild
 onready var hangar_element = $MenuBody/Body/ShipHangar/VBoxContainer/ScrollContainer/HBoxContainer
 
+onready var assets : KalaxiaAssets = load("res://resources/assets.tres")
 
 func _ready():
 	Store.connect("hangar_updated", self, "_on_hangar_updated")
@@ -20,14 +21,14 @@ func _ready():
 	Store.connect("system_update", self, "_on_system_update")
 	Network.connect("ShipQueueFinished", self, "_on_ship_queue_finished")
 	ship_order_element.connect("ship_construction_started", self, "_on_ship_construction_started")
-	for category in Store._state.ship_models:
+	for category in assets.ship_models.values():
 		var node = _SHIP_HANGARD.instance()
 		node.category = category
 		node.quantity = 0
 		node.name = category.category
 		hangar_element.add_child(node)
 		node.connect("pressed", self, "select_group", [category])
-	select_group(Store._state.ship_models[0])
+	select_group(assets.ship_models.values()[0])
 	refresh_hangar()
 	refresh_queue_ships()
 

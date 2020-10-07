@@ -1,5 +1,7 @@
 extends Control
 
+const ASSETS = preload("res://resources/assets.tres")
+
 export(int) var faction = 0 setget set_faction
 
 onready var progress_bar = $ProgressBar
@@ -9,7 +11,7 @@ onready var texture = $TextureRect
 func _ready():
 	progress_bar.connect("value_changed",self,"_on_progress_bar_changed")
 	Network.connect("FactionPointsUpdated", self, "_on_score_updated")
-	progress_bar.max_value = Utils.victory_point_max
+	progress_bar.max_value = ASSETS.constants.victory_points
 	_on_progress_bar_changed(0)
 	_update_faction()
 	_update_scores(Store._state.scores)
@@ -39,8 +41,8 @@ func _on_progress_bar_changed(new_value):
 func _update_faction():
 	if texture == null:
 		return
-	texture.texture = Utils.BANNERS[faction as int]
+	texture.texture = ASSETS.factions[faction].banner
 	var forground = progress_bar.get("custom_styles/fg").duplicate()
-	var faction_object = Store.get_faction(faction as float)
-	forground.set_bg_color(Color(faction_object.color[0] / 255.0, faction_object.color[1] / 255.0, faction_object.color[2] / 255.0))
+	var faction_object = ASSETS.factions[faction as int]
+	forground.set_bg_color(faction_object.display_color)
 	progress_bar.set("custom_styles/fg", forground)

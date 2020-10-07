@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://game/faction_score.gd" type="Script" id=1]
+[ext_resource path="res://.import/banner.png-bed3f27fea7d30289a6e62390d6e2809.res" type="Texture" id=2]
 
 [node name="FactionScore" type="VBoxContainer"]
 anchor_right = 1.0
@@ -16,6 +17,7 @@ margin_right = 1008.0
 margin_bottom = 96.0
 rect_min_size = Vector2( 96, 96 )
 size_flags_horizontal = 4
+texture = ExtResource( 2 )
 expand = true
 
 [node name="Name" type="Label" parent="."]

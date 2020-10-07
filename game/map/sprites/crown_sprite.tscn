@@ -1,12 +1,10 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://game/map/sprites/crown_sprite.gd" type="Script" id=1]
-
-[sub_resource type="StreamTexture" id=1]
-flags = 4
-load_path = "res://.import/picto_flotte_couronne-01.png-2d48f28e4fc625d3b23983dd732f1a77.stex"
+[ext_resource path="res://resources/assets/2d/map/adranite/crown_bottom.png" type="Texture" id=2]
 
 [node name="CrownSprite" type="Sprite"]
 scale = Vector2( 0.08, 0.08 )
-texture = SubResource( 1 )
+texture = ExtResource( 2 )
 script = ExtResource( 1 )
+faction = 1

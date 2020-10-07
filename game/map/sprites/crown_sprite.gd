@@ -1,16 +1,19 @@
-class_name CrownSprite, "res://resources/assets/2d/map/kalankar/picto_flotte_couronne-01.png"
+tool
+class_name CrownSprite, "res://resources/assets/2d/map/kalankar/crown_bottom.png"
 extends Sprite
 
-var faction = 0 setget set_faction
+export var faction : int = 0 setget set_faction
+
+const assets = preload("res://resources/assets.tres")
 
 
 func _ready():
-	set_faction_texture()
+	pass
 
 
 func set_faction_texture():
 	if faction != 0:
-		texture = Utils.TEXTURE_CROWN_FLEET[faction as int]
+		texture = assets.factions[faction].picto.crown_bottom
 
 
 func set_faction(new_faction):

@@ -2,6 +2,8 @@ extends PanelContainer
 
 signal player_updated(player)
 
+const ASSETS = preload("res://resources/assets.tres")
+
 var player = null
 var new_username = ""
 var _is_locked_username_change = Utils.Lock.new()
@@ -12,7 +14,6 @@ onready var faction_choice = $Container/FactionChoice
 onready var user_name_input = $Container/UsernameInput
 onready var timer_update_username = $Container/UsernameInput/UpdateNameTimer
 onready var background = $Background
-
 
 func _ready():
 	ready_input.pressed = player.ready
@@ -50,13 +51,11 @@ func _on_timer_timeout():
 func init_faction_choices():
 	faction_choice.add_item(tr("menu.player_info.faction_drop_down_0"), 0)
 	faction_choice.set_item_disabled(0, true)
-	for faction in Store._state.factions.values():
-		var image = Utils.BANNERS_SMALL[faction.id as int]
-		var texture = ImageTexture.new()
-		texture.create_from_image(image, ImageTexture.FLAG_MIPMAPS | ImageTexture.FLAG_FILTER | ImageTexture.FLAG_ANISOTROPIC_FILTER)
-		texture.set_size_override(Vector2(50, 50))
-		# not keys for faction
-		faction_choice.add_icon_item(texture, tr(faction.name), faction.id)
+	for faction in ASSETS.factions:
+		if faction.id as int != 0:
+			var texture = faction.banner_icon
+			# not keys for faction
+			faction_choice.add_icon_item(texture, tr(faction.display_name), faction.id) 
 	if player.id == Store._state.player.id:
 		faction_choice.disabled = false
 		faction_choice.flat = false

@@ -1,0 +1,29 @@
+[gd_resource type="Resource" load_steps=9 format=2]
+
+[ext_resource path="res://resources/assets/2d/faction/neutral.tres" type="Resource" id=1]
+[ext_resource path="res://resources/assets/2d/picto/building/building.gd" type="Script" id=2]
+[ext_resource path="res://resources/assets/assets.gd" type="Script" id=8]
+[ext_resource path="res://resources/assets/2d/faction/valkar/valkar.tres" type="Resource" id=9]
+[ext_resource path="res://resources/assets/2d/faction/adranite/adranite.tres" type="Resource" id=14]
+[ext_resource path="res://resources/assets/2d/faction/kalankar/kalankar.tres" type="Resource" id=16]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/area.png-126ffb5246382c62b6c20ddfdaf31cfa.stex"
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 2 )
+kind = ""
+construction_time = 0.0
+cost = 0.0
+texture = SubResource( 1 )
+
+[resource]
+script = ExtResource( 8 )
+factions = [ ExtResource( 1 ), ExtResource( 16 ), ExtResource( 9 ), ExtResource( 14 ) ]
+ship_models = {
+
+}
+buildings = {
+"": SubResource( 2 )
+}

@@ -1,6 +1,8 @@
 class_name BuildingPanel
 extends SelectablePanelContainer
 
+const ASSETS = preload("res://resources/assets.tres")
+
 var building = null setget set_building
 
 onready var texture_rect = $VBoxContainer/TextureRect
@@ -21,11 +23,11 @@ func _update_elements():
 	if texture_rect == null or label == null or progress_bar == null:
 		return
 	if building == null:
-		texture_rect.texture = Utils.TEXTURE_BUILDING[""]
+		texture_rect.texture = ASSETS.buildings[""].texture
 		label.text = tr("hud.details.buidlng.contruction")
 		progress_bar.visible = false
 	else:
-		texture_rect.texture = Utils.TEXTURE_BUILDING[building.kind]
+		texture_rect.texture = ASSETS.buildings[building.kind].texture
 		label.text = tr("hud.details.buidlng." + building.kind)
 		_update_process_bar()
 
