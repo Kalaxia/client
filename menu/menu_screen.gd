@@ -92,7 +92,7 @@ func _handle_get_lobbies(err, response_code, _headers, body):
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_OK:
 		add_lobby_cards(JSON.parse(body.get_string_from_utf8()).result)
-		if Config.config_environement.debug_activated:
+		if Config.config_environment.debug_activated:
 			Debug.on_loaded_lobby_game_load(self, JSON.parse(body.get_string_from_utf8()).result)
 
 

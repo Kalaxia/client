@@ -45,7 +45,7 @@ var _is_in_game = false setget _set_is_in_game
 
 
 func _ready():
-	if Config.config_environement.debug_activated:
+	if Config.config_environment.debug_activated:
 		$ParallaxBackground.add_child(DEBUG_PANEL.instance())
 	Config.connect("locale_reloaded", self, "_on_locale_reloaded")
 	if scenes["menu"].scene == null or Network.token == null:

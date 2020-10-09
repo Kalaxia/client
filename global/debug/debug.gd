@@ -11,7 +11,7 @@ func _ready():
 
 
 func on_loaded_lobby_game_load(main_menu_node, lobby_list):
-	if Config.config_environement.debug_activated and Config.config_environement.debug_auto_fill_lobby and not _has_already_enter_lobby_auto:
+	if Config.config_environment.debug_activated and Config.config_environment.debug_auto_fill_lobby and not _has_already_enter_lobby_auto:
 		_has_already_enter_lobby_auto = true
 		if lobby_list.size() > 0:
 			main_menu_node.lobbies_container.get_node(lobby_list[0].id).join_lobby()
@@ -20,7 +20,7 @@ func on_loaded_lobby_game_load(main_menu_node, lobby_list):
 
 
 func on_lobby_ready(lobby_node):
-	if not Config.config_environement.debug_activated or not Config.config_environement.debug_auto_fill_lobby:
+	if not Config.config_environment.debug_activated or not Config.config_environment.debug_auto_fill_lobby:
 		return
 	var username = Config.config_user.get_value("Debug", "username", _rng.randi() as String)
 	var faction_id = Config.config_user.get_value("Debug", "faction_id", (_rng.randi() % (ASSETS.factions.size() - 1)) + 1)

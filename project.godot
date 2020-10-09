@@ -70,9 +70,9 @@ _global_script_classes=[ {
 "path": "res://resources/definitions/dict_resource.gd"
 }, {
 "base": "Resource",
-"class": "EnvironementConfig",
+"class": "EnvironmentConfig",
 "language": "GDScript",
-"path": "res://config/environement_config.gd"
+"path": "res://config/environment_config.gd"
 }, {
 "base": "Node",
 "class": "ErrorHandler",
@@ -262,7 +262,7 @@ _global_script_class_icons={
 "CrownSprite": "res://resources/assets/2d/map/kalankar/crown_bottom.png",
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
 "DictResource": "",
-"EnvironementConfig": "",
+"EnvironmentConfig": "",
 "ErrorHandler": "",
 "EventCapturer": "",
 "FactionRemote": "",

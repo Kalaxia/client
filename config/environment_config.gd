@@ -1,5 +1,5 @@
 tool
-class_name EnvironementConfig
+class_name EnvironmentConfig
 extends Resource
 
 export(String) var api_dns = "127.0.0.1"
