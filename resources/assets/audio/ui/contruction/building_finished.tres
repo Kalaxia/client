@@ -1,10 +1,10 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://audio/audio_resource.gd" type="Script" id=1]
-[ext_resource path="res://.import/constr_scie_aigue.ogg-732d7c5cc28f79fb96499561a2000c98.oggstr" type="AudioStream" id=2]
-[ext_resource path="res://.import/constr_scie_gr.ogg-899fd275de715f5c17b56e5e295dc44d.oggstr" type="AudioStream" id=3]
+[ext_resource path="res://.import/building_finished_grave.ogg-690de0f8bf106143315e93acd334fb1b.oggstr" type="AudioStream" id=2]
+[ext_resource path="res://.import/building_finished_acute.ogg-251b49b096e59017ba2cc3c117ebab57.oggstr" type="AudioStream" id=3]
 
 [resource]
 script = ExtResource( 1 )
-audio_stream_array = [ ExtResource( 2 ), ExtResource( 3 ) ]
+audio_stream_array = [ ExtResource( 3 ), ExtResource( 2 ) ]
 text = "subtitle.building_finished"

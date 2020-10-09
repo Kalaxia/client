@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/building_finished_acute.ogg-251b49b096e59017ba2cc3c117ebab57.oggstr"
+
+[deps]
+
+source_file="res://resources/assets/audio/ui/contruction/building_finished_acute.ogg"
+dest_files=[ "res://.import/building_finished_acute.ogg-251b49b096e59017ba2cc3c117ebab57.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

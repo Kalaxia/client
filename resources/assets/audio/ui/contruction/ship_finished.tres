@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://audio/audio_resource.gd" type="Script" id=1]
-[ext_resource path="res://.import/vaisseau_construit.ogg-295118260c87326fd178e8dc376e0216.oggstr" type="AudioStream" id=2]
+[ext_resource path="res://.import/ship_queue_finished.ogg-00ffa88d8f2cbac680014c05d80ca8d1.oggstr" type="AudioStream" id=2]
 
 [resource]
 script = ExtResource( 1 )
