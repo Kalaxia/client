@@ -273,30 +273,42 @@ func get_color_of_system():
 
 
 func _connect_system(system_p = system):
-	if system_p != null and not system_p.is_connected("fleet_added", self, "_on_fleet_created"):
+	if system_p  == null:
+		return
+	if not system_p.is_connected("fleet_added", self, "_on_fleet_created"):
 		system_p.connect("fleet_added", self, "_on_fleet_created")
-	if system_p != null and not system_p.is_connected("hangar_updated", self, "_on_hangar_updated"):
+	if not system_p.is_connected("hangar_updated", self, "_on_hangar_updated"):
 		system_p.connect("hangar_updated", self, "_on_hangar_updated")
-	if system_p != null and not system_p.is_connected("building_updated", self, "_on_building_updated"):
+	if not system_p.is_connected("building_updated", self, "_on_building_updated"):
 		system_p.connect("building_updated", self, "_on_building_updated")
-	if system_p != null and not system_p.is_connected("building_contructed", self, "_on_building_contructed"):
+	if not system_p.is_connected("building_contructed", self, "_on_building_contructed"):
 		system_p.connect("building_contructed", self, "_on_building_contructed")
+	if not system_p.is_connected("fleet_owner_updated", self, "_on_fleet_owner_updated"):
+		system_p.connect("fleet_owner_updated", self, "_on_fleet_owner_updated")
 	
 
 
 func _disconnect_system(system_p = system):
-	if system_p != null and system_p.is_connected("fleet_added", self, "_on_fleet_created"):
+	if system_p  == null:
+		return
+	if system_p.is_connected("fleet_added", self, "_on_fleet_created"):
 		system_p.disconnect("fleet_added", self, "_on_fleet_created")
-	if system_p != null and system_p.is_connected("hangar_updated", self, "_on_hangar_updated"):
+	if system_p.is_connected("hangar_updated", self, "_on_hangar_updated"):
 		system_p.disconnect("hangar_updated", self, "_on_hangar_updated")
-	if system_p != null and system_p.is_connected("building_updated", self, "_on_building_updated"):
+	if system_p.is_connected("building_updated", self, "_on_building_updated"):
 		system_p.disconnect("building_updated", self, "_on_building_updated")
-	if system_p != null and system_p.is_connected("building_contructed", self, "_on_building_contructed"):
+	if system_p.is_connected("building_contructed", self, "_on_building_contructed"):
 		system_p.disconnect("building_contructed", self, "_on_building_contructed")
+	if system_p.is_connected("fleet_owner_updated", self, "_on_fleet_owner_updated"):
+		system_p.disconnect("fleet_owner_updated", self, "_on_fleet_owner_updated")
 
 
 func _on_building_contructed(building):
 	Audio.building_constructed_audio(building)
+
+
+func _on_fleet_owner_updated():
+	refresh_fleet_pins()
 
 
 func _on_fleet_created(_fleet : Fleet):
