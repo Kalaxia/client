@@ -3,8 +3,6 @@ class_name AudioStackingSingleSound, "res://resources/editor/audio_stacking.svg"
 extends AudioStacking
 # manager to play a single audio effect that stack (and do not cut)
 
-# var sound_resource setget set_sound_resource # AudioStream
-
 
 func set_sound_resource(new_resource):
 	if not new_resource is AudioStream:

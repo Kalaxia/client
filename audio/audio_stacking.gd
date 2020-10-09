@@ -130,11 +130,7 @@ func set_playing_in_editor(new_bool):
 	if Engine.editor_hint:
 		playing_in_editor = new_bool
 		if playing_in_editor:
-			var node
-			if _audio_streams.size() > 0:
-				node = _audio_streams[0]
-			else:
-				node = _add_audio_stream()
+			var node = _audio_streams[0] if _audio_streams.size() > 0 else _add_audio_stream()
 			_node_play_sound(node, sound_resource, default_volume, default_pitch_scale, default_bus)
 			node.connect("finished", self, "_on_sound_finished_editor", [], CONNECT_ONESHOT)
 		else:

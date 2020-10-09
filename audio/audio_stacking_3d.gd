@@ -2,6 +2,7 @@ tool
 class_name AudioStacking3D, "res://resources/editor/audio_stacking_3d.svg"
 extends AudioStacking2D
 
+
 func _add_audio_stream():
 	var audio_stream_player = AudioStreamPlayer3D.new()
 	_audio_streams.push_back(audio_stream_player)
