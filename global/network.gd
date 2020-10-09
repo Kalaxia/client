@@ -133,14 +133,12 @@ func _process(delta):
 	self.client.poll()
 	var status = self.client.get_status()
 	if self.old_status != status:
-#		print("[HTTP] Status: ", status)
 		self.old_status = status
 
 	match status:
 		HTTPClient.STATUS_DISCONNECTED:
 			if not self.requests.empty():
 				self.nb_connection_try += 1
-#				print("[HTTP] connection try number ", self.nb_connection_try)
 				if self.nb_connection_try < MAX_CO_RETRIES:
 					self.connect_to_host()
 				else:
@@ -156,7 +154,6 @@ func _process(delta):
 			# it means the whole response was received and its handler needs
 			# to be triggered
 			if self.client.has_response():
-#				print("[HTTP] response received, processing handler")
 				var response_code = self.client.get_response_code()
 				var response_headers = self.client.get_response_headers_as_dictionary()
 				self.trigger_handler(
@@ -172,7 +169,6 @@ func _process(delta):
 					self.client.close()
 			else:
 				self.waiting_for_request = TIME_BEFORE_CLOSE
-#				print("[HTTP] requests are waiting, process one")
 				self.pending_request = self.requests.pop_front()
 				self.launch_pending_request()
 		# for every other status
