@@ -140,10 +140,6 @@ func _manage_input(event):
 			_is_map_being_dragged = true
 		if event.is_action_released("ui_drag_map"):
 			_is_map_being_dragged = false
-		if event.is_action_pressed("ui_hud_scores"):
-			$ParallaxBackground/HUD.show_scores()
-		elif event.is_action_released("ui_hud_scores"):
-			$ParallaxBackground/HUD.hide_scores()
 
 
 func draw_systems():

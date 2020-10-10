@@ -7,7 +7,6 @@ const ASSETS = preload("res://resources/assets.tres")
 var _game_data = Store.game_data
 
 onready var menu_layer = $MenuLayer
-onready var scores_container = $ScoresContainer
 onready var hud_menu = $HudMenu
 
 
@@ -21,11 +20,3 @@ func _ready():
 
 func _on_back_main_menu():
 	emit_signal("request_main_menu")
-
-
-func show_scores():
-	scores_container.visible = true
-
-
-func hide_scores():
-	scores_container.visible = false
