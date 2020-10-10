@@ -104,7 +104,7 @@ func get_player_color(player_p : Player, is_victory_system = false) -> Color:
 
 func fleet_sail(fleet : Fleet):
 	sailing_fleets[fleet.id] = fleet
-	systems[fleet.system].fleets.erase(fleet.id)
+	systems[fleet.system].erase_fleet(fleet)
 	emit_signal("fleet_sailed", fleet)
 
 

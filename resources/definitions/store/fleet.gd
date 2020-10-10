@@ -1,7 +1,7 @@
 class_name Fleet
 extends DictResource
 
-signal fleet_owner_updated()
+signal owner_updated()
 signal fleet_update_nb_ships()
 signal fleet_erased()
 signal updated()
@@ -25,6 +25,7 @@ func load_dict(dict):
 	.load_dict(dict)
 	set_ship_group_dict(dict.ship_groups)
 
+
 func _get_dict_property_list():
 	return ["id", "system", "destination_system", "player", "destination_arrival_date"]
 
@@ -37,7 +38,7 @@ func set_player(new_player_id):
 	if player != new_player_id:
 		player = new_player_id
 		emit_signal("changed")
-		emit_signal("fleet_owner_updated")
+		emit_signal("owner_updated")
 
 
 func update_fleet_nb_ships(ship_category : ShipModel, nb_ships : int):

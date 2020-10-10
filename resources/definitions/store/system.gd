@@ -9,6 +9,7 @@ signal system_owner_updated()
 signal updated()
 signal fleet_arrived(fleet)
 signal building_contructed(building) # todo selected system state
+signal fleet_owner_updated(fleet)
 
 const MAX_NUMBER_OF_BUILDING = 1
 
@@ -16,7 +17,7 @@ export(String) var player # ressource ?
 export(String) var kind
 export(Vector2) var coordinates
 export(bool) var unreachable
-export(Dictionary) var fleets
+export(Dictionary) var fleets # this should be accessed read only
 export(Array, Resource) var buildings setget set_buildings
 export(Array, Resource) var hangar setget set_hangar
 export(String) var game = null
@@ -32,8 +33,12 @@ func load_dict(dict):
 		return
 	.load_dict(dict)
 	if not dict is Dictionary or dict.has("fleet"):
+		erase_all_fleet()
 		for fleet in dict.fleets:
-			fleets[fleet.id] = Fleet.new(fleets)
+			if fleet is Fleet:
+				add_fleet(fleet)
+			elif fleet is Dictionary:
+				add_fleet_dict(fleet)
 	if not dict is Dictionary or dict.has("coordinates"):
 		coordinates = Vector2(dict.coordinates.x, dict.coordinates.y)
 
@@ -43,41 +48,33 @@ func _get_dict_property_list() -> Array:
 
 
 func add_fleet_dict(fleet_dict : Dictionary):
-	add_fleet(Fleet.new(fleet_dict))
+	if fleets.has(fleet_dict.id):
+		fleets[fleet_dict.id].update_fleet(fleet_dict)
+	else:
+		add_fleet(Fleet.new(fleet_dict))
 
 
 func add_fleet(fleet : Fleet):
-	fleets[fleet.id] = fleet
-	emit_signal("fleet_added", fleet)
-	emit_signal("changed")
+	var has_fleet = fleets.has(fleet.id)
+	_add_fleet_to_storage(fleet)
+	if not has_fleet:
+		emit_signal("fleet_added", fleet)
+		emit_signal("changed")
 
 
 func erase_fleet(fleet : Fleet):
-	var has_ereased = fleets.erase(fleet.id)
-	if has_ereased:
-		fleet.on_fleet_erased()
-		emit_signal("fleet_fleet_erased", fleet)
-		emit_signal("changed")
-	return has_ereased
+	return _remove_fleet_from_storage(fleet)
 
 
 func erase_fleet_id(fleet_id : String):
-	var has_fleet = fleets.has(fleet_id)
-	if has_fleet:
-		var fleet = fleets[fleet_id]
-		fleets.erase(fleet_id)
-		fleet.on_fleet_erased()
-		emit_signal("fleet_fleet_erased", fleet)
-		emit_signal("changed")
-	return has_fleet
+	if fleets.has(fleet_id):
+		return _remove_fleet_from_storage(fleets[fleet_id])
+	return false
 
 
 func erase_all_fleet():
-	var fleets_previous = fleets
-	fleets.clear()
-	for fleet in fleets_previous.values():
-		emit_signal("fleet_erased", fleet)
-	emit_signal("changed")
+	for fleet in fleets.values():
+		_remove_fleet_from_storage(fleet)
 
 
 func set_buildings(buildings_p):
@@ -138,8 +135,8 @@ func update(dict : Dictionary):
 
 
 func fleet_arrive(fleet : Fleet): 
-	# game data call this and oly game data should call this
-	fleets[fleet.id] = fleet
+	# game data call this and only game data should call this
+	_add_fleet_to_storage(fleet)
 	fleet.arrived()
 	emit_signal("fleet_arrived", fleet)
 
@@ -147,3 +144,23 @@ func fleet_arrive(fleet : Fleet):
 func building_contructed(building):
 	add_building_to_system(building)
 	emit_signal("building_contructed", building)
+
+
+func _add_fleet_to_storage(fleet):
+	fleets[fleet.id] = fleet
+	fleet.connect("owner_updated", self, "_on_fleet_owner_updated", [fleet])
+
+
+func _remove_fleet_from_storage(fleet):
+	var has_ereased = fleets.erase(fleet.id)
+	if has_ereased:
+		fleet.disconnect("owner_updated", self, "_on_fleet_owner_updated")
+		fleet.on_fleet_erased()
+		emit_signal("fleet_fleet_erased", fleet)
+		emit_signal("changed")
+	return has_ereased
+
+
+func _on_fleet_owner_updated(fleet):
+	if fleet.system == id:
+		emit_signal("fleet_owner_updated", fleet)

@@ -307,7 +307,7 @@ func _on_building_contructed(building):
 	Audio.building_constructed_audio(building)
 
 
-func _on_fleet_owner_updated():
+func _on_fleet_owner_updated(_fleet):
 	refresh_fleet_pins()
 
 
