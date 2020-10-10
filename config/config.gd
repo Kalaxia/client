@@ -2,7 +2,7 @@ extends Node
 
 signal locale_reloaded()
 
-const PATH_CONFIG_NETWORK = "res://config/network_config.tres"
+const PATH_CONFIG_NETWORK = "res://config/environment_config.tres"
 const CONFIG_DIR = "res://"
 const PATH_CONFIG_USER = CONFIG_DIR + "config.cfg"
 
@@ -40,13 +40,13 @@ var api = {
 	'scheme': null,
 	'ws_scheme': null
 }
-var config_network = preload(PATH_CONFIG_NETWORK)
+var config_environment = preload(PATH_CONFIG_NETWORK)
 var config_user = ConfigFile.new()
 
 
 func _ready():
 	print("Version : %s" % VERSION.version)
-	api = _get_api_config(config_network)
+	api = _get_api_config(config_environment)
 	var err_config_user = config_user.load(PATH_CONFIG_USER)
 	if err_config_user == OK:
 		_load_config_user(config_user)

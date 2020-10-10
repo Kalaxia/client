@@ -64,15 +64,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://gui/custom_shape_button.gd"
 }, {
-"base": "Reference",
-"class": "Debug",
-"language": "GDScript",
-"path": "res://global/debug.gd"
-}, {
 "base": "Resource",
 "class": "DictResource",
 "language": "GDScript",
 "path": "res://resources/definitions/dict_resource.gd"
+}, {
+"base": "Resource",
+"class": "EnvironmentConfig",
+"language": "GDScript",
+"path": "res://config/environment_config.gd"
 }, {
 "base": "Node",
 "class": "ErrorHandler",
@@ -163,11 +163,6 @@ _global_script_classes=[ {
 "class": "MenuLayer",
 "language": "GDScript",
 "path": "res://hud/menu_layer.gd"
-}, {
-"base": "Resource",
-"class": "NetworkResource",
-"language": "GDScript",
-"path": "res://config/network_config.gd"
 }, {
 "base": "PanelContainer",
 "class": "OptionKeyBinding",
@@ -266,8 +261,8 @@ _global_script_class_icons={
 "ConstructionBuildingItem": "",
 "CrownSprite": "res://resources/assets/2d/map/kalankar/crown_bottom.png",
 "CustomShapeButton": "res://resources/editor/custom_shape_button.svg",
-"Debug": "",
 "DictResource": "",
+"EnvironmentConfig": "",
 "ErrorHandler": "",
 "EventCapturer": "",
 "FactionRemote": "",
@@ -286,7 +281,6 @@ _global_script_class_icons={
 "MenuContainer": "res://resources/editor/menu_container.svg",
 "MenuHeader": "res://resources/editor/menu_header.svg",
 "MenuLayer": "",
-"NetworkResource": "",
 "OptionKeyBinding": "",
 "Player": "",
 "PlayerInfoFactionColumn": "",
@@ -318,6 +312,7 @@ config/windows_native_icon="res://resources/assets/2d/logo.ico"
 Config="*res://config/config.gd"
 Network="*res://global/network.gd"
 Store="*res://global/store.gd"
+Debug="*res://global/debug/debug.gd"
 
 [debug]
 

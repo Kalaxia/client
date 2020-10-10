@@ -23,7 +23,7 @@ endif
 file-config-dev = config\development.tres
 file-config-prod = config\production.tres
 file-config-default = $(file-config-dev)
-file-config-used = config\network_config.tres
+file-config-used = config\environement_config.tres
 
 git = git 
 describe = describe
