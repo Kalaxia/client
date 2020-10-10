@@ -84,8 +84,10 @@ func _update_theme():
 		set("custom_styles/panel", style)
 
 
-func _gui_input(event):
+func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel"):
 		_request_close()
+		accept_event()
 	if event.is_action_pressed("ui_minimize"):
 		_request_minimize()
+		accept_event()
