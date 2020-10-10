@@ -34,29 +34,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Header" type="HBoxContainer" parent="."]
+[node name="Header" type="VBoxContainer" parent="."]
 margin_right = 1920.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 0, 60 )
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
 size_flags_horizontal = 3
 
 [node name="banner" type="TextureRect" parent="Header"]
 margin_right = 1920.0
-margin_bottom = 60.0
+margin_bottom = 57.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
 
-[node name="Control" type="Control" parent="."]
-margin_top = 64.0
+[node name="Label" type="Label" parent="Header"]
+margin_top = 61.0
 margin_right = 1920.0
-margin_bottom = 84.0
-rect_min_size = Vector2( 0, 20 )
+margin_bottom = 80.0
+text = "no_translated.faction"
+align = 1
+
+[node name="Control" type="Control" parent="."]
+margin_top = 84.0
+margin_right = 1920.0
+margin_bottom = 94.0
+rect_min_size = Vector2( 0, 10 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-margin_top = 88.0
+margin_top = 98.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 size_flags_vertical = 3
@@ -67,6 +74,6 @@ scroll_horizontal_enabled = false
 margin_left = 3.0
 margin_top = 3.0
 margin_right = 1917.0
-margin_bottom = 989.0
+margin_bottom = 979.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

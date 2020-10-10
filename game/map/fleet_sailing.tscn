@@ -21,10 +21,12 @@ loop = false
 
 [node name="SpritesContainer" type="Node2D" parent="FleetPath/Follower"]
 rotation = 1.5708
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.75, 0.75 )
 
 [node name="FleetIcon" parent="FleetPath/Follower/SpritesContainer" instance=ExtResource( 2 )]
+faction = null
 
 [node name="CrownSprite" parent="FleetPath/Follower/SpritesContainer" instance=ExtResource( 3 )]
 position = Vector2( 0, 9 )
 texture = ExtResource( 4 )
+faction = null

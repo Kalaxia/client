@@ -22,6 +22,7 @@ func _ready():
 	_game_data.selected_state.connect("fleet_unselected", self, "_on_fleet_unselected")
 	button_menu.connect("pressed", self, "open_menu_ship_pressed")
 	button_give.connect("pressed", self, "_on_give_pressed")
+	set_is_selected(_game_data.selected_state.selected_fleet.id == fleet.id)
 
 
 func update_owner():

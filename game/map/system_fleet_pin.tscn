@@ -8,7 +8,7 @@
 [node name="SystemFleetPin" type="Control"]
 margin_right = 26.0
 margin_bottom = 21.0
-rect_min_size = Vector2( 6, 21 )
+rect_min_size = Vector2( 26, 21 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -18,8 +18,10 @@ __meta__ = {
 
 [node name="Fleet" parent="SpritesContainer" instance=ExtResource( 2 )]
 position = Vector2( 13, 10 )
+faction = null
 
 [node name="CrownSprite" parent="SpritesContainer" instance=ExtResource( 3 )]
 visible = false
 position = Vector2( 13, 19 )
 texture = ExtResource( 4 )
+faction = null

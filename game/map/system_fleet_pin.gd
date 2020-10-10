@@ -1,6 +1,6 @@
 extends Control
 
-const _SCALE_CURRENT_PLAYER_FACTOR = 1.0
+const _SCALE_CURRENT_PLAYER_FACTOR = 1.5
 
 var faction : KalaxiaFaction = null
 var is_current_player = false

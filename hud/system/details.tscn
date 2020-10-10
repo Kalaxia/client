@@ -35,21 +35,21 @@ size_flags_vertical = 8
 
 [node name="MenuSystem" type="HBoxContainer" parent="."]
 margin_left = 164.0
-margin_right = 1732.0
+margin_right = 1702.0
 margin_bottom = 1080.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Control" type="Control" parent="."]
-margin_left = 1736.0
-margin_right = 1766.0
+margin_left = 1706.0
+margin_right = 1736.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 30, 0 )
 mouse_filter = 2
 
 [node name="System" type="VBoxContainer" parent="."]
-margin_left = 1770.0
+margin_left = 1740.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 mouse_filter = 2
@@ -58,11 +58,15 @@ theme = ExtResource( 2 )
 alignment = 2
 
 [node name="CircularContainer" type="Container" parent="System"]
-margin_top = 930.0
-margin_right = 150.0
-margin_bottom = 1080.0
+margin_left = 30.0
+margin_top = 907.0
+margin_right = 180.0
+margin_bottom = 1057.0
+grow_horizontal = 0
+grow_vertical = 0
 rect_min_size = Vector2( 150, 150 )
 mouse_filter = 1
+size_flags_horizontal = 8
 size_flags_vertical = 0
 script = ExtResource( 4 )
 __meta__ = {
@@ -103,14 +107,6 @@ grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="PlayerName" type="Label" parent="System/CircularContainer/ContainerSystem"]
-visible = false
-margin_right = 180.0
-margin_bottom = 19.0
-size_flags_horizontal = 3
-text = "no_translate.player_name"
-align = 1
-
 [node name="TextureRect" type="TextureRect" parent="System/CircularContainer/ContainerSystem"]
 margin_right = 60.0
 margin_bottom = 60.0
@@ -120,3 +116,12 @@ size_flags_vertical = 3
 texture = SubResource( 3 )
 expand = true
 stretch_mode = 6
+
+[node name="PlayerName" type="Label" parent="System"]
+margin_top = 1061.0
+margin_right = 180.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+text = "no_translate.player_name"
+align = 2
+valign = 1

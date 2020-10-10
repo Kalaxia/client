@@ -1,8 +1,8 @@
 extends Control
 
 const FLEET_COST = 0
+const FLEET_ITEM_SCENE = preload("res://hud/system/fleet/fleet_item.tscn")
 
-var fleet_item_scene = preload("res://hud/system/fleet/fleet_item.tscn")
 var menu_layer : MenuLayer setget set_menu_layer
 var _create_fleet_lock = Utils.Lock.new()
 var _lock_add_fleet_item = Utils.Lock.new()
@@ -84,7 +84,7 @@ func create_fleet():
 
 
 func add_fleet_item(fleet):
-	var fleet_node = fleet_item_scene.instance()
+	var fleet_node = FLEET_ITEM_SCENE.instance()
 	fleet_node.set_name(fleet.id)
 	fleet_node.fleet = fleet
 	fleet_container.add_child(fleet_node)
