@@ -152,15 +152,15 @@ func set_fleet(new_fleet):
 
 
 func _connect_fleet(fleet_p : Fleet = fleet):
-	if fleet_p != null and not fleet.is_connected("fleet_owner_updated", self, "_on_fleet_owner_updated"):
-		fleet_p.connect("fleet_owner_updated", self, "_on_fleet_owner_updated")
+	if fleet_p != null and not fleet.is_connected("owner_updated", self, "_on_fleet_owner_updated"):
+		fleet_p.connect("owner_updated", self, "_on_fleet_owner_updated")
 	if fleet_p != null and not fleet.is_connected("updated", self, "_on_fleet_update"):
 		fleet_p.connect("updated", self, "_on_fleet_update")
 
 
 func _disconnect_fleet(fleet_p : Fleet = fleet):
-	if fleet_p != null and fleet_p.is_connected("fleet_owner_updated", self, "_on_fleet_owner_updated"):
-		fleet_p.disconnect("fleet_owner_updated", self, "_on_fleet_owner_updated")
+	if fleet_p != null and fleet_p.is_connected("owner_updated", self, "_on_fleet_owner_updated"):
+		fleet_p.disconnect("owner_updated", self, "_on_fleet_owner_updated")
 	if fleet_p != null and fleet_p.is_connected("updated", self, "_on_fleet_update"):
 		fleet_p.disconnect("updated", self, "_on_fleet_update")
 

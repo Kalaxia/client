@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-10 19:20+0200\n"
+"POT-Creation-Date: 2020-10-11 18:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: main.gd:96
+#: main.gd:94
 msgid "Unknown requested scene : "
 msgstr ""
 
@@ -36,19 +36,19 @@ msgstr ""
 msgid "game.faction_score.victory_points %d"
 msgstr ""
 
-#: game/game.gd:71
+#: game/game.gd:74
 msgid "game.notification.goal.title"
 msgstr ""
 
-#: game/game.gd:71
+#: game/game.gd:74
 msgid "game.notification.goal.content"
 msgstr ""
 
-#: game/game.gd:256
+#: game/game.gd:257
 msgid "game.receive_credits_notif.title"
 msgstr ""
 
-#: game/game.gd:257
+#: game/game.gd:258
 #, python-format
 msgid "game.receive_credits_notif.content %s %d"
 msgstr ""
@@ -74,12 +74,37 @@ msgstr ""
 msgid "game.score.back_main_menu"
 msgstr ""
 
+#: global/error.gd:6 global/error.gd:19 global/error.gd:20
+#: global/loading_screen.gd:95
+msgid "error.network_error"
+msgstr ""
+
+#: global/error.gd:13 global/error.gd:15 global/loading_screen.gd:95
+msgid "error.connexion_impossible"
+msgstr ""
+
+#: global/error.gd:13 global/error.gd:17
+msgid "error.server_not_avaliable"
+msgstr ""
+
+#: global/error.gd:15
+msgid "error.unkown_domain_name"
+msgstr ""
+
+#: global/error.gd:17 global/loading_screen.gd:95
+msgid "error.http_not_connected"
+msgstr ""
+
+#: global/error.gd:19
+msgid "error.network_error_content"
+msgstr ""
+
 #: global/loading_screen.gd:46 global/loading_screen.tscn:290
 #, python-format
 msgid "global.loading.version %s"
 msgstr ""
 
-#: global/loading_screen.gd:84 global/loading_screen.gd:150
+#: global/loading_screen.gd:84 global/loading_screen.gd:144
 msgid "global.loading.ok"
 msgstr ""
 
@@ -91,37 +116,25 @@ msgstr ""
 msgid "global.loading.error"
 msgstr ""
 
-#: global/loading_screen.gd:95
-msgid "error.connexion_impossible"
-msgstr ""
-
-#: global/loading_screen.gd:95
-msgid "error.http_not_connected"
-msgstr ""
-
-#: global/loading_screen.gd:95
-msgid "error.network_error"
-msgstr ""
-
-#: global/loading_screen.gd:210
+#: global/loading_screen.gd:204
 #, python-format
 msgid "global.loading.ressource.error %s %d"
 msgstr ""
 
-#: global/loading_screen.gd:210 global/loading_screen.gd:228
+#: global/loading_screen.gd:204 global/loading_screen.gd:222
 msgid "global.loading.ressource."
 msgstr ""
 
-#: global/loading_screen.gd:221 global/loading_screen.gd:224
+#: global/loading_screen.gd:215 global/loading_screen.gd:218
 #, python-format
 msgid "global.loading.progressbar_ressource %d %d"
 msgstr ""
 
-#: global/loading_screen.gd:228
+#: global/loading_screen.gd:222
 msgid "global.loading.none_loading"
 msgstr ""
 
-#: global/loading_screen.gd:231
+#: global/loading_screen.gd:225
 #, python-format
 msgid "global.loading.progressbar_global %d %d"
 msgstr ""
@@ -156,8 +169,12 @@ msgstr ""
 msgid "global.loading.constants_status"
 msgstr ""
 
-#: global/loading_screen.tscn:248 global/loading_screen.tscn:267
+#: global/loading_screen.tscn:248
 msgid "global.loading.ships_status"
+msgstr ""
+
+#: global/loading_screen.tscn:267
+msgid "global.loading.building_status"
 msgstr ""
 
 #: global/loading_screen.tscn:309
@@ -180,6 +197,18 @@ msgstr ""
 msgid "received data from server: "
 msgstr ""
 
+#: global/utils.gd:73
+msgid "action.key.mouse_key_"
+msgstr ""
+
+#: global/debug/debug_panel.tscn:91
+msgid "debug.title"
+msgstr ""
+
+#: global/debug/debug_panel.tscn:127
+msgid "debug.dump_game_data"
+msgstr ""
+
 #: gui/key_binding_label/key_binding_label.tscn:27
 msgid "not_translate.key"
 msgstr ""
@@ -194,6 +223,10 @@ msgstr ""
 
 #: gui/menu/menu_header.tscn:118
 msgid "gui.menu.close"
+msgstr ""
+
+#: hud/hud.tscn:64
+msgid "hud.scores"
 msgstr ""
 
 #: hud/notifications.gd:15
@@ -224,15 +257,15 @@ msgstr ""
 msgid "hud.menu.finance.transfer"
 msgstr ""
 
-#: hud/scores/score_faction.tscn:58
+#: hud/hud_menu/options/menu_option_hud.tscn:43
+msgid "hud.menu.option.title"
+msgstr ""
+
+#: hud/scores/score_faction.tscn:54
 msgid "0 / 250"
 msgstr ""
 
-#: hud/scores/scores.tscn:30
-msgid "hud.scores"
-msgstr ""
-
-#: hud/system/details.tscn:126
+#: hud/system/details.tscn:140
 msgid "no_translate.player_name"
 msgstr ""
 
@@ -388,7 +421,7 @@ msgstr ""
 msgid "hud.fleet_item.give"
 msgstr ""
 
-#: hud/system/fleet/menu_fleet.tscn:23
+#: hud/system/fleet/menu_fleet.tscn:47
 msgid "hud.details.fleet.fleet_composition_assignation"
 msgstr ""
 
@@ -739,6 +772,10 @@ msgstr ""
 msgid "menu.loading.number_player"
 msgstr ""
 
+#: matchmaking/lobby/faction_column.tscn:56
+msgid "no_translated.faction"
+msgstr ""
+
 #: matchmaking/lobby/lobby.tscn:70
 msgid "lobby.game_settings"
 msgstr ""
@@ -833,39 +870,7 @@ msgstr ""
 msgid "menu.credits.back_main_menu"
 msgstr ""
 
-#: menu/menu_option.gd:10
-msgid "menu.option.tab.shortcuts"
-msgstr ""
-
-#: menu/menu_option.gd:11
-msgid "menu.option.tab.audio"
-msgstr ""
-
-#: menu/menu_option.gd:12
-msgid "menu.option.tab.graphical"
-msgstr ""
-
-#: menu/menu_option.gd:13
-msgid "menu.option.tab.lang"
-msgstr ""
-
-#: menu/menu_option.tscn:85
-msgid "menu.option.shortcut.fleet_and_ships"
-msgstr ""
-
-#: menu/menu_option.tscn:121
-msgid "menu.option.shortcut.map"
-msgstr ""
-
-#: menu/menu_option.tscn:211
-msgid "menu.option.shortcut.hud"
-msgstr ""
-
-#: menu/menu_option.tscn:238
-msgid "menu.option.shortcut.general"
-msgstr ""
-
-#: menu/menu_option.tscn:478
+#: menu/menu_option.tscn:45
 msgid "menu.option.back_main_menu"
 msgstr ""
 
@@ -889,11 +894,43 @@ msgstr ""
 msgid "menu.main.quit"
 msgstr ""
 
-#: menu/options/audio_volume_control.gd:19
+#: menu/option.gd:13
+msgid "menu.option.tab.shortcuts"
+msgstr ""
+
+#: menu/option.gd:14
+msgid "menu.option.tab.audio"
+msgstr ""
+
+#: menu/option.gd:15
+msgid "menu.option.tab.graphical"
+msgstr ""
+
+#: menu/option.gd:16
+msgid "menu.option.tab.lang"
+msgstr ""
+
+#: menu/option.tscn:81
+msgid "menu.option.shortcut.fleet_and_ships"
+msgstr ""
+
+#: menu/option.tscn:115
+msgid "menu.option.shortcut.map"
+msgstr ""
+
+#: menu/option.tscn:197
+msgid "menu.option.shortcut.hud"
+msgstr ""
+
+#: menu/option.tscn:223
+msgid "menu.option.shortcut.general"
+msgstr ""
+
+#: menu/options/audio_volume_control.gd:21
 msgid "audio.bus."
 msgstr ""
 
-#: menu/options/audio_volume_control.gd:27
+#: menu/options/audio_volume_control.gd:28
 #, python-format
 msgid "menu.option.audio.volume_label %d %f"
 msgstr ""
@@ -906,19 +943,19 @@ msgstr ""
 msgid "no_translate.Volume : 100 % (0 dB)"
 msgstr ""
 
-#: menu/options/graphical_option.tscn:24
+#: menu/options/graphical_option.tscn:22
 msgid "menu.option.graphical.fullscreen"
 msgstr ""
 
-#: menu/options/graphical_option.tscn:32
+#: menu/options/graphical_option.tscn:30
 msgid "menu.option.graphical.maximize"
 msgstr ""
 
-#: menu/options/graphical_option.tscn:40
+#: menu/options/graphical_option.tscn:38
 msgid "menu.option.graphical.resize"
 msgstr ""
 
-#: menu/options/graphical_option.tscn:48
+#: menu/options/graphical_option.tscn:46
 msgid "menu.option.graphical.display_id"
 msgstr ""
 
@@ -941,5 +978,14 @@ msgstr ""
 
 #: menu/options/option_lang.tscn:20
 msgid "menu.option.lang.language"
+msgstr ""
+
+#: resources/definitions/store/lobby.gd:72
+#, python-format
+msgid "store.game_of %s"
+msgstr ""
+
+#: resources/definitions/store/lobby.gd:74
+msgid "store.new_game"
 msgstr ""
 

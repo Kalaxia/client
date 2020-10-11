@@ -18,6 +18,7 @@ signal hangar_updated(hangar)
 signal system_owner_updated()
 signal system_updated()
 signal system_fleet_arrived(fleet)
+signal system_fleet_owner_updated(fleet)
 
 export(Resource) var selected_system = null setget select_system
 export(Resource) var selected_fleet = null setget select_fleet
@@ -72,8 +73,8 @@ func is_selected_system(system : System):
 func _disconnect_fleet(fleet : Fleet):
 	if fleet == null:
 		return
-	if fleet.is_connected("fleet_owner_updated", self, "_on_fleet_owner_updated"):
-		fleet.disconnect("fleet_owner_updated", self, "_on_fleet_owner_updated")
+	if fleet.is_connected("owner_updated", self, "_on_fleet_owner_updated"):
+		fleet.disconnect("owner_updated", self, "_on_fleet_owner_updated")
 	if fleet.is_connected("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships"):
 		fleet.disconnect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
 	if fleet.is_connected("updated", self, "_on_fleet_updated"):
@@ -83,8 +84,8 @@ func _disconnect_fleet(fleet : Fleet):
 func _connect_fleet(fleet : Fleet):
 	if fleet == null:
 		return
-	if not fleet.is_connected("fleet_owner_updated", self, "_on_fleet_owner_updated"):
-		fleet.connect("fleet_owner_updated", self, "_on_fleet_owner_updated")
+	if not fleet.is_connected("owner_updated", self, "_on_fleet_owner_updated"):
+		fleet.connect("owner_updated", self, "_on_fleet_owner_updated")
 	if not fleet.is_connected("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships"):
 		fleet.connect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
 	if not fleet.is_connected("updated", self, "_on_fleet_updated"):
@@ -120,7 +121,8 @@ func _disconnect_system(system : System):
 		system.disconnect("updated", self, "_on_system_updated")
 	if system.is_connected("fleet_arrived", self, "_on_fleet_arrived"):
 		system.disconnect("fleet_arrived", self, "_on_fleet_arrived")
-	
+	if system.is_connected("fleet_owner_updated", self, "_on_system_fleet_owner_updated"):
+		system.disconnect("fleet_owner_updated", self, "_on_system_fleet_owner_updated")
 
 
 func _connect_system(system : System):
@@ -140,6 +142,12 @@ func _connect_system(system : System):
 		system.connect("updated", self, "_on_system_updated")
 	if not system.is_connected("fleet_arrived", self, "_on_fleet_arrived"):
 		system.connect("fleet_arrived", self, "_on_fleet_arrived")
+	if not system.is_connected("fleet_owner_updated", self, "_on_system_fleet_owner_updated"):
+		system.connect("fleet_owner_updated", self, "_on_system_fleet_owner_updated")
+
+
+func _on_system_fleet_owner_updated(fleet):
+	emit_signal("system_fleet_owner_updated", fleet)
 
 
 func _on_fleet_arrived(fleet):

@@ -49,13 +49,13 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="Foreground/MarginContainer"]
 margin_left = 150.0
 margin_top = 50.0
-margin_right = 1936.0
+margin_right = 1957.0
 margin_bottom = 1030.0
 grow_horizontal = 2
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Foreground/MarginContainer/VBoxContainer"]
-margin_right = 1786.0
+margin_right = 1807.0
 margin_bottom = 522.0
 size_flags_vertical = 3
 texture = SubResource( 1 )
@@ -64,23 +64,23 @@ stretch_mode = 6
 
 [node name="Control" type="Control" parent="Foreground/MarginContainer/VBoxContainer"]
 margin_top = 526.0
-margin_right = 1786.0
+margin_right = 1807.0
 margin_bottom = 576.0
 rect_min_size = Vector2( 0, 50 )
 
 [node name="ressources" type="PanelContainer" parent="Foreground/MarginContainer/VBoxContainer"]
 margin_top = 580.0
-margin_right = 1786.0
+margin_right = 1807.0
 margin_bottom = 741.0
 
 [node name="ressourceLoading" type="VBoxContainer" parent="Foreground/MarginContainer/VBoxContainer/ressources"]
 margin_left = 3.0
 margin_top = 2.0
-margin_right = 1783.0
+margin_right = 1804.0
 margin_bottom = 159.0
 
 [node name="Label" type="Label" parent="Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading"]
-margin_right = 1780.0
+margin_right = 1801.0
 margin_bottom = 19.0
 text = "global.loading.loading"
 align = 1
@@ -90,14 +90,14 @@ __meta__ = {
 
 [node name="Control" type="Control" parent="Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading"]
 margin_top = 23.0
-margin_right = 1780.0
+margin_right = 1801.0
 margin_bottom = 43.0
 rect_min_size = Vector2( 0, 20 )
 mouse_filter = 2
 
 [node name="GlobalProgress" type="ProgressBar" parent="Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading"]
 margin_top = 47.0
-margin_right = 1780.0
+margin_right = 1801.0
 margin_bottom = 77.0
 rect_min_size = Vector2( 0, 30 )
 custom_styles/fg = SubResource( 2 )
@@ -116,14 +116,14 @@ __meta__ = {
 
 [node name="LoadingComponenet" type="Label" parent="Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading"]
 margin_top = 81.0
-margin_right = 1780.0
+margin_right = 1801.0
 margin_bottom = 100.0
 align = 1
 valign = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading"]
 margin_top = 104.0
-margin_right = 1780.0
+margin_right = 1801.0
 margin_bottom = 134.0
 rect_min_size = Vector2( 0, 30 )
 custom_styles/fg = SubResource( 3 )
@@ -143,7 +143,7 @@ __meta__ = {
 
 [node name="LoadingError" type="Label" parent="Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading"]
 margin_top = 138.0
-margin_right = 1780.0
+margin_right = 1801.0
 margin_bottom = 157.0
 custom_colors/font_color = Color( 0.74902, 0.243137, 0.196078, 1 )
 align = 1
@@ -151,24 +151,24 @@ valign = 1
 
 [node name="Control2" type="Control" parent="Foreground/MarginContainer/VBoxContainer"]
 margin_top = 745.0
-margin_right = 1786.0
+margin_right = 1807.0
 margin_bottom = 795.0
 rect_min_size = Vector2( 0, 50 )
 mouse_filter = 1
 
 [node name="Network" type="PanelContainer" parent="Foreground/MarginContainer/VBoxContainer"]
 margin_top = 799.0
-margin_right = 1786.0
+margin_right = 1807.0
 margin_bottom = 845.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Foreground/MarginContainer/VBoxContainer/Network"]
 margin_left = 3.0
 margin_top = 2.0
-margin_right = 1783.0
+margin_right = 1804.0
 margin_bottom = 44.0
 
 [node name="Label" type="Label" parent="Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer"]
-margin_right = 1780.0
+margin_right = 1801.0
 margin_bottom = 19.0
 text = "global.loading.network"
 align = 1
@@ -176,7 +176,7 @@ valign = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer"]
 margin_top = 23.0
-margin_right = 1780.0
+margin_right = 1801.0
 margin_bottom = 42.0
 
 [node name="ContainerAuth" type="HBoxContainer" parent="Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer"]
@@ -256,26 +256,26 @@ text = "global.loading.wating"
 
 [node name="ContainerBuiilding" type="HBoxContainer" parent="Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer"]
 margin_left = 1435.0
-margin_right = 1780.0
+margin_right = 1801.0
 margin_bottom = 19.0
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="Label4" type="Label" parent="Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerBuiilding"]
-margin_right = 189.0
+margin_right = 210.0
 margin_bottom = 19.0
-text = "global.loading.ships_status"
+text = "global.loading.building_status"
 
 [node name="LabelBuilding" type="Label" parent="Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerBuiilding"]
-margin_left = 193.0
-margin_right = 345.0
+margin_left = 214.0
+margin_right = 366.0
 margin_bottom = 19.0
 custom_colors/font_color = Color( 0.839216, 0.588235, 0, 1 )
 text = "global.loading.wating"
 
 [node name="Control3" type="Control" parent="Foreground/MarginContainer/VBoxContainer"]
 margin_top = 849.0
-margin_right = 1786.0
+margin_right = 1807.0
 margin_bottom = 899.0
 rect_min_size = Vector2( 0, 50 )
 mouse_filter = 1
@@ -285,25 +285,25 @@ __meta__ = {
 
 [node name="VersionLabel" type="Label" parent="Foreground/MarginContainer/VBoxContainer"]
 margin_top = 903.0
-margin_right = 1786.0
+margin_right = 1807.0
 margin_bottom = 922.0
 text = "global.loading.version %s"
 valign = 1
 
 [node name="Control4" type="Control" parent="Foreground/MarginContainer/VBoxContainer"]
 margin_top = 926.0
-margin_right = 1786.0
+margin_right = 1807.0
 margin_bottom = 936.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Foreground/MarginContainer/VBoxContainer"]
 margin_top = 940.0
-margin_right = 1786.0
+margin_right = 1807.0
 margin_bottom = 980.0
 rect_min_size = Vector2( 0, 40 )
 
 [node name="QuitButton" type="Button" parent="Foreground/MarginContainer/VBoxContainer/VBoxContainer"]
-margin_right = 1786.0
+margin_right = 1807.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 text = "global.loading.quit"
