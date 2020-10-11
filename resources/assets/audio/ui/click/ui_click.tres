@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=7 format=2]
+
+[ext_resource path="res://audio/audio_resource.gd" type="Script" id=1]
+[ext_resource path="res://.import/ui_click_04.ogg-33bd4c36b4b516b8f6fbe87a4a89fca5.oggstr" type="AudioStream" id=2]
+[ext_resource path="res://.import/ui_click_05.ogg-8523c1364a3b8c6d7111cc849b7be369.oggstr" type="AudioStream" id=3]
+[ext_resource path="res://.import/ui_click_02.ogg-3a3a26017e29fd5a95ca57afb8035d02.oggstr" type="AudioStream" id=4]
+[ext_resource path="res://.import/ui_click_01.ogg-c59ff45153b6ea1b17be257caa5c6427.oggstr" type="AudioStream" id=5]
+[ext_resource path="res://.import/ui_click_03.ogg-59127eb558094e4a07cd54f659027b4a.oggstr" type="AudioStream" id=6]
+
+[resource]
+script = ExtResource( 1 )
+audio_stream_array = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 3 ) ]
+text = "subtitle.click"

@@ -9,10 +9,35 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "AudioResource",
+"language": "GDScript",
+"path": "res://audio/audio_resource.gd"
+}, {
+"base": "Node",
+"class": "AudioSceneSingleton",
+"language": "GDScript",
+"path": "res://audio/audio.gd"
+}, {
 "base": "Node",
 "class": "AudioStacking",
 "language": "GDScript",
 "path": "res://audio/audio_stacking.gd"
+}, {
+"base": "AudioStacking",
+"class": "AudioStacking2D",
+"language": "GDScript",
+"path": "res://audio/audio_stacking_2d.gd"
+}, {
+"base": "AudioStacking2D",
+"class": "AudioStacking3D",
+"language": "GDScript",
+"path": "res://audio/audio_stacking_3d.gd"
+}, {
+"base": "AudioStacking",
+"class": "AudioStackingSingleSound",
+"language": "GDScript",
+"path": "res://audio/audio_stacking_single_resource.gd"
 }, {
 "base": "DictResource",
 "class": "Building",
@@ -248,9 +273,19 @@ _global_script_classes=[ {
 "class": "Version",
 "language": "GDScript",
 "path": "res://global/resources/version.gd"
+}, {
+"base": "PanelContainer",
+"class": "VolumeOption",
+"language": "GDScript",
+"path": "res://menu/options/audio_volume_control.gd"
 } ]
 _global_script_class_icons={
+"AudioResource": "",
+"AudioSceneSingleton": "",
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
+"AudioStacking2D": "res://resources/editor/audio_stacking_2d.svg",
+"AudioStacking3D": "res://resources/editor/audio_stacking_3d.svg",
+"AudioStackingSingleSound": "res://resources/editor/audio_stacking.svg",
 "Building": "",
 "BuildingModelRemote": "",
 "BuildingPanel": "",
@@ -297,7 +332,8 @@ _global_script_class_icons={
 "System": "",
 "TransparentCircleButton": "res://resources/editor/custom_circle_button.svg",
 "Utils": "",
-"Version": ""
+"Version": "",
+"VolumeOption": ""
 }
 
 [application]

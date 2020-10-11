@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ship_queue_finished.ogg-00ffa88d8f2cbac680014c05d80ca8d1.oggstr"
+
+[deps]
+
+source_file="res://resources/assets/audio/ui/contruction/ship_queue_finished.ogg"
+dest_files=[ "res://.import/ship_queue_finished.ogg-00ffa88d8f2cbac680014c05d80ca8d1.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://audio/audio_resource.gd" type="Script" id=1]
+[ext_resource path="res://.import/ship_queue_finished.ogg-00ffa88d8f2cbac680014c05d80ca8d1.oggstr" type="AudioStream" id=2]
+
+[resource]
+script = ExtResource( 1 )
+audio_stream_array = [ ExtResource( 2 ) ]
+text = "subtitle.ship_queue_finished"

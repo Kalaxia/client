@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/building_finished_grave.ogg-690de0f8bf106143315e93acd334fb1b.oggstr"
+
+[deps]
+
+source_file="res://resources/assets/audio/ui/contruction/building_finished_grave.ogg"
+dest_files=[ "res://.import/building_finished_grave.ogg-690de0f8bf106143315e93acd334fb1b.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

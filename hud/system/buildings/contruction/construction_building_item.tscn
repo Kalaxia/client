@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://hud/system/buildings/contruction/construction_building_item.gd" type="Script" id=1]
+[ext_resource path="res://gui/utils/button_click_sound_utils.gd" type="Script" id=2]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -140,3 +141,4 @@ margin_right = 1074.0
 margin_bottom = 541.0
 size_flags_vertical = 4
 text = "hud.details.buidlng.construction.construction_item.build"
+script = ExtResource( 2 )

@@ -1,3 +1,4 @@
+class_name VolumeOption
 extends PanelContainer
 
 export(int) var bus_id = 0 setget set_bus_id
@@ -11,9 +12,12 @@ onready var volume_label = $HBoxContainer/volume
 func _ready():
 	volume_slider.connect("value_changed", self, "_on_value_changed")
 	_refersh_data()
+	_update_disabled_state()
 
 
 func _refersh_data():
+	if bus_name_label == null or volume_slider == null:
+		return
 	bus_name_label.text = tr("audio.bus." + AudioServer.get_bus_name(bus_id))
 	var value_volume = db2linear(AudioServer.get_bus_volume_db(bus_id))
 	volume_slider.value = value_volume
@@ -38,10 +42,13 @@ func set_bus_id(new_id : int):
 	if name == "" || name == null:
 		return
 	bus_id = new_id
-	bus_name_label.text =  tr("audio.bus." + name )
-	volume_slider.value = db2linear(AudioServer.get_bus_volume_db(bus_id))
+	_refersh_data()
 
 
 func set_disabled(is_disabled : bool):
 	disabled = is_disabled
-	volume_slider.editable = not is_disabled
+	_update_disabled_state()
+
+func _update_disabled_state():
+	if volume_slider:
+		volume_slider.editable = not disabled

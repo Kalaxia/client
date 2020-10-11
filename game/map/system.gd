@@ -212,15 +212,17 @@ func _on_mouse_input(event):
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.get_button_index() == BUTTON_LEFT:
 			_game_data.selected_state.select_system(system)
+			# no need to add sound because it is alreay played in the element
+			_game_data.selected_state.select_system(system)
 		elif event.get_button_index() == BUTTON_RIGHT \
 				and _game_data.selected_state.selected_fleet != null \
 				and _game_data.is_in_range(_game_data.selected_state.selected_fleet, system):
 			# you can't set the same destination as the origin
 			Network.req(self, "_on_fleet_send",
 				"/api/games/" + _game_data.id 
-				+ "/systems/" + _game_data.selected_state.selected_fleet.system 
-				+ "/fleets/" + _game_data.selected_state.selected_fleet.id 
-				+ "/travel/",
+						+ "/systems/" + _game_data.selected_state.selected_fleet.system 
+						+ "/fleets/" + _game_data.selected_state.selected_fleet.id 
+						+ "/travel/",
 				HTTPClient.METHOD_POST,
 				[ "Content-Type: application/json" ],
 				JSON.print({ "destination_system_id" : system.id }),
@@ -277,6 +279,9 @@ func _connect_system(system_p = system):
 		system_p.connect("hangar_updated", self, "_on_hangar_updated")
 	if system_p != null and not system_p.is_connected("building_updated", self, "_on_building_updated"):
 		system_p.connect("building_updated", self, "_on_building_updated")
+	if system_p != null and not system_p.is_connected("building_contructed", self, "_on_building_contructed"):
+		system_p.connect("building_contructed", self, "_on_building_contructed")
+	
 
 
 func _disconnect_system(system_p = system):
@@ -286,6 +291,12 @@ func _disconnect_system(system_p = system):
 		system_p.disconnect("hangar_updated", self, "_on_hangar_updated")
 	if system_p != null and system_p.is_connected("building_updated", self, "_on_building_updated"):
 		system_p.disconnect("building_updated", self, "_on_building_updated")
+	if system_p != null and system_p.is_connected("building_contructed", self, "_on_building_contructed"):
+		system_p.disconnect("building_contructed", self, "_on_building_contructed")
+
+
+func _on_building_contructed(building):
+	Audio.building_constructed_audio(building)
 
 
 func _on_fleet_created(_fleet : Fleet):

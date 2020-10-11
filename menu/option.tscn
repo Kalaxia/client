@@ -1,0 +1,429 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://menu/options/option_key_binding.tscn" type="PackedScene" id=2]
+[ext_resource path="res://menu/options/graphical_option.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resources/fonts/Muli/Muli-VariableFont_wght.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://menu/options/option_lang.tscn" type="PackedScene" id=7]
+[ext_resource path="res://menu/option.gd" type="Script" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.156863 )
+use_filter = true
+extra_spacing_top = -5
+font_data = ExtResource( 6 )
+
+[node name="Option" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 500, 720 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Control" parent="."]
+margin_right = 1920.0
+margin_bottom = 27.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="TabContainer" type="TabContainer" parent="."]
+margin_top = 31.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+tab_align = 0
+
+[node name="Raccourcis" type="VBoxContainer" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+rect_min_size = Vector2( 500, 400 )
+size_flags_horizontal = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Raccourcis"]
+margin_right = 1912.0
+margin_bottom = 1013.0
+rect_min_size = Vector2( 800, 400 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="keyBindingContainer" type="VBoxContainer" parent="TabContainer/Raccourcis/ScrollContainer"]
+margin_right = 1900.0
+margin_bottom = 1684.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="MarginContainer" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer"]
+margin_right = 1900.0
+margin_bottom = 41.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 10
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 10
+
+[node name="LabelFleet" type="Label" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer/HBoxContainer2"]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 1880.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 1 )
+text = "menu.option.shortcut.fleet_and_ships"
+valign = 1
+
+[node name="ui_select_fleet" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 45.0
+margin_right = 1900.0
+margin_bottom = 99.0
+action = "ui_select_fleet"
+
+[node name="ui_add_fleet" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 103.0
+margin_right = 1900.0
+margin_bottom = 157.0
+action = "ui_add_fleet"
+
+[node name="HBoxContainer3" type="MarginContainer" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer"]
+margin_top = 161.0
+margin_right = 1900.0
+margin_bottom = 202.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 10
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 10
+
+[node name="LabelMap" type="Label" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer/HBoxContainer3"]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 1880.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 1 )
+text = "menu.option.shortcut.map"
+valign = 1
+
+[node name="ui_zoom_in_map" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 206.0
+margin_right = 1900.0
+margin_bottom = 260.0
+action = "ui_zoom_in_map"
+
+[node name="ui_zoom_out_map" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 264.0
+margin_right = 1900.0
+margin_bottom = 318.0
+action = "ui_zoom_out_map"
+
+[node name="ui_drag_map" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 322.0
+margin_right = 1900.0
+margin_bottom = 376.0
+action = "ui_drag_map"
+
+[node name="ui_move_map_left" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 380.0
+margin_right = 1900.0
+margin_bottom = 434.0
+action = "ui_move_map_left"
+
+[node name="ui_move_map_right" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 438.0
+margin_right = 1900.0
+margin_bottom = 492.0
+action = "ui_move_map_right"
+
+[node name="ui_move_map_up" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 496.0
+margin_right = 1900.0
+margin_bottom = 550.0
+action = "ui_move_map_up"
+
+[node name="ui_move_map_down" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 554.0
+margin_right = 1900.0
+margin_bottom = 608.0
+action = "ui_move_map_down"
+
+[node name="ui_map_center_system" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 612.0
+margin_right = 1900.0
+margin_bottom = 666.0
+action = "ui_map_center_system"
+
+[node name="HBoxContainer4" type="MarginContainer" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer"]
+margin_top = 670.0
+margin_right = 1900.0
+margin_bottom = 711.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 10
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 10
+
+[node name="LabelHud" type="Label" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer/HBoxContainer4"]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 1880.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 1 )
+text = "menu.option.shortcut.hud"
+valign = 1
+
+[node name="ui_hud_scores" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 715.0
+margin_right = 1900.0
+margin_bottom = 769.0
+action = "ui_hud_scores"
+
+[node name="HBoxContainer" type="MarginContainer" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer"]
+margin_top = 773.0
+margin_right = 1900.0
+margin_bottom = 814.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 10
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 10
+
+[node name="LabelGeneral" type="Label" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer/HBoxContainer"]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 1880.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 1 )
+text = "menu.option.shortcut.general"
+valign = 1
+
+[node name="ui_accept" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 818.0
+margin_right = 1900.0
+margin_bottom = 872.0
+action = "ui_accept"
+
+[node name="ui_select" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 876.0
+margin_right = 1900.0
+margin_bottom = 930.0
+action = "ui_select"
+
+[node name="ui_cancel" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 934.0
+margin_right = 1900.0
+margin_bottom = 988.0
+action = "ui_cancel"
+
+[node name="ui_focus_next" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 992.0
+margin_right = 1900.0
+margin_bottom = 1046.0
+action = "ui_focus_next"
+
+[node name="ui_focus_prev" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 1050.0
+margin_right = 1900.0
+margin_bottom = 1104.0
+action = "ui_focus_prev"
+
+[node name="ui_left" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 1108.0
+margin_right = 1900.0
+margin_bottom = 1162.0
+action = "ui_left"
+
+[node name="ui_right" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 1166.0
+margin_right = 1900.0
+margin_bottom = 1220.0
+action = "ui_right"
+
+[node name="ui_up" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 1224.0
+margin_right = 1900.0
+margin_bottom = 1278.0
+action = "ui_up"
+
+[node name="ui_down" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 1282.0
+margin_right = 1900.0
+margin_bottom = 1336.0
+action = "ui_down"
+
+[node name="ui_page_up" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 1340.0
+margin_right = 1900.0
+margin_bottom = 1394.0
+action = "ui_page_up"
+
+[node name="ui_page_down" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 1398.0
+margin_right = 1900.0
+margin_bottom = 1452.0
+action = "ui_page_down"
+
+[node name="ui_home" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 1456.0
+margin_right = 1900.0
+margin_bottom = 1510.0
+action = "ui_home"
+
+[node name="ui_end" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 1514.0
+margin_right = 1900.0
+margin_bottom = 1568.0
+action = "ui_end"
+
+[node name="ui_minimize" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 1572.0
+margin_right = 1900.0
+margin_bottom = 1626.0
+action = "ui_minimize"
+
+[node name="ui_forbbiden_key_rebind" parent="TabContainer/Raccourcis/ScrollContainer/keyBindingContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 1630.0
+margin_right = 1900.0
+margin_bottom = 1684.0
+action = "ui_forbbiden_key_rebind"
+
+[node name="Audio" type="HBoxContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 24.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Control" type="Control" parent="TabContainer/Audio"]
+visible = false
+margin_right = 1272.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="AudioScrollContainer" type="ScrollContainer" parent="TabContainer/Audio"]
+margin_right = 1912.0
+margin_bottom = 1013.0
+rect_min_size = Vector2( 800, 400 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioContainer" type="VBoxContainer" parent="TabContainer/Audio/AudioScrollContainer"]
+margin_right = 1912.0
+margin_bottom = 1013.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control2" type="Control" parent="TabContainer/Audio"]
+visible = false
+margin_left = 1211.0
+margin_right = 1272.0
+margin_bottom = 596.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="Graphics" type="VBoxContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 24.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="GraphicsScrollContainer2" type="ScrollContainer" parent="TabContainer/Graphics"]
+margin_right = 1912.0
+margin_bottom = 1013.0
+rect_min_size = Vector2( 800, 400 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GraphicsOption" parent="TabContainer/Graphics/GraphicsScrollContainer2" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1912.0
+margin_bottom = 1013.0
+
+[node name="language" type="VBoxContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 24.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/language"]
+margin_right = 1912.0
+margin_bottom = 1021.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="OptionLang" parent="TabContainer/language/ScrollContainer" instance=ExtResource( 7 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1912.0
+margin_bottom = 55.0

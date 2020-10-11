@@ -6,7 +6,7 @@ signal mark_button_key_binding(action,index)
 signal unmark_button_key_binding()
 
 class ButtonKeyBinding:
-	extends Button
+	extends "res://gui/utils/button_click_sound_utils.gd"
 	var index_key_binding
 
 export(String) var action = "" setget set_action

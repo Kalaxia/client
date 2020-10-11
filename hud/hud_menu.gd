@@ -64,9 +64,13 @@ func _toogle_menu(is_pressed):
 
 
 func _on_id_pressed(id):
+	Audio.play_click()
 	match id:
 		0:
+			menu_layer.request_menu("menu_options")
+		2:
 			_back_to_main_menu()
+	menu_button.is_selected = false
 
 
 func _on_finance_menu_pressed():

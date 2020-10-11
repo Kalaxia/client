@@ -2,6 +2,8 @@ extends VBoxContainer
 
 var _locales = []
 
+export(bool) var enabled = true setget set_enabled
+
 onready var option_array = $OptionArray
 
 func _ready():
@@ -17,6 +19,16 @@ func _ready():
 	if _locales.size() < 2:
 		option_array.disabled = true
 	option_array.connect("item_selected", self, "_on_language_selected")
+	_update_element()
+
+
+func set_enabled(new_bool):
+	enabled = new_bool
+	_update_element()
+
+
+func _update_element():
+	option_array.disabled = not enabled
 
 
 func _on_language_selected(item_id):
