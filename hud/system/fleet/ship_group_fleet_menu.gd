@@ -1,13 +1,17 @@
 extends Control
 
-signal ship_assigned(ship_in_fleet, ship_in_hangar)
+#signal ship_assigned(ship_in_fleet, ship_in_hangar)
+signal request_assignation(ship_category, quantity)
+signal spinbox_too_much()
 
 const ASSETS : KalaxiaAssets = preload("res://resources/assets.tres")
+
+export(bool) var build_ships = false setget set_build_ships
 
 var ship_category : ShipModel = ASSETS.ship_models.values()[0] setget set_ship_category 
 var quantity_fleet = 0 setget set_quantity_fleet
 var quantity_hangar = 0 setget set_quantity_hangar
-var _lock_assign_ship = Utils.Lock.new() setget private_set, private_get
+#var _lock_assign_ship = Utils.Lock.new() setget private_set, private_get
 var _game_data : GameData = Store.game_data
 
 onready var spinbox = $MarginContainer/Main/Assign/SpinBox
@@ -35,6 +39,11 @@ func _ready():
 	max_assign_button.connect("pressed", self, "_on_max_assign_pressed")
 
 
+func set_build_ships(boolean):
+	build_ships = boolean
+	update_quantities()
+
+
 func update_elements():
 	if ship_category_label != null:
 		ship_category_label.text = tr("hud.details.fleet.ship_model %s") % tr("ship." + ship_category.category)
@@ -51,10 +60,14 @@ func update_elements():
 
 
 func update_quantities():
+	if label_ship_fleet == null or label_ship_total== null or spinbox == null:
+		return
 	label_ship_fleet.text = tr("hud.details.fleet.number_of_ship_fleet %d %d") % [quantity_fleet, quantity_hangar + quantity_fleet]
 	label_ship_total.text = tr("hud.details.fleet.number_of_ship_total %d") % (quantity_hangar)
 	var previous_spinbox_value = spinbox.value
-	spinbox.max_value = quantity_hangar + quantity_fleet
+	spinbox.max_value = quantity_hangar + quantity_fleet + \
+			(floor(_game_data.player.wallet as float / ship_category.cost as float) as int \
+			if build_ships else 0)
 	spinbox.value = min(previous_spinbox_value, spinbox.max_value)
 	if max_assign_button != null:
 		max_assign_button.text = tr("hud.details.fleet.max_assign %d") % (quantity_hangar + quantity_fleet)
@@ -62,6 +75,10 @@ func update_quantities():
 
 
 func _on_value_changed_spinbox(_value):
+	if spinbox.value > spinbox.max_value:
+		spinbox.value = spinbox.max_value
+		if not build_ships:
+			emit_signal("spinbox_too_much")
 	_update_price()
 
 
@@ -89,30 +106,31 @@ func _on_set_button():
 
 
 func _request_assignation(quantity):
-	if not _lock_assign_ship.try_lock():
-		return
-	Network.req(self, "_on_ship_assigned",
-			"/api/games/" + _game_data.id +
-			"/systems/" + _game_data.selected_state.selected_system.id +
-			"/fleets/" + _game_data.selected_state.selected_fleet.id +
-			"/ship-groups/",
-			HTTPClient.METHOD_POST,
-			[ "Content-Type: application/json" ],
-			JSON.print({"category" : ship_category.category, "quantity" : quantity}),
-			[quantity, _game_data.selected_state.selected_fleet]
-	)
+	emit_signal("request_assignation", ship_category, quantity)
+#	if not _lock_assign_ship.try_lock():
+#		return
+#	Network.req(self, "_on_ship_assigned",
+#			"/api/games/" + _game_data.id +
+#			"/systems/" + _game_data.selected_state.selected_system.id +
+#			"/fleets/" + _game_data.selected_state.selected_fleet.id +
+#			"/ship-groups/",
+#			HTTPClient.METHOD_POST,
+#			[ "Content-Type: application/json" ],
+#			JSON.print({"category" : ship_category.category, "quantity" : quantity}),
+#			[quantity, _game_data.selected_state.selected_fleet]
+#	)
 
 
-func _on_ship_assigned(err, response_code, _headers, _body, quantity, fleet : Fleet):
-	if err:
-		ErrorHandler.network_response_error(err)
-	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
-		quantity_hangar -= (quantity - quantity_fleet)
-		quantity_fleet = quantity
-		update_quantities()
-		fleet.update_fleet_nb_ships(ship_category, quantity)
-		emit_signal("ship_assigned", quantity_fleet, quantity_hangar)
-	_lock_assign_ship.unlock()
+#func _on_ship_assigned(err, response_code, _headers, _body, quantity, fleet : Fleet):
+#	if err:
+#		ErrorHandler.network_response_error(err)
+#	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
+#		quantity_hangar -= (quantity - quantity_fleet)
+#		quantity_fleet = quantity
+#		update_quantities()
+#		fleet.update_fleet_nb_ships(ship_category, quantity)
+#		emit_signal("ship_assigned", quantity_fleet, quantity_hangar) # todo modification hangar here ?
+#	_lock_assign_ship.unlock()
 
 
 func set_ship_category(new_category):
@@ -131,9 +149,9 @@ func set_quantity_hangar(quantity):
 	update_quantities()
 
 
-func private_set(_variant):
-	pass
-
-
-func private_get():
-	return null
+#func private_set(_variant):
+#	pass
+#
+#
+#func private_get():
+#	return null

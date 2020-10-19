@@ -93,21 +93,15 @@ func set_buildings(buildings_p):
 
 func set_hangar(ship_groups):
 	hangar = ship_groups
+	_remove_empty_squadron()
 	emit_signal("hangar_updated", hangar)
 	emit_signal("changed")
 
 
 func add_ship_group_to_hangar(ship_group : ShipGroup):
-	var has_added_ships = false
-	var hangar_ship_groups = hangar
-	for i in hangar_ship_groups:
-		if i.category ==  ship_group.category:
-			i.quantity += ship_group.quantity
-			has_added_ships = true
-			break
-	if not has_added_ships:
-		hangar_ship_groups.push_back(ship_group)
-	set_hangar(hangar_ship_groups)
+	add_quantity_hangar(ship_group.category, ship_group.quantity) 
+	# we are loosing the id of the ship groupe
+	# it is however unused by the client
 
 
 func add_building_to_system(building : Building):
@@ -194,6 +188,60 @@ func _remove_fleet_from_storage(fleet):
 	if has_ereased:
 		fleet.disconnect("owner_updated", self, "_on_fleet_owner_updated")
 		fleet.on_fleet_erased()
-		emit_signal("fleet_fleet_erased", fleet)
+		emit_signal("fleet_erased", fleet)
 		emit_signal("changed")
 	return has_ereased
+
+
+func add_quantity_hangar(ship_category : ShipModel, quantity): # can accepet negative numbers
+	var squadron = get_squandron(ship_category)
+	if squadron != null:
+		if squadron.quantity + quantity < 0:
+			return false
+		squadron.quantity += quantity
+		if squadron.quantity == 0:
+			hangar.erase(squadron)
+	elif quantity < 0:
+		return false
+	elif quantity > 0:
+		hangar.push_back(Squadron.new({
+			"system" : id,
+			"category" : ship_category.category,
+			"quantity" : quantity,
+		}))
+		# in the case quantity = we do not add a squadron but retrun true 
+		# and emit signals non the less
+	emit_signal("hangar_updated", hangar)
+	emit_signal("changed")
+	return true
+
+
+func set_quantity_hangar(ship_category : ShipModel, quantity):
+	if quantity < 0:
+		return
+	var squadron = get_squandron(ship_category)
+	if squadron != null:
+		squadron.quantity = quantity
+		if squadron.quantity == 0:
+			hangar.erase(squadron)
+	elif quantity > 0:
+		hangar.push_back(Squadron.new({
+			"system" : id,
+			"category" : ship_category.category,
+			"quantity" : quantity,
+		}))
+	emit_signal("hangar_updated", hangar)
+	emit_signal("changed")
+
+
+func get_squandron(ship_model : ShipModel):
+	for squandron in hangar:
+		if squandron.category == ship_model:
+			return squandron
+	return null
+
+
+func _remove_empty_squadron():
+	for ship_group in hangar:
+		if ship_group.quantity == 0:
+			hangar.erase(ship_group)

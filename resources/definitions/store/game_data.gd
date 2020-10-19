@@ -145,7 +145,7 @@ func _on_ship_group_received(err, response_code, _headers, body, system : System
 		var result = JSON.parse(body.get_string_from_utf8()).result
 		var hangar = []
 		for i in result:
-			hangar.push_back(ShipGroup.new(i))
+			hangar.push_back(Squadron.new(i))
 		# test if ti works
 		system.hangar = hangar
 

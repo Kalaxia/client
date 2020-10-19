@@ -52,6 +52,7 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 617.0
 margin_bottom = 310.0
+mouse_filter = 1
 custom_constants/margin_right = 3
 custom_constants/margin_top = 3
 custom_constants/margin_left = 3

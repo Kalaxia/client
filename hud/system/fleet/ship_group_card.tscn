@@ -18,6 +18,7 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 585.0
 margin_bottom = 154.0
+mouse_filter = 1
 custom_constants/margin_right = 2
 custom_constants/margin_top = 2
 custom_constants/margin_left = 2
@@ -61,35 +62,38 @@ custom_constants/separation = 5
 alignment = 1
 
 [node name="Control" type="Control" parent="MarginContainer/VBoxContainer/ShipNumber"]
-margin_right = 112.0
+visible = false
+margin_right = 284.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 
 [node name="HBoxContainerNumber" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ShipNumber"]
-margin_left = 117.0
-margin_right = 350.0
+margin_right = 574.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="SpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/ShipNumber/HBoxContainerNumber"]
+visible = false
+margin_left = 30.0
 margin_top = 2.0
-margin_right = 74.0
+margin_right = 104.0
 margin_bottom = 26.0
 size_flags_vertical = 4
 allow_greater = true
 script = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ShipNumber/HBoxContainerNumber"]
-margin_left = 78.0
+visible = false
+margin_left = 104.0
 margin_top = 7.0
-margin_right = 83.0
+margin_right = 109.0
 margin_bottom = 21.0
 text = "/"
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/ShipNumber/HBoxContainerNumber"]
-margin_left = 87.0
-margin_right = 233.0
+margin_left = 214.0
+margin_right = 360.0
 margin_bottom = 28.0
 mouse_filter = 2
 
@@ -101,6 +105,7 @@ margin_bottom = 21.0
 text = "no_translate.number"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ShipNumber"]
+visible = false
 margin_left = 355.0
 margin_right = 574.0
 margin_bottom = 28.0

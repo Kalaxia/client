@@ -7,7 +7,7 @@ export(Color) var color_range = Color(1.0, 1.0, 1.0, 0.39) setget set_color_rang
 
 
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
 func _draw():

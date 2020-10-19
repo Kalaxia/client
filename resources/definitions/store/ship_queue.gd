@@ -1,5 +1,5 @@
 class_name ShipQueue
-extends ShipGroup
+extends Squadron
 
 signal finished()
 signal canceled()
@@ -7,6 +7,7 @@ signal canceled()
 export(int) var finished_at
 export(int) var started_at
 export(int) var created_at
+export(String) var target_fleet_id = null
 
 
 func _init(dict = null).(dict):

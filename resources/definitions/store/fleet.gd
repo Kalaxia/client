@@ -7,7 +7,7 @@ signal fleet_erased()
 signal updated()
 signal arrived()
 
-export(Array) var ship_groups setget set_ship_groups
+export(Array) var squadrons setget set_squadrons
 export(String) var player setget set_player
 export(String) var id = null
 export(String) var system = null
@@ -23,7 +23,7 @@ func load_dict(dict):
 	if dict == null:
 		return
 	.load_dict(dict)
-	set_ship_group_dict(dict.ship_groups)
+	set_squadrons_dict(dict.squadrons)
 
 
 func _get_dict_property_list():
@@ -40,36 +40,40 @@ func set_player(new_player_id):
 	emit_signal("owner_updated")
 
 
-func update_fleet_nb_ships(ship_category : ShipModel, nb_ships : int):
-	var ship_group_updated
+func update_fleet_nb_ships(ship_category : ShipModel, nb_ships : int, formation : String):
 	var has_updated_number = false
-	for ship_group in ship_groups:
-		if ship_group.category == ship_category:
+	for ship_group in squadrons:
+		if ship_group.category == ship_category and ship_group.formation == formation:
 			ship_group.quantity = nb_ships
+			if nb_ships == 0:
+				squadrons.erase(ship_group)
 			has_updated_number = true
-			ship_group_updated = ship_group
+			break
 	if not has_updated_number:
-		ship_group_updated = ShipGroup.new({
-			"category" : ship_category.category, 
-			"quantity" : nb_ships,
-			"fleet" : self.id,
-			"system" : self.system,
-		})
-		self.ship_groups.push_back(ship_group_updated)
+		if nb_ships > 0:
+			var ship_group_updated = FleetSquadron.new({
+				"category" : ship_category.category, 
+				"quantity" : nb_ships,
+				"fleet" : self.id,
+				"formation" : formation,
+			})
+			squadrons.push_back(ship_group_updated)
+	emit_signal("changed")
 	emit_signal("fleet_update_nb_ships")
-	return ship_group_updated
 
 
-func set_ship_groups(new_ship_groups):
-	ship_groups = new_ship_groups
+func set_squadrons(new_ship_groups):
+	squadrons = new_ship_groups
+	_remove_empty_squadron()
 	emit_signal("fleet_update_nb_ships")
 	emit_signal("changed")
 
 
-func set_ship_group_dict(array):
-	ship_groups.clear() # todo review connection to previous ship group are eareased
+func set_squadrons_dict(array):
+	squadrons.clear() # todo review connection to previous ship group are eareased
 	for ship_group in array:
-		ship_groups.push_back(ShipGroup.new(ship_group))
+		if ship_group.quantity > 0:
+			squadrons.push_back(FleetSquadron.new(ship_group))
 	emit_signal("fleet_update_nb_ships")
 	emit_signal("changed")
 
@@ -86,3 +90,16 @@ func update_fleet(dict : Dictionary):
 func arrived():
 	# only system should call this in fleet_arrive
 	emit_signal("arrived")
+
+
+func get_squadron(formation):
+	for i in squadrons:
+		if i.formation == formation:
+			return i
+	return null
+
+
+func _remove_empty_squadron():
+	for ship_group in squadrons:
+		if ship_group.quantity == 0:
+			squadrons.erase(ship_group)

@@ -22,7 +22,8 @@ func _ready():
 	_game_data.selected_state.connect("fleet_unselected", self, "_on_fleet_unselected")
 	button_menu.connect("pressed", self, "open_menu_ship_pressed")
 	button_give.connect("pressed", self, "_on_give_pressed")
-	set_is_selected(_game_data.selected_state.selected_fleet.id == fleet.id)
+	if _game_data.selected_state.selected_fleet != null:
+		set_is_selected(_game_data.selected_state.selected_fleet.id == fleet.id)
 
 
 func update_owner():
@@ -127,18 +128,18 @@ func _on_fleet_unselected(_old_fleet):
 func _on_fleet_update_nb_ships():
 	if _game_data.selected_state.selected_fleet.id == fleet.id:
 		var quantity = 0 # todo methode get_number of ships
-		for i in _game_data.selected_state.selected_fleet.ship_groups:
+		for i in _game_data.selected_state.selected_fleet.squadrons:
 			quantity += i.quantity
 		$Container/Ships/NbShips.text = str(quantity)
 
 
 func update_quantity():
-	if fleet == null or fleet.ship_groups == null:
+	if fleet == null or fleet.squadrons == null:
 		return
 	var text_quantity = ""
 	if _game_data.does_belong_to_current_player(fleet):
 		var quantity = 0
-		for i in fleet.ship_groups:
+		for i in fleet.squadrons:
 			quantity +=  i.quantity
 		text_quantity = quantity as String
 	$Container/Ships/NbShips.text = text_quantity

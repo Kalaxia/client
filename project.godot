@@ -15,11 +15,6 @@ _global_script_classes=[ {
 "path": "res://audio/audio_resource.gd"
 }, {
 "base": "Node",
-"class": "AudioSceneSingleton",
-"language": "GDScript",
-"path": "res://audio/audio.gd"
-}, {
-"base": "Node",
 "class": "AudioStacking",
 "language": "GDScript",
 "path": "res://audio/audio_stacking.gd"
@@ -128,6 +123,11 @@ _global_script_classes=[ {
 "class": "FleetSprite",
 "language": "GDScript",
 "path": "res://game/map/sprites/fleet_sprite.gd"
+}, {
+"base": "ShipGroup",
+"class": "FleetSquadron",
+"language": "GDScript",
+"path": "res://resources/definitions/store/fleet_squadron.gd"
 }, {
 "base": "Resource",
 "class": "GameData",
@@ -239,7 +239,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/definitions/store/ship_group.gd"
 }, {
-"base": "PanelContainer",
+"base": "SelectablePanelContainer",
 "class": "ShipGroupCard",
 "language": "GDScript",
 "path": "res://hud/system/fleet/ship_group_card.gd"
@@ -249,7 +249,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/definitions/remote_resources/ship_model.gd"
 }, {
-"base": "ShipGroup",
+"base": "Squadron",
 "class": "ShipQueue",
 "language": "GDScript",
 "path": "res://resources/definitions/store/ship_queue.gd"
@@ -258,6 +258,11 @@ _global_script_classes=[ {
 "class": "SpinBoxImediateUpdate",
 "language": "GDScript",
 "path": "res://gui/spin_box_imediate_update.gd"
+}, {
+"base": "ShipGroup",
+"class": "Squadron",
+"language": "GDScript",
+"path": "res://resources/definitions/store/squadron.gd"
 }, {
 "base": "DictResource",
 "class": "System",
@@ -286,7 +291,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AudioResource": "",
-"AudioSceneSingleton": "",
 "AudioStacking": "res://resources/editor/audio_stacking.svg",
 "AudioStacking2D": "res://resources/editor/audio_stacking_2d.svg",
 "AudioStacking3D": "res://resources/editor/audio_stacking_3d.svg",
@@ -309,6 +313,7 @@ _global_script_class_icons={
 "Fleet": "",
 "FleetItem": "res://resources/editor/fleet_item.svg",
 "FleetSprite": "res://resources/assets/2d/map/picto_flotte_2.png",
+"FleetSquadron": "",
 "GameData": "",
 "KalaxiaAssets": "res://resources/assets/2d/white_logo.png",
 "KalaxiaBuilding": "",
@@ -335,6 +340,7 @@ _global_script_class_icons={
 "ShipModel": "",
 "ShipQueue": "",
 "SpinBoxImediateUpdate": "res://resources/editor/spin_box_imediate_update.svg",
+"Squadron": "",
 "System": "",
 "TransparentCircleButton": "res://resources/editor/custom_circle_button.svg",
 "Utils": "",
@@ -355,6 +361,7 @@ Config="*res://config/config.gd"
 Network="*res://global/network.gd"
 Store="*res://global/store.gd"
 Debug="*res://global/debug/debug.gd"
+Audio="*res://audio/audio.gd"
 
 [debug]
 

@@ -1,11 +1,12 @@
 class_name ShipGroupCard
-extends PanelContainer #SelectablePanelContainer
+extends SelectablePanelContainer
 
 export(Resource) var ship_group = null setget set_ship_group
-export(String) var formation_position setget set_formation_position # string ?
+export(String, "center", "left", "right", "rear") var formation_position setget set_formation_position # string ?
 export(Array, Resource) var ship_queues_array setget set_ship_queues_array
 
 var number_in_hangar = 0 setget set_number_in_hangar
+var _game_data : GameData = Store.game_data
 
 onready var texture_rect = $MarginContainer/VBoxContainer/TextureRect
 onready var category_label = $MarginContainer/VBoxContainer/LabelCategory
@@ -54,7 +55,7 @@ func update_element():
 	if ship_group == null:
 		texture_rect.texture = null
 		category_label.text = ""
-		spin_box.value = ship_group.quantity
+		spin_box.value = 0
 		spin_box.editable = false
 		label_max_number.text = "0"
 	else:
@@ -108,7 +109,7 @@ func update_queue_process():
 
 
 func set_ship_group(new_ship_group):
-	if not new_ship_group is ShipGroup and new_ship_group != null:
+	if not new_ship_group is FleetSquadron and new_ship_group != null:
 		return
 	ship_group = new_ship_group
 	update_element()
@@ -133,9 +134,20 @@ func set_formation_position(new_string):
 
 
 func update_formation_position():
-	label_formation.text = formation_position
+	if label_formation != null:
+		label_formation.text = tr("general.formation." + formation_position)
 
 
 func _on_pressed_add():
-	# todo
+	var quantity = spin_box.value
+	if quantity > spin_box.max_value:
+		if not is_selected:
+			self.is_selected = true
+			update_style()
+			emit_signal("pressed")
+	else:
+		_request_assignation(quantity)
+
+
+func _request_assignation(quantity):
 	pass
