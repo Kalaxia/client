@@ -91,7 +91,7 @@ func _on_scene_request(scene):
 			yield($Level.get_child(0), "finished")
 		change_level(scenes[scene].scene)
 	else:
-		printerr(tr("Unknown requested scene : ") + scene)
+		push_error(tr("Unknown requested scene : %s") % scene)
 
 
 func _on_locale_reloaded():

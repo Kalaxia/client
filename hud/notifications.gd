@@ -8,8 +8,6 @@ func _ready():
 
 
 func _on_new_notification(notification):
-	print(notification)
 	var notif = NOTIFICATION_SCENE.instance()
 	notif.notif = notification
 	$List.add_child(notif)
-	print(tr("notification.ok"))

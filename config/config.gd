@@ -51,7 +51,7 @@ func _ready():
 	if err_config_user == OK:
 		_load_config_user(config_user)
 	else:
-		print( tr("error while parsing configuration file %s : %s ") % [ PATH_CONFIG_USER, str(err_config_user)] )
+		printerr( tr("error while parsing configuration file %s : %s ") % [ PATH_CONFIG_USER, str(err_config_user)] )
 		# by default we try to borerless maximize
 		_load_default_settings()
 
@@ -73,7 +73,7 @@ func set_audio_volume(bus_name: String,linear_volume : float) -> void:
 func save_config_file():
 	var err = config_user.save(PATH_CONFIG_USER)
 	if err != OK :
-		print( tr("Error while saving configuration file %s : %s ") % [PATH_CONFIG_USER , str(err)] )
+		printerr( tr("Error while saving configuration file %s : %s ") % [PATH_CONFIG_USER , str(err)] )
 	return err
 
 

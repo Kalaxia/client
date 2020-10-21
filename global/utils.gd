@@ -60,7 +60,7 @@ class Lock:
 ############## METHODS ##############
 
 func _init():
-	printerr("Utils is not meant to be initialised")
+	push_error("Utils is not meant to be initialised")
 	assert(false)
 
 ############## STATICS METHODS ##############

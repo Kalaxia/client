@@ -97,7 +97,7 @@ func connect_ws():
 	_ws_client.connect("data_received", self, "_on_data")
 	var err = _ws_client.connect_to_url(websocket_url, [], false, ["Authorization: Bearer " + token])
 	if err != OK:
-		print(tr("network.unable_connect"))
+		printerr(tr("network.unable_connect"))
 		set_process(false)
 
 
@@ -120,7 +120,7 @@ func _connected(proto = ""):
 func _on_data():
 	var data = JSON.parse(_ws_client.get_peer(1).get_packet().get_string_from_utf8()).result
 	
-	print(tr("received data from server: "), data.action)
+	print(tr("WS event : "), data.action)
 	
 	emit_signal(data.action, data.data)
 
@@ -133,14 +133,12 @@ func _process(delta):
 	self.client.poll()
 	var status = self.client.get_status()
 	if self.old_status != status:
-		print("[HTTP] Status: ", status)
 		self.old_status = status
 
 	match status:
 		HTTPClient.STATUS_DISCONNECTED:
 			if not self.requests.empty():
 				self.nb_connection_try += 1
-				print("[HTTP] connection try number ", self.nb_connection_try)
 				if self.nb_connection_try < MAX_CO_RETRIES:
 					self.connect_to_host()
 				else:
@@ -156,7 +154,6 @@ func _process(delta):
 			# it means the whole response was received and its handler needs
 			# to be triggered
 			if self.client.has_response():
-				print("[HTTP] response received, processing handler")
 				var response_code = self.client.get_response_code()
 				var response_headers = self.client.get_response_headers_as_dictionary()
 				self.trigger_handler(
@@ -172,7 +169,6 @@ func _process(delta):
 					self.client.close()
 			else:
 				self.waiting_for_request = TIME_BEFORE_CLOSE
-				print("[HTTP] requests are waiting, process one")
 				self.pending_request = self.requests.pop_front()
 				self.launch_pending_request()
 		# for every other status
@@ -213,6 +209,7 @@ func launch_pending_request():
 
 
 func trigger_handler(res_code, http_code, headers, body):
+	print("[HTTP] Receive response for %s" % pending_request[1])
 	if http_code != null and http_code >= 400:
 		print_debug(self.pending_request[1] + " - " + http_code as String + " : " + body.get_string_from_utf8() + ", " + JSON.print(headers))
 	# call the listener of the pending request
