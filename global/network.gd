@@ -209,7 +209,7 @@ func launch_pending_request():
 
 
 func trigger_handler(res_code, http_code, headers, body):
-	print("[HTTP] Recive respomce for %s" % pending_request[1])
+	print("[HTTP] Receive response for %s" % pending_request[1])
 	if http_code != null and http_code >= 400:
 		print_debug(self.pending_request[1] + " - " + http_code as String + " : " + body.get_string_from_utf8() + ", " + JSON.print(headers))
 	# call the listener of the pending request
