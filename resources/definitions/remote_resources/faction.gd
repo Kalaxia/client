@@ -1,7 +1,7 @@
 extends DictResource
 class_name FactionRemote
 
-export(Array, int) var display_color
+export(Color) var display_color
 export(String) var name
 export(float) var id
 

@@ -21,7 +21,10 @@ func get_color(is_victory_system = false, is_current_player = false) -> Color:
 
 
 func update_info_form_dict(dict):
-	self.display_color = dict.display_color
+	if dict.display_color is Color:
+		self.display_color = dict.display_color
+	else:
+		self.display_color = Color8(dict.display_color[0], dict.display_color[1], dict.display_color[2], dict.display_color[3])
 	self.display_name = dict.name
 	self.id = dict.id
 

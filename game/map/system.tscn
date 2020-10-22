@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://game/map/system.gd" type="Script" id=1]
 [ext_resource path="res://gui/transparent_circle_button.gd" type="Script" id=2]
 [ext_resource path="res://game/map/system_range_draw.gd" type="Script" id=3]
+[ext_resource path="res://game/map/player_avatar.tscn" type="PackedScene" id=4]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -15,6 +16,35 @@ load_path = "res://.import/crown_top.png-9a695ae7baae47aa3950a2279fbca96e.stex"
 [sub_resource type="StreamTexture" id=3]
 flags = 4
 load_path = "res://.import/spot.png-5693d467b7986fd6fc70ca36bb0c242c.stex"
+
+[sub_resource type="Animation" id=4]
+resource_name = "fade"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.04, 0.05, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true, true ]
+}
 
 [node name="System" type="Node2D"]
 scale = Vector2( 0.4, 0.4 )
@@ -46,32 +76,42 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -16.1
-margin_top = -16.1
-margin_right = 15.1
-margin_bottom = 15.1
+margin_left = -15.6
+margin_top = -15.6
+margin_right = 15.6
+margin_bottom = 15.6
 grow_horizontal = 2
 grow_vertical = 2
-rect_pivot_offset = Vector2( 16.1, 16.1 )
+rect_pivot_offset = Vector2( 15.6, 15.6 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spot" type="Sprite" parent="Star"]
+[node name="DisplayElements" type="Control" parent="Star"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( 15.6, 15.6 )
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spot" type="Sprite" parent="Star/DisplayElements"]
 light_mask = 3
+position = Vector2( 15.6, 15.6 )
 scale = Vector2( 0.15, 0.15 )
 texture = SubResource( 1 )
-centered = false
 
-[node name="Crown" type="Sprite" parent="Star"]
+[node name="Crown" type="Sprite" parent="Star/DisplayElements"]
 light_mask = 3
-position = Vector2( 0, -20 )
+position = Vector2( 15.6, -4 )
 scale = Vector2( 0.15, 0.15 )
 texture = SubResource( 2 )
-centered = false
 
-[node name="Light2DGlowBG" type="Light2D" parent="Star"]
+[node name="Light2DGlowBG" type="Light2D" parent="Star/DisplayElements"]
 visible = false
 position = Vector2( 0, 0.165539 )
 texture = SubResource( 3 )
@@ -81,6 +121,28 @@ energy = 2.5
 mode = 2
 range_layer_min = -10
 range_item_cull_mask = 4
+
+[node name="PlayerAvatar" parent="Star" instance=ExtResource( 4 )]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -71.5
+margin_top = -30.0
+margin_right = 71.5
+margin_bottom = 62.0
+grow_horizontal = 2
+rect_scale = Vector2( 0.9, 0.9 )
+rect_pivot_offset = Vector2( 71.5, 30 )
+
+[node name="Timer" type="Timer" parent="Star/PlayerAvatar"]
+wait_time = 0.7
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Star/PlayerAvatar"]
+anims/fade = SubResource( 4 )
 
 [node name="Range" type="Node2D" parent="."]
 visible = false

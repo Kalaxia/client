@@ -137,7 +137,7 @@ func _on_factions_loaded(err, response_code, _header, body):
 		var result = JSON.parse(body.get_string_from_utf8()).result
 		factions = {}
 		for faction in result:
-			factions[faction.id] = (FactionRemote.new(faction))
+			factions[faction.id] = FactionRemote.new(faction)
 		dict_loaded[Resource_elements.FACTIONS] = true
 		_verify_finished_loading()
 		emit_signal("loaded", Resource_elements.FACTIONS)

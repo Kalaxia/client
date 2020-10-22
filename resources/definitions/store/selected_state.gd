@@ -72,7 +72,7 @@ func unselect_fleet():
 
 
 func is_selected_system(system : System):
-	return system.id == selected_system.id
+	return system.id == selected_system.id if selected_system != null else false
 
 
 func _disconnect_fleet(fleet : Fleet):

@@ -24,13 +24,17 @@ var _target_scale = scale_ratio
 var _current_scale = scale_ratio
 var _lock_fleet_pin_refresh = Utils.Lock.new()
 
-onready var light_glow_bg = $Star/Light2DGlowBG
+onready var light_glow_bg = $Star/DisplayElements/Light2DGlowBG
 onready var star = $Star
-onready var crown = $Star/Crown
-onready var spot = $Star/Spot
+onready var crown = $Star/DisplayElements/Crown
+onready var spot = $Star/DisplayElements/Spot
 onready var fleet_pins = $FleetPins
 onready var range_draw_node = $Range
 onready var building_pins = $BuildingPins
+onready var timer = $Star/PlayerAvatar/Timer
+onready var avatar = $Star/PlayerAvatar
+onready var animation_avatar = $Star/PlayerAvatar/AnimationPlayer
+onready var display_element = $Star/DisplayElements
 
 
 func _ready():
@@ -40,6 +44,7 @@ func _ready():
 	star.connect("mouse_input", self, "_on_mouse_input")
 	star.connect("mouse_entered", self, "_on_mouse_entered")
 	star.connect("mouse_exited", self, "_on_mouse_exited")
+	timer.connect("timeout", self, "_on_timer_animation_avatar_timeout")
 	_game_data.selected_state.connect("fleet_selected", self, "_on_fleet_selected")
 	_game_data.selected_state.connect("fleet_unselected", self, "_on_fleet_unselected")
 	var scale_factor = (1.0 / scale.x) if scale.x != 0 else 0.0
@@ -49,6 +54,7 @@ func _ready():
 	_set_system_texture()
 	_set_glow_effet()
 	_modulate_color(1.0)
+	_set_player_avatar()
 	if _game_data.does_belong_to_current_player(system):
 		_game_data.selected_state.select_system(system)
 		refresh_scale()
@@ -67,6 +73,7 @@ func set_system(new_system):
 	_disconnect_system()
 	system = new_system
 	_connect_system()
+	_set_player_avatar()
 
 
 func unselect():
@@ -141,6 +148,7 @@ func refresh():
 		range_draw_node.visible = false
 	crown.visible = _game_data.does_belong_to_current_player(system)
 	refresh_scale()
+	_set_player_avatar()
 
 
 func refresh_building_pins():
@@ -192,7 +200,7 @@ func _set_glow_effet():
 
 
 func _set_system_texture():
-	var faction = ASSETS.factions[0.0]
+	var faction = ASSETS.factions[0]
 	if system.player:
 		faction = _game_data.get_player(system.player).faction
 	spot.texture = faction.picto.system_by_kind(system.kind)
@@ -224,7 +232,7 @@ func _on_fleet_unselected(_old_fleet):
 func _modulate_color(alpha):
 	var color = get_color_of_system()
 	color.a = alpha
-	star.set_modulate(color)
+	display_element.set_modulate(color)
 
 
 func _on_mouse_input(event):
@@ -264,12 +272,17 @@ func _on_mouse_entered():
 	is_hover = true
 	refresh_scale()
 	is_in_range_sailing_fleet = _game_data.is_in_range(_game_data.selected_state.selected_fleet, system)
+	timer.start()
 
 
 func _on_mouse_exited():
 	is_hover = false
 	is_in_range_sailing_fleet = false
 	refresh_scale()
+	if not timer.is_stopped():
+		timer.stop()
+	else:
+		animation_avatar.play("fade", -1 , -1.0, not animation_avatar.is_playing())
 
 
 func refresh_scale():
@@ -340,3 +353,13 @@ func _on_hangar_updated(_ship_group_hangar):
 
 func _on_building_updated():
 	refresh_building_pins()
+
+
+func _on_timer_animation_avatar_timeout():
+	animation_avatar.play("fade", -1 , 1.0, false)
+
+
+func _set_player_avatar():
+	if avatar == null:
+		return
+	avatar.player = _game_data.get_player(system.player)
