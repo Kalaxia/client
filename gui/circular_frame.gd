@@ -9,9 +9,11 @@ export(int) var number_of_edges = 32 setget set_number_of_edges
 export(bool) var blend = false setget set_blend
 export(bool) var advance_blend = false setget set_advance_blend
 export(float, 0.0, 1.0) var blend_factor = 0.5 setget set_blend_factor
-
+export(bool) var editor_only = false setget set_editor_only
 
 func _draw():
+	if editor_only and not Engine.editor_hint:
+		return
 	var points_1 = PoolVector2Array([])
 	var center = rect_size / 2.0
 	var colors = PoolColorArray([])
@@ -85,4 +87,9 @@ func set_advance_blend(blend_new):
 
 func set_blend_factor(blend_new):
 	blend_factor = blend_new
+	update()
+
+
+func set_editor_only(new_boolean):
+	editor_only = new_boolean
 	update()

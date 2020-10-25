@@ -10,3 +10,4 @@ api_scheme = "http"
 ws_scheme = "ws"
 debug_activated = true
 debug_auto_fill_lobby = true
+show_debug_frame = false

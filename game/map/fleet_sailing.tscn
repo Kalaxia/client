@@ -1,32 +1,80 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://game/map/fleet_sailing.gd" type="Script" id=1]
 [ext_resource path="res://game/map/sprites/fleet_sprite.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game/map/sprites/crown_sprite.tscn" type="PackedScene" id=3]
 [ext_resource path="res://resources/assets/2d/map/kalankar/crown_bottom.png" type="Texture" id=4]
+[ext_resource path="res://game/map/player_avatar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://game/fade_animation.tres" type="Animation" id=6]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
 "points": PoolVector2Array(  )
 }
 
-[node name="fleetSailing" type="Node2D"]
+[node name="FleetSailing" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="FleetPath" type="Path2D" parent="."]
 curve = SubResource( 1 )
 
 [node name="Follower" type="PathFollow2D" parent="FleetPath"]
+rotate = false
 loop = false
 
-[node name="SpritesContainer" type="Node2D" parent="FleetPath/Follower"]
+[node name="RotationContainer" type="Node2D" parent="FleetPath/Follower"]
 rotation = 1.5708
 scale = Vector2( 0.75, 0.75 )
 
-[node name="FleetIcon" parent="FleetPath/Follower/SpritesContainer" instance=ExtResource( 2 )]
-faction = null
+[node name="SpritesContainer" type="Node2D" parent="FleetPath/Follower/RotationContainer"]
 
-[node name="CrownSprite" parent="FleetPath/Follower/SpritesContainer" instance=ExtResource( 3 )]
+[node name="FleetIcon" parent="FleetPath/Follower/RotationContainer/SpritesContainer" instance=ExtResource( 2 )]
+
+[node name="CrownSprite" parent="FleetPath/Follower/RotationContainer/SpritesContainer" instance=ExtResource( 3 )]
 position = Vector2( 0, 9 )
 texture = ExtResource( 4 )
-faction = null
+
+[node name="ControlHover" type="Control" parent="FleetPath/Follower/RotationContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = -7.0
+margin_right = 8.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 16, 16 )
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReferenceRect" type="ReferenceRect" parent="FleetPath/Follower/RotationContainer/ControlHover"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+border_color = Color( 0, 0.713726, 0.992157, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerAvatar" parent="FleetPath/Follower" instance=ExtResource( 5 )]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -71.5
+margin_top = -24.0
+margin_right = 71.5
+margin_bottom = 37.0
+rect_scale = Vector2( 0.4, 0.4 )
+rect_pivot_offset = Vector2( 71.5, 30.5 )
+
+[node name="Timer" type="Timer" parent="FleetPath/Follower/PlayerAvatar"]
+wait_time = 1.5
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FleetPath/Follower/PlayerAvatar"]
+anims/fade = ExtResource( 6 )

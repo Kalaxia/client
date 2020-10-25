@@ -35,6 +35,7 @@ onready var timer = $Star/PlayerAvatar/Timer
 onready var avatar = $Star/PlayerAvatar
 onready var animation_avatar = $Star/PlayerAvatar/AnimationPlayer
 onready var display_element = $Star/DisplayElements
+onready var reference_frame = $Star/ReferenceRect
 
 
 func _ready():
@@ -45,6 +46,7 @@ func _ready():
 	star.connect("mouse_entered", self, "_on_mouse_entered")
 	star.connect("mouse_exited", self, "_on_mouse_exited")
 	timer.connect("timeout", self, "_on_timer_animation_avatar_timeout")
+	Config.config_environment.connect("show_debug_frame_changed", self, "_update_show_frame")
 	_game_data.selected_state.connect("fleet_selected", self, "_on_fleet_selected")
 	_game_data.selected_state.connect("fleet_unselected", self, "_on_fleet_unselected")
 	var scale_factor = (1.0 / scale.x) if scale.x != 0 else 0.0
@@ -61,6 +63,7 @@ func _ready():
 	else :
 		_set_target_scale(1.0)
 	refresh_building_pins()
+	_update_show_frame()
 
 
 func _process(delta):
@@ -363,3 +366,8 @@ func _set_player_avatar():
 	if avatar == null:
 		return
 	avatar.player = _game_data.get_player(system.player)
+
+
+func _update_show_frame():
+	if reference_frame != null:
+		reference_frame.editor_only = not Config.config_environment.show_debug_frame
