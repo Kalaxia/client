@@ -36,7 +36,7 @@ pybabel-flags = extract -F babelrc -k text -k LineEdit/placeholder_text -k tr -k
 msgmerge = msgmerge
 msgmerge-flags = --update --backup=simple --suffix=.back
 
-godot = $(addprefix $(godot-path), $(addsuffix $(godot-sufix), $(godot-name-executable-main)) )
+godot ?= $(addprefix $(godot-path), $(addsuffix $(godot-sufix), $(godot-name-executable-main)) )
 godot-flag = --export
 
 source-sufix = gd tscn tres
