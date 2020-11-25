@@ -31,7 +31,7 @@ func _ready():
 
 
 func _on_system_selected(_old_system):
-	if fleet.system != _game_data.selected_state.selected_system:
+	if fleet.system != _game_data.selected_state.selected_system.id:
 		emit_signal("close_requested")
 	else:
 		set_ship_group_hangar(_game_data.selected_state.selected_system.hangar)
@@ -54,11 +54,10 @@ func update_hangar():
 
 
 func update_element_fleet():
-	# NOTE : ship_groupe
 	var node_update_formation = []
 	if menu_fleet_details == null:
 		return
-	menu_fleet_details.update_element_fleet(fleet, selected_formation)
+	menu_fleet_details.fleet = fleet
 	if fleet != null and fleet.squadrons != null:
 		for i in fleet.squadrons:
 			var node_formation = grid_formation_container.get_node(i.formation)
@@ -90,7 +89,7 @@ func _refresh_hangar_elements():
 	# NOTE : ship_groupe
 	if menu_fleet_details == null:
 		return
-	menu_fleet_details.refresh_hangar_elements(ship_group_hangar)
+	menu_fleet_details.hangar = ship_group_hangar
 
 
 func _on_fleet_update_nb_ships():
@@ -126,7 +125,7 @@ func _update_details_view():
 	if menu_fleet_details == null:
 		return
 	menu_fleet_details.visible = selected_formation != ""
-	menu_fleet_details.update_details_view(fleet, selected_formation)
+	menu_fleet_details.formation = selected_formation
 
 
 func _on_request_assignation(ship_category, quantity):

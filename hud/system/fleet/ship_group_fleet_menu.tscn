@@ -51,7 +51,7 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 617.0
-margin_bottom = 310.0
+margin_bottom = 339.0
 mouse_filter = 1
 custom_constants/margin_right = 3
 custom_constants/margin_top = 3
@@ -62,12 +62,12 @@ custom_constants/margin_bottom = 3
 margin_left = 3.0
 margin_top = 3.0
 margin_right = 607.0
-margin_bottom = 300.0
+margin_bottom = 329.0
 custom_constants/separation = 10
 
 [node name="ShipModel" type="VBoxContainer" parent="MarginContainer/Main"]
 margin_right = 604.0
-margin_bottom = 53.0
+margin_bottom = 59.0
 custom_constants/separation = 7
 alignment = 1
 
@@ -81,6 +81,7 @@ expand = true
 stretch_mode = 6
 
 [node name="ShipModel" type="Label" parent="MarginContainer/Main/ShipModel"]
+visible = false
 margin_top = 39.0
 margin_right = 604.0
 margin_bottom = 53.0
@@ -91,15 +92,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/Main/ShipModel"]
+margin_left = 287.0
+margin_top = 39.0
+margin_right = 316.0
+margin_bottom = 59.0
+size_flags_horizontal = 4
+
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/Main"]
-margin_top = 63.0
+margin_top = 69.0
 margin_right = 604.0
-margin_bottom = 67.0
+margin_bottom = 73.0
 
 [node name="Stat" type="HBoxContainer" parent="MarginContainer/Main"]
-margin_top = 77.0
+margin_top = 83.0
 margin_right = 604.0
-margin_bottom = 121.0
+margin_bottom = 127.0
 alignment = 1
 
 [node name="StatsL" type="VBoxContainer" parent="MarginContainer/Main/Stat"]
@@ -229,14 +237,14 @@ __meta__ = {
 }
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/Main"]
-margin_top = 131.0
+margin_top = 137.0
 margin_right = 604.0
-margin_bottom = 135.0
+margin_bottom = 141.0
 
 [node name="Assign" type="HBoxContainer" parent="MarginContainer/Main"]
-margin_top = 145.0
+margin_top = 151.0
 margin_right = 604.0
-margin_bottom = 169.0
+margin_bottom = 175.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -273,9 +281,9 @@ size_flags_vertical = 4
 text = "hud.details.fleet.max_assign %d"
 
 [node name="ShipCost" type="HBoxContainer" parent="MarginContainer/Main"]
-margin_top = 179.0
+margin_top = 185.0
 margin_right = 604.0
-margin_bottom = 199.0
+margin_bottom = 205.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -326,14 +334,14 @@ __meta__ = {
 }
 
 [node name="HSeparator3" type="HSeparator" parent="MarginContainer/Main"]
-margin_top = 209.0
+margin_top = 215.0
 margin_right = 604.0
-margin_bottom = 213.0
+margin_bottom = 219.0
 
 [node name="ShipFleet" type="HBoxContainer" parent="MarginContainer/Main"]
-margin_top = 223.0
+margin_top = 229.0
 margin_right = 604.0
-margin_bottom = 255.0
+margin_bottom = 261.0
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/Main/ShipFleet"]
@@ -355,9 +363,9 @@ rect_min_size = Vector2( 30, 0 )
 text = "hud.details.fleet.number_of_ship_fleet %d"
 
 [node name="ShipAvaliable" type="HBoxContainer" parent="MarginContainer/Main"]
-margin_top = 265.0
+margin_top = 271.0
 margin_right = 604.0
-margin_bottom = 297.0
+margin_bottom = 303.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false

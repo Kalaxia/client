@@ -61,7 +61,7 @@ func update_element():
 	else:
 		texture_rect.texture = ship_group.category.texture
 		category_label.text = ship_group.category.category
-		spin_box.text = ship_group.quantity # todo keep ?
+		spin_box.value = ship_group.quantity # todo keep ?
 		spin_box.editable = true
 		update_max_number()
 
