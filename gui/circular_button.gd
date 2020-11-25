@@ -232,7 +232,7 @@ func _draw_texture():
 	var center = rect_size / 2.0
 	var middle_angle = deg2rad(angle_start + angle_end) / 2.0
 	var position = get_vector_radial(middle_angle, (radius_out + radius_in) / 2.0 * rect_size / 2.0) 
-	var rect_rexture = Rect2(center - texture_size / 2.0 + position,texture_size)
+	var rect_rexture = Rect2(center - texture_size / 2.0 + position, texture_size)
 	draw_texture_rect(texture,rect_rexture,false)
 
 

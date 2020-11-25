@@ -13,6 +13,7 @@ onready var button_container_right = $HBoxContainer/ButtonContainerRight
 onready var menu_button = $HBoxContainer/ButtonContainerRight/SelectablePanelContainerMenu
 onready var popup_menu = $HBoxContainer/ButtonContainerRight/SelectablePanelContainerMenu/PopupMenu
 onready var finance_button = $HBoxContainer/ButtonContainerRight/SelectablePanelContainerFinance
+onready var combat_button = $HBoxContainer/ButtonContainerRight/CombatReport
 
 
 func _ready():
@@ -24,6 +25,7 @@ func _ready():
 	popup_menu.connect("id_pressed", self, "_on_id_pressed")
 	texture_rect.texture = _game_data.player.faction.banner
 	finance_button.connect("pressed", self, "_on_finance_menu_pressed")
+	combat_button.connect("pressed", self, "_on_combat_button_pressed")
 
 
 func set_menu_layer(node):
@@ -83,3 +85,12 @@ func _on_finance_menu_pressed():
 func _on_menu_layer_menu_closed(menu_name):
 	if menu_name == "menu_finance":
 		finance_button.is_selected = false
+	elif menu_name == "menu_combat_report":
+		combat_button.is_selected = false
+
+
+func _on_combat_button_pressed():
+	if combat_button.is_selected:
+		menu_layer.request_menu("menu_combat_report")
+	else:
+		menu_layer.close_menu("menu_combat_report")
