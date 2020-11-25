@@ -51,7 +51,7 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 617.0
-margin_bottom = 339.0
+margin_bottom = 316.0
 mouse_filter = 1
 custom_constants/margin_right = 3
 custom_constants/margin_top = 3
@@ -62,7 +62,7 @@ custom_constants/margin_bottom = 3
 margin_left = 3.0
 margin_top = 3.0
 margin_right = 607.0
-margin_bottom = 329.0
+margin_bottom = 306.0
 custom_constants/separation = 10
 
 [node name="ShipModel" type="VBoxContainer" parent="MarginContainer/Main"]

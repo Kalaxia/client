@@ -1,7 +1,7 @@
 class_name ConstructionBuildingItem
 extends MarginContainer
 
-signal building_contructing(building)
+signal building_constructing(building)
 
 const ASSETS = preload("res://resources/assets.tres")
 
@@ -84,5 +84,5 @@ func _on_building_construction_started(err, response_code, _headers, body, syste
 		var building = Building.new(JSON.parse(body.get_string_from_utf8()).result)
 		system.add_building_to_system(building)
 		_game_data.player.update_wallet(- building_type.cost)
-		emit_signal("building_contructing", building)
+		emit_signal("building_constructing", building)
 	_lock_request_build.unlock()

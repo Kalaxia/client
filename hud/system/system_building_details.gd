@@ -77,9 +77,9 @@ func _on_panel_pressed(node):
 			menu_layer.request_menu(menu)
 			var node_menu = menu_layer.get_menu(menu)
 			if node.building == null:
-				if node_menu.is_connected("building_contructing", self, "_on_building_contructing"):
-					node_menu.disconnect("building_contructing", self, "_on_building_contructing")
-				node_menu.connect("building_contructing", self, "_on_building_contructing", [node])
+				if node_menu.is_connected("building_constructing", self, "_on_building_constructing"):
+					node_menu.disconnect("building_constructing", self, "_on_building_constructing")
+				node_menu.connect("building_constructing", self, "_on_building_constructing", [node])
 				# todo connect systems instead ?
 
 
@@ -94,18 +94,15 @@ func _deselect_other_building(node = null):
 
 func _on_menu_layer_menu_closed(menu_name):
 	if menu_name == "menu_shipyard":
-		var node_menu = menu_layer.get_menu("menu_shipyard")
-		if node_menu.is_connected("building_contructing", self, "_on_building_contructing"):
-			node_menu.disconnect("building_contructing", self, "_on_building_contructing")
 		_deselect_other_building()
 	elif menu_name == "menu_construction":
 		var node_menu = menu_layer.get_menu("menu_construction")
-		if node_menu.is_connected("building_contructing", self, "_on_building_contructing"):
-			node_menu.disconnect("building_contructing", self, "_on_building_contructing")
+		if node_menu.is_connected("building_constructing", self, "_on_building_constructing"):
+			node_menu.disconnect("building_constructing", self, "_on_building_constructing")
 		_deselect_other_building()
 
 
-func _on_building_contructing(building, node):
-	# the data are not chnage in game_data as the menu does it
+func _on_building_constructing(building, node):
+	# the data are not change in game_data as the menu does it
 	if node != null and is_instance_valid(node):
 		node.building = building
