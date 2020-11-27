@@ -8,6 +8,8 @@ export(int) var finished_at
 export(int) var started_at
 export(int) var created_at
 export(String) var target_fleet_id = null
+export(String) var fleet_id
+export(String) var formation
 
 
 func _init(dict = null).(dict):
@@ -21,7 +23,7 @@ func load_dict(dict) -> void:
 
 
 func _get_dict_property_list():
-	return ._get_dict_property_list() + ["finished_at", "started_at", "created_at"]
+	return ._get_dict_property_list() + ["finished_at", "started_at", "created_at", "fleet_id", "formation"]
 
 
 func on_finished():

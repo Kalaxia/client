@@ -40,6 +40,10 @@ func set_player(new_player_id):
 	emit_signal("owner_updated")
 
 
+func add_ship_group(squadron : ShipGroup, formation):
+	update_fleet_nb_ships(squadron.category, squadron.quantity, formation)
+
+
 func update_fleet_nb_ships(ship_category : ShipModel, nb_ships : int, formation : String):
 	var has_updated_number = false
 	for ship_group in squadrons:

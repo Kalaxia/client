@@ -83,6 +83,7 @@ func add_ship_queue(ship_queue):
 	ship_queue.connect("finished", self, "_on_ship_queue_finished", [ship_queue], CONNECT_ONESHOT)
 	ship_queue.connect("canceled", self, "_on_ship_queue_canceled", [ship_queue], CONNECT_ONESHOT)
 	ship_queues_array.push_back(ship_queue)
+	update_queue_process()
 
 
 func _on_ship_queue_finished(ship_queue):

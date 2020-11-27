@@ -154,10 +154,19 @@ func _on_fleet_owner_updated(fleet):
 
 
 func queue_finished(ship_group : ShipGroup):
+	var ship_queue
 	for i in range(ship_queues.size()):
 		if ship_queues[i].id == ship_group.id:
+			ship_queue = ship_queues[i]
 			ship_queues.remove(i)
 			break
+	if ship_queue != null and ship_queue.formation != "" and ship_queue.formation != null:
+		var fleet = get_fleet(ship_queue.fleet_id)
+		if fleet != null:
+			fleet.add_ship_group(ship_group, ship_queue.formation)
+			ship_group.on_finished()
+			emit_signal("ship_queue_finished", ship_group)
+			return
 	add_ship_group_to_hangar(ship_group)
 	ship_group.on_finished()
 	emit_signal("ship_queue_finished", ship_group)

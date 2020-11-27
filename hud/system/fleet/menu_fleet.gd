@@ -129,7 +129,7 @@ func _update_details_view():
 
 
 func _on_request_assignation(ship_category, quantity):
-	if selected_formation == "":
+	if selected_formation == "" or menu_fleet_details == null or menu_fleet_details.check_button == null:
 		return
 	# there is no implementation of a lock here
 	# the reason is that I do not want to block multiple assignation request
@@ -147,20 +147,31 @@ func _on_request_assignation(ship_category, quantity):
 				"category" : ship_category.category,
 				"quantity" : quantity,
 				"formation" : selected_formation,
+				"force_construction" : menu_fleet_details.check_button.pressed ,
 			}),
 			[quantity, fleet, ship_category, selected_formation]
 	)
 
 
-func _on_ship_assigned(err, response_code, _headers, _body,\
+func _on_ship_assigned(err, response_code, _headers, body,\
 		quantity, fleet_param : Fleet, ship_category : ShipModel, formation):
 	if err:
 		ErrorHandler.network_response_error(err)
-	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
-		var previous_squadron = fleet_param.get_squadron(formation)
-		var previous_quantity = previous_squadron.quantity if previous_squadron != null else 0
-		fleet_param.update_fleet_nb_ships(ship_category, quantity, formation)  
-		# this trigger the event to refresh the data so no need to do it here
-		var system = _game_data.get_system(fleet_param.system)
-		system.add_quantity_hangar(ship_category, previous_quantity - quantity) 
-		# this trigger the event to refresh the data
+	if response_code != HTTPClient.RESPONSE_NO_CONTENT and response_code != HTTPClient.RESPONSE_CREATED:
+		return
+	var system = _game_data.get_system(fleet_param.system)
+	var squadron_on_system = system.get_squandron(ship_category)
+	var quantity_to_assign_imediate = min(quantity,\
+			squadron_on_system.quantity if squadron_on_system != null else 0)
+	var previous_squadron = fleet_param.get_squadron(formation)
+	var previous_quantity = previous_squadron.quantity if previous_squadron != null else 0
+	fleet_param.update_fleet_nb_ships(ship_category, quantity_to_assign_imediate, formation)  
+	# this trigger the event to refresh the data so no need to do it here
+	system.add_quantity_hangar(ship_category, previous_quantity - quantity_to_assign_imediate) 
+	# this trigger the event to refresh the data
+	if response_code == HTTPClient.RESPONSE_CREATED:
+		var ship_queue = ShipQueue.new(JSON.parse(body.get_string_from_utf8()).result)
+		_game_data.player.update_wallet( - ship_category.cost * ship_queue.quantity)
+		system.add_ship_queue(ship_queue)
+		var node_formation = grid_formation_container.get_node(formation)
+		node_formation.add_ship_queue(ship_queue)
