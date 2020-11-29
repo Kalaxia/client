@@ -9,10 +9,8 @@ var _hover = false
 
 
 func _ready():
-	if not is_connected("mouse_exited", self, "_mouse_exited_area"):
-		connect("mouse_exited", self, "_mouse_exited_area")
-	if not is_connected("mouse_entered", self, "_mouse_entered_area"):
-		connect("mouse_entered", self, "_mouse_entered_area")
+	for e in ["mouse_exited", "mouse_entered"]:
+		Utils.unique_connect(e, self, "_" + e + "_area")
 
 
 func _gui_input(event):

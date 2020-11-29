@@ -24,16 +24,9 @@ export(Vector2) var texture_size setget set_texture_size
 
 func _ready():
 	# we ned to do this verifiaction because of the this is a tool and the editor can call _ready multiple time
-	if base_style != null and not base_style.is_connected("changed", self, "_on_changed"):
-		base_style.connect("changed", self, "_on_changed")
-	if selected_style != null and not selected_style.is_connected("changed", self, "_on_changed"):
-		selected_style.connect("changed", self, "_on_changed")
-	if hover_style != null and not hover_style.is_connected("changed", self, "_on_changed"):
-		hover_style.connect("changed", self, "_on_changed")
-	if focus_style != null and not focus_style.is_connected("changed", self, "_on_changed"):
-		focus_style.connect("changed", self, "_on_changed")
-	if texture != null and not texture.is_connected("changed", self, "_on_changed"):
-		texture.connect("changed", self, "_on_changed")
+	for s in [base_style, selected_style, hover_style, focus_style, texture]:
+		if s != null:
+			Utils.unique_external_connect(s, "changed", self, "_on_changed")
 
 
 func _draw():

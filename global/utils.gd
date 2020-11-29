@@ -119,3 +119,13 @@ static func int_max(a: int, b: int) -> int:
 		return a
 	else:
 		return b
+
+
+static func unique_connect(event, node, callback):
+	unique_external_connect(node, event, node, callback)
+
+
+static func unique_external_connect(node, event, callback_node, callback):
+	if not node.is_connected(event, callback_node, callback):
+		node.connect(event, callback_node, callback)
+

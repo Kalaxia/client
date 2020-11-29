@@ -18,15 +18,14 @@ onready var building_container = $ScrollContainer/HBoxContainer
 
 func _ready():
 	_building_panel_list = []
-	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
-	_game_data.selected_state.connect("system_updated", self, "_on_system_updated")
-	_game_data.selected_state.connect("building_updated", self, "_on_building_updated")
+	for e in ["system_selected", "system_updated", "building_updated"]:
+		_game_data.selected_state.connect(e, self, "_on_" + e)
 	update_building_panels()
 	update_visibility()
 
 
 func set_menu_layer(node):
-	if menu_layer != null and menu_layer.is_connected("menu_closed", self, "_on_menu_layer_menu_closed"):
+	if menu_layer != null:
 		menu_layer.disconnect("menu_closed", self, "_on_menu_layer_menu_closed")
 	menu_layer = node
 	menu_layer.connect("menu_closed", self, "_on_menu_layer_menu_closed")
