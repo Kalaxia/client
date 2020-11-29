@@ -1,6 +1,5 @@
 extends Control
 
-#signal ship_assigned(ship_in_fleet, ship_in_hangar)
 signal request_assignation(ship_category, quantity)
 signal spinbox_too_much()
 signal ship_category_changed()
@@ -134,14 +133,6 @@ func set_quantity_fleet(quantity):
 func set_quantity_hangar(quantity):
 	quantity_hangar = max(quantity, 0)
 	update_quantities()
-
-
-#func private_set(_variant):
-#	pass
-#
-#
-#func private_get():
-#	return null
 
 
 func _on_model_selected(index):

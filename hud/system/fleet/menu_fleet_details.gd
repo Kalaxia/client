@@ -2,7 +2,6 @@ extends VBoxContainer
 
 signal request_assignation(ship_category, quantity)
 
-const _SHIP_GROUP_ELEMENT = preload("res://hud/system/fleet/ship_group_fleet_menu.tscn")
 const ASSETS = preload("res://resources/assets.tres")
 
 var fleet setget set_fleet # no need to connect signas as the parent (menu_fleet) mange the signal

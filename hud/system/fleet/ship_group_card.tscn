@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://hud/system/fleet/ship_group_card.gd" type="Script" id=1]
 [ext_resource path="res://gui/spin_box_imediate_update.gd" type="Script" id=2]
+[ext_resource path="res://themes/theme_faction/common/progress_bar_forground.tres" type="StyleBox" id=3]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -85,9 +86,9 @@ script = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ShipNumber/HBoxContainerNumber"]
 visible = false
-margin_left = 104.0
+margin_left = 209.0
 margin_top = 7.0
-margin_right = 109.0
+margin_right = 214.0
 margin_bottom = 21.0
 text = "/"
 
@@ -106,14 +107,15 @@ text = "no_translate.number"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ShipNumber"]
 visible = false
-margin_left = 355.0
+margin_left = 289.0
 margin_right = 574.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer/ShipNumber/HBoxContainer"]
-margin_right = 219.0
+margin_left = 33.0
+margin_right = 252.0
 margin_bottom = 28.0
 text = "hud.system.fleet.menu.card.add"
 
@@ -133,6 +135,7 @@ margin_right = 332.0
 margin_bottom = 14.0
 rect_min_size = Vector2( 70, 0 )
 size_flags_horizontal = 3
+custom_styles/fg = ExtResource( 3 )
 max_value = 1.0
 step = 0.001
 

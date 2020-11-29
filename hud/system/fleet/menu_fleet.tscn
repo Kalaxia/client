@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://hud/system/fleet/menu_fleet.gd" type="Script" id=1]
 [ext_resource path="res://gui/menu/menu_header.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/menu/menu_body.gd" type="Script" id=3]
 [ext_resource path="res://hud/system/fleet/ship_group_card.tscn" type="PackedScene" id=4]
 [ext_resource path="res://hud/system/fleet/ship_group_fleet_menu.tscn" type="PackedScene" id=5]
-[ext_resource path="res://themes/theme_faction/adranite/theme_main.tres" type="Theme" id=6]
 [ext_resource path="res://themes/theme_faction/adranite/menu_header/styleboxflat_panel.tres" type="StyleBox" id=7]
 [ext_resource path="res://hud/system/fleet/menu_fleet_details.gd" type="Script" id=8]
 [ext_resource path="res://hud/system/fleet/check_button_build_ship.gd" type="Script" id=9]
@@ -48,7 +47,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-theme = ExtResource( 6 )
 custom_constants/separation = 0
 script = ExtResource( 1 )
 __meta__ = {
@@ -56,7 +54,7 @@ __meta__ = {
 }
 
 [node name="MenuHeader" parent="." instance=ExtResource( 2 )]
-margin_right = 2498.0
+margin_right = 2466.0
 margin_bottom = 31.0
 custom_styles/panel = ExtResource( 7 )
 text = "hud.details.fleet.fleet_composition_assignation"
@@ -65,16 +63,16 @@ texture = SubResource( 1 )
 [node name="MenuBody" type="PanelContainer" parent="."]
 show_behind_parent = true
 margin_top = 31.0
-margin_right = 2498.0
+margin_right = 2466.0
 margin_bottom = 1080.0
 size_flags_vertical = 3
 script = ExtResource( 3 )
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuBody"]
-margin_left = 3.0
-margin_top = 2.0
-margin_right = 2495.0
-margin_bottom = 1047.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 2459.0
+margin_bottom = 1042.0
 mouse_filter = 1
 size_flags_vertical = 3
 custom_constants/margin_right = 10
@@ -85,79 +83,79 @@ custom_constants/margin_bottom = 10
 [node name="Body" type="HBoxContainer" parent="MenuBody/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 2482.0
-margin_bottom = 1035.0
+margin_right = 2442.0
+margin_bottom = 1025.0
 size_flags_vertical = 3
 
 [node name="LeftColomn" type="VBoxContainer" parent="MenuBody/MarginContainer/Body"]
-margin_right = 1811.0
-margin_bottom = 1025.0
+margin_right = 1784.0
+margin_bottom = 1015.0
 size_flags_vertical = 3
 alignment = 2
 
 [node name="Formation" type="VBoxContainer" parent="MenuBody/MarginContainer/Body/LeftColomn"]
-margin_top = 675.0
-margin_right = 1811.0
-margin_bottom = 1025.0
+margin_top = 665.0
+margin_right = 1784.0
+margin_bottom = 1015.0
 
 [node name="GridContainer" type="GridContainer" parent="MenuBody/MarginContainer/Body/LeftColomn/Formation"]
-margin_right = 1811.0
+margin_right = 1784.0
 margin_bottom = 326.0
 columns = 3
 
 [node name="Control" type="Control" parent="MenuBody/MarginContainer/Body/LeftColomn/Formation/GridContainer"]
-margin_right = 601.0
+margin_right = 592.0
 margin_bottom = 161.0
 mouse_filter = 2
 
 [node name="center" parent="MenuBody/MarginContainer/Body/LeftColomn/Formation/GridContainer" instance=ExtResource( 4 )]
-margin_left = 605.0
-margin_right = 1206.0
+margin_left = 596.0
+margin_right = 1188.0
 margin_bottom = 161.0
 formation_position = "center"
 
 [node name="Control2" type="Control" parent="MenuBody/MarginContainer/Body/LeftColomn/Formation/GridContainer"]
-margin_left = 1210.0
-margin_right = 1811.0
+margin_left = 1192.0
+margin_right = 1784.0
 margin_bottom = 161.0
 mouse_filter = 2
 
 [node name="left" parent="MenuBody/MarginContainer/Body/LeftColomn/Formation/GridContainer" instance=ExtResource( 4 )]
 margin_top = 165.0
-margin_right = 601.0
+margin_right = 592.0
 margin_bottom = 326.0
 formation_position = "left"
 
 [node name="rear" parent="MenuBody/MarginContainer/Body/LeftColomn/Formation/GridContainer" instance=ExtResource( 4 )]
-margin_left = 605.0
+margin_left = 596.0
 margin_top = 165.0
-margin_right = 1206.0
+margin_right = 1188.0
 margin_bottom = 326.0
 formation_position = "rear"
 
 [node name="right" parent="MenuBody/MarginContainer/Body/LeftColomn/Formation/GridContainer" instance=ExtResource( 4 )]
-margin_left = 1210.0
+margin_left = 1192.0
 margin_top = 165.0
-margin_right = 1811.0
+margin_right = 1784.0
 margin_bottom = 326.0
 formation_position = "right"
 
 [node name="Control" type="Control" parent="MenuBody/MarginContainer/Body/LeftColomn/Formation"]
 margin_top = 330.0
-margin_right = 1811.0
+margin_right = 1784.0
 margin_bottom = 350.0
 rect_min_size = Vector2( 0, 20 )
 mouse_filter = 2
 
 [node name="Details" type="VBoxContainer" parent="MenuBody/MarginContainer/Body"]
-margin_left = 1815.0
-margin_right = 2472.0
-margin_bottom = 1025.0
+margin_left = 1788.0
+margin_right = 2432.0
+margin_bottom = 1015.0
 script = ExtResource( 8 )
 
 [node name="CheckButton" type="CheckButton" parent="MenuBody/MarginContainer/Body/Details"]
-margin_right = 304.0
-margin_bottom = 38.0
+margin_right = 291.0
+margin_bottom = 40.0
 size_flags_horizontal = 0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "hud.details.fleet.force_build_ship"
@@ -167,16 +165,16 @@ script = ExtResource( 9 )
 anims/too_much = SubResource( 2 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MenuBody/MarginContainer/Body/Details"]
-margin_top = 42.0
-margin_right = 657.0
-margin_bottom = 1025.0
+margin_top = 44.0
+margin_right = 644.0
+margin_bottom = 1015.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuBody/MarginContainer/Body/Details/ScrollContainer"]
-margin_right = 657.0
-margin_bottom = 339.0
+margin_right = 644.0
+margin_bottom = 343.0
 custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
@@ -185,11 +183,11 @@ custom_constants/margin_bottom = 10
 [node name="GridContainer" type="GridContainer" parent="MenuBody/MarginContainer/Body/Details/ScrollContainer/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 647.0
-margin_bottom = 329.0
+margin_right = 634.0
+margin_bottom = 333.0
 custom_constants/vseparation = 10
 custom_constants/hseparation = 10
 
 [node name="ShipGroupFleetMenu" parent="MenuBody/MarginContainer/Body/Details/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource( 5 )]
-margin_right = 637.0
-margin_bottom = 319.0
+margin_right = 624.0
+margin_bottom = 323.0
