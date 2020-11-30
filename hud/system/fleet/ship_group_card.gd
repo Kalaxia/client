@@ -10,18 +10,15 @@ var _game_data : GameData = Store.game_data
 
 onready var texture_rect = $MarginContainer/VBoxContainer/TextureRect
 onready var category_label = $MarginContainer/VBoxContainer/LabelCategory
-onready var spin_box = $MarginContainer/VBoxContainer/ShipNumber/HBoxContainerNumber/SpinBox
-onready var label_max_number = $MarginContainer/VBoxContainer/ShipNumber/HBoxContainerNumber/PanelContainer/LabelMaxNumber
 onready var progress_container = $MarginContainer/VBoxContainer/ProgressBar
 onready var progress_bar =  $MarginContainer/VBoxContainer/ProgressBar/ProgressBar
 onready var time_remaining_label = $MarginContainer/VBoxContainer/ProgressBar/LabelTime
 onready var label_contructing_number = $MarginContainer/VBoxContainer/ProgressBar/LabelNumber
-onready var button_add = $MarginContainer/VBoxContainer/ShipNumber/HBoxContainer/Button
 onready var label_formation = $MarginContainer/VBoxContainer/LabelFormation
+onready var label_max_number = $MarginContainer/VBoxContainer/ShipNumber/HBoxContainerNumber/PanelContainer/LabelMaxNumber
 
 
 func _ready():
-	button_add.connect("pressed", self, "_on_pressed_add")
 	update_element()
 	update_formation_position()
 
@@ -55,14 +52,10 @@ func update_element():
 	if ship_group == null:
 		texture_rect.texture = null
 		category_label.text = ""
-		spin_box.value = 0
-		spin_box.editable = false
 		label_max_number.text = "0"
 	else:
 		texture_rect.texture = ship_group.category.texture
 		category_label.text = ship_group.category.category
-		spin_box.value = ship_group.quantity # todo keep ?
-		spin_box.editable = true
 		update_max_number()
 
 
@@ -126,7 +119,6 @@ func update_max_number():
 		return
 	var quantity = ship_group.quantity if ship_group != null else 0
 	label_max_number.text = (number_in_hangar + quantity ) as String
-	spin_box.max_value = number_in_hangar + quantity
 
 
 func set_formation_position(new_string):
@@ -137,18 +129,3 @@ func set_formation_position(new_string):
 func update_formation_position():
 	if label_formation != null:
 		label_formation.text = tr("general.formation." + formation_position)
-
-
-func _on_pressed_add():
-	var quantity = spin_box.value
-	if quantity > spin_box.max_value:
-		if not is_selected:
-			self.is_selected = true
-			update_style()
-			emit_signal("pressed")
-	else:
-		_request_assignation(quantity)
-
-
-func _request_assignation(quantity):
-	pass

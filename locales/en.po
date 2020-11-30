@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-11-29 16:23+0100\n"
-"PO-Revision-Date: 2020-11-29 16:26+0100\n"
+"POT-Creation-Date: 2020-11-30 19:07+0100\n"
+"PO-Revision-Date: 2020-11-30 19:07+0100\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -421,49 +421,41 @@ msgstr "Composition"
 msgid "hud.fleet_item.give"
 msgstr "Give"
 
-#: hud/system/fleet/menu_fleet.tscn:60
+#: hud/system/fleet/menu_fleet.tscn:81
 msgid "hud.details.fleet.fleet_composition_assignation"
 msgstr "Assign ships to fleet"
 
-#: hud/system/fleet/menu_fleet.tscn:161
+#: hud/system/fleet/menu_fleet.tscn:185
 msgid "hud.details.fleet.force_build_ship"
 msgstr "Build missing ship"
 
-#: hud/system/fleet/ship_group_card.gd:47
-#: hud/system/fleet/ship_group_card.tscn:146
+#: hud/system/fleet/ship_group_card.gd:44
+#: hud/system/fleet/ship_group_card.tscn:107
 #, python-format
 msgid "hud.system.fleet.menu.card.time %d"
 msgstr "%d"
 
-#: hud/system/fleet/ship_group_card.gd:105
-#: hud/system/fleet/ship_group_card.tscn:130
+#: hud/system/fleet/ship_group_card.gd:98
+#: hud/system/fleet/ship_group_card.tscn:91
 #, python-format
 msgid "hud.system.fleet.menu.card.number %d"
 msgstr "%d"
 
-#: hud/system/fleet/ship_group_card.gd:139
+#: hud/system/fleet/ship_group_card.gd:131
 msgid "general.formation."
 msgstr ""
 
-#: hud/system/fleet/ship_group_card.tscn:38
+#: hud/system/fleet/ship_group_card.tscn:37
 msgid "no_translate.formation.position"
 msgstr ""
 
-#: hud/system/fleet/ship_group_card.tscn:55
+#: hud/system/fleet/ship_group_card.tscn:54
 msgid "no_translate.ship_model"
 msgstr ""
 
-#: hud/system/fleet/ship_group_card.tscn:93
-msgid "/"
-msgstr ""
-
-#: hud/system/fleet/ship_group_card.tscn:106
+#: hud/system/fleet/ship_group_card.tscn:81
 msgid "no_translate.number"
 msgstr ""
-
-#: hud/system/fleet/ship_group_card.tscn:120
-msgid "hud.system.fleet.menu.card.add"
-msgstr "add"
 
 #: hud/system/fleet/ship_group_fleet_menu.gd:55
 #: hud/system/fleet/ship_group_fleet_menu.tscn:89
@@ -472,27 +464,27 @@ msgid "hud.details.fleet.ship_model %s"
 msgstr "Model : %s"
 
 #: hud/system/fleet/ship_group_fleet_menu.gd:59
-#: hud/system/fleet/ship_group_fleet_menu.tscn:138
+#: hud/system/fleet/ship_group_fleet_menu.tscn:139
 #, python-format
 msgid "hud.details.fleet.hit_point %d"
 msgstr "%d"
 
 #: hud/system/fleet/ship_group_fleet_menu.gd:61
-#: hud/system/fleet/ship_group_fleet_menu.tscn:167
+#: hud/system/fleet/ship_group_fleet_menu.tscn:168
 #, python-format
 msgid "hud.details.fleet.damage %d"
 msgstr "%d"
 
 #: hud/system/fleet/ship_group_fleet_menu.gd:63
-#: hud/system/fleet/ship_group_fleet_menu.tscn:205
+#: hud/system/fleet/ship_group_fleet_menu.tscn:206
 #, python-format
 msgid "hud.details.fleet.accuracy %d"
 msgstr "%d %%"
 
 #: hud/system/fleet/ship_group_fleet_menu.gd:65
 #: hud/system/fleet/ship_group_fleet_menu.gd:100
-#: hud/system/fleet/ship_group_fleet_menu.tscn:234
-#: hud/system/fleet/ship_group_fleet_menu.tscn:331
+#: hud/system/fleet/ship_group_fleet_menu.tscn:235
+#: hud/system/fleet/ship_group_fleet_menu.tscn:333
 #, python-format
 msgid "hud.details.fleet.price %d"
 msgstr "%d"
@@ -503,30 +495,34 @@ msgid "hud.details.fleet.number_of_ship_fleet %d %d"
 msgstr "%d / %d"
 
 #: hud/system/fleet/ship_group_fleet_menu.gd:73
-#: hud/system/fleet/ship_group_fleet_menu.tscn:401
+#: hud/system/fleet/ship_group_fleet_menu.tscn:392
 #, python-format
 msgid "hud.details.fleet.number_of_ship_total %d"
 msgstr "%d"
 
 #: hud/system/fleet/ship_group_fleet_menu.gd:80
-#: hud/system/fleet/ship_group_fleet_menu.tscn:281
+#: hud/system/fleet/ship_group_fleet_menu.tscn:283
 #, python-format
 msgid "hud.details.fleet.max_assign %d"
 msgstr "Assign all (%d)"
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:257
+#: hud/system/fleet/ship_group_fleet_menu.tscn:101
+msgid "hud.details.fleet.select_model"
+msgstr "Select a model"
+
+#: hud/system/fleet/ship_group_fleet_menu.tscn:259
 msgid "hud.details.fleet.ship_to_assign"
 msgstr "Number of ships to assign"
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:273
+#: hud/system/fleet/ship_group_fleet_menu.tscn:275
 msgid "hud.details.system.fleet.menu.group_ship.set"
 msgstr "assign"
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:309
+#: hud/system/fleet/ship_group_fleet_menu.tscn:311
 msgid "hud.details.fleet.request_price_text"
 msgstr "price to build"
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:363
+#: hud/system/fleet/ship_group_fleet_menu.tscn:365
 #, python-format
 msgid "hud.details.fleet.number_of_ship_fleet %d"
 msgstr "%d"
@@ -814,19 +810,19 @@ msgstr "Back to main menu"
 
 #: locales/strings.txt:72
 msgid "general.formation.rear"
-msgstr ""
+msgstr "rear"
 
 #: locales/strings.txt:73
 msgid "general.formation.center"
-msgstr ""
+msgstr "center"
 
 #: locales/strings.txt:74
 msgid "general.formation.left"
-msgstr ""
+msgstr "left"
 
 #: locales/strings.txt:75
 msgid "general.formation.right"
-msgstr ""
+msgstr "right"
 
 #: matchmaking/game/game_loading.gd:63
 #, python-format
@@ -1107,6 +1103,9 @@ msgstr "%s's game"
 #: resources/definitions/store/lobby.gd:74
 msgid "store.new_game"
 msgstr "New game"
+
+#~ msgid "hud.system.fleet.menu.card.add"
+#~ msgstr "add"
 
 #~ msgid "notification.ok"
 #~ msgstr "OK"

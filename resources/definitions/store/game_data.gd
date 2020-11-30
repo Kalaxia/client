@@ -129,7 +129,7 @@ func request_hangar(system : System):
 	Network.req(self, "_on_ship_group_received",
 		"/api/games/" +
 			id + "/systems/" +
-			system.id + "/ship-groups/",
+			system.id + "/squadrons/",
 		HTTPClient.METHOD_GET,
 		[],
 		"",

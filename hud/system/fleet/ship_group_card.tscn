@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://hud/system/fleet/ship_group_card.gd" type="Script" id=1]
-[ext_resource path="res://gui/spin_box_imediate_update.gd" type="Script" id=2]
 [ext_resource path="res://themes/theme_faction/common/progress_bar_forground.tres" type="StyleBox" id=3]
 
 [sub_resource type="StreamTexture" id=1]
@@ -62,35 +61,11 @@ margin_bottom = 122.0
 custom_constants/separation = 5
 alignment = 1
 
-[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/ShipNumber"]
-visible = false
-margin_right = 284.0
-margin_bottom = 28.0
-size_flags_horizontal = 3
-
 [node name="HBoxContainerNumber" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ShipNumber"]
 margin_right = 574.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 alignment = 1
-
-[node name="SpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/ShipNumber/HBoxContainerNumber"]
-visible = false
-margin_left = 30.0
-margin_top = 2.0
-margin_right = 104.0
-margin_bottom = 26.0
-size_flags_vertical = 4
-allow_greater = true
-script = ExtResource( 2 )
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ShipNumber/HBoxContainerNumber"]
-visible = false
-margin_left = 209.0
-margin_top = 7.0
-margin_right = 214.0
-margin_bottom = 21.0
-text = "/"
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/ShipNumber/HBoxContainerNumber"]
 margin_left = 214.0
@@ -104,20 +79,6 @@ margin_top = 7.0
 margin_right = 139.0
 margin_bottom = 21.0
 text = "no_translate.number"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ShipNumber"]
-visible = false
-margin_left = 289.0
-margin_right = 574.0
-margin_bottom = 28.0
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/ShipNumber/HBoxContainer"]
-margin_left = 33.0
-margin_right = 252.0
-margin_bottom = 28.0
-text = "hud.system.fleet.menu.card.add"
 
 [node name="ProgressBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 129.0

@@ -160,15 +160,16 @@ func queue_finished(ship_group : ShipGroup):
 			ship_queue = ship_queues[i]
 			ship_queues.remove(i)
 			break
-	if ship_queue != null and ship_queue.formation != "" and ship_queue.formation != null:
-		var fleet = get_fleet(ship_queue.fleet_id)
+	if ship_queue != null and ship_queue.assigned_fleet_id != null and ship_queue.assgined_formation != null:
+		var fleet = get_fleet(ship_queue.assigned_fleet_id)
 		if fleet != null:
-			fleet.add_ship_group(ship_group, ship_queue.formation)
-			ship_group.on_finished()
+			fleet.add_ship_group(ship_group, ship_queue.assgined_formation)
+			ship_queue.on_finished()
 			emit_signal("ship_queue_finished", ship_group)
 			return
 	add_ship_group_to_hangar(ship_group)
-	ship_group.on_finished()
+	if ship_queue != null:
+		ship_queue.on_finished()
 	emit_signal("ship_queue_finished", ship_group)
 
 

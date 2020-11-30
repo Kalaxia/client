@@ -140,7 +140,7 @@ func _on_request_assignation(ship_category, quantity):
 			"/api/games/" + _game_data.id +
 				"/systems/" + _game_data.selected_state.selected_system.id +
 				"/fleets/" + fleet.id +
-				"/ship-groups/",
+				"/squadrons/",
 			HTTPClient.METHOD_POST,
 			[ "Content-Type: application/json" ],
 			JSON.print({
@@ -161,10 +161,10 @@ func _on_ship_assigned(err, response_code, _headers, body,\
 		return
 	var system = _game_data.get_system(fleet_param.system)
 	var squadron_on_system = system.get_squandron(ship_category)
-	var quantity_to_assign_imediate = min(quantity,\
-			squadron_on_system.quantity if squadron_on_system != null else 0)
-	var previous_squadron = fleet_param.get_squadron(formation)
+	var previous_squadron = fleet_param.get_squadron(formation, ship_category)
+	var previous_quantity_in_hangar = squadron_on_system.quantity if squadron_on_system != null else 0
 	var previous_quantity = previous_squadron.quantity if previous_squadron != null else 0
+	var quantity_to_assign_imediate = min(quantity, previous_quantity_in_hangar + previous_quantity)
 	fleet_param.update_fleet_nb_ships(ship_category, quantity_to_assign_imediate, formation)  
 	# this trigger the event to refresh the data so no need to do it here
 	system.add_quantity_hangar(ship_category, previous_quantity - quantity_to_assign_imediate) 

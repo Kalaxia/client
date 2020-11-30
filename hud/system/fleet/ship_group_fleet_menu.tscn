@@ -93,11 +93,12 @@ __meta__ = {
 }
 
 [node name="OptionButton" type="OptionButton" parent="MarginContainer/Main/ShipModel"]
-margin_left = 287.0
+margin_left = 190.0
 margin_top = 39.0
-margin_right = 316.0
+margin_right = 413.0
 margin_bottom = 59.0
 size_flags_horizontal = 4
+text = "hud.details.fleet.select_model"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/Main"]
 margin_top = 69.0
@@ -252,8 +253,9 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="MarginContainer/Main/Assign"]
 visible = false
-margin_right = 2232.0
-margin_bottom = 14.0
+margin_top = 5.0
+margin_right = 200.0
+margin_bottom = 19.0
 text = "hud.details.fleet.ship_to_assign"
 
 [node name="SpinBox" type="SpinBox" parent="MarginContainer/Main/Assign"]
@@ -380,17 +382,6 @@ size_flags_vertical = 4
 texture = SubResource( 9 )
 expand = true
 stretch_mode = 6
-
-[node name="Control" type="Control" parent="MarginContainer/Main/ShipAvaliable"]
-visible = false
-margin_left = 36.0
-margin_right = 46.0
-margin_bottom = 1064.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="MarginContainer/Main/ShipAvaliable"]
 margin_left = 186.0

@@ -41,7 +41,9 @@ func set_player(new_player_id):
 
 
 func add_ship_group(squadron : ShipGroup, formation):
-	update_fleet_nb_ships(squadron.category, squadron.quantity, formation)
+	var previous_squadron = get_squadron(formation, squadron.category)
+	var previous_quantity = previous_squadron.quantity if previous_squadron != null else 0
+	update_fleet_nb_ships(squadron.category, previous_quantity + squadron.quantity, formation)
 
 
 func update_fleet_nb_ships(ship_category : ShipModel, nb_ships : int, formation : String):
@@ -96,9 +98,12 @@ func arrived():
 	emit_signal("arrived")
 
 
-func get_squadron(formation):
+func get_squadron(formation, ship_category : ShipModel = null):
+	# normaly you only have one squadron per foramation so you do not to have to specify the categroy
+	# however the client code does not prevent you from having mulitple squadron per formation
+	# and this is use to prevent to miss count schip form one type to another by instance in add_ship_group
 	for i in squadrons:
-		if i.formation == formation:
+		if i.formation == formation and (ship_category == null or i.category == ship_category):
 			return i
 	return null
 
