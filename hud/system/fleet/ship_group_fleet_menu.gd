@@ -42,6 +42,8 @@ func _ready():
 		select_ship_category_button.add_item(tr("ship." + model.category))
 	select_ship_category_button.selected = 0
 	select_ship_category_button.connect("item_selected", self, "_on_model_selected")
+	_game_data.player.connect("wallet_updated", self, "_on_wallet_update")
+
 
 func set_build_ships(boolean):
 	build_ships = boolean
@@ -71,14 +73,18 @@ func update_quantities():
 	select_ship_category_button.disabled = quantity_fleet > 0
 	label_ship_fleet.text = tr("hud.details.fleet.number_of_ship_fleet %d %d") % [quantity_fleet, quantity_hangar + quantity_fleet]
 	label_ship_total.text = tr("hud.details.fleet.number_of_ship_total %d") % (quantity_hangar)
+	_update_max_quanity()
+	if max_assign_button != null:
+		max_assign_button.text = tr("hud.details.fleet.max_assign %d") % (quantity_hangar + quantity_fleet)
+	_update_price()
+
+
+func _update_max_quanity():
 	var previous_spinbox_value = spinbox.value
 	spinbox.max_value = quantity_hangar + quantity_fleet + \
 			(floor(_game_data.player.wallet as float / ship_category.cost as float) as int \
 			if build_ships else 0)
 	spinbox.value = min(previous_spinbox_value, spinbox.max_value)
-	if max_assign_button != null:
-		max_assign_button.text = tr("hud.details.fleet.max_assign %d") % (quantity_hangar + quantity_fleet)
-	_update_price()
 
 
 func _on_value_changed_spinbox(_value):
@@ -137,3 +143,8 @@ func set_quantity_hangar(quantity):
 
 func _on_model_selected(index):
 	set_ship_category(ASSETS.ship_models.values()[index])
+
+
+func _on_wallet_update(_amount):
+	if build_ships:
+		_update_max_quanity()

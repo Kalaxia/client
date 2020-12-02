@@ -28,6 +28,7 @@ func _ready():
 	# (as ship_group_element_container is null before ready) but that ship_group_hangar are already in memory
 	_refresh_hangar_elements()
 	_update_details_view()
+	_update_ship_queue()
 
 
 func _on_system_selected(_old_system):
@@ -35,6 +36,19 @@ func _on_system_selected(_old_system):
 		emit_signal("close_requested")
 	else:
 		set_ship_group_hangar(_game_data.selected_state.selected_system.hangar)
+		_update_ship_queue()
+
+
+func _update_ship_queue():
+	if grid_formation_container == null:
+		return
+	for node in grid_formation_container.get_children():
+		if node is ShipGroupCard:
+			node.reset_ship_queues_array()
+	var system = _game_data.selected_state.selected_system
+	for queue in system.ship_queues:
+		if queue.assigned_fleet_id == fleet.id:
+			grid_formation_container.get_node(queue.assgined_formation).add_ship_queue(queue)
 
 
 func _on_hangar_updated(ship_groups):
@@ -78,6 +92,7 @@ func set_fleet(new_fleet):
 		update_hangar()
 	update_element_fleet()
 	_update_details_view()
+	_update_ship_queue()
 
 
 func set_ship_group_hangar(array):
@@ -147,7 +162,7 @@ func _on_request_assignation(ship_category, quantity):
 				"category" : ship_category.category,
 				"quantity" : quantity,
 				"formation" : selected_formation,
-				"force_construction" : menu_fleet_details.check_button.pressed ,
+				"force_construction" : menu_fleet_details.check_button.pressed,
 			}),
 			[quantity, fleet, ship_category, selected_formation]
 	)

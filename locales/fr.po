@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2020-11-30 19:07+0100\n"
-"PO-Revision-Date: 2020-11-30 19:08+0100\n"
+"PO-Revision-Date: 2020-12-06 16:00+0100\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: main.gd:90
 #, python-format
@@ -427,7 +427,7 @@ msgstr "Assigner des vaisseaux à la flotte"
 
 #: hud/system/fleet/menu_fleet.tscn:185
 msgid "hud.details.fleet.force_build_ship"
-msgstr "Contruire les vaisseaux manquant"
+msgstr "Contruire les vaisseaux manquants"
 
 #: hud/system/fleet/ship_group_card.gd:44
 #: hud/system/fleet/ship_group_card.tscn:107

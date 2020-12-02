@@ -14,6 +14,7 @@ signal fleet_updated()
 signal fleet_added(fleet)
 signal fleet_erased(fleet)
 signal building_updated()
+signal building_contructed(building)
 signal hangar_updated(hangar)
 signal system_owner_updated()
 signal system_updated()
@@ -133,6 +134,8 @@ func _disconnect_system(system : System):
 		system.disconnect("ship_queue_added", self, "_on_ship_queue_added")
 	if system.is_connected("ship_queue_removed", self, "_on_ship_queue_removed"):
 		system.disconnect("ship_queue_removed", self, "_on_ship_queue_removed")
+	if system.is_connected("building_contructed", self, "_on_building_contructed"):
+		system.disconnect("building_contructed", self, "_on_building_contructed")
 
 
 func _connect_system(system : System):
@@ -160,6 +163,12 @@ func _connect_system(system : System):
 		system.connect("ship_queue_added", self, "_on_ship_queue_added")
 	if not system.is_connected("ship_queue_removed", self, "_on_ship_queue_removed"):
 		system.connect("ship_queue_removed", self, "_on_ship_queue_removed")
+	if not system.is_connected("building_contructed", self, "_on_building_contructed"):
+		system.connect("building_contructed", self, "_on_building_contructed")
+
+
+func _on_building_contructed(building):
+	emit_signal("building_contructed", building)
 
 
 func _on_system_fleet_owner_updated(fleet):

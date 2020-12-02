@@ -7,24 +7,28 @@ const ASSETS = preload("res://resources/assets.tres")
 var fleet setget set_fleet # no need to connect signas as the parent (menu_fleet) mange the signal
 var formation setget set_formation
 var hangar setget set_hangar # idem no need to manage signal here for change
+var _game_data : GameData = Store.game_data
 
 onready var check_button = $CheckButton
 onready var ship_group_details = $ScrollContainer/MarginContainer/GridContainer/ShipGroupFleetMenu
 
+
 func _ready():
-	check_button.connect("toggled", self, "_on_build_schip_button_toggled")
+	check_button.connect("toggled", self, "_on_build_ship_button_toggled")
 	ship_group_details.build_ships = check_button.pressed
 	ship_group_details.connect("request_assignation", self, "_on_request_assignation")
 	ship_group_details.connect("spinbox_too_much", self, "_on_spinbox_too_much")
 	ship_group_details.connect("ship_category_changed", self, "_on_ship_category_changed")
 	_update_element(fleet, formation, hangar)
+	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
+	_game_data.selected_state.connect("building_contructed", self, "_on_building_contructed")
 
 
 func _on_spinbox_too_much():
 	check_button.too_much_animation()
 
 
-func _on_build_schip_button_toggled(pressed):
+func _on_build_ship_button_toggled(pressed):
 	ship_group_details.build_ships = pressed
 
 
@@ -83,3 +87,16 @@ func _refresh_hangar(hangar_param):
 
 func _on_ship_category_changed():
 	_refresh_hangar(hangar)
+
+
+func _on_system_selected(_old_system):
+	var system = _game_data.selected_state.selected_system
+	check_button.disabled = not system.has_shipyard()
+	if not system.has_shipyard():
+		check_button.pressed = false
+		ship_group_details.build_ships = false
+
+
+func _on_building_contructed(building):
+	if building.kind.kind == "shipyard":
+		check_button.disabled = false

@@ -255,3 +255,15 @@ func _remove_empty_squadron():
 	for ship_group in hangar:
 		if ship_group.quantity == 0:
 			hangar.erase(ship_group)
+
+
+func has_shipyard():
+	return has_buildind("shipyard")
+
+
+func has_buildind(kind):
+	for building in buildings:
+		if (kind is String and building.kind.kind == kind) or \
+				(kind is KalaxiaBuilding and building.kind == kind):
+			return true
+	return false

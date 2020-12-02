@@ -21,6 +21,7 @@ onready var label_max_number = $MarginContainer/VBoxContainer/ShipNumber/HBoxCon
 func _ready():
 	update_element()
 	update_formation_position()
+	update_queue_process()
 
 
 func _process(_delta):
@@ -38,12 +39,13 @@ func _update_time():
 	var min_time = current_time
 	var max_time = current_time
 	for queue in ship_queues_array:
-		min_time = min(min_time, queue.started_at)
-		max_time = max(max_time, queue.finished_at)
+		# there is presicion problem when converting to float, use int function instead
+		min_time = Utils.int_min(min_time, queue.started_at)
+		max_time =  Utils.int_max(max_time, queue.finished_at)
 	var time_remaining = max_time - current_time
 	time_remaining_label.text = tr("hud.system.fleet.menu.card.time %d") % floor(max(time_remaining, 0.0) / 1000.0)
 	var total_time =  (max_time - min_time) as float
-	progress_bar.value = (1.0 - time_remaining as float/ total_time) if total_time != 0.0 else 1.0
+	progress_bar.value = (1.0 - time_remaining as float / total_time) if total_time != 0.0 else 1.0
 
 
 func update_element():
@@ -129,3 +131,11 @@ func set_formation_position(new_string):
 func update_formation_position():
 	if label_formation != null:
 		label_formation.text = tr("general.formation." + formation_position)
+
+
+func reset_ship_queues_array():
+	for queue in ship_queues_array:
+		queue.disconnect("finished", self, "_on_ship_queue_finished")
+		queue.disconnect("canceled", self, "_on_ship_queue_canceled")
+		ship_queues_array.erase(queue)
+	update_queue_process()
