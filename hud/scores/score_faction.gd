@@ -13,7 +13,7 @@ onready var texture = $TextureRect
 func _ready():
 	progress_bar.connect("value_changed", self, "_on_progress_bar_changed")
 	_game_data.connect("score_updated", self, "_on_score_updated")
-	progress_bar.max_value = ASSETS.constants.victory_points
+	progress_bar.max_value = _game_data.victory_points_to_win
 	# we have to update one to shows the correct numbers of max points
 	# value_changed is not triggered if we set the same value as before
 	_on_progress_bar_changed(0)
