@@ -77,7 +77,7 @@ func change_level(level_scene):
 
 
 func _on_scene_request(scene):
-	print(scene)
+	print("scene requested : " +scene)
 	_set_is_in_game(scene == "game")
 	if scenes.has(scene):
 		if scenes[scene].scene == null:
