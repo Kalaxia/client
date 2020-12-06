@@ -1,4 +1,3 @@
-class_name AudioSceneSingleton
 extends Node
 
 signal building_finished_audio(building)
@@ -17,7 +16,6 @@ func _init():
 
 func play_click():
 	audio_scene.play_click()
-	pass
 
 
 func building_constructed_audio(building):

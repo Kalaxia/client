@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=19 format=2]
+[gd_resource type="Theme" load_steps=21 format=2]
 
 [ext_resource path="res://themes/font/font_muli_text_normal.tres" type="DynamicFont" id=1]
 [ext_resource path="res://themes/panel_container/styleboxflat_panel_selected.tres" type="StyleBox" id=2]
@@ -88,6 +88,11 @@ corner_radius_bottom_left = 2
 shadow_color = Color( 0, 0, 0, 0.47451 )
 shadow_size = 1
 shadow_offset = Vector2( 1, 1 )
+
+[sub_resource type="StyleBoxLine" id=18]
+color = Color( 0.482353, 0.364706, 0.14902, 1 )
+grow_begin = -5.0
+grow_end = -5.0
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
@@ -232,6 +237,12 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
+[sub_resource type="StyleBoxLine" id=17]
+color = Color( 0.482353, 0.364706, 0.14902, 1 )
+grow_begin = -2.0
+grow_end = -2.0
+vertical = true
+
 [resource]
 default_font = ExtResource( 1 )
 Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
@@ -263,6 +274,8 @@ CheckButton/styles/hover = null
 CheckButton/styles/hover_pressed = null
 CheckButton/styles/normal = null
 CheckButton/styles/pressed = SubResource( 6 )
+HSeparator/constants/separation = 4
+HSeparator/styles/separator = SubResource( 18 )
 Label/colors/font_color = Color( 1, 1, 1, 1 )
 Label/colors/font_color_shadow = Color( 0, 0, 0, 0.384314 )
 Label/colors/font_outline_modulate = Color( 0, 0, 0, 0.156863 )
@@ -333,3 +346,5 @@ VScrollBar/styles/grabber_highlight = SubResource( 14 )
 VScrollBar/styles/grabber_pressed = SubResource( 15 )
 VScrollBar/styles/scroll = SubResource( 16 )
 VScrollBar/styles/scroll_focus = null
+VSeparator/constants/separation = 4
+VSeparator/styles/separator = SubResource( 17 )

@@ -1,6 +1,6 @@
 extends MenuContainer
 
-signal building_contructing(building)
+signal building_constructing(building)
 
 const ASSETS = preload("res://resources/assets.tres")
 const CONSTRUCTION_ITEM = preload("res://hud/system/buildings/contruction/construction_building_item.tscn")
@@ -13,10 +13,10 @@ func _ready():
 		if building != "":
 			var node = CONSTRUCTION_ITEM.instance()
 			node.building_type = ASSETS.buildings[building]
-			node.connect("building_contructing", self, "_on_building_contructing")
+			node.connect("building_constructing", self, "_on_building_constructing")
 			conainer_contruction.add_child(node)
 
 
-func _on_building_contructing(building):
-	emit_signal("building_contructing", building)
+func _on_building_constructing(building):
+	emit_signal("building_constructing", building)
 	close_request()

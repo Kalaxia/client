@@ -24,7 +24,7 @@ func _ready():
 
 
 func _notification(what):
-	if what == NOTIFICATION_PREDELETE:
+	if what == NOTIFICATION_PREDELETE or what == NOTIFICATION_WM_QUIT_REQUEST:
 		# destructor
 		_delete_menues()
 

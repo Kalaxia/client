@@ -105,3 +105,17 @@ static func capitalise_first_letter(string: String) -> String:
 static func trim(string: String) -> String:
 	# todo improve
 	return string.replace("  ", " ").trim_prefix(" ").trim_suffix(" ")
+
+
+static func int_min(a: int, b: int) -> int:
+	if a < b:
+		return a
+	else:
+		return b
+
+
+static func int_max(a: int, b: int) -> int:
+	if a > b:
+		return a
+	else:
+		return b

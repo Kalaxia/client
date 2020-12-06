@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-10 19:13+0200\n"
-"PO-Revision-Date: 2020-09-10 19:15+0200\n"
+"POT-Creation-Date: 2020-11-30 19:07+0100\n"
+"PO-Revision-Date: 2020-11-30 19:07+0100\n"
 "Last-Translator: ChickenStorm\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -19,8 +19,9 @@ msgstr ""
 "X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: main.gd:96
-msgid "Unknown requested scene : "
+#: main.gd:90
+#, python-format
+msgid "Unknown requested scene : %s"
 msgstr ""
 
 #: config/config.gd:54
@@ -38,28 +39,28 @@ msgstr ""
 msgid "game.faction_score.victory_points %d"
 msgstr "%d victory points"
 
-#: game/game.gd:71
+#: game/game.gd:73
 msgid "game.notification.goal.title"
 msgstr "Goal"
 
-#: game/game.gd:71
+#: game/game.gd:73
 msgid "game.notification.goal.content"
 msgstr "Conquer and keep strategic systems"
 
-#: game/game.gd:256
+#: game/game.gd:251
 msgid "game.receive_credits_notif.title"
 msgstr "Money transfer"
 
-#: game/game.gd:257
+#: game/game.gd:252
 #, python-format
 msgid "game.receive_credits_notif.content %s %d"
 msgstr "%s sent you %d credits"
 
-#: game/game.gd:342
+#: game/game.gd:338
 msgid "game.receive_fleet.title"
 msgstr "Fleet given"
 
-#: game/game.gd:343
+#: game/game.gd:339
 #, python-format
 msgid "game.receive_fleet.content %s"
 msgstr "%s gave you a fleet"
@@ -76,12 +77,37 @@ msgstr "Defeat"
 msgid "game.score.back_main_menu"
 msgstr "Back to main menu"
 
+#: global/error.gd:6 global/error.gd:19 global/error.gd:20
+#: global/loading_screen.gd:95
+msgid "error.network_error"
+msgstr "Network error"
+
+#: global/error.gd:13 global/error.gd:15 global/loading_screen.gd:95
+msgid "error.connexion_impossible"
+msgstr "Connection failure"
+
+#: global/error.gd:13 global/error.gd:17
+msgid "error.server_not_avaliable"
+msgstr "The game server is not available."
+
+#: global/error.gd:15
+msgid "error.unkown_domain_name"
+msgstr "The domain name of the game server is unknown."
+
+#: global/error.gd:17 global/loading_screen.gd:95
+msgid "error.http_not_connected"
+msgstr "HTTP client is not connected"
+
+#: global/error.gd:19
+msgid "error.network_error_content"
+msgstr "A network error occurred."
+
 #: global/loading_screen.gd:46 global/loading_screen.tscn:290
 #, python-format
 msgid "global.loading.version %s"
 msgstr "Version : %s"
 
-#: global/loading_screen.gd:84 global/loading_screen.gd:150
+#: global/loading_screen.gd:84 global/loading_screen.gd:144
 msgid "global.loading.ok"
 msgstr "OK"
 
@@ -93,37 +119,25 @@ msgstr "Connecting"
 msgid "global.loading.error"
 msgstr "Error"
 
-#: global/loading_screen.gd:95
-msgid "error.connexion_impossible"
-msgstr "Connection failure"
-
-#: global/loading_screen.gd:95
-msgid "error.http_not_connected"
-msgstr "HTTP client is not connected"
-
-#: global/loading_screen.gd:95
-msgid "error.network_error"
-msgstr "Network error"
-
-#: global/loading_screen.gd:210
+#: global/loading_screen.gd:204
 #, python-format
 msgid "global.loading.ressource.error %s %d"
 msgstr "Error while loading %s : %d"
 
-#: global/loading_screen.gd:210 global/loading_screen.gd:228
+#: global/loading_screen.gd:204 global/loading_screen.gd:222
 msgid "global.loading.ressource."
 msgstr ""
 
-#: global/loading_screen.gd:221 global/loading_screen.gd:224
+#: global/loading_screen.gd:215 global/loading_screen.gd:218
 #, python-format
 msgid "global.loading.progressbar_ressource %d %d"
 msgstr "%d / %d"
 
-#: global/loading_screen.gd:228
+#: global/loading_screen.gd:222
 msgid "global.loading.none_loading"
 msgstr "Finished"
 
-#: global/loading_screen.gd:231
+#: global/loading_screen.gd:225
 #, python-format
 msgid "global.loading.progressbar_global %d %d"
 msgstr "%d / %d"
@@ -158,9 +172,13 @@ msgstr "Factions received : "
 msgid "global.loading.constants_status"
 msgstr "Constants received : "
 
-#: global/loading_screen.tscn:248 global/loading_screen.tscn:267
+#: global/loading_screen.tscn:248
 msgid "global.loading.ships_status"
 msgstr "Ships received : "
+
+#: global/loading_screen.tscn:267
+msgid "global.loading.building_status"
+msgstr "Building received :"
 
 #: global/loading_screen.tscn:309
 msgid "global.loading.quit"
@@ -179,7 +197,19 @@ msgid "Connected with protocol: "
 msgstr ""
 
 #: global/network.gd:123
-msgid "received data from server: "
+msgid "WS event : "
+msgstr ""
+
+#: global/utils.gd:73
+msgid "action.key.mouse_key_"
+msgstr ""
+
+#: global/debug/debug_panel.tscn:91
+msgid "debug.title"
+msgstr "Debug"
+
+#: global/debug/debug_panel.tscn:127
+msgid "debug.dump_game_data"
 msgstr ""
 
 #: gui/key_binding_label/key_binding_label.tscn:27
@@ -198,27 +228,27 @@ msgstr "Minimize"
 msgid "gui.menu.close"
 msgstr "close"
 
-#: hud/notifications.gd:15
-msgid "notification.ok"
-msgstr "OK"
+#: hud/hud.tscn:64
+msgid "hud.scores"
+msgstr "Scores"
 
 #: hud/wallet.tscn:29
 msgid "hud.wallet.0"
 msgstr "0"
 
-#: hud/hud_menu/finance/finance_menu.tscn:26
+#: hud/hud_menu/finance/finance_menu.tscn:50
 msgid "hud.menu.finance.title"
 msgstr "Finances"
 
-#: hud/hud_menu/finance/finance_menu.tscn:80
+#: hud/hud_menu/finance/finance_menu.tscn:104
 msgid "hud.menu.finance.transfer.credit_to_send"
 msgstr "Credit transfer"
 
-#: hud/hud_menu/finance/finance_menu.tscn:86 locales/strings.txt:70
+#: hud/hud_menu/finance/finance_menu.tscn:110 locales/strings.txt:70
 msgid "hud.menu.finance.transfet.select_player"
 msgstr "Select a player"
 
-#: hud/hud_menu/finance/finance_menu.tscn:103
+#: hud/hud_menu/finance/finance_menu.tscn:127
 msgid "hud.menu.finance.transfer.send"
 msgstr "send"
 
@@ -226,15 +256,15 @@ msgstr "send"
 msgid "hud.menu.finance.transfer"
 msgstr "Money transfer"
 
-#: hud/scores/score_faction.tscn:58
+#: hud/hud_menu/options/menu_option_hud.tscn:43
+msgid "hud.menu.option.title"
+msgstr "Options"
+
+#: hud/scores/score_faction.tscn:54
 msgid "0 / 250"
 msgstr ""
 
-#: hud/scores/scores.tscn:30
-msgid "hud.scores"
-msgstr "Scores"
-
-#: hud/system/details.tscn:126
+#: hud/system/details.tscn:140
 msgid "no_translate.player_name"
 msgstr ""
 
@@ -256,19 +286,19 @@ msgstr ""
 msgid "hud.system_details.building.hangar"
 msgstr "Hangar"
 
-#: hud/system/buildings/hangar.tscn:24
+#: hud/system/buildings/hangar.tscn:48
 msgid "hud.details.building.hangar.menu_title"
 msgstr "Hangar"
 
-#: hud/system/buildings/hangar.tscn:56
+#: hud/system/buildings/hangar.tscn:80
 msgid "hud.details.building.hangar.production_line"
 msgstr "Production line :"
 
-#: hud/system/buildings/hangar.tscn:87
+#: hud/system/buildings/hangar.tscn:111
 msgid "hud.details.building.hangar.order_ship"
 msgstr "Order ship"
 
-#: hud/system/buildings/hangar.tscn:111
+#: hud/system/buildings/hangar.tscn:135
 msgid "hud.details.building.hangar.hangar_ship"
 msgstr "Ship in hangar"
 
@@ -282,7 +312,7 @@ msgstr "%d"
 #: hud/system/buildings/contruction/construction_building_item.tscn:132
 #, python-format
 msgid "hud.details.buidlng.time %d"
-msgstr "%d"
+msgstr "%d s"
 
 #: hud/system/buildings/contruction/construction_building_item.gd:67
 #: hud/system/buildings/hangar/ship_type_build.gd:121
@@ -307,13 +337,13 @@ msgid "hud.details.building.construction_menu.title"
 msgstr "Buildings"
 
 #: hud/system/buildings/hangar/ship_production_line.gd:27
-#: hud/system/buildings/hangar/ship_production_line.tscn:98
+#: hud/system/buildings/hangar/ship_production_line.tscn:87
 #, python-format
 msgid "hud.details.building.hangar.number_of_ships %d"
 msgstr "%d"
 
 #: hud/system/buildings/hangar/ship_production_line.gd:29
-#: hud/system/buildings/hangar/ship_production_line.tscn:66
+#: hud/system/buildings/hangar/ship_production_line.tscn:55
 #: hud/system/buildings/hangar/ship_type_build.gd:90
 #: hud/system/buildings/hangar/ship_type_build.tscn:66
 #, python-format
@@ -322,12 +352,13 @@ msgstr "Model : %s"
 
 #: hud/system/buildings/hangar/ship_production_line.gd:29
 #: hud/system/buildings/hangar/ship_type_build.gd:90
-#: hud/system/fleet/ship_group_fleet_menu.gd:37
+#: hud/system/fleet/ship_group_fleet_menu.gd:42
+#: hud/system/fleet/ship_group_fleet_menu.gd:55
 msgid "ship."
 msgstr ""
 
 #: hud/system/buildings/hangar/ship_production_line.gd:38
-#: hud/system/buildings/hangar/ship_production_line.tscn:143
+#: hud/system/buildings/hangar/ship_production_line.tscn:132
 #, python-format
 msgid "hud.details.building.hangar.time_remaining %d"
 msgstr "remaining time : %d s"
@@ -390,60 +421,108 @@ msgstr "Composition"
 msgid "hud.fleet_item.give"
 msgstr "Give"
 
-#: hud/system/fleet/menu_fleet.tscn:23
+#: hud/system/fleet/menu_fleet.tscn:81
 msgid "hud.details.fleet.fleet_composition_assignation"
 msgstr "Assign ships to fleet"
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:37
-#: hud/system/fleet/ship_group_fleet_menu.tscn:68
+#: hud/system/fleet/menu_fleet.tscn:185
+msgid "hud.details.fleet.force_build_ship"
+msgstr "Build missing ship"
+
+#: hud/system/fleet/ship_group_card.gd:44
+#: hud/system/fleet/ship_group_card.tscn:107
+#, python-format
+msgid "hud.system.fleet.menu.card.time %d"
+msgstr "%d"
+
+#: hud/system/fleet/ship_group_card.gd:98
+#: hud/system/fleet/ship_group_card.tscn:91
+#, python-format
+msgid "hud.system.fleet.menu.card.number %d"
+msgstr "%d"
+
+#: hud/system/fleet/ship_group_card.gd:131
+msgid "general.formation."
+msgstr ""
+
+#: hud/system/fleet/ship_group_card.tscn:37
+msgid "no_translate.formation.position"
+msgstr ""
+
+#: hud/system/fleet/ship_group_card.tscn:54
+msgid "no_translate.ship_model"
+msgstr ""
+
+#: hud/system/fleet/ship_group_card.tscn:81
+msgid "no_translate.number"
+msgstr ""
+
+#: hud/system/fleet/ship_group_fleet_menu.gd:55
+#: hud/system/fleet/ship_group_fleet_menu.tscn:89
 #, python-format
 msgid "hud.details.fleet.ship_model %s"
 msgstr "Model : %s"
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:41
-#: hud/system/fleet/ship_group_fleet_menu.tscn:121
+#: hud/system/fleet/ship_group_fleet_menu.gd:59
+#: hud/system/fleet/ship_group_fleet_menu.tscn:139
 #, python-format
 msgid "hud.details.fleet.hit_point %d"
 msgstr "%d"
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:43
-#: hud/system/fleet/ship_group_fleet_menu.tscn:153
+#: hud/system/fleet/ship_group_fleet_menu.gd:61
+#: hud/system/fleet/ship_group_fleet_menu.tscn:168
 #, python-format
 msgid "hud.details.fleet.damage %d"
 msgstr "%d"
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:45
-#: hud/system/fleet/ship_group_fleet_menu.tscn:185
+#: hud/system/fleet/ship_group_fleet_menu.gd:63
+#: hud/system/fleet/ship_group_fleet_menu.tscn:206
 #, python-format
 msgid "hud.details.fleet.accuracy %d"
 msgstr "%d %%"
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:49
+#: hud/system/fleet/ship_group_fleet_menu.gd:65
+#: hud/system/fleet/ship_group_fleet_menu.gd:100
+#: hud/system/fleet/ship_group_fleet_menu.tscn:235
+#: hud/system/fleet/ship_group_fleet_menu.tscn:333
+#, python-format
+msgid "hud.details.fleet.price %d"
+msgstr "%d"
+
+#: hud/system/fleet/ship_group_fleet_menu.gd:72
 #, python-format
 msgid "hud.details.fleet.number_of_ship_fleet %d %d"
 msgstr "%d / %d"
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:50
-#: hud/system/fleet/ship_group_fleet_menu.tscn:344
+#: hud/system/fleet/ship_group_fleet_menu.gd:73
+#: hud/system/fleet/ship_group_fleet_menu.tscn:392
 #, python-format
 msgid "hud.details.fleet.number_of_ship_total %d"
 msgstr "%d"
 
-#: hud/system/fleet/ship_group_fleet_menu.gd:55
-#: hud/system/fleet/ship_group_fleet_menu.tscn:252
+#: hud/system/fleet/ship_group_fleet_menu.gd:80
+#: hud/system/fleet/ship_group_fleet_menu.tscn:283
 #, python-format
 msgid "hud.details.fleet.max_assign %d"
 msgstr "Assign all (%d)"
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:206
+#: hud/system/fleet/ship_group_fleet_menu.tscn:101
+msgid "hud.details.fleet.select_model"
+msgstr "Select a model"
+
+#: hud/system/fleet/ship_group_fleet_menu.tscn:259
 msgid "hud.details.fleet.ship_to_assign"
 msgstr "Number of ships to assign"
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:233
+#: hud/system/fleet/ship_group_fleet_menu.tscn:275
 msgid "hud.details.system.fleet.menu.group_ship.set"
 msgstr "assign"
 
-#: hud/system/fleet/ship_group_fleet_menu.tscn:297
+#: hud/system/fleet/ship_group_fleet_menu.tscn:311
+msgid "hud.details.fleet.request_price_text"
+msgstr "price to build"
+
+#: hud/system/fleet/ship_group_fleet_menu.tscn:365
 #, python-format
 msgid "hud.details.fleet.number_of_ship_fleet %d"
 msgstr "%d"
@@ -729,6 +808,22 @@ msgstr "fast"
 msgid "hud.hud_menu.back_main_menu"
 msgstr "Back to main menu"
 
+#: locales/strings.txt:72
+msgid "general.formation.rear"
+msgstr "rear"
+
+#: locales/strings.txt:73
+msgid "general.formation.center"
+msgstr "center"
+
+#: locales/strings.txt:74
+msgid "general.formation.left"
+msgstr "left"
+
+#: locales/strings.txt:75
+msgid "general.formation.right"
+msgstr "right"
+
 #: matchmaking/game/game_loading.gd:63
 #, python-format
 msgid "menu.loading.number_player %d"
@@ -741,6 +836,10 @@ msgstr "Loading"
 #: matchmaking/game/game_loading.tscn:56
 msgid "menu.loading.number_player"
 msgstr "%d players"
+
+#: matchmaking/lobby/faction_column.tscn:56
+msgid "no_translated.faction"
+msgstr ""
 
 #: matchmaking/lobby/lobby.tscn:70
 msgid "lobby.game_settings"
@@ -771,7 +870,7 @@ msgstr "%d / %d"
 msgid "menu.lobby_card.join"
 msgstr "Join"
 
-#: matchmaking/player/player_info.gd:22
+#: matchmaking/player/player_info.gd:22 matchmaking/player/player_info.tscn:50
 msgid "menu.player_info.input_text_placeholder"
 msgstr "username"
 
@@ -886,39 +985,7 @@ msgstr ""
 msgid "menu.credits.back_main_menu"
 msgstr "Back to main menu"
 
-#: menu/menu_option.gd:10
-msgid "menu.option.tab.shortcuts"
-msgstr "Shortcuts"
-
-#: menu/menu_option.gd:11
-msgid "menu.option.tab.audio"
-msgstr "Audio"
-
-#: menu/menu_option.gd:12
-msgid "menu.option.tab.graphical"
-msgstr "Graphics"
-
-#: menu/menu_option.gd:13
-msgid "menu.option.tab.lang"
-msgstr "Language"
-
-#: menu/menu_option.tscn:85
-msgid "menu.option.shortcut.fleet_and_ships"
-msgstr "Fleets and Ships"
-
-#: menu/menu_option.tscn:121
-msgid "menu.option.shortcut.map"
-msgstr "Map"
-
-#: menu/menu_option.tscn:211
-msgid "menu.option.shortcut.hud"
-msgstr "HUD"
-
-#: menu/menu_option.tscn:238
-msgid "menu.option.shortcut.general"
-msgstr "General"
-
-#: menu/menu_option.tscn:478
+#: menu/menu_option.tscn:45
 msgid "menu.option.back_main_menu"
 msgstr "Save and back to main menu"
 
@@ -942,11 +1009,43 @@ msgstr "Credits"
 msgid "menu.main.quit"
 msgstr "Quit"
 
-#: menu/options/audio_volume_control.gd:19
+#: menu/option.gd:13
+msgid "menu.option.tab.shortcuts"
+msgstr "Shortcuts"
+
+#: menu/option.gd:14
+msgid "menu.option.tab.audio"
+msgstr "Audio"
+
+#: menu/option.gd:15
+msgid "menu.option.tab.graphical"
+msgstr "Graphics"
+
+#: menu/option.gd:16
+msgid "menu.option.tab.lang"
+msgstr "Language"
+
+#: menu/option.tscn:81
+msgid "menu.option.shortcut.fleet_and_ships"
+msgstr "Fleets and Ships"
+
+#: menu/option.tscn:115
+msgid "menu.option.shortcut.map"
+msgstr "Map"
+
+#: menu/option.tscn:197
+msgid "menu.option.shortcut.hud"
+msgstr "HUD"
+
+#: menu/option.tscn:223
+msgid "menu.option.shortcut.general"
+msgstr "General"
+
+#: menu/options/audio_volume_control.gd:21
 msgid "audio.bus."
 msgstr ""
 
-#: menu/options/audio_volume_control.gd:27
+#: menu/options/audio_volume_control.gd:28
 #, python-format
 msgid "menu.option.audio.volume_label %d %f"
 msgstr "Volume : %3.3d %% (%7.2f dB)"
@@ -959,19 +1058,19 @@ msgstr ""
 msgid "no_translate.Volume : 100 % (0 dB)"
 msgstr ""
 
-#: menu/options/graphical_option.tscn:24
+#: menu/options/graphical_option.tscn:22
 msgid "menu.option.graphical.fullscreen"
 msgstr "Fullscreen"
 
-#: menu/options/graphical_option.tscn:32
+#: menu/options/graphical_option.tscn:30
 msgid "menu.option.graphical.maximize"
 msgstr "Maximize"
 
-#: menu/options/graphical_option.tscn:40
+#: menu/options/graphical_option.tscn:38
 msgid "menu.option.graphical.resize"
 msgstr "Resize"
 
-#: menu/options/graphical_option.tscn:48
+#: menu/options/graphical_option.tscn:46
 msgid "menu.option.graphical.display_id"
 msgstr "Display"
 
@@ -996,24 +1095,20 @@ msgstr ""
 msgid "menu.option.lang.language"
 msgstr "Language"
 
-#~ msgid "error.server_not_avaliable"
-#~ msgstr "The game server is not available."
-
-#~ msgid "error.unkown_domain_name"
-#~ msgstr "The domain name of the game server is unknown."
-
-#~ msgid "error.network_error_content"
-#~ msgstr "A network error occurred."
-
+#: resources/definitions/store/lobby.gd:72
 #, python-format
-#~ msgid "store.game_of %s"
-#~ msgstr "%s's game"
+msgid "store.game_of %s"
+msgstr "%s's game"
 
-#~ msgid "store.new_game"
-#~ msgstr "New game"
+#: resources/definitions/store/lobby.gd:74
+msgid "store.new_game"
+msgstr "New game"
 
-#~ msgid "hud.system.fleet"
-#~ msgstr "Fleets"
+#~ msgid "hud.system.fleet.menu.card.add"
+#~ msgstr "add"
+
+#~ msgid "notification.ok"
+#~ msgstr "OK"
 
 #~ msgid "general.WIP"
 #~ msgstr "Work in progress"

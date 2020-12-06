@@ -30,6 +30,7 @@ func insert_system(p_system : Dictionary) -> void:
 	systems[p_system.id] = new_system
 	if does_belong_to_current_player(new_system):
 		request_hangar(new_system)
+		request_ship_queues(new_system)
 	if new_system.player != null and players[new_system.player].faction.id == player.faction.id:
 		request_buildings(new_system)
 	emit_signal("changed")
@@ -128,7 +129,7 @@ func request_hangar(system : System):
 	Network.req(self, "_on_ship_group_received",
 		"/api/games/" +
 			id + "/systems/" +
-			system.id + "/ship-groups/",
+			system.id + "/squadrons/",
 		HTTPClient.METHOD_GET,
 		[],
 		"",
@@ -144,7 +145,7 @@ func _on_ship_group_received(err, response_code, _headers, body, system : System
 		var result = JSON.parse(body.get_string_from_utf8()).result
 		var hangar = []
 		for i in result:
-			hangar.push_back(ShipGroup.new(i))
+			hangar.push_back(Squadron.new(i))
 		# test if ti works
 		system.hangar = hangar
 
@@ -172,6 +173,29 @@ func _on_receive_building(err, response_code, _headers, body, system : System):
 		for i in result:
 			buildings.push_back(Building.new(i))
 		system.buildings = buildings
+
+
+func request_ship_queues(system : System):
+	Network.req(self, "_on_queue_ships_received",
+		"/api/games/" +
+			id +  "/systems/" +
+			system.id + "/ship-queues/",
+		HTTPClient.METHOD_GET,
+		PoolStringArray(),
+		"",
+		[system]
+	)
+
+
+func _on_queue_ships_received(err, response_code, _headers, body, system : System):
+	if err:
+		ErrorHandler.network_response_error(err)
+	if response_code == HTTPClient.RESPONSE_OK:
+		var result = JSON.parse(body.get_string_from_utf8()).result
+		var array_ship_queue_result = []
+		for i in result:
+			array_ship_queue_result.push_back(ShipQueue.new(i))
+		system.ship_queues = array_ship_queue_result
 
 
 func update_player_me():

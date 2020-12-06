@@ -38,8 +38,8 @@ onready var fleet_container = $ParallaxBackground/ParallaxLayer0/Map/FleetContai
 onready var background = $ParallaxBackground/Background
 onready var hud = $ParallaxBackground/HUD
 onready var event_capturer = $ParallaxBackground/ParallaxLayer0/EventCapturer
-onready var sound_building = $AudioParent/AudioStackingBuildingFinished
-onready var sound_ship_queue = $AudioParent/AudioStackingShipQueueFinished
+onready var sound_building = $ParallaxBackground/ParallaxLayer0/AudioParent/AudioStackingBuildingFinished
+onready var sound_ship_queue = $ParallaxBackground/ParallaxLayer0/AudioParent/AudioStackingShipQueueFinished
 
 
 func _ready():
@@ -257,10 +257,10 @@ func _on_combat_ended(data : Dictionary):
 	for fleet in data.fleets.values():
 		if fleet.destination_system != null:
 			fleet_container.get_node(fleet.id).queue_free()
-		elif fleet.ship_groups == null or fleet.ship_groups == []:
+		elif fleet.squadrons == null or fleet.squadrons == []:
 			_game_data.systems[fleet.system].erase_fleet_id(fleet.id)
 		else:
-			_game_data.get_fleet(fleet).set_ship_group_dict(fleet.ship_groups)
+			_game_data.get_fleet(fleet).set_squadrons_dict(fleet.squadrons)
 	map.get_node(data.system.id).refresh_fleet_pins()
 
 
@@ -294,11 +294,13 @@ func _on_system_conquerred(data : Dictionary):
 	map.get_node(data.system.id).refresh() # todo container
 	if data.system.player == _game_data.player.id:
 		_game_data.request_hangar(system)
+		_game_data.request_ship_queues(system)
 	if _game_data.players[system.player].faction == _game_data.player.faction:
 		_game_data.request_buildings(system)
 	else:
 		system.set_buildings([])
 		system.set_hangar([])
+		system.ship_queues = []
 
 
 func _update_fleet_system_arrival(fleet : Dictionary):
@@ -318,9 +320,9 @@ func _on_faction_points_update(scores : Dictionary):
 	_game_data.update_scores(scores)
 
 
-func _on_ship_queue_finished(ship_data : Dictionary): # todo
-	var ship_group = ShipGroup.new(ship_data)
-	_game_data.get_system(ship_data.system).add_ship_group_to_hangar(ship_group)
+func _on_ship_queue_finished(ship_data : Dictionary):
+	var ship_group = Squadron.new(ship_data)
+	_game_data.get_system(ship_data.system).queue_finished(ship_group)
 	Audio.ship_queue_finished_audio(ship_group)
 
 
