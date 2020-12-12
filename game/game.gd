@@ -301,6 +301,7 @@ func _on_system_conquerred(data : Dictionary):
 		system.set_buildings([])
 		system.set_hangar([])
 		system.ship_queues = []
+	system.on_conquerred()
 
 
 func _update_fleet_system_arrival(fleet : Dictionary):

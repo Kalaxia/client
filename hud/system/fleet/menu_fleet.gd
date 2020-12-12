@@ -13,8 +13,7 @@ onready var grid_formation_container = $MenuBody/MarginContainer/Body/LeftColomn
 
 
 func _ready():
-	if fleet != null and not fleet.is_connected("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships"):
-		fleet.connect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
+	_connect_fleet()
 	for node in grid_formation_container.get_children():
 		if node is ShipGroupCard:
 			node.connect("pressed", self, "_on_ship_group_pressed", [node.formation_position])
@@ -85,14 +84,28 @@ func update_element_fleet():
 func set_fleet(new_fleet):
 	if fleet != null and fleet.is_connected("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships"):
 		fleet.disconnect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
+	if fleet != null and fleet.is_connected("fleet_erased", self, "_on_fleet_erased"):
+		fleet.disconnect("fleet_erased", self, "_on_fleet_erased")
 	fleet = new_fleet
-	if fleet != null and not fleet.is_connected("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships"):
-		fleet.connect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
+	_connect_fleet()
 	if fleet.system != system_id:
 		update_hangar()
 	update_element_fleet()
 	_update_details_view()
 	_update_ship_queue()
+
+
+func _connect_fleet():
+	if fleet == null:
+		return
+	if not fleet.is_connected("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships"):
+		fleet.connect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
+	if not fleet.is_connected("fleet_erased", self, "_on_fleet_erased"):
+		fleet.connect("fleet_erased", self, "_on_fleet_erased")
+
+
+func _on_fleet_erased():
+	emit_signal("close_requested")
 
 
 func set_ship_group_hangar(array):

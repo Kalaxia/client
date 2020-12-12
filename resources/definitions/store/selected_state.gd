@@ -23,7 +23,7 @@ signal system_fleet_owner_updated(fleet)
 signal ship_queue_finished(ship_group)
 signal ship_queue_added(ship_queue)
 signal ship_queue_removed(ship_queue)
-
+signal conquerred()
 
 export(Resource) var selected_system = null setget select_system
 export(Resource) var selected_fleet = null setget select_fleet
@@ -136,6 +136,8 @@ func _disconnect_system(system : System):
 		system.disconnect("ship_queue_removed", self, "_on_ship_queue_removed")
 	if system.is_connected("building_contructed", self, "_on_building_contructed"):
 		system.disconnect("building_contructed", self, "_on_building_contructed")
+	if system.is_connected("conquerred", self, "_on_conquerred"):
+		system.disconnect("conquerred", self, "_on_conquerred")
 
 
 func _connect_system(system : System):
@@ -165,6 +167,12 @@ func _connect_system(system : System):
 		system.connect("ship_queue_removed", self, "_on_ship_queue_removed")
 	if not system.is_connected("building_contructed", self, "_on_building_contructed"):
 		system.connect("building_contructed", self, "_on_building_contructed")
+	if not system.is_connected("conquerred", self, "_on_conquerred"):
+		system.connect("conquerred", self, "_on_conquerred")
+
+
+func _on_conquerred():
+	emit_signal("conquerred")
 
 
 func _on_building_contructed(building):
