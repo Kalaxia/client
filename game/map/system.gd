@@ -81,6 +81,8 @@ func refresh_fleet_pins():
 	var is_another_player_included = false
 	for pin in fleet_pins.get_children():
 		pin.queue_free()
+	while fleet_pins.get_child_count() > 0:
+		yield(fleet_pins.get_child(0), "tree_exited")
 	for fleet in system.fleets.values():
 		var p = _game_data.get_player(fleet.player)
 		if not is_current_player_included and _game_data.is_current_player(p):
@@ -186,7 +188,12 @@ func _set_system_texture():
 
 func _scale_star_system(factor):
 	star.set_scale(Vector2(scale_ratio * factor, scale_ratio * factor))
-	fleet_pins.rect_position = _BASE_POSITION_PIN_FLEET * factor * scale_ratio
+	_set_pins_positions(factor)
+
+
+func _set_pins_positions(factor):
+	fleet_pins.rect_position = _BASE_POSITION_PIN_FLEET * factor * scale_ratio - Vector2(fleet_pins.rect_size.x, 0.0)
+	# we need set the position taking into account the size
 	building_pins.rect_position = _BASE_POSITION_PIN_BUILDING * factor * scale_ratio
 
 
