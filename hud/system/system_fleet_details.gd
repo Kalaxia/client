@@ -23,7 +23,6 @@ func _ready():
 	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed")
 	Network.connect("Victory", self, "_on_victory")
 	fleet_creation_button.connect("pressed", self, "create_fleet")
-	fleet_creation_button.set_visible(false)
 	refresh_data()
 
 
@@ -53,15 +52,15 @@ func refresh_data():
 	# otherwise name get duplicated as queue_free() does not free the node immediately
 	while fleet_container.get_child_count() > 0 :
 		yield(fleet_container.get_child(0), "tree_exited")
-	fleet_creation_button.set_visible(true)
 	var system_refreshed = _game_data.selected_state.selected_system # refresh the data in the case where the data changed after the yield
 	if system_refreshed == null:
 		_lock_add_fleet_item.unlock()
 		return
-	if system_refreshed.player != null:
-		if _game_data.does_belong_to_current_player(system_refreshed):
-			fleet_creation_button.set_visible(true)
-			fleet_creation_button.disabled = _game_data.player.wallet < FLEET_COST
+	if system_refreshed.player != null and _game_data.does_belong_to_current_player(system_refreshed):
+		fleet_creation_button.set_visible(true)
+		fleet_creation_button.disabled = _game_data.player.wallet < FLEET_COST
+	else:
+		fleet_creation_button.set_visible(false)
 	for id in range(system_refreshed.fleets.values().size()): 
 		var fleet_node = add_fleet_item(system_refreshed.fleets.values()[id])
 		fleet_node.set_key_binding_number(id)
@@ -145,8 +144,9 @@ func _on_system_updated():
 
 func _on_fleet_sailed(fleet):
 	if fleet.system == _game_data.selected_state.selected_system.id:
-		menu_layer.close_menu("menu_fleet")
 		refresh_data()
+	if fleet == menu_layer.get_menu("menu_fleet").fleet:
+		menu_layer.close_menu("menu_fleet")
 
 
 func _on_victory(_data):
