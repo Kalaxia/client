@@ -157,7 +157,7 @@ func _update_details_view():
 
 
 func _on_request_assignation(ship_category, quantity):
-	if selected_formation == "" or menu_fleet_details == null or menu_fleet_details.check_button == null:
+	if selected_formation == "" or menu_fleet_details == null:
 		return
 	# there is no implementation of a lock here
 	# the reason is that I do not want to block multiple assignation request
@@ -175,7 +175,6 @@ func _on_request_assignation(ship_category, quantity):
 				"category" : ship_category.category,
 				"quantity" : quantity,
 				"formation" : selected_formation,
-				"force_construction" : menu_fleet_details.check_button.pressed,
 			}),
 			[quantity, fleet, ship_category, selected_formation]
 	)
