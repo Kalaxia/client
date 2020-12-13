@@ -59,7 +59,8 @@ func refresh_data():
 			yield(node, "tree_exited")
 		else:
 			yield(Engine.get_main_loop(), "idle_frame")
-	var system_refreshed = _game_data.selected_state.selected_system # refresh the data in the case where the data changed after the yield
+	# refresh the data in the case where the data changed after the yield
+	var system_refreshed = _game_data.selected_state.selected_system
 	if system_refreshed == null:
 		_lock_add_fleet_item.unlock()
 		return

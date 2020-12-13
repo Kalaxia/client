@@ -262,10 +262,10 @@ func has_shipyard():
 	return has_buildind("shipyard")
 
 
-func has_buildind(kind):
+func has_buildind(kind_param):
 	for building in buildings:
-		if (kind is String and building.kind.kind == kind) or \
-				(kind is KalaxiaBuilding and building.kind == kind):
+		if (kind_param is String and building.kind.kind == kind_param) or \
+				(kind_param is KalaxiaBuilding and building.kind == kind_param):
 			return true
 	return false
 
