@@ -2,7 +2,7 @@ extends Node
 
 # warning-ignore-all:unused_signal
 signal authenticated()
-signal CombatEnded(data)
+signal BattleEnded(data)
 signal LobbyCreated(lobby)
 signal LobbyUpdated(lobby)
 signal LobbyOwnerUpdated(data)

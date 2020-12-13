@@ -47,7 +47,7 @@ func _ready():
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
 	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed")
 	event_capturer.connect("gui_input", self, "_on_gui_input")
-	Network.connect("CombatEnded", self, "_on_combat_ended")
+	Network.connect("BattleEnded", self, "_on_combat_ended")
 	Network.connect("PlayerIncome", self, "_on_player_income")
 	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
 	Network.connect("FleetSailed", self, "_on_remote_fleet_sailed")

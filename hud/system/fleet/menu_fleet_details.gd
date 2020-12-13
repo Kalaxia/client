@@ -15,7 +15,6 @@ onready var ship_group_details = $ScrollContainer/MarginContainer/GridContainer/
 func _ready():
 	upatde_build_ship()
 	ship_group_details.connect("request_assignation", self, "_on_request_assignation")
-	ship_group_details.connect("spinbox_too_much", self, "_on_spinbox_too_much")
 	ship_group_details.connect("ship_category_changed", self, "_on_ship_category_changed")
 	_update_element(fleet, formation, hangar)
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
