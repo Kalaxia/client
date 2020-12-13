@@ -67,7 +67,8 @@ func set_ship_queues_array(new_ship_queue_array):
 	for queue in ship_queues_array:
 		queue.disconnect("finished", self, "_on_ship_queue_finished")
 		queue.disconnect("canceled", self, "_on_ship_queue_canceled")
-	ship_queues_array = new_ship_queue_array
+	# do not forget to duplicate
+	ship_queues_array = new_ship_queue_array.duplicate(false)
 	for queue in ship_queues_array:
 		queue.connect("finished", self, "_on_ship_queue_finished", [queue], CONNECT_ONESHOT)
 		queue.connect("canceled", self, "_on_ship_queue_canceled", [queue], CONNECT_ONESHOT)
@@ -137,5 +138,5 @@ func reset_ship_queues_array():
 	for queue in ship_queues_array:
 		queue.disconnect("finished", self, "_on_ship_queue_finished")
 		queue.disconnect("canceled", self, "_on_ship_queue_canceled")
-		ship_queues_array.erase(queue)
+	ship_queues_array.clear()
 	update_queue_process()

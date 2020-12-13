@@ -47,11 +47,18 @@ func refresh_data():
 	# the lock prevents that
 	if not _lock_add_fleet_item.try_lock():
 		return # we do not have to retry as the data are taken after the yield
-	for f in fleet_container.get_children(): f.queue_free()
+	for f in fleet_container.get_children(): 
+		f.queue_free()
 	# we need to wait one frame for objects to be deleted before inserting new
 	# otherwise name get duplicated as queue_free() does not free the node immediately
 	while fleet_container.get_child_count() > 0 :
-		yield(fleet_container.get_child(0), "tree_exited")
+		var node = fleet_container.get_child(0)
+		# it is possible that the node is not inside the tree
+		# so the freed node never exit the tree
+		if node.is_inside_tree():
+			yield(node, "tree_exited")
+		else:
+			yield(Engine.get_main_loop(), "idle_frame")
 	var system_refreshed = _game_data.selected_state.selected_system # refresh the data in the case where the data changed after the yield
 	if system_refreshed == null:
 		_lock_add_fleet_item.unlock()
@@ -96,7 +103,11 @@ func add_fleet_item(fleet):
 
 
 func _on_system_fleet_arrived(fleet : Fleet):
+	if not _lock_add_fleet_item.try_lock():
+		return 
+		# we can safely retrun as if it is lock it means that we are waiting on refresh this node anyway (because we are in single-thread)
 	add_fleet_item(fleet)
+	_lock_add_fleet_item.unlock()
 
 
 func _on_system_selected(_old_system):
@@ -114,7 +125,11 @@ func _on_button_menu_fleet(fleet):
 
 
 func _on_fleet_created(fleet):
+	if not _lock_add_fleet_item.try_lock():
+		return
+		# we can safely retrun as if it is lock it means that we are waiting on refresh this node anyway (because we are in single-thread)
 	var fleet_node = add_fleet_item(fleet)
+	_lock_add_fleet_item.unlock()
 	fleet_node.set_key_binding_number(_game_data.selected_state.selected_system.fleets.size()-1)
 
 

@@ -287,11 +287,11 @@ func _on_fleet_arrival(fleet : Dictionary):
 
 
 func _on_system_conquerred(data : Dictionary):
+	# todo check selected fleet existance 
 	var system = _game_data.get_system(data.system.id)
 	system.erase_all_fleet()
 	system.update(data.system)
 	_update_fleet_system_arrival(data.fleet)
-	map.get_node(data.system.id).refresh() # todo container
 	if data.system.player == _game_data.player.id:
 		_game_data.request_hangar(system)
 		_game_data.request_ship_queues(system)
@@ -302,6 +302,7 @@ func _on_system_conquerred(data : Dictionary):
 		system.set_hangar([])
 		system.ship_queues = []
 	system.on_conquerred()
+	map.get_node(data.system.id).refresh() # todo container
 
 
 func _update_fleet_system_arrival(fleet : Dictionary):

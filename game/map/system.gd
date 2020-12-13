@@ -22,6 +22,7 @@ var _time = 0.0
 var _alpha = 1.0
 var _target_scale = scale_ratio
 var _current_scale = scale_ratio
+var _lock_fleet_pin_refresh = Utils.Lock.new()
 
 onready var light_glow_bg = $Star/Light2DGlowBG
 onready var star = $Star
@@ -77,20 +78,27 @@ func select():
 
 
 func refresh_fleet_pins():
+	if not _lock_fleet_pin_refresh.try_lock():
+		return
 	var is_current_player_included = false
 	var is_another_player_included = false
 	for pin in fleet_pins.get_children():
 		pin.queue_free()
 	while fleet_pins.get_child_count() > 0:
-		yield(fleet_pins.get_child(0), "tree_exited")
+		var node = fleet_pins.get_child(0)
+		if node.is_inside_tree():
+			yield(node, "tree_exited")
+		else:
+			yield(Engine.get_main_loop(), "idle_frame")
 	for fleet in system.fleets.values():
 		var p = _game_data.get_player(fleet.player)
 		if not is_current_player_included and _game_data.is_current_player(p):
 			is_current_player_included = true
-			add_fleet_pin(p)
+			add_fleet_pin(p, true)
 		elif not is_another_player_included and not _game_data.is_current_player(p):
 			is_another_player_included = true
 			add_fleet_pin(p)
+	_lock_fleet_pin_refresh.unlock()
 
 
 func update_ship_pin():
@@ -111,12 +119,14 @@ func _update_ship_pin_number(number):
 			node.blinking = not number == 0
 
 
-func add_fleet_pin(player):
+func add_fleet_pin(player, raise = false):
 	var fleet_pin = SYSTEM_FLEET_PIN_SCENE.instance()
 	fleet_pin.faction = player.faction
 	fleet_pin.is_current_player = _game_data.is_current_player(player)
 	fleet_pin.color = _game_data.get_player_color(player)
 	fleet_pins.add_child(fleet_pin)
+	if raise:
+		fleet_pin.raise()
 
 
 func refresh():
@@ -127,6 +137,8 @@ func refresh():
 	_modulate_color(1.0) 
 	refresh_fleet_pins()
 	refresh_building_pins()
+	if not _game_data.does_belong_to_current_player(system):
+		range_draw_node.visible = false
 	crown.visible = _game_data.does_belong_to_current_player(system)
 	refresh_scale()
 

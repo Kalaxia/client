@@ -20,7 +20,7 @@ onready var texture_rect = $MarginContainer/HBoxContainer/TextureRect
 
 
 func _ready():
-	button_close.connect("pressed",self,"_request_close")
+	button_close.connect("pressed", self, "_request_close")
 	button_minimize.connect("pressed", self, "_request_minimize")
 	update_elements()
 	_update_theme()

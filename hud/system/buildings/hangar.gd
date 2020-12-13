@@ -29,6 +29,10 @@ func _ready():
 		set_ship_queue_array(_game_data.selected_state.selected_system.ship_queues)
 
 
+func _enter_tree():
+	pass
+
+
 func _init_node_ship_hangar():
 	for category in ASSETS.ship_models.values():
 		var node = _SHIP_HANGARD.instance()
@@ -51,6 +55,8 @@ func refresh_hangar():
 func _remove_all_queued_elements():
 	for node in production_list_vbox_elements.get_children():
 		node.queue_free()
+	ship_queue_array.clear()
+	print("clear all node")
 
 
 func _on_system_updated():
@@ -108,7 +114,8 @@ func select_group(category):
 
 
 func set_ship_queue_array(new_array):
-	ship_queue_array = new_array
+	# do not forget to duplicate the array !
+	ship_queue_array = new_array.duplicate(false)
 	_sort_queue_ship()
 	update_ship_queue()
 
@@ -135,6 +142,8 @@ func _sort_queue_ship_node():
 
 
 func update_ship_queue():
+	if production_list_vbox_elements == null:
+		return
 	# we lock to only update once until all node are free
 	if not _lock_ship_prod_update.try_lock():
 		return
@@ -143,13 +152,19 @@ func update_ship_queue():
 	# we need to wait for objects to be deleted before inserting new
 	# otherwise name get duplicated as queue_free() does not free the node imediatly
 	while production_list_vbox_elements.get_child_count() > 0:
-		yield(production_list_vbox_elements.get_child(0), "tree_exited")
-	_lock_ship_prod_update.unlock()
+		var node = production_list_vbox_elements.get_child(0)
+		# it is possible that the node is not inside the tree (when the menu is closed by instance)
+		# so the freed node never exit the tree
+		if node.is_inside_tree():
+			yield(node, "tree_exited")
+		else:
+			yield(Engine.get_main_loop(), "idle_frame")
 	for ship_queue in ship_queue_array:
 		var ship_prod_node = _SHIP_PRODUCTION_LINE.instance()
 		ship_prod_node.name = ship_queue.id
 		ship_prod_node.ship_queue = ship_queue
 		production_list_vbox_elements.add_child(ship_prod_node)
+	_lock_ship_prod_update.unlock()
 
 
 func remove_ship_queue_pos(pos):
@@ -171,10 +186,15 @@ func remove_ship_queue_id(ship_queue_id):
 
 func add_ship_queue(ship_queue : ShipQueue):
 	ship_queue_array.push_back(ship_queue)
+	# cannot lock if we try refreshing
+	# as we are in single thread we unlock before we possibly could request update_ship_queue
+	if not _lock_ship_prod_update.try_lock():
+		return
 	var ship_prod_node = _SHIP_PRODUCTION_LINE.instance()
 	ship_prod_node.name = ship_queue.id
 	ship_prod_node.ship_queue = ship_queue
 	production_list_vbox_elements.add_child(ship_prod_node)
+	_lock_ship_prod_update.unlock()
 	_sort_queue_ship()
 	_sort_queue_ship_node()
 
