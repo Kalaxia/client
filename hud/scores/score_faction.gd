@@ -11,6 +11,7 @@ onready var texture = $TextureRect
 
 
 func _ready():
+	print_stack()
 	progress_bar.connect("value_changed", self, "_on_progress_bar_changed")
 	_game_data.connect("score_updated", self, "_on_score_updated")
 	progress_bar.max_value = _game_data.victory_points_to_win

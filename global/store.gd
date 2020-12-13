@@ -15,6 +15,7 @@ func update_assets(cached_data : CachedResource):
 
 func notify(title, content):
 	# keep (for the moment)
+	print_stack()
 	emit_signal("notification_added", {
 		"title": title,
 		"content": content

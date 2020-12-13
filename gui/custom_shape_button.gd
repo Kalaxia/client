@@ -9,6 +9,7 @@ var _hover = false
 
 
 func _ready():
+	print_stack()
 	if not is_connected("mouse_exited", self, "_mouse_exited_area"):
 		connect("mouse_exited", self, "_mouse_exited_area")
 	if not is_connected("mouse_entered", self, "_mouse_entered_area"):
@@ -17,9 +18,11 @@ func _ready():
 
 func _gui_input(event):
 	if event is InputEventMouse:
+		print_stack()
 		emit_signal("mouse_input", event)
 		if event is InputEventMouseButton and event.is_pressed() and event.get_button_index() == BUTTON_LEFT:
 			_pressed()
+			print_stack()
 			emit_signal("pressed")
 
 

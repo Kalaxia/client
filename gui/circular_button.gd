@@ -23,6 +23,7 @@ export(Vector2) var texture_size setget set_texture_size
 
 
 func _ready():
+	print_stack()
 	# we ned to do this verifiaction because of the this is a tool and the editor can call _ready multiple time
 	if base_style != null and not base_style.is_connected("changed", self, "_on_changed"):
 		base_style.connect("changed", self, "_on_changed")
@@ -172,6 +173,7 @@ func set_angle_start(new_angle):
 
 
 func set_base_style(style):
+	print_stack()
 	if base_style != null:
 		base_style.disconnect("changed", self, "_on_changed")
 	base_style = style
@@ -181,6 +183,7 @@ func set_base_style(style):
 
 
 func set_hover_style(style):
+	print_stack()
 	if hover_style != null:
 		hover_style.disconnect("changed", self, "_on_changed")
 	hover_style = style
@@ -190,6 +193,7 @@ func set_hover_style(style):
 
 
 func set_texture(new_texture):
+	print_stack()
 	if texture != null:
 		texture.disconnect("changed", self, "_on_changed")
 	texture = new_texture
@@ -199,6 +203,7 @@ func set_texture(new_texture):
 
 
 func set_selected_style(style):
+	print_stack()
 	if selected_style != null:
 		selected_style.disconnect("changed", self, "_on_changed")
 	selected_style = style
@@ -208,6 +213,7 @@ func set_selected_style(style):
 
 
 func set_focus_style(style):
+	print_stack()
 	if focus_style != null:
 		focus_style.disconnect("changed", self, "_on_changed")
 	focus_style = style

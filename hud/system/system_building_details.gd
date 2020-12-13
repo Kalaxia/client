@@ -18,6 +18,7 @@ onready var building_container = $ScrollContainer/HBoxContainer
 
 func _ready():
 	_building_panel_list = []
+	print_stack()
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
 	_game_data.selected_state.connect("system_updated", self, "_on_system_updated")
 	_game_data.selected_state.connect("building_updated", self, "_on_building_updated")
@@ -26,6 +27,7 @@ func _ready():
 
 
 func set_menu_layer(node):
+	print_stack()
 	if menu_layer != null and menu_layer.is_connected("menu_closed", self, "_on_menu_layer_menu_closed"):
 		menu_layer.disconnect("menu_closed", self, "_on_menu_layer_menu_closed")
 	menu_layer = node
@@ -39,6 +41,7 @@ func update_building_panels():
 		var building_area = BUILDING_AREA.instance()
 		building_area.building = _game_data.selected_state.selected_system.buildings[0] if _game_data.selected_state.selected_system.buildings.size() >= 1 else null
 		building_container.add_child(building_area)
+		print_stack()
 		building_area.connect("pressed", self, "_on_panel_pressed" , [building_area])
 		_building_panel_list.push_back(building_area)
 
@@ -77,6 +80,7 @@ func _on_panel_pressed(node):
 			menu_layer.request_menu(menu)
 			var node_menu = menu_layer.get_menu(menu)
 			if node.building == null:
+				print_stack()
 				if node_menu.is_connected("building_constructing", self, "_on_building_constructing"):
 					node_menu.disconnect("building_constructing", self, "_on_building_constructing")
 				node_menu.connect("building_constructing", self, "_on_building_constructing", [node])
@@ -96,6 +100,7 @@ func _on_menu_layer_menu_closed(menu_name):
 	if menu_name == "menu_shipyard":
 		_deselect_other_building()
 	elif menu_name == "menu_construction":
+		print_stack()
 		var node_menu = menu_layer.get_menu("menu_construction")
 		if node_menu.is_connected("building_constructing", self, "_on_building_constructing"):
 			node_menu.disconnect("building_constructing", self, "_on_building_constructing")

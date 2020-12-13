@@ -16,6 +16,7 @@ onready var hangar_element = $MenuBody/Body/ShipHangar/VBoxContainer/ScrollConta
 
 
 func _ready():
+	print_stack()
 	_game_data.selected_state.connect("hangar_updated", self, "_on_hangar_updated")
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
 	_game_data.selected_state.connect("system_updated", self, "_on_system_updated")
@@ -40,6 +41,7 @@ func _init_node_ship_hangar():
 		node.quantity = 0
 		node.name = category.category
 		hangar_element.add_child(node)
+		print_stack()
 		node.connect("pressed", self, "select_group", [category])
 
 

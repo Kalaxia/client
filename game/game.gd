@@ -43,6 +43,7 @@ onready var sound_ship_queue = $ParallaxBackground/ParallaxLayer0/AudioParent/Au
 
 
 func _ready():
+	print_stack()
 	_game_data.update_player_me()
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
 	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed")
@@ -238,6 +239,7 @@ func _set_camera_position(position_camera_set):
 
 
 func _on_request_main_menu():
+	print_stack()
 	emit_signal("scene_requested", "menu")
 
 
@@ -315,6 +317,7 @@ func _update_fleet_system_arrival(fleet : Dictionary):
 func _on_victory(data : Dictionary):
 	Store.victorious_faction = data.victorious_faction
 	_game_data.update_scores(data.scores)
+	print_stack()
 	emit_signal("scene_requested", "scores")
 
 

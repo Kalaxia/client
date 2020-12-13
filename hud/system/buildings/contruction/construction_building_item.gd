@@ -18,6 +18,7 @@ onready var label_time = $PanelContainer/HBoxContainer/LabelTime
 
 
 func _ready():
+	print_stack()
 	button.connect("pressed", self, "_on_build_button")
 	_game_data.player.connect("wallet_updated", self, "_on_wallet_updated")
 	_lock_request_build.connect("changed_state", self, "_on_lock_changed_state")
@@ -66,6 +67,7 @@ func _on_build_button():
 		_lock_request_build.unlock()
 		Store.notify(tr("notification.error.not_enought_cred.title"), tr("notification.error.not_enought_cred.content"))
 		return
+	print_stack ( )
 	Network.req(self, "_on_building_construction_started",
 			"/api/games/" + _game_data.id +
 			"/systems/" + _game_data.selected_state.selected_system.id +
@@ -84,5 +86,6 @@ func _on_building_construction_started(err, response_code, _headers, body, syste
 		var building = Building.new(JSON.parse(body.get_string_from_utf8()).result)
 		system.add_building_to_system(building)
 		_game_data.player.update_wallet(- building_type.cost)
+		print_stack()
 		emit_signal("building_constructing", building)
 	_lock_request_build.unlock()

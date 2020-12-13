@@ -36,9 +36,11 @@ func request_menu(menu_requested):
 	if menus.has(menu_requested):
 		var menu = menus[menu_requested]
 		add_child(menu)
+		print_stack()
 		menu.connect("close_requested", self, "close_menu", [menu_requested])
 		menu.show_menu()
 		menu.set_anchors_and_margins_preset(Control.PRESET_VCENTER_WIDE)
+		print_stack()
 		emit_signal("menu_opened", menu_requested)
 
 
@@ -50,12 +52,14 @@ func close_menu(menu_closed = ""):
 			var node = get_child(node_index)
 			var menu_closed_name = get_menu_name(node_index)
 			_remove_menu(node)
+			print_stack()
 			emit_signal("menu_closed", menu_closed_name)
 		return true
 	elif menus.has(menu_closed):
 		for node in get_children():
 			if node == menus[menu_closed]:
 				_remove_menu(node)
+				print_stack()
 				emit_signal("menu_closed", menu_closed)
 				return true
 	return false
@@ -94,6 +98,7 @@ func get_menu(menu):
 
 
 func _remove_menu(node):
+	print_stack()
 	node.disconnect("close_requested", self, "close_menu")
 	remove_child(node) 
 	# this does not queue_free the node.

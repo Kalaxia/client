@@ -13,10 +13,12 @@ func _ready():
 		if building != "":
 			var node = CONSTRUCTION_ITEM.instance()
 			node.building_type = ASSETS.buildings[building]
+			print_stack()
 			node.connect("building_constructing", self, "_on_building_constructing")
 			conainer_contruction.add_child(node)
 
 
 func _on_building_constructing(building):
+	print_stack()
 	emit_signal("building_constructing", building)
 	close_request()

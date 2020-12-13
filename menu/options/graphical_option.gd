@@ -8,6 +8,7 @@ var is_resizable = false
 
 
 func _ready():
+	print_stack()
 	$fullscreen.connect("option_pressed",self,"_on_fullscreen_pressed")
 	$Maximize.connect("option_pressed",self,"_on_maximize_pressed")
 	$Redimentioner.connect("option_pressed",self,"_on_resize_pressed")

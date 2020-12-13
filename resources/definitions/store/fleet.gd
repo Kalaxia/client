@@ -36,6 +36,7 @@ func update_fleet_owner(new_player):
 
 func set_player(new_player_id):
 	player = new_player_id
+	print_stack()
 	emit_signal("changed")
 	emit_signal("owner_updated")
 
@@ -64,6 +65,7 @@ func update_fleet_nb_ships(ship_category : ShipModel, nb_ships : int, formation 
 				"formation" : formation,
 			})
 			squadrons.push_back(ship_group_updated)
+	print_stack()
 	emit_signal("changed")
 	emit_signal("fleet_update_nb_ships")
 
@@ -71,6 +73,7 @@ func update_fleet_nb_ships(ship_category : ShipModel, nb_ships : int, formation 
 func set_squadrons(new_ship_groups):
 	squadrons = new_ship_groups
 	_remove_empty_squadron()
+	print_stack()
 	emit_signal("fleet_update_nb_ships")
 	emit_signal("changed")
 
@@ -80,21 +83,25 @@ func set_squadrons_dict(array):
 	for ship_group in array:
 		if ship_group.quantity > 0:
 			squadrons.push_back(FleetSquadron.new(ship_group))
+	print_stack()
 	emit_signal("fleet_update_nb_ships")
 	emit_signal("changed")
 
 
 func on_fleet_erased():
+	print_stack()
 	emit_signal("fleet_erased")
 
 
 func update_fleet(dict : Dictionary):
 	load_dict(dict)
+	print_stack()
 	emit_signal("updated")
 
 
 func arrived():
 	# only system should call this in fleet_arrive
+	print_stack()
 	emit_signal("arrived")
 
 

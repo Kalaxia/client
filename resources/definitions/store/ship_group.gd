@@ -27,6 +27,7 @@ func _get_dict_property_list():
 func set_category(p_category : ShipModel) -> void:
 	if category != p_category:
 		category = p_category
+		print_stack()
 		emit_signal("changed")
 
 
@@ -34,6 +35,7 @@ func set_quantity(new_quantity):
 	if new_quantity < 0 or new_quantity == quantity:
 		return
 	quantity = new_quantity
+	print_stack()
 	emit_signal("changed")
 
 

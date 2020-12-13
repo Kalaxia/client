@@ -20,6 +20,7 @@ onready var texture_rect = $MarginContainer/HBoxContainer/TextureRect
 
 
 func _ready():
+	print_stack()
 	button_close.connect("pressed", self, "_request_close")
 	button_minimize.connect("pressed", self, "_request_minimize")
 	update_elements()
@@ -44,11 +45,13 @@ func set_text(new_text):
 
 func _request_close():
 	if closable:
+		print_stack()
 		emit_signal("close_request")
 
 
 func _request_minimize():
 	if minimisable:
+		print_stack()
 		emit_signal("minimize_request")
 
 

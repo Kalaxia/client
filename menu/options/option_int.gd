@@ -13,6 +13,7 @@ onready var label = $HBoxContainer/Label
 
 
 func _ready():
+	print_stack()
 	range_int.connect("value_changed", self, "_on_value_changed")
 	label.text = tr(text)
 
@@ -25,12 +26,14 @@ func set_text(new_label : String):
 
 func _on_value_changed(new_value):
 	value = new_value
+	print_stack()
 	emit_signal("option_changed", new_value)
 
 
 func set_value(new_value : int):
 	if new_value > max_value || new_value < min_value:
 		return
+	print_stack()
 	range_int.disconnect("value_changed", self, "_on_value_changed")
 	value = new_value
 	range_int.value = value
@@ -47,6 +50,7 @@ func set_max_value(new_max_value : int ):
 		return
 	max_value = new_max_value
 	if value > max_value:
+		print_stack()
 		range_int.disconnect("value_changed", self, "_on_value_changed")
 		value = max_value
 		range_int.connect("value_changed", self, "_on_value_changed")
@@ -58,6 +62,7 @@ func set_min_value(new_min_value : int ):
 		return
 	min_value = new_min_value
 	if value < min_value:
+		print_stack()
 		range_int.disconnect("value_changed", self, "_on_value_changed")
 		value = min_value
 		range_int.connect("value_changed", self, "_on_value_changed")

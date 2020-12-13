@@ -13,12 +13,14 @@ onready var game_settings_container = $GUI/Body/GameSettings
 
 
 func _ready():
+	print_stack()
 	leave_button.connect("pressed", self, "leave_lobby")
 	Network.connect("PlayerJoined", self, "_on_player_joined")
 	Network.connect("PlayerUpdate", self, "_on_player_update")
 	Network.connect("PlayerLeft", self, "_on_player_disconnected")
 	Network.connect("LobbyLaunched", self, "_on_lobby_launched")
 	Network.connect("LobbyOwnerUpdated", self, "_on_lobby_owner_update")
+	print_stack ( )
 	Network.req(self, "load_lobby"
 		, "/api/lobbies/" + Store.lobby.id
 	)
@@ -36,6 +38,7 @@ func load_lobby(err, response_code, _headers, body):
 	var node = PLAYER_INFO_SCENE.instance()
 	node.player = Store.player
 	player_info.add_child(node)
+	print_stack()
 	node.connect("player_updated", self, "_update_player")
 	update_lobby_name()
 	add_players_info(lobby.players)
@@ -58,6 +61,7 @@ func add_player_info(player : Player):
 
 
 func leave_lobby():
+	print_stack ( )
 	Network.req(self, "_on_lobby_left"
 		, "/api/lobbies/" + Store.lobby.id + "/players/"
 		, HTTPClient.METHOD_DELETE
@@ -65,6 +69,7 @@ func leave_lobby():
 
 
 func launch_game():
+	print_stack ( )
 	Network.req(self, "_on_launch_response"
 		, "/api/lobbies/" + Store.lobby.id + "/launch/"
 		, HTTPClient.METHOD_POST
@@ -124,6 +129,7 @@ func _on_player_disconnected(player_id : String):
 func _on_lobby_launched(game_id):
 	Store.player.ready = false
 	Store.game_data = GameData.new(game_id, Store.player, Store.lobby)
+	print_stack()
 	emit_signal("scene_requested", "game_loading")
 
 
@@ -132,6 +138,7 @@ func _on_lobby_owner_update(pid : String):
 	update_lobby_name()
 	if pid == Store.player.id:
 		launch_button.visible = true
+		print_stack()
 		launch_button.connect("pressed", self, "launch_game")
 		check_ready_state()
 	game_settings_container.enabled = (pid == Store.player.id)
@@ -146,4 +153,5 @@ func _on_lobby_left(err, _response_code, _headers, _body):
 	if err:
 		ErrorHandler.network_response_error(err)
 	Store.player.ready = false
+	print_stack()
 	emit_signal("scene_requested", "menu")

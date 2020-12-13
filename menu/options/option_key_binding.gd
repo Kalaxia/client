@@ -65,6 +65,7 @@ func _refresh_data():
 		button.rect_min_size = Vector2(100,10)
 		button.index_key_binding = i # todo find a better way
 		button.disabled = not is_enabled
+		print_stack()
 		button.connect("toggled", self, "_on_button_toggled", [i])
 		var text_button = Utils.get_label_of_event(keys[i]) if not Engine.editor_hint else keys[i].to_string()
 		if text_button != "":
@@ -75,6 +76,7 @@ func _refresh_data():
 func _on_button_toggled(is_pressed,index):
 	#note: this event ocure even when this is not a mouse event
 	if is_pressed:
+		print_stack()
 		emit_signal("mark_button_key_binding", action,index)
 	else:
 		index_pressed = -1
@@ -93,5 +95,6 @@ func _input(event):
 				node.pressed = false
 		index_pressed = -1
 		get_tree().set_input_as_handled()
+		print_stack()
 		emit_signal("unmark_button_key_binding")
 		_refresh_data()

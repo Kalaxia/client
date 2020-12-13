@@ -10,6 +10,7 @@ onready var time_remaining_label = $PanelContainer/hBoxContainer/TimeRemaining
 onready var progress_bar_time = $PanelContainer/hBoxContainer/ProgressBar
 
 func _ready():
+	print_stack()
 	cancel_button.connect("pressed", self, "_on_button_cancel")
 	update_elements()
 

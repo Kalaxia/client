@@ -13,6 +13,7 @@ onready var fleet_container = $ScrollContainer/HBoxContainer/Fleets
 
 
 func _ready():
+	print_stack()
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
 	_game_data.player.connect("wallet_updated", self, "_on_wallet_update")
 	_game_data.selected_state.connect("fleet_added", self, "_on_fleet_created")
@@ -81,6 +82,7 @@ func create_fleet():
 	if _game_data.player.wallet < FLEET_COST :
 		_create_fleet_lock.unlock()
 		return
+	print_stack ( )
 	Network.req(self, "_on_request_completed"
 		, "/api/games/" +
 			_game_data.id + "/systems/" +
@@ -95,6 +97,7 @@ func add_fleet_item(fleet):
 	fleet_node.set_name(fleet.id)
 	fleet_node.fleet = fleet
 	fleet_container.add_child(fleet_node)
+	print_stack()
 	fleet_node.connect("pressed_open_ship_menu", self, "_on_button_menu_fleet")
 	if (_game_data.selected_state.selected_fleet == null \
 			or _game_data.selected_state.selected_fleet.system != _game_data.selected_state.selected_system.id) \

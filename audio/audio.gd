@@ -19,8 +19,10 @@ func play_click():
 
 
 func building_constructed_audio(building):
+	print_stack()
 	emit_signal("building_finished_audio", building)
 
 
 func ship_queue_finished_audio(ship_group):
+	print_stack()
 	emit_signal("ship_queue_finished_audio", ship_group)

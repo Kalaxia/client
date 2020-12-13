@@ -13,6 +13,7 @@ func _ready():
 	get_node("Container/Title").set_text(notif.title)
 	get_node("Container/Content").set_text(notif.content)
 	timer.set_one_shot(true)
+	print_stack()
 	timer.connect("timeout", self, "_on_timer_timeout") 
 	timer.start(TIME_DISPALYED)
 	animation_player.current_animation = "fade_in"
@@ -20,6 +21,7 @@ func _ready():
 
 func _on_timer_timeout():
 	animation_player.play_backwards()
+	print_stack()
 	animation_player.connect("animation_finished", self, "_on_animation_finished")
 
 

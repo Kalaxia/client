@@ -2,6 +2,7 @@ extends Node
 
 
 func _ready():
+	print_stack()
 	Audio.connect("building_finished_audio", self, "_on_building_finished_audio")
 	Audio.connect("ship_queue_finished_audio", self, "_on_ship_queue_finished_audio")
 

@@ -37,6 +37,7 @@ func _get_dict_property_list() -> Array:
 
 func set_wallet(new_amount):
 	wallet = new_amount
+	print_stack()
 	emit_signal("changed")
 	emit_signal("wallet_updated", wallet)
 
@@ -47,6 +48,7 @@ func update_wallet(amount):
 
 func update(dict : Dictionary):
 	load_dict(dict)
+	print_stack()
 	emit_signal("updated")
 
 
@@ -54,4 +56,5 @@ func set_faction(faction_id):
 	faction = ASSETS.factions[faction_id] \
 			if faction_id != null and ASSETS.factions.size() > faction_id \
 			else ASSETS.factions[0]
+	print_stack()
 	emit_signal("changed")

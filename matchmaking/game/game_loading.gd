@@ -13,6 +13,7 @@ onready var nb_players_label = $CenterContainer/VBoxContainer/NbPlayers
 
 
 func _ready():
+	print_stack()
 	Network.connect("GameStarted", self, "_on_game_started")
 	Network.connect("SystemsCreated", self, "_on_systems_created")
 	Network.req(self, "_on_players_loaded", "/api/games/" + Store.game_data.id + "/players/")
@@ -34,6 +35,7 @@ func init_systems(systems):
 
 
 func _on_systems_created(_data):
+	print_stack ( )
 	Network.req(self, "_on_systems_loaded", "/api/games/" + Store.game_data.id + "/systems/?page=1&limit=100")
 
 
@@ -42,6 +44,7 @@ func _on_systems_loaded(err, _response_code, headers, body):
 		ErrorHandler.network_response_error(err)
 	var pagination = Network.extract_pagination_data(headers["content-range"])
 	if pagination["count"] > pagination["page"] * pagination["limit"]:
+		print_stack ( )
 		Network.req(
 			self,
 			"_on_systems_loaded",
@@ -54,6 +57,7 @@ func _on_systems_loaded(err, _response_code, headers, body):
 
 func _on_game_started(data):
 	Store.game_data.victory_points_to_win = data.victory_points
+	print_stack()
 	emit_signal("scene_requested", "game")
 
 

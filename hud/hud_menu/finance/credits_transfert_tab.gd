@@ -11,6 +11,7 @@ onready var spinbox = $HBoxContainer/SpinBox
 
 
 func _ready():
+	print_stack()
 	option_button.connect("item_selected", self, "_on_item_selected")
 	send_button.connect("pressed", self, "_on_button_send_pressed")
 	_lock_send_credits.connect("changed_state", self, "_on_lock_state_changed")
@@ -47,6 +48,7 @@ func _on_button_send_pressed():
 	if credits_to_send > _game_data.player.wallet or selected_player == null or credits_to_send <= 0:
 		_lock_send_credits.unlock()
 		return
+	print_stack ( )
 	Network.req(self, "_on_credits_send",
 		"/api/games/" + _game_data.id + "/factions/" + _game_data.player.faction.id as String 
 		+ "/players/" + selected_player + "/money/",

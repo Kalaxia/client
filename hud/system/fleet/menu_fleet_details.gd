@@ -14,6 +14,7 @@ onready var ship_group_details = $ScrollContainer/MarginContainer/GridContainer/
 
 func _ready():
 	upatde_build_ship()
+	print_stack()
 	ship_group_details.connect("request_assignation", self, "_on_request_assignation")
 	ship_group_details.connect("spinbox_too_much", self, "_on_spinbox_too_much")
 	ship_group_details.connect("ship_category_changed", self, "_on_ship_category_changed")
@@ -23,6 +24,7 @@ func _ready():
 
 
 func _on_request_assignation(ship_category, quantity):
+	print_stack()
 	emit_signal("request_assignation", ship_category, quantity)
 
 

@@ -15,6 +15,7 @@ var _hover = false
 
 
 func _ready():
+	print_stack()
 	if not is_connected("mouse_entered", self, "_on_mouse_entered"):
 		connect("mouse_entered", self, "_on_mouse_entered")
 	if not is_connected("mouse_exited", self, "_on_mouse_exited"):
@@ -44,6 +45,7 @@ func _on_mouse_exited():
 func _gui_input(event):
 	if event is InputEventMouseButton and event.is_pressed() && event.get_button_index() == BUTTON_LEFT:
 		_pressed()
+		print_stack()
 		emit_signal("pressed")
 
 
@@ -51,6 +53,7 @@ func _pressed():
 	Audio.play_click()
 	is_selected = not is_selected
 	update_style()
+	print_stack()
 	emit_signal("state_changed", is_selected)
 
 
@@ -98,4 +101,5 @@ func set_is_selected(selected):
 	if is_selected != selected:
 		is_selected = selected
 		update_style()
+		print_stack()
 		emit_signal("state_changed", is_selected)

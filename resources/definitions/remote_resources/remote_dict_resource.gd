@@ -16,6 +16,7 @@ func _init(url_p = "", dict = null).(dict):
 func load_remote(target_object = null, method_to_trigger = "", arguments = []):
 	if not _lock_load_ressource.try_lock():
 		return false
+	print_stack()
 	Network.req(self, "_on_loaded", url, HTTPClient.METHOD_GET, [], "", [target_object, method_to_trigger, arguments])
 	return true
 
@@ -34,6 +35,7 @@ func is_loading():
 func _on_loaded(err, response_code, _headers, body, target_object, method_to_trigger, arguments):
 	if err:
 		ErrorHandler.network_response_error(err)
+		print_stack()
 		emit_signal("error_loading", err, response_code, body)
 	if response_code == HTTPClient.RESPONSE_OK:
 		var result = JSON.parse(body.get_string_from_utf8()).result 
@@ -43,8 +45,10 @@ func _on_loaded(err, response_code, _headers, body, target_object, method_to_tri
 			if f.is_valid():
 				var arg_array = arguments if arguments is Array else [arguments]
 				f.call_funcv( [self] + arg_array)
+		print_stack()
 		emit_signal("loaded")
 	elif not err:
+		print_stack()
 		emit_signal("error_loading", err, response_code, body)
 	_lock_load_ressource.unlock()
 

@@ -7,6 +7,7 @@ onready var option_speed = $PanelContainer/MarginContainer/GameSettings/Speed/Op
 
 
 func _ready():
+	print_stack()
 	Network.connect("LobbyOptionsUpdated", self, "_on_game_config_changed")
 	option_size.connect("item_selected", self, "_on_size_selected")
 	option_speed.connect("item_selected", self, "_on_speed_selected")
@@ -34,6 +35,7 @@ func _on_size_selected(id):
 
 
 func _pacth_game_setting(option = Store.lobby.option):
+	print_stack()
 	Network.req(self, "_on_data_patched",
 		"/api/lobbies/" + Store.lobby.id + "/",
 		HTTPClient.METHOD_PATCH,
@@ -53,6 +55,7 @@ func _on_game_config_changed(lobby_option):
 
 
 func update_game_settings_button(lobby_option):
+	print_stack()
 	if option_size != null:
 		option_size.disconnect("item_selected", self, "_on_size_selected")
 		option_size.selected = LobbyOption.SIZE.find(lobby_option.option.map_size)

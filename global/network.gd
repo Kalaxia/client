@@ -54,6 +54,7 @@ var waiting_for_request = TIME_BEFORE_CLOSE
 
 
 func connect_to_host():
+	print_stack()
 	var uri = "{scheme}://{dns}".format(Config.api)
 	self.client.connect_to_host(uri, Config.api.port)
 
@@ -66,6 +67,7 @@ func _ready():
 
 
 func auth():
+	print_stack ( )
 	Network.req(self, "confirm_auth", "/login", HTTPClient.METHOD_POST)
 
 
@@ -76,6 +78,7 @@ func confirm_auth(err, response_code, _headers, body):
 	if response_code == HTTPClient.RESPONSE_OK:
 		self.token = JSON.parse(body.get_string_from_utf8()).result.token
 		connect_ws()
+		print_stack()
 		Network.req(self, "set_current_player", "/api/players/me/")
 		emit_signal("authenticated")
 	else:
@@ -91,6 +94,7 @@ func set_current_player(err, response_code, _headers, body):
 
 
 func connect_ws():
+	print_stack()
 	_ws_client.connect("connection_closed", self, "_closed")
 	_ws_client.connect("connection_error", self, "_closed")
 	_ws_client.connect("connection_established", self, "_connected")
@@ -109,6 +113,7 @@ func _closed(was_clean = false):
 
 
 func _connected(proto = ""):
+	print_stack()
 	# This is called on connection, "proto" will be the selected WebSocket
 	# sub-protocol (which is optional)
 	print(tr("Connected with protocol: "), proto)
@@ -122,6 +127,7 @@ func _on_data():
 	
 	print(tr("WS event : "), data.action)
 	
+	print_stack()
 	emit_signal(data.action, data.data)
 
 
@@ -194,6 +200,7 @@ func cleanup_request_state():
 
 # Use this function to make an HTTP Request instead of the standard "request" method.
 func req(calling_object, method_to_trigger, route, method = HTTPClient.METHOD_GET, headers=PoolStringArray(), body="", params=[]):
+	print_stack()
 	self.requests.push_back([method, route, headers, body, calling_object, method_to_trigger, params])
 
 
@@ -201,6 +208,7 @@ func req(calling_object, method_to_trigger, route, method = HTTPClient.METHOD_GE
 # If it cannot (request() returning non-OK value) it triggers the handler
 # with the returned error.
 func launch_pending_request():
+	print_stack()
 	var headers = self.pending_request[2]
 	headers.append("Authorization: Bearer %s" % self.token)
 	var err = self.client.request(self.pending_request[0], self.pending_request[1], headers, self.pending_request[3])
@@ -214,6 +222,7 @@ func trigger_handler(res_code, http_code, headers, body):
 		print_debug(self.pending_request[1] + " - " + http_code as String + " : " + body.get_string_from_utf8() + ", " + JSON.print(headers))
 	# call the listener of the pending request
 	var f = funcref(self.pending_request[4], self.pending_request[5])
+	print_stack()
 	if f.is_valid():
 		f.call_funcv([res_code, http_code, headers, body] + self.pending_request[6])
 	

@@ -6,6 +6,7 @@ onready var button_dump = $MarginContainer/VBoxContainer/Button
 
 
 func _ready():
+	print_stack()
 	button_dump.connect("pressed", self, "_dump_game_data")
 
 

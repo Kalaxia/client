@@ -4,6 +4,7 @@ var counter = 1 setget set_counter, get_counter;
 
 
 func _ready():
+	print_stack()
 	Network.req(self, "_on_request_completed", "/api/players/count/")
 	Network.connect("PlayerConnected", self, "increment_counter")
 	Network.connect("PlayerDisconnected", self, "decrement_counter")

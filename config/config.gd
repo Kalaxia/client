@@ -105,6 +105,7 @@ func reload_locale():
 	var previous_locale = TranslationServer.get_locale()
 	_load_locale(config_user)
 	if previous_locale != TranslationServer.get_locale():
+		print_stack()
 		emit_signal("locale_reloaded")
 
 

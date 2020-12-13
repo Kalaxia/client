@@ -34,6 +34,7 @@ func insert_system(p_system : Dictionary) -> void:
 		request_ship_queues(new_system)
 	if new_system.player != null and players[new_system.player].faction.id == player.faction.id:
 		request_buildings(new_system)
+	print_stack()
 	emit_signal("changed")
 
 
@@ -45,6 +46,7 @@ func set_players(player_array : Array):
 			players[player.id] = player
 			player.update(p)
 			# no need to inster it as it should already in players (see contructor)
+	print_stack()
 	emit_signal("changed")
 
 
@@ -72,6 +74,7 @@ func get_fleet(fleet : Dictionary):
 func load_player_lobby(lobby : Lobby):
 	for player_l in lobby.players.values():
 		players[player.id] = player_l
+	print_stack()
 	emit_signal("changed")
 
 
@@ -85,6 +88,7 @@ func unload_data():
 #	# scores ?
 	player = null
 	scores.clear()
+	print_stack()
 	emit_signal("changed")
 
 
@@ -107,6 +111,7 @@ func get_player_color(player_p : Player, is_victory_system = false) -> Color:
 func fleet_sail(fleet : Fleet):
 	sailing_fleets[fleet.id] = fleet
 	systems[fleet.system].erase_fleet(fleet)
+	print_stack()
 	emit_signal("fleet_sailed", fleet)
 
 
@@ -116,6 +121,7 @@ func update_fleet_arrival(fleet_dict : Dictionary):
 	if sailing_fleets.has(fleet.id):
 		sailing_fleets.erase(fleet.id)
 	get_system(fleet.system).fleet_arrive(fleet)
+	print_stack()
 	emit_signal("fleet_arrived", fleet)
 
 
@@ -127,6 +133,7 @@ func request_hangar_and_building(system : System):
 
 func request_hangar(system : System):
 	# move to system
+	print_stack()
 	Network.req(self, "_on_ship_group_received",
 		"/api/games/" +
 			id + "/systems/" +
@@ -153,6 +160,7 @@ func _on_ship_group_received(err, response_code, _headers, body, system : System
 
 func request_buildings(system : System):
 	# move to system
+	print_stack()
 	Network.req(self, "_on_receive_building",
 		"/api/games/" +
 			id + "/systems/" +
@@ -177,6 +185,7 @@ func _on_receive_building(err, response_code, _headers, body, system : System):
 
 
 func request_ship_queues(system : System):
+	print_stack()
 	Network.req(self, "_on_queue_ships_received",
 		"/api/games/" +
 			id +  "/systems/" +
@@ -201,6 +210,7 @@ func _on_queue_ships_received(err, response_code, _headers, body, system : Syste
 
 func update_player_me():
 	# toto move player ?
+	print_stack()
 	Network.req(self, "_on_me_loaded", "/api/players/me/")
 
 
@@ -217,6 +227,7 @@ func _on_me_loaded(err, response_code, _headers, body):
 
 
 func request_leave_game():
+	print_stack()
 	Network.req(self, "_on_player_left_game", "/api/games/" + id + "/players/", HTTPClient.METHOD_DELETE)
 
 
@@ -251,5 +262,6 @@ func update_scores(scores_new) -> void:
 				scores[score.faction] = ScoreFaction.new(score)
 	else:
 		push_error("update score with invalide data type")
+	print_stack()
 	emit_signal("changed")
 	emit_signal("score_updated")

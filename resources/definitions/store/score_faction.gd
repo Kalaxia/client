@@ -32,10 +32,12 @@ func set_faction(faction_id):
 	faction = ASSETS.factions[faction_id] \
 			if faction_id != null and ASSETS.factions.size() > faction_id \
 			else  ASSETS.factions[0]
+	print_stack()
 	emit_signal("changed")
 
 
 func set_victory_points(new_int):
 	victory_points = new_int
+	print_stack()
 	emit_signal("score_updated")
 	emit_signal("changed")

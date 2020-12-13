@@ -42,6 +42,7 @@ func select_system(system : System):
 	_disconnect_system(old_system)
 	selected_system = system
 	_connect_system(selected_system)
+	print_stack()
 	emit_signal("changed")
 	if selected_system:
 		emit_signal("system_selected", old_system)
@@ -60,6 +61,7 @@ func select_fleet(fleet : Fleet):
 	_disconnect_fleet(old_fleet)
 	selected_fleet = fleet
 	_connect_fleet(selected_fleet)
+	print_stack()
 	emit_signal("changed")
 	if selected_fleet:
 		emit_signal("fleet_selected", old_fleet)
@@ -78,6 +80,7 @@ func is_selected_system(system : System):
 func _disconnect_fleet(fleet : Fleet):
 	if fleet == null:
 		return
+	print_stack()
 	if fleet.is_connected("owner_updated", self, "_on_fleet_owner_updated"):
 		fleet.disconnect("owner_updated", self, "_on_fleet_owner_updated")
 	if fleet.is_connected("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships"):
@@ -89,6 +92,7 @@ func _disconnect_fleet(fleet : Fleet):
 func _connect_fleet(fleet : Fleet):
 	if fleet == null:
 		return
+	print_stack()
 	if not fleet.is_connected("owner_updated", self, "_on_fleet_owner_updated"):
 		fleet.connect("owner_updated", self, "_on_fleet_owner_updated")
 	if not fleet.is_connected("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships"):
@@ -98,20 +102,24 @@ func _connect_fleet(fleet : Fleet):
 
 
 func _on_fleet_updated():
+	print_stack()
 	emit_signal("fleet_updated")
 
 
 func _on_fleet_owner_updated():
+	print_stack()
 	emit_signal("fleet_owner_updated")
 
 
 func _on_fleet_update_nb_ships():
+	print_stack()
 	emit_signal("fleet_update_nb_ships")
 
 
 func _disconnect_system(system : System):
 	if system == null:
 		return
+	print_stack()
 	if system.is_connected("fleet_added", self, "_on_fleet_added"):
 		system.disconnect("fleet_added", self, "_on_fleet_added")
 	if system.is_connected("fleet_erased", self, "_on_fleet_erased"):
@@ -143,6 +151,7 @@ func _disconnect_system(system : System):
 func _connect_system(system : System):
 	if system == null:
 		return
+	print_stack()
 	if not system.is_connected("fleet_added", self, "_on_fleet_added"):
 		system.connect("fleet_added", self, "_on_fleet_added")
 	if not system.is_connected("fleet_erased", self, "_on_fleet_erased"):
@@ -172,52 +181,65 @@ func _connect_system(system : System):
 
 
 func _on_conquerred():
+	print_stack()
 	emit_signal("conquerred")
 
 
 func _on_building_contructed(building):
+	print_stack()
 	emit_signal("building_contructed", building)
 
 
 func _on_system_fleet_owner_updated(fleet):
+	print_stack()
 	emit_signal("system_fleet_owner_updated", fleet)
 
 
 func _on_ship_queue_removed(ship_queue):
+	print_stack()
 	emit_signal("ship_queue_removed", ship_queue)
 
 
 func _on_ship_queue_added(ship_queue):
+	print_stack()
 	emit_signal("ship_queue_added", ship_queue)
 
 
 func _on_ship_queue_finished(ship_group):
+	print_stack()
 	emit_signal("ship_queue_finished", ship_group)
 
 
 func _on_fleet_arrived(fleet):
+	print_stack()
 	emit_signal("system_fleet_arrived", fleet)
 
 
 func _on_system_updated():
+	print_stack()
 	emit_signal("system_updated")
 
 
 func _on_system_owner_updated():
+	print_stack()
 	emit_signal("system_owner_updated")
 
 
 func _on_fleet_added(fleet):
+	print_stack()
 	emit_signal("fleet_added", fleet)
 
 
 func _on_fleet_erased(fleet):
+	print_stack()
 	emit_signal("fleet_erased", fleet)
 
 
 func _on_building_updated():
+	print_stack()
 	emit_signal("building_updated")
 
 
 func _on_hangar_updated(hangar):
+	print_stack()
 	emit_signal("hangar_updated", hangar)

@@ -6,6 +6,7 @@ var lobby : Lobby = null
 
 
 func _ready():
+	print_stack()
 	$Body/Join.connect("pressed", self, "join_lobby")
 	set_lobby_name()
 	set_nb_players()
@@ -20,6 +21,7 @@ func set_nb_players():
 
 
 func join_lobby():
+	print_stack()
 	emit_signal("join", lobby)
 
 

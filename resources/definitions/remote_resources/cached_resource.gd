@@ -46,6 +46,7 @@ func refresh(version_p):
 func load_constant():
 	constants = ConstanteRemoteResource.new()
 	constants.load_remote()
+	print_stack()
 	constants.connect("loaded", self, "_on_constants_loaded")
 	constants.connect("error_loading", self, "_on_constants_error_loading")
 
@@ -77,6 +78,7 @@ func has_finished_loading():
 func load_building():
 	if not _lock_load_building.try_lock():
 		return false
+	print_stack()
 	Network.req(self, "_on_building_loaded", "/api/buildings/")
 	return true
 
@@ -84,6 +86,7 @@ func load_building():
 func _on_building_loaded(err, response_code, _header, body):
 	if err:
 		ErrorHandler.network_response_error(err)
+		print_stack()
 		emit_signal("error", Resource_elements.BUILDING, err, response_code, body)
 	if response_code == HTTPClient.RESPONSE_OK:
 		var result = JSON.parse(body.get_string_from_utf8()).result 
@@ -92,8 +95,10 @@ func _on_building_loaded(err, response_code, _header, body):
 			building_list.push_back(BuildingModelRemote.new(building))
 		dict_loaded[Resource_elements.BUILDING] = true
 		_verify_finished_loading()
+		print_stack()
 		emit_signal("loaded", Resource_elements.BUILDING)
 	elif not err:
+		print_stack()
 		emit_signal("error_loading", Resource_elements.BUILDING , err, response_code, body)
 	_lock_load_building.unlock()
 
@@ -101,6 +106,7 @@ func _on_building_loaded(err, response_code, _header, body):
 func load_ship_models():
 	if not _lock_ships.try_lock():
 		return false
+	print_stack()
 	Network.req(self, "_on_ship_models_loaded", "/api/ship-models/")
 	return true
 
@@ -108,6 +114,7 @@ func load_ship_models():
 func _on_ship_models_loaded(err, response_code, _header, body):
 	if err:
 		ErrorHandler.network_response_error(err)
+		print_stack()
 		emit_signal("error", Resource_elements.SHIP_MODELS, err, response_code, body)
 	if response_code == HTTPClient.RESPONSE_OK:
 		var result = JSON.parse(body.get_string_from_utf8()).result 
@@ -116,8 +123,10 @@ func _on_ship_models_loaded(err, response_code, _header, body):
 			ship_models.push_back(ShipModel.new(ship_model))
 		dict_loaded[Resource_elements.SHIP_MODELS] = true
 		_verify_finished_loading()
+		print_stack()
 		emit_signal("loaded", Resource_elements.SHIP_MODELS)
 	elif not err:
+		print_stack()
 		emit_signal("error_loading", Resource_elements.SHIP_MODELS, err, response_code, body)
 	_lock_ships.unlock()
 
@@ -125,6 +134,7 @@ func _on_ship_models_loaded(err, response_code, _header, body):
 func load_factions():
 	if not _lock_faction.try_lock():
 		return false
+	print_stack()
 	Network.req(self, "_on_factions_loaded", "/api/factions/")
 	return true
 
@@ -132,6 +142,7 @@ func load_factions():
 func _on_factions_loaded(err, response_code, _header, body):
 	if err:
 		ErrorHandler.network_response_error(err)
+		print_stack()
 		emit_signal("error", Resource_elements.FACTIONS, err, response_code, body)
 	if response_code == HTTPClient.RESPONSE_OK:
 		var result = JSON.parse(body.get_string_from_utf8()).result
@@ -140,8 +151,10 @@ func _on_factions_loaded(err, response_code, _header, body):
 			factions[faction.id] = (FactionRemote.new(faction))
 		dict_loaded[Resource_elements.FACTIONS] = true
 		_verify_finished_loading()
+		print_stack()
 		emit_signal("loaded", Resource_elements.FACTIONS)
 	elif not err:
+		print_stack()
 		emit_signal("error_loading", Resource_elements.FACTIONS, err, response_code, body)
 	_lock_faction.unlock()
 
@@ -149,16 +162,19 @@ func _on_factions_loaded(err, response_code, _header, body):
 func _on_constants_loaded():
 	dict_loaded[Resource_elements.CONSTANTS] = true
 	_verify_finished_loading()
+	print_stack()
 	emit_signal("loaded", Resource_elements.CONSTANTS)
 	_disconnect_constants_loading()
 
 
 func _on_constants_error_loading(err, response_code, body):
+	print_stack()
 	emit_signal("error", Resource_elements.CONSTANTS, err, response_code, body)
 	_disconnect_constants_loading()
 
 
 func _disconnect_constants_loading():
+	print_stack()
 	constants.disconnect("loaded", self, "_on_constants_loaded")
 	constants.disconnect("error_loading", self, "_on_constants_error_loading")
 

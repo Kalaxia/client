@@ -67,6 +67,7 @@ func add_fleet(fleet : Fleet):
 	var has_fleet = fleets.has(fleet.id)
 	_add_fleet_to_storage(fleet)
 	if not has_fleet:
+		print_stack()
 		emit_signal("fleet_added", fleet)
 		emit_signal("changed")
 
@@ -88,6 +89,7 @@ func erase_all_fleet():
 
 func set_buildings(buildings_p):
 	buildings = buildings_p
+	print_stack()
 	emit_signal("building_updated")
 	emit_signal("changed")
 
@@ -95,6 +97,7 @@ func set_buildings(buildings_p):
 func set_hangar(ship_groups):
 	hangar = ship_groups
 	_remove_empty_squadron()
+	print_stack()
 	emit_signal("hangar_updated", hangar)
 	emit_signal("changed")
 
@@ -124,6 +127,7 @@ func update_system_owner(player_p):
 		if fleets[fid].destination_system != null:
 			erase_fleet(fleets[fid])
 	player = player_p.id
+	print_stack()
 	emit_signal("system_owner_updated")
 
 
@@ -133,6 +137,7 @@ func get_fleet(fleet_id : String):
 
 func update(dict : Dictionary):
 	load_dict(dict)
+	print_stack()
 	emit_signal("updated")
 	emit_signal("changed")
 
@@ -141,16 +146,19 @@ func fleet_arrive(fleet : Fleet):
 	# game data call this and only game data should call this
 	_add_fleet_to_storage(fleet)
 	fleet.arrived()
+	print_stack()
 	emit_signal("fleet_arrived", fleet)
 
 
 func building_contructed(building):
 	add_building_to_system(building)
+	print_stack()
 	emit_signal("building_contructed", building)
 
 
 func _on_fleet_owner_updated(fleet):
 	if fleet.system == id:
+		print_stack()
 		emit_signal("fleet_owner_updated", fleet)
 
 
@@ -166,39 +174,48 @@ func queue_finished(ship_group : ShipGroup):
 		if fleet != null:
 			fleet.add_ship_group(ship_group, ship_queue.assgined_formation)
 			ship_queue.on_finished()
+			print_stack()
 			emit_signal("ship_queue_finished", ship_group)
 			return
 	add_ship_group_to_hangar(ship_group)
 	if ship_queue != null:
 		ship_queue.on_finished()
+	print_stack()
 	emit_signal("ship_queue_finished", ship_group)
 
 
 func add_ship_queue(ship_queue : ShipQueue):
 	ship_queues.push_back(ship_queue)
+	print_stack()
 	emit_signal("ship_queue_added", ship_queue)
 
 
 func set_ship_queues(new_ship_queues):
 	if ship_queues != new_ship_queues:
 		for queue in ship_queues:
+			print_stack()
 			emit_signal("ship_queue_removed", queue)
 		ship_queues = new_ship_queues
+		print_stack()
 		emit_signal("changed")
 		for queue in ship_queues:
+			print_stack()
 			emit_signal("ship_queue_added", queue)
 
 
 func _add_fleet_to_storage(fleet):
 	fleets[fleet.id] = fleet
+	print_stack()
 	fleet.connect("owner_updated", self, "_on_fleet_owner_updated", [fleet])
 
 
 func _remove_fleet_from_storage(fleet):
 	var has_ereased = fleets.erase(fleet.id)
 	if has_ereased:
+		print_stack()
 		fleet.disconnect("owner_updated", self, "_on_fleet_owner_updated")
 		fleet.on_fleet_erased()
+		print_stack()
 		emit_signal("fleet_erased", fleet)
 		emit_signal("changed")
 	return has_ereased
@@ -222,6 +239,7 @@ func add_quantity_hangar(ship_category : ShipModel, quantity): # can accepet neg
 		}))
 		# in the case quantity = we do not add a squadron but retrun true 
 		# and emit signals non the less
+	print_stack()
 	emit_signal("hangar_updated", hangar)
 	emit_signal("changed")
 	return true
@@ -241,6 +259,7 @@ func set_quantity_hangar(ship_category : ShipModel, quantity):
 			"category" : ship_category.category,
 			"quantity" : quantity,
 		}))
+	print_stack()
 	emit_signal("hangar_updated", hangar)
 	emit_signal("changed")
 
@@ -271,4 +290,5 @@ func has_buildind(kind_param):
 
 
 func on_conquerred():
+	print_stack()
 	emit_signal("conquerred")

@@ -40,6 +40,7 @@ class Lock:
 		if _is_locked:
 			return LOCK_STATE.BUSY
 		_is_locked = true
+		print_stack()
 		emit_signal("locked")
 		emit_signal("changed_state", true)
 		return LOCK_STATE.OK
@@ -49,6 +50,7 @@ class Lock:
 		var previous_state = _is_locked
 		_is_locked = false
 		if previous_state:
+			print_stack()
 			emit_signal("unlocked")
 			emit_signal("changed_state", false)
 		return previous_state

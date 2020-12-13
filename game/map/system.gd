@@ -37,6 +37,7 @@ func _ready():
 	_connect_system() # todo is this necessary
 	range_draw_node.visible = false
 	set_position(Vector2(system.coordinates.x , system.coordinates.y) * Utils.SCALE_SYSTEMS_COORDS)
+	print_stack()
 	star.connect("mouse_input", self, "_on_mouse_input")
 	star.connect("mouse_entered", self, "_on_mouse_entered")
 	star.connect("mouse_exited", self, "_on_mouse_exited")
@@ -237,6 +238,7 @@ func _on_mouse_input(event):
 				and _game_data.selected_state.selected_fleet != null \
 				and _game_data.is_in_range(_game_data.selected_state.selected_fleet, system):
 			# you can't set the same destination as the origin
+			print_stack ( )
 			Network.req(self, "_on_fleet_send",
 				"/api/games/" + _game_data.id 
 						+ "/systems/" + _game_data.selected_state.selected_fleet.system 
@@ -294,6 +296,7 @@ func get_color_of_system():
 func _connect_system(system_p = system):
 	if system_p  == null:
 		return
+	print_stack()
 	if not system_p.is_connected("fleet_added", self, "_on_fleet_created"):
 		system_p.connect("fleet_added", self, "_on_fleet_created")
 	if not system_p.is_connected("hangar_updated", self, "_on_hangar_updated"):
@@ -310,6 +313,7 @@ func _connect_system(system_p = system):
 func _disconnect_system(system_p = system):
 	if system_p  == null:
 		return
+	print_stack()
 	if system_p.is_connected("fleet_added", self, "_on_fleet_created"):
 		system_p.disconnect("fleet_added", self, "_on_fleet_created")
 	if system_p.is_connected("hangar_updated", self, "_on_hangar_updated"):

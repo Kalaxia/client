@@ -102,6 +102,7 @@ static func _override_sound(audio_streams, audio_resource, volume_dB = default_v
 
 
 func _on_finished():
+	print_stack()
 	emit_signal("sound_finished")
 
 
@@ -109,6 +110,7 @@ func _add_audio_stream():
 	var audio_stream_player = AudioStreamPlayer.new()
 	_audio_streams.push_back(audio_stream_player)
 	add_child(audio_stream_player)
+	print_stack()
 	audio_stream_player.connect("finished", self, "_on_finished")
 	return audio_stream_player
 
@@ -132,6 +134,7 @@ func set_playing_in_editor(new_bool):
 		if playing_in_editor:
 			var node = _audio_streams[0] if _audio_streams.size() > 0 else _add_audio_stream()
 			_node_play_sound(node, sound_resource, default_volume, default_pitch_scale, default_bus)
+			print_stack()
 			node.connect("finished", self, "_on_sound_finished_editor", [], CONNECT_ONESHOT)
 		else:
 			while _audio_streams.size() > 0:

@@ -24,6 +24,7 @@ func get_random_sound() -> AudioStream :
 
 func set_audio_stream_array(new_audio_stream_array):
 	audio_stream_array = new_audio_stream_array
+	print_stack()
 	emit_signal("changed")
 
 

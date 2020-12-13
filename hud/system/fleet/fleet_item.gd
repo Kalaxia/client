@@ -16,6 +16,7 @@ onready var button_menu = $Container/Ships/ButtonMenu
 func _ready():
 	update_owner()
 	_connect_fleet()
+	print_stack()
 	_game_data.selected_state.connect("fleet_selected", self, "_on_fleet_selected")
 	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed")
 	_game_data.selected_state.connect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
@@ -32,6 +33,7 @@ func update_owner():
 	_update_button_give_visibility()
 	_update_composition_button_visibility()
 	update_quantity()
+	print_stack()
 	if _game_data.does_belong_to_current_player(fleet):
 		if not is_connected("pressed", self, "_on_pressed"):
 			connect("pressed", self, "_on_pressed")
@@ -72,6 +74,7 @@ func _update_button_give_visibility():
 func _on_give_pressed():
 	if not _lock_donate.try_lock():
 		return
+	print_stack ( )
 	Network.req(self, "_on_fleet_given",
 		"/api/games/" + _game_data.id + "/systems/" + fleet.system + "/fleets/" + fleet.id + "/donate/",
 		HTTPClient.METHOD_PATCH, [], "", [fleet]
@@ -83,6 +86,7 @@ func _on_fleet_given(err, response_code, _headers, _body, fleet_p):
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
 		fleet.update_fleet_owner(_game_data.get_player(_game_data.get_system(fleet_p.system).player))
+		print_stack()
 		emit_signal("fleet_donated")
 	_lock_donate.unlock()
 
@@ -103,6 +107,7 @@ func _on_focus_exited():
 func open_menu_ship_pressed():
 	if _game_data.selected_state.selected_fleet == null or _game_data.selected_state.selected_fleet.id != fleet.id:
 		_game_data.selected_state.select_fleet(fleet)
+	print_stack()
 	emit_signal("pressed_open_ship_menu", fleet)
 
 
@@ -153,6 +158,7 @@ func set_fleet(new_fleet):
 
 
 func _connect_fleet(fleet_p : Fleet = fleet):
+	print_stack()
 	if fleet_p != null and not fleet.is_connected("owner_updated", self, "_on_fleet_owner_updated"):
 		fleet_p.connect("owner_updated", self, "_on_fleet_owner_updated")
 	if fleet_p != null and not fleet.is_connected("updated", self, "_on_fleet_update"):
@@ -160,6 +166,7 @@ func _connect_fleet(fleet_p : Fleet = fleet):
 
 
 func _disconnect_fleet(fleet_p : Fleet = fleet):
+	print_stack()
 	if fleet_p != null and fleet_p.is_connected("owner_updated", self, "_on_fleet_owner_updated"):
 		fleet_p.disconnect("owner_updated", self, "_on_fleet_owner_updated")
 	if fleet_p != null and fleet_p.is_connected("updated", self, "_on_fleet_update"):

@@ -7,6 +7,7 @@ var lobby_card_scene = preload("res://matchmaking/lobby/lobby_card.tscn")
 onready var lobbies_container = $GUI/Body/MainSection/Section/Lobbies
 
 func _ready():
+	print_stack()
 	Network.connect("LobbyCreated", self, "_on_lobby_created")
 	Network.connect("LobbyNameUpdated", self, "_on_lobby_name_updated")
 	Network.connect("LobbyRemoved", self, "_on_lobby_removed")
@@ -36,10 +37,12 @@ func _queue_free_lobby(lobby : Dictionary):
 
 
 func get_lobbies():
+	print_stack()
 	Network.req(self, "_handle_get_lobbies", "/api/lobbies/")
 
 
 func create_lobby():
+	print_stack()
 	Network.req(self, "_handle_create_lobby", "/api/lobbies/", HTTPClient.METHOD_POST)
 
 
@@ -53,12 +56,14 @@ func add_lobby_card(lobby_dict : Dictionary):
 	var lobby_card = lobby_card_scene.instance()
 	lobby_card.lobby = lobby
 	lobby_card.set_name(lobby.id)
+	print_stack()
 	lobby_card.connect("join", self, "join_lobby")
 	lobbies_container.add_child(lobby_card)
 
 
 func join_lobby(lobby : Lobby):
 	Store.lobby = lobby
+	print_stack()
 	Network.req(self, "_handle_join_lobby", "/api/lobbies/" + lobby.id + "/players/", HTTPClient.METHOD_POST)
 
 
@@ -101,6 +106,7 @@ func _handle_create_lobby(err, response_code, _headers, body):
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_CREATED:
 		Store.lobby = Lobby.new(JSON.parse(body.get_string_from_utf8()).result)
+		print_stack()
 		emit_signal("scene_requested", "lobby")
 	# todo handel error
 
@@ -110,13 +116,16 @@ func _handle_join_lobby(err, response_code, _headers, _body):
 		ErrorHandler.network_response_error(err)
 	if response_code == HTTPClient.RESPONSE_NO_CONTENT:
 		Store.lobby.players[Store.player.id] = Store.player
+		print_stack()
 		emit_signal("scene_requested", "lobby")
 	# todo handel error
 
 
 func _on_menu_option_pressed():
+	print_stack()
 	emit_signal("scene_requested", "option_menu")
 
 
 func _on_menu_credits_pressed():
+	print_stack()
 	emit_signal("scene_requested", "credits_menu")

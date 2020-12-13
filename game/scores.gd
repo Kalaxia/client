@@ -8,6 +8,7 @@ const FACTION_SCORE_SCENE = preload("res://game/faction_score.tscn")
 
 
 func _ready():
+	print_stack()
 	get_node("Footer/BackToMenu").connect("pressed", self, "_back_to_menu")
 	var scores = _game_data.scores
 	if _game_data.player.faction.id == Store.victorious_faction:
@@ -25,4 +26,5 @@ func _ready():
 
 func _back_to_menu():
 	_game_data.unload_data()
+	print_stack()
 	emit_signal("scene_requested", "menu")

@@ -14,6 +14,7 @@ onready var grid_formation_container = $MenuBody/MarginContainer/Body/LeftColomn
 
 func _ready():
 	_connect_fleet()
+	print_stack()
 	for node in grid_formation_container.get_children():
 		if node is ShipGroupCard:
 			node.connect("pressed", self, "_on_ship_group_pressed", [node.formation_position])
@@ -32,6 +33,7 @@ func _ready():
 
 func _on_system_selected(_old_system):
 	if fleet.system != _game_data.selected_state.selected_system.id:
+		print_stack()
 		emit_signal("close_requested")
 	else:
 		set_ship_group_hangar(_game_data.selected_state.selected_system.hangar)
@@ -82,6 +84,7 @@ func update_element_fleet():
 
 
 func set_fleet(new_fleet):
+	print_stack()
 	if fleet != null and fleet.is_connected("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships"):
 		fleet.disconnect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
 	if fleet != null and fleet.is_connected("fleet_erased", self, "_on_fleet_erased"):
@@ -98,6 +101,7 @@ func set_fleet(new_fleet):
 func _connect_fleet():
 	if fleet == null:
 		return
+	print_stack()
 	if not fleet.is_connected("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships"):
 		fleet.connect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
 	if not fleet.is_connected("fleet_erased", self, "_on_fleet_erased"):
@@ -105,6 +109,7 @@ func _connect_fleet():
 
 
 func _on_fleet_erased():
+	print_stack()
 	emit_signal("close_requested")
 
 
@@ -164,6 +169,7 @@ func _on_request_assignation(ship_category, quantity):
 	# for multiple formation. 
 	# Anyway the request should be extecuter in order and all info are passed to
 	# _on_ship_assigned (apart from _game_data)
+	print_stack ( )
 	Network.req(self, "_on_ship_assigned",
 			"/api/games/" + _game_data.id +
 				"/systems/" + _game_data.selected_state.selected_system.id +

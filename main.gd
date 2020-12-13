@@ -43,6 +43,7 @@ var _is_in_game = false setget _set_is_in_game
 func _ready():
 	if Config.config_environment.debug_activated:
 		$ParallaxBackground.add_child(DEBUG_PANEL.instance())
+	print_stack()
 	Config.connect("locale_reloaded", self, "_on_locale_reloaded")
 	if scenes["menu"].scene == null or Network.token == null:
 		change_scene_loading(scenes)
@@ -54,6 +55,7 @@ func change_scene_loading(load_queue_param):
 	change_level(scenes.loading.scene)
 	var loading_node = $Level.get_child(0)
 	loading_node.load_queue = load_queue_param
+	print_stack()
 	if not loading_node.is_connected("ressource_loaded", self, "_on_ressource_loaded"):
 		loading_node.connect("ressource_loaded", self, "_on_ressource_loaded")
 	if not loading_node.is_connected("finished", self, "_on_load_finished"):
@@ -71,6 +73,7 @@ func _on_load_finished():
 func change_level(level_scene):
 	for l in $Level.get_children(): l.queue_free()
 	var level = level_scene.instance()
+	print_stack()
 	level.connect("scene_requested", self, "_on_scene_request")
 	$Level.add_child(level)
 

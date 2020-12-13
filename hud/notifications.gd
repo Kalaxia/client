@@ -4,6 +4,7 @@ const NOTIFICATION_SCENE = preload("res://hud/notification.tscn")
 
 
 func _ready():
+	print_stack()
 	Store.connect("notification_added", self, "_on_new_notification")
 
 

@@ -23,6 +23,7 @@ func _ready():
 		if node is MenuHeader:
 			menu_header = node
 			has_menu_header = true
+			print_stack()
 			menu_header.connect("close_request", self, "close_request")
 			menu_header.connect("minimize_request", self, "minimize_toogle")
 		elif node is MenuBody:
@@ -89,12 +90,14 @@ func _get_configuration_warning():
 
 
 func close_request():
+	print_stack()
 	emit_signal("close_requested")
 
 
 func minimize_toogle():
 	if menu_body != null:
 		menu_body.minimize_toogle()
+		print_stack()
 		emit_signal("minimize_toogled", menu_body.visible)
 
 

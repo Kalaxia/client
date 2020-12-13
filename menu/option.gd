@@ -26,6 +26,7 @@ func _ready():
 	_update_language_tabs()
 	for node in key_binding_container.get_children():
 			if node is OptionKeyBinding:
+				print_stack()
 				node.connect("mark_button_key_binding", self, "_on_mark_button_key_binding")
 				node.connect("unmark_button_key_binding", self, "_on_unmark_button_key_binding")
 				node.is_enabled = Config.ENABLE_KEY_BINDING_CHANGE.has(node.action) and shortcut_enabled

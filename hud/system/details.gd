@@ -15,6 +15,7 @@ onready var player_node = $System/PlayerName
 
 
 func _ready():
+	print_stack()
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
 	_game_data.selected_state.connect("system_updated", self, "_on_system_updated")
 	var fleet_details = fleet_details_scene.instance()

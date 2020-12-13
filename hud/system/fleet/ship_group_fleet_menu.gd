@@ -31,6 +31,7 @@ onready var select_ship_category_button = $MarginContainer/Main/ShipModel/Option
 
 
 func _ready():
+	print_stack()
 	button_set.connect("pressed", self, "_on_set_button")
 	update_elements()
 	update_quantities()
@@ -91,6 +92,7 @@ func _on_value_changed_spinbox(_value):
 	if spinbox.value > spinbox.max_value:
 		spinbox.value = spinbox.max_value
 		if not build_ships:
+			print_stack()
 			emit_signal("spinbox_too_much")
 	_update_price()
 
@@ -119,6 +121,7 @@ func _on_set_button():
 
 
 func _request_assignation(quantity):
+	print_stack()
 	emit_signal("request_assignation", ship_category, quantity)
 
 
@@ -127,6 +130,7 @@ func set_ship_category(new_category):
 	ship_category = new_category
 	update_elements()
 	if emit_signal_changed:
+		print_stack()
 		emit_signal("ship_category_changed")
 
 

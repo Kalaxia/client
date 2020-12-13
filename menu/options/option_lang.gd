@@ -18,6 +18,7 @@ func _ready():
 	option_array.selected_item = selected_locale
 	if _locales.size() < 2:
 		option_array.disabled = true
+	print_stack()
 	option_array.connect("item_selected", self, "_on_language_selected")
 	_update_element()
 

@@ -49,11 +49,13 @@ func _ready():
 		cached_data = CachedResource.new()
 	quit_button.visible = false
 	if Network.token == null:
+		print_stack()
 		Network.connect_to_host()
 		Network.connect("authenticated", self, "_on_authentication")
 	else:
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_network_status)
 	if cached_data.refresh(null):
+		print_stack()
 		cached_data.connect("loaded", self, "_on_resource_loaded")
 		cached_data.connect("error", self, "_on_resource_loading_error")
 	else:
@@ -61,6 +63,7 @@ func _ready():
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_constant_status)
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_ship_status)
 		set_state_label(STATE_NETWORK_ELEMENT.OK, label_building_status)
+	print_stack()
 	Store.connect("notification_added", self, "_on_notification_added")
 	timer_auth.connect("timeout", self, "_on_timeout_auth")
 	timer_res.connect("timeout", self, "_on_timeout_res")
@@ -167,6 +170,7 @@ func verify_is_finished():
 			and not has_emited_finished:
 		Store.update_assets(cached_data)	
 		has_emited_finished = true
+		print_stack()
 		emit_signal("finished")
 
 
@@ -193,6 +197,7 @@ func _process(_delta):
 	if err == ERR_FILE_EOF: # Finished loading.
 		var resource = loader.get_resource()
 		load_queue[current_load_element].scene = resource
+		print_stack()
 		emit_signal("ressource_loaded", current_load_element, resource)
 		loader = null
 		current_load_element = null

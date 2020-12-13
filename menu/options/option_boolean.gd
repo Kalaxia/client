@@ -11,6 +11,7 @@ onready var label = $HBoxContainer/Label
 
 
 func _ready():
+	print_stack()
 	button.connect("pressed", self, "_on_button_toggle")
 	label.text = tr(text)
 
@@ -23,6 +24,7 @@ func set_text(new_label : String):
 
 func _on_button_toggle():
 	is_checked = button.pressed
+	print_stack()
 	emit_signal("option_pressed", is_checked)
 
 

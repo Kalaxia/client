@@ -4,6 +4,7 @@ var _game_data = Store.game_data
 
 
 func _ready():
+	print_stack()
 	_game_data.player.connect("wallet_updated", self, "_on_wallet_update")
 
 

@@ -65,17 +65,20 @@ func set_ship_queues_array(new_ship_queue_array):
 	if ship_queues_array == new_ship_queue_array or new_ship_queue_array == null:
 		return
 	for queue in ship_queues_array:
+		print_stack()
 		queue.disconnect("finished", self, "_on_ship_queue_finished")
 		queue.disconnect("canceled", self, "_on_ship_queue_canceled")
 	# do not forget to duplicate
 	ship_queues_array = new_ship_queue_array.duplicate(false)
 	for queue in ship_queues_array:
+		print_stack()
 		queue.connect("finished", self, "_on_ship_queue_finished", [queue], CONNECT_ONESHOT)
 		queue.connect("canceled", self, "_on_ship_queue_canceled", [queue], CONNECT_ONESHOT)
 	update_queue_process()
 
 
 func add_ship_queue(ship_queue):
+	print_stack()
 	ship_queue.connect("finished", self, "_on_ship_queue_finished", [ship_queue], CONNECT_ONESHOT)
 	ship_queue.connect("canceled", self, "_on_ship_queue_canceled", [ship_queue], CONNECT_ONESHOT)
 	ship_queues_array.push_back(ship_queue)
@@ -136,6 +139,7 @@ func update_formation_position():
 
 func reset_ship_queues_array():
 	for queue in ship_queues_array:
+		print_stack()
 		queue.disconnect("finished", self, "_on_ship_queue_finished")
 		queue.disconnect("canceled", self, "_on_ship_queue_canceled")
 	ship_queues_array.clear()

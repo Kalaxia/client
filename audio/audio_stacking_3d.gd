@@ -7,6 +7,7 @@ func _add_audio_stream():
 	var audio_stream_player = AudioStreamPlayer3D.new()
 	_audio_streams.push_back(audio_stream_player)
 	add_child(audio_stream_player)
+	print_stack()
 	audio_stream_player.connect("finished", self, "_on_finished")
 	return audio_stream_player
 

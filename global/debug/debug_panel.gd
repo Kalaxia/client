@@ -12,6 +12,7 @@ onready var menu_container = $Layer/MenuContainer
 
 
 func _ready():
+	print_stack()
 	button.connect("pressed", self, "_on_pressed")
 	menu_header.connect("close_request", self , "_on_close_request")
 	menu_container.visible = false

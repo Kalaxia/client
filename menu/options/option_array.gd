@@ -12,6 +12,7 @@ onready var label = $HBoxContainer/label
 
 
 func _ready():
+	print_stack()
 	option_button.connect("item_selected",self,"_on_item_selected")
 	label.text = tr(text)
 
@@ -27,6 +28,7 @@ func set_option_list(new_option_list):
 
 
 func _on_item_selected(item_id):
+	print_stack()
 	emit_signal("item_selected",item_id)
 
 

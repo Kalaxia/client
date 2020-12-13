@@ -33,8 +33,10 @@ func _get_dict_property_list():
 
 
 func on_finished():
+	print_stack()
 	emit_signal("finished")
 
 
 func on_canceled():
+	print_stack()
 	emit_signal("canceled")

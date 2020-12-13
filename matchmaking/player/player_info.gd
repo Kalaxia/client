@@ -24,6 +24,7 @@ func _ready():
 		new_username = player.username
 		background.color = Color(0,0,0)
 		username_input.editable = true
+		print_stack()
 		username_input.connect("text_changed", self, "_on_text_changed")
 		username_input.connect("text_entered", self, "_on_text_entered")
 		ready_input.connect("pressed", self, "toggle_ready")
@@ -60,6 +61,7 @@ func init_faction_choices():
 	if player.id == Store.player.id:
 		faction_choice.disabled = false
 		faction_choice.flat = false
+		print_stack()
 		faction_choice.connect("item_selected", self, "update_faction")
 	faction_choice.selected = player.faction.id if player.faction != null else 0
 
@@ -102,6 +104,7 @@ func toggle_ready():
 
 func send_update():
 	_check_ready_state()
+	print_stack()
 	Network.req(self, "_on_request_completed"
 		, "/api/players/me/"
 		, HTTPClient.METHOD_PATCH
@@ -126,6 +129,7 @@ func _on_request_completed(err, response_code, _headers, body):
 			tr("matchmaking.error.username_already_taken.content")
 		)
 		return
+	print_stack()
 	emit_signal("player_updated", Store.player)
 
 

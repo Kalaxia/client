@@ -17,6 +17,7 @@ onready var finance_button = $HBoxContainer/ButtonContainerRight/SelectablePanel
 
 func _ready():
 	var button_array = button_container_left.get_children() + button_container_right.get_children()
+	print_stack()
 	for node in button_array:
 		if node is SelectablePanelContainer:
 			node.connect("pressed", self, "_on_button_pressed", [node])
@@ -27,6 +28,7 @@ func _ready():
 
 
 func set_menu_layer(node):
+	print_stack()
 	if menu_layer != null and menu_layer.is_connected("menu_closed", self, "_on_menu_layer_menu_closed"):
 		menu_layer.disconnect("menu_closed", self, "_on_menu_layer_menu_closed")
 	menu_layer = node
@@ -53,6 +55,7 @@ func deselect_other_node(node = null):
 
 func _back_to_main_menu():
 	_game_data.request_leave_game()
+	print_stack()
 	emit_signal("back_main_menu")
 
 

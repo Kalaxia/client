@@ -7,6 +7,7 @@ signal text_changed(text)
 
 
 func _ready():
+	print_stack()
 	get_line_edit().connect("text_changed", self, "_on_line_edit_text_changed")
 	get_line_edit().connect("text_entered", self, "_on_text_entered")
 
@@ -15,8 +16,10 @@ func _on_line_edit_text_changed(text):
 	var caret_position = get_line_edit().caret_position
 	apply()
 	get_line_edit().caret_position = caret_position
+	print_stack()
 	emit_signal("text_changed", text)
 
 
 func _on_text_entered(text):
+	print_stack()
 	emit_signal("text_entered", text)

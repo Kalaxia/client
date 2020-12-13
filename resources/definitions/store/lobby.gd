@@ -64,6 +64,7 @@ func get_player(pid) -> Player:
 func remove_player_lobby(player_id : String) -> bool:
 	var is_erased = players.erase(player_id)
 	if is_erased:
+		print_stack()
 		emit_signal("player_removed", player_id)
 	return is_erased
 

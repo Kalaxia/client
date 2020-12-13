@@ -12,6 +12,7 @@ onready var label = $SelectablePanelContainer/VBoxContainer/MarginContainer/Labe
 
 
 func _ready():
+	print_stack()
 	selectable_panel_container.connect("pressed", self, "_on_pressed")
 	update_quantity()
 	update_texture()
@@ -24,6 +25,7 @@ func update_texture():
 
 
 func _on_pressed():
+	print_stack()
 	emit_signal("pressed")
 
 

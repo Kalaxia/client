@@ -21,6 +21,7 @@ onready var texture_model = $PanelContainer/HBoxContainer/TextureRect
 
 
 func _ready():
+	print_stack()
 	_lock_build_ships.connect("changed_state", self, "_on_lock_changed_state")
 	button_order.connect("pressed", self, "_on_pressed_build")
 	spinbox.connect("value_changed", self, "_on_spinbox_changed")
@@ -120,6 +121,7 @@ func build_ship(quantity):
 		_lock_build_ships.unlock()
 		Store.notify(tr("notification.error.not_enought_cred.title"), tr("notification.error.not_enought_cred.content"))
 		return
+	print_stack ( )
 	Network.req(self, "_on_ship_build_requested",
 		"/api/games/" + _game_data.id + "/systems/" + _game_data.selected_state.selected_system.id + "/ship-queues/",
 		HTTPClient.METHOD_POST,
@@ -136,6 +138,7 @@ func _on_ship_build_requested(err, response_code, _headers, body, quantity, cate
 		var result = JSON.parse(body.get_string_from_utf8()).result
 		_game_data.player.update_wallet( - category.cost * quantity)
 		system.add_ship_queue(ShipQueue.new(result))
+		print_stack()
 		emit_signal("ship_construction_started", result)
 		# todo add shipqueue in game_data
 	_lock_build_ships.unlock()
