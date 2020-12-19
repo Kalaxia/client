@@ -254,14 +254,15 @@ func _on_money_transfer(data : Dictionary):
 
 
 func _on_combat_ended(data : Dictionary):
-	for fleet in data.fleets.values():
-		if fleet.destination_system != null:
-			fleet_container.get_node(fleet.id).queue_free()
-		elif fleet.squadrons == null or fleet.squadrons == []:
-			_game_data.systems[fleet.system].erase_fleet_id(fleet.id)
-		else:
-			_game_data.get_fleet(fleet).set_squadrons_dict(fleet.squadrons)
-	map.get_node(data.system.id).refresh_fleet_pins()
+	for faction in data.fleets.values():
+		for fleet in faction.values():
+			if fleet.destination_system != null:
+				fleet_container.get_node(fleet.id).queue_free()
+			elif fleet.squadrons == null or fleet.squadrons == []:
+				_game_data.systems[fleet.system].erase_fleet_id(fleet.id)
+			else:
+				_game_data.get_fleet(fleet).set_squadrons_dict(fleet.squadrons)
+	map.get_node(data.system).refresh_fleet_pins()
 
 
 func _on_player_income(data : Dictionary):
