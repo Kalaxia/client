@@ -2,11 +2,11 @@ extends VBoxContainer
 
 const GAME_DATA_DUMP_PATH = "res://game_data.tres"
 
-onready var button_dmup = $MarginContainer/VBoxContainer/Button
+onready var button_dump = $MarginContainer/VBoxContainer/Button
 
 
 func _ready():
-	button_dmup.connect("pressed", self, "_dump_game_data")
+	button_dump.connect("pressed", self, "_dump_game_data")
 
 
 func _dump_game_data():

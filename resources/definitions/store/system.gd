@@ -13,6 +13,7 @@ signal fleet_owner_updated(fleet)
 signal ship_queue_finished(ship_group)
 signal ship_queue_added(ship_queue)
 signal ship_queue_removed(ship_queue) # emited when a ship_queue is removed but not finished
+signal conquerred()
 
 const MAX_NUMBER_OF_BUILDING = 1
 
@@ -261,9 +262,13 @@ func has_shipyard():
 	return has_buildind("shipyard")
 
 
-func has_buildind(kind):
+func has_buildind(kind_param):
 	for building in buildings:
-		if (kind is String and building.kind.kind == kind) or \
-				(kind is KalaxiaBuilding and building.kind == kind):
+		if (kind_param is String and building.kind.kind == kind_param) or \
+				(kind_param is KalaxiaBuilding and building.kind == kind_param):
 			return true
 	return false
+
+
+func on_conquerred():
+	emit_signal("conquerred")

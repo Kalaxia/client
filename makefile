@@ -38,6 +38,7 @@ msgmerge-flags = --update --backup=simple --suffix=.back
 
 godot ?= $(addprefix $(godot-path), $(addsuffix $(godot-sufix), $(godot-name-executable-main)) )
 godot-flag = --export
+godot-flag-debug = --export-debug
 
 source-sufix = gd tscn tres
 source-files = $(foreach sufix, $(source-sufix), $(wildcard *.$(sufix) */*.$(sufix) */*/*.$(sufix) */*/*/*.$(sufix) */*/*/*/*.$(sufix) */*/*/*/*/*.$(sufix)))
@@ -64,7 +65,16 @@ production: $(source-files) $(version-file) .FORCE
 
 
 .PHONY: debug
-debug: compile/windows/kalaxia.exe compile/linux/kalaxia.x86_64
+debug: $(source-files) $(version-file) .FORCE
+	$(copy) $(copy-flag) "$(file-config-prod)" "$(file-config-used)"
+	$(godot) $(godot-flag-debug) "Windows" compile/windows/kalaxia.exe
+	$(godot) $(godot-flag-debug) "Linux" compile/linux/kalaxia.x86_64
+	$(copy) $(copy-flag) "$(file-config-dev)" "$(file-config-used)"
+
+
+.PHONY: debug-local
+debug-local: compile/windows/kalaxia.exe compile/linux/kalaxia.x86_64
+
 
 
 .PHONY: update-translation

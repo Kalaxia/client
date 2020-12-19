@@ -47,7 +47,7 @@ func _ready():
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
 	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed")
 	event_capturer.connect("gui_input", self, "_on_gui_input")
-	Network.connect("CombatEnded", self, "_on_combat_ended")
+	Network.connect("BattleEnded", self, "_on_combat_ended")
 	Network.connect("PlayerIncome", self, "_on_player_income")
 	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
 	Network.connect("FleetSailed", self, "_on_remote_fleet_sailed")
@@ -287,11 +287,11 @@ func _on_fleet_arrival(fleet : Dictionary):
 
 
 func _on_system_conquerred(data : Dictionary):
+	# todo check selected fleet existance 
 	var system = _game_data.get_system(data.system.id)
 	system.erase_all_fleet()
 	system.update(data.system)
 	_update_fleet_system_arrival(data.fleet)
-	map.get_node(data.system.id).refresh() # todo container
 	if data.system.player == _game_data.player.id:
 		_game_data.request_hangar(system)
 		_game_data.request_ship_queues(system)
@@ -301,6 +301,8 @@ func _on_system_conquerred(data : Dictionary):
 		system.set_buildings([])
 		system.set_hangar([])
 		system.ship_queues = []
+	system.on_conquerred()
+	map.get_node(data.system.id).refresh() # todo container
 
 
 func _update_fleet_system_arrival(fleet : Dictionary):
