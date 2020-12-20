@@ -42,7 +42,7 @@ func _ready():
 	update_elements()
 	update_quantities()
 	update_buttons()
-	spinbox.value = quantity_fleet
+	reset_spinbox_quantity()
 	spinbox.connect("text_entered", self, "_on_text_entered")
 	spinbox.connect("value_changed", self, "_on_value_changed_spinbox")
 	max_assign_button.connect("pressed", self, "_on_max_assign_pressed")
@@ -150,7 +150,6 @@ func set_quantity_fleet(quantity):
 	quantity_fleet = max(quantity, 0)
 	update_quantities()
 	update_buttons()
-	spinbox.value = quantity_fleet
 
 
 func set_quantity_hangar(quantity):
@@ -208,3 +207,7 @@ func update_buttons():
 
 func _on_build_ships_requested(quantity):
 	_request_assignation(quantity + quantity_fleet)
+
+
+func reset_spinbox_quantity():
+	spinbox.value = quantity_fleet
