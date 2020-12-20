@@ -7,7 +7,7 @@
 [ext_resource path="res://hud/system/fleet/ship_group_fleet_menu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://hud/system/fleet/menu_fleet_details.gd" type="Script" id=8]
 
-[sub_resource type="Image" id=6]
+[sub_resource type="Image" id=5]
 data = {
 "data": PoolByteArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ),
 "format": "LumAlpha8",
@@ -19,7 +19,7 @@ data = {
 [sub_resource type="ImageTexture" id=2]
 flags = 4
 flags = 4
-image = SubResource( 6 )
+image = SubResource( 5 )
 size = Vector2( 16, 16 )
 
 [sub_resource type="StyleBoxTexture" id=3]
@@ -30,7 +30,7 @@ margin_right = 2.0
 margin_top = 2.0
 margin_bottom = 2.0
 
-[sub_resource type="StreamTexture" id=5]
+[sub_resource type="StreamTexture" id=4]
 flags = 4
 load_path = "res://.import/picto_flotte_2.png-7690f89049c3d62083c913b47bdc6ade.stex"
 
@@ -47,16 +47,16 @@ __meta__ = {
 }
 
 [node name="MenuHeader" parent="." instance=ExtResource( 2 )]
-margin_right = 2466.0
+margin_right = 3074.0
 margin_bottom = 31.0
 custom_styles/panel = SubResource( 3 )
 text = "hud.details.fleet.fleet_composition_assignation"
-texture = SubResource( 5 )
+texture = SubResource( 4 )
 
 [node name="MenuBody" type="PanelContainer" parent="."]
 show_behind_parent = true
 margin_top = 31.0
-margin_right = 2466.0
+margin_right = 3074.0
 margin_bottom = 1080.0
 size_flags_vertical = 3
 script = ExtResource( 3 )
@@ -64,7 +64,7 @@ script = ExtResource( 3 )
 [node name="MarginContainer" type="MarginContainer" parent="MenuBody"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 2459.0
+margin_right = 3067.0
 margin_bottom = 1042.0
 mouse_filter = 1
 size_flags_vertical = 3
@@ -76,7 +76,7 @@ custom_constants/margin_bottom = 10
 [node name="Body" type="HBoxContainer" parent="MenuBody/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 2442.0
+margin_right = 3050.0
 margin_bottom = 1025.0
 size_flags_vertical = 3
 
@@ -140,20 +140,20 @@ mouse_filter = 2
 
 [node name="Details" type="VBoxContainer" parent="MenuBody/MarginContainer/Body"]
 margin_left = 1788.0
-margin_right = 2432.0
+margin_right = 3028.0
 margin_bottom = 1015.0
 script = ExtResource( 8 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MenuBody/MarginContainer/Body/Details"]
-margin_right = 644.0
+margin_right = 1240.0
 margin_bottom = 1015.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuBody/MarginContainer/Body/Details/ScrollContainer"]
-margin_right = 644.0
-margin_bottom = 343.0
+margin_right = 1240.0
+margin_bottom = 389.0
 custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
@@ -162,11 +162,11 @@ custom_constants/margin_bottom = 10
 [node name="GridContainer" type="GridContainer" parent="MenuBody/MarginContainer/Body/Details/ScrollContainer/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 634.0
-margin_bottom = 333.0
+margin_right = 1230.0
+margin_bottom = 379.0
 custom_constants/vseparation = 10
 custom_constants/hseparation = 10
 
 [node name="ShipGroupFleetMenu" parent="MenuBody/MarginContainer/Body/Details/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource( 5 )]
-margin_right = 624.0
-margin_bottom = 323.0
+margin_right = 1220.0
+margin_bottom = 369.0

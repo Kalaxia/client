@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://hud/system/fleet/ship_group_fleet_menu.gd" type="Script" id=1]
 [ext_resource path="res://gui/spin_box_imediate_update.gd" type="Script" id=2]
+[ext_resource path="res://hud/system/fleet/add_ship_button.tscn" type="PackedScene" id=3]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -50,8 +51,8 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 617.0
-margin_bottom = 316.0
+margin_right = 1213.0
+margin_bottom = 362.0
 mouse_filter = 1
 custom_constants/margin_right = 3
 custom_constants/margin_top = 3
@@ -61,18 +62,18 @@ custom_constants/margin_bottom = 3
 [node name="Main" type="VBoxContainer" parent="MarginContainer"]
 margin_left = 3.0
 margin_top = 3.0
-margin_right = 607.0
-margin_bottom = 306.0
+margin_right = 1203.0
+margin_bottom = 352.0
 custom_constants/separation = 10
 
 [node name="ShipModel" type="VBoxContainer" parent="MarginContainer/Main"]
-margin_right = 604.0
+margin_right = 1200.0
 margin_bottom = 59.0
 custom_constants/separation = 7
 alignment = 1
 
 [node name="TextureModel" type="TextureRect" parent="MarginContainer/Main/ShipModel"]
-margin_right = 604.0
+margin_right = 1200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 4
@@ -93,27 +94,27 @@ __meta__ = {
 }
 
 [node name="OptionButton" type="OptionButton" parent="MarginContainer/Main/ShipModel"]
-margin_left = 190.0
+margin_left = 488.0
 margin_top = 39.0
-margin_right = 413.0
+margin_right = 711.0
 margin_bottom = 59.0
 size_flags_horizontal = 4
 text = "hud.details.fleet.select_model"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/Main"]
 margin_top = 69.0
-margin_right = 604.0
+margin_right = 1200.0
 margin_bottom = 73.0
 
 [node name="Stat" type="HBoxContainer" parent="MarginContainer/Main"]
 margin_top = 83.0
-margin_right = 604.0
+margin_right = 1200.0
 margin_bottom = 127.0
 alignment = 1
 
 [node name="StatsL" type="VBoxContainer" parent="MarginContainer/Main/Stat"]
-margin_left = 84.0
-margin_right = 296.0
+margin_left = 382.0
+margin_right = 594.0
 margin_bottom = 44.0
 
 [node name="StatHP" type="HBoxContainer" parent="MarginContainer/Main/Stat/StatsL"]
@@ -171,13 +172,13 @@ __meta__ = {
 }
 
 [node name="VSeparator" type="VSeparator" parent="MarginContainer/Main/Stat"]
-margin_left = 300.0
-margin_right = 304.0
+margin_left = 598.0
+margin_right = 602.0
 margin_bottom = 44.0
 
 [node name="StatR" type="VBoxContainer" parent="MarginContainer/Main/Stat"]
-margin_left = 308.0
-margin_right = 519.0
+margin_left = 606.0
+margin_right = 817.0
 margin_bottom = 44.0
 
 [node name="StatAccuracy" type="HBoxContainer" parent="MarginContainer/Main/Stat/StatR"]
@@ -239,13 +240,51 @@ __meta__ = {
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/Main"]
 margin_top = 137.0
-margin_right = 604.0
+margin_right = 1200.0
 margin_bottom = 141.0
 
-[node name="Assign" type="HBoxContainer" parent="MarginContainer/Main"]
+[node name="HBoxButtonAdd" type="HBoxContainer" parent="MarginContainer/Main"]
 margin_top = 151.0
-margin_right = 604.0
-margin_bottom = 175.0
+margin_right = 1200.0
+margin_bottom = 173.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button0" parent="MarginContainer/Main/HBoxButtonAdd" instance=ExtResource( 3 )]
+margin_right = 232.0
+margin_bottom = 22.0
+
+[node name="Button1" parent="MarginContainer/Main/HBoxButtonAdd" instance=ExtResource( 3 )]
+margin_left = 242.0
+margin_right = 474.0
+margin_bottom = 22.0
+
+[node name="Button2" parent="MarginContainer/Main/HBoxButtonAdd" instance=ExtResource( 3 )]
+margin_left = 484.0
+margin_right = 716.0
+margin_bottom = 22.0
+
+[node name="Button3" parent="MarginContainer/Main/HBoxButtonAdd" instance=ExtResource( 3 )]
+margin_left = 726.0
+margin_right = 958.0
+margin_bottom = 22.0
+
+[node name="Button4" parent="MarginContainer/Main/HBoxButtonAdd" instance=ExtResource( 3 )]
+margin_left = 968.0
+margin_right = 1200.0
+margin_bottom = 22.0
+
+[node name="HSeparator4" type="HSeparator" parent="MarginContainer/Main"]
+margin_top = 183.0
+margin_right = 1200.0
+margin_bottom = 187.0
+
+[node name="Assign" type="HBoxContainer" parent="MarginContainer/Main"]
+margin_top = 197.0
+margin_right = 1200.0
+margin_bottom = 221.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -259,7 +298,8 @@ margin_bottom = 19.0
 text = "hud.details.fleet.ship_to_assign"
 
 [node name="SpinBox" type="SpinBox" parent="MarginContainer/Main/Assign"]
-margin_right = 74.0
+margin_left = 298.0
+margin_right = 372.0
 margin_bottom = 24.0
 size_flags_vertical = 4
 rounded = true
@@ -267,33 +307,33 @@ allow_greater = true
 script = ExtResource( 2 )
 
 [node name="ButtonSet" type="Button" parent="MarginContainer/Main/Assign"]
-margin_left = 78.0
+margin_left = 376.0
 margin_top = 2.0
-margin_right = 383.0
+margin_right = 681.0
 margin_bottom = 22.0
 size_flags_vertical = 4
 text = "hud.details.system.fleet.menu.group_ship.set"
 
 [node name="MaxAssign" type="Button" parent="MarginContainer/Main/Assign"]
-margin_left = 387.0
+margin_left = 685.0
 margin_top = 2.0
-margin_right = 604.0
+margin_right = 902.0
 margin_bottom = 22.0
 size_flags_vertical = 4
 text = "hud.details.fleet.max_assign %d"
 
 [node name="ShipCost" type="HBoxContainer" parent="MarginContainer/Main"]
-margin_top = 185.0
-margin_right = 604.0
-margin_bottom = 205.0
+margin_top = 231.0
+margin_right = 1200.0
+margin_bottom = 251.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TextureRectWarning" type="TextureRect" parent="MarginContainer/Main/ShipCost"]
-margin_left = 81.0
-margin_right = 101.0
+margin_left = 379.0
+margin_right = 399.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 20, 20 )
 texture = SubResource( 6 )
@@ -304,9 +344,9 @@ __meta__ = {
 }
 
 [node name="PriceText" type="Label" parent="MarginContainer/Main/ShipCost"]
-margin_left = 105.0
+margin_left = 403.0
 margin_top = 3.0
-margin_right = 331.0
+margin_right = 629.0
 margin_bottom = 17.0
 text = "hud.details.fleet.request_price_text"
 __meta__ = {
@@ -314,8 +354,8 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/Main/ShipCost"]
-margin_left = 335.0
-margin_right = 355.0
+margin_left = 633.0
+margin_right = 653.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 20, 20 )
 texture = SubResource( 7 )
@@ -326,9 +366,9 @@ __meta__ = {
 }
 
 [node name="Price" type="Label" parent="MarginContainer/Main/ShipCost"]
-margin_left = 359.0
+margin_left = 657.0
 margin_top = 3.0
-margin_right = 523.0
+margin_right = 821.0
 margin_bottom = 17.0
 text = "hud.details.fleet.price %d"
 __meta__ = {
@@ -336,19 +376,19 @@ __meta__ = {
 }
 
 [node name="HSeparator3" type="HSeparator" parent="MarginContainer/Main"]
-margin_top = 215.0
-margin_right = 604.0
-margin_bottom = 219.0
+margin_top = 261.0
+margin_right = 1200.0
+margin_bottom = 265.0
 
 [node name="ShipFleet" type="HBoxContainer" parent="MarginContainer/Main"]
-margin_top = 229.0
-margin_right = 604.0
-margin_bottom = 261.0
+margin_top = 275.0
+margin_right = 1200.0
+margin_bottom = 307.0
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/Main/ShipFleet"]
-margin_left = 150.0
-margin_right = 182.0
+margin_left = 448.0
+margin_right = 480.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 4
@@ -357,25 +397,25 @@ expand = true
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="MarginContainer/Main/ShipFleet"]
-margin_left = 186.0
+margin_left = 484.0
 margin_top = 9.0
-margin_right = 454.0
+margin_right = 752.0
 margin_bottom = 23.0
 rect_min_size = Vector2( 30, 0 )
 text = "hud.details.fleet.number_of_ship_fleet %d"
 
 [node name="ShipAvaliable" type="HBoxContainer" parent="MarginContainer/Main"]
-margin_top = 271.0
-margin_right = 604.0
-margin_bottom = 303.0
+margin_top = 317.0
+margin_right = 1200.0
+margin_bottom = 349.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/Main/ShipAvaliable"]
-margin_left = 150.0
-margin_right = 182.0
+margin_left = 448.0
+margin_right = 480.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 4
@@ -384,9 +424,9 @@ expand = true
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="MarginContainer/Main/ShipAvaliable"]
-margin_left = 186.0
+margin_left = 484.0
 margin_top = 9.0
-margin_right = 454.0
+margin_right = 752.0
 margin_bottom = 23.0
 rect_min_size = Vector2( 30, 0 )
 text = "hud.details.fleet.number_of_ship_total %d"

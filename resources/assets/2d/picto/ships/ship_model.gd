@@ -3,6 +3,7 @@ class_name KalaxiaShipModel
 
 export(Texture) var texture
 
+
 func _init(dict = null).(dict):
 	pass
 

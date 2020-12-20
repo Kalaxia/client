@@ -28,12 +28,20 @@ onready var stat_price = $MarginContainer/Main/Stat/StatR/StatPrice/Price
 onready var request_price = $MarginContainer/Main/ShipCost/Price
 onready var ship_cost_container = $MarginContainer/Main/ShipCost
 onready var select_ship_category_button = $MarginContainer/Main/ShipModel/OptionButton
+onready var buttons_add_ships = [
+	$MarginContainer/Main/HBoxButtonAdd/Button0,
+	$MarginContainer/Main/HBoxButtonAdd/Button1,
+	$MarginContainer/Main/HBoxButtonAdd/Button2,
+	$MarginContainer/Main/HBoxButtonAdd/Button3,
+	$MarginContainer/Main/HBoxButtonAdd/Button4,
+]
 
 
 func _ready():
 	button_set.connect("pressed", self, "_on_set_button")
 	update_elements()
 	update_quantities()
+	update_buttons()
 	spinbox.value = quantity_fleet
 	spinbox.connect("text_entered", self, "_on_text_entered")
 	spinbox.connect("value_changed", self, "_on_value_changed_spinbox")
@@ -43,11 +51,19 @@ func _ready():
 	select_ship_category_button.selected = 0
 	select_ship_category_button.connect("item_selected", self, "_on_model_selected")
 	_game_data.player.connect("wallet_updated", self, "_on_wallet_update")
+	for node in buttons_add_ships:
+		node.connect("build_ships_requested", self, "_on_build_ships_requested")
 
 
 func set_build_ships(boolean):
 	build_ships = boolean
+	if buttons_add_ships != null:
+		for index in range(buttons_add_ships.size()):
+			if index >= 2:
+				# the button 0 and 1 are always actives
+				buttons_add_ships[index].disabled = not build_ships
 	update_quantities()
+	update_buttons()
 
 
 func update_elements():
@@ -82,7 +98,7 @@ func update_quantities():
 func _update_max_quanity():
 	var previous_spinbox_value = spinbox.value
 	spinbox.max_value = quantity_hangar + quantity_fleet + \
-			(floor(_game_data.player.wallet as float / ship_category.cost as float) as int \
+			(ship_category.max_ship_build(_game_data.player.wallet) \
 			if build_ships else 0)
 	spinbox.value = min(previous_spinbox_value, spinbox.max_value)
 
@@ -133,11 +149,13 @@ func set_ship_category(new_category):
 func set_quantity_fleet(quantity):
 	quantity_fleet = max(quantity, 0)
 	update_quantities()
+	update_buttons()
 	spinbox.value = quantity_fleet
 
 
 func set_quantity_hangar(quantity):
 	quantity_hangar = max(quantity, 0)
+	update_buttons()
 	update_quantities()
 
 
@@ -148,3 +166,45 @@ func _on_model_selected(index):
 func _on_wallet_update(_amount):
 	if build_ships:
 		_update_max_quanity()
+		update_buttons()
+
+
+
+func update_buttons():
+	if buttons_add_ships != null:
+		var max_ships = ship_category.max_ship_build(_game_data.player.wallet)
+		var log_10 = (log(max_ships) / log(10)) if max_ships != 0 else 0.0
+		var fist_significant_number = floor(max_ships / (pow(10, floor(log_10))))
+		var SELECTED_SIGNIFICANT_NUMBER = [5, 2, 1] # this array need to be sorted bigest to smalest, no number bigger than 9
+		# we need to find in this array the position of the bigest significant number
+		# that is smaller or equal to our significant number
+		var index_significant = SELECTED_SIGNIFICANT_NUMBER.size() - 1 # at worst this is the last item
+		for index in range(SELECTED_SIGNIFICANT_NUMBER.size()):
+			if fist_significant_number >= SELECTED_SIGNIFICANT_NUMBER[index]:
+				index_significant = index
+				break
+		var significant_numbers = []
+		for index in range(SELECTED_SIGNIFICANT_NUMBER.size()):
+			var new_index = index + index_significant
+			var factor = 1.0
+			if new_index >= SELECTED_SIGNIFICANT_NUMBER.size():
+				new_index -= SELECTED_SIGNIFICANT_NUMBER.size()
+				factor = 0.1
+			significant_numbers.push_back(SELECTED_SIGNIFICANT_NUMBER[new_index] as float * factor)
+		# the result at this point is an array that gives the factors for the button quantity that we can build
+		for index in range(buttons_add_ships.size()):
+			var button = buttons_add_ships[index]
+			if index == 0:
+				button.quantity = - quantity_fleet
+				button.price = 0
+			elif index == 1:
+				button.quantity = quantity_hangar
+				button.price = 0
+			else:
+				var quantity_to_add = floor(significant_numbers[significant_numbers.size() - 1 -(index - 2)] * pow(10, floor(log_10)))
+				button.quantity = quantity_hangar + quantity_to_add
+				button.price = quantity_to_add * ship_category.cost
+
+
+func _on_build_ships_requested(quantity):
+	_request_assignation(quantity + quantity_fleet)

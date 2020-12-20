@@ -42,7 +42,7 @@ func _on_mouse_exited():
 
 
 func _gui_input(event):
-	if event is InputEventMouseButton and event.is_pressed() && event.get_button_index() == BUTTON_LEFT:
+	if event is InputEventMouseButton and event.is_pressed() and event.get_button_index() == BUTTON_LEFT:
 		_pressed()
 		emit_signal("pressed")
 
