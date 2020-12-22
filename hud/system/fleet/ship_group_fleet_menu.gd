@@ -33,7 +33,6 @@ onready var buttons_add_ships = [
 	$MarginContainer/Main/HBoxButtonAdd/Button1,
 	$MarginContainer/Main/HBoxButtonAdd/Button2,
 	$MarginContainer/Main/HBoxButtonAdd/Button3,
-	$MarginContainer/Main/HBoxButtonAdd/Button4,
 ]
 
 
@@ -57,11 +56,6 @@ func _ready():
 
 func set_build_ships(boolean):
 	build_ships = boolean
-	if buttons_add_ships != null:
-		for index in range(buttons_add_ships.size()):
-			if index >= 2:
-				# the button 0 and 1 are always actives
-				buttons_add_ships[index].disabled = not build_ships
 	update_quantities()
 	update_buttons()
 
@@ -171,38 +165,62 @@ func _on_wallet_update(_amount):
 
 func update_buttons():
 	if buttons_add_ships != null:
-		var max_ships = ship_category.max_ship_build(_game_data.player.wallet)
-		var log_10 = (log(max_ships) / log(10)) if max_ships != 0 else 0.0
-		var fist_significant_number = floor(max_ships / (pow(10, floor(log_10))))
-		var SELECTED_SIGNIFICANT_NUMBER = [5, 2, 1] # this array need to be sorted bigest to smalest, no number bigger than 9
-		# we need to find in this array the position of the bigest significant number
-		# that is smaller or equal to our significant number
-		var index_significant = SELECTED_SIGNIFICANT_NUMBER.size() - 1 # at worst this is the last item
-		for index in range(SELECTED_SIGNIFICANT_NUMBER.size()):
-			if fist_significant_number >= SELECTED_SIGNIFICANT_NUMBER[index]:
-				index_significant = index
-				break
-		var significant_numbers = []
-		for index in range(SELECTED_SIGNIFICANT_NUMBER.size()):
-			var new_index = index + index_significant
-			var factor = 1.0
-			if new_index >= SELECTED_SIGNIFICANT_NUMBER.size():
-				new_index -= SELECTED_SIGNIFICANT_NUMBER.size()
-				factor = 0.1
-			significant_numbers.push_back(SELECTED_SIGNIFICANT_NUMBER[new_index] as float * factor)
+		var proposition = get_proposition_assignation(_game_data.player.wallet, quantity_hangar, buttons_add_ships.size() - 1, ship_category)
 		# the result at this point is an array that gives the factors for the button quantity that we can build
 		for index in range(buttons_add_ships.size()):
 			var button = buttons_add_ships[index]
 			if index == 0:
 				button.quantity = - quantity_fleet
 				button.price = 0
-			elif index == 1:
-				button.quantity = quantity_hangar
-				button.price = 0
+				button.disabled = quantity_fleet == 0
 			else:
-				var quantity_to_add = floor(significant_numbers[significant_numbers.size() - 1 -(index - 2)] * pow(10, floor(log_10)))
-				button.quantity = quantity_hangar + quantity_to_add
-				button.price = quantity_to_add * ship_category.cost
+				var quantity_to_add = proposition[proposition.size() - 1 - (index - 1)]
+				var price = Utils.int_max(quantity_to_add - quantity_hangar, 0) * ship_category.cost
+				button.quantity = quantity_to_add
+				button.price = price
+				button.disabled = (not build_ships and quantity_to_add > quantity_hangar) \
+						or price > _game_data.player.wallet or quantity_to_add == 0
+
+
+static func get_proposition_assignation(credits, number_in_hangar, number_of_proposition, ship_model):
+	var SELECTED_SIGNIFICANT_NUMBER = [5, 2, 1] # this array need to be sorted bigest to smalest, no number bigger than 9
+	var max_ships = ship_model.max_ship_build(credits) + number_in_hangar
+	var log_10 = (log(max_ships as float) / log(10.0)) if max_ships != 0 else 0.0
+	var fist_significant_number = floor(max_ships / (pow(10.0, floor(log_10)))) as int
+	# we need to find in this array the position of the bigest significant number
+	# that is smaller or equal to our significant number
+	var index_significant = SELECTED_SIGNIFICANT_NUMBER.size() - 1 # at worst this is the last item
+	for index in range(SELECTED_SIGNIFICANT_NUMBER.size()):
+		if fist_significant_number >= SELECTED_SIGNIFICANT_NUMBER[index]:
+			index_significant = index
+			break
+	var proposition = []
+	var has_attain_minimum = false
+	var index_minimum_attained = 0
+	for index in range(number_of_proposition):
+		if not has_attain_minimum:
+			var new_index = index + index_significant # this always bigger or equal to 0
+			var factor = 1.0
+			while new_index >= SELECTED_SIGNIFICANT_NUMBER.size():
+				new_index -= SELECTED_SIGNIFICANT_NUMBER.size()
+				factor *= 0.1
+			var new_number = SELECTED_SIGNIFICANT_NUMBER[new_index] as float * factor * pow(10.0, floor(log_10))
+			if new_number < 1.0:
+				# we do not show proposition smaller than 0 so we add up bigger proposition
+				has_attain_minimum = true
+				index_minimum_attained = index
+			else:
+				proposition.push_back(floor(new_number) as int)
+		# we recheck the if as it may has changed 
+		if has_attain_minimum:
+			var new_index = index_significant - 1 + (index_minimum_attained - index) # this is always smaller to SELECTED_SIGNIFICANT_NUMBER.size()
+			var factor = 1.0
+			while new_index < 0:
+				new_index += SELECTED_SIGNIFICANT_NUMBER.size()
+				factor *= 10.0
+			var new_number = SELECTED_SIGNIFICANT_NUMBER[new_index] as float * factor * pow(10.0, floor(log_10))
+			proposition.push_front(floor(new_number) as int)
+	return proposition
 
 
 func _on_build_ships_requested(quantity):
