@@ -50,7 +50,7 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_left = 6.0
 margin_top = 3.0
-margin_right = 233.0
+margin_right = 231.0
 margin_bottom = 21.0
 mouse_filter = 2
 custom_constants/margin_right = 3
@@ -61,7 +61,7 @@ custom_constants/margin_bottom = 1
 [node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 margin_left = 2.0
 margin_top = 1.0
-margin_right = 224.0
+margin_right = 222.0
 margin_bottom = 17.0
 mouse_filter = 2
 __meta__ = {

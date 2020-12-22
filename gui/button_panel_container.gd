@@ -51,11 +51,11 @@ func _on_mouse_exited():
 
 
 func _gui_input(event):
-	if not disabled and event is InputEventMouseButton and event.is_pressed() \
-			and event.get_button_index() == BUTTON_LEFT:
+	if disabled or not event is InputEventMouseButton or event.get_button_index() != BUTTON_LEFT:
+		return
+	if event.is_pressed():
 		_pressed()
-	elif event is InputEventMouseButton and not event.is_pressed() \
-			and event.get_button_index() == BUTTON_LEFT:
+	else:
 		_release()
 
 
@@ -122,4 +122,8 @@ func update_style():
 
 func set_disabled(new_bool):
 	disabled = new_bool
-	update_style()
+	if _pressed:
+		_release()
+		# this update the style
+	else:
+		update_style()

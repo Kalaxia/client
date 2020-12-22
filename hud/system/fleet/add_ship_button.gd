@@ -5,9 +5,9 @@ signal build_ships_requested(quantity)
 export(int) var quantity = 0 setget set_quantity
 export(int) var price = 0 setget set_price
 
-onready var label = $VBoxContainer/Label
-onready var price_label = $VBoxContainer/price
-onready var credits_texture = $VBoxContainer/TextureRectCred
+onready var label = $MarginContainer/VBoxContainer/Label
+onready var price_label = $MarginContainer/VBoxContainer/price
+onready var credits_texture = $MarginContainer/VBoxContainer/TextureRectCred
 
 
 func _ready():

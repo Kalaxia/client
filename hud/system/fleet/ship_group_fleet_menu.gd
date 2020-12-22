@@ -5,6 +5,7 @@ signal spinbox_too_much()
 signal ship_category_changed()
 
 const ASSETS : KalaxiaAssets = preload("res://resources/assets.tres")
+const SELECTED_SIGNIFICANT_NUMBER = [5, 2, 1] # this array need to be sorted bigest to smalest, no number bigger than 9
 
 export(bool) var build_ships = false setget set_build_ships
 
@@ -162,28 +163,27 @@ func _on_wallet_update(_amount):
 		update_buttons()
 
 
-
 func update_buttons():
-	if buttons_add_ships != null:
-		var proposition = get_proposition_assignation(_game_data.player.wallet, quantity_hangar, buttons_add_ships.size() - 1, ship_category)
-		# the result at this point is an array that gives the factors for the button quantity that we can build
-		for index in range(buttons_add_ships.size()):
-			var button = buttons_add_ships[index]
-			if index == 0:
-				button.quantity = - quantity_fleet
-				button.price = 0
-				button.disabled = quantity_fleet == 0
-			else:
-				var quantity_to_add = proposition[proposition.size() - 1 - (index - 1)]
-				var price = Utils.int_max(quantity_to_add - quantity_hangar, 0) * ship_category.cost
-				button.quantity = quantity_to_add
-				button.price = price
-				button.disabled = (not build_ships and quantity_to_add > quantity_hangar) \
-						or price > _game_data.player.wallet or quantity_to_add == 0
+	if buttons_add_ships == null:
+		return
+	var proposition = get_proposition_assignation(_game_data.player.wallet, quantity_hangar, buttons_add_ships.size() - 1, ship_category)
+	# the result at this point is an array that gives the factors for the button quantity that we can build
+	for index in range(buttons_add_ships.size()):
+		var button = buttons_add_ships[index]
+		if index == 0:
+			button.quantity = - quantity_fleet
+			button.price = 0
+			button.disabled = quantity_fleet == 0
+			continue
+		var quantity_to_add = proposition[proposition.size() - 1 - (index - 1)]
+		var price = Utils.int_max(quantity_to_add - quantity_hangar, 0) * ship_category.cost
+		button.quantity = quantity_to_add
+		button.price = price
+		button.disabled = (not build_ships and quantity_to_add > quantity_hangar) \
+				or price > _game_data.player.wallet or quantity_to_add == 0
 
 
 static func get_proposition_assignation(credits, number_in_hangar, number_of_proposition, ship_model):
-	var SELECTED_SIGNIFICANT_NUMBER = [5, 2, 1] # this array need to be sorted bigest to smalest, no number bigger than 9
 	var max_ships = ship_model.max_ship_build(credits) + number_in_hangar
 	var log_10 = (log(max_ships as float) / log(10.0)) if max_ships != 0 else 0.0
 	var fist_significant_number = floor(max_ships / (pow(10.0, floor(log_10)))) as int
