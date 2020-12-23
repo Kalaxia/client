@@ -294,7 +294,8 @@ func _on_system_conquerred(data : Dictionary):
 	var system = _game_data.get_system(data.system.id)
 	system.erase_all_fleet()
 	system.update(data.system)
-	_update_fleet_system_arrival(data.fleet)
+	if _game_data.is_fleet_sailing(data.fleet):
+		_update_fleet_system_arrival(data.fleet)
 	if data.system.player == _game_data.player.id:
 		_game_data.request_hangar(system)
 		_game_data.request_ship_queues(system)
