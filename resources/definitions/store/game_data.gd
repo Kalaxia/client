@@ -253,3 +253,10 @@ func update_scores(scores_new) -> void:
 		push_error("update score with invalide data type")
 	emit_signal("changed")
 	emit_signal("score_updated")
+
+
+func is_fleet_sailing(fleet):
+	if fleet is String:
+		return sailing_fleets.has(fleet)
+	else:
+		return sailing_fleets.has(fleet.id)

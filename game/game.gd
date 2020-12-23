@@ -59,6 +59,8 @@ func _ready():
 	Network.connect("BuildingConstructed", self, "_on_building_constructed")
 	Network.connect("PlayerMoneyTransfer", self, "_on_money_transfer")
 	Network.connect("FleetTransfer", self, "_on_fleet_transfer")
+	Network.connect("BattleStarted", self, "_on_battle_started")
+	Network.connect("FleetJoinedBattle", self, "_on_fleet_joined_battle")
 	hud.connect("request_main_menu", self, "_on_request_main_menu")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	limits = draw_systems()
@@ -341,3 +343,16 @@ func _on_fleet_transfer(data : Dictionary):
 			tr("game.receive_fleet.title"),
 			tr("game.receive_fleet.content %s") % _game_data.get_player(data.donator_id).username
 		)
+
+
+func _on_battle_started(data : Dictionary):
+	for faction in data.fleets.values():
+		for fleet in faction.values():
+			if _game_data.is_fleet_sailing(fleet):
+				_update_fleet_system_arrival(fleet)
+			_game_data.get_fleet(fleet).set_squadrons_dict(fleet.squadrons)
+	map.get_node(data.system).refresh_fleet_pins()
+
+
+func _on_fleet_joined_battle(fleet : Dictionary):
+	_update_fleet_system_arrival(fleet)

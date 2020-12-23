@@ -28,6 +28,8 @@ signal BuildingConstructed(building)
 signal LobbyOptionsUpdated(lobby)
 signal PlayerMoneyTransfer(data)
 signal FleetTransfer(data)
+signal BattleStarted(data)
+signal FleetJoinedBattle(fleet)
 
 const MAX_CO_RETRIES = 5
 const TIME_BEFORE_CLOSE = 2.0
