@@ -12,6 +12,7 @@ anchor_bottom = 1.0
 margin_right = -1899.0
 margin_bottom = -1059.0
 rect_min_size = Vector2( 21, 21 )
+mouse_filter = 2
 texture = SubResource( 1 )
 expand = true
 stretch_mode = 6
