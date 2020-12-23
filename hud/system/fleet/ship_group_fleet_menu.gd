@@ -195,10 +195,10 @@ static func get_proposition_assignation(credits, number_in_hangar, number_of_pro
 			index_significant = index
 			break
 	var proposition = []
-	var has_attain_minimum = false
+	var has_minimum = false
 	var index_minimum_attained = 0
 	for index in range(number_of_proposition):
-		if not has_attain_minimum:
+		if not has_minimum:
 			var new_index = index + index_significant # this always bigger or equal to 0
 			var factor = 1.0
 			while new_index >= SELECTED_SIGNIFICANT_NUMBER.size():
@@ -207,12 +207,12 @@ static func get_proposition_assignation(credits, number_in_hangar, number_of_pro
 			var new_number = SELECTED_SIGNIFICANT_NUMBER[new_index] as float * factor * pow(10.0, floor(log_10))
 			if new_number < 1.0:
 				# we do not show proposition smaller than 0 so we add up bigger proposition
-				has_attain_minimum = true
+				has_minimum = true
 				index_minimum_attained = index
 			else:
 				proposition.push_back(floor(new_number) as int)
 		# we recheck the if as it may has changed 
-		if has_attain_minimum:
+		if has_minimum:
 			var new_index = index_significant - 1 + (index_minimum_attained - index) # this is always smaller to SELECTED_SIGNIFICANT_NUMBER.size()
 			var factor = 1.0
 			while new_index < 0:

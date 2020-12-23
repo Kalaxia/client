@@ -16,7 +16,7 @@ export(StyleBox) var disabled_style setget set_disabled_style
 export(bool) var disabled = false setget set_disabled
 
 var _hover = false
-var _pressed = false
+var _is_pressed = false
 
 
 func _ready():
@@ -61,13 +61,13 @@ func _gui_input(event):
 
 func _pressed():
 	Audio.play_click()
-	_pressed = true
+	_is_pressed = true
 	update_style()
 	emit_signal("pressed")
 
 
 func _release():
-	_pressed = false
+	_is_pressed = false
 	update_style()
 	emit_signal("released")
 
@@ -108,7 +108,7 @@ func update_style():
 	if disabled:
 		var theme_style = get_stylebox("disabled", _get_theme_class_name())
 		set("custom_styles/panel", disabled_style if disabled_style != null else theme_style)
-	elif _pressed:
+	elif _is_pressed:
 		var theme_style = get_stylebox("pressed", _get_theme_class_name())
 		set("custom_styles/panel", pressed_style if pressed_style != null else theme_style)
 	elif _hover:
@@ -122,7 +122,7 @@ func update_style():
 
 func set_disabled(new_bool):
 	disabled = new_bool
-	if _pressed:
+	if _is_pressed:
 		_release()
 		# this update the style
 	else:
