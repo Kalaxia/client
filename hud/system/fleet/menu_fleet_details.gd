@@ -35,6 +35,7 @@ func set_fleet(fleet_param):
 func set_formation(formation_param):
 	formation = formation_param
 	_refresh_fleet(fleet, formation)
+	ship_group_details.reset_spinbox_quantity()
 	# idem as in set_fleet
 
 
@@ -58,7 +59,7 @@ func _refresh_fleet(fleet_param, formation_param):
 		if squadron != null:
 			ship_group_details.quantity_fleet = squadron.quantity
 			if squadron.quantity != 0:
-				ship_group_details.ship_category = squadron.category 
+				ship_group_details.ship_category = squadron.category
 			return
 	ship_group_details.quantity_fleet = 0
 

@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://hud/system/buildings/building_panel.gd"
 }, {
+"base": "PanelContainer",
+"class": "ButtonPanelContainer",
+"language": "GDScript",
+"path": "res://gui/button_panel_container.gd"
+}, {
 "base": "DictResource",
 "class": "CachedResource",
 "language": "GDScript",
@@ -298,6 +303,7 @@ _global_script_class_icons={
 "Building": "",
 "BuildingModelRemote": "",
 "BuildingPanel": "",
+"ButtonPanelContainer": "res://resources/editor/selectable_container.svg",
 "CachedResource": "",
 "CircularButton": "res://resources/editor/custom_circular_button.svg",
 "CircularContainer": "res://resources/editor/circular_container.svg",

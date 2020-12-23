@@ -25,3 +25,7 @@ func _get_dict_property_list() -> Array:
 		"hit_points",
 		"precision"
 	]
+
+
+func max_ship_build(price):
+	return floor(price as float / cost as float) as int

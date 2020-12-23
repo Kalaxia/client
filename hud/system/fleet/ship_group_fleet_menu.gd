@@ -5,6 +5,7 @@ signal spinbox_too_much()
 signal ship_category_changed()
 
 const ASSETS : KalaxiaAssets = preload("res://resources/assets.tres")
+const SELECTED_SIGNIFICANT_NUMBER = [5, 2, 1] # this array need to be sorted bigest to smalest, no number bigger than 9
 
 export(bool) var build_ships = false setget set_build_ships
 
@@ -28,13 +29,20 @@ onready var stat_price = $MarginContainer/Main/Stat/StatR/StatPrice/Price
 onready var request_price = $MarginContainer/Main/ShipCost/Price
 onready var ship_cost_container = $MarginContainer/Main/ShipCost
 onready var select_ship_category_button = $MarginContainer/Main/ShipModel/OptionButton
+onready var buttons_add_ships = [
+	$MarginContainer/Main/HBoxButtonAdd/Button0,
+	$MarginContainer/Main/HBoxButtonAdd/Button1,
+	$MarginContainer/Main/HBoxButtonAdd/Button2,
+	$MarginContainer/Main/HBoxButtonAdd/Button3,
+]
 
 
 func _ready():
 	button_set.connect("pressed", self, "_on_set_button")
 	update_elements()
 	update_quantities()
-	spinbox.value = quantity_fleet
+	update_buttons()
+	reset_spinbox_quantity()
 	spinbox.connect("text_entered", self, "_on_text_entered")
 	spinbox.connect("value_changed", self, "_on_value_changed_spinbox")
 	max_assign_button.connect("pressed", self, "_on_max_assign_pressed")
@@ -43,11 +51,14 @@ func _ready():
 	select_ship_category_button.selected = 0
 	select_ship_category_button.connect("item_selected", self, "_on_model_selected")
 	_game_data.player.connect("wallet_updated", self, "_on_wallet_update")
+	for node in buttons_add_ships:
+		node.connect("build_ships_requested", self, "_on_build_ships_requested")
 
 
 func set_build_ships(boolean):
 	build_ships = boolean
 	update_quantities()
+	update_buttons()
 
 
 func update_elements():
@@ -82,7 +93,7 @@ func update_quantities():
 func _update_max_quanity():
 	var previous_spinbox_value = spinbox.value
 	spinbox.max_value = quantity_hangar + quantity_fleet + \
-			(floor(_game_data.player.wallet as float / ship_category.cost as float) as int \
+			(ship_category.max_ship_build(_game_data.player.wallet) \
 			if build_ships else 0)
 	spinbox.value = min(previous_spinbox_value, spinbox.max_value)
 
@@ -133,11 +144,12 @@ func set_ship_category(new_category):
 func set_quantity_fleet(quantity):
 	quantity_fleet = max(quantity, 0)
 	update_quantities()
-	spinbox.value = quantity_fleet
+	update_buttons()
 
 
 func set_quantity_hangar(quantity):
 	quantity_hangar = max(quantity, 0)
+	update_buttons()
 	update_quantities()
 
 
@@ -148,3 +160,72 @@ func _on_model_selected(index):
 func _on_wallet_update(_amount):
 	if build_ships:
 		_update_max_quanity()
+		update_buttons()
+
+
+func update_buttons():
+	if buttons_add_ships == null:
+		return
+	var proposition = get_proposition_assignation(_game_data.player.wallet, quantity_hangar, buttons_add_ships.size() - 1, ship_category)
+	# the result at this point is an array that gives the factors for the button quantity that we can build
+	for index in range(buttons_add_ships.size()):
+		var button = buttons_add_ships[index]
+		if index == 0:
+			button.quantity = - quantity_fleet
+			button.price = 0
+			button.disabled = quantity_fleet == 0
+			continue
+		var quantity_to_add = proposition[proposition.size() - 1 - (index - 1)]
+		var price = Utils.int_max(quantity_to_add - quantity_hangar, 0) * ship_category.cost
+		button.quantity = quantity_to_add
+		button.price = price
+		button.disabled = (not build_ships and quantity_to_add > quantity_hangar) \
+				or price > _game_data.player.wallet or quantity_to_add == 0
+
+
+static func get_proposition_assignation(credits, number_in_hangar, number_of_proposition, ship_model):
+	var max_ships = ship_model.max_ship_build(credits) + number_in_hangar
+	var log_10 = (log(max_ships as float) / log(10.0)) if max_ships != 0 else 0.0
+	var fist_significant_number = floor(max_ships / (pow(10.0, floor(log_10)))) as int
+	# we need to find in this array the position of the bigest significant number
+	# that is smaller or equal to our significant number
+	var index_significant = SELECTED_SIGNIFICANT_NUMBER.size() - 1 # at worst this is the last item
+	for index in range(SELECTED_SIGNIFICANT_NUMBER.size()):
+		if fist_significant_number >= SELECTED_SIGNIFICANT_NUMBER[index]:
+			index_significant = index
+			break
+	var proposition = []
+	var has_minimum = false
+	var index_minimum_attained = 0
+	for index in range(number_of_proposition):
+		if not has_minimum:
+			var new_index = index + index_significant # this always bigger or equal to 0
+			var factor = 1.0
+			while new_index >= SELECTED_SIGNIFICANT_NUMBER.size():
+				new_index -= SELECTED_SIGNIFICANT_NUMBER.size()
+				factor *= 0.1
+			var new_number = SELECTED_SIGNIFICANT_NUMBER[new_index] as float * factor * pow(10.0, floor(log_10))
+			if new_number < 1.0:
+				# we do not show proposition smaller than 0 so we add up bigger proposition
+				has_minimum = true
+				index_minimum_attained = index
+			else:
+				proposition.push_back(floor(new_number) as int)
+		# we recheck the if as it may has changed 
+		if has_minimum:
+			var new_index = index_significant - 1 + (index_minimum_attained - index) # this is always smaller to SELECTED_SIGNIFICANT_NUMBER.size()
+			var factor = 1.0
+			while new_index < 0:
+				new_index += SELECTED_SIGNIFICANT_NUMBER.size()
+				factor *= 10.0
+			var new_number = SELECTED_SIGNIFICANT_NUMBER[new_index] as float * factor * pow(10.0, floor(log_10))
+			proposition.push_front(floor(new_number) as int)
+	return proposition
+
+
+func _on_build_ships_requested(quantity):
+	_request_assignation(quantity + quantity_fleet)
+
+
+func reset_spinbox_quantity():
+	spinbox.value = quantity_fleet
