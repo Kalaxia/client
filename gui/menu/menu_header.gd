@@ -77,11 +77,7 @@ func set_custom_style(new_style):
 
 
 func _update_theme():
-	if custom_style != null:
-		set("custom_styles/panel", custom_style)
-	else:
-		var style = get_stylebox("panel", "MenuHeader")
-		set("custom_styles/panel", style)
+	set("custom_styles/panel", custom_style if custom_style != null else get_stylebox("panel", "MenuHeader"))
 
 
 func _unhandled_input(event):

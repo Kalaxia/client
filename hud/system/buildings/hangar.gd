@@ -104,7 +104,7 @@ func _on_ship_construction_started(ship_queue : ShipQueue):
 
 
 func select_group(category):
-	if !hangar_element.has_node(category.category):
+	if not hangar_element.has_node(category.category):
 		return
 	for node in hangar_element.get_children():
 		node.is_selected = node.name == category.category

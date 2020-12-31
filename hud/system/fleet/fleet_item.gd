@@ -12,6 +12,7 @@ onready var key_binding_compo = $Container/Ships/ButtonMenu/KeyBindingLabelsCont
 onready var button_give = $Container/Ships/ButtonGive
 onready var button_menu = $Container/Ships/ButtonMenu
 
+
 func _ready():
 	update_owner()
 	_connect_fleet()
@@ -39,6 +40,7 @@ func update_owner():
 		disconnect("pressed", self, "_on_pressed")
 		disconnect("focus_entered", self, "_on_focus_entered")
 		disconnect("focus_exited", self, "_on_focus_exited")
+
 
 func set_key_binding_number(position_of_event):
 	$KeyBindingLabelsContainer.pos_of_events = PoolIntArray([position_of_event])
