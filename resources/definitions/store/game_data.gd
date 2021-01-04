@@ -115,8 +115,11 @@ func update_fleet_arrival(fleet_dict : Dictionary):
 	fleet.update_fleet(fleet_dict)
 	if sailing_fleets.has(fleet.id):
 		sailing_fleets.erase(fleet.id)
-	get_system(fleet.system).fleet_arrive(fleet)
-	emit_signal("fleet_arrived", fleet)
+	var system = get_system(fleet.system)
+	var has_fleet = system.has_fleet(fleet.id)
+	system.fleet_arrive(fleet)
+	if not has_fleet:
+		emit_signal("fleet_arrived", fleet)
 
 
 func request_hangar_and_building(system : System):
