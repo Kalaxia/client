@@ -362,14 +362,12 @@ func _on_fleet_transfer(data : Dictionary):
 
 
 func _on_battle_started(data : Dictionary):
-	for faction in data.fleets.values():
-		for fleet in faction.values():
-			if _game_data.is_fleet_sailing(fleet):
-				_update_fleet_system_arrival(fleet)
-			var fleet_game_data = _game_data.get_fleet(fleet)
-			if fleet_game_data != null:
-				fleet_game_data.set_squadrons_dict(fleet.squadrons)
-	map.get_node(data.system).refresh_fleet_pins()
+	for fleet in data.fleets:
+		if _game_data.is_fleet_sailing(fleet):
+			_update_fleet_system_arrival(fleet)
+		var fleet_game_data = _game_data.get_fleet(fleet)
+		if fleet_game_data != null:
+			fleet_game_data.set_squadrons_dict(fleet.squadrons)
 	map.get_node(data.system).refresh_fleet_pins()
 
 
