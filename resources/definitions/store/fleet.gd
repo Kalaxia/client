@@ -126,4 +126,4 @@ func is_empty():
 
 
 func is_destroyed():
-	return is_empty()
+	return is_empty() and is_destroyed

@@ -61,7 +61,7 @@ func _ready():
 	Network.connect("FleetTransfer", self, "_on_fleet_transfer")
 	Network.connect("BattleStarted", self, "_on_battle_started")
 	Network.connect("FleetJoinedBattle", self, "_on_fleet_joined_battle")
-	Network.connect("conquestStarted", self, "_on_conquest_started")
+	Network.connect("ConquestStarted", self, "_on_conquest_started")
 	hud.connect("request_main_menu", self, "_on_request_main_menu")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	limits = draw_systems()
@@ -296,18 +296,16 @@ func _on_system_conquerred(data : Dictionary):
 	var system = _game_data.get_system(data.system.id)
 	system.update(data.system)
 	if data.has("fleets"):
-		for faction in data.fleets.values():
-			for fleet_dict in faction.values():
-				_update_fleet_system_arrival(fleet_dict)
+		for fleet_dict in data.fleets:
+			_update_fleet_system_arrival(fleet_dict)
 	elif data.has("fleet"):
 		_update_fleet_system_arrival(data.fleet)
 	for fleet_system in system.fleets:
 		var is_fleet_destroyed = true
 		if data.has("fleets"):
-			for faction in data.fleets.values():
-				for fleet_dict in faction.values():
-					if fleet_dict.id == fleet_system:
-						is_fleet_destroyed = _game_data.get_fleet(fleet_dict).is_destroyed()
+			for fleet_dict in data.fleets:
+				if fleet_dict.id == fleet_system:
+					is_fleet_destroyed = _game_data.get_fleet(fleet_dict).is_destroyed()
 		elif data.has("fleet"):
 			if data.fleet.id == fleet_system:
 				is_fleet_destroyed = _game_data.get_fleet(data.fleet).is_destroyed()
@@ -372,6 +370,7 @@ func _on_battle_started(data : Dictionary):
 			if fleet_game_data != null:
 				fleet_game_data.set_squadrons_dict(fleet.squadrons)
 	map.get_node(data.system).refresh_fleet_pins()
+	map.get_node(data.system).refresh_fleet_pins()
 
 
 func _on_fleet_joined_battle(fleet : Dictionary):
@@ -379,7 +378,8 @@ func _on_fleet_joined_battle(fleet : Dictionary):
 
 
 func _on_conquest_started(data : Dictionary):
-	_update_fleet_system_arrival(data.fleet)
+	for fleet_dict in data.fleets:
+		_update_fleet_system_arrival(fleet_dict)
 	var system = _game_data.get_system(data.system)
 	system.conquest_started_at = data.started_at
 	system.conquest_ended_at = data.ended_at
