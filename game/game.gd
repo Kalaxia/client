@@ -62,6 +62,7 @@ func _ready():
 	Network.connect("BattleStarted", self, "_on_battle_started")
 	Network.connect("FleetJoinedBattle", self, "_on_fleet_joined_battle")
 	Network.connect("ConquestStarted", self, "_on_conquest_started")
+	Network.connect("ConquestCancelled", self, "_on_conquest_cancelled")
 	hud.connect("request_main_menu", self, "_on_request_main_menu")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	limits = draw_systems()
@@ -382,3 +383,8 @@ func _on_conquest_started(data : Dictionary):
 	system.conquest_started_at = data.started_at
 	system.conquest_ended_at = data.ended_at
 	map.get_node(data.system).refresh_fleet_pins()
+
+
+func _on_conquest_cancelled(data : Dictionary):
+	# for later to remove the animation
+	pass
