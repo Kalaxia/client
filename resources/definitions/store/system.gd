@@ -27,7 +27,8 @@ export(Array, Resource) var hangar setget set_hangar
 export(String) var game = null
 export(String) var id
 export(Array, Resource) var ship_queues setget set_ship_queues
-
+export(int) var conquest_started_at
+export(int) var conquest_ended_at
 
 func _init(dict = null).(dict):
 	pass
@@ -53,7 +54,7 @@ func load_dict(dict):
 
 
 func _get_dict_property_list() -> Array:
-	return ["player", "kind", "unreachable", "game", "id"]
+	return ["player", "kind", "unreachable", "game", "id", "conquest_started_at", "conquest_ended_at"]
 
 
 func add_fleet_dict(fleet_dict : Dictionary):

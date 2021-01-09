@@ -61,6 +61,7 @@ func _ready():
 	Network.connect("FleetTransfer", self, "_on_fleet_transfer")
 	Network.connect("BattleStarted", self, "_on_battle_started")
 	Network.connect("FleetJoinedBattle", self, "_on_fleet_joined_battle")
+	Network.connect("conquestStarted", self, "_on_conquest_started")
 	hud.connect("request_main_menu", self, "_on_request_main_menu")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	limits = draw_systems()
@@ -375,3 +376,11 @@ func _on_battle_started(data : Dictionary):
 
 func _on_fleet_joined_battle(fleet : Dictionary):
 	_update_fleet_system_arrival(fleet)
+
+
+func _on_conquest_started(data : Dictionary):
+	_update_fleet_system_arrival(data.fleet)
+	var system = _game_data.get_system(data.system)
+	system.conquest_started_at = data.started_at
+	system.conquest_ended_at = data.ended_at
+	map.get_node(data.system).refresh_fleet_pins()

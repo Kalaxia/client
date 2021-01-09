@@ -24,6 +24,8 @@ var _alpha = 1.0
 var _target_scale = scale_ratio
 var _current_scale = scale_ratio
 var _lock_fleet_pin_refresh = Utils.Lock.new()
+var _has_combat = false
+var _is_being_conqueried = false
 
 onready var light_glow_bg = $Star/Light2DGlowBG
 onready var star = $Star
@@ -108,6 +110,7 @@ func refresh_fleet_pins():
 			is_another_player_included[faction_id] = not _game_data.is_current_player(p)
 	var keys_sorted = player_dict.keys()
 	keys_sorted.sort()
+	_has_combat = keys_sorted.size() > 1
 	for index in range(keys_sorted.size()):
 		for player in player_dict[keys_sorted[index]]:
 			add_fleet_pin(player)

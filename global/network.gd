@@ -30,6 +30,7 @@ signal PlayerMoneyTransfer(data)
 signal FleetTransfer(data)
 signal BattleStarted(data)
 signal FleetJoinedBattle(fleet)
+signal conquestStarted(data)
 
 const MAX_CO_RETRIES = 5
 const TIME_BEFORE_CLOSE = 2.0
