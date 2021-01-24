@@ -63,7 +63,9 @@ margin_bottom = 31.0
 custom_styles/panel = ExtResource( 6 )
 text = "hud.scores"
 closable = false
+minimisable = true
 texture = SubResource( 1 )
+custom_style = null
 
 [node name="MenuBody" type="PanelContainer" parent="ScoresContainer/MenuContainer"]
 show_behind_parent = true

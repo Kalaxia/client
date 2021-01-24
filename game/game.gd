@@ -27,26 +27,30 @@ var _motion_camera = {
 var _game_data : GameData = Store.game_data
 
 onready var camera2D = $Camera2D
+# Camera inside the viewport of the map
+onready var camera_map_inner= $ParallaxBackground/ParallaxLayer0/CanvasLayer/VPContainer/Viewport/Camera2D
 onready var _target_zoom = camera2D.zoom
 onready var particles_nodes = [
 	$ParallaxBackground/ParallaxLayer1/Particles2D,
 	$ParallaxBackground/ParallaxLayer2/Particles2D,
 	$ParallaxBackground/ParallaxLayer3/Particles2D
 ]
-onready var map = $ParallaxBackground/ParallaxLayer0/Map
-onready var fleet_container = $ParallaxBackground/ParallaxLayer0/Map/FleetContainer
+onready var map = $ParallaxBackground/ParallaxLayer0/CanvasLayer/VPContainer/Viewport/Map
+onready var fleet_container = $ParallaxBackground/ParallaxLayer0/CanvasLayer/VPContainer/Viewport/Map/FleetContainer
 onready var background = $ParallaxBackground/Background
-onready var hud = $ParallaxBackground/HUD
+onready var hud = $ParallaxBackground/CanvasLayer/HUD
 onready var event_capturer = $ParallaxBackground/ParallaxLayer0/EventCapturer
-onready var sound_building = $ParallaxBackground/ParallaxLayer0/AudioParent/AudioStackingBuildingFinished
-onready var sound_ship_queue = $ParallaxBackground/ParallaxLayer0/AudioParent/AudioStackingShipQueueFinished
-
+onready var sound_building = $ParallaxBackground/ParallaxLayer0/CanvasLayer/AudioParent/AudioStackingBuildingFinished
+onready var sound_ship_queue = $ParallaxBackground/ParallaxLayer0/CanvasLayer/AudioParent/AudioStackingShipQueueFinished
+onready var map_viewport = $ParallaxBackground/ParallaxLayer0/CanvasLayer/VPContainer/Viewport
+onready var minimap_viewport = $ParallaxBackground/CanvasLayer/Minimap/ViewportContainer/Viewport
 
 func _ready():
+	event_capturer.connect("gui_input", self, "_on_gui_input")
+	minimap_viewport.world_2d = map_viewport.find_world_2d()
 	_game_data.update_player_me()
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
 	_game_data.connect("fleet_sailed", self, "_on_fleet_sailed")
-	event_capturer.connect("gui_input", self, "_on_gui_input")
 	Network.connect("BattleEnded", self, "_on_combat_ended")
 	Network.connect("PlayerIncome", self, "_on_player_income")
 	Network.connect("FleetCreated", self, "_on_remote_fleet_created")
@@ -70,6 +74,10 @@ func _ready():
 	camera2D.limit_top = (limits[1] - LIMITS_MARGIN - OS.get_window_size().y / 2.0) as int
 	camera2D.limit_right = (limits[2] + LIMITS_MARGIN + OS.get_window_size().x / 2.0) as int
 	camera2D.limit_bottom = (limits[3] + LIMITS_MARGIN + OS.get_window_size().y / 2.0) as int
+	camera_map_inner.limit_left = (limits[0] - LIMITS_MARGIN - OS.get_window_size().x / 2.0) as int
+	camera_map_inner.limit_top = (limits[1] - LIMITS_MARGIN - OS.get_window_size().y / 2.0) as int
+	camera_map_inner.limit_right = (limits[2] + LIMITS_MARGIN + OS.get_window_size().x / 2.0) as int
+	camera_map_inner.limit_bottom = (limits[3] + LIMITS_MARGIN + OS.get_window_size().y / 2.0) as int
 	_setup_particle()
 	_set_background_ratio()
 	# normaly by that point we have a systeme selected (see _ready of res://game/map/system.gd)
@@ -102,6 +110,7 @@ func _process(delta):
 		new_zoom.x = min(new_zoom.x, _target_zoom.x) if sign_vector.x > 0 else max(new_zoom.x, _target_zoom.x)
 		new_zoom.y = min(new_zoom.y, _target_zoom.y) if sign_vector.y > 0 else max(new_zoom.y, _target_zoom.y)
 		camera2D.zoom = new_zoom
+		camera_map_inner.zoom = new_zoom
 
 
 func _input(event):
@@ -239,6 +248,7 @@ func _set_camera_position(position_camera_set):
 	new_position.y = max(min(new_position.y, camera2D.limit_bottom - OS.get_window_size().y / 2.0 * camera2D.zoom.y), \
 			camera2D.limit_top + OS.get_window_size().y / 2.0 * camera2D.zoom.y)
 	camera2D.position = new_position
+	camera_map_inner.position = new_position
 
 
 func _on_request_main_menu():
