@@ -9,6 +9,7 @@ const _BASE_POSITION_PIN_SHIP = Vector2(-7.5, -50.0)
 const _SCALE_FACTOR_ON_HIGHLIGHT = 1.5
 const _SCALE_CHANGE_FACTOR = 5.0
 const SYSTEM_FLEET_PIN_SCENE = preload("res://game/map/system_fleet_pin.tscn")
+const SYSTEM_COMBAT_PIN_SCENE = preload("res://game/map/combat_pin.tscn")
 const SYSTEM_BUILDING_PIN_SCENE = preload("res://game/map/system_building_pin.tscn")
 const ASSETS = preload("res://resources/assets.tres")
 
@@ -23,6 +24,8 @@ var _alpha = 1.0
 var _target_scale = scale_ratio
 var _current_scale = scale_ratio
 var _lock_fleet_pin_refresh = Utils.Lock.new()
+var _has_combat = false
+var _is_being_conqueried = false
 
 onready var light_glow_bg = $Star/Light2DGlowBG
 onready var star = $Star
@@ -80,8 +83,6 @@ func select():
 func refresh_fleet_pins():
 	if not _lock_fleet_pin_refresh.try_lock():
 		return
-	var is_current_player_included = false
-	var is_another_player_included = false
 	for pin in fleet_pins.get_children():
 		pin.queue_free()
 	while fleet_pins.get_child_count() > 0:
@@ -90,14 +91,31 @@ func refresh_fleet_pins():
 			yield(node, "tree_exited")
 		else:
 			yield(Engine.get_main_loop(), "idle_frame")
+	var player_dict = {}
+	var is_current_player_included = {}
+	var is_another_player_included = {}
 	for fleet in system.fleets.values():
 		var p = _game_data.get_player(fleet.player)
-		if not is_current_player_included and _game_data.is_current_player(p):
-			is_current_player_included = true
-			add_fleet_pin(p, true)
-		elif not is_another_player_included and not _game_data.is_current_player(p):
-			is_another_player_included = true
-			add_fleet_pin(p)
+		var faction_id = p.faction.id
+		if player_dict.has(faction_id):
+			if _game_data.is_current_player(p) and not is_current_player_included[faction_id]:
+				is_current_player_included[faction_id] = true
+				player_dict[faction_id].push_front(p)
+			elif not _game_data.is_current_player(p) and not is_another_player_included[faction_id]:
+				is_another_player_included[faction_id] = true
+				player_dict[faction_id].push_back(p)
+		else:
+			player_dict[faction_id] = [p]
+			is_current_player_included[faction_id] = _game_data.is_current_player(p)
+			is_another_player_included[faction_id] = not _game_data.is_current_player(p)
+	var keys_sorted = player_dict.keys()
+	keys_sorted.sort()
+	_has_combat = keys_sorted.size() > 1
+	for index in range(keys_sorted.size()):
+		for player in player_dict[keys_sorted[index]]:
+			add_fleet_pin(player)
+		if index != keys_sorted.size() - 1:
+			add_combat_pin()
 	_lock_fleet_pin_refresh.unlock()
 
 
@@ -128,6 +146,10 @@ func add_fleet_pin(player, raise = false):
 	if raise:
 		fleet_pin.raise()
 
+
+func add_combat_pin():
+	var combat_pin = SYSTEM_COMBAT_PIN_SCENE.instance()
+	fleet_pins.add_child(combat_pin)
 
 func refresh():
 	_set_system_texture()

@@ -115,8 +115,11 @@ func update_fleet_arrival(fleet_dict : Dictionary):
 	fleet.update_fleet(fleet_dict)
 	if sailing_fleets.has(fleet.id):
 		sailing_fleets.erase(fleet.id)
-	get_system(fleet.system).fleet_arrive(fleet)
-	emit_signal("fleet_arrived", fleet)
+	var system = get_system(fleet.system)
+	var has_fleet = system.has_fleet(fleet.id)
+	system.fleet_arrive(fleet)
+	if not has_fleet:
+		emit_signal("fleet_arrived", fleet)
 
 
 func request_hangar_and_building(system : System):
@@ -253,3 +256,10 @@ func update_scores(scores_new) -> void:
 		push_error("update score with invalide data type")
 	emit_signal("changed")
 	emit_signal("score_updated")
+
+
+func is_fleet_sailing(fleet):
+	if fleet is String:
+		return sailing_fleets.has(fleet)
+	else:
+		return sailing_fleets.has(fleet.id)

@@ -27,7 +27,8 @@ export(Array, Resource) var hangar setget set_hangar
 export(String) var game = null
 export(String) var id
 export(Array, Resource) var ship_queues setget set_ship_queues
-
+export(int) var conquest_started_at
+export(int) var conquest_ended_at
 
 func _init(dict = null).(dict):
 	pass
@@ -53,7 +54,7 @@ func load_dict(dict):
 
 
 func _get_dict_property_list() -> Array:
-	return ["player", "kind", "unreachable", "game", "id"]
+	return ["player", "kind", "unreachable", "game", "id", "conquest_started_at", "conquest_ended_at"]
 
 
 func add_fleet_dict(fleet_dict : Dictionary):
@@ -64,6 +65,7 @@ func add_fleet_dict(fleet_dict : Dictionary):
 
 
 func add_fleet(fleet : Fleet):
+	# it is safe to add a fleet multiple time
 	var has_fleet = fleets.has(fleet.id)
 	_add_fleet_to_storage(fleet)
 	if not has_fleet:
@@ -131,6 +133,10 @@ func get_fleet(fleet_id : String):
 	return fleets[fleet_id] if fleets.has(fleet_id) else null
 
 
+func has_fleet(fleet):
+	return fleets.has(fleet.id) if fleet is Fleet else fleets.has(fleet)
+
+
 func update(dict : Dictionary):
 	load_dict(dict)
 	emit_signal("updated")
@@ -139,9 +145,11 @@ func update(dict : Dictionary):
 
 func fleet_arrive(fleet : Fleet): 
 	# game data call this and only game data should call this
+	var has_fleet = has_fleet(fleet)
 	_add_fleet_to_storage(fleet)
-	fleet.arrived()
-	emit_signal("fleet_arrived", fleet)
+	if not has_fleet:
+		fleet.arrived()
+		emit_signal("fleet_arrived", fleet)
 
 
 func building_contructed(building):
@@ -190,12 +198,15 @@ func set_ship_queues(new_ship_queues):
 
 
 func _add_fleet_to_storage(fleet):
+	if fleets.has(fleet.id) and fleets[fleet.id] != null:
+		fleets[fleet.id].disconnect("owner_updated", self, "_on_fleet_owner_updated")
 	fleets[fleet.id] = fleet
 	fleet.connect("owner_updated", self, "_on_fleet_owner_updated", [fleet])
 
 
-func _remove_fleet_from_storage(fleet):
-	var has_ereased = fleets.erase(fleet.id)
+func _remove_fleet_from_storage(fleet): 
+	var has_ereased = fleets.has(fleet.id)
+	fleets.erase(fleet.id)
 	if has_ereased:
 		fleet.disconnect("owner_updated", self, "_on_fleet_owner_updated")
 		fleet.on_fleet_erased()

@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/Combat.svg-7bc48d6baf86070df2c29c21a1955882.stex"
+
+[node name="CombatPin" type="MarginContainer"]
+mouse_filter = 2
+custom_constants/margin_right = 1
+custom_constants/margin_top = 1
+custom_constants/margin_left = 1
+custom_constants/margin_bottom = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="TextureRect" parent="."]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 19, 19 )
+mouse_filter = 2
+texture = SubResource( 1 )
+expand = true
+stretch_mode = 6

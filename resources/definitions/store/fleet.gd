@@ -13,7 +13,7 @@ export(String) var id = null
 export(String) var system = null
 export(String) var destination_system = null
 export(int) var destination_arrival_date
-
+export(bool) var is_destroyed = false
 
 func _init(dict = null).(dict):
 	pass
@@ -27,7 +27,7 @@ func load_dict(dict):
 
 
 func _get_dict_property_list():
-	return ["id", "system", "destination_system", "player", "destination_arrival_date"]
+	return ["id", "system", "destination_system", "player", "destination_arrival_date", "is_destroyed"]
 
 
 func update_fleet_owner(new_player):
@@ -112,3 +112,18 @@ func _remove_empty_squadron():
 	for ship_group in squadrons:
 		if ship_group.quantity == 0:
 			squadrons.erase(ship_group)
+
+
+func get_number_of_ships():
+	var number = 0
+	for squadron in squadrons:
+		number += squadron.quantity
+	return number
+
+
+func is_empty():
+	return get_number_of_ships() == 0
+
+
+func is_destroyed():
+	return is_empty() and is_destroyed

@@ -59,6 +59,10 @@ func _ready():
 	Network.connect("BuildingConstructed", self, "_on_building_constructed")
 	Network.connect("PlayerMoneyTransfer", self, "_on_money_transfer")
 	Network.connect("FleetTransfer", self, "_on_fleet_transfer")
+	Network.connect("BattleStarted", self, "_on_battle_started")
+	Network.connect("FleetJoinedBattle", self, "_on_fleet_joined_battle")
+	Network.connect("ConquestStarted", self, "_on_conquest_started")
+	Network.connect("ConquestCancelled", self, "_on_conquest_cancelled")
 	hud.connect("request_main_menu", self, "_on_request_main_menu")
 	get_tree().get_root().connect("size_changed", self, "_on_resize_window")
 	limits = draw_systems()
@@ -256,12 +260,13 @@ func _on_money_transfer(data : Dictionary):
 func _on_combat_ended(data : Dictionary):
 	for faction in data.fleets.values():
 		for fleet in faction.values():
-			if fleet.destination_system != null:
+			if fleet_container.has_node(fleet.id):
+				# maybe it is not necessary anymore
 				fleet_container.get_node(fleet.id).queue_free()
-			elif fleet.squadrons == null or fleet.squadrons == []:
+			var fleet_game_data = _game_data.get_fleet(fleet)
+			fleet_game_data.set_squadrons_dict(fleet.squadrons)
+			if fleet_game_data.is_destroyed():
 				_game_data.systems[fleet.system].erase_fleet_id(fleet.id)
-			else:
-				_game_data.get_fleet(fleet).set_squadrons_dict(fleet.squadrons)
 	map.get_node(data.system).refresh_fleet_pins()
 
 
@@ -290,9 +295,23 @@ func _on_fleet_arrival(fleet : Dictionary):
 func _on_system_conquerred(data : Dictionary):
 	# todo check selected fleet existance 
 	var system = _game_data.get_system(data.system.id)
-	system.erase_all_fleet()
 	system.update(data.system)
-	_update_fleet_system_arrival(data.fleet)
+	if data.has("fleets"):
+		for fleet_dict in data.fleets:
+			_update_fleet_system_arrival(fleet_dict)
+	elif data.has("fleet"):
+		_update_fleet_system_arrival(data.fleet)
+	for fleet_system in system.fleets:
+		var is_fleet_destroyed = true
+		if data.has("fleets"):
+			for fleet_dict in data.fleets:
+				if fleet_dict.id == fleet_system:
+					is_fleet_destroyed = _game_data.get_fleet(fleet_dict).is_destroyed()
+		elif data.has("fleet"):
+			if data.fleet.id == fleet_system:
+				is_fleet_destroyed = _game_data.get_fleet(data.fleet).is_destroyed()
+		if is_fleet_destroyed:
+			system.erase_fleet_id(fleet_system)
 	if data.system.player == _game_data.player.id:
 		_game_data.request_hangar(system)
 		_game_data.request_ship_queues(system)
@@ -341,3 +360,31 @@ func _on_fleet_transfer(data : Dictionary):
 			tr("game.receive_fleet.title"),
 			tr("game.receive_fleet.content %s") % _game_data.get_player(data.donator_id).username
 		)
+
+
+func _on_battle_started(data : Dictionary):
+	for fleet in data.fleets:
+		if _game_data.is_fleet_sailing(fleet):
+			_update_fleet_system_arrival(fleet)
+		var fleet_game_data = _game_data.get_fleet(fleet)
+		if fleet_game_data != null:
+			fleet_game_data.set_squadrons_dict(fleet.squadrons)
+	map.get_node(data.system).refresh_fleet_pins()
+
+
+func _on_fleet_joined_battle(fleet : Dictionary):
+	_update_fleet_system_arrival(fleet)
+
+
+func _on_conquest_started(data : Dictionary):
+	for fleet_dict in data.fleets:
+		_update_fleet_system_arrival(fleet_dict)
+	var system = _game_data.get_system(data.system)
+	system.conquest_started_at = data.started_at
+	system.conquest_ended_at = data.ended_at
+	map.get_node(data.system).refresh_fleet_pins()
+
+
+func _on_conquest_cancelled(data : Dictionary):
+	# for later to remove the animation
+	pass
