@@ -103,18 +103,26 @@ func _process(delta):
 		new_zoom.y = min(new_zoom.y, _target_zoom.y) if sign_vector.y > 0 else max(new_zoom.y, _target_zoom.y)
 		camera2D.zoom = new_zoom
 
+func get_directions():
+	return {
+		"left": Vector2.LEFT,
+		"right": Vector2.RIGHT,
+		"up": Vector2.UP,
+		"down": Vector2.DOWN
+	}
+
+
+func direct_camera(event, value):
+	var directions = get_directions()
+	for d in directions: 
+		if event.is_action_released("ui_move_map_" + d):
+			_motion_camera[directions[d]] = value
+
 
 func _input(event):
 	# mouse event has priority on the GUI
 	if event is InputEventKey or event is InputEventMouseButton:
-		if event.is_action_released("ui_move_map_left"):
-			_motion_camera[Vector2.LEFT] = false
-		if event.is_action_released("ui_move_map_right"):
-			_motion_camera[Vector2.RIGHT] = false
-		if event.is_action_released("ui_move_map_up"):
-			_motion_camera[Vector2.UP] = false
-		if event.is_action_released("ui_move_map_down"):
-			_motion_camera[Vector2.DOWN] = false
+		direct_camera(event, false)
 		if event.is_action_released("ui_drag_map"):
 			_is_map_being_dragged = false
 	elif event is InputEventMouseMotion:
@@ -126,14 +134,7 @@ func _input(event):
 func _unhandled_input(event):
 	# key events has not priority over gui
 	if event is InputEventKey or event is InputEventMouseButton:
-		if event.is_action_pressed("ui_move_map_left"):
-			_motion_camera[Vector2.LEFT] = true
-		if event.is_action_pressed("ui_move_map_right"):
-			_motion_camera[Vector2.RIGHT] = true
-		if event.is_action_pressed("ui_move_map_up"):
-			_motion_camera[Vector2.UP] = true
-		if event.is_action_pressed("ui_move_map_down"):
-			_motion_camera[Vector2.DOWN] = true
+		direct_camera(event, true)
 		if event.is_action("ui_map_center_system"):
 			center_on_selected_system()
 
@@ -213,14 +214,17 @@ func _on_fleet_sailed(fleet):
 	fleet_container.add_child(sailing_fleet)
 
 
+func _get_camera_zoom(axis, factor, max_zoom_factor_fit):
+	return clamp(axis * factor, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR), \
+		pow(_ZOOM_FACTOR, min(_MAX_ZOOM_FACTOR, max_zoom_factor_fit)))
+
+
 func _zoom_camera(factor):
 	var max_screen_size = Vector2(camera2D.limit_right - camera2D.limit_left, camera2D.limit_bottom - camera2D.limit_top)
 	var max_zoom_factor_fit = floor(min(log(max_screen_size.x / OS.window_size.x), \
 			log(max_screen_size.y / OS.window_size.y)) / log(_ZOOM_FACTOR))
-	_target_zoom.x = clamp(camera2D.zoom.x * factor, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR), \
-			pow(_ZOOM_FACTOR, min(_MAX_ZOOM_FACTOR, max_zoom_factor_fit)))
-	_target_zoom.y = clamp(camera2D.zoom.y * factor, pow(_ZOOM_FACTOR, _MIN_ZOOM_FACTOR), \
-			pow(_ZOOM_FACTOR, min(_MAX_ZOOM_FACTOR, max_zoom_factor_fit)))
+	_target_zoom.x = _get_camera_zoom(camera2D.zoom.x, factor, max_zoom_factor_fit)
+	_target_zoom.y = _get_camera_zoom(camera2D.zoom.y, factor, max_zoom_factor_fit)
 
 
 func _move_camera(vector):

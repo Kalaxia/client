@@ -88,9 +88,7 @@ func toogle_menu(menu_toogled):
 
 
 func get_menu(menu):
-	if menus.has(menu):
-		return menus[menu]
-	return null
+	return menus[menu] if menus.has(menu) else null
 
 
 func _remove_menu(node):

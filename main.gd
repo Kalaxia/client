@@ -54,10 +54,8 @@ func change_scene_loading(load_queue_param):
 	change_level(scenes.loading.scene)
 	var loading_node = $Level.get_child(0)
 	loading_node.load_queue = load_queue_param
-	if not loading_node.is_connected("ressource_loaded", self, "_on_ressource_loaded"):
-		loading_node.connect("ressource_loaded", self, "_on_ressource_loaded")
-	if not loading_node.is_connected("finished", self, "_on_load_finished"):
-		loading_node.connect("finished", self, "_on_load_finished")
+	for e in ["ressource_loaded", "finished"]:
+		Utils.unique_external_connect(loading_node, e, self, "_on_" + e)
 
 
 func _on_ressource_loaded(ressource_name, ressource):
@@ -95,6 +93,5 @@ func _on_locale_reloaded():
 
 
 func _set_is_in_game(is_in_game_new):
-	if is_in_game_new == _is_in_game:
-		return
-	_is_in_game = is_in_game_new
+	if _is_in_game != is_in_game_new:
+		_is_in_game = is_in_game_new

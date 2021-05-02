@@ -104,13 +104,12 @@ func _on_ship_construction_started(ship_queue : ShipQueue):
 
 
 func select_group(category):
-	if hangar_element.has_node(category.category):
-		for node in hangar_element.get_children():
-			if node.name != category.category:
-				node.is_selected = false
-			else:
-				node.is_selected = true
-				ship_order_element.ship_category = category
+	if not hangar_element.has_node(category.category):
+		return
+	for node in hangar_element.get_children():
+		node.is_selected = node.name == category.category
+		if node.is_selected:
+			ship_order_element.ship_category = category
 
 
 func set_ship_queue_array(new_array):

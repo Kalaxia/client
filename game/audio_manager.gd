@@ -7,12 +7,14 @@ func _ready():
 
 
 func _on_building_finished_audio(building):
-	var system = Store.game_data.get_system(building.system)
-	if Store.game_data.does_belong_to_current_player(system):
-		$AudioStackingBuildingFinished.play_sound_positioned(system.coordinates * Utils.SCALE_SYSTEMS_COORDS)
+	play_system_sound(building.system)
 
 
 func _on_ship_queue_finished_audio(ship_queue):
-	var system = Store.game_data.get_system(ship_queue.system)
+	play_system_sound(ship_queue.system)
+
+
+func play_system_sound(system_id):
+	var system = Store.game_data.get_system(system_id)
 	if Store.game_data.does_belong_to_current_player(system):
 		$AudioStackingShipQueueFinished.play_sound_positioned(system.coordinates * Utils.SCALE_SYSTEMS_COORDS)

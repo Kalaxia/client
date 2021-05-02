@@ -20,10 +20,8 @@ var _is_pressed = false
 
 
 func _ready():
-	if not is_connected("mouse_entered", self, "_on_mouse_entered"):
-		connect("mouse_entered", self, "_on_mouse_entered")
-	if not is_connected("mouse_exited", self, "_on_mouse_exited"):
-		connect("mouse_exited", self, "_on_mouse_exited")
+	Utils.unique_connect("mouse_entered", self, "_on_mouse_entered")
+	Utils.unique_connect("mouse_exited", self, "_on_mouse_exited")
 	update_style()
 
 

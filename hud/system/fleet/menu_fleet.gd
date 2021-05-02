@@ -82,9 +82,8 @@ func update_element_fleet():
 
 
 func set_fleet(new_fleet):
-	if fleet != null and fleet.is_connected("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships"):
+	if fleet != null:
 		fleet.disconnect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
-	if fleet != null and fleet.is_connected("fleet_erased", self, "_on_fleet_erased"):
 		fleet.disconnect("fleet_erased", self, "_on_fleet_erased")
 	fleet = new_fleet
 	_connect_fleet()
@@ -96,12 +95,9 @@ func set_fleet(new_fleet):
 
 
 func _connect_fleet():
-	if fleet == null:
-		return
-	if not fleet.is_connected("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships"):
-		fleet.connect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
-	if not fleet.is_connected("fleet_erased", self, "_on_fleet_erased"):
-		fleet.connect("fleet_erased", self, "_on_fleet_erased")
+	if fleet != null:
+		Utils.unique_connect("fleet_update_nb_ships", self, "_on_fleet_update_nb_ships")
+		Utils.unique_connect("fleet_erased", self, "_on_fleet_erased")
 
 
 func _on_fleet_erased():
@@ -126,14 +122,15 @@ func _on_fleet_update_nb_ships():
 
 func _on_ship_group_pressed(formation_param):
 	for node in grid_formation_container.get_children():
-		if node is ShipGroupCard: 
-			if node.formation_position != formation_param:
-				node.is_selected = false
+		if not node is ShipGroupCard: 
+			continue
+		if node.formation_position != formation_param:
+			node.is_selected = false
+		else:
+			if node.is_selected:
+				show_details(formation_param)
 			else:
-				if node.is_selected:
-					show_details(formation_param)
-				else:
-					hide_details()
+				hide_details()
 
 
 func show_details(formation_param):

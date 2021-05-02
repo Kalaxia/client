@@ -100,23 +100,22 @@ func _on_notification_added(notif):
 		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_building_status)
 		quit_button.visible = true
 
+func set_error_label(label):
+	set_state_label(STATE_NETWORK_ELEMENT.ERROR, label)
+	quit_button.visible = true
 
 func _on_timeout_auth():
 	if Network.token == null: 
-		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_network_status)
-		quit_button.visible = true
-	if not cached_data.dict_loaded[CachedResource.Resource_elements.FACTIONS]:
-		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_faction_status)
-		quit_button.visible = true
-	if not cached_data.dict_loaded[CachedResource.Resource_elements.SHIP_MODELS]:
-		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_ship_status)
-		quit_button.visible = true
-	if not cached_data.dict_loaded[CachedResource.Resource_elements.CONSTANTS]:
-		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_constant_status)
-		quit_button.visible = true
-	if not cached_data.dict_loaded[CachedResource.Resource_elements.BUILDING]:
-		set_state_label(STATE_NETWORK_ELEMENT.ERROR, label_building_status)
-		quit_button.visible = true
+		set_error_label(label_network_status)
+	var resources = {
+		"FACTIONS": label_faction_status,
+		"SHIP_MODELS": label_ship_status,
+		"CONSTANTS": label_constant_status,
+		"BUILDING": label_building_status
+	}
+	for r in resources:
+		if not cached_data.dict_loaded[r]:
+			set_error_label(resources[r])
 
 
 func _on_resource_loaded(res_name):

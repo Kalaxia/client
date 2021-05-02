@@ -33,19 +33,13 @@ func update_owner():
 	_update_composition_button_visibility()
 	update_quantity()
 	if _game_data.does_belong_to_current_player(fleet):
-		if not is_connected("pressed", self, "_on_pressed"):
-			connect("pressed", self, "_on_pressed")
-		if not is_connected("focus_entered", self, "_on_focus_entered"):
-			connect("focus_entered", self, "_on_focus_entered")
-		if not is_connected("focus_exited", self, "_on_focus_exited"):
-			connect("focus_exited", self, "_on_focus_exited")
+		Utils.unique_connect("pressed", self, "_on_pressed")
+		Utils.unique_connect("focus_entered", self, "_on_focus_entered")
+		Utils.unique_connect("focus_exited", self, "_on_focus_exited")
 	else:
-		if is_connected("pressed", self, "_on_pressed"):
-			disconnect("pressed", self, "_on_pressed")
-		if is_connected("focus_entered", self, "_on_focus_entered"):
-			disconnect("focus_entered", self, "_on_focus_entered")
-		if is_connected("focus_exited", self, "_on_focus_exited"):
-			disconnect("focus_exited", self, "_on_focus_exited")
+		disconnect("pressed", self, "_on_pressed")
+		disconnect("focus_entered", self, "_on_focus_entered")
+		disconnect("focus_exited", self, "_on_focus_exited")
 
 
 func set_key_binding_number(position_of_event):
