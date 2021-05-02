@@ -113,7 +113,7 @@ compile/windows/kalaxia.exe: $(source-files) $(version-file)
 compile/linux/kalaxia.x86_64: $(source-files) $(version-file)
 	$(godot) $(godot-flag) "Linux" $@
 
-version-short := $(shell $(git) $(describe) $(git-decribe-flag-long))
+version-short := $(shell $(git) $(describe) $(git-decribe-flag-short))
 .PHONY: itch-push-windows
 itch-push-windows:
 	$(butler) push compile/tmp/. kalaxia-contributors/kalaxia:windows-universal --userversion $(version-short)
