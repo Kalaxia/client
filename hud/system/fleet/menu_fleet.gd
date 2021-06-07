@@ -187,7 +187,7 @@ func _on_ship_assigned(err, response_code, _headers, body,\
 	if response_code != HTTPClient.RESPONSE_NO_CONTENT and response_code != HTTPClient.RESPONSE_CREATED:
 		return
 	var system = _game_data.get_system(fleet_param.system)
-	var squadron_on_system = system.get_squandron(ship_category)
+	var squadron_on_system = system.get_squadron(ship_category)
 	var previous_squadron = fleet_param.get_squadron(formation, ship_category)
 	var previous_quantity_in_hangar = squadron_on_system.quantity if squadron_on_system != null else 0
 	var previous_quantity = previous_squadron.quantity if previous_squadron != null else 0

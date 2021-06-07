@@ -350,7 +350,7 @@ func _on_ship_queue_finished(ship_data : Dictionary):
 
 func _on_building_constructed(building : Dictionary):
 	var system = _game_data.get_system(building.system)
-	system.building_contructed(Building.new(building))
+	system.building_constructed(Building.new(building))
 
 
 func _on_fleet_transfer(data : Dictionary):
@@ -381,8 +381,7 @@ func _on_conquest_started(data : Dictionary):
 	for fleet_dict in data.fleets:
 		_update_fleet_system_arrival(fleet_dict)
 	var system = _game_data.get_system(data.system)
-	system.conquest_started_at = data.started_at
-	system.conquest_ended_at = data.ended_at
+	system._on_conquest_started(data)
 	map.get_node(data.system).refresh_fleet_pins()
 
 

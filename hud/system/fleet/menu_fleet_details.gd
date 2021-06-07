@@ -18,7 +18,7 @@ func _ready():
 	ship_group_details.connect("ship_category_changed", self, "_on_ship_category_changed")
 	_update_element(fleet, formation, hangar)
 	_game_data.selected_state.connect("system_selected", self, "_on_system_selected")
-	_game_data.selected_state.connect("building_contructed", self, "_on_building_contructed")
+	_game_data.selected_state.connect("building_constructed", self, "_on_building_constructed")
 
 
 func _on_request_assignation(ship_category, quantity):
@@ -88,6 +88,6 @@ func upatde_build_ship():
 	ship_group_details.build_ships = system.has_shipyard()
 
 
-func _on_building_contructed(building):
+func _on_building_constructed(building):
 	if building.kind.kind == "shipyard":
 		ship_group_details.build_ships = true
