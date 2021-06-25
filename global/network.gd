@@ -31,6 +31,7 @@ signal FleetTransfer(data)
 signal BattleStarted(data)
 signal FleetJoinedBattle(fleet)
 signal ConquestStarted(data)
+signal ConquestUpdated(data)
 signal ConquestCancelled(data)
 
 const MAX_CO_RETRIES = 5
