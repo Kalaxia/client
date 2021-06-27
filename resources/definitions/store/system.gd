@@ -1,6 +1,7 @@
 class_name System
 extends DictResource
 
+signal battle_started(battle)
 signal battle_ended(battle)
 signal fleet_added(fleet)
 signal fleet_erased(fleet)
@@ -283,6 +284,10 @@ func has_buildind(kind_param):
 				(kind_param is KalaxiaBuilding and building.kind == kind_param):
 			return true
 	return false
+
+
+func on_battle_started(battle):
+	emit_signal("battle_started", battle)
 
 
 func on_battle_ended(battle):

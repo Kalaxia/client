@@ -371,7 +371,8 @@ func _on_battle_started(data : Dictionary):
 			var fleet_game_data = _game_data.get_fleet(fleet)
 			if fleet_game_data != null:
 				fleet_game_data.set_squadrons_dict(fleet.squadrons)
-	map.get_node(data.system).refresh_fleet_pins()
+	var system = _game_data.get_system(data.system)
+	system.on_battle_started(data)
 
 
 func _on_fleet_joined_battle(fleet : Dictionary):

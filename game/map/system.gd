@@ -324,6 +324,8 @@ func get_color_of_system():
 func _connect_system(system_p = system):
 	if system_p  == null:
 		return
+	if not system_p.is_connected("battle_started", self, "_on_battle_started"):
+		system_p.connect("battle_started", self, "_on_battle_started")
 	if not system_p.is_connected("battle_ended", self, "_on_battle_ended"):
 		system_p.connect("battle_ended", self, "_on_battle_ended")
 	if not system_p.is_connected("fleet_added", self, "_on_fleet_created"):
@@ -350,6 +352,8 @@ func _connect_system(system_p = system):
 func _disconnect_system(system_p = system):
 	if system_p  == null:
 		return
+	if system_p.is_connected("battle_started", self, "_on_battle_started"):
+		system_p.disconnect("battle_started", self, "_on_battle_started")
 	if system_p.is_connected("battle_ended", self, "_on_battle_ended"):
 		system_p.disconnect("battle_ended", self, "_on_battle_ended")
 	if system_p.is_connected("fleet_added", self, "_on_fleet_created"):
@@ -392,8 +396,40 @@ func _on_building_updated():
 	refresh_building_pins()
 
 
+func _on_battle_started(battle):
+	_has_combat = true
+	var factions = []
+	
+	for faction in battle.fleets:
+		if !factions.has(faction):
+			add_battle_party(battle.fleets[faction].values()[0].player)
+			factions.push_back(faction)
+	
+	refresh_fleet_pins()
+
+
+# @TODO : use faction_id instead
+func add_battle_party(player_id):
+	var animation = CPUParticles2D.new()
+	animation.set_name("BattleAnimation" + player_id)
+	animation.amount = 8
+	animation.spread = 180
+	animation.gravity = Vector2(0,0)
+	animation.emission_shape = animation.EMISSION_SHAPE_SPHERE
+	animation.emission_sphere_radius = 21
+	animation.initial_velocity = 10
+	
+	animation.color = _game_data.get_player_color(_game_data.get_player(player_id))
+	
+	add_child(animation)
+	animation.add_to_group("battle_animations")
+
+
 func _on_battle_ended(battle):
 	_has_combat = false
+	
+	for animation in get_tree().get_nodes_in_group("battle_animations"):
+		animation.queue_free()
 	
 	refresh_fleet_pins()
 
