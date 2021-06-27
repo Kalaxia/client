@@ -267,7 +267,8 @@ func _on_combat_ended(data : Dictionary):
 			fleet_game_data.set_squadrons_dict(fleet.squadrons)
 			if fleet_game_data.is_destroyed():
 				_game_data.systems[fleet.system].erase_fleet_id(fleet.id)
-	map.get_node(data.system).refresh_fleet_pins()
+	var system = _game_data.get_system(data.system)
+	system.on_battle_ended(data)
 
 
 func _on_player_income(data : Dictionary):
@@ -321,7 +322,7 @@ func _on_system_conquerred(data : Dictionary):
 		system.set_buildings([])
 		system.set_hangar([])
 		system.ship_queues = []
-	system.on_conquerred()
+	system.on_conquest_success()
 	map.get_node(data.system.id).refresh() # todo container
 
 
@@ -350,7 +351,7 @@ func _on_ship_queue_finished(ship_data : Dictionary):
 
 func _on_building_constructed(building : Dictionary):
 	var system = _game_data.get_system(building.system)
-	system.building_contructed(Building.new(building))
+	system.building_constructed(Building.new(building))
 
 
 func _on_fleet_transfer(data : Dictionary):
@@ -370,7 +371,8 @@ func _on_battle_started(data : Dictionary):
 			var fleet_game_data = _game_data.get_fleet(fleet)
 			if fleet_game_data != null:
 				fleet_game_data.set_squadrons_dict(fleet.squadrons)
-	map.get_node(data.system).refresh_fleet_pins()
+	var system = _game_data.get_system(data.system)
+	system.on_battle_started(data)
 
 
 func _on_fleet_joined_battle(fleet : Dictionary):
@@ -381,11 +383,10 @@ func _on_conquest_started(data : Dictionary):
 	for fleet_dict in data.fleets:
 		_update_fleet_system_arrival(fleet_dict)
 	var system = _game_data.get_system(data.system)
-	system.conquest_started_at = data.started_at
-	system.conquest_ended_at = data.ended_at
+	system.on_conquest_started(data)
 	map.get_node(data.system).refresh_fleet_pins()
 
 
 func _on_conquest_cancelled(data : Dictionary):
-	# for later to remove the animation
-	pass
+	var system = _game_data.get_system(data.system)
+	system.on_conquest_cancelled()

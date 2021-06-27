@@ -1,6 +1,8 @@
 class_name System
 extends DictResource
 
+signal battle_started(battle)
+signal battle_ended(battle)
 signal fleet_added(fleet)
 signal fleet_erased(fleet)
 signal building_updated()
@@ -8,12 +10,15 @@ signal hangar_updated(hangar)
 signal system_owner_updated()
 signal updated()
 signal fleet_arrived(fleet)
-signal building_contructed(building) # todo selected system state
+signal building_constructed(building) # todo selected system state
 signal fleet_owner_updated(fleet)
 signal ship_queue_finished(ship_group)
 signal ship_queue_added(ship_queue)
 signal ship_queue_removed(ship_queue) # emited when a ship_queue is removed but not finished
-signal conquerred()
+signal conquest_started(conquest)
+signal conquest_updated(conquest)
+signal conquest_cancelled()
+signal conquest_success()
 
 const MAX_NUMBER_OF_BUILDING = 1
 
@@ -152,9 +157,9 @@ func fleet_arrive(fleet : Fleet):
 		emit_signal("fleet_arrived", fleet)
 
 
-func building_contructed(building):
+func building_constructed(building):
 	add_building_to_system(building)
-	emit_signal("building_contructed", building)
+	emit_signal("building_constructed", building)
 
 
 func _on_fleet_owner_updated(fleet):
@@ -216,7 +221,7 @@ func _remove_fleet_from_storage(fleet):
 
 
 func add_quantity_hangar(ship_category : ShipModel, quantity): # can accepet negative numbers
-	var squadron = get_squandron(ship_category)
+	var squadron = get_squadron(ship_category)
 	if squadron != null:
 		if squadron.quantity + quantity < 0:
 			return false
@@ -241,7 +246,7 @@ func add_quantity_hangar(ship_category : ShipModel, quantity): # can accepet neg
 func set_quantity_hangar(ship_category : ShipModel, quantity):
 	if quantity < 0:
 		return
-	var squadron = get_squandron(ship_category)
+	var squadron = get_squadron(ship_category)
 	if squadron != null:
 		squadron.quantity = quantity
 		if squadron.quantity == 0:
@@ -256,10 +261,10 @@ func set_quantity_hangar(ship_category : ShipModel, quantity):
 	emit_signal("changed")
 
 
-func get_squandron(ship_model : ShipModel):
-	for squandron in hangar:
-		if squandron.category == ship_model:
-			return squandron
+func get_squadron(ship_model : ShipModel):
+	for squadron in hangar:
+		if squadron.category == ship_model:
+			return squadron
 	return null
 
 
@@ -281,5 +286,42 @@ func has_buildind(kind_param):
 	return false
 
 
-func on_conquerred():
-	emit_signal("conquerred")
+func on_battle_started(battle):
+	emit_signal("battle_started", battle)
+
+
+func on_battle_ended(battle):
+	var remaining_fleets = {}
+	for faction_fleets in battle.fleets.values():
+		for fleet_id in faction_fleets:
+			remaining_fleets[fleet_id] = faction_fleets[fleet_id]
+			
+	for fleet_id in fleets:
+		if remaining_fleets.has(fleet_id):
+			var fleet = fleets[fleet_id]
+			fleet.set_squadrons_dict(remaining_fleets[fleet_id].squadrons)
+		else:
+			_remove_fleet_from_storage(fleets[fleet_id])
+	
+	emit_signal("battle_ended", battle)
+
+
+func on_conquest_started(conquest):
+	conquest_started_at = conquest.started_at
+	conquest_ended_at = conquest.ended_at
+	emit_signal("conquest_started", conquest)
+
+
+func on_conquest_updated(conquest):
+	conquest_started_at = conquest.started_at
+	conquest_ended_at = conquest.ended_at
+	emit_signal("conquest_updated", conquest)
+
+
+func on_conquest_success():
+	emit_signal("conquest_success")
+
+
+func on_conquest_cancelled():
+	print("Cancel conquest signal received")
+	emit_signal("conquest_cancelled")

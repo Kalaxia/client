@@ -25,7 +25,7 @@ var _target_scale = scale_ratio
 var _current_scale = scale_ratio
 var _lock_fleet_pin_refresh = Utils.Lock.new()
 var _has_combat = false
-var _is_being_conqueried = false
+var _is_being_conquerred = false
 
 onready var light_glow_bg = $Star/Light2DGlowBG
 onready var star = $Star
@@ -64,6 +64,8 @@ func _process(delta):
 	_time += delta
 	_process_modulate_alpha(delta)
 	_process_modulate_scale(delta)
+	if _is_being_conquerred && !_has_combat:
+		progress_conquest(delta)
 
 
 func set_system(new_system):
@@ -206,18 +208,21 @@ func _set_crown_state():
 
 
 func _set_glow_effet():
-	var is_victory_system = system.kind == "VictorySystem"
-	light_glow_bg.visible = is_victory_system
-	if is_victory_system:
+	light_glow_bg.visible = _is_victory_system()
+	if light_glow_bg.visible:
 		var color = get_color_of_system()
 		light_glow_bg.color = color
 
 
-func _set_system_texture():
+func _get_system_texture() -> Texture:
 	var faction = ASSETS.factions[0.0]
 	if system.player:
 		faction = _game_data.get_player(system.player).faction
-	spot.texture = faction.picto.system_by_kind(system.kind)
+	return faction.picto.system_by_kind(system.kind)
+
+
+func _set_system_texture():
+	spot.texture = _get_system_texture()
 
 
 func _scale_star_system(factor):
@@ -230,6 +235,9 @@ func _set_pins_positions(factor):
 	# we need set the position taking into account the size
 	building_pins.rect_position = _BASE_POSITION_PIN_BUILDING * factor * scale_ratio
 
+
+func _is_victory_system():
+	return system.kind == "VictorySystem"
 
 func _set_target_scale(factor):
 	_target_scale = factor
@@ -307,7 +315,7 @@ func set_scale_ratio(new_factor : float):
 
 
 func get_color_of_system():
-	var is_victory_system = system.kind == "VictorySystem"
+	var is_victory_system = _is_victory_system()
 	return _game_data.get_player_color(null, is_victory_system) \
 			if system.player == null \
 			else _game_data.get_player_color(_game_data.get_player(system.player), is_victory_system)
@@ -316,35 +324,59 @@ func get_color_of_system():
 func _connect_system(system_p = system):
 	if system_p  == null:
 		return
+	if not system_p.is_connected("battle_started", self, "_on_battle_started"):
+		system_p.connect("battle_started", self, "_on_battle_started")
+	if not system_p.is_connected("battle_ended", self, "_on_battle_ended"):
+		system_p.connect("battle_ended", self, "_on_battle_ended")
 	if not system_p.is_connected("fleet_added", self, "_on_fleet_created"):
 		system_p.connect("fleet_added", self, "_on_fleet_created")
 	if not system_p.is_connected("hangar_updated", self, "_on_hangar_updated"):
 		system_p.connect("hangar_updated", self, "_on_hangar_updated")
 	if not system_p.is_connected("building_updated", self, "_on_building_updated"):
 		system_p.connect("building_updated", self, "_on_building_updated")
-	if not system_p.is_connected("building_contructed", self, "_on_building_contructed"):
-		system_p.connect("building_contructed", self, "_on_building_contructed")
+	if not system_p.is_connected("building_constructed", self, "_on_building_constructed"):
+		system_p.connect("building_constructed", self, "_on_building_constructed")
 	if not system_p.is_connected("fleet_owner_updated", self, "_on_fleet_owner_updated"):
 		system_p.connect("fleet_owner_updated", self, "_on_fleet_owner_updated")
+	if not system_p.is_connected("conquest_started", self, "_on_conquest_started"):
+		system_p.connect("conquest_started", self, "_on_conquest_started")
+	if not system_p.is_connected("conquest_updated", self, "_on_conquest_updated"):
+		system_p.connect("conquest_updated", self, "_on_conquest_updated")
+	if not system_p.is_connected("conquest_success", self, "_on_conquest_success"):
+		system_p.connect("conquest_success", self, "_on_conquest_success")
+	if not system_p.is_connected("conquest_cancelled", self, "_on_conquest_cancelled"):
+		system_p.connect("conquest_cancelled", self, "_on_conquest_cancelled")
 	
 
 
 func _disconnect_system(system_p = system):
 	if system_p  == null:
 		return
+	if system_p.is_connected("battle_started", self, "_on_battle_started"):
+		system_p.disconnect("battle_started", self, "_on_battle_started")
+	if system_p.is_connected("battle_ended", self, "_on_battle_ended"):
+		system_p.disconnect("battle_ended", self, "_on_battle_ended")
 	if system_p.is_connected("fleet_added", self, "_on_fleet_created"):
 		system_p.disconnect("fleet_added", self, "_on_fleet_created")
 	if system_p.is_connected("hangar_updated", self, "_on_hangar_updated"):
 		system_p.disconnect("hangar_updated", self, "_on_hangar_updated")
 	if system_p.is_connected("building_updated", self, "_on_building_updated"):
 		system_p.disconnect("building_updated", self, "_on_building_updated")
-	if system_p.is_connected("building_contructed", self, "_on_building_contructed"):
-		system_p.disconnect("building_contructed", self, "_on_building_contructed")
+	if system_p.is_connected("building_constructed", self, "_on_building_constructed"):
+		system_p.disconnect("building_constructed", self, "_on_building_constructed")
 	if system_p.is_connected("fleet_owner_updated", self, "_on_fleet_owner_updated"):
 		system_p.disconnect("fleet_owner_updated", self, "_on_fleet_owner_updated")
+	if system_p.is_connected("conquest_started", self, "_on_conquest_started"):
+		system_p.disconnect("conquest_started", self, "_on_conquest_started")
+	if system_p.is_connected("conquest_updated", self, "_on_conquest_updated"):
+		system_p.disconnect("conquest_updated", self, "_on_conquest_updated")
+	if system_p.is_connected("conquest_success", self, "_on_conquest_success"):
+		system_p.disconnect("conquest_success", self, "_on_conquest_success")
+	if system_p.is_connected("conquest_cancelled", self, "_on_conquest_cancelled"):
+		system_p.disconnect("conquest_cancelled", self, "_on_conquest_cancelled")
 
 
-func _on_building_contructed(building):
+func _on_building_constructed(building):
 	Audio.building_constructed_audio(building)
 
 
@@ -362,3 +394,95 @@ func _on_hangar_updated(_ship_group_hangar):
 
 func _on_building_updated():
 	refresh_building_pins()
+
+
+func _on_battle_started(battle):
+	_has_combat = true
+	var factions = []
+	
+	for faction in battle.fleets:
+		if !factions.has(faction):
+			add_battle_party(battle.fleets[faction].values()[0].player)
+			factions.push_back(faction)
+	
+	refresh_fleet_pins()
+
+
+# @TODO : use faction_id instead
+func add_battle_party(player_id):
+	var animation = CPUParticles2D.new()
+	animation.set_name("BattleAnimation" + player_id)
+	animation.amount = 8
+	animation.spread = 180
+	animation.gravity = Vector2(0,0)
+	animation.emission_shape = animation.EMISSION_SHAPE_SPHERE
+	animation.emission_sphere_radius = 21
+	animation.initial_velocity = 10
+	
+	animation.color = _game_data.get_player_color(_game_data.get_player(player_id))
+	
+	add_child(animation)
+	animation.add_to_group("battle_animations")
+
+
+func _on_battle_ended(battle):
+	_has_combat = false
+	
+	for animation in get_tree().get_nodes_in_group("battle_animations"):
+		animation.queue_free()
+	
+	refresh_fleet_pins()
+
+
+func _on_conquest_started(conquest):
+	var is_victory_system = _is_victory_system()
+	
+	var progress = TextureProgress.new()
+	progress.set_name("ConquestProgress")
+	progress.set_scale(Vector2(0.15, 0.15))
+	progress.max_value = get_conquest_duration(conquest)
+	progress.fill_mode = TextureProgress.FILL_CLOCKWISE
+	progress.texture_under = _get_system_texture()
+	progress.texture_progress = _get_system_texture()
+	progress.tint_under = get_color_of_system()
+	progress.tint_progress = _game_data.get_player_color(_game_data.get_player(conquest.player), is_victory_system)
+	
+	$Star.add_child(progress)
+	$Star/Spot.visible = false
+	
+	_is_being_conquerred = true
+
+
+func _on_conquest_updated(conquest):
+	var progress = $Star.get_node("ConquestProgress")
+	var conquest_duration = get_conquest_duration(conquest)
+	progress.max_value = conquest_duration
+	progress.value = 0
+
+
+func _on_conquest_success():
+	_is_being_conquerred = false
+	
+	var progress = $Star/ConquestProgress
+	progress.set_name("OverConquestProgress")
+	progress.queue_free()
+	$Star/Spot.visible = true
+
+
+func _on_conquest_cancelled():
+	_is_being_conquerred = false
+	
+	var progress = $Star/ConquestProgress
+	progress.set_name("OverConquestProgress")
+	progress.queue_free()
+	$Star/Spot.visible = true
+
+
+func get_conquest_duration(conquest):
+	return conquest.ended_at - conquest.started_at
+
+
+func progress_conquest(delta):
+	var progress = $Star/ConquestProgress
+	if progress != null:
+		progress.value += delta * 1000

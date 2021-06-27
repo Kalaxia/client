@@ -14,7 +14,7 @@ signal fleet_updated()
 signal fleet_added(fleet)
 signal fleet_erased(fleet)
 signal building_updated()
-signal building_contructed(building)
+signal building_constructed(building)
 signal hangar_updated(hangar)
 signal system_owner_updated()
 signal system_updated()
@@ -23,7 +23,7 @@ signal system_fleet_owner_updated(fleet)
 signal ship_queue_finished(ship_group)
 signal ship_queue_added(ship_queue)
 signal ship_queue_removed(ship_queue)
-signal conquerred()
+signal conquest_success()
 
 export(Resource) var selected_system = null setget select_system
 export(Resource) var selected_fleet = null setget select_fleet
@@ -134,10 +134,10 @@ func _disconnect_system(system : System):
 		system.disconnect("ship_queue_added", self, "_on_ship_queue_added")
 	if system.is_connected("ship_queue_removed", self, "_on_ship_queue_removed"):
 		system.disconnect("ship_queue_removed", self, "_on_ship_queue_removed")
-	if system.is_connected("building_contructed", self, "_on_building_contructed"):
-		system.disconnect("building_contructed", self, "_on_building_contructed")
-	if system.is_connected("conquerred", self, "_on_conquerred"):
-		system.disconnect("conquerred", self, "_on_conquerred")
+	if system.is_connected("building_constructed", self, "_on_building_constructed"):
+		system.disconnect("building_constructed", self, "_on_building_constructed")
+	if system.is_connected("conquest_success", self, "_on_conquest_success"):
+		system.disconnect("conquest_success", self, "_on_conquest_success")
 
 
 func _connect_system(system : System):
@@ -165,18 +165,18 @@ func _connect_system(system : System):
 		system.connect("ship_queue_added", self, "_on_ship_queue_added")
 	if not system.is_connected("ship_queue_removed", self, "_on_ship_queue_removed"):
 		system.connect("ship_queue_removed", self, "_on_ship_queue_removed")
-	if not system.is_connected("building_contructed", self, "_on_building_contructed"):
-		system.connect("building_contructed", self, "_on_building_contructed")
-	if not system.is_connected("conquerred", self, "_on_conquerred"):
-		system.connect("conquerred", self, "_on_conquerred")
+	if not system.is_connected("building_constructed", self, "_on_building_constructed"):
+		system.connect("building_constructed", self, "_on_building_constructed")
+	if not system.is_connected("conquest_success", self, "_on_conquest_success"):
+		system.connect("conquest_success", self, "_on_conquest_success")
 
 
-func _on_conquerred():
-	emit_signal("conquerred")
+func _on_conquest_success():
+	emit_signal("conquest_success")
 
 
-func _on_building_contructed(building):
-	emit_signal("building_contructed", building)
+func _on_building_constructed(building):
+	emit_signal("building_constructed", building)
 
 
 func _on_system_fleet_owner_updated(fleet):

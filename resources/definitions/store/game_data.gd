@@ -59,8 +59,8 @@ func get_system(system_id : String):
 	return systems[system_id] if systems.has(system_id) else null
 
 
-func get_player(payer_id : String):
-	return players[payer_id] if players.has(payer_id) else null
+func get_player(player_id : String):
+	return players[player_id] if players.has(player_id) else null
 
 
 func get_fleet(fleet : Dictionary):
