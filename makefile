@@ -1,6 +1,6 @@
 # change wiht your path of your editor
 godot-path =
-godot-name-executable-main = Godot_v3.2.3-stable
+godot-name-executable-main = Godot_v3.3-stable
 
 ifeq ($(OS),Windows_NT)
     console = powershell --comand
