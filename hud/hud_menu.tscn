@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://hud/hud_menu.gd" type="Script" id=1]
 [ext_resource path="res://.import/banner.png-74e88a02fde8130f5f843aba121c4815.res" type="Texture" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://hud/rounded_selectable_panel_left.gd" type="Script" id=4]
 [ext_resource path="res://hud/rounded_selectable_panel_right.gd" type="Script" id=5]
 
-[sub_resource type="Image" id=6]
+[sub_resource type="Image" id=7]
 data = {
 "data": PoolByteArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ),
 "format": "LumAlpha8",
@@ -18,7 +18,7 @@ data = {
 [sub_resource type="ImageTexture" id=2]
 flags = 4
 flags = 4
-image = SubResource( 6 )
+image = SubResource( 7 )
 size = Vector2( 16, 16 )
 
 [sub_resource type="StyleBoxTexture" id=3]
@@ -31,9 +31,13 @@ margin_bottom = 2.0
 
 [sub_resource type="StreamTexture" id=4]
 flags = 4
-load_path = "res://.import/money_64px.png-14695073b2b7bd4dbc437a5f1f5458b7.stex"
+load_path = "res://.import/combat.svg-330cedff7866d8046d53870e9578b4bc.stex"
 
 [sub_resource type="StreamTexture" id=5]
+flags = 4
+load_path = "res://.import/money_64px.png-14695073b2b7bd4dbc437a5f1f5458b7.stex"
+
+[sub_resource type="StreamTexture" id=6]
 flags = 4
 load_path = "res://.import/G_P_Logout_64px.png-96df486bc5e14ad2595297b93d598753.stex"
 
@@ -69,10 +73,6 @@ margin_bottom = 54.0
 size_flags_horizontal = 3
 custom_styles/panel = SubResource( 3 )
 script = ExtResource( 4 )
-base_style = null
-hover_style = null
-selected_style = null
-focus_style = null
 
 [node name="SelectablePanelContainer" type="PanelContainer" parent="HBoxContainer/ButtonContainerLeft"]
 margin_left = 260.0
@@ -101,8 +101,43 @@ mouse_filter = 2
 size_flags_horizontal = 3
 custom_constants/separation = 1
 
+[node name="CombatReport" type="PanelContainer" parent="HBoxContainer/ButtonContainerRight"]
+margin_right = 172.0
+margin_bottom = 54.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 3 )
+script = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/ButtonContainerRight/CombatReport"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 170.0
+margin_bottom = 52.0
+mouse_filter = 2
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ButtonContainerRight/CombatReport/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 158.0
+margin_bottom = 40.0
+mouse_filter = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/ButtonContainerRight/CombatReport/MarginContainer/HBoxContainer"]
+margin_right = 148.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 6
+
 [node name="SelectablePanelContainerFinance" type="PanelContainer" parent="HBoxContainer/ButtonContainerRight"]
-margin_right = 259.0
+margin_left = 173.0
+margin_right = 346.0
 margin_bottom = 54.0
 size_flags_horizontal = 3
 custom_styles/panel = SubResource( 3 )
@@ -111,7 +146,7 @@ script = ExtResource( 3 )
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/ButtonContainerRight/SelectablePanelContainerFinance"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 257.0
+margin_right = 171.0
 margin_bottom = 52.0
 mouse_filter = 2
 custom_constants/margin_right = 10
@@ -122,21 +157,21 @@ custom_constants/margin_bottom = 10
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ButtonContainerRight/SelectablePanelContainerFinance/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 245.0
+margin_right = 159.0
 margin_bottom = 40.0
 mouse_filter = 2
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/ButtonContainerRight/SelectablePanelContainerFinance/MarginContainer/HBoxContainer"]
-margin_right = 235.0
+margin_right = 149.0
 margin_bottom = 30.0
 size_flags_horizontal = 3
-texture = SubResource( 4 )
+texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
 [node name="SelectablePanelContainerMenu" type="PanelContainer" parent="HBoxContainer/ButtonContainerRight"]
-margin_left = 260.0
+margin_left = 347.0
 margin_right = 520.0
 margin_bottom = 54.0
 size_flags_horizontal = 3
@@ -150,7 +185,7 @@ focus_style = null
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/ButtonContainerRight/SelectablePanelContainerMenu"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 258.0
+margin_right = 171.0
 margin_bottom = 52.0
 mouse_filter = 2
 custom_constants/margin_right = 10
@@ -161,16 +196,16 @@ custom_constants/margin_bottom = 10
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ButtonContainerRight/SelectablePanelContainerMenu/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 246.0
+margin_right = 159.0
 margin_bottom = 40.0
 mouse_filter = 2
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/ButtonContainerRight/SelectablePanelContainerMenu/MarginContainer/HBoxContainer"]
-margin_right = 236.0
+margin_right = 149.0
 margin_bottom = 30.0
 size_flags_horizontal = 3
-texture = SubResource( 5 )
+texture = SubResource( 6 )
 expand = true
 stretch_mode = 6
 
