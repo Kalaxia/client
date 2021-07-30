@@ -111,6 +111,13 @@ func _closed(was_clean = false):
 	# by the remote peer before closing the socket.
 	print(tr("network.close_clean_ws"), was_clean)
 	set_process(false)
+	_ws_client.disconnect("connection_closed", self, "_closed")
+	_ws_client.disconnect("connection_error", self, "_closed")
+	_ws_client.disconnect("connection_established", self, "_connected")
+	_ws_client.disconnect("data_received", self, "_on_data")
+	_ws_client = WebSocketClient.new()
+	connect_ws()
+	set_process(true)
 
 
 func _connected(proto = ""):

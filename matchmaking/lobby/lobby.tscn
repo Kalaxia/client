@@ -28,29 +28,29 @@ __meta__ = {
 }
 
 [node name="Control2" type="Control" parent="GUI/Body"]
-margin_right = 30.0
+margin_right = 31.0
 margin_bottom = 1080.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.02
 
 [node name="GameSettings" type="VBoxContainer" parent="GUI/Body"]
-margin_left = 34.0
-margin_right = 321.0
+margin_left = 35.0
+margin_right = 295.0
 margin_bottom = 1080.0
 alignment = 1
 script = ExtResource( 5 )
 
 [node name="PanelContainer" type="PanelContainer" parent="GUI/Body/GameSettings"]
 margin_top = 428.0
-margin_right = 287.0
+margin_right = 260.0
 margin_bottom = 651.0
 rect_min_size = Vector2( 150, 0 )
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI/Body/GameSettings/PanelContainer"]
 margin_left = 3.0
 margin_top = 2.0
-margin_right = 284.0
+margin_right = 257.0
 margin_bottom = 221.0
 custom_constants/margin_right = 5
 custom_constants/margin_top = 5
@@ -60,19 +60,19 @@ custom_constants/margin_bottom = 5
 [node name="GameSettings" type="VBoxContainer" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 276.0
+margin_right = 249.0
 margin_bottom = 214.0
 custom_constants/separation = 30
 
 [node name="Label" type="Label" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings"]
-margin_right = 271.0
+margin_right = 244.0
 margin_bottom = 19.0
 text = "lobby.game_settings"
 align = 1
 
 [node name="HSeparator" type="HSeparator" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings"]
 margin_top = 49.0
-margin_right = 271.0
+margin_right = 244.0
 margin_bottom = 53.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -80,39 +80,39 @@ __meta__ = {
 
 [node name="Size" type="VBoxContainer" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings"]
 margin_top = 83.0
-margin_right = 271.0
+margin_right = 244.0
 margin_bottom = 131.0
 
 [node name="Label" type="Label" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings/Size"]
-margin_right = 271.0
+margin_right = 244.0
 margin_bottom = 19.0
 text = "lobby.game_settings.size"
 align = 1
 
 [node name="OptionButton" type="OptionButton" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings/Size"]
 margin_top = 23.0
-margin_right = 271.0
+margin_right = 244.0
 margin_bottom = 48.0
 disabled = true
-text = "lobby.game_settings.size.very_small"
+text = "lobby.game_settings.size.mini"
 align = 1
-items = [ "lobby.game_settings.size.very_small", null, false, 0, null, "lobby.game_settings.size.small", null, false, 1, null, "lobby.game_settings.size.medium", null, false, 2, null, "lobby.game_settings.size.large", null, false, 3, null, "lobby.game_settings.size.very_large", null, false, 4, null ]
+items = [ "lobby.game_settings.size.mini", null, false, 0, null, "lobby.game_settings.size.very_small", null, false, 1, null, "lobby.game_settings.size.small", null, false, 2, null, "lobby.game_settings.size.medium", null, false, 3, null, "lobby.game_settings.size.large", null, false, 4, null, "lobby.game_settings.size.very_large", null, false, 5, null ]
 selected = 0
 
 [node name="Speed" type="VBoxContainer" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings"]
 margin_top = 161.0
-margin_right = 271.0
+margin_right = 244.0
 margin_bottom = 209.0
 
 [node name="Label" type="Label" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings/Speed"]
-margin_right = 271.0
+margin_right = 244.0
 margin_bottom = 19.0
 text = "lobby.game_settings.speed"
 align = 1
 
 [node name="OptionButton" type="OptionButton" parent="GUI/Body/GameSettings/PanelContainer/MarginContainer/GameSettings/Speed"]
 margin_top = 23.0
-margin_right = 271.0
+margin_right = 244.0
 margin_bottom = 48.0
 disabled = true
 text = "lobby.game_settings.speed.slow"
@@ -121,15 +121,15 @@ items = [ "lobby.game_settings.speed.slow", null, false, 0, null, "lobby.game_se
 selected = 0
 
 [node name="Control3" type="Control" parent="GUI/Body"]
-margin_left = 325.0
-margin_right = 355.0
+margin_left = 299.0
+margin_right = 330.0
 margin_bottom = 1080.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.02
 
 [node name="BodyFaction" type="VBoxContainer" parent="GUI/Body"]
-margin_left = 359.0
+margin_left = 334.0
 margin_right = 1884.0
 margin_bottom = 1080.0
 size_flags_horizontal = 3
@@ -140,7 +140,7 @@ __meta__ = {
 }
 
 [node name="Header" type="HBoxContainer" parent="GUI/Body/BodyFaction"]
-margin_right = 1525.0
+margin_right = 1550.0
 margin_bottom = 267.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -148,9 +148,9 @@ size_flags_stretch_ratio = 0.5
 alignment = 1
 
 [node name="Name" type="Label" parent="GUI/Body/BodyFaction/Header"]
-margin_left = 762.0
+margin_left = 775.0
 margin_top = 124.0
-margin_right = 762.0
+margin_right = 775.0
 margin_bottom = 143.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -158,20 +158,20 @@ __meta__ = {
 
 [node name="Section" type="HBoxContainer" parent="GUI/Body/BodyFaction"]
 margin_top = 271.0
-margin_right = 1525.0
+margin_right = 1550.0
 margin_bottom = 377.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 
 [node name="Players" type="VBoxContainer" parent="GUI/Body/BodyFaction/Section"]
-margin_right = 1525.0
+margin_right = 1550.0
 margin_bottom = 106.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SectionColumn" type="HBoxContainer" parent="GUI/Body/BodyFaction"]
 margin_top = 381.0
-margin_right = 1525.0
+margin_right = 1550.0
 margin_bottom = 915.0
 size_flags_vertical = 3
 script = ExtResource( 3 )
@@ -179,36 +179,36 @@ script = ExtResource( 3 )
 [node name="FactionColumn0" parent="GUI/Body/BodyFaction/SectionColumn" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 378.0
+margin_right = 384.0
 margin_bottom = 534.0
 
 [node name="FactionColumn1" parent="GUI/Body/BodyFaction/SectionColumn" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 382.0
-margin_right = 760.0
+margin_left = 388.0
+margin_right = 773.0
 margin_bottom = 534.0
 faction = 1
 
 [node name="FactionColumn2" parent="GUI/Body/BodyFaction/SectionColumn" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 764.0
-margin_right = 1142.0
+margin_left = 777.0
+margin_right = 1161.0
 margin_bottom = 534.0
 faction = 2
 
 [node name="FactionColumn3" parent="GUI/Body/BodyFaction/SectionColumn" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 1146.0
-margin_right = 1525.0
+margin_left = 1165.0
+margin_right = 1550.0
 margin_bottom = 534.0
 faction = 3
 
 [node name="Footer" type="HBoxContainer" parent="GUI/Body/BodyFaction"]
 margin_top = 919.0
-margin_right = 1525.0
+margin_right = 1550.0
 margin_bottom = 1080.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.3
@@ -230,9 +230,9 @@ __meta__ = {
 }
 
 [node name="LeaveButton" type="Button" parent="GUI/Body/BodyFaction/Footer"]
-margin_left = 704.0
+margin_left = 716.0
 margin_top = 68.0
-margin_right = 821.0
+margin_right = 833.0
 margin_bottom = 93.0
 size_flags_vertical = 4
 text = "menu.lobby.quit"

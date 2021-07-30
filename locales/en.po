@@ -773,6 +773,10 @@ msgid "hud.details.buidlng.shipyard"
 msgstr "Shipyard"
 
 #: locales/strings.txt:62 matchmaking/lobby/lobby.tscn:97
+msgid "lobby.game_settings.size.mini"
+msgstr "mini"
+
+#: locales/strings.txt:62 matchmaking/lobby/lobby.tscn:97
 msgid "lobby.game_settings.size.very_small"
 msgstr "very small"
 

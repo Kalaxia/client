@@ -30,10 +30,13 @@ func _on_speed_selected(id):
 
 func _on_size_selected(id):
 	Store.lobby.option.map_size = LobbyOption.SIZE[id]
+	print(id)
+	print(LobbyOption.SIZE[id])
 	_pacth_game_setting(Store.lobby.option)
 
 
 func _pacth_game_setting(option = Store.lobby.option):
+	print(option.map_size)
 	Network.req(self, "_on_data_patched",
 		"/api/lobbies/" + Store.lobby.id + "/",
 		HTTPClient.METHOD_PATCH,
