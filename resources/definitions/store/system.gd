@@ -290,18 +290,10 @@ func on_battle_started(battle):
 	emit_signal("battle_started", battle)
 
 
-func on_battle_ended(battle):
-	var remaining_fleets = {}
-	for faction_fleets in battle.fleets.values():
-		for fleet_id in faction_fleets:
-			remaining_fleets[fleet_id] = faction_fleets[fleet_id]
-			
-	for fleet_id in fleets:
-		if remaining_fleets.has(fleet_id):
-			var fleet = fleets[fleet_id]
-			fleet.set_squadrons_dict(remaining_fleets[fleet_id].squadrons)
-		else:
-			_remove_fleet_from_storage(fleets[fleet_id])
+func on_battle_ended(battle, remaining_fleets):
+	for fleet_id in fleets.keys():
+		if !remaining_fleets.has(fleet_id):
+			erase_fleet_id(fleet_id)
 	
 	emit_signal("battle_ended", battle)
 
