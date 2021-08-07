@@ -425,7 +425,7 @@ func add_battle_party(player_id):
 	animation.add_to_group("battle_animations")
 
 
-func _on_battle_ended(battle):
+func _on_battle_ended(_battle):
 	_has_combat = false
 	
 	for animation in get_tree().get_nodes_in_group("battle_animations"):

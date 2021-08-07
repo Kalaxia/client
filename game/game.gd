@@ -258,17 +258,16 @@ func _on_money_transfer(data : Dictionary):
 
 
 func _on_combat_ended(data : Dictionary):
-	for faction in data.fleets.values():
-		for fleet in faction.values():
-			if fleet_container.has_node(fleet.id):
-				# maybe it is not necessary anymore
-				fleet_container.get_node(fleet.id).queue_free()
+	var remaining_fleets = []
+	for fleets in data.fleets.values():
+		for fleet in fleets.values():
 			var fleet_game_data = _game_data.get_fleet(fleet)
 			fleet_game_data.set_squadrons_dict(fleet.squadrons)
-			if fleet_game_data.is_destroyed():
-				_game_data.systems[fleet.system].erase_fleet_id(fleet.id)
-	var system = _game_data.get_system(data.system)
-	system.on_battle_ended(data)
+			fleet_game_data.is_destroyed = fleet.is_destroyed
+			if !fleet_game_data.is_destroyed():
+				remaining_fleets.append(fleet.id)
+				
+	_game_data.get_system(data.system).on_battle_ended(data, remaining_fleets)
 
 
 func _on_player_income(data : Dictionary):

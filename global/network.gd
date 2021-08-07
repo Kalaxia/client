@@ -111,6 +111,15 @@ func _closed(was_clean = false):
 	# by the remote peer before closing the socket.
 	print(tr("network.close_clean_ws"), was_clean)
 	set_process(false)
+	Network.req(self, "reconnect_player", "/api/players/me/")
+
+
+func reconnect_player(err, response_code, _headers, _body):
+	if err:
+		ErrorHandler.network_response_error(err)
+		return
+	if response_code != HTTPClient.RESPONSE_OK:
+		return
 	_ws_client.disconnect("connection_closed", self, "_closed")
 	_ws_client.disconnect("connection_error", self, "_closed")
 	_ws_client.disconnect("connection_established", self, "_connected")
