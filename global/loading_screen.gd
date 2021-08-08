@@ -1,6 +1,6 @@
 extends Control
 
-signal ressource_loaded(ressource_name, ressource)
+signal resource_loaded(resource_name, resource)
 signal finished()
 # warning-ignore:unused_signal
 signal scene_requested(scene) # not used used finished instead
@@ -27,15 +27,15 @@ var _number_of_element_to_load = 0
 var _current_loading_component_load = 0
 var cached_data : CachedResource
 
-onready var global_progressbar = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/GlobalProgress
-onready var ressource_progressbar = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/ProgressBar
-onready var loading_componenet_label = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/LoadingComponenet
+onready var global_progressbar = $Foreground/MarginContainer/VBoxContainer/resources/resourceLoading/GlobalProgress
+onready var resource_progressbar = $Foreground/MarginContainer/VBoxContainer/resources/resourceLoading/ProgressBar
+onready var loading_componenet_label = $Foreground/MarginContainer/VBoxContainer/resources/resourceLoading/LoadingComponenet
 onready var label_network_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerAuth/LabelAuth
 onready var label_faction_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerFaction/LabelFaction
 onready var timer_auth = $TimerAuth
 onready var quit_button = $Foreground/MarginContainer/VBoxContainer/VBoxContainer/QuitButton
-onready var label_loading_error = $Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/LoadingError
-onready var timer_res = $TimerRessource
+onready var label_loading_error = $Foreground/MarginContainer/VBoxContainer/resources/resourceLoading/LoadingError
+onready var timer_res = $Timerresource
 onready var label_constant_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerConstantes/LabelConstante
 onready var label_ship_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerShips/LabelShips
 onready var label_building_status = $Foreground/MarginContainer/VBoxContainer/Network/VBoxContainer/HBoxContainer/ContainerBuiilding/LabelBuilding
@@ -193,7 +193,7 @@ func _process(_delta):
 	if err == ERR_FILE_EOF: # Finished loading.
 		var resource = loader.get_resource()
 		load_queue[current_load_element].scene = resource
-		emit_signal("ressource_loaded", current_load_element, resource)
+		emit_signal("resource_loaded", current_load_element, resource)
 		loader = null
 		current_load_element = null
 		update_progress()
@@ -201,7 +201,7 @@ func _process(_delta):
 		pass
 	else: # error during loading
 		quit_button.visible = true
-		label_loading_error.text += (tr("global.loading.ressource.error %s %d") % [tr("global.loading.ressource." + current_load_element) ,err]) + "\n"
+		label_loading_error.text += (tr("global.loading.resource.error %s %d") % [tr("global.loading.resource." + current_load_element) ,err]) + "\n"
 		set_process(false)
 		loader = null
 		current_load_element = null
@@ -210,16 +210,16 @@ func _process(_delta):
 
 func update_progress():
 	if loader!= null :
-		ressource_progressbar.max_value = loader.get_stage_count()
-		ressource_progressbar.value = loader.get_stage()
-		ressource_progressbar.get_node("Label").text = tr("global.loading.progressbar_ressource %d %d") % [loader.get_stage(), loader.get_stage_count()]
+		resource_progressbar.max_value = loader.get_stage_count()
+		resource_progressbar.value = loader.get_stage()
+		resource_progressbar.get_node("Label").text = tr("global.loading.progressbar_resource %d %d") % [loader.get_stage(), loader.get_stage_count()]
 	else: 
-		ressource_progressbar.value = ressource_progressbar.max_value 
-		ressource_progressbar.get_node("Label").text = tr("global.loading.progressbar_ressource %d %d") % [ressource_progressbar.max_value, ressource_progressbar.max_value]
+		resource_progressbar.value = resource_progressbar.max_value 
+		resource_progressbar.get_node("Label").text = tr("global.loading.progressbar_resource %d %d") % [resource_progressbar.max_value, resource_progressbar.max_value]
 
 
 func update_global_progress():
-	loading_componenet_label.text = tr("global.loading.ressource." + current_load_element) if current_load_element != null else tr("global.loading.none_loading")
+	loading_componenet_label.text = tr("global.loading.resource." + current_load_element) if current_load_element != null else tr("global.loading.none_loading")
 	global_progressbar.max_value = _number_of_element_to_load
 	global_progressbar.value = _current_loading_component_load
 	global_progressbar.get_node("Label").text = tr("global.loading.progressbar_global %d %d") % [_current_loading_component_load, _number_of_element_to_load]

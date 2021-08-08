@@ -22,7 +22,7 @@ signal conquest_success()
 
 const MAX_NUMBER_OF_BUILDING = 1
 
-export(String) var player # ressource ?
+export(String) var player # resource ?
 export(String) var kind
 export(Vector2) var coordinates
 export(bool) var unreachable
