@@ -68,18 +68,18 @@ margin_right = 1807.0
 margin_bottom = 576.0
 rect_min_size = Vector2( 0, 50 )
 
-[node name="ressources" type="PanelContainer" parent="Foreground/MarginContainer/VBoxContainer"]
+[node name="Resources" type="PanelContainer" parent="Foreground/MarginContainer/VBoxContainer"]
 margin_top = 580.0
 margin_right = 1807.0
 margin_bottom = 741.0
 
-[node name="ressourceLoading" type="VBoxContainer" parent="Foreground/MarginContainer/VBoxContainer/ressources"]
+[node name="ResourceLoading" type="VBoxContainer" parent="Foreground/MarginContainer/VBoxContainer/Resources"]
 margin_left = 3.0
 margin_top = 2.0
 margin_right = 1804.0
 margin_bottom = 159.0
 
-[node name="Label" type="Label" parent="Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading"]
+[node name="Label" type="Label" parent="Foreground/MarginContainer/VBoxContainer/Resources/ResourceLoading"]
 margin_right = 1801.0
 margin_bottom = 19.0
 text = "global.loading.loading"
@@ -88,14 +88,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control" type="Control" parent="Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading"]
+[node name="Control" type="Control" parent="Foreground/MarginContainer/VBoxContainer/Resources/ResourceLoading"]
 margin_top = 23.0
 margin_right = 1801.0
 margin_bottom = 43.0
 rect_min_size = Vector2( 0, 20 )
 mouse_filter = 2
 
-[node name="GlobalProgress" type="ProgressBar" parent="Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading"]
+[node name="GlobalProgress" type="ProgressBar" parent="Foreground/MarginContainer/VBoxContainer/Resources/ResourceLoading"]
 margin_top = 47.0
 margin_right = 1801.0
 margin_bottom = 77.0
@@ -104,7 +104,7 @@ custom_styles/fg = SubResource( 2 )
 max_value = 1.0
 percent_visible = false
 
-[node name="Label" type="Label" parent="Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/GlobalProgress"]
+[node name="Label" type="Label" parent="Foreground/MarginContainer/VBoxContainer/Resources/ResourceLoading/GlobalProgress"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "0 / 0"
@@ -114,14 +114,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LoadingComponenet" type="Label" parent="Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading"]
+[node name="LoadingComponent" type="Label" parent="Foreground/MarginContainer/VBoxContainer/Resources/ResourceLoading"]
 margin_top = 81.0
 margin_right = 1801.0
 margin_bottom = 100.0
 align = 1
 valign = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading"]
+[node name="ProgressBar" type="ProgressBar" parent="Foreground/MarginContainer/VBoxContainer/Resources/ResourceLoading"]
 margin_top = 104.0
 margin_right = 1801.0
 margin_bottom = 134.0
@@ -131,7 +131,7 @@ max_value = 1.0
 step = 0.001
 percent_visible = false
 
-[node name="Label" type="Label" parent="Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading/ProgressBar"]
+[node name="Label" type="Label" parent="Foreground/MarginContainer/VBoxContainer/Resources/ResourceLoading/ProgressBar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "0 / 0"
@@ -141,7 +141,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LoadingError" type="Label" parent="Foreground/MarginContainer/VBoxContainer/ressources/ressourceLoading"]
+[node name="LoadingError" type="Label" parent="Foreground/MarginContainer/VBoxContainer/Resources/ResourceLoading"]
 margin_top = 138.0
 margin_right = 1801.0
 margin_bottom = 157.0
@@ -326,6 +326,6 @@ wait_time = 4.0
 one_shot = true
 autostart = true
 
-[node name="TimerRessource" type="Timer" parent="."]
+[node name="TimerResource" type="Timer" parent="."]
 one_shot = true
 autostart = true
