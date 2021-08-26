@@ -8,8 +8,8 @@ enum Resource_elements{
 	CONSTANTS,
 }
 
-signal error(ressource_name, err, response_code, body)
-signal loaded(ressource_name)
+signal error(resource_name, err, response_code, body)
+signal loaded(resource_name)
 
 const CACHED_DATA_PATH = "res://cache.tres"
 

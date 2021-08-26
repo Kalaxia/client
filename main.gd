@@ -54,14 +54,14 @@ func change_scene_loading(load_queue_param):
 	change_level(scenes.loading.scene)
 	var loading_node = $Level.get_child(0)
 	loading_node.load_queue = load_queue_param
-	if not loading_node.is_connected("ressource_loaded", self, "_on_ressource_loaded"):
-		loading_node.connect("ressource_loaded", self, "_on_ressource_loaded")
+	if not loading_node.is_connected("resource_loaded", self, "_on_resource_loaded"):
+		loading_node.connect("resource_loaded", self, "_on_resource_loaded")
 	if not loading_node.is_connected("finished", self, "_on_load_finished"):
 		loading_node.connect("finished", self, "_on_load_finished")
 
 
-func _on_ressource_loaded(ressource_name, ressource):
-	scenes[ressource_name].scene = ressource
+func _on_resource_loaded(resource_name, resource):
+	scenes[resource_name].scene = resource
 
 
 func _on_load_finished():

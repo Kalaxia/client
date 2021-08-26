@@ -4,9 +4,9 @@ class_name RemoteDictResource
 signal loaded()
 signal error_loading(err, response_code, body)
 
-var _lock_load_ressource = Utils.Lock.new() setget private_set, private_get
+var _lock_load_resource = Utils.Lock.new() setget private_set, private_get
 
-export(String) var url # url of the ressource.
+export(String) var url # url of the resource.
 
 
 func _init(url_p = "", dict = null).(dict):
@@ -14,7 +14,7 @@ func _init(url_p = "", dict = null).(dict):
 
 
 func load_remote(target_object = null, method_to_trigger = "", arguments = []):
-	if not _lock_load_ressource.try_lock():
+	if not _lock_load_resource.try_lock():
 		return false
 	Network.req(self, "_on_loaded", url, HTTPClient.METHOD_GET, [], "", [target_object, method_to_trigger, arguments])
 	return true
@@ -28,7 +28,7 @@ func has_all_data() -> bool:
 
 
 func is_loading():
-	return _lock_load_ressource.get_is_locked()
+	return _lock_load_resource.get_is_locked()
 
 
 func _on_loaded(err, response_code, _headers, body, target_object, method_to_trigger, arguments):
@@ -46,7 +46,7 @@ func _on_loaded(err, response_code, _headers, body, target_object, method_to_tri
 		emit_signal("loaded")
 	elif not err:
 		emit_signal("error_loading", err, response_code, body)
-	_lock_load_ressource.unlock()
+	_lock_load_resource.unlock()
 
 
 func _get_prop_list_expected() -> Array:

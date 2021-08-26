@@ -26,7 +26,7 @@ func _ready():
 
 
 func load_lobby(err, response_code, _headers, body):
-	# todo mange error
+	# todo manage error
 	if err:
 		ErrorHandler.network_response_error(err)
 		return

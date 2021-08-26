@@ -3,7 +3,7 @@ extends VBoxContainer
 const ASSETS = preload("res://resources/assets.tres")
 const PLAYER_INFO_FACTION_COLUMN = preload("res://matchmaking/player/player_info_faction_column.tscn")
 
-export(int) var faction = 0 setget set_faction # ressource ?
+export(int) var faction = 0 setget set_faction # resource ?
 
 enum UPDATE_PLAYER_STATE {
 	PLAYER_UPDATED,

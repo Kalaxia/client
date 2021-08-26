@@ -5,7 +5,7 @@ signal building_constructing(building)
 
 const ASSETS = preload("res://resources/assets.tres")
 
-export(Resource) var building_type = null setget set_building_type # ressource
+export(Resource) var building_type = null setget set_building_type # resource
 
 var _game_data : GameData = Store.game_data
 var _lock_request_build = Utils.Lock.new() setget private_set, private_get
