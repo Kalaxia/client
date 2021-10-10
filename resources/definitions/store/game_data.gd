@@ -13,6 +13,7 @@ export(Dictionary) var players
 export(Resource) var player # CurentPlayer
 export(Resource) var selected_state
 export(Dictionary) var scores
+export(Dictionary) var player_rankings
 export(Dictionary) var sailing_fleets
 export(int) var victory_points_to_win # number of victory_points to win the game
 

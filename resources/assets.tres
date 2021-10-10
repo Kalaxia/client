@@ -22,7 +22,6 @@ texture = SubResource( 1 )
 script = ExtResource( 8 )
 factions = [ ExtResource( 1 ), ExtResource( 16 ), ExtResource( 9 ), ExtResource( 14 ) ]
 ship_models = {
-
 }
 buildings = {
 "": SubResource( 2 )

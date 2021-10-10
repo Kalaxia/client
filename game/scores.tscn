@@ -16,7 +16,7 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="."]
 margin_right = 1920.0
-margin_bottom = 152.0
+margin_bottom = 82.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 text = "game.score.victory"
@@ -26,10 +26,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="WinningFaction" type="HBoxContainer" parent="."]
-margin_top = 156.0
+[node name="Factions" type="HBoxContainer" parent="."]
+margin_top = 86.0
 margin_right = 1920.0
-margin_bottom = 461.0
+margin_bottom = 250.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
@@ -37,18 +37,99 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DefeatedFactions" type="HBoxContainer" parent="."]
-margin_top = 465.0
+[node name="PlayerRankingsContainer" type="PanelContainer" parent="."]
+margin_top = 254.0
 margin_right = 1920.0
-margin_bottom = 770.0
+margin_bottom = 911.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+size_flags_stretch_ratio = 4.0
+
+[node name="Rankings" type="GridContainer" parent="PlayerRankingsContainer"]
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1917.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+columns = 5
+
+[node name="DestroyedShips" type="PanelContainer" parent="PlayerRankingsContainer/Rankings"]
+margin_right = 379.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+
+[node name="DestroyedShipsLabel" type="Label" parent="PlayerRankingsContainer/Rankings/DestroyedShips"]
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 376.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+text = "Vaisseaux détruits"
+align = 1
+
+[node name="LostShips" type="PanelContainer" parent="PlayerRankingsContainer/Rankings"]
+margin_left = 383.0
+margin_right = 762.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+
+[node name="LostShipsLabel" type="Label" parent="PlayerRankingsContainer/Rankings/LostShips"]
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 376.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+text = "Vaisseaux perdus"
+align = 1
+
+[node name="Wealth" type="PanelContainer" parent="PlayerRankingsContainer/Rankings"]
+margin_left = 766.0
+margin_right = 1145.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+
+[node name="WealthLabel" type="Label" parent="PlayerRankingsContainer/Rankings/Wealth"]
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 376.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+text = "Richesse"
+align = 1
+
+[node name="ConquerredSystems" type="PanelContainer" parent="PlayerRankingsContainer/Rankings"]
+margin_left = 1149.0
+margin_right = 1528.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+
+[node name="ConquerredSystemsLabel" type="Label" parent="PlayerRankingsContainer/Rankings/ConquerredSystems"]
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 376.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+text = "Systèmes conquis"
+align = 1
+
+[node name="LostSystems" type="PanelContainer" parent="PlayerRankingsContainer/Rankings"]
+margin_left = 1532.0
+margin_right = 1911.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+
+[node name="LostSystemsLabel" type="Label" parent="PlayerRankingsContainer/Rankings/LostSystems"]
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 376.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+text = "Systèmes perdus"
+align = 1
 
 [node name="Footer" type="HBoxContainer" parent="."]
-margin_top = 774.0
+margin_top = 915.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 size_flags_horizontal = 3
@@ -57,8 +138,8 @@ alignment = 1
 
 [node name="BackToMenu" type="Button" parent="Footer"]
 margin_left = 855.0
-margin_top = 140.0
+margin_top = 70.0
 margin_right = 1065.0
-margin_bottom = 165.0
+margin_bottom = 95.0
 size_flags_vertical = 4
 text = "game.score.back_main_menu"
