@@ -334,7 +334,9 @@ func _update_fleet_system_arrival(fleet : Dictionary):
 
 func _on_victory(data : Dictionary):
 	Store.victorious_faction = data.victorious_faction
-	_game_data.update_scores(data.scores)
+	_game_data.update_scores(data.faction_scores)
+	_game_data.player_rankings = data.player_rankings
+	
 	emit_signal("scene_requested", "scores")
 
 
